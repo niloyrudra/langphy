@@ -4,7 +4,7 @@ import { View } from "react-native";
 import HeaderLogo from "@/components/HeaderLogo";
 import SteakBadge from "@/components/SteakBadge";
 import SettingsButton from "@/components/SettingsButton";
-import HeaderTopLeftArrowButton from "@/components/HeaderTopLeftArrowButton";
+import CustomArchiveHeader from "@/components/CustomArchiveHeader";
 
 const RootLayout = () => {
   
@@ -13,16 +13,16 @@ const RootLayout = () => {
       headerShadowVisible: false,
       headerStyle: {
         backgroundColor: "#F9FAFB"
-      },
-      contentStyle: {
-        paddingHorizontal: 17,
-        backgroundColor: "#F9FAFB"
       }
     }}
   >
     <Stack.Screen
       name="index"
       options={{
+        contentStyle: {
+          paddingHorizontal: 17,
+          backgroundColor: "#F9FAFB"
+        },
         headerTitle: () => (<HeaderLogo />),
         headerRight: () => (
           <View
@@ -40,10 +40,15 @@ const RootLayout = () => {
     <Stack.Screen
       name="category"
       options={({}) => ({
-        headerTitleAlign: "center",
-        headerLeft: () => (<HeaderTopLeftArrowButton onPress={() => console.log('#')} />),
-        headerTitle: () => (<HeaderLogo />),
-        headerRight: () => (<SettingsButton />),
+        header: (props) => {
+          const title = props.route.params?.title || "Category";
+          // console.log(props.options.title)
+          return (<CustomArchiveHeader title={title} />)
+        },
+        // headerTitleAlign: "center",
+        // headerLeft: () => <HeaderTopLeftArrowButton />,
+        // headerTitle: () => (<HeaderLogo />),
+        // headerRight: () => (<SettingsButton />),
       })}
     />
   </Stack>);

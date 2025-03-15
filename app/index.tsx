@@ -72,22 +72,27 @@ const App = () => {
         <FlatList
           data={CATEGORY_DATA}
           keyExtractor={({id}:Category) => id}
-          // horizontal={false}
-          // numColumns={2}
+          horizontal={false}
+          numColumns={2}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            flexWrap: "wrap",
-            flexDirection: "row",
             gap:25,
-            justifyContent: "space-evenly"
+            alignItems: 'center'
           }}
           // ListHeaderComponent={(<View style={{height:50}}/>)}
           renderItem={({item}: {item: Category}) => (
-            <CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} />
+            <>
+              {
+               ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
+                ?
+                  (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} customStyle={{marginRight:25}} />)
+                :
+                  (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} />)
+              }
+            </>
           )}
-          // ListFooterComponent={(<View />)}
+          ListFooterComponent={(<View style={{height:30}} />)}
         />
-        <View style={{height:50}}/>
       </SafeAreaView>
 
     </SafeAreaProvider>

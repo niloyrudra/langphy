@@ -4,18 +4,20 @@ import { useRouter } from 'expo-router';
 
 
 interface CategoryProps {
-  catTitle: String,
-  slug: String,
-  imgSource: ImageSourcePropType | undefined
+  catTitle: string,
+  slug: string,
+  imgSource: ImageSourcePropType | undefined,
+  customStyle?: object
 }
 
-const CategoryCard = ( { catTitle, slug, imgSource }: CategoryProps ) => {
+const CategoryCard = ( { catTitle, slug, imgSource, customStyle }: CategoryProps ) => {
   const router = useRouter();
+
   return (
     <TouchableOpacity
-      onPress={() => router.push('/category')}
+      onPress={() =>  router.push({ pathname: '/category', params: { title: catTitle } })}
     >
-      <View style={styles.container}>
+      <View style={ customStyle ? { ...styles.container, ...customStyle } :styles.container }>
         <Image source={imgSource} style={styles.image} />
         <Text style={styles.title}>{catTitle}</Text>
       </View>
