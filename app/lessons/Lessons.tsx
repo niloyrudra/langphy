@@ -1,39 +1,10 @@
-import { StyleSheet, FlatList, View, ImageBackgroundProps, StatusBar, Text, Dimensions } from 'react-native'
+import { StyleSheet, View, StatusBar, Text, Dimensions } from 'react-native'
 import React from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import LessonCard from '@/components/LessonCard';
 import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
 import SpeakerIconComponent from '@/components/action-components/SpeakerIconComponent';
 
-interface Lesson {
-  id: string,
-  title: string,
-  completion: number,
-  imgSource: ImageBackgroundProps | undefined
-}
-
-const LESSONS = [
-  {
-    id: '1',
-    title: 'Hello',
-    completion: 80,
-    imgSource: require('@/assets/images/categories/sub-categories/open-archive.png')
-  },
-  {
-    id: '2',
-    title: 'Good Day!',
-    completion: 60,
-    imgSource: require('@/assets/images/categories/sub-categories/open-archive.png')
-  },
-  {
-    id: '3',
-    title: 'Good Bye!',
-    completion: 40,
-    imgSource: require('@/assets/images/categories/sub-categories/open-archive.png')
-  },
-];
-
-const Category = () => {
+const Lessons = () => {
   return (
     <SafeAreaProvider>
 
@@ -58,7 +29,7 @@ const Category = () => {
   );
 }
 
-export default Category
+export default Lessons
 
 const styles = StyleSheet.create({
   container: {
