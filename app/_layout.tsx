@@ -5,6 +5,7 @@ import HeaderLogo from "@/components/HeaderLogo";
 import SteakBadge from "@/components/SteakBadge";
 import SettingsButton from "@/components/SettingsButton";
 import CustomArchiveHeader from "@/components/CustomArchiveHeader";
+import CustomLessonHeader from "@/components/CustomLessonHeader";
 
 const RootLayout = () => {
   
@@ -50,6 +51,12 @@ const RootLayout = () => {
         // headerTitle: () => (<HeaderLogo />),
         // headerRight: () => (<SettingsButton />),
       })}
+    />
+    <Stack.Screen
+      name="lessons"
+      options={{
+        header: () => (<CustomLessonHeader />)
+      }}
     />
   </Stack>);
 }

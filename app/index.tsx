@@ -76,7 +76,7 @@ const App = () => {
           numColumns={2}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            gap:25,
+            gap:16,
             alignItems: 'center'
           }}
           // ListHeaderComponent={(<View style={{height:50}}/>)}
@@ -85,7 +85,7 @@ const App = () => {
               {
                ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
                 ?
-                  (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} customStyle={{marginRight:25}} />)
+                  (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} customStyle={{marginRight:16}} />)
                 :
                   (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} />)
               }

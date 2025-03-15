@@ -43,7 +43,7 @@ const Category = () => {
           keyExtractor={({id}:SubCategory) => id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            gap:20,
+            gap:16,
           }}
           // ListHeaderComponent={(<View style={{height:50}}/>)}
           renderItem={({item}: {item: SubCategory}) => (

@@ -12,30 +12,30 @@ interface SubCategoryProps {
   customStyle?: object
 }
 
-const SubCategoryCard = ( { title, completion, imgSource, customStyle }: SubCategoryProps ) => {
+const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCategoryProps) => {
   const router = useRouter();
 
   return (
     <TouchableOpacity
-      onPress={() =>  router.push({ pathname: '/lesson', params: { title: title } })}
+      onPress={() => router.push({ pathname: '/lessons', params: { title: title } })}
     >
-      <View style={ customStyle ? { ...styles.container, ...customStyle } :styles.container }>
+      <View style={customStyle ? { ...styles.container, ...customStyle } : styles.container}>
         <View style={styles.imageWrapper}>
           <Image source={imgSource} style={styles.image} />
         </View>
-        
+
         <Text style={styles.title}>{title}</Text>
-        
+
         <View style={styles.progressBarWrapper}>
           {/* <Progress.Bar color={['red', 'green', 'blue']} /> */}
           <Progress.Bar
-            progress={completion/100}
+            progress={completion / 100}
             animated={true}
             indeterminateAnimationDuration={1000}
             width={52}
             height={8}
             borderRadius={20}
-            animationConfig={{bounciness: 1}}
+            animationConfig={{ bounciness: 1 }}
             animationType='spring'
             borderColor="transparent"
             borderWidth={0}
@@ -44,7 +44,7 @@ const SubCategoryCard = ( { title, completion, imgSource, customStyle }: SubCate
           />
         </View>
       </View>
-     </TouchableOpacity>
+    </TouchableOpacity>
   );
 }
 
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     flexDirection: "row",
-    gap: 20,
+    gap: 16,
     justifyContent: "space-between",
     alignItems: "center",
 
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#093743",
     fontWeight: "600",
-    lineHeight: 22 
+    lineHeight: 22
   },
   progressBarWrapper: {
     width: 75,
