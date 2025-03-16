@@ -2,7 +2,9 @@ import { StyleSheet, View, StatusBar, Text, Dimensions } from 'react-native'
 import React from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
-import SpeakerIconComponent from '@/components/action-components/SpeakerIconComponent';
+import SpeakerComponent from '@/components/action-components/SpeakerComponent';
+import LessonComponent from '@/components/lesson-components/LessonComponent';
+import SpeakerAltComponent from '@/components/action-components/SpeakerAltComponent';
 
 const Lessons = () => {
   return (
@@ -11,13 +13,27 @@ const Lessons = () => {
       <SafeAreaView
         style={styles.container}
       >
-        <View style={styles.speakerButtonWrapper}>
-          <View style={styles.speakerButton}>
-            <Text style={styles.languageText}>English</Text>
-            <SpeakerIconComponent />
-          </View>
+        <View>
+          {/* Source Language Section */}
+          <LessonComponent
+            language="English"
+            iconComponent={<SpeakerComponent/>}
+          >
+            <Text style={styles.text}>Hello!</Text>
+          </LessonComponent>
 
-          <Text style={styles.text}>Hello!</Text>
+          <View style={{marginTop:30,marginBottom:50,borderBottomWidth:1,borderBottomColor:"#EDEDED"}} />
+
+          {/* Acting Language Section */}
+          <LessonComponent
+            language="German"
+            iconComponent={<SpeakerAltComponent />}
+            style={{borderColor:"#1B7CF5"}}
+            buttonStyle={{backgroundColor:"#D9EFFF"}}
+          >
+            <Text style={styles.mainText}>Moin Moin!</Text>
+            <Text style={styles.subText}>(Very friendly way to say hello in North Germany)</Text>
+          </LessonComponent>
         </View>
 
         {/* Dictionary Floating Button */}
@@ -38,47 +54,19 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0
   },
-  speakerButtonWrapper: {
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    height: 92,
-    borderRadius: 16,
-    paddingVertical: 30, // 40
-    paddingHorizontal: 20,
-    borderWidth: 1,
-    borderColor: "#08C1D2",
-    backgroundColor: "#ffffff",
-    fontWeight: "600"
-  },
-  speakerButton: {
-    position: "absolute",
-    top: -22,
-    left: Dimensions.get("screen").width/2 - (34+50),
-    zIndex: 2,
-
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: 130,
-    height: 44,
-    borderRadius: 100,
-    paddingVertical: 6,
-    paddingHorizontal: 8,
-
-    gap: 12,
-    backgroundColor: "#CFFDFE",
-    fontWeight: "600"
-  },
-  languageText: {
-    fontSize: 16,
-    color: "#142C57",
-    fontWeight: "700",
-    marginLeft: 10
-  },
   text: {
     fontSize: 16,
     color: "#000000",
     fontWeight: "500",
+  },
+  mainText: {
+    fontSize: 16,
+    color: "#000000",
+    fontWeight: "600",
+  },
+  subText: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "#999999"
   }
 })
