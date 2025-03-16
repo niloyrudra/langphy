@@ -6,6 +6,7 @@ import SteakBadge from "@/components/SteakBadge";
 import SettingsButton from "@/components/SettingsButton";
 import CustomArchiveHeader from "@/components/CustomArchiveHeader";
 import CustomLessonHeader from "@/components/CustomLessonHeader";
+import FlagComponent from "@/components/FlagComponent";
 
 const RootLayout = () => {
   
@@ -29,10 +30,11 @@ const RootLayout = () => {
           <View
             style={{
               flexDirection:"row",
-              gap: 10
+              gap: 16
             }}
           >
             <SteakBadge />
+            <FlagComponent />
             <SettingsButton />
           </View>
         )

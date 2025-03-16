@@ -19,17 +19,18 @@ export default SteakBadge;
 const styles = StyleSheet.create({
   container: {
     flexDirection:"row",
-    gap: 5,
+    gap: 6,
     justifyContent: "center",
-    alignItems: "center"
-    // borderWidth: 2,
-    // borderColor: "#f7f7f7",
-    // borderRadius: 100,
-    // paddingHorizontal: 12,
-    // paddingVertical: 6
+    alignItems: "center",
+
+    borderWidth: 2,
+    borderColor: "#D9EFFF", // "#f7f7f7",
+    borderRadius: 30,
+    paddingHorizontal: 8,
+    paddingVertical: 2
   },
   steakCount: {
-    fontSize:20,
+    fontSize:22,
     fontWeight: "700"
   }
 })

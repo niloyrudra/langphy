@@ -4,7 +4,7 @@
     "slug": "langphy",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/splash-app-icon.png",
+    "icon": "./assets/images/splash-screen/Logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,24 +13,28 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splash-app-icon.png",
+        "foregroundImage": "./assets/images/splash-screen/Logo.png",
         "backgroundColor": "#F9FAFB"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon-app.png"
+      "favicon": "./assets/images/favicon/Dolphin.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-app-icon.png",
+          "image": "./assets/images/splash-screen/Logo.png",
           "imageWidth": 286,
           "resizeMode": "contain",
-          "backgroundColor": "#F9FAFB"
+          "backgroundColor": "#F9FAFB",
+          "dark": {
+            "image": "./assets/images/splash-screen/Logo.png",
+            "backgroundColor": "#333333"
+          }
         }
       ]
     ],

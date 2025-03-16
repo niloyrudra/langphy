@@ -1,14 +1,13 @@
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useRouter } from 'expo-router';
 
-import ArrowLeftIcon from '@/assets/images/header/arrow-left-icon.png';
+import ArrowLeftIcon from '@/assets/images/header/arrow-left-icon.svg';
 
 const HeaderTopLeftArrowButton = () => {
   const router = useRouter();
 
   const handlePress = () => {
-    // console.log("Header Left Arrow Button Pressed!");
     router.back();
   };
 
@@ -17,7 +16,7 @@ const HeaderTopLeftArrowButton = () => {
       style={styles.container}
       onPress={handlePress}
     >
-      <Image source={ArrowLeftIcon} style={styles.arrowLeftIcon} />
+      <ArrowLeftIcon width={20} height={20} />
     </TouchableOpacity>
   );
 };
@@ -31,10 +30,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEF8FF",
     borderRadius: 100,
     paddingHorizontal: 6,
-    paddingVertical: 6
-  },
-  arrowLeftIcon: {
-    width: 20,
-    height: 20
+    paddingVertical: 6,
+
+    width: 32,
+    height: 32
   }
 });

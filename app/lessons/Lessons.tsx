@@ -1,10 +1,11 @@
-import { StyleSheet, View, StatusBar, Text, Dimensions } from 'react-native'
+import { StyleSheet, View, StatusBar, Text } from 'react-native'
 import React from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
 import SpeakerComponent from '@/components/action-components/SpeakerComponent';
 import LessonComponent from '@/components/lesson-components/LessonComponent';
 import SpeakerAltComponent from '@/components/action-components/SpeakerAltComponent';
+import HorizontalLine from '@/components/HorizontalLine';
 
 const Lessons = () => {
   return (
@@ -22,8 +23,8 @@ const Lessons = () => {
             <Text style={styles.text}>Hello!</Text>
           </LessonComponent>
 
-          <View style={{marginTop:30,marginBottom:50,borderBottomWidth:1,borderBottomColor:"#EDEDED"}} />
-
+          <HorizontalLine />
+          
           {/* Acting Language Section */}
           <LessonComponent
             language="German"
