@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType, D
 import { useRouter } from 'expo-router';
 
 import * as Progress from 'react-native-progress';
+import { useTheme } from '@/theme/ThemeContext';
 
 
 interface SubCategoryProps {
@@ -14,17 +15,18 @@ interface SubCategoryProps {
 
 const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCategoryProps) => {
   const router = useRouter();
+  const { colors } = useTheme();
 
   return (
     <TouchableOpacity
       onPress={() => router.push({ pathname: '/lessons', params: { title: title } })}
     >
-      <View style={customStyle ? { ...styles.container, ...customStyle } : styles.container}>
+      <View style={[styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor}, (customStyle && { ...customStyle } ) ]}>
         <View style={styles.imageWrapper}>
           <Image source={imgSource} style={styles.image} />
         </View>
 
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.title, {color: colors.text}]}>{title}</Text>
 
         <View style={styles.progressBarWrapper}>
           {/* <Progress.Bar color={['red', 'green', 'blue']} /> */}
@@ -59,8 +61,6 @@ const styles = StyleSheet.create({
 
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#BCE4FF",
-    backgroundColor: "#EEF8FF",
 
     paddingVertical: 0,
     paddingHorizontal: 0, // 24
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 16,
-    color: "#093743",
     fontWeight: "600",
     lineHeight: 22
   },

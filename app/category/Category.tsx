@@ -1,7 +1,10 @@
 import { StyleSheet, FlatList, View, ImageBackgroundProps, StatusBar } from 'react-native'
 import React from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '@/theme/ThemeContext';
+
 import SubCategoryCard from '@/components/SubCategoryCard';
+import sizes from '@/constants/size';
 
 interface SubCategory {
   id: string,
@@ -32,11 +35,12 @@ const SUB_CATEGORY_DATA = [
 ];
 
 const Category = () => {
+  const { colors } = useTheme();
   return (
     <SafeAreaProvider>
 
       <SafeAreaView
-        style={styles.container}
+        style={[styles.container, {backgroundColor: colors.background}]}
       >
         <FlatList
           data={SUB_CATEGORY_DATA}
@@ -45,7 +49,7 @@ const Category = () => {
           contentContainerStyle={{
             gap:16,
           }}
-          // ListHeaderComponent={(<View style={{height:50}}/>)}
+          ListHeaderComponent={(<View style={{height:20}}/>)}
           renderItem={({item}: {item: SubCategory}) => (
             <>
               {
@@ -70,8 +74,7 @@ export default Category
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    margin: 0,
-    padding: 0
+    marginTop: 0,
+    paddingHorizontal: sizes.bodyPaddingHorizontal,
   }
 })

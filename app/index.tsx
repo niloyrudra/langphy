@@ -3,6 +3,7 @@ import { StyleSheet, View, SafeAreaView, FlatList, ImageSourcePropType, StatusBa
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import CategoryCard from '@/components/CategoryCard'
+import { useTheme } from '@/theme/ThemeContext'
 
 type Category = {
   id: string,
@@ -63,12 +64,24 @@ const CATEGORY_DATA = [
 ]
 
 const App = () => {
+  const { colors, theme } = useTheme();
+
   return (
     <SafeAreaProvider>
-
       <SafeAreaView
-        style={styles.container}
+        style={[styles.container, { backgroundColor: colors.background }]}
       >
+        {/* {
+          (theme === 'light')
+          ? (<StatusBar animated={true} barStyle="light-content" />)
+          : (<StatusBar animated={true} barStyle="dark-content" />)
+        } */}
+        {/* {
+          theme === 'light' ?
+          (<StatusBar animated={true} barStyle="light-content" backgroundColor={colors.background} />)
+          : (<StatusBar animated={true} barStyle="dark-content" backgroundColor={colors.background} />)
+        } */}
+        
         <FlatList
           data={CATEGORY_DATA}
           keyExtractor={({id}:Category) => id}
@@ -79,19 +92,17 @@ const App = () => {
             gap:16,
             alignItems: 'center'
           }}
-          // ListHeaderComponent={(<View style={{height:50}}/>)}
+          ListHeaderComponent={(<View style={{height:20}}/>)}
           renderItem={({item}: {item: Category}) => (
             <>
               {
-               ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
-                ?
-                  (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} customStyle={{marginRight:16}} />)
-                :
-                  (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} />)
+                ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
+                ? (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} customStyle={{marginRight:16}} />)
+                : (<CategoryCard catTitle={item.catTitle} slug={item.slug} imgSource={item.imgSource} />)
               }
             </>
           )}
-          ListFooterComponent={(<View style={{height:30}} />)}
+          ListFooterComponent={(<View style={{height:20}} />)}
         />
       </SafeAreaView>
 
@@ -102,9 +113,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    margin: 0,
-    padding: 0
+    marginTop: 0,
   }
 })
 

@@ -1,5 +1,6 @@
 import { Dimensions, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import React, { FC, ReactNode } from 'react'
+import { useTheme } from '@/theme/ThemeContext'
 
 interface LessonProps {
     language: string,
@@ -10,8 +11,9 @@ interface LessonProps {
 }
 
 const LessonComponent: FC<LessonProps> = ({language, iconComponent, children, style, buttonStyle}) => {
+  const { colors } = useTheme();
   return (
-    <View style={[styles.speakerButtonWrapper, style]}>
+    <View style={[styles.speakerButtonWrapper, style, {backgroundColor: colors.cardBackgroundColor}]}>
         <View style={[styles.speakerButton, buttonStyle]}>
             <Text style={styles.languageText}>{language}</Text>
             {iconComponent}

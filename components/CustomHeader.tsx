@@ -1,21 +1,19 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import HeaderTopLeftArrowButton from './header/HeaderTopLeftArrowButton'
+
 import HeaderLogo from './header/HeaderLogo'
-import SettingsButton from './SettingsButton'
-import CategoryArchiveHeaderTitle from './CategoryArchiveHeaderTitle'
+import HeaderRightComponent from './header/headerRightComponent'
 import { useTheme } from '@/theme/ThemeContext'
 import sizes from '@/constants/size'
 
-const CustomArchiveHeader = ({title}: {title: string}) => {
-  const { colors } = useTheme();
+const CustomArchiveHeader = () => {
+  const {colors} = useTheme()
   return (
     <View
       style={[styles.container, { backgroundColor: colors.background }]}
     >
-      <HeaderTopLeftArrowButton/>
-      { title ? (<CategoryArchiveHeaderTitle title={title} />) : (<HeaderLogo/>)}
-      <SettingsButton/>
+      <HeaderLogo />
+      <HeaderRightComponent/>
     </View>
   )
 }

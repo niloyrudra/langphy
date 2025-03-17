@@ -1,12 +1,15 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import HeaderTopLeftArrowButton from './HeaderTopLeftArrowButton'
+import HeaderTopLeftArrowButton from './header/HeaderTopLeftArrowButton'
 import SettingsButton from './SettingsButton'
+import { useTheme } from '@/theme/ThemeContext'
+import sizes from '@/constants/size'
 
 const CustomLessonHeader = () => {
+  const { colors } = useTheme();
   return (
     <View
-      style={styles.container}
+      style={[styles.container, {backgroundColor: colors.background} ]}
     >
       <HeaderTopLeftArrowButton/>
       <SettingsButton/>
@@ -20,9 +23,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 17,
+    paddingHorizontal: sizes.bodyPaddingHorizontal,
     paddingVertical: 10,
-    height:55,
-    backgroundColor: "#F9FAFB"
+    height: sizes.headerHeight,
   }
 })

@@ -4,7 +4,7 @@
     "slug": "langphy",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/splash-screen/Logo.png",
+    "icon": "./assets/images/splash-screen/logo-light-mode.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splash-screen/Logo.png",
+        "foregroundImage": "./assets/images/splash-screen/logo-light-mode.png",
         "backgroundColor": "#F9FAFB"
       }
     },
@@ -27,7 +27,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-screen/log-light-mode.png",
+          "image": "./assets/images/splash-screen/logo-light-mode.png",
           "imageWidth": 286,
           "resizeMode": "contain",
           "backgroundColor": "#F9FAFB",

@@ -1,15 +1,17 @@
 import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
+import { useTheme } from '@/theme/ThemeContext';
 
 import SteakIcon from '@/assets/images/header/water-drop-icon.svg';
 
 const SteakBadge = () => {
+  const {colors,theme} = useTheme()
   return (
     <View
-      style={styles.container}
+      style={[styles.container, {backgroundColor: colors.steakBadgeBackgroundColor}]}
     >
       <SteakIcon width={10} height={15} />
-      <Text style={styles.steakCount}>1,001</Text>
+      <Text style={[styles.steakCount, {color: colors.text}, (theme === 'dark' && styles.textShadow)]}>1,001</Text>
     </View>
   )
 }
@@ -25,19 +27,17 @@ const styles = StyleSheet.create({
     padding: 4,
     gap: 4,
     height: 28,
-    backgroundColor: "#DAFFFF",
-    // borderWidth: 2,
-    // borderColor: "#ffffff"
-
-    // borderWidth: 2,
-    // borderColor: "#D9EFFF", // "#f7f7f7",
-    // borderRadius: 30,
-    // paddingHorizontal: 8,
-    // paddingVertical: 2
   },
   steakCount: {
     fontSize: 14,
-    fontWeight: "700",
-    color: "#142C57"
+    fontWeight: "800",
+  },
+  textShadow: {
+    textShadowColor: "#444",
+    textShadowOffset:{
+      width:2,
+      height:2
+    },
+    textShadowRadius: 2
   }
 })

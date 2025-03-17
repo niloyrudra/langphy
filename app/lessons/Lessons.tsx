@@ -6,13 +6,15 @@ import SpeakerComponent from '@/components/action-components/SpeakerComponent';
 import LessonComponent from '@/components/lesson-components/LessonComponent';
 import SpeakerAltComponent from '@/components/action-components/SpeakerAltComponent';
 import HorizontalLine from '@/components/HorizontalLine';
+import { useTheme } from '@/theme/ThemeContext';
+import sizes from '@/constants/size';
 
 const Lessons = () => {
+  const { colors } = useTheme();
   return (
     <SafeAreaProvider>
-
       <SafeAreaView
-        style={styles.container}
+        style={[styles.container, {backgroundColor: colors.background}]}
       >
         <View>
           {/* Source Language Section */}
@@ -20,7 +22,7 @@ const Lessons = () => {
             language="English"
             iconComponent={<SpeakerComponent/>}
           >
-            <Text style={styles.text}>Hello!</Text>
+            <Text style={[styles.text, {color: colors.textDark}]}>Hello!</Text>
           </LessonComponent>
 
           <HorizontalLine />
@@ -32,8 +34,8 @@ const Lessons = () => {
             style={{borderColor:"#1B7CF5"}}
             buttonStyle={{backgroundColor:"#D9EFFF"}}
           >
-            <Text style={styles.mainText}>Moin Moin!</Text>
-            <Text style={styles.subText}>(Very friendly way to say hello in North Germany)</Text>
+            <Text style={[styles.mainText, {color: colors.textDark}]}>Moin Moin!</Text>
+            <Text style={[styles.subText, {color: colors.textSubColor}]}>(Very friendly way to say hello in North Germany)</Text>
           </LessonComponent>
         </View>
 
@@ -51,23 +53,23 @@ export default Lessons
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    margin: 0,
-    padding: 0
+    marginTop: 0,
+    paddingHorizontal: sizes.bodyPaddingHorizontal,
+    paddingVertical: sizes.bodyPaddingVertical + 10
   },
   text: {
     fontSize: 16,
-    color: "#000000",
+    // color: "#000000",
     fontWeight: "500",
   },
   mainText: {
     fontSize: 16,
-    color: "#000000",
+    // color: "#000000",
     fontWeight: "600",
   },
   subText: {
     fontSize: 12,
     fontWeight: "400",
-    color: "#999999"
+    // color: "#999999"
   }
 })
