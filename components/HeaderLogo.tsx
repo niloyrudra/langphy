@@ -2,7 +2,7 @@ import { StyleSheet, Image, View } from 'react-native'
 import React from 'react'
 
 // import Logo from '@/assets/images/splash-app-icon.png';
-import SVGLogo from '@/assets/images/svg-images/Logo.svg'
+import SVGLogo from '@/assets/images/svg-images/top-nav-logo-light-mode.svg'
 
 const HeaderLogo = () => {
   return (

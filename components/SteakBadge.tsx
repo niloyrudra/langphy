@@ -8,8 +8,8 @@ const SteakBadge = () => {
     <View
       style={styles.container}
     >
-      <SteakIcon width={16} height={24} />
-      <Text style={styles.steakCount}>2</Text>
+      <SteakIcon width={10} height={15} />
+      <Text style={styles.steakCount}>1,001</Text>
     </View>
   )
 }
@@ -19,18 +19,25 @@ export default SteakBadge;
 const styles = StyleSheet.create({
   container: {
     flexDirection:"row",
-    gap: 6,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 8,
+    padding: 4,
+    gap: 4,
+    height: 28,
+    backgroundColor: "#DAFFFF",
+    // borderWidth: 2,
+    // borderColor: "#ffffff"
 
-    borderWidth: 2,
-    borderColor: "#D9EFFF", // "#f7f7f7",
-    borderRadius: 30,
-    paddingHorizontal: 8,
-    paddingVertical: 2
+    // borderWidth: 2,
+    // borderColor: "#D9EFFF", // "#f7f7f7",
+    // borderRadius: 30,
+    // paddingHorizontal: 8,
+    // paddingVertical: 2
   },
   steakCount: {
-    fontSize:22,
-    fontWeight: "700"
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#142C57"
   }
 })
