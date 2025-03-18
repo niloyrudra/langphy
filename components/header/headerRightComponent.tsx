@@ -1,37 +1,20 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 
-import SteakBadge from '../SteakBadge'
-import FlagSquareComponent from '../FlagSquareComponent'
+// import { useTheme } from '@/theme/ThemeContext'
+
 import SettingsButton from '../SettingsButton'
 import ToggleColorThemeComponent from '../ToggleColorThemeComponent'
+import SteakBadgeFlagComponent from '../SteakBadgeFlagComponent'
 
 const headerRightComponent = () => {
+    // const { colors, theme } = useTheme();
   return (
     <View
-        style={{
-            flexDirection:"row",
-            gap: 16
-        }}
+        style={styles.container}
     >
-        <View
-        style={{
-            flexDirection: "row",
-            gap: 6,
-            borderWidth: 1,
-            borderColor: "#68F0F8",
-            paddingVertical: 3,
-            paddingHorizontal: 3,
-            borderRadius: 12,
-            height: 36
-        }}
-        >
-            <SteakBadge />
-            <FlagSquareComponent />
-        </View>
-
+        <SteakBadgeFlagComponent />
         <ToggleColorThemeComponent />
-
         <SettingsButton />
     </View>
   )
@@ -39,4 +22,9 @@ const headerRightComponent = () => {
 
 export default headerRightComponent
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flexDirection:"row",
+        gap: 16
+    }
+})

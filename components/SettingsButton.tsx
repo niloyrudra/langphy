@@ -6,13 +6,15 @@ import SettingIcon from '@/assets/images/header/account-settings-icon.svg';
 import SettingDarkIcon from '@/assets/images/header/account-settings-icon-dark.svg';
 
 import { useTheme } from '@/theme/ThemeContext';
+import { useRouter } from 'expo-router';
 
 const SettingsButton = () => {
+  const router = useRouter();
   const { theme } = useTheme();
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => console.log("Settings Button")}
+      onPress={() => router.push("/auth/login")}
     >
       {
         theme === 'light'

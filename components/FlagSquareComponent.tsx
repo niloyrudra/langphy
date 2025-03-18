@@ -17,11 +17,13 @@ export default FlagSquareComponent;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
-    borderColor: "#ffffff",
-    borderRadius: 6.65,
+    // borderWidth: 2,
+    // borderColor: "#ffffff",
+    // borderRadius: 6.65,
 
-    width: 35,
-    height: 28
+    // width: 31,
+    // height: 24
+    // width: 35,
+    // height: 28
   }
 })

@@ -16,6 +16,13 @@ const RootLayout = () => {
         }}
       >
         <Stack.Screen
+          name="auth"
+          options={{
+            headerShown: false
+          }}
+        />
+
+        <Stack.Screen
           name="index"
           options={{
             header: () => (<CustomHeader />),
@@ -31,6 +38,18 @@ const RootLayout = () => {
           name="lessons"
           options={{
             header: () => (<CustomLessonHeader />)
+          }}
+        />
+        <Stack.Screen
+          name="terms"
+          options={{
+            // header: () => (<CustomLessonHeader />)
+          }}
+        />
+        <Stack.Screen
+          name="privacy"
+          options={{
+            // header: () => (<CustomLessonHeader />)
           }}
         />
       </Stack>

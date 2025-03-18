@@ -10,7 +10,7 @@ const SteakBadge = () => {
     <View
       style={[styles.container, {backgroundColor: colors.steakBadgeBackgroundColor}]}
     >
-      <SteakIcon width={10} height={15} />
+      <SteakIcon width={8} height={12} />
       <Text style={[styles.steakCount, {color: colors.text}, (theme === 'dark' && styles.textShadow)]}>1,001</Text>
     </View>
   )
@@ -24,13 +24,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
-    padding: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     gap: 4,
-    height: 28,
+    height: 24,
   },
   steakCount: {
     fontSize: 14,
-    fontWeight: "800",
+    fontWeight: "700",
   },
   textShadow: {
     textShadowColor: "#444",
