@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType, Dimensions, StyleProp, ViewStyle } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import * as Progress from 'react-native-progress';
@@ -10,7 +10,7 @@ interface SubCategoryProps {
   title: string,
   completion: number,
   imgSource: ImageSourcePropType | undefined,
-  customStyle?: object
+  customStyle?: StyleProp<ViewStyle>
 }
 
 const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCategoryProps) => {
@@ -21,7 +21,7 @@ const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCateg
     <TouchableOpacity
       onPress={() => router.push({ pathname: '/lessons', params: { title: title } })}
     >
-      <View style={[styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor}, (customStyle && { ...customStyle } ) ]}>
+      <View style={[styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor}, (customStyle && customStyle ) ]}>
         <View style={styles.imageWrapper}>
           <Image source={imgSource} style={styles.image} />
         </View>

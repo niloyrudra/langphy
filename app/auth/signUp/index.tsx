@@ -1,65 +1,55 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import sizes from '@/constants/size'
 import { useTheme } from '@/theme/ThemeContext'
 
-import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg'
+import sizes from '@/constants/size'
+
 import HorizontalLine from '@/components/HorizontalLine'
 
 import FacebookIcon from '@/assets/images/social/facebook.svg'
 import GoogleIcon from '@/assets/images/social/google.svg'
-import { Link, router } from 'expo-router'
+
+import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
+import FormSubmitButton from '@/components/form-components/FormSubmitButton'
+import TextInputComponent from '@/components/form-components/TextInputComponent'
+import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
+import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
 
 const SignUp = () => {
   const { colors } = useTheme();
   return (
     <ScrollView
-      style={{
+      contentContainerStyle={{
         flex:1
       }}
     >
 
       <View
       style={[styles.container, {backgroundColor: colors.background}]}>
-        <View style={{height:73}} />
 
-        <View
-          style={{
-            flex:1,
-            justifyContent: 'center',
-            alignItems: "center",
-            // paddingTop: 83
-          }}
-        >
-          <DolphinIcon width={187} height={211.67} />
-        </View>
+        <AuthTopBannerImage />
 
-        <View style={styles.headerWrapper}>
-          <Text style={styles.header}>Create Account</Text>
-        </View>
+        <FormHeaderTitle title="Create Account" />
 
+        {/* FORM */}
         <View
           style={styles.form}
         >
-          <TextInput
-            placeholder='Email'
-            value={''}
-            keyboardType='default'
-            style={styles.input}
+         
+          <TextInputComponent
+            placeholder="Email"
+            value=""
           />
-          <TextInput
-            placeholder='Password'
-            value={''}
-            keyboardType='default'
-            // inputMode='password'
-            style={styles.input}
+          <TextInputComponent
+            placeholder="Password"
+            value=""
           />
 
-          <TouchableOpacity
-            style={[styles.button, {backgroundColor: colors.primary}]}
-          >
-            <Text style={{fontSize: 16, color: colors.textWhite, fontWeight: "700"}}>Create Account</Text>
-          </TouchableOpacity>
+          <FormSubmitButton
+            buttonTitle='Create Account'
+            onSubmit={() => console.log("Submitted")}
+          />
+
         </View>
 
         <HorizontalLine />
@@ -116,26 +106,17 @@ const SignUp = () => {
           <View
             style={{
               flexDirection: "row",
-              // gap: 4,
               justifyContent: "center",
               marginVertical: 20
             }}
           >
             <Text style={{color: colors.textSubColor}}>By signing in to Langphy, you agree to our </Text>
 
-            <Link
-              href="/auth/terms"
-              style={{color: colors.primary}}
-            >Terms</Link>
+            <PlainTextLink route="/terms" linkText='Terms' />
 
             <Text style={{color: colors.textSubColor}}> and </Text>
 
-            <Link
-              href="/auth/privacy"
-              style={{
-                color: colors.primary
-              }}
-            >Privacy Policy</Link>
+            <PlainTextLink route="/privacy" linkText='Privacy Policy' />
 
             <Text style={{color: colors.textSubColor}}>.</Text>
 
@@ -151,12 +132,8 @@ const SignUp = () => {
           >
             <Text style={{color: colors.textSubColor}}>Already have an account?</Text>
 
-            <Link
-              href="/auth/login"
-              style={{
-                color: colors.primary
-              }}
-            >Sign In</Link>
+            <PlainTextLink route="/auth/login" linkText='Sign In' />
+
           </View>
 
         </View>
@@ -176,35 +153,8 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     
   },
-  headerWrapper: {
-    marginVertical: 20,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  header: {
-    fontSize: 32,
-    color: "#142C57",
-    fontWeight: "600"
-  },
   form: {
     flexDirection: 'column',
     gap: 16
-  },
-  input: {
-    height: 56,
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#F7F7F7",
-    backgroundColor: "#ffffff"
-  },
-  button: {
-    height: 56,
-    padding: 16,
-    borderRadius: 32,
-    borderWidth: 1,
-    borderColor: "#F7F7F7",
-    justifyContent: "center",
-    alignItems: "center",
   }
 })

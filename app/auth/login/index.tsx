@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import sizes from '@/constants/size'
 import { useTheme } from '@/theme/ThemeContext'
 
 import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg'
@@ -8,72 +7,67 @@ import HorizontalLine from '@/components/HorizontalLine'
 
 import FacebookIcon from '@/assets/images/social/facebook.svg'
 import GoogleIcon from '@/assets/images/social/google.svg'
-import { Link, router } from 'expo-router'
+
+import { Link } from 'expo-router'
+
+import sizes from '@/constants/size'
+import * as STYLES from '@/constants/styles'
+import TextInputComponent from '@/components/form-components/TextInputComponent'
+import ForgotPasswordLink from '@/components/form-components/auth/ForgotPasswordLink'
+import FormSubmitButton from '@/components/form-components/FormSubmitButton'
+import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
+import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
+import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
 
 const Login = () => {
   const { colors } = useTheme();
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
   return (
     <ScrollView
-      style={{
+      contentContainerStyle={{
         flex:1
       }}
     >
 
       <View
-      style={[styles.container, {backgroundColor: colors.background}]}>
-        <View style={{height:73}} />
+        style={[styles.container, {backgroundColor: colors.background}]}
+      >
 
-        <View
-          style={{
-            flex:1,
-            justifyContent: 'center',
-            alignItems: "center",
-            // paddingTop: 83
-          }}
-        >
-          <DolphinIcon width={187} height={211.67} />
-        </View>
+        <AuthTopBannerImage />
 
-        <View style={styles.headerWrapper}>
-          <Text style={styles.header}>Create Account</Text>
-        </View>
+        <FormHeaderTitle title="Sign In" />
 
+        {/* FORM */}
         <View
           style={styles.form}
         >
-          <TextInput
-            placeholder='Email'
-            value={''}
-            keyboardType='default'
-            style={styles.input}
+          <TextInputComponent
+            placeholder="Email"
+            value={email}
+            inputMode="email"
+            onChange={(text: string) => setEmail( prevValue => prevValue = text)}
           />
-          <TextInput
-            placeholder='Password'
-            value={''}
-            keyboardType='default'
-            // inputMode='password'
-            style={styles.input}
+          <TextInputComponent
+            placeholder="Password"
+            value={password}
+            inputMode="text"
+            onChange={(text: string) => setPassword( prevValue => prevValue = text)}
           />
 
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "flex-end"              
+          <ForgotPasswordLink />
+
+          <FormSubmitButton
+            buttonTitle='Sign In'
+            onSubmit={() => {
+              console.log("Submitted value", email, password)
+              setEmail('')
+              setPassword('')
             }}
-          >
-            <Link
-              href="/auth/forgetPassword"
-              style={{
-                color: colors.primary
-              }}
-            >Forgot Password?</Link>
-          </View>
+          />
 
-          <TouchableOpacity
-            style={[styles.button, {backgroundColor: colors.primary}]}
-          >
-            <Text style={{fontSize: 16, color: colors.textWhite, fontWeight: "700"}}>Create Account</Text>
-          </TouchableOpacity>
         </View>
 
         <HorizontalLine />
@@ -138,12 +132,10 @@ const Login = () => {
           >
             <Text style={{color: colors.textSubColor}}>Don't have an account?</Text>
 
-            <Link
-              href="/auth/signUp"
-              style={{
-                color: colors.primary
-              }}
-            >Create Account</Link>
+            <PlainTextLink
+              route="/auth/signUp"
+              linkText='Create Account'
+            />
           </View>
 
         </View>
@@ -176,22 +168,5 @@ const styles = StyleSheet.create({
   form: {
     flexDirection: 'column',
     gap: 16
-  },
-  input: {
-    height: 56,
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#F7F7F7",
-    backgroundColor: "#ffffff"
-  },
-  button: {
-    height: 56,
-    padding: 16,
-    borderRadius: 32,
-    borderWidth: 1,
-    borderColor: "#F7F7F7",
-    justifyContent: "center",
-    alignItems: "center",
   }
 })

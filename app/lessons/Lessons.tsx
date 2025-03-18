@@ -1,4 +1,4 @@
-import { StyleSheet, View, StatusBar, Text } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
@@ -25,7 +25,7 @@ const Lessons = () => {
             <Text style={[styles.text, {color: colors.textDark}]}>Hello!</Text>
           </LessonComponent>
 
-          <HorizontalLine />
+          <HorizontalLine style={{marginTop: 30, marginBottom: 50}} />
           
           {/* Acting Language Section */}
           <LessonComponent
@@ -59,17 +59,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    // color: "#000000",
     fontWeight: "500",
   },
   mainText: {
     fontSize: 16,
-    // color: "#000000",
     fontWeight: "600",
   },
   subText: {
     fontSize: 12,
     fontWeight: "400",
-    // color: "#999999"
   }
 })
