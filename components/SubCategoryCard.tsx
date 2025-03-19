@@ -2,9 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType, Dimensions, StyleProp, ViewStyle } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import * as Progress from 'react-native-progress';
+// import * as Progress from 'react-native-progress';
 import { useTheme } from '@/theme/ThemeContext';
 
+// import ProgressBarActive from '@/assets/images/progress-bar/progress-bar.svg'
+import ProgressBarActivePng from '@/assets/images/progress-bar/progress-bar.png'
 
 interface SubCategoryProps {
   title: string,
@@ -21,16 +23,39 @@ const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCateg
     <TouchableOpacity
       onPress={() => router.push({ pathname: '/lessons', params: { title: title } })}
     >
-      <View style={[styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor}, (customStyle && customStyle ) ]}>
-        <View style={styles.imageWrapper}>
+      <View style={[styles.container, {backgroundColor: colors.subCatCardBackgroundColor, borderColor: colors.subCatCardBorderColor}, (customStyle && customStyle ) ]}>
+        
+        <View style={[styles.imageWrapper, {backgroundColor: colors.subCatIconBackgroundColor}]}>
           <Image source={imgSource} style={styles.image} />
         </View>
 
         <Text style={[styles.title, {color: colors.text}]}>{title}</Text>
 
         <View style={styles.progressBarWrapper}>
+
+          <View
+            style={{
+              width: 52,
+              height: 8,
+              borderRadius: 20,
+              backgroundColor: colors.progressBarBackground,
+              justifyContent:"center",
+              alignItems: "flex-start"
+            }}
+          >
+            <Image
+              source={ProgressBarActivePng}
+              style={{
+                width: (completion / 100)*52,
+                height: 8,
+                objectFit: "fill"
+              }}
+            />
+            {/* <ProgressBarActive width={(completion/100)*52} height={8} /> */}
+          </View>
+
           {/* <Progress.Bar color={['red', 'green', 'blue']} /> */}
-          <Progress.Bar
+          {/* <Progress.Bar
             progress={completion / 100}
             animated={true}
             indeterminateAnimationDuration={1000}
@@ -43,7 +68,7 @@ const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCateg
             borderWidth={0}
             unfilledColor="#ffffff"
             color="rgba(72, 228, 239, 1)" // "rgba(27, 124, 245, 1)" //"#1B7CF5"
-          />
+          /> */}
         </View>
       </View>
     </TouchableOpacity>
@@ -71,7 +96,7 @@ const styles = StyleSheet.create({
   imageWrapper: {
     width: 75,
     height: 75,
-    backgroundColor: "#ffffff",
+    // backgroundColor: "#ffffff",
     justifyContent: "center",
     alignItems: "center",
 

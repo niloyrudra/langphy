@@ -2,13 +2,13 @@ import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 
-import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg'
-import HorizontalLine from '@/components/HorizontalLine'
+// import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg'
+// import HorizontalLine from '@/components/HorizontalLine'
 
 import FacebookIcon from '@/assets/images/social/facebook.svg'
 import GoogleIcon from '@/assets/images/social/google.svg'
 
-import { Link } from 'expo-router'
+// import { Link } from 'expo-router'
 
 import sizes from '@/constants/size'
 import * as STYLES from '@/constants/styles'
@@ -18,6 +18,9 @@ import FormSubmitButton from '@/components/form-components/FormSubmitButton'
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
 import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
 import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
+import SocialButton from '@/components/form-components/auth/SocialButton'
+import HorizontalLine from '@/components/HorizontalLine'
+import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
 
 const Login = () => {
   const { colors } = useTheme();
@@ -31,7 +34,6 @@ const Login = () => {
         flex:1
       }}
     >
-
       <View
         style={[styles.container, {backgroundColor: colors.background}]}
       >
@@ -48,12 +50,15 @@ const Login = () => {
             placeholder="Email"
             value={email}
             inputMode="email"
+            placeholderTextColor={colors.placeholderColor}
             onChange={(text: string) => setEmail( prevValue => prevValue = text)}
           />
           <TextInputComponent
             placeholder="Password"
             value={password}
             inputMode="text"
+            isPassword={true}
+            placeholderTextColor={colors.placeholderColor}
             onChange={(text: string) => setPassword( prevValue => prevValue = text)}
           />
 
@@ -70,56 +75,28 @@ const Login = () => {
 
         </View>
 
-        <HorizontalLine />
+        <HorizontalSeparator />
 
         <View>
           <View
             style={{
               flexDirection: "row",
               gap: 16,
-              height: 56,
+              height: sizes.buttonHeight,
               marginBottom: 20
             }}
           >
+            <SocialButton
+              iconComponent={<FacebookIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
+              socialMediaName='facebook'
+              onTap={() => console.log("Facebook")}
+            />
 
-            <TouchableOpacity
-              style={{
-                flex:1,
-                flexDirection: "row",
-                gap: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 56,
-                borderRadius: 16,
-                padding: 16,
-                borderWidth: 1,
-                borderColor: "#F7F7F7",
-                backgroundColor: "#ffffff"
-              }}
-            >
-              <FacebookIcon width={24} height={24} />
-              <Text>facebook</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{
-                flex:1,
-                flexDirection: "row",
-                gap: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 56,
-                borderRadius: 16,
-                padding: 16,
-                borderWidth: 1,
-                borderColor: "#F7F7F7",
-                backgroundColor: "#ffffff"
-              }}
-            >
-              <GoogleIcon width={24} height={24} />
-              <Text>Google</Text>
-            </TouchableOpacity>
-
+            <SocialButton
+              iconComponent={<GoogleIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
+              socialMediaName='Google'
+              onTap={() => console.log("Google")}
+            />
           </View>
 
           <View
@@ -127,7 +104,7 @@ const Login = () => {
               flexDirection: "row",
               gap: 4,
               justifyContent: "center",
-              marginBottom: 20
+              // marginBottom: 80
             }}
           >
             <Text style={{color: colors.textSubColor}}>Don't have an account?</Text>
@@ -139,6 +116,8 @@ const Login = () => {
           </View>
 
         </View>
+
+        {/* <View style={{marginBottom: 80}} /> */}
 
       </View>
 

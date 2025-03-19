@@ -3,9 +3,13 @@ import React from 'react';
 import { useRouter } from 'expo-router';
 
 import ArrowLeftIcon from '@/assets/images/header/arrow-left-circle.svg';
+import ArrowLeftDarkIcon from '@/assets/images/header/arrow-left-circle-dark.svg';
+import { useTheme } from '@/theme/ThemeContext';
+import sizes from '@/constants/size';
 
 const HeaderTopLeftArrowButton = () => {
   const router = useRouter();
+  const { theme } = useTheme();
 
   const handlePress = () => {
     router.back();
@@ -16,7 +20,11 @@ const HeaderTopLeftArrowButton = () => {
       style={styles.container}
       onPress={handlePress}
     >
-      <ArrowLeftIcon width={36} height={36} />
+      {
+        theme === 'light'
+        ? (<ArrowLeftIcon width={sizes.headerIcon} height={sizes.headerIcon} />)
+        : (<ArrowLeftDarkIcon width={sizes.headerIcon} height={sizes.headerIcon} />)
+      }
     </TouchableOpacity>
   );
 };

@@ -14,9 +14,15 @@ import FormSubmitButton from '@/components/form-components/FormSubmitButton'
 import TextInputComponent from '@/components/form-components/TextInputComponent'
 import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
 import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
+import { router } from 'expo-router'
+import SocialButton from '@/components/form-components/auth/SocialButton'
+import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
 
 const SignUp = () => {
   const { colors } = useTheme();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -36,71 +42,54 @@ const SignUp = () => {
           style={styles.form}
         >
          
-          <TextInputComponent
+         <TextInputComponent
             placeholder="Email"
-            value=""
+            value={email}
+            inputMode="email"
+            placeholderTextColor={colors.placeholderColor}
+            onChange={(text: string) => setEmail( prevValue => prevValue = text)}
           />
           <TextInputComponent
             placeholder="Password"
-            value=""
+            value={password}
+            inputMode="text"
+            isPassword={true}
+            placeholderTextColor={colors.placeholderColor}
+            onChange={(text: string) => setPassword( prevValue => prevValue = text)}
           />
 
           <FormSubmitButton
             buttonTitle='Create Account'
-            onSubmit={() => console.log("Submitted")}
+            onSubmit={() => {
+              console.log("Submitted")
+              router.push("/auth/signUp/onboarding")
+            }}
           />
 
         </View>
 
-        <HorizontalLine />
+        <HorizontalSeparator />
 
         <View>
           <View
             style={{
               flexDirection: "row",
               gap: 16,
-              height: 56,
+              height: sizes.buttonHeight,
+              marginBottom: 20
             }}
           >
+            <SocialButton
+              iconComponent={<FacebookIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
+              socialMediaName='facebook'
+              onTap={() => console.log("Facebook")}
+            />
 
-            <TouchableOpacity
-              style={{
-                flex:1,
-                flexDirection: "row",
-                gap: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 56,
-                borderRadius: 16,
-                padding: 16,
-                borderWidth: 1,
-                borderColor: "#F7F7F7",
-                backgroundColor: "#ffffff"
-              }}
-            >
-              <FacebookIcon width={24} height={24} />
-              <Text>facebook</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{
-                flex:1,
-                flexDirection: "row",
-                gap: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 56,
-                borderRadius: 16,
-                padding: 16,
-                borderWidth: 1,
-                borderColor: "#F7F7F7",
-                backgroundColor: "#ffffff"
-              }}
-            >
-              <GoogleIcon width={24} height={24} />
-              <Text>Google</Text>
-            </TouchableOpacity>
-
+            <SocialButton
+              iconComponent={<GoogleIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
+              socialMediaName='Google'
+              onTap={() => console.log("Google")}
+            />
           </View>
 
           <View

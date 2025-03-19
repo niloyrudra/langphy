@@ -15,7 +15,8 @@ const ForgotPasswordLink = () => {
         <Link
             href="/auth/forgetPassword"
             style={{
-                color: colors.primary
+                fontSize: 14,
+                color: colors.plainTextLinkColor
             }}
         >Forgot Password?</Link>
     </View>

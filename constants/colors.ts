@@ -16,6 +16,25 @@ export const lightColors = {
 
   LessonSourceCardBackgroundColor: "#FFFFFF",
   lessonSourceCardBorderColor: "#08C1D2",
+
+  textFieldBackgroundColor: "#FFFFFF",
+  textFieldBorderColor: "#F7F7F7",
+  placeholderColor: "#D0D0D0",
+
+  progressBarBackground: "#FFFFFF",
+
+  subCatIconBackgroundColor: "#142C57",
+  subCatCardBackgroundColor: "#EEF8FF",
+  subCatCardBorderColor: "#BCE4FF",
+
+  socialButtonBackgroundColor: "ffffff",
+  socialButtonBorderColor: "#F7F7F7",
+
+  plainTextLinkColor: "#1B7CF5",
+
+  orSeparatorColor: "#EDEDED",
+
+  skipTextColor: "#1B7CF5"
 };
 
 export const darkColors = {
@@ -35,4 +54,23 @@ export const darkColors = {
 
   LessonSourceCardBackgroundColor: "#021331",
   lessonSourceCardBorderColor: "#08C1D2",
+
+  textFieldBackgroundColor: "#061E3E",
+  textFieldBorderColor: "#19468F",
+  placeholderColor: "#D0D0D075",
+
+  progressBarBackground: "#142C57",
+
+  subCatIconBackgroundColor: "#142C57",
+  subCatCardBackgroundColor: "#061E3E",
+  subCatCardBorderColor: "#19468F",
+
+  socialButtonBackgroundColor: "#142C57",
+  socialButtonBorderColor: "#19468F",
+
+  plainTextLinkColor: "#EEF8FF",
+
+  orSeparatorColor: "#545454",
+
+  skipTextColor: "#1B7CF5"
 };
