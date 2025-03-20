@@ -1,6 +1,14 @@
 import { StyleProp, ViewProps } from "react-native";
 import sizes from "./size";
 
+const headerContainer: StyleProp<ViewProps> = <ViewProps> {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: sizes.bodyPaddingHorizontal,
+    paddingVertical: 10,
+    height: sizes.headerHeight,
+};
+
 const boxShadow: StyleProp<ViewProps> = <ViewProps> {
     elevation: 5,
     shadowColor: "#55565626",
@@ -40,7 +48,8 @@ const defaultContainer: StyleProp<ViewProps> = <ViewProps> {
 };
 
 
-export {
+const STYLES = {
+    headerContainer,
     defaultContainer,
     boxShadow,
     textShadow,
@@ -49,3 +58,5 @@ export {
     contentCentered,
     childContentCentered
 };
+
+export default STYLES;

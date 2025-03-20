@@ -37,6 +37,9 @@ export const lightColors = {
   skipTextColor: "#1B7CF5",
 
   authTextFieldBorderColorFocus: "#8ED4FF",
+
+  lessonSourceCardSpeakerBackgroundColor: "#CFFDFE",
+  lessonActionCardSpeakerBackgroundColor: "#D9EFFF",
 };
 
 export const darkColors = {
@@ -77,4 +80,7 @@ export const darkColors = {
   skipTextColor: "#1B7CF5",
 
   authTextFieldBorderColorFocus: "#59BAFF",
+
+  lessonSourceCardSpeakerBackgroundColor: "#08C1D2",
+  lessonActionCardSpeakerBackgroundColor: "#1465E1",
 };

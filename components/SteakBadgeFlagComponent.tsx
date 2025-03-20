@@ -1,16 +1,13 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { useTheme } from '@/theme/ThemeContext'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useTheme } from '@/theme/ThemeContext';
 import SteakBadge from './SteakBadge';
 import FlagSquareComponent from './FlagSquareComponent';
 
 const SteakBadgeFlagComponent = () => {
     const { colors, theme } = useTheme();
   return (
-    <View
-        style={[ styles.container, (theme === "dark" && {backgroundColor: colors.cardBackgroundColor})
-        ]}
-    >
+    <View style={[ styles.container, (theme === "dark" && {backgroundColor: colors.cardBackgroundColor})]}>
         <SteakBadge />
         <FlagSquareComponent />
     </View>
@@ -30,4 +27,4 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         height: 36,
     }
-})
+});

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React, { ReactNode } from 'react'
 
-import * as STYLES from '@/constants/styles'
+import STYLES from '@/constants/styles';
 import sizes from '@/constants/size'
 import { useTheme } from '@/theme/ThemeContext'
 

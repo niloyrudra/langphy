@@ -1,22 +1,13 @@
-import { ColorValue, InputModeOptions, StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
-import ToggleColorThemeComponent from '../ToggleColorThemeComponent'
-import ToggledEyeIcon from './auth/ToogledEyeIcon'
+// Types
+import { InputProps } from '@/types'
+// ConTexts
 import { useTheme } from '@/theme/ThemeContext'
+// Constants
 import sizes from '@/constants/size'
-
-interface InputProps { // extends TextInputProps -> better approach
-    value: string,
-    placeholder?: string,
-    onChange: (text: string) => void,
-    // onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void,
-    multiline?: boolean,
-    numberOfLines?: number,
-    maxLength?: number,
-    inputMode?: InputModeOptions | undefined,
-    placeholderTextColor?: ColorValue | undefined,
-    isPassword?: boolean
-}
+// Components
+import ToggledEyeIcon from './auth/ToggledEyeIcon'
 
 const TextInputComponent = ({
     value='',

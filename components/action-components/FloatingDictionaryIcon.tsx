@@ -1,9 +1,10 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-
-import DictionaryIcon from '@/assets/images/screen-icons/dictionary-icon.svg';
 import sizes from '@/constants/size';
-import * as STYLES from '@/constants/styles';
+import STYLES from '@/constants/styles';
+
+import { DictionaryIcon } from '@/utils/SVGImages';
+
 
 const FloatingDictionaryIcon = () => {
   return (

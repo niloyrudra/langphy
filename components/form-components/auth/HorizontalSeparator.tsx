@@ -1,10 +1,9 @@
-import { StyleProp, StyleSheet, Text, View, ViewProps } from 'react-native'
-import React from 'react'
-import * as STYLES from '@/constants/styles'
-import sizes from '@/constants/size'
+import React from 'react';
+import { StyleProp, Text, View, ViewStyle } from 'react-native';
+import STYLES from '@/constants/styles';
 import { useTheme } from '@/theme/ThemeContext'
 
-const HorizontalSeparator = ({style}: {style?: StyleProp<ViewProps>}) => {
+const HorizontalSeparator = ({style}: {style?: StyleProp<ViewStyle>}) => {
     const {colors} = useTheme();
     return (
         <View style={[STYLES.childContentCentered, {position:"relative", marginVertical: 30}, (style && style)]}>
@@ -15,7 +14,4 @@ const HorizontalSeparator = ({style}: {style?: StyleProp<ViewProps>}) => {
         </View>
     );
 }
-
-export default HorizontalSeparator
-
-const styles = StyleSheet.create({})
+export default HorizontalSeparator;

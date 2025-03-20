@@ -1,26 +1,34 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
-import SpeakerComponent from '@/components/action-components/SpeakerComponent';
 import LessonComponent from '@/components/lesson-components/LessonComponent';
-import SpeakerAltComponent from '@/components/action-components/SpeakerAltComponent';
 import HorizontalLine from '@/components/HorizontalLine';
 import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
 
+import { SpeakerIcon, SpeakerAltIcon, SpeakerAltDarkIcon, SpeakerDarkIcon, PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark } from '@/utils/SVGImages';
+
 const Lessons = () => {
-  const { colors } = useTheme();
+  const { colors, theme } = useTheme();
   return (
     <SafeAreaProvider>
       <SafeAreaView
         style={[styles.container, {backgroundColor: colors.background}]}
       >
-        <View>
+        {/* Content */}
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
+          <View style={{flex: 1}}>
           {/* Source Language Section */}
           <LessonComponent
             language="English"
-            iconComponent={<SpeakerComponent/>}
+            iconComponent={theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon/>}
+            style={{borderColor:"#08C1D2"}}
+            buttonStyle={{backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor}}
           >
             <Text style={[styles.text, {color: colors.textDark}]}>Hello!</Text>
           </LessonComponent>
@@ -30,20 +38,50 @@ const Lessons = () => {
           {/* Acting Language Section */}
           <LessonComponent
             language="German"
-            iconComponent={<SpeakerAltComponent />}
+            iconComponent={theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />}
             style={{borderColor:"#1B7CF5"}}
-            buttonStyle={{backgroundColor:"#D9EFFF"}}
+            buttonStyle={{backgroundColor: colors.lessonActionCardSpeakerBackgroundColor}}
           >
             <Text style={[styles.mainText, {color: colors.textDark}]}>Moin Moin!</Text>
             <Text style={[styles.subText, {color: colors.textSubColor}]}>(Very friendly way to say hello in North Germany)</Text>
           </LessonComponent>
-        </View>
 
+          </View>
+
+          {/* Action Buttons */}
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 16,
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+
+            <TouchableOpacity>
+              {
+                theme === 'light'
+                ? (<PreviousBtnLight width={167} height={sizes.buttonHeight} />)
+                : (<PreviousBtnDark width={167} height={sizes.buttonHeight} />)
+              }
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              {
+                theme === 'light'
+                ? (<NextBtnLight width={167} height={sizes.buttonHeight} />)
+                : (<NextBtnDark width={167} height={sizes.buttonHeight} />)
+              }
+            </TouchableOpacity>
+
+          </View>
+
+        </View>
+          
         {/* Dictionary Floating Button */}
         <FloatingDictionaryIcon />
 
       </SafeAreaView>
-
     </SafeAreaProvider>
   );
 }

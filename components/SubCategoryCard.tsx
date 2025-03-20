@@ -1,22 +1,17 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType, Dimensions, StyleProp, ViewStyle } from 'react-native';
-import { useRouter } from 'expo-router';
-
+import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { router } from 'expo-router';
+import { SubCategoryProps } from '@/types';
 // import * as Progress from 'react-native-progress';
 import { useTheme } from '@/theme/ThemeContext';
+import STYLES from '@/constants/styles';
+import sizes from '@/constants/size';
 
-// import ProgressBarActive from '@/assets/images/progress-bar/progress-bar.svg'
-import ProgressBarActivePng from '@/assets/images/progress-bar/progress-bar.png'
+import ProgressBar from './ProgressBar';
+import Title from './Title';
 
-interface SubCategoryProps {
-  title: string,
-  completion: number,
-  imgSource: ImageSourcePropType | undefined,
-  customStyle?: StyleProp<ViewStyle>
-}
 
 const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCategoryProps) => {
-  const router = useRouter();
   const { colors } = useTheme();
 
   return (
@@ -25,51 +20,14 @@ const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCateg
     >
       <View style={[styles.container, {backgroundColor: colors.subCatCardBackgroundColor, borderColor: colors.subCatCardBorderColor}, (customStyle && customStyle ) ]}>
         
-        <View style={[styles.imageWrapper, {backgroundColor: colors.subCatIconBackgroundColor}]}>
+        <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.subCatIconBackgroundColor}]}>
           <Image source={imgSource} style={styles.image} />
         </View>
 
-        <Text style={[styles.title, {color: colors.text}]}>{title}</Text>
+        <Title title={title} />
 
-        <View style={styles.progressBarWrapper}>
+        <ProgressBar completion={completion} />
 
-          <View
-            style={{
-              width: 52,
-              height: 8,
-              borderRadius: 20,
-              backgroundColor: colors.progressBarBackground,
-              justifyContent:"center",
-              alignItems: "flex-start"
-            }}
-          >
-            <Image
-              source={ProgressBarActivePng}
-              style={{
-                width: (completion / 100)*52,
-                height: 8,
-                objectFit: "fill"
-              }}
-            />
-            {/* <ProgressBarActive width={(completion/100)*52} height={8} /> */}
-          </View>
-
-          {/* <Progress.Bar color={['red', 'green', 'blue']} /> */}
-          {/* <Progress.Bar
-            progress={completion / 100}
-            animated={true}
-            indeterminateAnimationDuration={1000}
-            width={52}
-            height={8}
-            borderRadius={20}
-            animationConfig={{ bounciness: 1 }}
-            animationType='spring'
-            borderColor="transparent"
-            borderWidth={0}
-            unfilledColor="#ffffff"
-            color="rgba(72, 228, 239, 1)" // "rgba(27, 124, 245, 1)" //"#1B7CF5"
-          /> */}
-        </View>
       </View>
     </TouchableOpacity>
   );
@@ -87,40 +45,21 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
 
-    paddingVertical: 0,
-    paddingHorizontal: 0, // 24
+    padding: 0,
+    // paddingHorizontal: 0, // 24
 
-    width: Dimensions.get("screen").width - 34,
+    width: sizes.screenWidth - (sizes.bodyPaddingHorizontal*2),
     height: 78,
   },
   imageWrapper: {
     width: 75,
     height: 75,
-    // backgroundColor: "#ffffff",
-    justifyContent: "center",
-    alignItems: "center",
-
     borderTopLeftRadius: 16,
     borderBottomLeftRadius: 16,
   },
   image: {
     width: 49,
     height: 49
-  },
-  title: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: "600",
-    lineHeight: 22
-  },
-  progressBarWrapper: {
-    width: 75,
-    height: 75,
-    justifyContent: "center",
-    alignItems: "center",
-
-    borderTopRightRadius: 16,
-    borderBottomRightRadius: 16,
   },
   progressBar: {
     width: 52

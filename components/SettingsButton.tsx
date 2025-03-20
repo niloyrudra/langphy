@@ -1,15 +1,13 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 // Constants
 import sizes from '@/constants/size';
 
-import SettingIcon from '@/assets/images/header/account-settings-icon.svg';
-import SettingDarkIcon from '@/assets/images/header/account-settings-icon-dark.svg';
+import { SettingIcon, SettingDarkIcon } from '@/utils/SVGImages';
 
 const SettingsButton = () => {
-  const router = useRouter();
   const { theme } = useTheme();
   return (
     <TouchableOpacity
@@ -20,7 +18,6 @@ const SettingsButton = () => {
         ? (<SettingIcon width={sizes.headerIcon} height={sizes.headerIcon} />)
         : (<SettingDarkIcon width={sizes.headerIcon} height={sizes.headerIcon} />)
       }
-      
     </TouchableOpacity>
   )
 }

@@ -1,14 +1,11 @@
-import { StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-
-import GermanyFlagIcon from '@/assets/images/header/germany-flag.svg';
+import { GermanyCircleFlagIcon } from '@/utils/SVGImages'
 
 const FlagComponent = () => {
   return (
-    <TouchableOpacity
-      style={styles.container}
-    >
-      <GermanyFlagIcon width={30} height={30} />
+    <TouchableOpacity style={styles.container}>
+      <GermanyCircleFlagIcon width={30} height={30} />
     </TouchableOpacity>
   )
 }
@@ -17,10 +14,7 @@ export default FlagComponent;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
-    borderColor: "#ffffff",
     borderRadius: 15,
-
     width: 30,
     height: 30
   }

@@ -1,20 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType, StyleProp, ViewProps } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
+import { CategoryProps } from '@/types';
 
-import * as STYLES from '@/constants/styles';
-import { SvgProps } from 'react-native-svg';
+import STYLES from '@/constants/styles';
 
-interface CategoryProps {
-  catTitle: string,
-  slug: string,
-  ImgComponent: React.FC<SvgProps>,
-  // ImgComponent: ImageSourcePropType | undefined,
-  // customStyle?: StyleProp<ViewProps>
-  containerWidth: number
-  marginRight?: number
-}
 
 const CategoryCard = ( { catTitle, slug, ImgComponent, marginRight=0, containerWidth=172}: CategoryProps ) => {
   const router = useRouter();
@@ -25,9 +16,8 @@ const CategoryCard = ( { catTitle, slug, ImgComponent, marginRight=0, containerW
       onPress={() =>  router.push({ pathname: '/category', params: { title: catTitle, slug: slug } })}
     >
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
-        {/* <Image source={ImgComponent} style={styles.image} /> */}
         <ImgComponent width={80} height={80} />
-        <Text style={[styles.title, { fontFamily: 'PlusJakartaSans-ExtraBold', color: colors.text }]}>{catTitle}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{catTitle}</Text>
       </View>
      </TouchableOpacity>
   );
@@ -45,10 +35,6 @@ const styles = StyleSheet.create({
     minWidth: 172,
     minHeight: 172,
   },
-  // image: {
-  //   width: 80,
-  //   height: 80
-  // },
   title: {
     fontSize: 16,
     fontWeight: "700",

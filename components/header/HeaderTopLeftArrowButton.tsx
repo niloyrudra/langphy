@@ -1,14 +1,12 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import React from 'react';
-import { useRouter } from 'expo-router';
-
-import ArrowLeftIcon from '@/assets/images/header/arrow-left-circle.svg';
-import ArrowLeftDarkIcon from '@/assets/images/header/arrow-left-circle-dark.svg';
+import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
 
+import { ArrowLeftDarkIcon, ArrowLeftIcon } from '@/utils/SVGImages';
+
 const HeaderTopLeftArrowButton = () => {
-  const router = useRouter();
   const { theme } = useTheme();
 
   const handlePress = () => {
@@ -16,10 +14,7 @@ const HeaderTopLeftArrowButton = () => {
   };
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={handlePress}
-    >
+    <TouchableOpacity onPress={handlePress}>
       {
         theme === 'light'
         ? (<ArrowLeftIcon width={sizes.headerIcon} height={sizes.headerIcon} />)
@@ -30,17 +25,3 @@ const HeaderTopLeftArrowButton = () => {
 };
 
 export default HeaderTopLeftArrowButton;
-
-const styles = StyleSheet.create({
-  container: {
-    // borderWidth: 2,
-    // borderColor: "#D9EFFF",
-    // backgroundColor: "#EEF8FF",
-    // borderRadius: 100,
-    // paddingHorizontal: 6,
-    // paddingVertical: 6,
-
-    // width: 32,
-    // height: 32
-  }
-});

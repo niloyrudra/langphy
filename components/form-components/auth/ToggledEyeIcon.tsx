@@ -1,27 +1,17 @@
-import { StyleProp, StyleSheet, TouchableOpacity, View, ViewProps } from 'react-native'
-import React from 'react'
-import { useTheme } from '@/theme/ThemeContext'
-
-// Light Theme Icons
-import EyeLightIcon from '@/assets/images/auth/toggled-eyes/light-theme/eye.svg'
-import EyeOffLightIcon from '@/assets/images/auth/toggled-eyes/light-theme/eye-off.svg'
-// Dark Theme Icons
-import EyeDarkIcon from '@/assets/images/auth/toggled-eyes/dark-theme/eye.svg'
-import EyeOffDarkIcon from '@/assets/images/auth/toggled-eyes/dark-theme/eye-off.svg'
-
+import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { EyeProps } from '@/types';
+import { useTheme } from '@/theme/ThemeContext';
 // Constants
 import sizes from '@/constants/size';
-import * as STYLES from '@/constants/styles';
+import STYLES from '@/constants/styles';
 
-interface EyeProps {
-    onChange: () => void,
-    isSecureTextEntry: boolean,
-    style?: StyleProp<ViewProps>
-}
+import { EyeDarkIcon, EyeLightIcon, EyeOffDarkIcon, EyeOffLightIcon } from '@/utils/SVGImages';
+
+
 
 const ToggledEyeIcon = ({onChange, isSecureTextEntry, style: customStyles}: EyeProps) => {
     const { theme } = useTheme();
-    // const [ isSecureTextEntry, setIsSecureTextEntry ] = React.useState(false)
   return (
     <View style={[ styles.container, STYLES.childContentCentered, customStyles && customStyles]}>
         {

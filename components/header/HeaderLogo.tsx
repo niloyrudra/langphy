@@ -1,15 +1,14 @@
 import React from 'react'
-
-import LightLogo from '@/assets/images/svg-images/top-nav-logo-light-mode.svg';
-import DarkLogo from '@/assets/images/svg-images/top-nav-logo-dark-mode.svg';
-
 import { useTheme } from '@/theme/ThemeContext';
+import sizes from '@/constants/size';
+
+import { DarkLogo, LightLogo } from '@/utils/SVGImages';
 
 const HeaderLogo = () => {
     const { theme } = useTheme();
-    if( theme === 'light' ) return (<LightLogo width={133.07} height={31.34} />)
+    if( theme === 'light' ) return (<LightLogo width={sizes.logo.width} height={sizes.logo.height} />)
     
-    return (<DarkLogo width={133.07} height={31.34} />)
+    return (<DarkLogo width={sizes.logo.width} height={sizes.logo.height} />)
 }
 
 export default HeaderLogo;

@@ -1,6 +1,6 @@
-import { useTheme } from '@/theme/ThemeContext';
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { useTheme } from '@/theme/ThemeContext';
 
 export default function HorizontalLine({style}: {style?: StyleProp<ViewStyle>}) {
   const { colors } = useTheme();
@@ -10,7 +10,6 @@ export default function HorizontalLine({style}: {style?: StyleProp<ViewStyle>}) 
 const styles = StyleSheet.create({
   line: {
     borderBottomWidth: 1,
-    marginTop: 30,
-    marginBottom: 30
+    marginVertical: 30,
   }
 });

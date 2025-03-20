@@ -1,10 +1,9 @@
 import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
+import STYLES from '@/constants/styles';
 
-import SteakIcon from '@/assets/images/header/water-drop-icon.svg';
-
-import * as STYLES from '@/constants/styles';
+import { SteakIcon } from '@/utils/SVGImages';
 
 const SteakBadge = () => {
   const {colors,theme} = useTheme()
@@ -26,7 +25,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     gap: 4,
     height: 24,
-    
   },
   steakCount: {
     fontSize: 14,

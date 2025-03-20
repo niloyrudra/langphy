@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
-import * as STYLES from '@/constants/styles';
+import STYLES from '@/constants/styles';
 
 const CategoryArchiveHeaderTitle = ({title}: {title: string}) => {
   const { colors } = useTheme();
