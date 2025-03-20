@@ -18,12 +18,12 @@ export const lightColors = {
   lessonSourceCardBorderColor: "#08C1D2",
 
   textFieldBackgroundColor: "#FFFFFF",
-  textFieldBorderColor: "#F7F7F7",
+  textFieldBorderColor: "#EDEDED", // " "#F7F7F7",
   placeholderColor: "#D0D0D0",
 
   progressBarBackground: "#FFFFFF",
 
-  subCatIconBackgroundColor: "#142C57",
+  subCatIconBackgroundColor: "#FFFFFF",
   subCatCardBackgroundColor: "#EEF8FF",
   subCatCardBorderColor: "#BCE4FF",
 
@@ -34,7 +34,9 @@ export const lightColors = {
 
   orSeparatorColor: "#EDEDED",
 
-  skipTextColor: "#1B7CF5"
+  skipTextColor: "#1B7CF5",
+
+  authTextFieldBorderColorFocus: "#8ED4FF",
 };
 
 export const darkColors = {
@@ -72,5 +74,7 @@ export const darkColors = {
 
   orSeparatorColor: "#545454",
 
-  skipTextColor: "#1B7CF5"
+  skipTextColor: "#1B7CF5",
+
+  authTextFieldBorderColorFocus: "#59BAFF",
 };

@@ -1,22 +1,20 @@
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { router } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
 
 import sizes from '@/constants/size'
-
-import HorizontalLine from '@/components/HorizontalLine'
 
 import FacebookIcon from '@/assets/images/social/facebook.svg'
 import GoogleIcon from '@/assets/images/social/google.svg'
 
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
-import FormSubmitButton from '@/components/form-components/FormSubmitButton'
 import TextInputComponent from '@/components/form-components/TextInputComponent'
 import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
 import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
-import { router } from 'expo-router'
 import SocialButton from '@/components/form-components/auth/SocialButton'
 import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
 
 const SignUp = () => {
   const { colors } = useTheme();
@@ -24,23 +22,16 @@ const SignUp = () => {
   const [password, setPassword] = React.useState('');
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flex:1
-      }}
-    >
+    <ScrollView contentContainerStyle={{ flex:1 }}>
 
-      <View
-      style={[styles.container, {backgroundColor: colors.background}]}>
+      <View style={[styles.container, {backgroundColor: colors.background}]}>
 
         <AuthTopBannerImage />
 
         <FormHeaderTitle title="Create Account" />
 
         {/* FORM */}
-        <View
-          style={styles.form}
-        >
+        <View style={styles.form}>
          
          <TextInputComponent
             placeholder="Email"
@@ -58,7 +49,7 @@ const SignUp = () => {
             onChange={(text: string) => setPassword( prevValue => prevValue = text)}
           />
 
-          <FormSubmitButton
+          <ActionPrimaryButton
             buttonTitle='Create Account'
             onSubmit={() => {
               console.log("Submitted")

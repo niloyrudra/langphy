@@ -1,5 +1,6 @@
-import { StyleSheet, Text, Image, TouchableOpacity, StyleProp, ViewProps } from 'react-native'
+import { StyleSheet, Text, Image, TouchableOpacity, StyleProp, ViewProps, useWindowDimensions, View } from 'react-native'
 import React from 'react'
+// import { SvgXml } from 'react-native-svg';
 // import { useTheme } from '@/theme/ThemeContext';
 
 import * as STYLES from '@/constants/styles'
@@ -19,7 +20,7 @@ interface SubmitButtonProps {
     disabled?: boolean
 }
 
-const FormSubmitButton = ( {
+const ActionPrimaryButton = ( {
         buttonTitle="Submit",
         onSubmit,
         buttonStyle,
@@ -27,11 +28,23 @@ const FormSubmitButton = ( {
         disabled=false
     }: SubmitButtonProps ) => {
     // const {colors} = useTheme();
+
+    // const { width } = useWindowDimensions();
+    // const aspectRatio = 350/56;
+    // const containerWidth = width - (sizes.bodyPaddingHorizontal*2);
+    // const containerHeight = containerWidth/aspectRatio
+
+    // const svgMarup = ButtonGradient
+
   return (
     <TouchableOpacity
         style={[
             STYLES.childContentCentered,
             styles.button,
+            // {
+            //     width: containerWidth,
+            //     height: sizes.buttonHeight
+            // }
             // {backgroundColor: colors.primary, borderColor: colors.primary},
             // (buttonStyle && buttonStyle)
         ]}
@@ -47,7 +60,12 @@ const FormSubmitButton = ( {
                 objectFit: "fill"
             }}
         />
-        {/* <ButtonGradient width={(Dimensions.get('screen').width - sizes.bodyPaddingHorizontal*2)} height={56} /> */}
+
+        {/* <View style={[styles.container, { width, height }]}>
+            <SvgXml xml={svgMarkup} width="100%" height="100%" />
+        </View> */}
+
+        {/* <ButtonGradient width={containerWidth} height={containerHeight} /> */}
 
         <Text style={[{position:"absolute", fontSize: 16, color: "#fff", fontWeight: "800"}, (buttonTextStyle && buttonTextStyle)]}>{buttonTitle}</Text>
 
@@ -55,12 +73,13 @@ const FormSubmitButton = ( {
   )
 }
 
-export default FormSubmitButton
+export default ActionPrimaryButton;
 
 const styles = StyleSheet.create({
     button: {
+        
         position: "relative",
-        height: sizes.buttonHeight,
+        // height: sizes.buttonHeight,
         // padding: 16,
         // borderRadius: 32,
         // borderWidth: 1,

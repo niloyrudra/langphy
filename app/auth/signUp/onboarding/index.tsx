@@ -5,8 +5,8 @@ import React from 'react'
 import * as STYLES from "@/constants/styles"
 import { useTheme } from '@/theme/ThemeContext'
 import OnBoardingStudyDurationCard from '@/components/OnBoardingStudyDurationCard';
-import FormSubmitButton from '@/components/form-components/FormSubmitButton';
 import { router } from 'expo-router';
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 
 type DurationDataProps = {
   id: string,
@@ -39,15 +39,14 @@ const DAILY_LESSON_DURATION_OPTIONS = [
 
 const OnBoarding = () => {
   const {colors} = useTheme();
+
   return (
     <View style={[STYLES.defaultContainer, {backgroundColor: colors.background}]}>
+
       <Text style={[styles.welcomeText, {color: colors.text}]}>What is your daily learning goal?</Text>
 
-      <View
-        style={{
-          flex: 1
-        }}
-      >
+      <View style={{ flex: 1 }}>
+
         <FlatList
           data={DAILY_LESSON_DURATION_OPTIONS}
           keyExtractor={({id}:DurationDataProps) => id}
@@ -71,7 +70,7 @@ const OnBoarding = () => {
           gap: 10
         }}
       >
-        <FormSubmitButton
+        <ActionPrimaryButton
           buttonTitle='Continue'
           onSubmit={() => router.replace("/")}
         />
@@ -91,9 +90,9 @@ const OnBoarding = () => {
 export default OnBoarding
 
 const styles = StyleSheet.create({
-    welcomeText: {
-      fontSize: 16,
-      lineHeight: 22,
-      fontWeight: "600"
-    }
-})
+  welcomeText: {
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: "600"
+  }
+});

@@ -19,13 +19,13 @@ const OnBoardingStudyDurationCard = ({label, duration}: {label: string, duration
 export default OnBoardingStudyDurationCard
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        borderRadius: 16,
-        padding: 16,
-        height: sizes.buttonHeight,
-        borderWidth: 1,
-        position: "relative"
-    }
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    borderRadius: 16,
+    padding: 16,
+    height: sizes.buttonHeight,
+    borderWidth: 1,
+    position: "relative"
+  }
 })

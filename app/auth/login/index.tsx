@@ -1,26 +1,21 @@
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
-
-// import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg'
-// import HorizontalLine from '@/components/HorizontalLine'
 
 import FacebookIcon from '@/assets/images/social/facebook.svg'
 import GoogleIcon from '@/assets/images/social/google.svg'
 
-// import { Link } from 'expo-router'
 
 import sizes from '@/constants/size'
 import * as STYLES from '@/constants/styles'
 import TextInputComponent from '@/components/form-components/TextInputComponent'
 import ForgotPasswordLink from '@/components/form-components/auth/ForgotPasswordLink'
-import FormSubmitButton from '@/components/form-components/FormSubmitButton'
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
 import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
 import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
 import SocialButton from '@/components/form-components/auth/SocialButton'
-import HorizontalLine from '@/components/HorizontalLine'
 import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
 
 const Login = () => {
   const { colors } = useTheme();
@@ -29,23 +24,20 @@ const Login = () => {
   const [password, setPassword] = React.useState('');
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flex:1
-      }}
-    >
-      <View
-        style={[styles.container, {backgroundColor: colors.background}]}
-      >
+    <ScrollView contentContainerStyle={{ flex:1 }}>
 
+      <View style={[styles.container, {backgroundColor: colors.background}]}>
+
+        {/* Banner Component */}
         <AuthTopBannerImage />
 
+        {/* Title Component */}
         <FormHeaderTitle title="Sign In" />
 
         {/* FORM */}
-        <View
-          style={styles.form}
-        >
+        <View style={styles.form}>
+
+          {/* Email TextField Component */}
           <TextInputComponent
             placeholder="Email"
             value={email}
@@ -53,6 +45,8 @@ const Login = () => {
             placeholderTextColor={colors.placeholderColor}
             onChange={(text: string) => setEmail( prevValue => prevValue = text)}
           />
+
+          {/* Password TextField Component */}
           <TextInputComponent
             placeholder="Password"
             value={password}
@@ -62,9 +56,11 @@ const Login = () => {
             onChange={(text: string) => setPassword( prevValue => prevValue = text)}
           />
 
+          {/* Forgot Password Link Component */}
           <ForgotPasswordLink />
 
-          <FormSubmitButton
+          {/* Form Submit Button Component */}
+          <ActionPrimaryButton
             buttonTitle='Sign In'
             onSubmit={() => {
               console.log("Submitted value", email, password)
@@ -75,6 +71,7 @@ const Login = () => {
 
         </View>
 
+        {/* Section Breaker Component */}
         <HorizontalSeparator />
 
         <View>
@@ -104,7 +101,7 @@ const Login = () => {
               flexDirection: "row",
               gap: 4,
               justifyContent: "center",
-              // marginBottom: 80
+              marginBottom: 20
             }}
           >
             <Text style={{color: colors.textSubColor}}>Don't have an account?</Text>
@@ -117,10 +114,7 @@ const Login = () => {
 
         </View>
 
-        {/* <View style={{marginBottom: 80}} /> */}
-
       </View>
-
     </ScrollView>
   )
 }
