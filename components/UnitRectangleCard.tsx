@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
-import { SubCategoryProps } from '@/types';
+import { UnitProps } from '@/types';
 // import * as Progress from 'react-native-progress';
 import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
@@ -9,24 +9,27 @@ import sizes from '@/constants/size';
 
 import ProgressBar from './ProgressBar';
 import Title from './Title';
+// import { BookIcon } from '@/utils/SVGImages';
 
 
-const SubCategoryCard = ({ title, completion, imgSource, customStyle }: SubCategoryProps) => {
+const UnitRectangleCard = ({ title, completion, ImgComponent, customStyle }: UnitProps) => {
   const { colors } = useTheme();
 
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: '/lessons', params: { title: title } })}
+      onPress={() => router.push({ pathname: '/lesson-unit-index', params: {title:title}})}
     >
-      <View style={[styles.container, {backgroundColor: colors.subCatCardBackgroundColor, borderColor: colors.subCatCardBorderColor}, (customStyle && customStyle ) ]}>
+      <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         
-        <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.subCatIconBackgroundColor}]}>
-          <Image source={imgSource} style={styles.image} />
+        <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
+          <ImgComponent width={49} height={49} />
         </View>
 
         <Title title={title} />
 
-        <ProgressBar completion={completion} />
+        <View style={[STYLES.childContentCentered, styles.progressBarWrapper]}>
+          <ProgressBar completion={completion} />
+        </View>
 
       </View>
     </TouchableOpacity>
@@ -57,13 +60,15 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
     borderBottomLeftRadius: 16,
   },
-  image: {
-    width: 49,
-    height: 49
+  progressBarWrapper: {
+    width: 75,
+    height: 75,
+    borderTopRightRadius: 16,
+    borderBottomRightRadius: 16,
   },
   progressBar: {
     width: 52
   }
 });
 
-export default SubCategoryCard;
+export default UnitRectangleCard;

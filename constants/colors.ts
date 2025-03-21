@@ -23,9 +23,9 @@ export const lightColors = {
 
   progressBarBackground: "#FFFFFF",
 
-  subCatIconBackgroundColor: "#FFFFFF",
-  subCatCardBackgroundColor: "#EEF8FF",
-  subCatCardBorderColor: "#BCE4FF",
+  unitIconBackgroundColor: "#FFFFFF",
+  unitCardBackgroundColor: "#EEF8FF",
+  unitCardBorderColor: "#BCE4FF",
 
   socialButtonBackgroundColor: "ffffff",
   socialButtonBorderColor: "#F7F7F7",
@@ -66,9 +66,9 @@ export const darkColors = {
 
   progressBarBackground: "#142C57",
 
-  subCatIconBackgroundColor: "#142C57",
-  subCatCardBackgroundColor: "#061E3E",
-  subCatCardBorderColor: "#19468F",
+  unitIconBackgroundColor: "#142C57",
+  unitCardBackgroundColor: "#061E3E",
+  unitCardBorderColor: "#19468F",
 
   socialButtonBackgroundColor: "#142C57",
   socialButtonBorderColor: "#19468F",

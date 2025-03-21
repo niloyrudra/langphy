@@ -9,7 +9,7 @@ import sizes from '@/constants/size';
 
 import { SpeakerIcon, SpeakerAltIcon, SpeakerAltDarkIcon, SpeakerDarkIcon, PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark } from '@/utils/SVGImages';
 
-const Lessons = () => {
+const SpeakingLessons = () => {
   const { colors, theme } = useTheme();
   return (
     <SafeAreaProvider>
@@ -86,7 +86,7 @@ const Lessons = () => {
   );
 }
 
-export default Lessons
+export default SpeakingLessons;
 
 const styles = StyleSheet.create({
   container: {

@@ -10,7 +10,7 @@ const CategoryCardList = ({cardWidth}: {cardWidth: number}) => {
     <>
         <FlatList
           data={CATEGORY_DATA}
-          keyExtractor={({id}:Category) => id}
+          keyExtractor={({id}: Category) => id}
           horizontal={false}
           numColumns={2}
           showsVerticalScrollIndicator={false}

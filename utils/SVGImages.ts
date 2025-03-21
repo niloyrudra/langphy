@@ -1,7 +1,12 @@
 // Unused SVGs
 import ProgressBarActive from '@/assets/images/progress-bar/progress-bar.svg';
-import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
 import ButtonGradient from '@/assets/images/button/button-gradient.svg';
+
+// Exemplary
+import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
+import BookIcon from '@/assets/images/categories/unit/book.svg';
+import StudyingDolphinIcon from '@/assets/images/categories/unit/studying-dolphin.svg';
+import StudyingDolphinSmallIcon from '@/assets/images/categories/unit/studying-dolphin-icon.svg';
 
 // Category Icons
 import GreetingsIcon from '@/assets/images/categories/svg/greetings.svg';
@@ -51,6 +56,11 @@ import NextBtnDark from "@/assets/images/button/lesson-screens/dark/next-dark.sv
 import PreviousBtnDark from "@/assets/images/button/lesson-screens/dark/prev-dark.svg";
 
 export {
+    BookIcon,
+    DolphinIcon,
+    StudyingDolphinIcon,
+    StudyingDolphinSmallIcon,
+
     GreetingsIcon,
     IntroIcon,
     NumbersIcon,

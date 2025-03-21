@@ -5,7 +5,7 @@ const RootLayout = () => {
   return (<Stack
     screenOptions={{
       headerShown: false,
-      headerShadowVisible: false
+      headerShadowVisible: false,
     }}
   />);
 }

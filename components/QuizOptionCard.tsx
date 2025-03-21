@@ -1,26 +1,26 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { router } from 'expo-router';
+// import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
-import { CategoryProps } from '@/types';
+import { QuizProps } from '@/types';
 
 import STYLES from '@/constants/styles';
 
 
-const CategoryCard = ( { catTitle, slug, ImgComponent, marginRight=0, containerWidth=172}: CategoryProps ) => {
+const QuizOptionCard = ( { title, isCorrect, marginRight=0, containerWidth=172}: QuizProps ) => {
   const {colors} = useTheme()
   return (
     <TouchableOpacity
-      onPress={() =>  router.push({ pathname: '/lesson-unit', params: { title: catTitle, slug: slug } })}
+    //   onPress={() =>  router.push({ pathname: '/lesson-unit-index', params: { result: isCorrect ? 1 : 0 } })}
+      onPress={() =>  console.log( {"title": title, "Correct": isCorrect } )}
     >
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
-        <ImgComponent width={80} height={80} />
-        <Text style={[styles.title, { color: colors.text }]}>{catTitle}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
 }
-export default CategoryCard;
+export default QuizOptionCard;
 
 const styles = StyleSheet.create({
   container: {

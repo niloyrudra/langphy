@@ -1,26 +1,31 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { router } from 'expo-router';
+import { UnitLessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
-import { CategoryProps } from '@/types';
-
 import STYLES from '@/constants/styles';
+import ProgressBar from './ProgressBar';
 
-
-const CategoryCard = ( { catTitle, slug, ImgComponent, marginRight=0, containerWidth=172}: CategoryProps ) => {
+const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, marginRight=0, containerWidth=172}: UnitLessonProps ) => {
   const {colors} = useTheme()
   return (
-    <TouchableOpacity
-      onPress={() =>  router.push({ pathname: '/lesson-unit', params: { title: catTitle, slug: slug } })}
-    >
+    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lesson-unit-index/${slug}`, params: { title: title, slug: slug } })}>
+      
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
+        
         <ImgComponent width={80} height={80} />
-        <Text style={[styles.title, { color: colors.text }]}>{catTitle}</Text>
+        
+        <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
+        
+        <ProgressBar completion={completion} />
+
       </View>
+
     </TouchableOpacity>
   );
 }
-export default CategoryCard;
+
+export default LessonUnitIndexCard;
 
 const styles = StyleSheet.create({
   container: {

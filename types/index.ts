@@ -1,6 +1,6 @@
 import { Href } from "expo-router"
 import { ReactNode } from "react"
-import { ColorValue, ImageSourcePropType, InputModeOptions, StyleProp, ViewProps, ViewStyle } from "react-native"
+import { ColorValue, ImageBackgroundProps, ImageSourcePropType, InputModeOptions, StyleProp, ViewProps, ViewStyle } from "react-native"
 import { SvgProps } from "react-native-svg"
 
 type Category = {
@@ -18,11 +18,50 @@ type CategoryProps = {
     marginRight?: number
 }
 
-type SubCategoryProps = {
+type UnitLesson = {
+  id: string,
+  title: string,
+  slug: string,
+  completion: number,
+  ImgComponent: React.FC<SvgProps>
+}
+
+type UnitLessonProps = {
+    title: string,
+    slug: string,
+    completion: number,
+    ImgComponent: React.FC<SvgProps>,
+    containerWidth: number
+    marginRight?: number
+}
+
+type Quiz = {
+  id: string,
+  title: string,
+  isCorrect: boolean
+}
+
+type QuizProps = {
+    id: string,
+    title: string,
+    isCorrect: boolean,
+    containerWidth: number
+    marginRight?: number
+}
+
+type UnitProps = {
     title: string,
     completion: number,
-    imgSource: ImageSourcePropType | undefined,
+    ImgComponent: React.FC<SvgProps>,
+    // imgSource: ImageSourcePropType | undefined,
     customStyle?: StyleProp<ViewStyle>
+}
+
+type UnitDataProps = {
+    id: string,
+    title: string,
+    completion: number,
+    ImgComponent: React.FC<SvgProps>
 }
 
 type LinkProps = {
@@ -79,7 +118,12 @@ type LessonProps = {
 export {
     Category,
     CategoryProps,
-    SubCategoryProps,
+    UnitLesson,
+    UnitLessonProps,
+    UnitProps,
+    UnitDataProps,
+    Quiz,
+    QuizProps,
     LinkProps,
     BannerProps,
     TitleProps,

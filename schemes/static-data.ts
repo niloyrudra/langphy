@@ -6,7 +6,12 @@ import {
   ChatIcon,
   FamilyIcon,
   FoodsIcon,
-  LocationIcon
+  LocationIcon,
+
+  BookIcon,
+  DolphinIcon,
+  StudyingDolphinIcon,
+  StudyingDolphinSmallIcon
 } from '@/utils/SVGImages'
 
 export const CATEGORY_DATA = [
@@ -73,4 +78,99 @@ export const CATEGORY_DATA = [
     // imgSource: require("@/assets/images/categories/svgs/greetings.svg")
     ImgComponent: GreetingsIcon
   },
-]
+];
+
+export const UNIT_DATA = [
+  {
+    id: '1',
+    title: 'Hello',
+    completion: 80,
+    ImgComponent: DolphinIcon
+  },
+  {
+    id: '2',
+    title: 'Good Day!',
+    completion: 60,
+    ImgComponent: StudyingDolphinIcon
+  },
+  {
+    id: '3',
+    title: 'Good Bye!',
+    completion: 40,
+    ImgComponent: BookIcon
+  },
+  {
+    id: '4',
+    title: 'Welcome',
+    completion: 90,
+    ImgComponent: StudyingDolphinSmallIcon
+  },
+];
+
+export const LESSON_UNIT_DATA = [
+  {
+    id: '1',
+    title: 'Practice',
+    completion: 80,
+    slug: "practice",
+    ImgComponent: DolphinIcon
+  },
+  {
+    id: '2',
+    title: 'Quiz',
+    completion: 60,
+    slug: "quiz",
+    ImgComponent: DolphinIcon
+  },
+  {
+    id: '3',
+    title: 'Listening',
+    completion: 40,
+    slug: "listening",
+    ImgComponent: DolphinIcon
+  },
+  {
+    id: '4',
+    title: 'Reading',
+    completion: 90,
+    slug: "reading",
+    ImgComponent: DolphinIcon
+  },
+  {
+    id: '5',
+    title: 'Speaking',
+    completion: 75,
+    slug: "speaking",
+    ImgComponent: DolphinIcon
+  },
+  {
+    id: '6',
+    title: 'Writing',
+    completion: 45,
+    slug: "writing",
+    ImgComponent: DolphinIcon
+  }
+];
+
+export const QUIZ_DATA = [
+  {
+    id: '1',
+    title: 'Hola',
+    isCorrect: false,
+  },
+  {
+    id: '2',
+    title: 'Bonjoue',
+    isCorrect: false,
+  },
+  {
+    id: '3',
+    title: 'Moin Moin',
+    isCorrect: true,
+  },
+  {
+    id: '4',
+    title: 'Hi!',
+    isCorrect: false,
+  },
+];
