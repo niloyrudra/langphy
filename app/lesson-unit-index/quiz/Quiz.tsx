@@ -13,6 +13,9 @@ import { SpeakerIcon, SpeakerDarkIcon, PreviousBtnLight, PreviousBtnDark, NextBt
 // import QuizAnswerOptionGrid from '@/components/quiz-components/QuizAnswerOptionGrid';
 import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
 import { getCardContainerWidth } from '@/utils';
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
+import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
+import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 
 const Quiz = ({}) => {
   const { colors, theme } = useTheme();
@@ -24,57 +27,20 @@ const Quiz = ({}) => {
         style={[styles.container, {backgroundColor: colors.background}]}
       >
         {/* Content */}
-        <View
-          style={{
-            flex: 1,
-          }}
-        >
-          <View style={{flex: 1}}>
+        <View style={{flex: 1}}>
 
+          <View style={{flex: 1}}>
             {/* Title Section */}
-            <View
-              style={{
-                marginBottom: 30
-              }}
-            >
-              <Text
-                style={{
-                  color: colors.text,
-                  fontSize: 24,
-                  lineHeight: 24,
-                  fontWeight: "700"
-                }}
-              >Choose The Correct Answer.</Text>
-            </View>
+            <ChallengeScreenTitle title="Choose The Correct Answer." />
 
             {/* QUIZ Section Starts */}
             <View>
 
-              {/* Query Listen with Query Text Section */}
-              <TouchableOpacity
-                style={{
-                  flexDirection:"row",
-                  justifyContent: "flex-start",
-                  alignItems:"center",
-                  gap: 16,
-                  marginBottom: 15
-                }}
-              >
-                {theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon />}
-                {/* {theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />} */}
-                <Text
-                  style={{
-                    color: colors.text,
-                    fontSize: 24,
-                    lineHeight: 24,
-                    fontWeight: "700"
-                  }}
-                >Hello!</Text>
-              </TouchableOpacity>
+              <ChallengeScreenQuerySection query="Hello!" onTap={() => console.log("Tapping Query Button")} />
 
               {/* QUIZ Answer Options */}
-              {/* <QuizAnswerOptionGrid /> */}
               <QuizOptionCardList cardWidth={cardWidth} />
+              {/* <QuizAnswerOptionGrid /> */}
 
             </View>
             {/* QUIZ Section Ens */}
@@ -82,36 +48,15 @@ const Quiz = ({}) => {
           </View>
 
           {/* Action Buttons */}
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 16,
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
 
-            <TouchableOpacity>
-              {
-                theme === 'light'
-                ? (<PreviousBtnLight width={167} height={sizes.buttonHeight} />)
-                : (<PreviousBtnDark width={167} height={sizes.buttonHeight} />)
-              }
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              {
-                theme === 'light'
-                ? (<NextBtnLight width={167} height={sizes.buttonHeight} />)
-                : (<NextBtnDark width={167} height={sizes.buttonHeight} />)
-              }
-            </TouchableOpacity>
-
-          </View>
+          <ActionPrimaryButton
+            buttonTitle='Check'
+            onSubmit={() => console.log("Submitted")}
+            disabled={true}
+          />
 
         </View>
           
-
       </SafeAreaView>
     </SafeAreaProvider>
   );

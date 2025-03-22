@@ -1,13 +1,14 @@
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
-import LessonComponent from '@/components/lesson-components/LessonComponent';
-import HorizontalLine from '@/components/HorizontalLine';
 import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
 
-import { SpeakerIcon, SpeakerAltIcon, SpeakerAltDarkIcon, SpeakerDarkIcon, PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark } from '@/utils/SVGImages';
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
+import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
+import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
+import { RecorderDarkInactiveIcon, RecorderLightActiveIcon } from '@/utils/SVGImages';
+import STYLES from '@/constants/styles';
 
 const SpeakingLessons = () => {
   const { colors, theme } = useTheme();
@@ -23,64 +24,49 @@ const SpeakingLessons = () => {
           }}
         >
           <View style={{flex: 1}}>
-          {/* Source Language Section */}
-          <LessonComponent
-            language="English"
-            iconComponent={theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon/>}
-            style={{borderColor:"#08C1D2"}}
-            buttonStyle={{backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor}}
-          >
-            <Text style={[styles.text, {color: colors.textDark}]}>Hello!</Text>
-          </LessonComponent>
+            {/* Title Section */}
+            <ChallengeScreenTitle title="Speak This Sentence" />
 
-          <HorizontalLine style={{marginTop: 30, marginBottom: 50}} />
+            {/* Writing Section Starts */}
+            <View
+              style={{
+                flex:1,
+                marginBottom: 80
+              }}
+            >
+
+              <ChallengeScreenQuerySection query="Hello! My name is Anna." onTap={() => console.log("Tapping Query Button")} />
+
+              <View style={{flex:1}}/>
+
+              {/* Writing Text Field/Input/Area Section */}
+              <View
+                style={STYLES.childContentCentered}
+              >
+
+                {
+                  theme === 'light'
+                  ? (<RecorderLightActiveIcon width={60} height={60} />)
+                  : (<RecorderDarkInactiveIcon width={60} height={60} />)
+                }
+
+              </View>
+              
+            </View>
+            {/* Writing Section Ens */}
           
-          {/* Acting Language Section */}
-          <LessonComponent
-            language="German"
-            iconComponent={theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />}
-            style={{borderColor:"#1B7CF5"}}
-            buttonStyle={{backgroundColor: colors.lessonActionCardSpeakerBackgroundColor}}
-          >
-            <Text style={[styles.mainText, {color: colors.textDark}]}>Moin Moin!</Text>
-            <Text style={[styles.subText, {color: colors.textSubColor}]}>(Very friendly way to say hello in North Germany)</Text>
-          </LessonComponent>
-
           </View>
 
           {/* Action Buttons */}
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 16,
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
 
-            <TouchableOpacity>
-              {
-                theme === 'light'
-                ? (<PreviousBtnLight width={167} height={sizes.buttonHeight} />)
-                : (<PreviousBtnDark width={167} height={sizes.buttonHeight} />)
-              }
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              {
-                theme === 'light'
-                ? (<NextBtnLight width={167} height={sizes.buttonHeight} />)
-                : (<NextBtnDark width={167} height={sizes.buttonHeight} />)
-              }
-            </TouchableOpacity>
-
-          </View>
+          <ActionPrimaryButton
+            buttonTitle='Check'
+            onSubmit={() => console.log("Submitted")}
+            disabled={true}
+          />
 
         </View>
-          
-        {/* Dictionary Floating Button */}
-        <FloatingDictionaryIcon />
-
+  
       </SafeAreaView>
     </SafeAreaProvider>
   );

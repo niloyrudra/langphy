@@ -31,7 +31,12 @@ const TextInputComponent = ({
             value={value}
             keyboardType='default'
 
-            style={[styles.input, { color: colors.text, backgroundColor: colors.textFieldBackgroundColor, borderColor: colors.textFieldBorderColor }, (isFocused && {borderColor: colors.authTextFieldBorderColorFocus})]}
+            style={[
+                styles.input,
+                { color: colors.text, backgroundColor: colors.textFieldBackgroundColor, borderColor: colors.textFieldBorderColor },
+                ( isFocused && { borderColor: colors.authTextFieldBorderColorFocus } ),
+                ( multiline && {height: sizes.textFieldHeight*numberOfLines, justifyContent: "flex-start", alignItems: "flex-start" } )
+            ]}
             // editable={editable}
             multiline={multiline}
             numberOfLines={numberOfLines}

@@ -54,6 +54,12 @@ import PreviousBtnLight from "@/assets/images/button/lesson-screens/light/prev-l
 // Next & Prev btn Dark
 import NextBtnDark from "@/assets/images/button/lesson-screens/dark/next-dark.svg";
 import PreviousBtnDark from "@/assets/images/button/lesson-screens/dark/prev-dark.svg";
+// Recorder Light Icon
+import RecorderLightActiveIcon from '@/assets/images/recorder/light/recorder-light-active.svg';
+// Recorder Dark Icon
+import RecorderDarkInactiveIcon from '@/assets/images/recorder/dark/recorder-icon-dark-inactive.svg';
+
+
 
 export {
     BookIcon,
@@ -92,5 +98,7 @@ export {
     NextBtnLight,
     PreviousBtnLight,
     NextBtnDark,
-    PreviousBtnDark
+    PreviousBtnDark,
+    RecorderLightActiveIcon,
+    RecorderDarkInactiveIcon
 };

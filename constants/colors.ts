@@ -40,6 +40,9 @@ export const lightColors = {
 
   lessonSourceCardSpeakerBackgroundColor: "#CFFDFE",
   lessonActionCardSpeakerBackgroundColor: "#D9EFFF",
+
+  disabledButtonBackgroundColor: "#EDEDED",
+  disabledButtonColor: "#FFFFFF",
 };
 
 export const darkColors = {
@@ -83,4 +86,7 @@ export const darkColors = {
 
   lessonSourceCardSpeakerBackgroundColor: "#08C1D2",
   lessonActionCardSpeakerBackgroundColor: "#1465E1",
+
+  disabledButtonBackgroundColor: "#232E42",
+  disabledButtonColor: "#081A33",
 };
