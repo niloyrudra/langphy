@@ -50,7 +50,7 @@ const RootLayout = () => {
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider>
-        <Stack screenOptions={{headerShadowVisible: false }} initialRouteName="lessons">
+        <Stack screenOptions={{headerShadowVisible: false, headerShown: false }} initialRouteName="lessons">
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding" options={{ headerShown: false }} />
           <Stack.Screen name="auth/login" options={{ headerShown: false }} />

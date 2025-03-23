@@ -72,12 +72,12 @@ const OnBoarding = () => {
       >
         <ActionPrimaryButton
           buttonTitle='Continue'
-          onSubmit={() => router.replace("/lessons/index")}
+          onSubmit={() => router.replace("/lessons")}
         />
         
         <TouchableOpacity
           style={[STYLES.childContentCentered, {padding:16}]}
-          onPress={() => router.replace("/lessons/index")}
+          onPress={() => router.replace("/lessons")}
         >
           <Text style={{ fontSize: 16, lineHeight: 22, fontWeight: "800", color: colors.skipTextColor }}>Skip for Now</Text>
         </TouchableOpacity>

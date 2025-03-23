@@ -6,7 +6,7 @@ export default function LessonsLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ header: () => (<CustomHeader />) }} />
-      <Stack.Screen name="[category]/index" options={{ headerShown: false }} />
+      <Stack.Screen name="[category]" options={{ headerShown: false }} />
     </Stack>
   );
 }
