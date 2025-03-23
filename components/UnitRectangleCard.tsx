@@ -12,12 +12,12 @@ import Title from './Title';
 // import { BookIcon } from '@/utils/SVGImages';
 
 
-const UnitRectangleCard = ({ title, completion, ImgComponent, customStyle }: UnitProps) => {
+const UnitRectangleCard = ({ title, completion, goal, ImgComponent, customStyle }: UnitProps) => {
   const { colors } = useTheme();
-
+  const completionMatrix = (completion/goal)*100;
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: '/lesson-unit-index', params: {title:title}})}
+      onPress={() => router.push({ pathname: '/lesson-unit-index', params: { title:title, completion: completion, goal: goal }})}
     >
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         
@@ -28,7 +28,7 @@ const UnitRectangleCard = ({ title, completion, ImgComponent, customStyle }: Uni
         <Title title={title} />
 
         <View style={[STYLES.childContentCentered, styles.progressBarWrapper]}>
-          <ProgressBar completion={completion} />
+          <ProgressBar completion={completionMatrix} />
         </View>
 
       </View>

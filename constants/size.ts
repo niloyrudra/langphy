@@ -1,6 +1,6 @@
 import { Dimensions } from "react-native";
 
-const sizes = {
+const SIZES = {
     logo: {
         width: 133.07,
         height: 31.34
@@ -17,7 +17,14 @@ const sizes = {
     defaultIconSize: 24,
     headerIcon: 36,
     SpeakerIcon: 20,
-    cardGap: 12
+    cardGap: 12,
+    speakerNRecorderDimensions: 60,
+
+    topProgressBarHeight: 12,
+
+    // Fonts
+    fontSizeTextArea: 24,
+    fontSizeTextInput: 16,
 }
 
-export default sizes;
+export default SIZES;

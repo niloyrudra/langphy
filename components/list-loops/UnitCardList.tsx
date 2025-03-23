@@ -14,8 +14,8 @@ const UnitCardList = () => {
                 contentContainerStyle={{
                     gap:16,
                 }}
-                ListHeaderComponent={(<View style={{height:20}}/>)}
-                renderItem={({item}: {item: UnitDataProps}) => (<UnitRectangleCard title={item.title} completion={item.completion} ImgComponent={item.ImgComponent} />)}
+                ListHeaderComponent={(<View style={{height:0}}/>)}
+                renderItem={({item}: {item: UnitDataProps}) => (<UnitRectangleCard title={item.title} completion={item.completion} goal={item.goal} ImgComponent={item.ImgComponent} />)}
                 ListFooterComponent={(<View style={{height:30}} />)}
             />
         </>

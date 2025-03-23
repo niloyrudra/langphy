@@ -1,13 +1,13 @@
-import { StyleSheet, TextInput, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
 // Types
-import { InputProps } from '@/types'
+import { InputProps } from '@/types';
 // ConTexts
-import { useTheme } from '@/theme/ThemeContext'
+import { useTheme } from '@/theme/ThemeContext';
 // Constants
-import sizes from '@/constants/size'
+import SIZES from '@/constants/size';
 // Components
-import ToggledEyeIcon from './auth/ToggledEyeIcon'
+import ToggledEyeIcon from './auth/ToggledEyeIcon';
 
 const TextInputComponent = ({
     value='',
@@ -18,14 +18,15 @@ const TextInputComponent = ({
     maxLength=100,
     inputMode='text',
     placeholderTextColor,
-    isPassword=false
+    isPassword=false,
+    contentContainerStyle={}
 }: InputProps) => {
     const { colors } = useTheme();
-    const [ isSecureTextEntry, setIsSecureTextEntry ] = React.useState(true)
-    const [ isFocused, setIsFocused ] = React.useState(false)
+    const [ isSecureTextEntry, setIsSecureTextEntry ] = React.useState(true);
+    const [ isFocused, setIsFocused ] = React.useState(false);
 
   return (
-    <View>
+    <View style={contentContainerStyle}>
         <TextInput
             placeholder={placeholder}
             value={value}
@@ -35,8 +36,13 @@ const TextInputComponent = ({
                 styles.input,
                 { color: colors.text, backgroundColor: colors.textFieldBackgroundColor, borderColor: colors.textFieldBorderColor },
                 ( isFocused && { borderColor: colors.authTextFieldBorderColorFocus } ),
-                ( multiline && {height: sizes.textFieldHeight*numberOfLines, justifyContent: "flex-start", alignItems: "flex-start" } )
+                ( multiline && {
+                    fontSize: SIZES.fontSizeTextArea,
+                    height: SIZES.textFieldHeight * numberOfLines,
+                    textAlignVertical: 'top'
+                })
             ]}
+            // textContentType='none'
             // editable={editable}
             multiline={multiline}
             numberOfLines={numberOfLines}
@@ -65,10 +71,10 @@ export default TextInputComponent;
 const styles = StyleSheet.create({
     container: {
         position:"relative",
-        height: sizes.textFieldHeight
+        height: SIZES.textFieldHeight
     },
     input: {
-        height: sizes.textFieldHeight,
+        height: SIZES.textFieldHeight,
         paddingVertical: 8, //16,
         paddingHorizontal: 16, //16,
         borderRadius: 16,

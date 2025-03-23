@@ -7,14 +7,25 @@ import { QuizProps } from '@/types';
 import STYLES from '@/constants/styles';
 
 
-const QuizOptionCard = ( { title, isCorrect, marginRight=0, containerWidth=172}: QuizProps ) => {
+const QuizOptionCard = ( { title, isCorrect, marginRight=0, containerWidth=172, customStyle}: QuizProps ) => {
   const {colors} = useTheme()
   return (
     <TouchableOpacity
-    //   onPress={() =>  router.push({ pathname: '/lesson-unit-index', params: { result: isCorrect ? 1 : 0 } })}
       onPress={() =>  console.log( {"title": title, "Correct": isCorrect } )}
     >
-      <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
+      <View style={[
+          STYLES.contentCentered,
+          styles.container,
+          {
+            backgroundColor: colors.cardBackgroundColor,
+            borderColor: colors.cardBorderColor,
+            width: containerWidth,
+            height: containerWidth,
+            marginRight: marginRight
+          },
+          (customStyle && customStyle)
+        ]}
+      >
         <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
       </View>
     </TouchableOpacity>
@@ -32,7 +43,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16, // 24
     margin:0,
     minWidth: 172,
-    minHeight: 172,
+    // minHeight: 172,
   },
   title: {
     fontSize: 16,

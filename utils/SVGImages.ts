@@ -59,6 +59,9 @@ import RecorderLightActiveIcon from '@/assets/images/recorder/light/recorder-lig
 // Recorder Dark Icon
 import RecorderDarkInactiveIcon from '@/assets/images/recorder/dark/recorder-icon-dark-inactive.svg';
 
+import SpeakerActionButtonIcon from "@/assets/images/button/speaker-button-gradient-icon.svg";
+
+import SoundWaveLightIcon from "@/assets/images/sound-waves/sound-wave-light.svg";
 
 
 export {
@@ -100,5 +103,7 @@ export {
     NextBtnDark,
     PreviousBtnDark,
     RecorderLightActiveIcon,
-    RecorderDarkInactiveIcon
+    RecorderDarkInactiveIcon,
+    SpeakerActionButtonIcon,
+    SoundWaveLightIcon
 };

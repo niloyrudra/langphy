@@ -84,25 +84,29 @@ export const UNIT_DATA = [
   {
     id: '1',
     title: 'Hello',
-    completion: 80,
+    completion: 320,
+    goal: 600,
     ImgComponent: DolphinIcon
   },
   {
     id: '2',
     title: 'Good Day!',
-    completion: 60,
+    completion: 425,
+    goal: 600,
     ImgComponent: StudyingDolphinIcon
   },
   {
     id: '3',
     title: 'Good Bye!',
-    completion: 40,
+    completion: 210,
+    goal: 600,
     ImgComponent: BookIcon
   },
   {
     id: '4',
     title: 'Welcome',
-    completion: 90,
+    completion: 530,
+    goal: 600,
     ImgComponent: StudyingDolphinSmallIcon
   },
 ];
@@ -112,6 +116,7 @@ export const LESSON_UNIT_DATA = [
     id: '1',
     title: 'Practice',
     completion: 80,
+    goal: 100,
     slug: "practice",
     ImgComponent: DolphinIcon
   },
@@ -119,6 +124,7 @@ export const LESSON_UNIT_DATA = [
     id: '2',
     title: 'Quiz',
     completion: 60,
+    goal: 100,
     slug: "quiz",
     ImgComponent: DolphinIcon
   },
@@ -126,6 +132,7 @@ export const LESSON_UNIT_DATA = [
     id: '3',
     title: 'Listening',
     completion: 40,
+    goal: 100,
     slug: "listening",
     ImgComponent: DolphinIcon
   },
@@ -133,6 +140,7 @@ export const LESSON_UNIT_DATA = [
     id: '4',
     title: 'Reading',
     completion: 90,
+    goal: 100,
     slug: "reading",
     ImgComponent: DolphinIcon
   },
@@ -140,6 +148,7 @@ export const LESSON_UNIT_DATA = [
     id: '5',
     title: 'Speaking',
     completion: 75,
+    goal: 100,
     slug: "speaking",
     ImgComponent: DolphinIcon
   },
@@ -147,6 +156,7 @@ export const LESSON_UNIT_DATA = [
     id: '6',
     title: 'Writing',
     completion: 45,
+    goal: 100,
     slug: "writing",
     ImgComponent: DolphinIcon
   }

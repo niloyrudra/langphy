@@ -1,90 +1,61 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { View } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
-import sizes from '@/constants/size';
-
+import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
-import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
-import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
+import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
+import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 
 const WritingLessons = () => {
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
+  const [ textContent, setTextContent ] = React.useState('')
   return (
-    <SafeAreaProvider>
-      <SafeAreaView
-        style={[styles.container, {backgroundColor: colors.background}]}
-      >
+    <SafeAreaLayout>
+      <KeyboardAvoidingViewLayout>
+
         {/* Content */}
         <View style={{flex: 1}}>
 
           <View style={{flex: 1}}>
             {/* Title Section */}
-            <ChallengeScreenTitle title="Write in German" />
+            <ChallengeScreenTitle title="Listen And Write." />
 
             {/* Writing Section Starts */}
-            <View
-              style={{
-                flex:1,
-                marginBottom: 80
-              }}
-            >
+            <ChallengeScreenQuerySection query="Hello! My name is Anna." onTap={() => console.log("Tapping Query Button")} />
 
-              <ChallengeScreenQuerySection query="Hello! My name is Anna." onTap={() => console.log("Tapping Query Button")} />
+            <View style={{flex:1}}/>
 
-              <View style={{flex:1}}/>
-
-              {/* Writing Text Field/Input/Area Section */}
-              <TextInputComponent
-                multiline={true}
-                numberOfLines={4}
-                maxLength={600}
-                placeholder='Write here...'
-                value=''
-                onChange={(text) => console.log(text)}
-                placeholderTextColor={colors.placeholderColor}
-              />
-
-            </View>
-            {/* Writing Section Ens */}
-          
           </View>
 
-          {/* Action Buttons */}
+          {/* Writing Text Field/Input/Area Section */}
+          <TextInputComponent
+            multiline={true}
+            numberOfLines={3}
+            maxLength={500}
+            placeholder='Write here...'
+            value={textContent}
+            onChange={(text) => setTextContent(text)}
+            placeholderTextColor={colors.placeholderColor}
+            inputMode="text"
+            contentContainerStyle={{
+              marginBottom: 40
+            }}
+          />
 
+          {/* Action Buttons */}
           <ActionPrimaryButton
             buttonTitle='Check'
             onSubmit={() => console.log("Submitted")}
-            disabled={true}
+            disabled={textContent.length === 0}
           />
 
         </View>
 
-      </SafeAreaView>
-    </SafeAreaProvider>
+      </KeyboardAvoidingViewLayout>
+    </SafeAreaLayout>
   );
 }
 
 export default WritingLessons;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 0,
-    paddingHorizontal: sizes.bodyPaddingHorizontal,
-    paddingVertical: sizes.bodyPaddingVertical + 10
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  mainText: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  subText: {
-    fontSize: 12,
-    fontWeight: "400",
-  }
-})

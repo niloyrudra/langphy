@@ -23,6 +23,7 @@ type UnitLesson = {
   title: string,
   slug: string,
   completion: number,
+  goal: number,
   ImgComponent: React.FC<SvgProps>
 }
 
@@ -30,6 +31,7 @@ type UnitLessonProps = {
     title: string,
     slug: string,
     completion: number,
+    goal: number,
     ImgComponent: React.FC<SvgProps>,
     containerWidth: number
     marginRight?: number
@@ -47,11 +49,13 @@ type QuizProps = {
     isCorrect: boolean,
     containerWidth: number
     marginRight?: number
+    customStyle?: StyleProp<ViewStyle>
 }
 
 type UnitProps = {
     title: string,
     completion: number,
+    goal: number,
     ImgComponent: React.FC<SvgProps>,
     // imgSource: ImageSourcePropType | undefined,
     customStyle?: StyleProp<ViewStyle>
@@ -61,6 +65,7 @@ type UnitDataProps = {
     id: string,
     title: string,
     completion: number,
+    goal: number,
     ImgComponent: React.FC<SvgProps>
 }
 
@@ -98,7 +103,8 @@ type InputProps = { // extends TextInputProps -> better approach
     maxLength?: number,
     inputMode?: InputModeOptions | undefined,
     placeholderTextColor?: ColorValue | undefined,
-    isPassword?: boolean
+    isPassword?: boolean,
+    contentContainerStyle?: StyleProp<ViewStyle>
 }
 
 type EyeProps = {

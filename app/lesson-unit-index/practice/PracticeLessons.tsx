@@ -1,28 +1,22 @@
+import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
-import LessonComponent from '@/components/lesson-components/LessonComponent';
-import HorizontalLine from '@/components/HorizontalLine';
-import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
-
+import { useTheme } from '@/theme/ThemeContext';
+import HorizontalLine from '@/components/HorizontalLine';
+import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
+import LessonComponent from '@/components/lesson-components/LessonComponent';
+import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
 import { SpeakerIcon, SpeakerAltIcon, SpeakerAltDarkIcon, SpeakerDarkIcon, PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark } from '@/utils/SVGImages';
 
 const PracticeLessons = () => {
   const { colors, theme } = useTheme();
   return (
-    <SafeAreaProvider>
-      <SafeAreaView
-        style={[styles.container, {backgroundColor: colors.background}]}
-      >
+    <SafeAreaLayout>
+      
         {/* Content */}
-        <View
-          style={{
-            flex: 1,
-          }}
-        >
+        <View style={{flex: 1}}>
           <View style={{flex: 1}}>
+
           {/* Source Language Section */}
           <LessonComponent
             language="English"
@@ -81,8 +75,7 @@ const PracticeLessons = () => {
         {/* Dictionary Floating Button */}
         <FloatingDictionaryIcon />
 
-      </SafeAreaView>
-    </SafeAreaProvider>
+    </SafeAreaLayout>
   );
 }
 

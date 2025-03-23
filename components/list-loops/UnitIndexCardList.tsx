@@ -26,8 +26,9 @@ const UnitIndexCardList = ({cardWidth}: {cardWidth: number}) => {
           <>
             {
               ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
-              ? (<LessonUnitIndexCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} completion={item.completion} containerWidth={cardWidth} marginRight={sizes.cardGap} />)
-              : (<LessonUnitIndexCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} completion={item.completion} containerWidth={cardWidth} />)
+              ? (<LessonUnitIndexCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} completion={item.completion} goal={item.goal} containerWidth={cardWidth} marginRight={sizes.cardGap} />)
+              
+              : (<LessonUnitIndexCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} completion={item.completion} goal={item.goal} containerWidth={cardWidth} />)
             }
           </>
         )}

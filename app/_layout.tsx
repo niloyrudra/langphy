@@ -9,7 +9,8 @@ import CustomArchiveHeader from "@/components/CustomArchiveHeader";
 import CustomLessonHeader from "@/components/CustomLessonHeader";
 import CustomHeader from "@/components/CustomHeader";
 import { View } from "react-native";
-import CustomLessonUnitIndexHeader from "@/components/CustomLessonUnitIndexHeader";
+// import CustomLessonUnitIndexHeader from "@/components/CustomLessonUnitIndexHeader";
+import CustomDefaultHeader from "@/components/CustomDefaultHeader";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -78,21 +79,23 @@ const RootLayout = () => {
             name="lesson-unit-index"
             options={{
               header: (props) => {
-                // console.log(props)
-                return(<CustomLessonUnitIndexHeader title={props.route.params?.title || "Lesson Units"} />)
+                const completion = props.route.params?.completion ?? 0;
+                const goal = props.route.params?.goal ?? 20;
+                return (<CustomLessonHeader completion={completion} goal={goal} />)
               }
             }}
           />
+          
           <Stack.Screen
             name="terms"
             options={{
-              header: () => (<CustomLessonHeader />)
+              header: () => (<CustomDefaultHeader />)
             }}
           />
           <Stack.Screen
             name="privacy"
             options={{
-              header: () => (<CustomLessonHeader />)
+              header: () => (<CustomDefaultHeader />)
             }}
           />
         </Stack>

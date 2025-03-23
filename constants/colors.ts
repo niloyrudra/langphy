@@ -43,6 +43,8 @@ export const lightColors = {
 
   disabledButtonBackgroundColor: "#EDEDED",
   disabledButtonColor: "#FFFFFF",
+
+  headerProgressBarBackgroundColor: "#EEF8FF",
 };
 
 export const darkColors = {
@@ -89,4 +91,6 @@ export const darkColors = {
 
   disabledButtonBackgroundColor: "#232E42",
   disabledButtonColor: "#081A33",
+
+  headerProgressBarBackgroundColor: "#142C57",
 };

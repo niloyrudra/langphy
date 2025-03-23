@@ -6,10 +6,10 @@ import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
 
-const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, marginRight=0, containerWidth=172}: UnitLessonProps ) => {
+const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, goal, marginRight=0, containerWidth=172}: UnitLessonProps ) => {
   const {colors} = useTheme()
   return (
-    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lesson-unit-index/${slug}`, params: { title: title, slug: slug } })}>
+    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lesson-unit-index/${slug}`, params: { completion: completion, goal: goal, slug: slug } })}>
       
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
         

@@ -1,110 +1,83 @@
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
-import LessonComponent from '@/components/lesson-components/LessonComponent';
-import HorizontalLine from '@/components/HorizontalLine';
+import React from 'react';
+import { useWindowDimensions, View, Text } from 'react-native'
+import SIZES from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
-import sizes from '@/constants/size';
+import { getCardContainerWidth } from '@/utils';
+import HorizontalLine from '@/components/HorizontalLine';
+import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
+import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
+import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
+import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 
-import { SpeakerIcon, SpeakerAltIcon, SpeakerAltDarkIcon, SpeakerDarkIcon, PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark } from '@/utils/SVGImages';
 
 const ReadingLessons = () => {
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const cardWidth = getCardContainerWidth(width);
+  const [selected, stSelected] = React.useState(false)
   return (
-    <SafeAreaProvider>
-      <SafeAreaView
-        style={[styles.container, {backgroundColor: colors.background}]}
-      >
-        {/* Content */}
-        <View
-          style={{
-            flex: 1,
-          }}
-        >
-          <View style={{flex: 1}}>
-          {/* Source Language Section */}
-          <LessonComponent
-            language="English"
-            iconComponent={theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon/>}
-            style={{borderColor:"#08C1D2"}}
-            buttonStyle={{backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor}}
-          >
-            <Text style={[styles.text, {color: colors.textDark}]}>Hello!</Text>
-          </LessonComponent>
+    <SafeAreaLayout>
 
-          <HorizontalLine style={{marginTop: 30, marginBottom: 50}} />
-          
-          {/* Acting Language Section */}
-          <LessonComponent
-            language="German"
-            iconComponent={theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />}
-            style={{borderColor:"#1B7CF5"}}
-            buttonStyle={{backgroundColor: colors.lessonActionCardSpeakerBackgroundColor}}
-          >
-            <Text style={[styles.mainText, {color: colors.textDark}]}>Moin Moin!</Text>
-            <Text style={[styles.subText, {color: colors.textSubColor}]}>(Very friendly way to say hello in North Germany)</Text>
-          </LessonComponent>
+        {/* Content */}
+        <View style={{flex: 1}}>
+
+          <View style={{flex: 1}}>
+            {/* Title Section */}
+            <ChallengeScreenTitle title="Read The Comprehension." />
+
+            {/* Writing Section Starts */}
+            <ChallengeScreenQuerySection
+              style={{
+                marginBottom: 0
+              }}
+              buttonStyle={{
+                width: SIZES.screenWidth - (SIZES.bodyPaddingHorizontal*2),
+                justifyContent:"flex-start",
+                alignItems:"flex-start",
+              }}
+              textStyle={{
+                fontSize: 12
+              }}
+              query="Zu meiner Familie gehören vier Personen. Die Mutter bin ich und dann gehört natürlich mein Mann dazu. Wir haben zwei Kinder, einen Sohn, der sechs Jahre alt ist und eine dreijährige Tochter.
+              
+              Wir wohnen in einem kleinen Haus mit einem Garten. Dort können die Kinder ein bisschen spielen. Unser Sohn kommt bald in die Schule, unsere Tochter geht noch eine Zeit lang in den Kindergarten. Meine Kinder sind am Nachmittag zu Hause. So arbeite ich nur halbtags.
+              "
+              
+              onTap={() => console.log("Tapping Query Button")}
+            />
+
+            <HorizontalLine />
+
+            <View
+              style={{
+                flex: 1
+              }}
+            >
+              <View style={{marginBottom:10}}>
+                <Text style={{fontSize: 16, color: colors.text, fontWeight:"700"}}>How would you reckon someone?</Text>
+              </View>
+              {/* QUIZ Answer Options */}
+              <QuizOptionCardList cardWidth={cardWidth} height={cardWidth/2} />
+              {/* <QuizAnswerOptionGrid /> */}
+            </View>
 
           </View>
+
+          <HorizontalLine />
+
 
           {/* Action Buttons */}
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 16,
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
-
-            <TouchableOpacity>
-              {
-                theme === 'light'
-                ? (<PreviousBtnLight width={167} height={sizes.buttonHeight} />)
-                : (<PreviousBtnDark width={167} height={sizes.buttonHeight} />)
-              }
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              {
-                theme === 'light'
-                ? (<NextBtnLight width={167} height={sizes.buttonHeight} />)
-                : (<NextBtnDark width={167} height={sizes.buttonHeight} />)
-              }
-            </TouchableOpacity>
-
-          </View>
+          <ActionPrimaryButton
+            buttonTitle='Check'
+            onSubmit={() => console.log("Submitted")}
+            disabled={!selected}
+          />
 
         </View>
-          
-        {/* Dictionary Floating Button */}
-        <FloatingDictionaryIcon />
 
-      </SafeAreaView>
-    </SafeAreaProvider>
+    </SafeAreaLayout>
   );
 }
 
 export default ReadingLessons;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 0,
-    paddingHorizontal: sizes.bodyPaddingHorizontal,
-    paddingVertical: sizes.bodyPaddingVertical + 10
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  mainText: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  subText: {
-    fontSize: 12,
-    fontWeight: "400",
-  }
-})
