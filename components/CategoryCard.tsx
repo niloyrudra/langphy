@@ -11,7 +11,7 @@ const CategoryCard = ( { catTitle, slug, ImgComponent, marginRight=0, containerW
   const {colors} = useTheme()
   return (
     <TouchableOpacity
-      onPress={() =>  router.push({ pathname: '/lesson-unit', params: { title: catTitle, slug: slug } })}
+      onPress={() =>  router.push({ pathname: `/lessons/${slug}`, params: { title: catTitle, slug: slug } })}
     >
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
         <ImgComponent width={80} height={80} />
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16, // 24
     margin:0,
     minWidth: 172,
-    minHeight: 172,
+    // minHeight: 172,
   },
   title: {
     fontSize: 16,

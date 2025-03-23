@@ -1,23 +1,28 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { router } from 'expo-router';
-import { UnitProps } from '@/types';
-// import * as Progress from 'react-native-progress';
-import { useTheme } from '@/theme/ThemeContext';
-import STYLES from '@/constants/styles';
-import sizes from '@/constants/size';
+import { router, useLocalSearchParams } from 'expo-router';
+// import { useRouteInfo } from 'expo-router/build/hooks';
 
-import ProgressBar from './ProgressBar';
 import Title from './Title';
-// import { BookIcon } from '@/utils/SVGImages';
+import { UnitProps } from '@/types';
+import sizes from '@/constants/size';
+import STYLES from '@/constants/styles';
+import ProgressBar from './ProgressBar';
+import { useTheme } from '@/theme/ThemeContext';
 
 
 const UnitRectangleCard = ({ title, completion, goal, ImgComponent, customStyle }: UnitProps) => {
   const { colors } = useTheme();
   const completionMatrix = (completion/goal)*100;
+  const {category} = useLocalSearchParams();
+
+  // const nodes = useRouteInfo()
+
+  // console.log("lessons/[category]", nodes?.params)
+
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: '/lesson-unit-index', params: { title:title, completion: completion, goal: goal }})}
+      onPress={() => router.push({ pathname: `/lessons/${category}/${title.toLowerCase()}`, params: { title:title, category: title, completion: completion, goal: goal }})}
     >
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         

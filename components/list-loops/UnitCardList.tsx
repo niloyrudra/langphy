@@ -1,7 +1,7 @@
-import { FlatList, View } from 'react-native'
 import React from 'react'
-import { UNIT_DATA } from '@/schemes/static-data'
 import { UnitDataProps } from '@/types'
+import { FlatList, View } from 'react-native'
+import { UNIT_DATA } from '@/schemes/static-data'
 import UnitRectangleCard from '../UnitRectangleCard'
 
 const UnitCardList = () => {

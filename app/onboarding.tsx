@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import React from 'react'
 
 // Constants
-import * as STYLES from "@/constants/styles"
+import STYLES from "@/constants/styles"
 import { useTheme } from '@/theme/ThemeContext'
 import OnBoardingStudyDurationCard from '@/components/OnBoardingStudyDurationCard';
 import { router } from 'expo-router';
@@ -72,12 +72,12 @@ const OnBoarding = () => {
       >
         <ActionPrimaryButton
           buttonTitle='Continue'
-          onSubmit={() => router.replace("/")}
+          onSubmit={() => router.replace("/lessons/index")}
         />
         
         <TouchableOpacity
           style={[STYLES.childContentCentered, {padding:16}]}
-          onPress={() => router.replace("/")}
+          onPress={() => router.replace("/lessons/index")}
         >
           <Text style={{ fontSize: 16, lineHeight: 22, fontWeight: "800", color: colors.skipTextColor }}>Skip for Now</Text>
         </TouchableOpacity>

@@ -1,16 +1,17 @@
+import React from "react";
+import { View } from "react-native";
 import { Stack } from "expo-router"; // 'Slot' for one-paged apps
+import { useFonts } from 'expo-font';
 import { ThemeProvider } from "@/theme/ThemeContext";
 
-import {useFonts} from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import React from "react";
 
+import CustomHeader from "@/components/CustomHeader";
 import CustomArchiveHeader from "@/components/CustomArchiveHeader";
 import CustomLessonHeader from "@/components/CustomLessonHeader";
-import CustomHeader from "@/components/CustomHeader";
-import { View } from "react-native";
-// import CustomLessonUnitIndexHeader from "@/components/CustomLessonUnitIndexHeader";
+
 import CustomDefaultHeader from "@/components/CustomDefaultHeader";
+import HeaderLogo from "@/components/header/HeaderLogo";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -48,61 +49,30 @@ const RootLayout = () => {
   
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-
       <ThemeProvider>
-
-        <Stack
-          screenOptions={{
-            headerShadowVisible: false,
-          }}
-        >
-          <Stack.Screen
-            name="auth"
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen
-            name="index"
-            options={{
-              header: () => (<CustomHeader />),
-            }}
-          />
-          <Stack.Screen
-            name="lesson-unit"
-            options={({}) => ({
-              header: (props) => (<CustomArchiveHeader title={props.route.params?.title || "Category"} />),
-            })}
-          />
-          <Stack.Screen
-            name="lesson-unit-index"
-            options={{
-              header: (props) => {
-                const completion = props.route.params?.completion ?? 0;
-                const goal = props.route.params?.goal ?? 20;
-                return (<CustomLessonHeader completion={completion} goal={goal} />)
-              }
-            }}
-          />
-          
-          <Stack.Screen
-            name="terms"
-            options={{
-              header: () => (<CustomDefaultHeader />)
-            }}
-          />
-          <Stack.Screen
-            name="privacy"
-            options={{
-              header: () => (<CustomDefaultHeader />)
-            }}
-          />
+        <Stack screenOptions={{headerShadowVisible: false }} initialRouteName="lessons">
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+          <Stack.Screen name="auth/login" options={{ headerShown: false }} />
+          <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
+          <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
+          <Stack.Screen name="lessons" options={{ headerShown: false }}/>
+          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         </Stack>
-
       </ThemeProvider>
-
     </View>
   );
 }
 export default RootLayout;
+
+
+
+
+
+
+
+
+
+
+
+

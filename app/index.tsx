@@ -1,27 +1,12 @@
-import React from 'react'
-import { SafeAreaView, useWindowDimensions } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { useTheme } from '@/theme/ThemeContext'
-
-import CategoryCardList from '@/components/list-loops/CategoryCardList';
-import { getCardContainerWidth } from '@/utils'
-import StatusBarComponent from '@/components/StatusBarComponent'
+import { Redirect } from "expo-router";
 
 const App = () => {
-  const { colors } = useTheme();
-  const { width } = useWindowDimensions();
-  const cardWidth = getCardContainerWidth(width);
+  const isLoggedIn = true; // Replace with actual auth state
 
-  return (
-    <SafeAreaProvider>
-      <SafeAreaView style={[ {flex: 1}, { backgroundColor: colors.background }]}>
-        
-        <StatusBarComponent />
-        <CategoryCardList cardWidth={cardWidth} />
+  if (!isLoggedIn) {
+    return <Redirect href="/auth/login" />;
+  }
 
-      </SafeAreaView>
-    </SafeAreaProvider>
-  );
+  return <Redirect href="/lessons" />;
 }
-
 export default App;

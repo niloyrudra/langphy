@@ -1,15 +1,17 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { router } from 'expo-router';
-import { UnitLessonProps } from '@/types';
-import { useTheme } from '@/theme/ThemeContext';
+import { router, useLocalSearchParams } from 'expo-router';
 import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
+import { UnitLessonProps } from '@/types';
+import { useTheme } from '@/theme/ThemeContext';
 
 const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, goal, marginRight=0, containerWidth=172}: UnitLessonProps ) => {
-  const {colors} = useTheme()
+  const {colors} = useTheme();
+  const {category, unit} = useLocalSearchParams();
+
   return (
-    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lesson-unit-index/${slug}`, params: { completion: completion, goal: goal, slug: slug } })}>
+    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lessons/${category}/${unit}/${slug}`, params: { completion: completion, goal: goal, slug: slug } })}>
       
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
         

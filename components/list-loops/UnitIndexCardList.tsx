@@ -1,14 +1,15 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, useWindowDimensions, View } from 'react-native';
+// import { useRouteInfo } from 'expo-router/build/hooks';
 import { UnitLesson } from '@/types';
-
+import SIZES from '@/constants/size'
+import { getCardContainerWidth } from '@/utils';
 import { LESSON_UNIT_DATA } from '@/schemes/static-data'
-
-import sizes from '@/constants/size'
-
 import LessonUnitIndexCard from '../LessonUnitIndexCard'
 
-const UnitIndexCardList = ({cardWidth}: {cardWidth: number}) => {
+const UnitIndexCardList = () => {
+  const { width } = useWindowDimensions();
+  const cardWidth = getCardContainerWidth(width);
   return (
     <>
       <FlatList
@@ -18,7 +19,7 @@ const UnitIndexCardList = ({cardWidth}: {cardWidth: number}) => {
         numColumns={2}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          gap: sizes.cardGap,
+          gap: SIZES.cardGap,
           alignItems: 'center'
         }}
         ListHeaderComponent={(<View style={{height:0}}/>)}
@@ -26,9 +27,28 @@ const UnitIndexCardList = ({cardWidth}: {cardWidth: number}) => {
           <>
             {
               ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
-              ? (<LessonUnitIndexCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} completion={item.completion} goal={item.goal} containerWidth={cardWidth} marginRight={sizes.cardGap} />)
+              ? (
+                  <LessonUnitIndexCard
+                    title={item.title}
+                    slug={item.slug}
+                    ImgComponent={item.ImgComponent}
+                    completion={item.completion}
+                    goal={item.goal}
+                    containerWidth={cardWidth}
+                    marginRight={SIZES.cardGap}
+                  />
+                )
               
-              : (<LessonUnitIndexCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} completion={item.completion} goal={item.goal} containerWidth={cardWidth} />)
+              : (
+                <LessonUnitIndexCard
+                  title={item.title}
+                  slug={item.slug}
+                  ImgComponent={item.ImgComponent}
+                  completion={item.completion}
+                  goal={item.goal}
+                  containerWidth={cardWidth}
+                />
+              )
             }
           </>
         )}
@@ -37,5 +57,4 @@ const UnitIndexCardList = ({cardWidth}: {cardWidth: number}) => {
     </>
   )
 }
-
 export default UnitIndexCardList;
