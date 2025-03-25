@@ -5,16 +5,16 @@ import { SvgProps } from "react-native-svg"
 
 type Category = {
   id: string,
-  catTitle: string,
+  title: string,
   slug: string,
   ImgComponent: React.FC<SvgProps>
 }
 
 type CategoryProps = {
-    catTitle: string,
+    title: string,
     slug: string,
     ImgComponent: React.FC<SvgProps>,
-    containerWidth: number
+    containerWidth?: number
     marginRight?: number
 }
 

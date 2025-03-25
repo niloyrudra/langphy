@@ -14,12 +14,12 @@ const Title = ({title}: {title: string}) => {
 export default Title
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: "600",
-        lineHeight: 22
-    }
+  container: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "600",
+    lineHeight: 22
+  }
 });

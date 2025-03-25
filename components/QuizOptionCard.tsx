@@ -1,19 +1,20 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-// import { router } from 'expo-router';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import { QuizProps } from '@/types';
 
 import STYLES from '@/constants/styles';
+import TitleHeading from './TitleHeading';
 
 
-const QuizOptionCard = ( { title, isCorrect, marginRight=0, containerWidth=172, customStyle}: QuizProps ) => {
+const QuizOptionCard = ( { title, isCorrect, marginRight=0, containerWidth=172, customStyle }: QuizProps ) => {
   const {colors} = useTheme()
   return (
     <TouchableOpacity
       onPress={() =>  console.log( {"title": title, "Correct": isCorrect } )}
     >
-      <View style={[
+      <View style={
+        [
           STYLES.contentCentered,
           styles.container,
           {
@@ -26,7 +27,9 @@ const QuizOptionCard = ( { title, isCorrect, marginRight=0, containerWidth=172, 
           (customStyle && customStyle)
         ]}
       >
-        <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
+        
+        <TitleHeading title={title}/>
+
       </View>
     </TouchableOpacity>
   );
@@ -35,8 +38,6 @@ export default QuizOptionCard;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    gap: 20,
     borderRadius: 24,
     borderWidth: 1,
     paddingVertical: 16,
@@ -44,11 +45,5 @@ const styles = StyleSheet.create({
     margin:0,
     minWidth: 172,
     // minHeight: 172,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "700",
-    lineHeight: 18,
-    fontFamily: 'PlusJakartaSans-Bold',
   }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, useWindowDimensions, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 // import { useRouteInfo } from 'expo-router/build/hooks';
 import { UnitLesson } from '@/types';
 import SIZES from '@/constants/size'
@@ -8,8 +8,7 @@ import { LESSON_UNIT_DATA } from '@/schemes/static-data'
 import LessonUnitIndexCard from '../LessonUnitIndexCard'
 
 const UnitIndexCardList = () => {
-  const { width } = useWindowDimensions();
-  const cardWidth = getCardContainerWidth(width);
+  const cardWidth = getCardContainerWidth();
   return (
     <>
       <FlatList

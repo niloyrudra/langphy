@@ -47,6 +47,19 @@ const defaultContainer: StyleProp<ViewProps> = <ViewProps> {
     paddingVertical: sizes.bodyPaddingVertical,
 };
 
+const titleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
+    fontSize: 16,
+    fontWeight: "900",
+    lineHeight: 16,
+    fontFamily: 'PlusJakartaSans-ExtraBold',
+};
+const subTitleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
+    fontSize: 14,
+    fontWeight: "700",
+    lineHeight: 14,
+    fontFamily: 'PlusJakartaSans-Bold',
+};
+
 
 const STYLES = {
     headerContainer,
@@ -56,7 +69,9 @@ const STYLES = {
     textHeader,
     textSubHeader,
     contentCentered,
-    childContentCentered
+    childContentCentered,
+    titleHeadingStyle,
+    subTitleHeadingStyle
 };
 
 export default STYLES;

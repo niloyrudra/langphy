@@ -1,3 +1,3 @@
-import sizes from "@/constants/size";
+import SIZES from "@/constants/size";
 
-export const getCardContainerWidth =  (width: number) =>  (width - ( (sizes.bodyPaddingHorizontal*2) + sizes.cardGap )) / 2;
+export const getCardContainerWidth =  () =>  (SIZES.screenWidth - ( (SIZES.bodyPaddingHorizontal*2) + SIZES.cardGap )) / 2;

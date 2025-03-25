@@ -18,6 +18,38 @@ import FamilyIcon from '@/assets/images/categories/svg/family.svg';
 import FoodsIcon from '@/assets/images/categories/svg/foods.svg';
 import LocationIcon from '@/assets/images/categories/svg/location.svg';
 
+// Category Icons V2
+import GreetingsIconV2 from '@/assets/images/categories/v2/greetings.svg';
+import IntroIconV2 from '@/assets/images/categories/v2/introductions.svg';
+import NumberIconV2 from '@/assets/images/categories/v2/numbers.svg';
+import ColorsIconV2 from '@/assets/images/categories/v2/colors.svg';
+import TimeIconV2 from '@/assets/images/categories/v2/time.svg';
+import CalendarIconV2 from '@/assets/images/categories/v2/calendar.svg';
+import SeasonsIconV2 from '@/assets/images/categories/v2/seasons.svg';
+import ActivitiesIconV2 from '@/assets/images/categories/v2/activity.svg';
+import FamilyIconV2 from '@/assets/images/categories/v2/family.svg';
+import FoodIconV2 from '@/assets/images/categories/v2/food.svg';
+import DirectionIconV2 from '@/assets/images/categories/v2/directions.svg';
+import TravelIconV2 from '@/assets/images/categories/v2/travel.svg';
+import ShoppingIconV2 from '@/assets/images/categories/v2/shopping-cart.svg';
+import WorkIconV2 from '@/assets/images/categories/v2/work.svg';
+import HealthIconV2 from '@/assets/images/categories/v2/health.svg';
+import PreferenceIconV2 from '@/assets/images/categories/v2/preference.svg';
+import InvitationsIconV2 from '@/assets/images/categories/v2/invitation.svg';
+import TechnologyIconV2 from '@/assets/images/categories/v2/technology.svg';
+import EducationIconV2 from '@/assets/images/categories/v2/education.svg';
+import CultureIconV2 from '@/assets/images/categories/v2/culture.svg';
+import OpinionsIconV2 from '@/assets/images/categories/v2/opinions.svg';
+import EntertainmentIconV2 from '@/assets/images/categories/v2/entertainment.svg';
+
+// Lessons
+import PracticeIcon from '@/assets/images/unit/v2/notebook.svg';
+import QuizIcon from '@/assets/images/unit/v2/quiz.svg';
+import ListeningIcon from '@/assets/images/unit/v2/headphones.svg';
+import SpeakingIcon from '@/assets/images/unit/v2/microphone.svg';
+import ReadingIcon from '@/assets/images/unit/v2/book-open.svg';
+import WritingIcon from '@/assets/images/unit/v2/license-draft.svg';
+
 // Dic
 import DictionaryIcon from '@/assets/images/screen-icons/dictionary-icon.svg';
 
@@ -78,6 +110,36 @@ export {
     FamilyIcon,
     FoodsIcon,
     LocationIcon,
+
+    GreetingsIconV2,
+    IntroIconV2,
+    NumberIconV2,
+    ColorsIconV2,
+    TimeIconV2,
+    CalendarIconV2,
+    SeasonsIconV2,
+    ActivitiesIconV2,
+    FamilyIconV2,
+    FoodIconV2,
+    DirectionIconV2,
+    TravelIconV2,
+    ShoppingIconV2,
+    WorkIconV2,
+    HealthIconV2,
+    PreferenceIconV2,
+    InvitationsIconV2,
+    TechnologyIconV2,
+    EducationIconV2,
+    CultureIconV2,
+    OpinionsIconV2,
+    EntertainmentIconV2,
+
+    PracticeIcon,
+    QuizIcon,
+    WritingIcon,
+    ReadingIcon,
+    SpeakingIcon,
+    ListeningIcon,
 
     DictionaryIcon,
     GermanyCircleFlagIcon,

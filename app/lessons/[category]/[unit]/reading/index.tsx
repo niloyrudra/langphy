@@ -64,9 +64,6 @@ const ReadingLessons = () => {
 
           </View>
 
-          <HorizontalLine />
-
-
           {/* Action Buttons */}
           <ActionPrimaryButton
             buttonTitle='Check'

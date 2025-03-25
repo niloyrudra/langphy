@@ -5,6 +5,8 @@ import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
 import { UnitLessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
+import GridCardIcon from './GridCardIcon';
+import TitleHeading from './TitleHeading';
 
 const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, goal, marginRight=0, containerWidth=172}: UnitLessonProps ) => {
   const {colors} = useTheme();
@@ -15,9 +17,9 @@ const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, goal, mar
       
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
         
-        <ImgComponent width={80} height={80} />
+        <GridCardIcon ImgComponent={ImgComponent} />
         
-        <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
+        <TitleHeading title={title} />
         
         <ProgressBar completion={completion} />
 

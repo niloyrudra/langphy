@@ -11,6 +11,7 @@ export const lightColors = {
   themeIconColor: "#061825",
   cardBackgroundColor: "#EEF8FF",
   cardBorderColor: "#BCE4FF",
+  cardIconBackgroundColor: "#FFFFFF",
 
   hLineColor: "#EDEDED",
 
@@ -44,7 +45,7 @@ export const lightColors = {
   disabledButtonBackgroundColor: "#EDEDED",
   disabledButtonColor: "#FFFFFF",
 
-  headerProgressBarBackgroundColor: "#EEF8FF",
+  headerProgressBarBackgroundColor: "#E8EFF4",
 };
 
 export const darkColors = {
@@ -58,7 +59,8 @@ export const darkColors = {
   steakBadgeBackgroundColor: "#0B3C5F",
   themeIconColor: "#F9CB38",
   cardBackgroundColor: "#021331",
-  cardBorderColor: "#1751B6",
+  cardBorderColor: "#1751B6", // "#BCE4FF"
+  cardIconBackgroundColor: "#142C57",
 
   hLineColor: "#0B3C5F",
 

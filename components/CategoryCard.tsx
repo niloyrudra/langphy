@@ -5,17 +5,24 @@ import { useTheme } from '@/theme/ThemeContext';
 import { CategoryProps } from '@/types';
 
 import STYLES from '@/constants/styles';
+import TitleHeading from './TitleHeading';
+import { getCardContainerWidth } from '@/utils';
+import GridCardIcon from './GridCardIcon';
 
 
-const CategoryCard = ( { catTitle, slug, ImgComponent, marginRight=0, containerWidth=172}: CategoryProps ) => {
-  const {colors} = useTheme()
+const CategoryCard = ( { title, slug, ImgComponent, marginRight=0}: CategoryProps ) => {
+  const {colors} = useTheme();
+  const cardWidth = getCardContainerWidth();
   return (
     <TouchableOpacity
-      onPress={() =>  router.push({ pathname: `/lessons/${slug}`, params: { title: catTitle, slug: slug } })}
+      onPress={() =>  router.push({ pathname: `/lessons/${slug}`, params: { title: title, slug: slug } })}
     >
-      <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
-        <ImgComponent width={80} height={80} />
-        <Text style={[styles.title, { color: colors.text }]}>{catTitle}</Text>
+      <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: cardWidth, height: cardWidth, marginRight: marginRight} ]}>
+        
+        <GridCardIcon ImgComponent={ImgComponent} />
+        
+        <TitleHeading title={title} />
+        
       </View>
     </TouchableOpacity>
   );
@@ -34,10 +41,4 @@ const styles = StyleSheet.create({
     minWidth: 172,
     // minHeight: 172,
   },
-  title: {
-    fontSize: 16,
-    fontWeight: "700",
-    lineHeight: 18,
-    fontFamily: 'PlusJakartaSans-Bold',
-  }
 });
