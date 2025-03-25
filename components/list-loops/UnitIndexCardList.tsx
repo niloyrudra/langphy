@@ -1,59 +1,17 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
-// import { useRouteInfo } from 'expo-router/build/hooks';
 import { UnitLesson } from '@/types';
-import SIZES from '@/constants/size'
-import { getCardContainerWidth } from '@/utils';
+import SIZES from '@/constants/size';
+import GridLayout from '../layouts/GridLayout';
 import { LESSON_UNIT_DATA } from '@/schemes/static-data'
 import LessonUnitIndexCard from '../LessonUnitIndexCard'
 
 const UnitIndexCardList = () => {
-  const cardWidth = getCardContainerWidth();
   return (
-    <>
-      <FlatList
-        data={LESSON_UNIT_DATA}
-        keyExtractor={({id}: UnitLesson) => id}
-        horizontal={false}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          gap: SIZES.cardGap,
-          alignItems: 'center'
-        }}
-        ListHeaderComponent={(<View style={{height:0}}/>)}
-        renderItem={({item}: {item: UnitLesson}) => (
-          <>
-            {
-              ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
-              ? (
-                  <LessonUnitIndexCard
-                    title={item.title}
-                    slug={item.slug}
-                    ImgComponent={item.ImgComponent}
-                    completion={item.completion}
-                    goal={item.goal}
-                    containerWidth={cardWidth}
-                    marginRight={SIZES.cardGap}
-                  />
-                )
-              
-              : (
-                <LessonUnitIndexCard
-                  title={item.title}
-                  slug={item.slug}
-                  ImgComponent={item.ImgComponent}
-                  completion={item.completion}
-                  goal={item.goal}
-                  containerWidth={cardWidth}
-                />
-              )
-            }
-          </>
-        )}
-        ListFooterComponent={(<View style={{height:20}} />)}
-      />
-    </>
-  )
+    <GridLayout<UnitLesson>
+      data={LESSON_UNIT_DATA}
+      keyExtractor={(item) => item.id}
+      renderItem={({item}: {item: UnitLesson}) => (<LessonUnitIndexCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} completion={item.completion} goal={item.goal} marginRight={(parseInt(item?.id) % 2 !== 0) ? SIZES.cardGap : 0} />)}
+    />
+  );
 }
 export default UnitIndexCardList;

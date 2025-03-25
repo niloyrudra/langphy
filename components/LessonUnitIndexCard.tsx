@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router';
 import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
@@ -7,15 +7,16 @@ import { UnitLessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
 import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
+import { getCardContainerWidth } from '@/utils';
 
-const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, goal, marginRight=0, containerWidth=172}: UnitLessonProps ) => {
+const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, goal, marginRight=0}: UnitLessonProps ) => {
   const {colors} = useTheme();
   const {category, unit} = useLocalSearchParams();
+  const cardWidth = getCardContainerWidth();
 
   return (
     <TouchableOpacity onPress={() =>  router.push({ pathname: `/lessons/${category}/${unit}/${slug}`, params: { completion: completion, goal: goal, slug: slug } })}>
-      
-      <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: containerWidth, height: containerWidth, marginRight: marginRight} ]}>
+      <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: cardWidth, height: cardWidth, marginRight: marginRight} ]}>
         
         <GridCardIcon ImgComponent={ImgComponent} />
         
@@ -24,7 +25,6 @@ const LessonUnitIndexCard = ( { title, slug, ImgComponent, completion, goal, mar
         <ProgressBar completion={completion} />
 
       </View>
-
     </TouchableOpacity>
   );
 }
@@ -42,11 +42,5 @@ const styles = StyleSheet.create({
     margin:0,
     minWidth: 172,
     minHeight: 172,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "700",
-    lineHeight: 18,
-    fontFamily: 'PlusJakartaSans-Bold',
   }
 });

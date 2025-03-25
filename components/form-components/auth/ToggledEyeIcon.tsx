@@ -8,40 +8,37 @@ import STYLES from '@/constants/styles';
 
 import { EyeDarkIcon, EyeLightIcon, EyeOffDarkIcon, EyeOffLightIcon } from '@/utils/SVGImages';
 
-
-
 const ToggledEyeIcon = ({onChange, isSecureTextEntry, style: customStyles}: EyeProps) => {
     const { theme } = useTheme();
-  return (
-    <View style={[ styles.container, STYLES.childContentCentered, customStyles && customStyles]}>
-        {
-            theme === 'light'
-            ? (
-                <TouchableOpacity
-                    onPress={onChange}
-                >
-                    {
-                        isSecureTextEntry
-                        ? (<EyeLightIcon width={sizes.eye} height={sizes.eye}/>)
-                        : (<EyeOffLightIcon width={sizes.eye} height={sizes.eye}/>)
-                    }
-                </TouchableOpacity>
-            )
-            : (
-                <TouchableOpacity
-                    onPress={onChange}
-                >
-                    {
-                        isSecureTextEntry
-                        ? (<EyeDarkIcon width={sizes.eye} height={sizes.eye} style={styles.iconOpacity} />)
-                        : (<EyeOffDarkIcon width={sizes.eye} height={sizes.eye} style={styles.iconOpacity} />)
-                    }
-                </TouchableOpacity>
-            )
-        }
-    </View>
-
-  )
+    return (
+        <View style={[ styles.container, STYLES.childContentCentered, customStyles && customStyles]}>
+            {
+                theme === 'light'
+                ? (
+                    <TouchableOpacity
+                        onPress={onChange}
+                    >
+                        {
+                            isSecureTextEntry
+                            ? (<EyeLightIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize}/>)
+                            : (<EyeOffLightIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize}/>)
+                        }
+                    </TouchableOpacity>
+                )
+                : (
+                    <TouchableOpacity
+                        onPress={onChange}
+                    >
+                        {
+                            isSecureTextEntry
+                            ? (<EyeDarkIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} style={styles.iconOpacity} />)
+                            : (<EyeOffDarkIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} style={styles.iconOpacity} />)
+                        }
+                    </TouchableOpacity>
+                )
+            }
+        </View>
+    );
 }
 
 export default ToggledEyeIcon;

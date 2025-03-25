@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, useWindowDimensions } from 'react-native'
-import sizes from '@/constants/size';
-import { getCardContainerWidth } from '@/utils';
+import { Alert, View } from 'react-native'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
@@ -9,8 +7,24 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 
 const Quiz = ({}) => {
-  const { width } = useWindowDimensions();
-  const cardWidth = getCardContainerWidth(width);
+  const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
+  const [isSelectedOption, setIsSelectedOption] = React.useState<boolean>(false);
+  
+  const handleSelect = (title: string, isCorrect: boolean) => {
+    setSelectedOption( prevValue => prevValue = title);
+    setIsSelectedOption( prevValue => prevValue = true);
+    
+    if (isCorrect) {
+      // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
+      // Proceed to next question or show modal
+      console.log(selectedOption)
+    } else {
+      // Alert.alert('Incorrect', `The answer ${title} is incorrect. Try again.`);
+      // Provide feedback or allow retry
+      console.log(selectedOption)
+    }
+  };
+
   return (
     <SafeAreaLayout>
       
@@ -27,7 +41,7 @@ const Quiz = ({}) => {
             <ChallengeScreenQuerySection query="Hello!" onTap={() => console.log("Tapping Query Button")} />
 
             {/* QUIZ Answer Options */}
-            <QuizOptionCardList cardWidth={cardWidth} />
+            <QuizOptionCardList onSelect={handleSelect} isSelectedOption={isSelectedOption} />
             {/* <QuizAnswerOptionGrid /> */}
 
           </View>
@@ -40,7 +54,7 @@ const Quiz = ({}) => {
         <ActionPrimaryButton
           buttonTitle='Check'
           onSubmit={() => console.log("Submitted")}
-          disabled={true}
+          disabled={ !selectedOption ? true : false}
         />
 
       </View>

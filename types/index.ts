@@ -18,6 +18,7 @@ type CategoryProps = {
     marginRight?: number
 }
 
+// UNIT LESSON
 type UnitLesson = {
   id: string,
   title: string,
@@ -33,25 +34,10 @@ type UnitLessonProps = {
     completion: number,
     goal: number,
     ImgComponent: React.FC<SvgProps>,
-    containerWidth: number
+    containerWidth?: number
     marginRight?: number
 }
-
-type Quiz = {
-  id: string,
-  title: string,
-  isCorrect: boolean
-}
-
-type QuizProps = {
-    id: string,
-    title: string,
-    isCorrect: boolean,
-    containerWidth: number
-    marginRight?: number
-    customStyle?: StyleProp<ViewStyle>
-}
-
+// UNIT Props
 type UnitProps = {
     title: string,
     completion: number,
@@ -60,7 +46,7 @@ type UnitProps = {
     // imgSource: ImageSourcePropType | undefined,
     customStyle?: StyleProp<ViewStyle>
 }
-
+// UNIT DATA Props
 type UnitDataProps = {
     id: string,
     title: string,
@@ -69,22 +55,41 @@ type UnitDataProps = {
     ImgComponent: React.FC<SvgProps>
 }
 
+
+// QUIZ
+type Quiz = {
+  id: string,
+  title: string,
+  isCorrect: boolean
+}
+
+type QuizProps = {
+    title: string,
+    isCorrect: boolean,
+    onSelect: (title: string, isCorrect: boolean ) => void,
+    isSelectedOption?: boolean,
+    containerWidth: number
+    marginRight?: number
+    customStyle?: StyleProp<ViewStyle>
+}
+// LINK Props
 type LinkProps = {
     linkText: string,
     route: Href
 }
 
+// BANNER Props
 type BannerProps = {
     width?: number,
     height?: number
 }
-
+// TITLE Props
 type TitleProps = {
   title: string,
   wrapperStyle?: StyleProp<ViewStyle>
   titleStyle?: StyleProp<ViewProps>
 }
-
+// ACTION BUTTON Props
 type SubmitButtonProps = {
     buttonTitle?: string,
     onSubmit: () => void,
@@ -92,7 +97,7 @@ type SubmitButtonProps = {
     buttonTextStyle?: StyleProp<ViewProps>,
     disabled?: boolean
 }
-
+// TEXT_INPUT Props
 type InputProps = { // extends TextInputProps -> better approach
     value: string,
     placeholder?: string,

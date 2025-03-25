@@ -13,7 +13,6 @@ const SIZES = {
     authMarginTop: 50,
     bodyPaddingHorizontal: 20,
     bodyPaddingVertical: 20,
-    eye: 24,
     defaultIconSize: 24,
     headerIcon: 36,
     SpeakerIcon: 20,
@@ -25,6 +24,10 @@ const SIZES = {
     // Fonts
     fontSizeTextArea: 24,
     fontSizeTextInput: 16,
+
+    // Card
+    gridCardIconWrapDimension: 80,
+    gridCardIconDimension: 56
 }
 
 export default SIZES;

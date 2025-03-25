@@ -7,19 +7,26 @@ import STYLES from '@/constants/styles';
 import TitleHeading from './TitleHeading';
 
 
-const QuizOptionCard = ( { title, isCorrect, marginRight=0, containerWidth=172, customStyle }: QuizProps ) => {
-  const {colors} = useTheme()
+const QuizOptionCard = ( { title, isCorrect, isSelectedOption, onSelect, marginRight=0, containerWidth=172, customStyle }: QuizProps ) => {
+  const {colors} = useTheme();
+
+  // const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
+
+  const handlePress = () => {
+    // setIsSelectionHappened(prevValue => prevValue = true)
+    onSelect(title, isCorrect);
+  }
   return (
     <TouchableOpacity
-      onPress={() =>  console.log( {"title": title, "Correct": isCorrect } )}
+      onPress={handlePress}
     >
       <View style={
         [
           STYLES.contentCentered,
           styles.container,
           {
-            backgroundColor: colors.cardBackgroundColor,
-            borderColor: colors.cardBorderColor,
+            backgroundColor: isSelectedOption ? ( isCorrect ? '#9EFD8B3D' : '#FE01013B') : colors.cardBackgroundColor,
+            borderColor: isSelectedOption ? ( isCorrect ? '#3CE811' : '#E51919') : colors.cardBorderColor,
             width: containerWidth,
             height: containerWidth,
             marginRight: marginRight

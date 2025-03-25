@@ -13,9 +13,26 @@ import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreen
 
 const ReadingLessons = () => {
   const { colors } = useTheme();
-  const { width } = useWindowDimensions();
-  const cardWidth = getCardContainerWidth(width);
-  const [selected, stSelected] = React.useState(false)
+  const cardWidth = getCardContainerWidth();
+  
+  const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
+  const [isSelectedOption, setIsSelectedOption] = React.useState<boolean>(false);
+  
+  const handleSelect = (title: string, isCorrect: boolean) => {
+    setSelectedOption( prevValue => prevValue = title);
+    setIsSelectedOption( prevValue => prevValue = true);
+    
+    if (isCorrect) {
+      // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
+      // Proceed to next question or show modal
+      console.log(selectedOption)
+    } else {
+      // Alert.alert('Incorrect', `The answer ${title} is incorrect. Try again.`);
+      // Provide feedback or allow retry
+      console.log(selectedOption)
+    }
+  };
+
   return (
     <SafeAreaLayout>
 
@@ -57,9 +74,11 @@ const ReadingLessons = () => {
               <View style={{marginBottom:10}}>
                 <Text style={{fontSize: 16, color: colors.text, fontWeight:"700"}}>How would you reckon someone?</Text>
               </View>
+
               {/* QUIZ Answer Options */}
-              <QuizOptionCardList cardWidth={cardWidth} height={cardWidth/2} />
+              <QuizOptionCardList height={cardWidth / 2} onSelect={handleSelect} isSelectedOption={isSelectedOption} />
               {/* <QuizAnswerOptionGrid /> */}
+
             </View>
 
           </View>
@@ -68,7 +87,7 @@ const ReadingLessons = () => {
           <ActionPrimaryButton
             buttonTitle='Check'
             onSubmit={() => console.log("Submitted")}
-            disabled={!selected}
+            disabled={!selectedOption ? true : false }
           />
 
         </View>

@@ -3,22 +3,23 @@ import { StyleSheet, View } from 'react-native'
 import STYLES from '@/constants/styles'
 import { SvgProps } from 'react-native-svg'
 import { useTheme } from '@/theme/ThemeContext'
+import SIZES from '@/constants/size'
 
 const GridCardIcon = ({ImgComponent}: {ImgComponent: React.FC<SvgProps>}) => {
-    const { colors } = useTheme();
-    return (
-        <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.cardIconBackgroundColor}]}>
-            <ImgComponent width={56} height={56} />
-        </View>
-    );
+  const { colors } = useTheme();
+  return (
+    <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.cardIconBackgroundColor}]}>
+      <ImgComponent width={SIZES.gridCardIconDimension} height={SIZES.gridCardIconDimension} />
+    </View>
+  );
 }
 
 export default GridCardIcon
 
 const styles = StyleSheet.create({
   imageWrapper: {
-    width: 80,
-    height: 80,
-    borderRadius: 40
+    width: SIZES.gridCardIconWrapDimension,
+    height: SIZES.gridCardIconWrapDimension,
+    borderRadius: SIZES.gridCardIconWrapDimension/2
   }
 });

@@ -10,15 +10,7 @@ const CategoryCardList = () => {
     <GridLayout<Category>
       data={CATEGORY_DATA_V2}
       keyExtractor={(item) => item.id}
-      renderItem={({item}: {item: Category}) => (
-        <>
-          {
-            ( parseInt(item?.id) === 1 || parseInt(item?.id) % 2 === 1 )
-            ? (<CategoryCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} marginRight={SIZES.cardGap} />)
-            : (<CategoryCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} />)
-          }
-        </>
-      )}
+      renderItem={({item}: {item: Category}) => (<CategoryCard title={item.title} slug={item.slug} ImgComponent={item.ImgComponent} marginRight={( parseInt(item?.id) % 2 !== 0) ? SIZES.cardGap : 0} />)}
     />
   );
 }
