@@ -7,7 +7,7 @@ import STYLES from '@/constants/styles';
 import TitleHeading from './TitleHeading';
 
 
-const QuizOptionCard = ( { title, isCorrect, isSelectedOption, onSelect, marginRight=0, containerWidth=172, customStyle }: QuizProps ) => {
+const QuizOptionCard = ( { title, isCorrect, isSelectionHappened, onSelect, marginRight=0, containerWidth=172, customStyle }: QuizProps ) => {
   const {colors} = useTheme();
 
   // const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
@@ -25,8 +25,8 @@ const QuizOptionCard = ( { title, isCorrect, isSelectedOption, onSelect, marginR
           STYLES.contentCentered,
           styles.container,
           {
-            backgroundColor: isSelectedOption ? ( isCorrect ? '#9EFD8B3D' : '#FE01013B') : colors.cardBackgroundColor,
-            borderColor: isSelectedOption ? ( isCorrect ? '#3CE811' : '#E51919') : colors.cardBorderColor,
+            backgroundColor: isSelectionHappened ? ( isCorrect ? '#9EFD8B3D' : '#FE01013B') : colors.cardBackgroundColor,
+            borderColor: isSelectionHappened ? ( isCorrect ? '#3CE811' : '#E51919') : colors.cardBorderColor,
             width: containerWidth,
             height: containerWidth,
             marginRight: marginRight

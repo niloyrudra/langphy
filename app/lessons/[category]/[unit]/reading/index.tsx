@@ -1,8 +1,9 @@
 import React from 'react';
-import { useWindowDimensions, View, Text } from 'react-native'
+import { View, Text } from 'react-native'
 import SIZES from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
+// Components
 import HorizontalLine from '@/components/HorizontalLine';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
@@ -16,11 +17,11 @@ const ReadingLessons = () => {
   const cardWidth = getCardContainerWidth();
   
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
-  const [isSelectedOption, setIsSelectedOption] = React.useState<boolean>(false);
+  const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
   
   const handleSelect = (title: string, isCorrect: boolean) => {
     setSelectedOption( prevValue => prevValue = title);
-    setIsSelectedOption( prevValue => prevValue = true);
+    setIsSelectionHappened( prevValue => prevValue = true);
     
     if (isCorrect) {
       // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
@@ -76,7 +77,7 @@ const ReadingLessons = () => {
               </View>
 
               {/* QUIZ Answer Options */}
-              <QuizOptionCardList height={cardWidth / 2} onSelect={handleSelect} isSelectedOption={isSelectedOption} />
+              <QuizOptionCardList height={cardWidth / 2} onSelect={handleSelect} isSelectionHappened={isSelectionHappened} />
               {/* <QuizAnswerOptionGrid /> */}
 
             </View>

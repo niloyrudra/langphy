@@ -67,7 +67,7 @@ type QuizProps = {
     title: string,
     isCorrect: boolean,
     onSelect: (title: string, isCorrect: boolean ) => void,
-    isSelectedOption?: boolean,
+    isSelectionHappened?: boolean,
     containerWidth: number
     marginRight?: number
     customStyle?: StyleProp<ViewStyle>

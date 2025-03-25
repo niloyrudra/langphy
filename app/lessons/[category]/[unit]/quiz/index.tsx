@@ -8,12 +8,12 @@ import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreen
 
 const Quiz = ({}) => {
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
-  const [isSelectedOption, setIsSelectedOption] = React.useState<boolean>(false);
+  const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
   
   const handleSelect = (title: string, isCorrect: boolean) => {
     setSelectedOption( prevValue => prevValue = title);
-    setIsSelectedOption( prevValue => prevValue = true);
-    
+    setIsSelectionHappened( prevValue => prevValue = true);
+
     if (isCorrect) {
       // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
       // Proceed to next question or show modal
@@ -41,7 +41,7 @@ const Quiz = ({}) => {
             <ChallengeScreenQuerySection query="Hello!" onTap={() => console.log("Tapping Query Button")} />
 
             {/* QUIZ Answer Options */}
-            <QuizOptionCardList onSelect={handleSelect} isSelectedOption={isSelectedOption} />
+            <QuizOptionCardList onSelect={handleSelect} isSelectionHappened={isSelectionHappened} />
             {/* <QuizAnswerOptionGrid /> */}
 
           </View>

@@ -7,7 +7,7 @@ import QuizOptionCard from '../QuizOptionCard'
 import GridLayout from '../layouts/GridLayout'
 import { getCardContainerWidth } from '@/utils'
 
-const QuizOptionCardList = ({ height, isSelectedOption, onSelect}: { height?: number, isSelectedOption: boolean, onSelect: (title: string, isCorrect: boolean ) => void }) => {
+const QuizOptionCardList = ({ height, isSelectionHappened, onSelect}: { height?: number, isSelectionHappened: boolean, onSelect: (title: string, isCorrect: boolean ) => void }) => {
   const cardWidth = getCardContainerWidth();
   return (
     <GridLayout<Quiz>
@@ -17,7 +17,7 @@ const QuizOptionCardList = ({ height, isSelectedOption, onSelect}: { height?: nu
         <QuizOptionCard
           title={title}
           isCorrect={isCorrect}
-          isSelectedOption={isSelectedOption}
+          isSelectionHappened={isSelectionHappened}
           onSelect={onSelect}
           containerWidth={cardWidth}
           marginRight={(parseInt(id) % 2 !== 0) ? SIZES.cardGap : 0}
