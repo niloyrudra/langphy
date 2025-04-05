@@ -7,16 +7,11 @@ const StatusBarComponent = () => {
     
   return (
     <>
-        {/* {
-          (theme === 'light')
-          ? (<StatusBar animated={true} barStyle="light-content" />)
-          : (<StatusBar animated={true} barStyle="dark-content" />)
-        } */}
-        {/* {
-          theme === 'light' ?
-          (<StatusBar animated={true} barStyle="light-content" backgroundColor={colors.background} />)
-          : (<StatusBar animated={true} barStyle="dark-content" backgroundColor={colors.background} />)
-        } */}
+      {
+        (theme === 'light')
+        ? (<StatusBar animated={true} barStyle="dark-content" backgroundColor={colors.background} />)
+        : (<StatusBar animated={true} barStyle="light-content" backgroundColor={colors.background} />)
+      }
     </>
   )
 }

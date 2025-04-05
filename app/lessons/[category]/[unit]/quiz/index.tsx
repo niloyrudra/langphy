@@ -6,7 +6,7 @@ import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 
-const Quiz = ({}) => {
+const Quiz = () => {
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
   const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
   

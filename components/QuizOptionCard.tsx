@@ -10,12 +10,11 @@ import TitleHeading from './TitleHeading';
 const QuizOptionCard = ( { title, isCorrect, isSelectionHappened, onSelect, marginRight=0, containerWidth=172, customStyle }: QuizProps ) => {
   const {colors} = useTheme();
 
-  // const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
-
+  // Action Handlers
   const handlePress = () => {
-    // setIsSelectionHappened(prevValue => prevValue = true)
     onSelect(title, isCorrect);
   }
+
   return (
     <TouchableOpacity
       onPress={handlePress}
