@@ -37,61 +37,7 @@
           }
         }
       ],
-      [
-        "expo-font",
-        {
-          "fonts": [
-            {
-              "asset": "./assets/fonts/PlusJakartaSans-Regular.ttf",
-              "name": "PlusJakartaSans-Regular"
-            },
-            {
-              "asset": "./assets/fonts/PlusJakartaSans-Bold.ttf",
-              "name": "PlusJakartaSans-Bold"
-            },
-            {
-              "asset": "./assets/fonts/PlusJakartaSans-Medium.ttf",
-              "name": "PlusJakartaSans-Medium"
-            },
-            {
-              "asset": "./assets/fonts/PlusJakartaSans-Light.ttf",
-              "name": "PlusJakartaSans-Light"
-            },
-            {
-              "asset": "./assets/fonts/PlusJakartaSans-ExtraLight.ttf",
-              "name": "PlusJakartaSans-ExtraLight"
-            },
-            {
-              "asset": "./assets/fonts/PlusJakartaSans-SemiBold.ttf",
-              "name": "PlusJakartaSans-SemiBold"
-            },
-            {
-              "asset": "./assets/fonts/PlusJakartaSans-ExtraBold.ttf",
-              "name": "PlusJakartaSans-ExtraBold"
-            },
-            {
-              "asset": "./node_modules/@expo-google-fonts/inter/Inter_900Black.ttf",
-              "name": "Inter-Black"
-            },
-            {
-              "asset": "./node_modules/@expo-google-fonts/inter/Inter_700Bold.ttf",
-              "name": "Inter-Bold"
-            },
-            {
-              "asset": "./node_modules/@expo-google-fonts/inter/Inter_400Regular.ttf",
-              "name": "Inter-Regular"
-            },
-            {
-              "asset": "./node_modules/@expo-google-fonts/inter/Inter_300Light.ttf",
-              "name": "Inter-Light"
-            },
-            {
-              "asset": "./node_modules/@expo-google-fonts/inter/Inter_100Thin.ttf",
-              "name": "Inter-Thin"
-            }
-          ]
-        }
-      ]
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

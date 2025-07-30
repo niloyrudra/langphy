@@ -49,7 +49,9 @@ const RootLayout = () => {
           screenOptions={{
             headerShadowVisible: false,
             headerShown: false,
-            
+            contentStyle: {
+              marginTop: 20 // StatusBar.get("height")
+            }
           }}
           initialRouteName="lessons"
         >
@@ -61,21 +63,9 @@ const RootLayout = () => {
           <Stack.Screen name="lessons" options={{ headerShown: false }}/>
           {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         </Stack>
-        {/* <StatusBar style="auto" /> */}
+        <StatusBar backgroundColor="white" style="auto" />
       </ThemeProvider>
     </View>
   );
 }
 export default RootLayout;
-
-
-
-
-
-
-
-
-
-
-
-
