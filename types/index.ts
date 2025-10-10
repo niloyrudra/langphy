@@ -126,8 +126,39 @@ type LessonProps = {
     buttonStyle?: StyleProp<ViewStyle>
 }
 
+type UnitIndividualCategoryItem = {
+  phrase: string;
+  response: string;
+  meaning: string;
+  usage_context: string;
+  formality: "formal" | "informal" | "neutral" | "both";
+  grammar_note: string;
+  example_sentences?: string[];
+  audio_file?: string;
+  region: string;
+  ipa: string;
+  sound: string;
+};
+
+type UnitIndividualCategory = {
+  category: string;
+  goal: number;
+  completion: number;
+  ImgComponent: React.FC<SvgProps>;
+  items: UnitIndividualCategoryItem[];
+};
+
+type DB = {
+  greetings: UnitIndividualCategory[];
+  introduction: UnitIndividualCategory[];
+  // add other keys if needed
+};
+
 export {
     Category,
+    UnitIndividualCategoryItem,
+    UnitIndividualCategory,
+    DB,
     CategoryProps,
     UnitLesson,
     UnitLessonProps,

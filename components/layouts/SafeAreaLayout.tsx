@@ -8,8 +8,8 @@ const SafeAreaLayout = ({children}: {children: ReactNode}) => {
     const {colors} = useTheme();
   return (
     <SafeAreaProvider>
+      <StatusBarComponent />
       <SafeAreaView style={[STYLES.defaultContainer, {backgroundColor: colors.background}]}>
-        <StatusBarComponent />
         {children && children}
       </SafeAreaView>
     </SafeAreaProvider>

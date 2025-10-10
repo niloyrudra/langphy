@@ -10,7 +10,7 @@ import ChallengeScreenSpeakerActionSection from '@/components/challenges/Challen
 
 const ListeningLessons = () => {
   const { colors } = useTheme();
-  const [ textContent, setTextContent ] = React.useState('')
+  const [ textContent, setTextContent ] = React.useState<string>('')
   return (
     <SafeAreaLayout>
       <KeyboardAvoidingViewLayout>

@@ -7,7 +7,7 @@ import GoogleIcon from '@/assets/images/social/google.svg'
 
 
 import sizes from '@/constants/size'
-import * as STYLES from '@/constants/styles'
+// import * as STYLES from '@/constants/styles'
 import TextInputComponent from '@/components/form-components/TextInputComponent'
 import ForgotPasswordLink from '@/components/form-components/auth/ForgotPasswordLink'
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'

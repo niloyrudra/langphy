@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { Stack } from "expo-router"; // 'Slot' for one-paged apps
 import {StatusBar} from 'expo-status-bar';
 import { useFonts } from 'expo-font';
@@ -43,13 +43,14 @@ const RootLayout = () => {
   }
   
   return (
-    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+    <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider>
         <Stack
           screenOptions={{
             headerShadowVisible: false,
             headerShown: false,
             contentStyle: {
+              flex: 1,
               marginTop: 20 // StatusBar.get("height")
             }
           }}
@@ -63,9 +64,9 @@ const RootLayout = () => {
           <Stack.Screen name="lessons" options={{ headerShown: false }}/>
           {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         </Stack>
-        <StatusBar backgroundColor="white" style="auto" />
+        {/* <StatusBar backgroundColor="white" style="auto" /> */}
       </ThemeProvider>
-    </View>
+    </SafeAreaView>
   );
 }
 export default RootLayout;
