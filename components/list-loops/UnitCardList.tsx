@@ -1,7 +1,6 @@
 import React from 'react'
-import { DB, UnitDataProps, UnitIndividualCategory } from '@/types'
+import { UnitIndividualCategory } from '@/types'
 import { FlatList, View } from 'react-native'
-import { UNIT_DATA } from '@/schemes/static-data'
 import UnitRectangleCard from '../UnitRectangleCard'
 import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
@@ -9,7 +8,6 @@ import { db } from '@/utils'
 
 const UnitCardList = () => {
   const { slug, title } = useLocalSearchParams();
-  // const [data, setData] = React.useState<UnitDataProps[]>(UNIT_DATA);
   const [data, setData] = React.useState<UnitIndividualCategory[]>([]);
 
   React.useEffect(() => {
