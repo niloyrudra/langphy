@@ -5,36 +5,7 @@ import { UNIT_DATA } from '@/schemes/static-data'
 import UnitRectangleCard from '../UnitRectangleCard'
 import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
-
-import dbJson from '@/db/db.json'; // or .ts export
-import { StudyingDolphinIcon } from '@/utils/SVGImages'
-import { SvgProps } from 'react-native-svg'
-// import db from '@/db/db'
-
-
-// Cast dbJson to DB, transforming 'formality' to the correct type
-const db: DB = {
-  greetings: dbJson.greetings.map((cat: any) => ({
-    category: cat.category,
-    goal: cat.goal,
-    completion: cat.completion,
-    ImgComponent: StudyingDolphinIcon,
-    items: cat.items.map((item: any) => ({
-      ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
-    }))
-  })),
-  introduction: dbJson.introduction.map((cat: any) => ({
-    category: cat.category,
-    goal: cat.goal,
-    completion: cat.completion,
-    ImgComponent: StudyingDolphinIcon,
-    items: cat.items.map((item: any) => ({
-      ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
-    }))
-  }))
-};
+import { db } from '@/utils'
 
 const UnitCardList = () => {
   const { slug, title } = useLocalSearchParams();

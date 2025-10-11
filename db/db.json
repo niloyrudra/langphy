@@ -15,6 +15,7 @@
           "region": "Germany, Austria, Switzerland",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈɡuːtən ˈmɔʁɡn̩/"
         },
         {
@@ -26,6 +27,7 @@
           "region": "Germany, Austria",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈɡuːtən taːk/"
         },
         {
@@ -37,6 +39,7 @@
           "region": "All German-speaking countries",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈɡuːtən ˈaːbn̩t/"
         },
         {
@@ -46,9 +49,22 @@
           "usage_context": "Neutral, works in most situations (informal or semi-formal).",
           "formality": "both",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈhaloː/"
+        },
+        {
+          "phrase": "Hi!",
+          "response": "Hallo! / Hi!",
+          "meaning": "Hi!",
+          "usage_context": "Casual, mainly among younger people or friends.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/haɪ/"
         },
         {
           "phrase": "Servus!",
@@ -57,8 +73,9 @@
           "usage_context": "Used in southern Germany and Austria for both greeting and parting.",
           "formality": "informal",
           "region": "South Germany, Austria",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈsɛʁvʊs/"
         },
         {
@@ -68,9 +85,22 @@
           "usage_context": "Formal greeting in Bavaria and Austria; polite and respectful.",
           "formality": "formal",
           "region": "South Germany, Austria",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɡʁyːs ɡɔt/"
+        },
+        {
+          "phrase": "Grüß dich! / Grüß euch!",
+          "response": "Grüß dich! / Grüß euch!",
+          "meaning": "Hello (to you / to you all)",
+          "usage_context": "Informal; very common in southern regions.",
+          "formality": "informal",
+          "region": "South Germany, Austria",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ɡʁyːs dɪç/ / /ɡʁyːs ɔɪ̯ç/"
         },
         {
           "phrase": "Moin!",
@@ -79,20 +109,34 @@
           "usage_context": "Used any time of day in northern Germany.",
           "formality": "informal",
           "region": "North Germany",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/mɔɪn/"
         },
         {
-          "phrase": "Wie geht’s?",
+          "phrase": "Na?",
+          "response": "Na? / Na, wie geht's!",
+          "meaning": "Hey / What’s up?",
+          "usage_context": "Very casual greeting among friends.",
+          "formality": "informal",
+          "region": "North Germany",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/na/"
+        },
+        {
+          "phrase": "Wie geht’s? / Wie geht es dir?",
           "response": "Gut, danke. Und dir?",
-          "meaning": "How are you?",
+          "meaning": "How are you? / How are you (informal)?",
           "usage_context": "Used as a polite conversational greeting among friends.",
           "formality": "informal",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
-          "sound": "/viː ɡeːts/"
+          "isCompleted": false,
+          "sound": "/viː ɡeːts/ / /viː ɡeːt ʔəs diːɐ̯/"
         },
         {
           "phrase": "Wie geht es Ihnen?",
@@ -101,8 +145,9 @@
           "usage_context": "Used with strangers, elders, or in business contexts.",
           "formality": "formal",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/viː ˈɡeːt ʔəs ˈiːnən/"
         }
       ]
@@ -121,9 +166,46 @@
           "usage_context": "Used when parting in the daytime.",
           "formality": "both",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈʃøːnən taːk/"
+        },
+        {
+          "phrase": "Schönen guten Morgen!",
+          "response": "Dir auch! / Ihnen auch!",
+          "meaning": "A nice good morning!",
+          "usage_context": "Friendly, cheerful way to start the day.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈʃøːnən ˈɡuːtən ˈmɔʁɡn̩/"
+        },
+        {
+          "phrase": "Schönen Nachmittag!",
+          "response": "Ebenso! / Freut mich auch!",
+          "meaning": "Have a nice afternoon!",
+          "usage_context": "Less common but polite.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈʃøːnən ˈnaːxmɪtaːk/"
+        },
+        {
+          "phrase": "Schönen Abend!",
+          "response": "Danke, gleichfalls! / Ihnen auch!",
+          "meaning": "Have a nice evening!",
+          "usage_context": "Used when leaving work or saying goodbye in the evening.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈʃøːnən ˈaːbn̩t/"
         },
         {
           "phrase": "Gute Nacht!",
@@ -132,8 +214,9 @@
           "usage_context": "Used before sleeping or late-night parting.",
           "formality": "both",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈɡuːtə naxt/"
         },
         {
@@ -143,20 +226,22 @@
           "usage_context": "Said among close friends or family.",
           "formality": "informal",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ʃlaːf ɡuːt/"
         },
         {
-          "phrase": "Träum schön!",
+          "phrase": "Träum schön! / Schöne Träume!",
           "response": "Danke, du auch!",
-          "meaning": "Sweet dreams!",
+          "meaning": "Sweet dreams! / Beautiful dreams!",
           "usage_context": "Friendly or intimate tone before sleeping.",
           "formality": "informal",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
-          "sound": "/tʁɔʏm ʃøːn/"
+          "isCompleted": false,
+          "sound": "/ˈtʁɔɪ̯m ʃøːn/ / /ˈʃøːnə ˈtʁɔɪ̯mə/"
         }
       ]
     },
@@ -176,6 +261,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/heɪ/"
         },
         {
@@ -187,6 +273,7 @@
           "region": "Germany",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/na/"
         },
         {
@@ -198,6 +285,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈaləs klaːɐ̯/"
         },
         {
@@ -209,6 +297,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ʃøːn dɪç tsuː ˈzeːən/"
         },
         {
@@ -220,6 +309,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈlaŋə nɪçt ɡəˈzeːən/"
         }
       ]
@@ -238,8 +328,9 @@
           "usage_context": "Most common informal farewell.",
           "formality": "informal",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/tʃʏs/"
         },
         {
@@ -249,8 +340,9 @@
           "usage_context": "Casual, borrowed from Italian.",
           "formality": "informal",
           "region": "Germany, Austria",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/tʃaʊ/"
         },
         {
@@ -260,9 +352,22 @@
           "usage_context": "Formal and polite farewell.",
           "formality": "formal",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/aʊ̯f ˈviːdɐzeːən/"
+        },
+        {
+          "phrase": "Auf Wiederschauen!",
+          "response": "Auf Wiederschauen!",
+          "meaning": "Goodbye",
+          "usage_context": "Southern German/Austrian version. Formal.",
+          "formality": "formal",
+          "region": "South Germany, Austria",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/aʊ̯f ˈviːdɐˌʃaʊ̯ən/"
         },
         {
           "phrase": "Mach’s gut!",
@@ -273,7 +378,32 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/maxs ɡuːt/"
+        },
+        {
+          "phrase": "Bis bald!",
+          "response": "Bis Dann / Bis bald!",
+          "meaning": "See you soon!",
+          "usage_context": "Used among colleagues or classmates. Friendly tone!",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/bɪs balt/"
+        },
+        {
+          "phrase": "Bis später!",
+          "response": "Bis Dann!",
+          "meaning": "See you later!",
+          "usage_context": "Used among colleagues or classmates. Same Day!",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/bɪs ˈʃpɛːtɐ/"
         },
         {
           "phrase": "Bis morgen!",
@@ -282,15 +412,166 @@
           "usage_context": "Used among colleagues or classmates.",
           "formality": "both",
           "region": "All German-speaking regions",
-          "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
+          "grammar_note": "",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/bɪs ˈmɔʁɡn̩/"
+        },
+        {
+          "phrase": "Schönen Tag noch!",
+          "response": "Danke, ebenso!",
+          "meaning": "Have a nice day!",
+          "usage_context": "Very common farewell.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈʃøːnən taːk noch/"
+        },
+        {
+          "phrase": "Schönen Abend noch!",
+          "response": "Danke, dir auch!",
+          "meaning": "Have a nice evening!",
+          "usage_context": "Common when leaving work.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈʃøːnən ˈaːbn̩t noch/"
         }
       ]
     },
 
     {
-      "category": "Special Greetings",
+      "category": "Telephone / Online Greetings",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Hallo?",
+          "response": "Hallo! Hier ist Weber",
+          "meaning": "Hello? (on the phone)",
+          "usage_context": "When answering a phone call.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈhaloː/"
+        },
+        {
+          "phrase": "Guten Tag, hier spricht Schmidt.",
+          "response": "Guten Tag, Herr/Frau Schmidt. Wie kann ich Ihnen helfen?",
+          "meaning": "Good day, this is Schmidt speaking.",
+          "usage_context": "Formal and polite phone call greeting.",
+          "formality": "formal",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈɡuːtən taːk hiːɐ̯ ʃpʁɪçt ʃmɪt/"
+        },
+        {
+          "phrase": "Hi zusammen!",
+          "response": "Hi! Schön, euch zu sehen!",
+          "meaning": "Hi everyone!",
+          "usage_context": "Informal group chat or video call.",
+          "formality": "informal",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/haɪ tsuˈzamən/"
+        },
+        {
+          "phrase": "Schönen guten Morgen zusammen!",
+          "response": "Guten Morgen! Schön, euch zu sehen!",
+          "meaning": "Good morning everyone!",
+          "usage_context": "Used in group meetings (Zoom, office).",
+          "formality": "formal",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈʃøːnən ˈɡuːtən ˈmɔʁɡn̩ tsuˈzamən/"
+        }
+      ]
+    },
+
+    {
+      "category": "Formal / Business Greetings",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Sehr geehrte Damen und Herren,",
+          "response": "(email start)",
+          "meaning": "Dear Sir or Madam",
+          "usage_context": "Formal writing greeting.",
+          "formality": "formal",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/zeːɐ̯ ɡəˈeːɐ̯tə ˈdaːmən ʊnt ˈhɛʁən/"
+        },
+        {
+          "phrase": "Guten Tag, Herr Müller!",
+          "response": "Guten Tag! Herr/Frau Schmidt.",
+          "meaning": "Good day, Mr. Müller!",
+          "usage_context": "Used in formal meetings.",
+          "formality": "formla",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈɡuːtən taːk hɛʁ ˈmʏlɐ/"
+        },
+        {
+          "phrase": "Freut mich, Sie kennenzulernen.",
+          "response": "Mich auch.",
+          "meaning": "Nice to meet you.",
+          "usage_context": "Business or polite setting.",
+          "formality": "formal",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/fʁɔʏt mɪç ziː ˈkɛnənˌtsuːˌlɛʁnən/"
+        },
+        {
+          "phrase": "Willkommen!",
+          "response": "Danke!",
+          "meaning": "Welcome!",
+          "usage_context": "Used in formal and informal settings.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈvɪlkɔmən/"
+        },
+        {
+          "phrase": "Herzlich willkommen!",
+          "response": "Vielen Danke!",
+          "meaning": "Warm welcome!",
+          "usage_context": "Very polite; for guests or clients.",
+          "formality": "formal",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈɡuːtə ˈbɛsəʁʊŋ/"
+        }
+      ]
+    },
+
+    {
+      "category": "Special Greetings (Seasonal / Situational / Occasional)",
       "goal": 1000,
       "completion": 0,
       "ImgComponent": "",
@@ -304,6 +585,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈfʁoːə ˈvaɪ̯naxtn̩/"
         },
         {
@@ -315,7 +597,20 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈfʁoːəs ˈnɔɪ̯əs jaːɐ̯/"
+        },
+        {
+          "phrase": "Frohe Ostern!",
+          "response": "Danke, ebenfalls!",
+          "meaning": "Happy Easter!",
+          "usage_context": "Easter greeting.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "grammar_note": "",
+          "ipa":"",
+          "isCompleted": false,
+          "sound": "/ˈfʁoːə ˈɔstɐn/"
         },
         {
           "phrase": "Alles Gute zum Geburtstag!",
@@ -326,6 +621,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈaləs ˈɡuːtə tsʊm ɡəˈbʊʁtstaːk/"
         },
         {
@@ -337,6 +633,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈhɛʁtslɪçən ˈɡlʏkvʊnʃ/"
         },
         {
@@ -348,6 +645,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈɡuːtə ˈbɛsəʁʊŋ/"
         }
       ]
@@ -370,6 +668,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "The verb 'heißen' means 'to be called'.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈhaɪ̯sə ˈana/"
         },
         {
@@ -381,6 +680,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/maɪ̯n ˈnaːmə ɪst ˈpeːtɐ/"
         },
         {
@@ -392,6 +692,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn maˈʁiːa/"
         },
         {
@@ -403,6 +704,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈkɔmə aʊ̯s ˈdɔʏtʃlant/"
         },
         {
@@ -414,6 +716,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈvoːnə ɪn bɛʁˈliːn/"
         },
         {
@@ -425,6 +728,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn ʃtuˈdɛnt/"
         },
         {
@@ -436,6 +740,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn ˈleːʁəʁɪn/"
         },
         {
@@ -447,6 +752,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈaʁbaɪtə als ɪnʒeˈnjøːɐ̯/"
         },
         {
@@ -458,6 +764,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn nɔʏ hiːɐ̯/"
         },
         {
@@ -469,6 +776,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/fʁɔʏt mɪç dɪç ˈkɛnənˌtsuːˌlɛʁnən/"
         }
       ]
@@ -489,6 +797,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ˈɡuːtən taːk maɪ̯n ˈnaːmə ɪst hɛʁ ˈmʏlɐ/"
         },
         {
@@ -500,6 +809,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈaʁbaɪtə baɪ̯ ˈziːməns/"
         },
         {
@@ -511,6 +821,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/daʁf ɪç mɪç ˈfɔʁʃtɛlən/"
         },
         {
@@ -522,6 +833,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn fyːɐ̯ ˈmaʁkɛtɪŋ fɛɐ̯ˈʔantvɔʁtlɪç/"
         },
         {
@@ -533,6 +845,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn ɪn deːɐ̯ ʔiːˈteː ʔapˌtaɪ̯lʊŋ ˈtɛːtɪç/"
         },
         {
@@ -544,6 +857,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn hiːɐ̯ ʊm ˈʊnzɐ pʁoˈjɛkt tsuː pʁɛzɛntɪˈʁeːən/"
         },
         {
@@ -555,6 +869,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn deːɐ̯ ˈnɔʏə koˈleːɡə/"
         },
         {
@@ -566,6 +881,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈfʁɔʏə mɪç mɪt ˈiːnən tsuˈzamənˌaʁbaɪ̯tən/"
         },
         {
@@ -577,6 +893,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn pʁaktiˈkant baɪ̯ bɔʃ/"
         },
         {
@@ -588,6 +905,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈaʁbaɪtə zaɪ̯t fʏnf ˈjaːʁən ɪm ʊntɐˈneːmən/"
         }
       ]
@@ -608,6 +926,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/haɪ ɪç bɪn maks/"
         },
         {
@@ -619,6 +938,7 @@
           "region": "Germany",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/na ɪç bɪn ˈliːza/"
         },
         {
@@ -630,6 +950,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ʃtuˈdiːʁə psʏçoˈloːɡiː/"
         },
         {
@@ -641,6 +962,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç ˈliːbə muˈziːk/"
         },
         {
@@ -652,6 +974,7 @@
           "region": "All German-speaking regions",
           "grammar_note": "Literally means 'Good morning' but is used as a greeting.",
           "ipa":"",
+          "isCompleted": false,
           "sound": "/ɪç bɪn ɡɛʁn ˈdʁaʊ̯sn̩/"
         }
       ]
