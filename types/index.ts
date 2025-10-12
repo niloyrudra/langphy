@@ -29,12 +29,15 @@ type UnitLesson = {
 }
 
 type UnitLessonProps = {
+    id: string,
     title: string,
     slug: string,
+    rootCategory: string,
+    unitLessonCategory: string,
     completion: number,
     goal: number,
     ImgComponent: React.FC<SvgProps>,
-    containerWidth?: number
+    containerWidth?: number,
     marginRight?: number
 }
 // UNIT Props
@@ -46,6 +49,29 @@ type UnitProps = {
     // imgSource: ImageSourcePropType | undefined,
     customStyle?: StyleProp<ViewStyle>
 }
+type UnitCategoryItemProps = {
+    title: string,
+    unitLessonCategory: string,
+    rootCategory: string,
+    completion: number,
+    goal: number,
+    ImgComponent: React.FC<SvgProps>,
+    // imgSource: ImageSourcePropType | undefined,
+    customStyle?: StyleProp<ViewStyle>,
+    // items: any[]
+}
+type UnitLessonItemProps = {
+    id: string,
+    title: string,
+    slug: string,
+    completion: number,
+    goal: number,
+    ImgComponent: React.FC<SvgProps>,
+    containerWidth?: number,
+    marginRight?: number,
+    // items: any[]
+}
+
 // UNIT DATA Props
 type UnitDataProps = {
     id: string,
@@ -130,6 +156,7 @@ type UnitIndividualCategoryItem = {
   phrase: string;
   response: string;
   meaning: string;
+  meaning_response: string;
   usage_context: string;
   formality: "formal" | "informal" | "neutral" | "both";
   grammar_note: string;
@@ -142,10 +169,11 @@ type UnitIndividualCategoryItem = {
 
 type UnitIndividualCategory = {
   category: string;
+  category_slug: string;
   goal: number;
   completion: number;
   ImgComponent: React.FC<SvgProps>;
-  items: UnitIndividualCategoryItem[];
+  // items: UnitIndividualCategoryItem[];
 };
 
 type DB = {
@@ -163,6 +191,8 @@ export {
     UnitLesson,
     UnitLessonProps,
     UnitProps,
+    UnitCategoryItemProps,
+    UnitLessonItemProps,
     UnitDataProps,
     Quiz,
     QuizProps,

@@ -34,7 +34,22 @@ const UnitCardList = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: SIZES.cardGap }}
         ListHeaderComponent={(<View style={{height:0}}/>)}
-        renderItem={({item}: {item: UnitIndividualCategory}) => (<UnitRectangleCard title={item.category} completion={item?.completion} goal={item?.goal} ImgComponent={item?.ImgComponent} />)}
+        renderItem={({item}: {item: UnitIndividualCategory}) => {
+          // console.log("Category:", item.category);
+          // console.log("Category Slug", item.category_slug);
+          // console.log("UnitIndividualCategory", item);
+          return (
+            <UnitRectangleCard
+              title={item.category}
+              unitLessonCategory={item.category as string}
+              rootCategory={slug as string}
+              completion={item?.completion}
+              goal={item?.goal}
+              ImgComponent={item?.ImgComponent}
+              // items={item?.items || []}
+            />
+          )
+        }}
         ListFooterComponent={(<View style={{height:30}} />)}
       />
     </>

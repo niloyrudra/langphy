@@ -4,14 +4,14 @@ import { router, useLocalSearchParams } from 'expo-router';
 // import { useRouteInfo } from 'expo-router/build/hooks';
 
 import Title from './Title';
-import { UnitProps } from '@/types';
+import { UnitCategoryItemProps, UnitProps } from '@/types';
 import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
 
 
-const UnitRectangleCard = ({ title, completion, goal, ImgComponent, customStyle }: UnitProps) => {
+const UnitRectangleCard: React.FC<UnitCategoryItemProps> = ({ title, unitLessonCategory, rootCategory, completion, goal, ImgComponent, customStyle }) => {
   const { colors } = useTheme();
   const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
@@ -22,7 +22,7 @@ const UnitRectangleCard = ({ title, completion, goal, ImgComponent, customStyle 
 
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: `/lessons/${category}/${title.toLowerCase()}`, params: { title:title, category: title, completion: completion, goal: goal }})}
+      onPress={() => router.push({ pathname: `/lessons/${category}/${title.toLowerCase()}`, params: { title: title, rootCategory: rootCategory, unitLessonCategory: unitLessonCategory, completion: completion, goal: goal } } )}
     >
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         
