@@ -179,6 +179,26 @@ type UnitIndividualCategory = {
 type DB = {
   greetings: UnitIndividualCategory[];
   introduction: UnitIndividualCategory[];
+  colors: UnitIndividualCategory[];
+  numbers: UnitIndividualCategory[];
+  locations: UnitIndividualCategory[];
+  travels: UnitIndividualCategory[];
+  work: UnitIndividualCategory[];
+  opinions: UnitIndividualCategory[];
+  invitations: UnitIndividualCategory[];
+  technology: UnitIndividualCategory[];
+  education: UnitIndividualCategory[];
+  preference: UnitIndividualCategory[];
+  time: UnitIndividualCategory[];
+  family: UnitIndividualCategory[];
+  calendar: UnitIndividualCategory[];
+  seasons: UnitIndividualCategory[];
+  activities: UnitIndividualCategory[];
+  foods: UnitIndividualCategory[];
+  health: UnitIndividualCategory[];
+  shopping: UnitIndividualCategory[];
+  culture: UnitIndividualCategory[];
+  entertainment: UnitIndividualCategory[];
   // add other keys if needed
 };
 

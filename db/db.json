@@ -823,7 +823,7 @@
           "formality": "both",
           "region": "All German-speaking regions",
           "discussion": "",
-          "grammar_note": "",
+          "grammar_note": "'Noch' means 'still' or 'yet', adding a polite tone. 'Schönen' is the accusative form of 'schön'. 'Tag' means 'day'. The adjective 'schön' takes the ending '-en' in the accusative case for masculine nouns. 'Tage' is the plural form of 'Tag'.",
           "ipa":"",
           "isCompleted": false,
           "sound": "/ˈʃøːnən taːk noch/"
@@ -2118,6 +2118,1713 @@
         }
       ]
     }
-  ]
+  ],
 
+  "colors": [
+    {
+      "category": "Basic Colors",
+      "category_slug": "basic-colors",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Rot",
+          "meaning": "Red",
+          "usage_example": "Die Rose ist rot. (The rose is red.)",
+          "formality": "neutral",
+          "sound": "/ʁoːt/"
+        },
+        {
+          "phrase": "Blau",
+          "meaning": "Blue",
+          "usage_example": "Der Himmel ist blau. (The sky is blue.)",
+          "formality": "neutral",
+          "sound": "/blaʊ̯/"
+        },
+        {
+          "phrase": "Gelb",
+          "meaning": "Yellow",
+          "usage_example": "Die Sonne ist gelb. (The sun is yellow.)",
+          "formality": "neutral",
+          "sound": "/ɡɛlp/"
+        },
+        {
+          "phrase": "Grün",
+          "meaning": "Green",
+          "usage_example": "Das Gras ist grün. (The grass is green.)",
+          "formality": "neutral",
+          "sound": "/ɡʁyːn/"
+        },
+        {
+          "phrase": "Schwarz",
+          "meaning": "Black",
+          "usage_example": "Die Katze ist schwarz. (The cat is black.)",
+          "formality": "neutral",
+          "sound": "/ʃvaʁts/"
+        },
+        {
+          "phrase": "Weiß",
+          "meaning": "White",
+          "usage_example": "Der Schnee ist weiß. (The snow is white.)",
+          "formality": "neutral",
+          "sound": "/vaɪ̯s/"
+        },
+        {
+          "phrase": "Braun",
+          "meaning": "Brown",
+          "usage_example": "Der Tisch ist braun. (The table is brown.)",
+          "formality": "neutral",
+          "sound": "/bʁaʊ̯n/"
+        },
+        {
+          "phrase": "Grau",
+          "meaning": "Gray",
+          "usage_example": "Der Himmel ist heute grau. (The sky is gray today.)",
+          "formality": "neutral",
+          "sound": "/ɡʁaʊ̯/"
+        },
+        {
+          "phrase": "Orange",
+          "meaning": "Orange",
+          "usage_example": "Die Jacke ist orange. (The jacket is orange.)",
+          "formality": "neutral",
+          "sound": "/oˈʁãːʒ/"
+        },
+        {
+          "phrase": "Rosa",
+          "meaning": "Pink",
+          "usage_example": "Ihr Kleid ist rosa. (Her dress is pink.)",
+          "formality": "neutral",
+          "sound": "/ˈʁoːza/"
+        },
+        {
+          "phrase": "Lila",
+          "meaning": "Purple / Violet",
+          "usage_example": "Die Blumen sind lila. (The flowers are purple.)",
+          "formality": "neutral",
+          "sound": "/ˈliːla/"
+        }
+      ]
+    },
+
+    {
+      "category": "Light and Dark Shades",
+      "category_slug": "light-dark-shades",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "hellblau",
+          "meaning": "light blue",
+          "usage_example": "Ihr Hemd ist hellblau. (Her shirt is light blue.)",
+          "formality": "neutral",
+          "sound": "/ˈhɛlblau̯/"
+        },
+        {
+          "phrase": "dunkelblau",
+          "meaning": "dark blue / navy blue",
+          "usage_example": "Er trägt eine dunkelblaue Hose. (He wears dark blue pants.)",
+          "formality": "neutral",
+          "sound": "/ˈdʊŋkəlˌblau̯/"
+        },
+        {
+          "phrase": "hellgrün",
+          "meaning": "light green",
+          "usage_example": "Der Teppich ist hellgrün. (The carpet is light green.)",
+          "formality": "neutral",
+          "sound": "/ˈhɛlɡʁyːn/"
+        },
+        {
+          "phrase": "dunkelgrün",
+          "meaning": "dark green",
+          "usage_example": "Der Baum ist dunkelgrün. (The tree is dark green.)",
+          "formality": "neutral",
+          "sound": "/ˈdʊŋkəlɡʁyːn/"
+        },
+        {
+          "phrase": "hellrot",
+          "meaning": "light red",
+          "usage_example": "Die Wand ist hellrot gestrichen. (The wall is painted light red.)",
+          "formality": "neutral",
+          "sound": "/ˈhɛlʁoːt/"
+        },
+        {
+          "phrase": "dunkelrot",
+          "meaning": "dark red",
+          "usage_example": "Er hat ein dunkelrotes Auto. (He has a dark red car.)",
+          "formality": "neutral",
+          "sound": "/ˈdʊŋkəlʁoːt/"
+        }
+      ]
+    },
+
+    {
+      "category": "Mixed or Derived Colors",
+      "category_slug": "mixed-derived-colors",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "türkis",
+          "meaning": "turquoise",
+          "usage_example": "Das Meer ist türkis. (The sea is turquoise.)",
+          "formality": "neutral",
+          "sound": "/tyʁˈkiːs/"
+        },
+        {
+          "phrase": "beige",
+          "meaning": "beige",
+          "usage_example": "Der Mantel ist beige. (The coat is beige.)",
+          "formality": "neutral",
+          "sound": "/beːʒ/"
+        },
+        {
+          "phrase": "violett",
+          "meaning": "violet",
+          "usage_example": "Die Blume ist violett. (The flower is violet.)",
+          "formality": "neutral",
+          "sound": "/vioˈlɛt/"
+        },
+        {
+          "phrase": "gold",
+          "meaning": "gold",
+          "usage_example": "Die Uhr ist gold. (The watch is gold.)",
+          "formality": "neutral",
+          "sound": "/ɡɔlt/"
+        },
+        {
+          "phrase": "silber",
+          "meaning": "silver",
+          "usage_example": "Das Auto ist silber. (The car is silver.)",
+          "formality": "neutral",
+          "sound": "/ˈzɪlbɐ/"
+        },
+        {
+          "phrase": "olivgrün",
+          "meaning": "olive green",
+          "usage_example": "Seine Jacke ist olivgrün. (His jacket is olive green.)",
+          "formality": "neutral",
+          "sound": "/oˈliːfɡʁyːn/"
+        },
+        {
+          "phrase": "weinrot",
+          "meaning": "wine red / maroon",
+          "usage_example": "Ihr Kleid ist weinrot. (Her dress is maroon.)",
+          "formality": "neutral",
+          "sound": "/ˈvaɪ̯nʁoːt/"
+        },
+        {
+          "phrase": "khaki",
+          "meaning": "khaki",
+          "usage_example": "Er trägt eine khakifarbene Hose. (He’s wearing khaki pants.)",
+          "formality": "neutral",
+          "sound": "/ˈkaːki/"
+        }
+      ]
+    },
+
+    {
+      "category": "Material or Descriptive Colors",
+      "category_slug": "material-descriptive-colors",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "holzfarben",
+          "meaning": "wood-colored",
+          "usage_example": "Der Schrank ist holzfarben. (The cupboard is wood-colored.)",
+          "formality": "neutral",
+          "sound": "/ˈhɔltsˌfaʁbn̩/"
+        },
+        {
+          "phrase": "steinfarben",
+          "meaning": "stone gray",
+          "usage_example": "Die Wand ist steinfarben gestrichen. (The wall is painted stone gray.)",
+          "formality": "neutral",
+          "sound": "/ˈʃtaɪ̯nˌfaʁbn̩/"
+        },
+        {
+          "phrase": "hautfarben",
+          "meaning": "skin-colored",
+          "usage_example": "Das Pflaster ist hautfarben. (The bandage is skin-colored.)",
+          "formality": "neutral",
+          "sound": "/ˈhaʊ̯tˌfaʁbn̩/"
+        },
+        {
+          "phrase": "pastellfarben",
+          "meaning": "pastel-colored",
+          "usage_example": "Die Wände sind pastellfarben. (The walls are pastel-colored.)",
+          "formality": "neutral",
+          "sound": "/paˈstɛlˌfaʁbn̩/"
+        },
+        {
+          "phrase": "metallisch",
+          "meaning": "metallic",
+          "usage_example": "Das Auto glänzt metallisch. (The car shines metallically.)",
+          "formality": "neutral",
+          "sound": "/meˈtalɪʃ/"
+        }
+      ]
+    },
+
+    {
+      "category": "Idiomatic or Symbolic Colors",
+      "category_slug": "idiomatic-symbolic-colors",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "blau sein",
+          "meaning": "to be drunk (lit. to be blue)",
+          "usage_example": "Er war gestern total blau. (He was totally drunk yesterday.)",
+          "formality": "informal",
+          "sound": "/blaʊ̯ zaɪ̯n/"
+        },
+        {
+          "phrase": "grün vor Neid",
+          "meaning": "green with envy",
+          "usage_example": "Sie war grün vor Neid. (She was green with envy.)",
+          "formality": "neutral",
+          "sound": "/ɡʁyːn fɔʁ naɪ̯t/"
+        },
+        {
+          "phrase": "schwarz sehen",
+          "meaning": "to be pessimistic",
+          "usage_example": "Ich sehe schwarz für das Projekt. (I’m pessimistic about the project.)",
+          "formality": "neutral",
+          "sound": "/ʃvaʁts ˈzeːən/"
+        },
+        {
+          "phrase": "weiß vor Angst",
+          "meaning": "pale with fear",
+          "usage_example": "Er wurde weiß vor Angst. (He turned pale with fear.)",
+          "formality": "neutral",
+          "sound": "/vaɪ̯s fɔʁ aŋst/"
+        },
+        {
+          "phrase": "rosa sehen",
+          "meaning": "to be optimistic / see things positively",
+          "usage_example": "Er sieht alles durch die rosa Brille. (He sees everything through rose-colored glasses.)",
+          "formality": "neutral",
+          "sound": "/ˈʁoːza ˈzeːən/"
+        }
+      ]
+    }
+  ],
+
+  "time": [
+    {
+      "category": "Asking for the Time",
+      "category_slug": "asking-for-the-time",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Wie spät ist es?",
+          "response": "Es ist drei Uhr.",
+          "meaning": "What time is it?",
+          "meaning_response": "It is three o'clock.",
+          "usage_context": "Most common way to ask the current time.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "discussion": "Interchangeable with 'Wie viel Uhr ist es?'.",
+          "grammar_note": "'spät' literally 'late' but idiomatic here.",
+          "ipa": "/viː ʃpɛːt ɪst ʔɛs/",
+          "isCompleted": false,
+          "sound": "/viː ʃpɛːt ɪst ʔɛs/"
+        },
+        {
+          "phrase": "Wie viel Uhr ist es?",
+          "response": "Es ist halb neun.",
+          "meaning": "What time is it?",
+          "meaning_response": "It's half past eight.",
+          "usage_context": "Standard, slightly more formal wording.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Very common in shops and formal contexts.",
+          "grammar_note": "Answer usually with 'Es ist ... Uhr' or 'Es ist ...'.",
+          "ipa": "/viː fiːl uːɐ̯ ɪst ʔɛs/",
+          "isCompleted": false,
+          "sound": "/viː fiːl uːɐ̯ ɪst ʔɛs/"
+        },
+        {
+          "phrase": "Haben Sie die Uhrzeit?",
+          "response": "Ja, es ist Viertel nach sieben.",
+          "meaning": "Do you have the time?",
+          "meaning_response": "Yes, it's quarter past seven.",
+          "usage_context": "Polite/formal when asking a stranger.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "'Uhrzeit' = clock time.",
+          "grammar_note": "Use 'Sie' in formal contexts.",
+          "ipa": "/ˈhaːbən ziː diː ˈuːɐ̯tsaɪ̯t/",
+          "isCompleted": false,
+          "sound": "/ˈhaːbən ziː diː ˈuːɐ̯tsaɪ̯t/"
+        },
+        {
+          "phrase": "Kannst du mir sagen, wie spät es ist?",
+          "response": "Klar, es ist zehn nach vier.",
+          "meaning": "Can you tell me what time it is?",
+          "meaning_response": "Sure, it's ten past four.",
+          "usage_context": "Informal request among friends.",
+          "formality": "informal",
+          "region": "All",
+          "discussion": "Common everyday phrasing.",
+          "grammar_note": "'mir' is dative; politeness via 'Kannst du...'.",
+          "ipa": "/kanst duː miːɐ̯ ˈzaːɡn̩ viː ʃpɛːt ɪst/",
+          "isCompleted": false,
+          "sound": "/kanst duː miːɐ̯ ˈzaːɡn̩ viː ʃpɛːt ɪst/"
+        },
+        {
+          "phrase": "Entschuldigung, wissen Sie, wie viel Uhr es ist?",
+          "response": "Ja, es ist Punkt neun.",
+          "meaning": "Excuse me, do you know what time it is?",
+          "meaning_response": "Yes, it's exactly nine o'clock.",
+          "usage_context": "Very polite for strangers or officials.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Complete polite formula combining 'Entschuldigung' and 'wissen Sie'.",
+          "grammar_note": "'wissen' for factual knowledge.",
+          "ipa": "/ɛntˈʃʊldɪɡʊŋ ˈvɪsən ziː viː fiːl uːɐ̯ ɪst/",
+          "isCompleted": false,
+          "sound": "/ɛntˈʃʊldɪɡʊŋ ˈvɪsən ziː viː fiːl uːɐ̯ ɪst/"
+        },
+        {
+          "phrase": "Könnten Sie mir bitte sagen, wie spät es ist?",
+          "response": "Natürlich, es ist kurz vor zwölf.",
+          "meaning": "Could you please tell me what time it is?",
+          "meaning_response": "Of course, it's shortly before twelve.",
+          "usage_context": "Very polite (Konjunktiv II) for customer service.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Konjunktiv used to soften request.",
+          "grammar_note": "Könnten = polite conditional.",
+          "ipa": "/ˈkœntən ziː miːɐ̯ ˈbɪtə ˈzaːɡən viː ʃpɛːt ɪst/",
+          "isCompleted": false,
+          "sound": "/ˈkœntən ziː miːɐ̯ ˈbɪtə ˈzaːɡən viː ʃpɛːt ɪst/"
+        },
+        {
+          "phrase": "Hast du zufällig die Uhrzeit?",
+          "response": "Ja, es ist fünf nach eins.",
+          "meaning": "Do you happen to have the time?",
+          "meaning_response": "Yes, it's five past one.",
+          "usage_context": "Casual, 'by any chance' phrasing.",
+          "formality": "informal",
+          "region": "All",
+          "discussion": "'zufällig' softens the question.",
+          "grammar_note": "Colloquial friendly phrasing.",
+          "ipa": "/hast duː ˈtsuːfɛlɪç diː ˈuːɐ̯tsaɪ̯t/",
+          "isCompleted": false,
+          "sound": "/hast duː ˈtsuːfɛlɪç diː ˈuːɐ̯tsaɪ̯t/"
+        },
+        {
+          "phrase": "Welche Uhrzeit haben wir jetzt?",
+          "response": "Es ist genau zehn.",
+          "meaning": "What time is it now?",
+          "meaning_response": "It is exactly ten.",
+          "usage_context": "Used in meetings or events to check current time.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Often used by organizers to coordinate.",
+          "grammar_note": "'jetzt' means now; 'genau' emphasizes exactness.",
+          "ipa": "/ˈvɛlçə ˈuːɐ̯tsaɪ̯t ˈhaːbn̩ viːɐ̯ jɛtst/",
+          "isCompleted": false,
+          "sound": "/ˈvɛlçə ˈuːɐ̯tsaɪ̯t ˈhaːbn̩ viːɐ̯ jɛtst/"
+        },
+        {
+          "phrase": "Wie spät haben wir es?",
+          "response": "Wir haben gleich acht.",
+          "meaning": "What time do we have?",
+          "meaning_response": "It's almost eight.",
+          "usage_context": "Colloquial group phrasing.",
+          "formality": "informal",
+          "region": "Germany",
+          "discussion": "Common among groups checking time together.",
+          "grammar_note": "Uses 'wir haben' instead of 'es ist'.",
+          "ipa": "/viː ʃpɛːt ˈhaːbn̩ viːɐ̯ ʔɛs/",
+          "isCompleted": false,
+          "sound": "/viː ʃpɛːt ˈhaːbn̩ viːɐ̯ ʔɛs/"
+        },
+        {
+          "phrase": "Wissen Sie zufällig, wie viel Uhr es ist?",
+          "response": "Ja, es ist Viertel vor drei.",
+          "meaning": "Do you happen to know what time it is?",
+          "meaning_response": "Yes, it's quarter to three.",
+          "usage_context": "Combines politeness and indirectness.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Useful in public places.",
+          "grammar_note": "Polite indirect question construction.",
+          "ipa": "/ˈvɪsən ziː ˈtsuːfɛlɪç viː fiːl uːɐ̯ ʔɛs ɪst/",
+          "isCompleted": false,
+          "sound": "/ˈvɪsən ziː ˈtsuːfɛlɪç viː fiːl uːɐ̯ ʔɛs ɪst/"
+        },
+        {
+          "phrase": "Hast du eine Uhr?",
+          "response": "Ja, schau auf meinem Handy.",
+          "meaning": "Do you have a watch?",
+          "meaning_response": "Yes, check my phone.",
+          "usage_context": "Informal, asking for someone's watch/source of time.",
+          "formality": "informal",
+          "region": "All",
+          "discussion": "Nowadays people often check phones.",
+          "grammar_note": "'eine Uhr' is a watch (also clock).",
+          "ipa": "/hast duː ˈaɪ̯nə ʊːɐ̯/",
+          "isCompleted": false,
+          "sound": "/hast duː ˈaɪ̯nə ʊːɐ̯/"
+        },
+        {
+          "phrase": "Weißt du, wie spät es ungefähr ist?",
+          "response": "Ungefähr halb fünf.",
+          "meaning": "Do you know approximately what time it is?",
+          "meaning_response": "About half past four.",
+          "usage_context": "When you don't need exact minutes.",
+          "formality": "informal",
+          "region": "All",
+          "discussion": "'ungefähr' = approximately.",
+          "grammar_note": "Useful in casual conversation.",
+          "ipa": "/vaɪ̯st duː viː ʃpɛːt ʔɛs ˈʊŋɡəfɛːɐ̯ ɪst/",
+          "isCompleted": false,
+          "sound": "/vaɪ̯st duː viː ʃpɛːt ʔɛs ˈʊŋɡəfɛːɐ̯ ɪst/"
+        },
+        {
+          "phrase": "Wie spät ist es denn?",
+          "response": "Es ist gleich halb zwölf.",
+          "meaning": "So what time is it then?",
+          "meaning_response": "It is almost half past eleven.",
+          "usage_context": "Casual, adds 'denn' for emphasis or impatience.",
+          "formality": "informal",
+          "region": "All",
+          "discussion": "'denn' softens or stresses question.",
+          "grammar_note": "Colloquial nuance.",
+          "ipa": "/viː ʃpɛːt ɪst ʔɛs dɛn/",
+          "isCompleted": false,
+          "sound": "/viː ʃpɛːt ɪst ʔɛs dɛn/"
+        }
+      ]
+    },
+
+    {
+      "category": "Telling the Time",
+      "category_slug": "telling-the-time",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Es ist eins Uhr.",
+          "response": "Danke!",
+          "meaning": "It is one o'clock.",
+          "meaning_response": "Thanks!",
+          "usage_context": "Simple statement of the exact hour.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Use 'Uhr' to avoid confusion with date.",
+          "grammar_note": "Number before 'Uhr'.",
+          "ipa": "/ɛs ɪst aɪ̯ns uːɐ̯/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst aɪ̯ns uːɐ̯/"
+        },
+        {
+          "phrase": "Es ist zwei Uhr fünf.",
+          "response": "Gut zu wissen.",
+          "meaning": "It is 2:05.",
+          "meaning_response": "Good to know.",
+          "usage_context": "Exact minutes after the hour.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "German commonly uses 'zwei Uhr fünf' for 2:05.",
+          "grammar_note": "Hour + minute order.",
+          "ipa": "/ɛs ɪst tsvai̯ uːɐ̯ fʏnf/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst tsvai̯ uːɐ̯ fʏnf/"
+        },
+        {
+          "phrase": "Es ist Viertel nach drei.",
+          "response": "Alles klar.",
+          "meaning": "It is quarter past three.",
+          "meaning_response": "Alright.",
+          "usage_context": "Common for :15 times.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "In southern Germany some say 'Viertel vier' for 3:15.",
+          "grammar_note": "Be aware of regional variation.",
+          "ipa": "/ɛs ɪst ˈfɪɐ̯tl nax dʁaɪ̯/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst ˈfɪɐ̯tl nax dʁaɪ̯/"
+        },
+        {
+          "phrase": "Es ist halb sechs.",
+          "response": "Okay, pünktlich sein!",
+          "meaning": "It is half past five (5:30).",
+          "meaning_response": "Okay, be on time!",
+          "usage_context": "Half-hour phrasing (half before the next hour).",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Remember 'halb sechs' = 5:30 not 6:30.",
+          "grammar_note": "'halb' always refers to the upcoming hour.",
+          "ipa": "/ɛs ɪst halp zɛks/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst halp zɛks/"
+        },
+        {
+          "phrase": "Es ist zehn vor acht.",
+          "response": "Dann los!",
+          "meaning": "It is ten to eight (7:50).",
+          "meaning_response": "Then go!",
+          "usage_context": "Minutes before the hour.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "'vor' indicates minutes before the next hour.",
+          "grammar_note": "Use 'vor' for 'to' minutes.",
+          "ipa": "/ɛs ɪst tseːn foːɐ̯ axt/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst tseːn foːɐ̯ axt/"
+        },
+        {
+          "phrase": "Es ist zehn nach zwölf.",
+          "response": "Danke, das genügt.",
+          "meaning": "It is ten past twelve (12:10).",
+          "meaning_response": "Thanks, that's enough.",
+          "usage_context": "Minutes after the hour.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Common phrasing in daily speech.",
+          "grammar_note": "Use 'nach' for 'past' minutes.",
+          "ipa": "/ɛs ɪst tseːn nax tsvlf/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst tseːn nax tsvlf/"
+        },
+        {
+          "phrase": "Es ist Punkt halb fünf.",
+          "response": "Gut, wir haben Zeit.",
+          "meaning": "It is exactly half past four (4:30).",
+          "meaning_response": "Good, we have time.",
+          "usage_context": "When you want to stress exactness.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "'Punkt' emphasizes exactness.",
+          "grammar_note": "Precise time expression.",
+          "ipa": "/ɛs ɪst pʊŋkt halp fɪnf/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst pʊŋkt halp fɪnf/"
+        },
+        {
+          "phrase": "Es ist fünf Uhr dreißig.",
+          "response": "Alles klar.",
+          "meaning": "It is 5:30 (digital form).",
+          "meaning_response": "Alright.",
+          "usage_context": "Digital-style time statement (useful for official announcements).",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Common in timetables and announcements.",
+          "grammar_note": "Hour + minute numeric format.",
+          "ipa": "/ɛs ɪst fʏnf uːɐ̯ ˈdʁaɪ̯sɪç/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst fʏnf uːɐ̯ ˈdʁaɪ̯sɪç/"
+        },
+        {
+          "phrase": "Es ist 14:45.",
+          "response": "Danke, bis später!",
+          "meaning": "It is 14:45 (2:45 PM).",
+          "meaning_response": "Thanks, see you later!",
+          "usage_context": "24-hour clock / digital format.",
+          "formality": "both",
+          "region": "All (transport, schedules)",
+          "discussion": "24-hour format is common in timetables.",
+          "grammar_note": "Read aloud often as 'Viertel vor drei' in colloquial speech.",
+          "ipa": "/ɛs ɪst ˌtsvɛːnt͡sɪç ˌfʏɐˈʊntʔaxtsɪç/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst 14:45/"
+        },
+        {
+          "phrase": "Es ist Mitternacht.",
+          "response": "Gute Nacht!",
+          "meaning": "It is midnight.",
+          "meaning_response": "Good night!",
+          "usage_context": "Exactly 00:00.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Used for calendar or event markers.",
+          "grammar_note": "Mitternacht is a noun; capitalize in German.",
+          "ipa": "/ɛs ɪst ˈmɪtɐnaxt/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst ˈmɪtɐnaxt/"
+        },
+        {
+          "phrase": "Es ist Mittag.",
+          "response": "Zeit für Essen!",
+          "meaning": "It is midday / noon.",
+          "meaning_response": "Time to eat!",
+          "usage_context": "Around 12:00.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Mittag commonly used for lunch time.",
+          "grammar_note": "Noun: 'der Mittag'.",
+          "ipa": "/ɛs ɪst ˈmɪtaːk/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst ˈmɪtaːk/"
+        },
+        {
+          "phrase": "Es ist früher Morgen.",
+          "response": "Dann wach bleiben!",
+          "meaning": "It is early morning.",
+          "meaning_response": "Then stay awake!",
+          "usage_context": "Refers to early hours after midnight/before sunrise.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Useful in travel contexts.",
+          "grammar_note": "Adjective+Noun phrase.",
+          "ipa": "/ɛs ɪst ˈfyːʁɐ ˈmɔʁɡn̩/",
+          "isCompleted": false,
+          "sound": "/ɛs ɪst ˈfyːʁɐ ˈmɔʁɡn̩/"
+        }
+      ]
+    },
+
+    {
+      "category": "Days, Dates & Months",
+      "category_slug": "days-dates-months",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Welcher Tag ist heute?",
+          "response": "Heute ist Montag.",
+          "meaning": "What day is it today?",
+          "meaning_response": "Today is Monday.",
+          "usage_context": "General question about the weekday.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Days: Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag/Sonnabend, Sonntag.",
+          "grammar_note": "Capitalize day names in German.",
+          "ipa": "/ˈvɛlçɐ taːk ɪst ˈhɔɪ̯tə/",
+          "isCompleted": false,
+          "sound": "/ˈvɛlçɐ taːk ɪst ˈhɔɪ̯tə/"
+        },
+        {
+          "phrase": "Welches Datum haben wir heute?",
+          "response": "Heute ist der 12. Juli.",
+          "meaning": "What is today's date?",
+          "meaning_response": "Today is the 12th of July.",
+          "usage_context": "Asking for the calendar date.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Date format: 'der 12. Juli' or numeric '12.07.'",
+          "grammar_note": "Use ordinal in spoken German ('der zwölfte Juli').",
+          "ipa": "/ˈvɛlçəs ˈdaːtʊm ˈhaːbn̩ viːɐ̯ ˈhɔɪ̯tə/",
+          "isCompleted": false,
+          "sound": "/ˈvɛlçəs ˈdaːtʊm ˈhaːbn̩ viːɐ̯ ˈhɔɪ̯tə/"
+        },
+        {
+          "phrase": "Welcher Monat ist es?",
+          "response": "Es ist September.",
+          "meaning": "Which month is it?",
+          "meaning_response": "It is September.",
+          "usage_context": "General question about the month.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Months: Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember.",
+          "grammar_note": "Capitalize month names.",
+          "ipa": "/ˈvɛlçɐ ˈmoːnat ɪst ʔɛs/",
+          "isCompleted": false,
+          "sound": "/ˈvɛlçɐ ˈmoːnat ɪst ʔɛs/"
+        },
+        {
+          "phrase": "Heute ist mein Geburtstag.",
+          "response": "Alles Gute zum Geburtstag!",
+          "meaning": "Today is my birthday.",
+          "meaning_response": "Happy birthday!",
+          "usage_context": "Personal date statement.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Common celebratory phrase.",
+          "grammar_note": "Use 'zum' before 'Geburtstag' when congratulating.",
+          "ipa": "/ˈhɔɪ̯tə ɪst maɪ̯n ɡəˈbʊʁtstaːk/",
+          "isCompleted": false,
+          "sound": "/ˈhɔɪ̯tə ɪst maɪ̯n ɡəˈbʊʁtstaːk/"
+        },
+        {
+          "phrase": "Wann ist der Termin?",
+          "response": "Der Termin ist am 5. Mai.",
+          "meaning": "When is the appointment?",
+          "meaning_response": "The appointment is on May 5th.",
+          "usage_context": "Scheduling and appointments.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Useful for meetings, medical appointments.",
+          "grammar_note": "Use 'am' + date ordinal for spoken German.",
+          "ipa": "/van ɪst deːɐ̯ tɛʁˈmiːn/",
+          "isCompleted": false,
+          "sound": "/van ɪst deːɐ̯ tɛʁˈmiːn/"
+        },
+        {
+          "phrase": "Heute ist Montag, der dritte März.",
+          "response": "Danke für die Info.",
+          "meaning": "Today is Monday, the third of March.",
+          "meaning_response": "Thanks for the info.",
+          "usage_context": "Full spoken date with weekday.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Common in announcements and formal contexts.",
+          "grammar_note": "Ordinal form for day: 'dritte'.",
+          "ipa": "/ˈhɔɪ̯tə ɪst ˈmɔntag deːɐ̯ ˈdʁɪtə mɛʁts/",
+          "isCompleted": false,
+          "sound": "/ˈhɔɪ̯tə ɪst ˈmɔntag deːɐ̯ ˈdʁɪtə mɛʁts/"
+        },
+        {
+          "phrase": "Welcher Wochentag ist das?",
+          "response": "Das ist Freitag.",
+          "meaning": "Which weekday is that?",
+          "meaning_response": "That is Friday.",
+          "usage_context": "Clarification of weekday.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Useful when reading schedules.",
+          "grammar_note": "Wochentag = weekday.",
+          "ipa": "/ˈvɛlçɐ ˈvoːxənˌtaːk ɪst das/",
+          "isCompleted": false,
+          "sound": "/ˈvɛlçɐ ˈvoːxənˌtaːk ɪst das/"
+        },
+        {
+          "phrase": "Ist dieses Jahr ein Schaltjahr?",
+          "response": "Ja, dieses Jahr ist ein Schaltjahr.",
+          "meaning": "Is this year a leap year?",
+          "meaning_response": "Yes, this year is a leap year.",
+          "usage_context": "Calendar-related question.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Useful for date calculations.",
+          "grammar_note": "Schaltjahr = leap year.",
+          "ipa": "/ɪst ˈdiːzəs jaːɐ̯ aɪ̯n ˈʃaltjaːɐ̯/",
+          "isCompleted": false,
+          "sound": "/ɪst ˈdiːzəs jaːɐ̯ aɪ̯n ˈʃaltjaːɐ̯/"
+        },
+        {
+          "phrase": "Wann beginnt die Woche?",
+          "response": "Die Woche beginnt am Montag.",
+          "meaning": "When does the week begin?",
+          "meaning_response": "The week begins on Monday.",
+          "usage_context": "Cultural / scheduling question.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "In Germany the week typically starts on Monday.",
+          "grammar_note": "Verb 'beginnen' + 'am' for day.",
+          "ipa": "/van bəˈɡɪnt diː ˈvɔxə/",
+          "isCompleted": false,
+          "sound": "/van bəˈɡɪnt diː ˈvɔxə/"
+        },
+        {
+          "phrase": "Wann ist Ostern dieses Jahr?",
+          "response": "Ostern ist dieses Jahr am 9. April.",
+          "meaning": "When is Easter this year?",
+          "meaning_response": "Easter is on April 9th this year.",
+          "usage_context": "Asking for movable holidays.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Common holiday-related question.",
+          "grammar_note": "Holiday dates change each year.",
+          "ipa": "/van ɪst ˈɔstɐn ˈdiːzəs jaːɐ̯/",
+          "isCompleted": false,
+          "sound": "/van ɪst ˈɔstɐn ˈdiːzəs jaːɐ̯/"
+        },
+        {
+          "phrase": "Welches Datum ist heute in Zahlen?",
+          "response": "Heute ist der 21.08.2025.",
+          "meaning": "What date is it today in numbers?",
+          "meaning_response": "Today is 21.08.2025.",
+          "usage_context": "Numeric date format for forms and input.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "German numeric format usually DD.MM.YYYY.",
+          "grammar_note": "Be careful with international formats.",
+          "ipa": "/ˈvɛlçəs ˈdaːtʊm ɪst ˈhɔɪ̯tə ɪn ˈt͡saːlən/",
+          "isCompleted": false,
+          "sound": "/ˈvɛlçəs ˈdaːtʊm ɪst ˈhɔɪ̯tə ɪn ˈt͡saːlən/"
+        }
+      ]
+    },
+
+    {
+      "category": "Time of Day Contexts",
+      "category_slug": "time-of-day-contexts",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "am Morgen",
+          "response": "Ich jogge am Morgen.",
+          "meaning": "in the morning",
+          "meaning_response": "I jog in the morning.",
+          "usage_context": "Describe routine or when something happens.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "'am' = an + dem; common for parts of day.",
+          "grammar_note": "Use 'am' for Morgen, Nachmittag.",
+          "ipa": "/am ˈmɔʁɡn̩/",
+          "isCompleted": false,
+          "sound": "/am ˈmɔʁɡn̩/"
+        },
+        {
+          "phrase": "am Vormittag",
+          "response": "Ich habe am Vormittag Unterricht.",
+          "meaning": "in the late morning / before noon",
+          "meaning_response": "I have classes in the late morning.",
+          "usage_context": "Specific part of the morning.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Vormittag = time between morning and noon.",
+          "grammar_note": "Use 'am' + noun.",
+          "ipa": "/am foːɐ̯ˈmɪtaːk/",
+          "isCompleted": false,
+          "sound": "/am foːɐ̯ˈmɪtaːk/"
+        },
+        {
+          "phrase": "um die Mittagszeit",
+          "response": "Wir essen um die Mittagszeit.",
+          "meaning": "around lunchtime",
+          "meaning_response": "We eat around lunchtime.",
+          "usage_context": "Approximate reference to midday.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Good for scheduling casual lunches.",
+          "grammar_note": "'um die Mittagszeit' = approximately at midday.",
+          "ipa": "/ʊm diː ˈmɪtaːksˌtsaɪ̯t/",
+          "isCompleted": false,
+          "sound": "/ʊm diː ˈmɪtaːksˌtsaɪ̯t/"
+        },
+        {
+          "phrase": "am Nachmittag",
+          "response": "Ich arbeite am Nachmittag.",
+          "meaning": "in the afternoon",
+          "meaning_response": "I work in the afternoon.",
+          "usage_context": "Common phrase to place activities.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Often used to plan meetings.",
+          "grammar_note": "Afternoon = Nachmittag.",
+          "ipa": "/am ˈnaːxmɪtaːk/",
+          "isCompleted": false,
+          "sound": "/am ˈnaːxmɪtaːk/"
+        },
+        {
+          "phrase": "am Abend",
+          "response": "Am Abend sehe ich fern.",
+          "meaning": "in the evening",
+          "meaning_response": "In the evening I watch TV.",
+          "usage_context": "Evening activities.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Common for leisure activities.",
+          "grammar_note": "Evening = Abend.",
+          "ipa": "/am ˈaːbn̩t/",
+          "isCompleted": false,
+          "sound": "/am ˈaːbn̩t/"
+        },
+        {
+          "phrase": "in der Nacht",
+          "response": "In der Nacht ist es ruhig.",
+          "meaning": "at night",
+          "meaning_response": "At night it is quiet.",
+          "usage_context": "Nighttime reference.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Useful for schedules or travel.",
+          "grammar_note": "Use preposition 'in' + dative 'der Nacht'.",
+          "ipa": "/ɪn deːɐ̯ naxt/",
+          "isCompleted": false,
+          "sound": "/ɪn deːɐ̯ naxt/"
+        },
+        {
+          "phrase": "spät am Abend",
+          "response": "Wir können spät am Abend gehen.",
+          "meaning": "late in the evening",
+          "meaning_response": "We can go late in the evening.",
+          "usage_context": "Specifying late-evening timing.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Used when scheduling events after usual hours.",
+          "grammar_note": "Adverb 'spät' + temporal phrase.",
+          "ipa": "/ʃpɛːt am ˈaːbn̩t/",
+          "isCompleted": false,
+          "sound": "/ʃpɛːt am ˈaːbn̩t/"
+        },
+        {
+          "phrase": "frühmorgens",
+          "response": "Frühmorgens ist es noch ruhig.",
+          "meaning": "early in the morning",
+          "meaning_response": "Early mornings it's still quiet.",
+          "usage_context": "Refers to very early hours.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Frequently used in weather/travel contexts.",
+          "grammar_note": "Adverb form to express recurring early time.",
+          "ipa": "/ˈfʁyːmɔʁɡns/",
+          "isCompleted": false,
+          "sound": "/ˈfʁyːmɔʁɡns/"
+        },
+        {
+          "phrase": "spätabends",
+          "response": "Spätabends sind die Straßen leer.",
+          "meaning": "late at night / late evenings",
+          "meaning_response": "Late evenings the streets are empty.",
+          "usage_context": "Describing habitual late-evening situations.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Compound adverb common in spoken German.",
+          "grammar_note": "Use for recurring late evening activities.",
+          "ipa": "/ˈʃpɛːtaˌbɛnts/",
+          "isCompleted": false,
+          "sound": "/ˈʃpɛːtaˌbɛnts/"
+        },
+        {
+          "phrase": "am Wochenende",
+          "response": "Am Wochenende besuche ich meine Familie.",
+          "meaning": "on the weekend",
+          "meaning_response": "On the weekend I visit my family.",
+          "usage_context": "Weekend activities.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Weekend = Wochenende (Sat+Sun).",
+          "grammar_note": "Use 'am' for 'am Wochenende'.",
+          "ipa": "/am voːxənˈɛndə/",
+          "isCompleted": false,
+          "sound": "/am voːxənˈɛndə/"
+        },
+        {
+          "phrase": "heute Vormittag",
+          "response": "Heute Vormittag hatte ich ein Meeting.",
+          "meaning": "this morning / earlier today",
+          "meaning_response": "This morning I had a meeting.",
+          "usage_context": "Refers to earlier today before noon.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Often used to recount events from that day.",
+          "grammar_note": "Vormittag = before noon.",
+          "ipa": "/ˈhɔɪ̯tə foːɐ̯ˈmɪtaːk/",
+          "isCompleted": false,
+          "sound": "/ˈhɔɪ̯tə foːɐ̯ˈmɪtaːk/"
+        }
+      ]
+    },
+
+    {
+      "category": "Duration & Frequency",
+      "category_slug": "duration-frequency",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Wie lange dauert das?",
+          "response": "Ungefähr zwei Stunden.",
+          "meaning": "How long does that take?",
+          "meaning_response": "About two hours.",
+          "usage_context": "Asking about duration.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Useful in travel, cooking, events.",
+          "grammar_note": "'dauern' = to last/take time.",
+          "ipa": "/viː ˈlaŋə ˈdaʊ̯ɐt das/",
+          "isCompleted": false,
+          "sound": "/viː ˈlaŋə ˈdaʊ̯ɐt das/"
+        },
+        {
+          "phrase": "Das dauert eine Stunde.",
+          "response": "Okay, danke für die Info.",
+          "meaning": "That takes one hour.",
+          "meaning_response": "Okay, thanks for the information.",
+          "usage_context": "Stating expected duration.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Practical for planning.",
+          "grammar_note": "Use accusative for duration expressions.",
+          "ipa": "/das ˈdaʊ̯ɐt ˈaɪ̯nə ˈʃtʊndə/",
+          "isCompleted": false,
+          "sound": "/das ˈdaʊ̯ɐt ˈaɪ̯nə ˈʃtʊndə/"
+        },
+        {
+          "phrase": "Wie oft trainierst du pro Woche?",
+          "response": "Etwa dreimal pro Woche.",
+          "meaning": "How often do you train per week?",
+          "meaning_response": "About three times per week.",
+          "usage_context": "Frequency question about habits.",
+          "formality": "informal",
+          "region": "All",
+          "discussion": "Use 'pro Woche' to indicate frequency.",
+          "grammar_note": "'oft' = often, 'pro' used for per-unit frequency.",
+          "ipa": "/viː ɔft tʁaɪ̯ˈnɪʁst duː pʁoː ˈvɔxə/",
+          "isCompleted": false,
+          "sound": "/viː ɔft tʁaɪ̯ˈnɪʁst duː pʁoː ˈvɔxə/"
+        },
+        {
+          "phrase": "Ich gehe jeden Tag spazieren.",
+          "response": "Wow, das ist gesund!",
+          "meaning": "I go for a walk every day.",
+          "meaning_response": "Wow, that's healthy!",
+          "usage_context": "Describing daily routine.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "'jeden Tag' expresses daily frequency.",
+          "grammar_note": "'jeden' with accusative masculine 'Tag'.",
+          "ipa": "/ɪç ɡeːə ˈjeːdən taːk ʃpaˈt͡siːʁən/",
+          "isCompleted": false,
+          "sound": "/ɪç ɡeːə ˈjeːdən taːk ʃpaˈt͡siːʁən/"
+        },
+        {
+          "phrase": "Ich arbeite meistens von neun bis fünf.",
+          "response": "Das ist eine normale Arbeitszeit.",
+          "meaning": "I usually work from nine to five.",
+          "meaning_response": "That's a normal working time.",
+          "usage_context": "Describing typical working hours.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "'meistens' = usually.",
+          "grammar_note": "Use 'von ... bis ...' for time ranges.",
+          "ipa": "/ɪç ˈaʁbaɪ̯tə ˈmaɪ̯stəns fɔn nɔɪ̯n bɪs fɪnf/",
+          "isCompleted": false,
+          "sound": "/ɪç ˈaʁbaɪ̯tə ˈmaɪ̯stəns fɔn nɔɪ̯n bɪs fɪnf/"
+        },
+        {
+          "phrase": "Ich bin selten zu spät.",
+          "response": "Das ist gut.",
+          "meaning": "I am rarely late.",
+          "meaning_response": "That is good.",
+          "usage_context": "Talking about punctuality habits.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Punctuality is valued culturally.",
+          "grammar_note": "'selten' = rarely; position before verb/adjective.",
+          "ipa": "/ɪç bɪn ˈzɛltən tsuː ʃpɛːt/",
+          "isCompleted": false,
+          "sound": "/ɪç bɪn ˈzɛltən tsuː ʃpɛːt/"
+        },
+        {
+          "phrase": "Das wiederholt sich jede Woche.",
+          "response": "Dann müssen wir das planen.",
+          "meaning": "That repeats every week.",
+          "meaning_response": "Then we must plan it.",
+          "usage_context": "Talking about recurring events.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Useful for recurring meetings or classes.",
+          "grammar_note": "'jede Woche' indicates frequency.",
+          "ipa": "/das vɪdɐˈhoːlt zɪç ˈjeːdə ˈvɔxə/",
+          "isCompleted": false,
+          "sound": "/das vɪdɐˈhoːlt zɪç ˈjeːdə ˈvɔxə/"
+        },
+        {
+          "phrase": "Manchmal arbeite ich spätabends.",
+          "response": "Dann solltest du Pausen machen.",
+          "meaning": "Sometimes I work late in the evening.",
+          "meaning_response": "Then you should take breaks.",
+          "usage_context": "Frequency with 'manchmal'.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Describes occasional late work.",
+          "grammar_note": "'manchmal' = sometimes.",
+          "ipa": "/manˈʃmaːl ˈaʁbaɪ̯tə ɪç ˈʃpɛːtaˌbɛnts/",
+          "isCompleted": false,
+          "sound": "/manˈʃmaːl ˈaʁbaɪ̯tə ɪç ˈʃpɛːtaˌbɛnts/"
+        },
+        {
+          "phrase": "Täglich übe ich Deutsch.",
+          "response": "Sehr fleißig!",
+          "meaning": "I practice German daily.",
+          "meaning_response": "Very diligent!",
+          "usage_context": "Describing daily study routine.",
+          "formality": "informal",
+          "region": "All",
+          "discussion": "Frequency adverbs: täglich, oft, manchmal, selten.",
+          "grammar_note": "'täglich' as frequency adverb.",
+          "ipa": "/ˈtɛːklɪç ˈyːbə ɪç dɔʏ̯tʃ/",
+          "isCompleted": false,
+          "sound": "/ˈtɛːklɪç ˈyːbə ɪç dɔʏ̯tʃ/"
+        }
+      ]
+    },
+
+    {
+      "category": "Appointments & Schedules",
+      "category_slug": "appointments-schedules",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Wann passt es Ihnen?",
+          "response": "Wie wäre es am Donnerstag um 10 Uhr?",
+          "meaning": "When suits you?",
+          "meaning_response": "How about Thursday at 10 o'clock?",
+          "usage_context": "Professional scheduling question.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Polite scheduling in business.",
+          "grammar_note": "Use 'Ihnen' formal; 'Wie wäre es...' suggests alternatives.",
+          "ipa": "/van past ɛs ˈiːnən/",
+          "isCompleted": false,
+          "sound": "/van past ɛs ˈiːnən/"
+        },
+        {
+          "phrase": "Können wir den Termin verschieben?",
+          "response": "Ja, auf nächste Woche bitte.",
+          "meaning": "Can we postpone the appointment?",
+          "meaning_response": "Yes, to next week please.",
+          "usage_context": "Request to reschedule.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Useful for appointments and meetings.",
+          "grammar_note": "Verschieben = to postpone/move.",
+          "ipa": "/ˈkœnən viːɐ̯ deːɐ̯ tɛʁˈmiːn fɛɐ̯ˈʃiːbən/",
+          "isCompleted": false,
+          "sound": "/ˈkœnən viːɐ̯ deːɐ̯ tɛʁˈmiːn fɛɐ̯ˈʃiːbən/"
+        },
+        {
+          "phrase": "Der Termin ist leider abgesagt.",
+          "response": "Oh, schade. Wann ist der neue Termin?",
+          "meaning": "The appointment is unfortunately canceled.",
+          "meaning_response": "Oh, too bad. When is the new appointment?",
+          "usage_context": "Announcement of cancellation.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Common in email / SMS notifications.",
+          "grammar_note": "Absagen = to cancel; 'leider' expresses regret.",
+          "ipa": "/deːɐ̯ tɛʁˈmiːn ɪst ˈlaɪ̯dɐ ˈapɡəzaːkt/",
+          "isCompleted": false,
+          "sound": "/deːɐ̯ tɛʁˈmiːn ɪst ˈlaɪ̯dɐ ˈapɡəzaːkt/"
+        },
+        {
+          "phrase": "Ich habe einen Termin um 15 Uhr.",
+          "response": "Dann sehen wir uns um drei.",
+          "meaning": "I have an appointment at 3 PM.",
+          "meaning_response": "Then we'll see each other at three.",
+          "usage_context": "Stating scheduled appointment time.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "24-hour vs 12-hour usage common in Germany.",
+          "grammar_note": "Use 'um' + time for appointments.",
+          "ipa": "/ɪç ˈhaːbə ˈaɪnən tɛʁˈmiːn ʊm ˈfʏnfˌt͡sɛnʔ uːɐ̯/",
+          "isCompleted": false,
+          "sound": "/ɪç ˈhaːbə ˈaɪnən tɛʁˈmiːn ʊm ˈfʏnfˌt͡sɛnʔ uːɐ̯/"
+        },
+        {
+          "phrase": "Der Zug fährt um 18:30 ab.",
+          "response": "Ich muss mich beeilen.",
+          "meaning": "The train departs at 6:30 PM.",
+          "meaning_response": "I have to hurry.",
+          "usage_context": "Travel scheduling.",
+          "formality": "both",
+          "region": "All",
+          "discussion": "Useful for public transport contexts.",
+          "grammar_note": "'abfahren' = to depart; separable verb.",
+          "ipa": "/deːɐ̯ t͡suːk fɛːɐ̯t ʊm ˈaχtˌt͡sɛnʔ uːɐ̯ ˈdʁaɪ̯sɪç ap/",
+          "isCompleted": false,
+          "sound": "/deːɐ̯ t͡suːk fɛːɐ̯t ʊm ˈaχtˌt͡sɛnʔ uːɐ̯ ˈdʁaɪ̯sɪç ap/"
+        },
+        {
+          "phrase": "Das Meeting beginnt um 9 Uhr.",
+          "response": "Ich werde pünktlich sein.",
+          "meaning": "The meeting starts at 9 o'clock.",
+          "meaning_response": "I will be punctual.",
+          "usage_context": "Business scheduling.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "'Meeting' is commonly used in business German.",
+          "grammar_note": "'beginnen' = to begin/start.",
+          "ipa": "/das ˈmiːtɪŋ bəˈɡɪnt ʊm nɔɪ̯n uːɐ̯/",
+          "isCompleted": false,
+          "sound": "/das ˈmiːtɪŋ bəˈɡɪnt ʊm nɔɪ̯n uːɐ̯/"
+        },
+        {
+          "phrase": "Haben Sie morgen Zeit?",
+          "response": "Ja, ich bin den ganzen Tag frei.",
+          "meaning": "Do you have time tomorrow?",
+          "meaning_response": "Yes, I am free all day.",
+          "usage_context": "Scheduling question.",
+          "formality": "formal",
+          "region": "All",
+          "discussion": "Useful for arranging meetings.",
+          "grammar_note": "'Haben Sie' formal; 'den ganzen Tag' = all day.",
+          "ipa": "/ˈhaːbn̩ ziː ˈmɔʁɡn̩ t͡saɪ̯t/",
+          "isCompleted": false,
+          "sound": "/ˈhaːbn̩ ziː ˈmɔʁɡn̩ t͡saɪ̯t/"
+        }
+      ]
+    }
+  ],
+
+  "numbers": [
+    {
+      "category": "Basic Numbers",
+      "category_slug": "basic-numbers",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Eins",
+          "response": "",
+          "meaning": "One",
+          "meaning_response": "",
+          "usage_context": "Basic counting and telling time.",
+          "formality": "both",
+          "region": "All German-speaking regions",
+          "discussion": "Fundamental number; used in time expressions like 'ein Uhr' (1 o'clock).",
+          "grammar_note": "Cardinal number.",
+          "ipa": "/aɪ̯ns/",
+          "isCompleted": false,
+          "sound": "/aɪ̯ns/"
+        }
+      ]
+    }
+  ],
+
+  "calendar": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "locations": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "family": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "opinions": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "preference": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "culture": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "entertainment": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "technology": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "invitations": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "work": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "travels": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "shopping": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "health": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "foods": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "seasons": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "sound": ""
+        }
+      ]
+    }
+  ]
 }

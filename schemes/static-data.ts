@@ -250,7 +250,7 @@ export const CATEGORY_DATA = [
   {
     id: '9',
     title: "Family & Friends",
-    slug: "family-relatives-friends",
+    slug: "family",
     ImgComponent: FamilyIcon
   },
   {
