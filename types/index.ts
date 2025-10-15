@@ -154,17 +154,20 @@ type LessonProps = {
 
 type UnitIndividualCategoryItem = {
   phrase: string;
+  name?: string;
   response: string;
   meaning: string;
   meaning_response: string;
   usage_context: string;
   formality: "formal" | "informal" | "neutral" | "both";
+  german_level: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | null;
   grammar_note: string;
   example_sentences?: string[];
   audio_file?: string;
   region: string;
   ipa: string;
   sound: string;
+  examples: string[]
 };
 
 type UnitIndividualCategory = {
@@ -172,31 +175,44 @@ type UnitIndividualCategory = {
   category_slug: string;
   goal: number;
   completion: number;
+  notes?: string[];
   ImgComponent: React.FC<SvgProps>;
   // items: UnitIndividualCategoryItem[];
 };
 
 type DB = {
+  alphabets: UnitIndividualCategory[];
   greetings: UnitIndividualCategory[];
   introduction: UnitIndividualCategory[];
   colors: UnitIndividualCategory[];
   numbers: UnitIndividualCategory[];
+  body_parts: UnitIndividualCategory[];
   locations: UnitIndividualCategory[];
   travels: UnitIndividualCategory[];
+  landscape: UnitIndividualCategory[];
   work: UnitIndividualCategory[];
   opinions: UnitIndividualCategory[];
   invitations: UnitIndividualCategory[];
   technology: UnitIndividualCategory[];
   education: UnitIndividualCategory[];
+  school: UnitIndividualCategory[];
   preference: UnitIndividualCategory[];
   time: UnitIndividualCategory[];
   family: UnitIndividualCategory[];
+  house: UnitIndividualCategory[];
   calendar: UnitIndividualCategory[];
   seasons: UnitIndividualCategory[];
+  weather: UnitIndividualCategory[];
+  sports: UnitIndividualCategory[];
   activities: UnitIndividualCategory[];
+  services: UnitIndividualCategory[];
   foods: UnitIndividualCategory[];
   health: UnitIndividualCategory[];
+  animals: UnitIndividualCategory[];
   shopping: UnitIndividualCategory[];
+  dresses: UnitIndividualCategory[];
+  tools: UnitIndividualCategory[];
+  vehicles: UnitIndividualCategory[];
   culture: UnitIndividualCategory[];
   entertainment: UnitIndividualCategory[];
   // add other keys if needed

@@ -6,6 +6,19 @@ import { StudyingDolphinIcon } from '@/utils/SVGImages'
 
 // Cast dbJson to DB, transforming 'formality' to the correct type
 export const db: DB = {
+  alphabets: dbJson.alphabets.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
   greetings: dbJson.greetings.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -14,7 +27,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -26,7 +40,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -38,7 +53,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -50,7 +66,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -62,7 +79,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -74,7 +92,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -86,7 +105,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -98,7 +118,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -110,7 +131,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -122,7 +144,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -134,7 +157,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -146,7 +170,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -158,7 +183,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -170,7 +196,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -182,7 +209,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -194,7 +222,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -206,7 +235,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -218,7 +248,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -230,7 +261,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -242,7 +274,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -254,7 +287,8 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
 
@@ -266,21 +300,21 @@ export const db: DB = {
     ImgComponent: StudyingDolphinIcon,
     items: cat.items.map((item: any) => ({
       ...item,
-      formality: item.formality as "formal" | "informal" | "neutral" | "both"
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
-
-  // grammer: dbJson.grammer.map((cat: any) => ({
-  //   category: cat.category,
-  //   category_slug: cat.category_slug,
-  //   goal: cat.goal,
-  //   completion: cat.completion,
-  //   ImgComponent: StudyingDolphinIcon,
-  //   items: cat.items.map((item: any) => ({
-  //     ...item,
-  //     formality: item.formality as "formal" | "informal" | "neutral" | "both"
-  //   }))
-  // })),
+  body_parts: [],
+  landscape: [],
+  school: [],
+  house: [],
+  weather: [],
+  sports: [],
+  services: [],
+  animals: [],
+  dresses: [],
+  tools: [],
+  vehicles: []
 };
 
 export const getCardContainerWidth =  () =>  (SIZES.screenWidth - ( (SIZES.bodyPaddingHorizontal*2) + SIZES.cardGap )) / 2;

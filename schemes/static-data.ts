@@ -48,150 +48,235 @@ import {
 export const CATEGORY_DATA_V2 = [
   {
     id: '1',
+    title: "Alphabets",
+    slug: "alphabets",
+    ImgComponent: GreetingsIconV2
+  },
+  {
+    id: '2',
     title: "Greetings",
     slug: "greetings",
     ImgComponent: GreetingsIconV2
   },
   {
-    id: '2',
+    id: '3',
     title: "Introductions",
     slug: "introduction",
     ImgComponent: IntroIconV2
   },
   {
-    id: '3',
-    title: "Numbers",
-    slug: "numbers",
-    ImgComponent: NumberIconV2
-  },
-  {
     id: '4',
-    title: "Colors",
-    slug: "colors",
-    ImgComponent: ColorsIconV2
-  },
-  {
-    id: '5',
-    title: "Time",
-    slug: "time",
-    ImgComponent: TimeIconV2
-  },
-  {
-    id: '6',
-    title: "Calendar",
-    slug: "calendar",
-    ImgComponent: CalendarIconV2
-  },
-  {
-    id: '7',
-    title: "Seasons",
-    slug: "seasons",
-    ImgComponent: SeasonsIconV2
-  },
-  {
-    id: '8',
-    title: "Activities",
-    slug: "activities",
-    ImgComponent: ActivitiesIconV2
-  },
-  {
-    id: '9',
     title: "Family & Friends",
     slug: "family-relatives-friends",
     ImgComponent: FamilyIconV2
   },
   {
+    id: '5',
+    title: "House, Hotel & Restaurants",
+    slug: "house",
+    ImgComponent: FamilyIconV2
+  },
+  {
+    id: '6',
+    title: "Numbers",
+    slug: "numbers",
+    ImgComponent: NumberIconV2
+  },
+  {
+    id: '7',
+    title: "Colors",
+    slug: "colors",
+    ImgComponent: ColorsIconV2
+  },
+  {
+    id: '8',
+    title: "Time",
+    slug: "time",
+    ImgComponent: TimeIconV2
+  },
+  {
+    id: '9',
+    title: "Calendar",
+    slug: "calendar",
+    ImgComponent: CalendarIconV2
+  },
+  {
     id: '10',
-    title: "Food & Drinks",
-    slug: "foods",
-    ImgComponent: FoodIconV2
+    title: "Seasons",
+    slug: "seasons",
+    ImgComponent: SeasonsIconV2
   },
   {
     id: '11',
-    title: "Directions",
-    slug: "locations",
-    ImgComponent: DirectionIconV2
+    title: "Weather",
+    slug: "weather",
+    ImgComponent: SeasonsIconV2
   },
   {
     id: '12',
-    title: "Travel",
-    slug: "travels",
-    ImgComponent: TravelIconV2
+    title: "Sports",
+    slug: "sports",
+    ImgComponent: ActivitiesIconV2
   },
   {
     id: '13',
-    title: "Shopping",
-    slug: "shopping",
-    ImgComponent: ShoppingIconV2
+    title: "Activities",
+    slug: "activities",
+    ImgComponent: ActivitiesIconV2
   },
   {
     id: '14',
-    title: "Work",
-    slug: "work",
-    ImgComponent: WorkIconV2
+    title: "Services",
+    slug: "services",
+    ImgComponent: ActivitiesIconV2
   },
   {
     id: '15',
+    title: "Body Parts",
+    slug: "body_parts",
+    ImgComponent: HealthIconV2
+  },
+  {
+    id: '16',
     title: "Health",
     slug: "health",
     ImgComponent: HealthIconV2
   },
   {
-    id: '16',
+    id: '17',
+    title: "Food & Drinks",
+    slug: "foods",
+    ImgComponent: FoodIconV2
+  },
+  {
+    id: '18',
+    title: "Flowers",
+    slug: "flowers",
+    ImgComponent: FoodIconV2
+  },
+  {
+    id: '19',
+    title: "Animals",
+    slug: "animals",
+    ImgComponent: FoodIconV2
+  },
+  {
+    id: '20',
+    title: "Directions",
+    slug: "locations",
+    ImgComponent: DirectionIconV2
+  },
+  {
+    id: '21',
+    title: "Travel",
+    slug: "travels",
+    ImgComponent: TravelIconV2
+  },
+  {
+    id: '22',
+    title: "Landscape",
+    slug: "Landscape",
+    ImgComponent: TravelIconV2
+  },
+  {
+    id: '23',
+    title: "Countries",
+    slug: "Countries",
+    ImgComponent: TravelIconV2
+  },
+  {
+    id: '24',
+    title: "Shopping",
+    slug: "shopping",
+    ImgComponent: ShoppingIconV2
+  },
+  {
+    id: '25',
+    title: "Dresses",
+    slug: "dresses",
+    ImgComponent: ShoppingIconV2
+  },
+  {
+    id: '26',
+    title: "Tools",
+    slug: "tools",
+    ImgComponent: ShoppingIconV2
+  },
+  {
+    id: '27',
+    title: "Vehicles",
+    slug: "vehicles",
+    ImgComponent: ShoppingIconV2
+  },
+  {
+    id: '28',
+    title: "Work",
+    slug: "work",
+    ImgComponent: WorkIconV2
+  },
+  
+  {
+    id: '29',
     title: "Preference",
     slug: "preference",
     ImgComponent: PreferenceIconV2
   },
   {
-    id: '17',
+    id: '30',
     title: "Invitations",
     slug: "invitations",
     ImgComponent: InvitationsIconV2
   },
   {
-    id: '18',
+    id: '31',
     title: "Technology",
     slug: "technology",
     ImgComponent: TechnologyIconV2
   },
   {
-    id: '19',
+    id: '32',
     title: "Education",
     slug: "education",
     ImgComponent: EducationIconV2
   },
   {
-    id: '20',
+    id: '33',
+    title: "Schools & University",
+    slug: "school",
+    ImgComponent: EducationIconV2
+  },
+  {
+    id: '34',
     title: "Culture",
     slug: "culture",
     ImgComponent: CultureIconV2
   },
   {
-    id: '21',
+    id: '35',
     title: "Entertainment",
     slug: "entertainment",
     ImgComponent: EntertainmentIconV2
   },
   {
-    id: '22',
+    id: '36',
     title: "Opinions",
     slug: "opinion",
     ImgComponent: OpinionsIconV2
   },
   {
-    id: '23',
+    id: '37',
     title: "Tenses",
     slug: "tenses",
     ImgComponent: BookIcon
   },
   {
-    id: '24',
+    id: '38',
     title: "Grammar",
     slug: "grammar",
     ImgComponent: BookIcon
   },
   {
-    id: '25',
+    id: '39',
     title: "Vocabulary",
     slug: "vocabulary",
     ImgComponent: BookIcon
@@ -201,150 +286,234 @@ export const CATEGORY_DATA_V2 = [
 export const CATEGORY_DATA = [
   {
     id: '1',
+    title: "Alphabets",
+    slug: "alphabets",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '2',
     title: "Greetings",
     slug: "greetings",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '2',
+    id: '3',
     title: "Introductions",
     slug: "introduction",
     ImgComponent: IntroIcon
   },
   {
-    id: '3',
+    id: '4',
     title: "Numbers",
     slug: "numbers",
     ImgComponent: NumbersIcon
   },
   {
-    id: '4',
+    id: '5',
     title: "Colors",
     slug: "colors",
     ImgComponent: NumbersIcon
   },
   {
-    id: '5',
+    id: '6',
+    title: "Body Parts",
+    slug: "body_parts",
+    ImgComponent: NumbersIcon
+  },
+  {
+    id: '7',
     title: "Time",
     slug: "time",
     ImgComponent: TimeIcon
   },
   {
-    id: '6',
+    id: '8',
     title: "Calendar",
     slug: "calendar",
     ImgComponent: TimeIcon
   },
   {
-    id: '7',
+    id: '9',
     title: "Seasons",
     slug: "seasons",
     ImgComponent: ChatIcon
   },
   {
-    id: '8',
+    id: '10',
+    title: "Weather",
+    slug: "weather",
+    ImgComponent: ChatIcon
+  },
+  {
+    id: '11',
+    title: "Sports",
+    slug: "sports",
+    ImgComponent: ChatIcon
+  },
+  {
+    id: '12',
     title: "Activities",
     slug: "activities",
     ImgComponent: ChatIcon
   },
   {
-    id: '9',
+    id: '13',
+    title: "Services",
+    slug: "services",
+    ImgComponent: ChatIcon
+  },
+  {
+    id: '14',
     title: "Family & Friends",
     slug: "family",
     ImgComponent: FamilyIcon
   },
   {
-    id: '10',
+    id: '15',
+    title: "House, Hotel & Restaurants",
+    slug: "house",
+    ImgComponent: FamilyIcon
+  },
+  {
+    id: '16',
     title: "Food & Drinks",
     slug: "foods",
     ImgComponent: FoodsIcon
   },
   {
-    id: '11',
+    id: '17',
     title: "Directions",
     slug: "locations",
     ImgComponent: LocationIcon
   },
   {
-    id: '12',
+    id: '18',
     title: "Travel",
     slug: "travels",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '13',
+    id: '19',
+    title: "Landscape",
+    slug: "landscape",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '20',
     title: "Shopping",
     slug: "shopping",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '14',
+    id: '21',
+    title: "Dresses",
+    slug: "dresses",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '22',
+    title: "Tools",
+    slug: "tools",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '23',
+    title: "Vehicles",
+    slug: "vehicles",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '24',
     title: "Work",
     slug: "work",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '15',
+    id: '25',
     title: "Health",
     slug: "health",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '16',
+    id: '26',
+    title: "Animals",
+    slug: "animals",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '27',
     title: "Preference",
     slug: "preference",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '17',
+    id: '28',
+    title: "Flowers",
+    slug: "flowers",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '29',
+    title: "Countries",
+    slug: "countries",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '30',
     title: "Invitations",
     slug: "invitations",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '18',
+    id: '31',
     title: "Technology",
     slug: "technology",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '19',
+    id: '32',
     title: "Education",
     slug: "education",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '20',
+    id: '33',
+    title: "School and University",
+    slug: "school",
+    ImgComponent: GreetingsIcon
+  },
+  {
+    id: '34',
     title: "Culture",
     slug: "culture",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '21',
+    id: '35',
     title: "Entertainment",
     slug: "entertainment",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '22',
+    id: '36',
     title: "Opinions",
     slug: "opinion",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '23',
+    id: '37',
     title: "Tenses",
     slug: "tenses",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '24',
+    id: '38',
     title: "Grammar",
     slug: "grammar",
     ImgComponent: GreetingsIcon
   },
   {
-    id: '25',
+    id: '39',
     title: "Vocabulary",
     slug: "vocabulary",
     ImgComponent: GreetingsIcon
