@@ -67,7 +67,7 @@ export const CATEGORY_DATA_V2 = [
   {
     id: '4',
     title: "Family & Friends",
-    slug: "family-relatives-friends",
+    slug: "family",
     ImgComponent: FamilyIconV2
   },
   {

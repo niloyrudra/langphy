@@ -78,8 +78,10 @@ const PracticeLessons = () => {
                   iconComponent={theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon />}
                   style={{ borderColor: "#08C1D2" }}
                   buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
+                  speechContent={item?.name || item?.meaning}
+                  speechLang="en-US"
                 >
-                  <Text style={[styles.text, { color: colors.textDark }]}>{item?.meaning}</Text>
+                  <Text style={[styles.text, { color: colors.textDark }]}>{item?.name || item?.meaning}</Text>
                 </LessonComponent>
 
                 <HorizontalLine style={{ marginTop: 30, marginBottom: 50 }} />
@@ -90,6 +92,8 @@ const PracticeLessons = () => {
                   iconComponent={theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />}
                   style={{ borderColor: "#1B7CF5" }}
                   buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
+                  speechContent={item?.phrase}
+                  speechLang="de-DE"
                 >
                   <Text style={[styles.mainText, { color: colors.textDark }]}>{item?.phrase}</Text>
                   <Text style={[styles.subText, { color: colors.textSubColor }]}>

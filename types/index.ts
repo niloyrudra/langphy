@@ -148,8 +148,10 @@ type LessonProps = {
     language: string,
     iconComponent: ReactNode,
     children?: ReactNode | undefined,
-    style?: StyleProp<ViewStyle>
-    buttonStyle?: StyleProp<ViewStyle>
+    style?: StyleProp<ViewStyle>,
+    buttonStyle?: StyleProp<ViewStyle>,
+    speechContent?: string,
+    speechLang?: string
 }
 
 type UnitIndividualCategoryItem = {

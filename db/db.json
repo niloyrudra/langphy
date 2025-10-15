@@ -13443,35 +13443,1446 @@
 
   "weather": [
     {
-      "category": "",
-      "category_slug": "",
+      "category": "Asking About the Weather",
+      "category_slug": "asking-about-weather",
       "goal": 1000,
       "completion": 0,
       "ImgComponent": "",
       "items": [
         {
-          "phrase": "",
-          "response": "",
-          "meaning": "",
-          "meaning_response": "",
-          "german_level": "",
-          "usage_context": "",
-          "formality": "",
-          "region": "",
-          "discussion": "",
-          "grammar_note": "",
-          "ipa": "",
+          "phrase": "Wie ist das Wetter heute?",
+          "meaning": "How is the weather today?",
+          "name": "Weather Inquiry",
+          "response": "Es ist sonnig.",
+          "meaning_response": "It’s sunny.",
+          "german_level": "A1",
+          "usage_context": "General daily question about the weather.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "This is the most common way to ask about the current weather.",
+          "grammar_note": "Uses 'das Wetter' (neuter noun). The verb 'ist' is from 'sein' (to be).",
+          "ipa": "/viː ɪst das ˈvɛtɐ ˈhɔʏtə/",
           "isCompleted": false,
           "examples": [
             {
-              "example": "",
-              "translation": "",
-              "sound": ""
+              "example": "Wie ist das Wetter heute?",
+              "translation": "How is the weather today?",
+              "sound": "sounds/weather/wie_ist_das_wetter_heute.mp3"
             }
           ],
-          "sound": ""
+          "sound": "sounds/weather/wie_ist_das_wetter_heute.mp3"
+        },
+        {
+          "phrase": "Wie wird das Wetter morgen?",
+          "meaning": "What will the weather be like tomorrow?",
+          "name": "Weather Forecast",
+          "response": "Es soll regnen.",
+          "meaning_response": "It’s supposed to rain.",
+          "german_level": "A1-A2",
+          "usage_context": "Talking about tomorrow’s forecast or planning an event.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "Commonly used when discussing future plans depending on the weather.",
+          "grammar_note": "Uses future tense with 'wird' (from 'werden').",
+          "ipa": "/viː vɪʁt das ˈvɛtɐ ˈmɔʁɡn̩/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie wird das Wetter morgen?",
+              "translation": "What will the weather be like tomorrow?",
+              "sound": "sounds/weather/wie_wird_das_wetter_morgen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wie_wird_das_wetter_morgen.mp3"
+        },
+        {
+          "phrase": "Weißt du, wie das Wetter heute wird?",
+          "meaning": "Do you know how the weather will be today?",
+          "name": "Casual Weather Inquiry",
+          "response": "Ja, es bleibt warm.",
+          "meaning_response": "Yes, it’ll stay warm.",
+          "german_level": "A2",
+          "usage_context": "Informal conversation between friends or family.",
+          "formality": "informal",
+          "region": "All German-speaking regions",
+          "discussion": "This is a friendly, conversational way to ask someone if they know about today’s weather.",
+          "grammar_note": "Uses a dependent clause introduced by 'wie'.",
+          "ipa": "/vaɪ̯st duː viː das ˈvɛtɐ ˈhɔʏtə vɪʁt/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Weißt du, wie das Wetter heute wird?",
+              "translation": "Do you know how the weather will be today?",
+              "sound": "sounds/weather/weisst_du_wie_das_wetter_heute_wird.mp3"
+            }
+          ],
+          "sound": "sounds/weather/weisst_du_wie_das_wetter_heute_wird.mp3"
+        },
+        {
+          "phrase": "Wird es heute regnen?",
+          "meaning": "Will it rain today?",
+          "name": "Rain Inquiry",
+          "response": "Ja, am Nachmittag.",
+          "meaning_response": "Yes, in the afternoon.",
+          "german_level": "A1",
+          "usage_context": "Used to check for rain before going outside or planning something.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "A simple way to ask if it’s going to rain today.",
+          "grammar_note": "Uses the future auxiliary 'wird'.",
+          "ipa": "/vɪʁt ɛs ˈhɔʏtə ˈʁeːɡnən/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wird es heute regnen?",
+              "translation": "Will it rain today?",
+              "sound": "sounds/weather/wird_es_heute_regnen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wird_es_heute_regnen.mp3"
+        },
+        {
+          "phrase": "Wie ist das Wetter draußen?",
+          "meaning": "What’s the weather like outside?",
+          "name": "Checking the Weather Outside",
+          "response": "Es ist windig.",
+          "meaning_response": "It’s windy.",
+          "german_level": "A1",
+          "usage_context": "Checking the weather before leaving home.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "Frequently used to check if it’s suitable to go outside.",
+          "grammar_note": "Uses the adverb 'draußen' meaning 'outside'.",
+          "ipa": "/viː ɪst das ˈvɛtɐ ˈdʁaʊ̯sən/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie ist das Wetter draußen?",
+              "translation": "What’s the weather like outside?",
+              "sound": "sounds/weather/wie_ist_das_wetter_draussen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wie_ist_das_wetter_draussen.mp3"
+        },
+        {
+          "phrase": "Regnet es noch?",
+          "meaning": "Is it still raining?",
+          "name": "Rain Continuation",
+          "response": "Nein, es hat aufgehört.",
+          "meaning_response": "No, it stopped.",
+          "german_level": "A1",
+          "usage_context": "Used to ask if the rain is continuing.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "Common in casual conversation during rainy weather.",
+          "grammar_note": "Uses present tense for ongoing action 'regnet'.",
+          "ipa": "/ˈʁeːɡnɛt ɛs nɔx/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Regnet es noch?",
+              "translation": "Is it still raining?",
+              "sound": "sounds/weather/regnet_es_noch.mp3"
+            }
+          ],
+          "sound": "sounds/weather/regnet_es_noch.mp3"
+        },
+        {
+          "phrase": "Ist es kalt draußen?",
+          "meaning": "Is it cold outside?",
+          "name": "Cold Weather Check",
+          "response": "Ja, zieh dich warm an!",
+          "meaning_response": "Yes, dress warmly!",
+          "german_level": "A1",
+          "usage_context": "Typical phrase in winter or before going out.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "Common small talk about temperature, often with friendly advice.",
+          "grammar_note": "Uses 'kalt' (cold) as an adjective predicate.",
+          "ipa": "/ɪst ɛs kalt ˈdʁaʊ̯sən/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ist es kalt draußen?",
+              "translation": "Is it cold outside?",
+              "sound": "sounds/weather/ist_es_kalt_draussen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/ist_es_kalt_draussen.mp3"
+        },
+        {
+          "phrase": "Wie heiß ist es heute?",
+          "meaning": "How hot is it today?",
+          "name": "Temperature Inquiry",
+          "response": "Über 30 Grad!",
+          "meaning_response": "Over 30 degrees!",
+          "german_level": "A2",
+          "usage_context": "Used when talking about summer temperatures or heat.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "Common in casual talk when it’s unusually hot.",
+          "grammar_note": "Uses 'heiß' (hot) to describe temperature.",
+          "ipa": "/viː haɪ̯s ɪst ɛs ˈhɔʏtə/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie heiß ist es heute?",
+              "translation": "How hot is it today?",
+              "sound": "sounds/weather/wie_heiss_ist_es_heute.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wie_heiss_ist_es_heute.mp3"
+        },
+        {
+          "phrase": "Hast du den Wetterbericht gehört?",
+          "meaning": "Did you hear the weather report?",
+          "name": "Forecast Check",
+          "response": "Ja, morgen wird es sonnig.",
+          "meaning_response": "Yes, tomorrow will be sunny.",
+          "german_level": "A2",
+          "usage_context": "Used in conversations about weather forecasts.",
+          "formality": "neutral",
+          "region": "All German-speaking regions",
+          "discussion": "Used when referring to a forecast from radio, TV, or online.",
+          "grammar_note": "Uses past tense with 'hast du gehört'.",
+          "ipa": "/hast duː deːn ˈvɛtɐbəʁɪçt ɡəˈhøːɐ̯t/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Hast du den Wetterbericht gehört?",
+              "translation": "Did you hear the weather report?",
+              "sound": "sounds/weather/hast_du_den_wetterbericht_gehoert.mp3"
+            }
+          ],
+          "sound": "sounds/weather/hast_du_den_wetterbericht_gehoert.mp3"
+        },
+        {
+          "phrase": "Gibt es heute Sonne oder Regen?",
+          "meaning": "Is there sun or rain today?",
+          "name": "Weather Condition Choice",
+          "response": "Beides!",
+          "meaning_response": "Both!",
+          "german_level": "A1-A2",
+          "usage_context": "Used humorously or casually to describe mixed weather.",
+          "formality": "informal",
+          "region": "All German-speaking regions",
+          "discussion": "A fun and light-hearted way to talk about unpredictable weather.",
+          "grammar_note": "Uses 'es gibt' for existence — literally 'there is'.",
+          "ipa": "/ɡɪpt ɛs ˈhɔʏtə ˈzɔnə ˈoːdɐ ˈʁeːɡn̩/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es heute Sonne oder Regen?",
+              "translation": "Is there sun or rain today?",
+              "sound": "/ɡɪpt ɛs ˈhɔʏtə ˈzɔnə ˈoːdɐ ˈʁeːɡn̩/"
+            }
+          ],
+          "sound": "/ɡɪpt ɛs ˈhɔʏtə ˈzɔnə ˈoːdɐ ˈʁeːɡn̩/"
         }
       ]
+    },
+    
+    {
+      "category": "Describing Sunny or Warm Weather",
+      "category_slug": "warm-weather",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Es ist sonnig.",
+          "meaning": "It’s sunny.",
+          "name": "Sunny Weather",
+          "response": "Ja, wunderschön!",
+          "meaning_response": "Yes, beautiful!",
+          "german_level": "A1",
+          "usage_context": "Simple weather report",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Basic way to describe a sunny day; often used as a neutral weather comment.",
+          "grammar_note": "‘Es ist’ + adjective is the standard weather phrase structure.",
+          "ipa": "[ɛs ɪst ˈzɔnɪç]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist sonnig und warm.",
+              "translation": "It’s sunny and warm.",
+              "sound": "sounds/weather/es_ist_sonnig.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_ist_sonnig.mp3"
+        },
+        {
+          "phrase": "Die Sonne scheint.",
+          "meaning": "The sun is shining.",
+          "name": "Sun Shining",
+          "response": "Endlich!",
+          "meaning_response": "Finally!",
+          "german_level": "A1",
+          "usage_context": "Positive reaction",
+          "formality": "Informal",
+          "region": "Germany/Austria",
+          "discussion": "Used to express joy or relief about sunny weather.",
+          "grammar_note": "‘Die Sonne’ (noun) + ‘scheint’ (verb ‘scheinen’ = to shine).",
+          "ipa": "[diː ˈzɔnə ʃaɪnt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Die Sonne scheint heute stark.",
+              "translation": "The sun is shining strongly today.",
+              "sound": "sounds/weather/die_sonne_scheint.mp3"
+            }
+          ],
+          "sound": "sounds/weather/die_sonne_scheint.mp3"
+        },
+        {
+          "phrase": "Es ist warm draußen.",
+          "meaning": "It’s warm outside.",
+          "name": "Warm Weather",
+          "response": "Perfekt zum Spazierengehen.",
+          "meaning_response": "Perfect for a walk.",
+          "german_level": "A1",
+          "usage_context": "General conversation",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common remark about pleasant temperatures.",
+          "grammar_note": "‘draußen’ means ‘outside’; used with ‘sein’.",
+          "ipa": "[ɛs ɪst vaʁm ˈdʁaʊsn̩]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist warm draußen, aber windig.",
+              "translation": "It’s warm outside, but windy.",
+              "sound": "sounds/weather/es_ist_warm_draussen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_ist_warm_draussen.mp3"
+        },
+        {
+          "phrase": "Der Himmel ist klar.",
+          "meaning": "The sky is clear.",
+          "name": "Clear Sky",
+          "response": "Kein Wölkchen zu sehen.",
+          "meaning_response": "Not a cloud in sight.",
+          "german_level": "A2",
+          "usage_context": "Descriptive",
+          "formality": "Neutral",
+          "region": "Germany/Austria",
+          "discussion": "Used to describe clear weather, often poetic.",
+          "grammar_note": "‘Der Himmel’ (masc.) + ‘ist klar’ (adjective).",
+          "ipa": "[deːɐ̯ ˈhɪməl ɪst klaːɐ̯]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Himmel ist klar und blau.",
+              "translation": "The sky is clear and blue.",
+              "sound": "sounds/weather/der_himmel_ist_klar.mp3"
+            }
+          ],
+          "sound": "sounds/weather/der_himmel_ist_klar.mp3"
+        },
+        {
+          "phrase": "Es ist heiß heute.",
+          "meaning": "It’s hot today.",
+          "name": "Hot Day",
+          "response": "Ich schwitze schon!",
+          "meaning_response": "I’m already sweating!",
+          "german_level": "A1",
+          "usage_context": "Summer small talk",
+          "formality": "Informal",
+          "region": "Germany",
+          "discussion": "Often used during summer; expresses heat discomfort.",
+          "grammar_note": "‘heiß’ = hot (not spicy).",
+          "ipa": "[ɛs ɪst haɪs ˈhɔʏtə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist heiß heute, über dreißig Grad.",
+              "translation": "It’s hot today, over thirty degrees.",
+              "sound": "sounds/weather/es_ist_heiss_heute.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_ist_heiss_heute.mp3"
+        },
+        {
+          "phrase": "Das Wetter ist wunderschön.",
+          "meaning": "The weather is wonderful.",
+          "name": "Beautiful Weather",
+          "response": "Ja, ideal für ein Picknick.",
+          "meaning_response": "Yes, ideal for a picnic.",
+          "german_level": "A1",
+          "usage_context": "Expressing joy",
+          "formality": "Neutral",
+          "region": "Germany/Switzerland",
+          "discussion": "Common expression of appreciation for nice weather.",
+          "grammar_note": "‘Das Wetter’ + ‘ist’ + adjective (wunderschön).",
+          "ipa": "[das ˈvɛtɐ ɪst ˈvʊndɐʃøːn]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Wetter ist wunderschön heute!",
+              "translation": "The weather is wonderful today!",
+              "sound": "sounds/weather/das_wetter_ist_wunderschon.mp3"
+            }
+          ],
+          "sound": "sounds/weather/das_wetter_ist_wunderschon.mp3"
+        },
+        {
+          "phrase": "Heute ist ein perfekter Tag!",
+          "meaning": "Today is a perfect day!",
+          "name": "Perfect Day",
+          "response": "Stimmt, lass uns rausgehen!",
+          "meaning_response": "True, let’s go out!",
+          "german_level": "A2",
+          "usage_context": "Positive reaction",
+          "formality": "Informal",
+          "region": "Germany",
+          "discussion": "Used to express joy; often implies good weather.",
+          "grammar_note": "‘ein perfekter Tag’ = nominative masculine phrase.",
+          "ipa": "[ˈhɔʏtə ɪst aɪn pɛɐ̯ˈfɛktɐ taːk]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Heute ist ein perfekter Tag zum Grillen.",
+              "translation": "Today is a perfect day for grilling.",
+              "sound": "sounds/weather/heute_ist_ein_perfekter_tag.mp3"
+            }
+          ],
+          "sound": "sounds/weather/heute_ist_ein_perfekter_tag.mp3"
+        },
+        {
+          "phrase": "Es ist mild und angenehm.",
+          "meaning": "It’s mild and pleasant.",
+          "name": "Mild Weather",
+          "response": "Genau richtig.",
+          "meaning_response": "Just right.",
+          "german_level": "A1",
+          "usage_context": "Neutral tone",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Describes neutral comfortable weather; no extreme.",
+          "grammar_note": "Common compound description with ‘und’.",
+          "ipa": "[ɛs ɪst mɪlt ʊnt ˈaŋənɛːm]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist mild und angenehm heute Abend.",
+              "translation": "It’s mild and pleasant this evening.",
+              "sound": "sounds/weather/es_ist_mild_und_angenehm.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_ist_mild_und_angenehm.mp3"
+        },
+        {
+          "phrase": "Ich liebe solche sonnigen Tage.",
+          "meaning": "I love such sunny days.",
+          "name": "Loving Sunny Days",
+          "response": "Ich auch!",
+          "meaning_response": "Me too!",
+          "german_level": "A2",
+          "usage_context": "Emotional tone",
+          "formality": "Informal",
+          "region": "Germany",
+          "discussion": "Expresses personal feeling about the weather.",
+          "grammar_note": "‘solche’ = such (plural form).",
+          "ipa": "[ɪç ˈliːbə ˈzɔlçə ˈzɔnɪɡən ˈtaːɡə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich liebe solche sonnigen Tage am Meer.",
+              "translation": "I love such sunny days at the sea.",
+              "sound": "sounds/weather/ich_liebe_sonnige_tage.mp3"
+            }
+          ],
+          "sound": "sounds/weather/ich_liebe_sonnige_tage.mp3"
+        },
+        {
+          "phrase": "Der Himmel ist blau.",
+          "meaning": "The sky is blue.",
+          "name": "Blue Sky",
+          "response": "Kein Regen in Sicht!",
+          "meaning_response": "No rain in sight!",
+          "german_level": "A1",
+          "usage_context": "Descriptive / optimistic",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe and appreciate good weather.",
+          "grammar_note": "‘blau’ = adjective for ‘blue’.",
+          "ipa": "[deːɐ̯ ˈhɪməl ɪst blaʊ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Himmel ist blau und klar.",
+              "translation": "The sky is blue and clear.",
+              "sound": "sounds/weather/der_himmel_ist_blau.mp3"
+            }
+          ],
+          "sound": "sounds/weather/der_himmel_ist_blau.mp3"
+        }
+      ]
+    },
+
+    {
+      "category": "Describing Rainy or Wet Weather",
+      "category_slug": "rainy-wet-weather",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Es regnet.",
+          "meaning": "It’s raining.",
+          "name": "Raining",
+          "response": "Schon wieder!",
+          "meaning_response": "Again!",
+          "german_level": "A1",
+          "usage_context": "Everyday comment",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Simple observation, commonly used in daily conversations.",
+          "grammar_note": "‘regnen’ = to rain; used with ‘es’ as dummy subject.",
+          "ipa": "[ɛs ˈʁeːɡnət]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es regnet seit dem Morgen.",
+              "translation": "It’s been raining since morning.",
+              "sound": "sounds/weather/es_regnet.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_regnet.mp3"
+        },
+        {
+          "phrase": "Es regnet stark.",
+          "meaning": "It’s raining heavily.",
+          "name": "Heavy Rain",
+          "response": "Ich brauche einen Schirm.",
+          "meaning_response": "I need an umbrella.",
+          "german_level": "A1",
+          "usage_context": "Weather complaint",
+          "formality": "Neutral",
+          "region": "Germany/Austria",
+          "discussion": "Used when describing or complaining about heavy rain.",
+          "grammar_note": "‘stark’ means strong/heavy; modifies intensity.",
+          "ipa": "[ɛs ˈʁeːɡnət ʃtaʁk]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es regnet stark, bleib lieber drinnen.",
+              "translation": "It’s raining heavily, better stay inside.",
+              "sound": "sounds/weather/es_regnet_stark.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_regnet_stark.mp3"
+        },
+        {
+          "phrase": "Es nieselt.",
+          "meaning": "It’s drizzling.",
+          "name": "Drizzle",
+          "response": "Nur leicht.",
+          "meaning_response": "Just lightly.",
+          "german_level": "A2",
+          "usage_context": "Light rain description",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common small talk during light, steady rain.",
+          "grammar_note": "‘nieseln’ = to drizzle; ‘es’ used impersonally.",
+          "ipa": "[ɛs ˈniːzəlt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es nieselt seit Stunden.",
+              "translation": "It’s been drizzling for hours.",
+              "sound": "sounds/weather/es_nieselt.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_nieselt.mp3"
+        },
+        {
+          "phrase": "Es hat gerade angefangen zu regnen.",
+          "meaning": "It just started raining.",
+          "name": "Started Raining",
+          "response": "Oh nein!",
+          "meaning_response": "Oh no!",
+          "german_level": "A2",
+          "usage_context": "Sudden rain situation",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used when rain begins unexpectedly.",
+          "grammar_note": "Perfect tense + infinitive construction: ‘hat angefangen zu regnen’.",
+          "ipa": "[ɛs haːt ɡəˈʁaːdə ˈaŋəˌfaŋən tsuː ˈʁeːɡnən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es hat gerade angefangen zu regnen, nimm den Schirm!",
+              "translation": "It just started raining, take the umbrella!",
+              "sound": "sounds/weather/es_hat_angefangen_zu_regnen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_hat_angefangen_zu_regnen.mp3"
+        },
+        {
+          "phrase": "Es hat aufgehört zu regnen.",
+          "meaning": "It stopped raining.",
+          "name": "Rain Stopped",
+          "response": "Endlich trocken!",
+          "meaning_response": "Finally dry!",
+          "german_level": "A2",
+          "usage_context": "Positive relief",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used with relief after continuous rain.",
+          "grammar_note": "‘aufhören zu’ = to stop doing something.",
+          "ipa": "[ɛs haːt ˈaʊfɡəhøːʁt tsuː ˈʁeːɡnən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es hat aufgehört zu regnen, lass uns spazieren gehen.",
+              "translation": "It stopped raining, let’s go for a walk.",
+              "sound": "sounds/weather/es_hat_aufgehort_zu_regnen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_hat_aufgehort_zu_regnen.mp3"
+        },
+        {
+          "phrase": "Der Regen hört nicht auf.",
+          "meaning": "The rain won’t stop.",
+          "name": "Endless Rain",
+          "response": "Typisch Herbst!",
+          "meaning_response": "Typical autumn!",
+          "german_level": "A2",
+          "usage_context": "Annoyed tone",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Expresses irritation or complaint about ongoing rain.",
+          "grammar_note": "Present tense of ‘aufhören’ in negative form.",
+          "ipa": "[deːɐ̯ ˈʁeːɡn̩ hœʁt nɪçt aʊf]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Regen hört nicht auf seit gestern.",
+              "translation": "The rain hasn’t stopped since yesterday.",
+              "sound": "sounds/weather/der_regen_hort_nicht_auf.mp3"
+            }
+          ],
+          "sound": "sounds/weather/der_regen_hort_nicht_auf.mp3"
+        },
+        {
+          "phrase": "Ich bin ganz nass geworden.",
+          "meaning": "I got completely wet.",
+          "name": "Got Wet",
+          "response": "Hol dir ein Handtuch!",
+          "meaning_response": "Get yourself a towel!",
+          "german_level": "A2",
+          "usage_context": "Casual sympathy",
+          "formality": "Informal",
+          "region": "Germany",
+          "discussion": "Used after being caught in the rain without cover.",
+          "grammar_note": "Perfect tense with ‘sein’ + participle ‘geworden’.",
+          "ipa": "[ɪç bɪn ɡants nas ɡəˈvɔʁdən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich bin ganz nass geworden, weil ich keinen Schirm hatte.",
+              "translation": "I got completely wet because I didn’t have an umbrella.",
+              "sound": "sounds/weather/ich_bin_ganz_nass_geworden.mp3"
+            }
+          ],
+          "sound": "sounds/weather/ich_bin_ganz_nass_geworden.mp3"
+        },
+        {
+          "phrase": "Das Wetter ist grau und nass.",
+          "meaning": "The weather is gray and wet.",
+          "name": "Gray Weather",
+          "response": "So deprimierend.",
+          "meaning_response": "So depressing.",
+          "german_level": "A2",
+          "usage_context": "Negative mood",
+          "formality": "Neutral",
+          "region": "Germany/Switzerland",
+          "discussion": "Describes gloomy, wet weather typical in autumn.",
+          "grammar_note": "Adjectives ‘grau’ and ‘nass’ linked with ‘und’.",
+          "ipa": "[das ˈvɛtɐ ɪst ɡʁaʊ ʊnt nas]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Wetter ist grau und nass, ich bleibe lieber zu Hause.",
+              "translation": "The weather is gray and wet, I’d rather stay home.",
+              "sound": "sounds/weather/das_wetter_ist_grau_und_nass.mp3"
+            }
+          ],
+          "sound": "sounds/weather/das_wetter_ist_grau_und_nass.mp3"
+        },
+        {
+          "phrase": "Es donnert und blitzt.",
+          "meaning": "It’s thundering and lightning.",
+          "name": "Thunder and Lightning",
+          "response": "Hoffentlich kein Sturm.",
+          "meaning_response": "Hopefully not a storm.",
+          "german_level": "A2",
+          "usage_context": "Storm description",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common during thunderstorms; often used with concern.",
+          "grammar_note": "Verbs ‘donnern’ and ‘blitzen’ are impersonal here.",
+          "ipa": "[ɛs ˈdɔnɐt ʊnt blɪtst]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es donnert und blitzt, bleib besser drinnen.",
+              "translation": "It’s thundering and lightning, better stay inside.",
+              "sound": "sounds/weather/es_donnert_und_blitzt.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_donnert_und_blitzt.mp3"
+        },
+        {
+          "phrase": "Es gibt ein Gewitter.",
+          "meaning": "There’s a thunderstorm.",
+          "name": "Thunderstorm",
+          "response": "Schnell ins Haus!",
+          "meaning_response": "Quick, get inside!",
+          "german_level": "A1",
+          "usage_context": "Warning tone",
+          "formality": "Neutral",
+          "region": "Germany/Austria",
+          "discussion": "Used as a weather warning or alert statement.",
+          "grammar_note": "‘es gibt’ + accusative noun to indicate existence.",
+          "ipa": "[ɛs ɡɪpt aɪn ɡəˈvɪtɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es gibt ein Gewitter im Westen.",
+              "translation": "There’s a thunderstorm in the west.",
+              "sound": "sounds/weather/es_gibt_ein_gewitter.mp3"
+            }
+          ],
+          "sound": "sounds/weather/es_gibt_ein_gewitter.mp3"
+        }
+      ]
+    },
+
+    {
+      "category": "Windy, Cloudy, and Stormy Weather",
+      "category_slug": "windy-cloudy-stormy-weather",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Es ist windig.",
+          "meaning": "It’s windy.",
+          "name": "Windy Weather",
+          "response": "Ja, mein Hut fliegt weg!",
+          "meaning_response": "Yes, my hat is flying away!",
+          "german_level": "A1",
+          "usage_context": "Light humor",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common small-talk phrase used to describe windy weather in a casual or humorous tone.",
+          "grammar_note": "‘Es ist’ expresses weather conditions impersonally.",
+          "ipa": "[ɛs ɪst ˈvɪndɪç]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist windig, halt deinen Hut fest!",
+              "translation": "It’s windy, hold on to your hat!",
+              "sound": "sounds/weather/wind/es_ist_windig.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/es_ist_windig.mp3"
+        },
+        {
+          "phrase": "Der Wind ist stark.",
+          "meaning": "The wind is strong.",
+          "name": "Strong Wind",
+          "response": "Pass auf!",
+          "meaning_response": "Be careful!",
+          "german_level": "A2",
+          "usage_context": "Cautionary",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe powerful wind conditions, often as a warning or observation.",
+          "grammar_note": "‘Der Wind’ is masculine; ‘stark’ is an adjective meaning strong.",
+          "ipa": "[deːɐ̯ vɪnt ɪst ʃtaʁk]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Wind ist stark, fahr vorsichtig!",
+              "translation": "The wind is strong, drive carefully!",
+              "sound": "sounds/weather/wind/der_wind_ist_stark.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/der_wind_ist_stark.mp3"
+        },
+        {
+          "phrase": "Es weht ein kalter Wind.",
+          "meaning": "A cold wind is blowing.",
+          "name": "Cold Wind",
+          "response": "Ich friere!",
+          "meaning_response": "I’m freezing!",
+          "german_level": "A2",
+          "usage_context": "Wintery comment",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Often used in winter or cold regions to describe chilly wind conditions.",
+          "grammar_note": "‘Wehen’ means to blow; the subject ‘es’ is impersonal.",
+          "ipa": "[ɛs veːt aɪn ˈkaltɐ vɪnt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es weht ein kalter Wind vom Norden.",
+              "translation": "A cold wind is blowing from the north.",
+              "sound": "sounds/weather/wind/es_weht_ein_kalter_wind.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/es_weht_ein_kalter_wind.mp3"
+        },
+        {
+          "phrase": "Der Himmel ist bedeckt.",
+          "meaning": "The sky is overcast.",
+          "name": "Overcast Sky",
+          "response": "Kein Sonnenstrahl.",
+          "meaning_response": "Not a ray of sunshine.",
+          "german_level": "A1",
+          "usage_context": "Description",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe cloudy or gloomy weather conditions.",
+          "grammar_note": "‘Bedeckt’ is the past participle of ‘bedecken’, used adjectivally.",
+          "ipa": "[deːɐ̯ ˈhɪməl ɪst bəˈdɛkt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Himmel ist bedeckt, es sieht nach Regen aus.",
+              "translation": "The sky is overcast, it looks like rain.",
+              "sound": "sounds/weather/wind/der_himmel_ist_bedeckt.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/der_himmel_ist_bedeckt.mp3"
+        },
+        {
+          "phrase": "Es ist stürmisch heute.",
+          "meaning": "It’s stormy today.",
+          "name": "Stormy Weather",
+          "response": "Bleib lieber drinnen.",
+          "meaning_response": "Better stay inside.",
+          "german_level": "A2",
+          "usage_context": "Safety advice",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used when warning someone about strong winds or a storm.",
+          "grammar_note": "‘Stürmisch’ is an adjective derived from ‘der Sturm’.",
+          "ipa": "[ɛs ɪst ˈʃtʏʁmɪʃ ˈhɔʏtə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist stürmisch heute, nimm keinen Regenschirm mit.",
+              "translation": "It’s stormy today, don’t take an umbrella.",
+              "sound": "sounds/weather/wind/es_ist_stuermisch_heute.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/es_ist_stuermisch_heute.mp3"
+        },
+        {
+          "phrase": "Es tobt ein Sturm.",
+          "meaning": "A storm is raging.",
+          "name": "Raging Storm",
+          "response": "Unglaublich laut!",
+          "meaning_response": "Incredibly loud!",
+          "german_level": "B1",
+          "usage_context": "Dramatic tone",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used for describing an intense storm, often with dramatic or fearful tone.",
+          "grammar_note": "‘Toben’ means to rage; ‘ein Sturm’ is the subject.",
+          "ipa": "[ɛs toːpt aɪn ʃtʊʁm]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es tobt ein Sturm draußen, die Bäume biegen sich!",
+              "translation": "A storm is raging outside, the trees are bending!",
+              "sound": "sounds/weather/wind/es_tobt_ein_sturm.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/es_tobt_ein_sturm.mp3"
+        },
+        {
+          "phrase": "Der Wind pfeift um das Haus.",
+          "meaning": "The wind is whistling around the house.",
+          "name": "Whistling Wind",
+          "response": "Klingt unheimlich.",
+          "meaning_response": "Sounds eerie.",
+          "german_level": "B1",
+          "usage_context": "Descriptive imagery",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Describes a vivid weather scene; can express unease or curiosity.",
+          "grammar_note": "‘Pfeifen’ means to whistle; used metaphorically for wind sounds.",
+          "ipa": "[deːɐ̯ vɪnt pfʌɪft ʊm das haʊs]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Wind pfeift um das Haus, es klingt gruselig.",
+              "translation": "The wind is whistling around the house, it sounds spooky.",
+              "sound": "sounds/weather/wind/der_wind_pfeift_um_das_haus.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/der_wind_pfeift_um_das_haus.mp3"
+        },
+        {
+          "phrase": "Es wird dunkler.",
+          "meaning": "It’s getting darker.",
+          "name": "Darkening Sky",
+          "response": "Kommt wohl ein Gewitter.",
+          "meaning_response": "A storm might be coming.",
+          "german_level": "A2",
+          "usage_context": "Observation",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Often used when the light dims suddenly, hinting at rain or a storm.",
+          "grammar_note": "‘Werden’ indicates change; ‘dunkler’ is the comparative of ‘dunkel’.",
+          "ipa": "[ɛs vɪʁt ˈdʊŋklɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es wird dunkler, vielleicht regnet es bald.",
+              "translation": "It’s getting darker, maybe it’ll rain soon.",
+              "sound": "sounds/weather/wind/es_wird_dunkler.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/es_wird_dunkler.mp3"
+        },
+        {
+          "phrase": "Die Wolken ziehen schnell.",
+          "meaning": "The clouds are moving fast.",
+          "name": "Fast-moving Clouds",
+          "response": "Ja, es wird gleich regnen.",
+          "meaning_response": "Yes, it’s about to rain.",
+          "german_level": "A2",
+          "usage_context": "Observation",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe rapid weather changes and approaching rain.",
+          "grammar_note": "‘Ziehen’ means to move or drift; used here for clouds.",
+          "ipa": "[diː ˈvɔlkən ˈtsiːən ʃnɛl]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Die Wolken ziehen schnell, der Wind wird stärker.",
+              "translation": "The clouds are moving fast, the wind is getting stronger.",
+              "sound": "sounds/weather/wind/die_wolken_ziehen_schnell.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/die_wolken_ziehen_schnell.mp3"
+        },
+        {
+          "phrase": "Es riecht nach Regen.",
+          "meaning": "It smells like rain.",
+          "name": "Smell of Rain",
+          "response": "Stimmt, die Luft ist feucht.",
+          "meaning_response": "Right, the air is humid.",
+          "german_level": "B1",
+          "usage_context": "Sensory / natural expression",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used poetically or casually when recognizing the scent of upcoming rain.",
+          "grammar_note": "‘Riechen nach’ means to smell of/about something.",
+          "ipa": "[ɛs ʁiːçt nax ˈʁeːɡn̩]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es riecht nach Regen, vielleicht bald ein Schauer.",
+              "translation": "It smells like rain, maybe a shower soon.",
+              "sound": "sounds/weather/wind/es_riecht_nach_regen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/wind/es_riecht_nach_regen.mp3"
+        }
+      ]
+
+    },
+
+    {
+      "category": "Talking About Cold or Snowy Weather",
+      "category_slug": "talkoing-about-cold-snowy-weather",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Es schneit.",
+          "meaning": "It’s snowing.",
+          "name": "Snowing",
+          "response": "Wie schön!",
+          "meaning_response": "How nice!",
+          "german_level": "A1",
+          "usage_context": "Winter talk",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common phrase during winter when snow is falling; often expresses joy.",
+          "grammar_note": "‘Schneien’ is an impersonal verb; subject ‘es’ is used.",
+          "ipa": "[ɛs ʃnaɪt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es schneit, die Kinder spielen draußen.",
+              "translation": "It’s snowing, the children are playing outside.",
+              "sound": "sounds/weather/snow/es_schneit.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/es_schneit.mp3"
+        },
+        {
+          "phrase": "Es hat geschneit.",
+          "meaning": "It has snowed.",
+          "name": "Snowed",
+          "response": "Alles ist weiß!",
+          "meaning_response": "Everything is white!",
+          "german_level": "A2",
+          "usage_context": "Observation",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe the aftermath of snowfall; often descriptive or visual.",
+          "grammar_note": "Perfect tense form with ‘haben’ + past participle of ‘schneien’.",
+          "ipa": "[ɛs hat ɡəˈʃnaɪt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es hat geschneit, die Straßen sind bedeckt.",
+              "translation": "It has snowed, the streets are covered.",
+              "sound": "sounds/weather/snow/es_hat_geschneit.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/es_hat_geschneit.mp3"
+        },
+        {
+          "phrase": "Es ist eiskalt.",
+          "meaning": "It’s freezing cold.",
+          "name": "Freezing Cold",
+          "response": "Zieh dich warm an!",
+          "meaning_response": "Dress warmly!",
+          "german_level": "A1",
+          "usage_context": "Advice",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to warn or describe extremely cold temperatures, often in winter.",
+          "grammar_note": "‘Eiskalt’ is a compound adjective meaning ice-cold.",
+          "ipa": "[ɛs ɪst ˈaɪsˌkalt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist eiskalt draußen, nimm einen Schal mit.",
+              "translation": "It’s freezing cold outside, take a scarf with you.",
+              "sound": "sounds/weather/snow/es_ist_eiskalt.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/es_ist_eiskalt.mp3"
+        },
+        {
+          "phrase": "Es friert.",
+          "meaning": "It’s freezing.",
+          "name": "Freezing",
+          "response": "Kein Wunder, es ist Januar.",
+          "meaning_response": "No wonder, it’s January.",
+          "german_level": "A1",
+          "usage_context": "Neutral",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used for general freezing conditions; can describe roads, air, or water.",
+          "grammar_note": "Impersonal verb; ‘es’ is the subject.",
+          "ipa": "[ɛs friːɐ̯t]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es friert heute Nacht, die Seen werden zugefroren.",
+              "translation": "It’s freezing tonight, the lakes are freezing over.",
+              "sound": "sounds/weather/snow/es_friert.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/es_friert.mp3"
+        },
+        {
+          "phrase": "Es ist frostig heute.",
+          "meaning": "It’s frosty today.",
+          "name": "Frosty",
+          "response": "Ja, die Fenster sind zugefroren.",
+          "meaning_response": "Yes, the windows are frozen.",
+          "german_level": "A2",
+          "usage_context": "Descriptive",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Describes light frost; often used to explain icy mornings.",
+          "grammar_note": "‘Frostig’ is an adjective describing low temperatures.",
+          "ipa": "[ɛs ɪst ˈfʁɔstɪç ˈhɔʏtə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist frostig heute, die Autos sind vereist.",
+              "translation": "It’s frosty today, the cars are icy.",
+              "sound": "sounds/weather/snow/es_ist_frostig_heute.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/es_ist_frostig_heute.mp3"
+        },
+        {
+          "phrase": "Ich sehe meinen Atem.",
+          "meaning": "I can see my breath.",
+          "name": "Visible Breath",
+          "response": "So kalt ist es!",
+          "meaning_response": "It’s so cold!",
+          "german_level": "B1",
+          "usage_context": "Funny observation",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used humorously or descriptively when air is very cold.",
+          "grammar_note": "‘Sehen’ used literally; ‘meinen Atem’ is the direct object.",
+          "ipa": "[ɪç ˈzeːə ˈmaɪnən ˈaːtəm]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich sehe meinen Atem, es ist wirklich kalt draußen.",
+              "translation": "I can see my breath, it’s really cold outside.",
+              "sound": "sounds/weather/snow/ich_sehe_meinen_atem.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/ich_sehe_meinen_atem.mp3"
+        },
+        {
+          "phrase": "Die Straßen sind vereist.",
+          "meaning": "The streets are icy.",
+          "name": "Icy Streets",
+          "response": "Sei vorsichtig!",
+          "meaning_response": "Be careful!",
+          "german_level": "A2",
+          "usage_context": "Warning",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common warning phrase during winter for icy roads or sidewalks.",
+          "grammar_note": "‘Vereist’ is past participle used adjectivally.",
+          "ipa": "[diː ˈʃtʁaːsən zɪnt fɛɐ̯ˈaɪst]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Die Straßen sind vereist, fahre langsam!",
+              "translation": "The streets are icy, drive slowly!",
+              "sound": "sounds/weather/snow/die_strassen_sind_vereist.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/die_strassen_sind_vereist.mp3"
+        },
+        {
+          "phrase": "Es liegt Schnee auf den Dächern.",
+          "meaning": "There’s snow on the roofs.",
+          "name": "Snow on Roofs",
+          "response": "Wunderschönes Winterbild!",
+          "meaning_response": "Beautiful winter scene!",
+          "german_level": "B1",
+          "usage_context": "Visual description",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe picturesque snowy scenes.",
+          "grammar_note": "‘Liegen’ is used for the location of snow; ‘auf den Dächern’ specifies the surface.",
+          "ipa": "[ɛs liːkt ʃneː aʊf deːn ˈdɛçɐn]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es liegt Schnee auf den Dächern, alles sieht weiß aus.",
+              "translation": "There’s snow on the roofs, everything looks white.",
+              "sound": "sounds/weather/snow/es_liegt_schnee_auf_den_daechern.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/es_liegt_schnee_auf_den_daechern.mp3"
+        },
+        {
+          "phrase": "Ich liebe Schneetage.",
+          "meaning": "I love snowy days.",
+          "name": "Love Snowy Days",
+          "response": "Ich auch, wenn ich nicht raus muss.",
+          "meaning_response": "Me too, if I don’t have to go out.",
+          "german_level": "B1",
+          "usage_context": "Light humor",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Expresses personal fondness for snow; can be humorous if inconvenient.",
+          "grammar_note": "‘Lieben’ expresses liking; direct object is plural ‘Schneetage’.",
+          "ipa": "[ɪç ˈliːbə ˈʃneːtəˌtaːɡə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich liebe Schneetage, solange ich drinnen bleiben kann.",
+              "translation": "I love snowy days, as long as I can stay inside.",
+              "sound": "sounds/weather/snow/ich_liebe_schneetage.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/ich_liebe_schneetage.mp3"
+        },
+        {
+          "phrase": "Es ist zu kalt, um rauszugehen.",
+          "meaning": "It’s too cold to go out.",
+          "name": "Too Cold to Go Out",
+          "response": "Bleib lieber drinnen.",
+          "meaning_response": "Better stay inside.",
+          "german_level": "A2",
+          "usage_context": "Everyday comment",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common comment on extremely cold days, often used with advice.",
+          "grammar_note": "‘Um ... zu’ construction expresses purpose (‘to go out’).",
+          "ipa": "[ɛs ɪst tsuː kalt ʊm ˈraʊsˌt͡suːˌɡeːən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist zu kalt, um rauszugehen, wir bleiben drinnen.",
+              "translation": "It’s too cold to go out, we’ll stay inside.",
+              "sound": "sounds/weather/snow/es_ist_zu_kalt_um_rauszugehen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/snow/es_ist_zu_kalt_um_rauszugehen.mp3"
+        }
+      ]
+
+    },
+
+    {
+      "category": "Expressing Feelings and Reactions About the Weather",
+      "category_slug": "feeling-reations-about-weather",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Ich mag dieses Wetter.",
+          "meaning": "I like this weather.",
+          "name": "Like Weather",
+          "response": "Ich auch!",
+          "meaning_response": "Me too!",
+          "german_level": "A2",
+          "usage_context": "General talk",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to express personal liking for the current weather; can start small talk.",
+          "grammar_note": "‘Mag’ is first-person singular of ‘mögen’.",
+          "ipa": "[ɪç maːk ˈdiːzəs ˈvɛtɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich mag dieses Wetter, es ist angenehm warm.",
+              "translation": "I like this weather, it’s pleasantly warm.",
+              "sound": "sounds/weather/opinions/ich_mag_dieses_wetter.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/ich_mag_dieses_wetter.mp3"
+        },
+        {
+          "phrase": "Ich hasse Regen.",
+          "meaning": "I hate rain.",
+          "name": "Hate Rain",
+          "response": "Ich auch, es ruiniert alles.",
+          "meaning_response": "Me too, it ruins everything.",
+          "german_level": "A2",
+          "usage_context": "Negative tone",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to express strong dislike for rainy weather; can sound humorous or frustrated.",
+          "grammar_note": "‘Hasse’ is first-person singular of ‘hassen’.",
+          "ipa": "[ɪç ˈhasə ˈʁeːɡn̩]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich hasse Regen, er macht alles nass und kalt.",
+              "translation": "I hate rain, it makes everything wet and cold.",
+              "sound": "sounds/weather/opinions/ich_hasse_regen.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/ich_hasse_regen.mp3"
+        },
+        {
+          "phrase": "Das Wetter macht mich müde.",
+          "meaning": "The weather makes me tired.",
+          "name": "Weather Makes Tired",
+          "response": "Ja, es ist so grau.",
+          "meaning_response": "Yes, it’s so gray.",
+          "german_level": "B1",
+          "usage_context": "Emotional tone",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Often used on gray or rainy days to express low energy or mood.",
+          "grammar_note": "‘Macht’ is third-person singular of ‘machen’; ‘mich müde’ is the object + adjective.",
+          "ipa": "[das ˈvɛtɐ maxt mɪç ˈmyːdə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Wetter macht mich müde, ich brauche eine Pause.",
+              "translation": "The weather makes me tired, I need a break.",
+              "sound": "sounds/weather/opinions/das_wetter_macht_mich_mude.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/das_wetter_macht_mich_mude.mp3"
+        },
+        {
+          "phrase": "So ein schönes Wetter!",
+          "meaning": "Such beautiful weather!",
+          "name": "Beautiful Weather",
+          "response": "Lass uns spazieren gehen!",
+          "meaning_response": "Let’s go for a walk!",
+          "german_level": "A2",
+          "usage_context": "Positive",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to enthusiastically comment on nice weather; often invites activity.",
+          "grammar_note": "Exclamatory phrase; ‘schönes Wetter’ is accusative noun phrase.",
+          "ipa": "[zoː aɪn ˈʃøːnəs ˈvɛtɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "So ein schönes Wetter! Wir sollten ins Café gehen.",
+              "translation": "Such beautiful weather! We should go to the café.",
+              "sound": "sounds/weather/opinions/so_ein_schon_es_wetter.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/so_ein_schon_es_wetter.mp3"
+        },
+        {
+          "phrase": "Das Wetter ist schrecklich.",
+          "meaning": "The weather is awful.",
+          "name": "Awful Weather",
+          "response": "Ich bleibe zu Hause.",
+          "meaning_response": "I’m staying at home.",
+          "german_level": "A2",
+          "usage_context": "Complaint",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to complain about bad weather; often said on rainy or stormy days.",
+          "grammar_note": "‘Schrecklich’ is an adjective describing the noun ‘Wetter’.",
+          "ipa": "[das ˈvɛtɐ ɪst ˈʃʁɛklɪç]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Wetter ist schrecklich, wir bleiben drinnen.",
+              "translation": "The weather is awful, we’re staying inside.",
+              "sound": "sounds/weather/opinions/das_wetter_ist_schrecklich.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/das_wetter_ist_schrecklich.mp3"
+        },
+        {
+          "phrase": "Ich liebe sonnige Tage.",
+          "meaning": "I love sunny days.",
+          "name": "Love Sunny Days",
+          "response": "Ich auch!",
+          "meaning_response": "Me too!",
+          "german_level": "A2",
+          "usage_context": "Joyful tone",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Expresses fondness for sunny days; often shared with friends.",
+          "grammar_note": "‘Liebe’ is first-person singular of ‘lieben’.",
+          "ipa": "[ɪç ˈliːbə ˈzɔnɪgə ˈtaːɡə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich liebe sonnige Tage, sie machen mich glücklich.",
+              "translation": "I love sunny days, they make me happy.",
+              "sound": "sounds/weather/opinions/ich_liebe_sonnige_tage.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/ich_liebe_sonnige_tage.mp3"
+        },
+        {
+          "phrase": "Dieses Wetter ist perfekt für einen Spaziergang.",
+          "meaning": "This weather is perfect for a walk.",
+          "name": "Perfect Weather for Walk",
+          "response": "Ja, komm mit!",
+          "meaning_response": "Yes, come along!",
+          "german_level": "B1",
+          "usage_context": "Friendly",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to comment positively on weather that encourages outdoor activity.",
+          "grammar_note": "‘Für einen Spaziergang’ shows purpose; adjective ‘perfekt’ describes weather.",
+          "ipa": "[ˈdiːzəs ˈvɛtɐ ɪst pɛrˈfɛkt fyːɐ̯ ˈaɪnən ʃpaˈt͡siːɐˌɡaŋ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Dieses Wetter ist perfekt für einen Spaziergang im Park.",
+              "translation": "This weather is perfect for a walk in the park.",
+              "sound": "sounds/weather/opinions/dieses_wetter_ist_perfekt_fuer_spaziergang.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/dieses_wetter_ist_perfekt_fuer_spaziergang.mp3"
+        },
+        {
+          "phrase": "Ich mag wechselhaftes Wetter.",
+          "meaning": "I like changeable weather.",
+          "name": "Like Changeable Weather",
+          "response": "Echt? Mir ist das zu stressig.",
+          "meaning_response": "Really? That’s too stressful for me.",
+          "german_level": "B1",
+          "usage_context": "Discussion",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used when weather changes frequently; can spark a discussion about preferences.",
+          "grammar_note": "‘Wechselhaftes’ is an adjective meaning changeable.",
+          "ipa": "[ɪç maːk ˈvɛksəlhaftəs ˈvɛtɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich mag wechselhaftes Wetter, es hält mich aufmerksam.",
+              "translation": "I like changeable weather, it keeps me alert.",
+              "sound": "sounds/weather/opinions/ich_mag_wechselhaftes_wetter.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/ich_mag_wechselhaftes_wetter.mp3"
+        },
+        {
+          "phrase": "Das Wetter ändert sich ständig.",
+          "meaning": "The weather keeps changing.",
+          "name": "Weather Keeps Changing",
+          "response": "Typisch Deutschland!",
+          "meaning_response": "Typical Germany!",
+          "german_level": "B1",
+          "usage_context": "Common saying",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common comment on unpredictable weather; often said humorously.",
+          "grammar_note": "‘Ändert sich’ is reflexive verb in third-person singular.",
+          "ipa": "[das ˈvɛtɐ ˈɛndɐt zɪç ˈʃtɛndɪç]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Wetter ändert sich ständig, gestern war es sonnig und heute regnet es.",
+              "translation": "The weather keeps changing, yesterday it was sunny and today it rains.",
+              "sound": "sounds/weather/opinions/das_wetter_aendert_sich_staendig.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/das_wetter_aendert_sich_staendig.mp3"
+        },
+        {
+          "phrase": "Ich hoffe, das Wetter bleibt so.",
+          "meaning": "I hope the weather stays like this.",
+          "name": "Hope Weather Stays",
+          "response": "Ich auch!",
+          "meaning_response": "Me too!",
+          "german_level": "B1",
+          "usage_context": "Optimistic tone",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Expresses hope that good weather continues; often said on sunny or mild days.",
+          "grammar_note": "‘Bleibt’ is third-person singular of ‘bleiben’; subjunctive mood not used.",
+          "ipa": "[ɪç hoːfə das ˈvɛtɐ blaɪpt zoː]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich hoffe, das Wetter bleibt so, damit wir draußen grillen können.",
+              "translation": "I hope the weather stays like this so that we can grill outside.",
+              "sound": "sounds/weather/opinions/ich_hoffe_das_wetter_bleibt_so.mp3"
+            }
+          ],
+          "sound": "sounds/weather/opinions/ich_hoffe_das_wetter_bleibt_so.mp3"
+        }
+      ]
+
     }
   ],
 
@@ -13679,7 +15090,7 @@
     }
   ],
 
-  "bodyparts": [
+  "body_parts": [
     {
       "category": "",
       "category_slug": "",
@@ -13747,7 +15158,7 @@
     }
   ],
 
-  "house-hotel-restaurant": [
+  "house": [
     {
       "category": "",
       "category_slug": "",
@@ -13781,7 +15192,7 @@
     }
   ],
 
-  "school-university": [
+  "school": [
     {
       "category": "",
       "category_slug": "",
@@ -13870,16 +15281,16 @@
           "region": "Germany, Austria, Switzerland",
           "discussion": "Always pronounced clearly as 'ah', never like English 'ei' or 'ay'.",
           "grammar_note": "A is a vowel (der Vokal).",
-          "ipa": "aː",
+          "ipa": "/aː/",
           "isCompleted": false,
           "examples": [
             {
               "example": "Apfel",
               "translation": "apple",
-              "sound": "sounds/letters/A.mp3"
+              "sound": "/aː/"
             }
           ],
-          "sound": "sounds/letters/A.mp3"
+          "sound": "/aː/"
         },
         {
           "name": "Ä (Umlaut-A)",
@@ -14550,7 +15961,337 @@
           "sound": "sounds/letters/Z.mp3"
         }
 
+      ]
+    },
 
+    {
+      "category": "Special German Characters (Umlauts + ß)",
+      "category_slug": "special-german-alphabets",
+      "goal": 1200,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Ä",
+          "meaning": "Äh",
+          "name": "Ä (Umlaut A)",
+          "response": "Mädchen",
+          "meaning_response": "girl",
+          "german_level": "A1",
+          "usage_context": "Commonly used in many nouns and adjectives. It modifies the 'a' sound to a softer 'e'-like sound.",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "Ä appears in plural forms and comparative adjectives (e.g., 'Vater' → 'Väter').",
+          "grammar_note": "Umlaut changes the pronunciation and sometimes the meaning of words.",
+          "ipa": "/ɛː/ or /ɛ/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Mädchen",
+              "translation": "girl",
+              "sound": "sounds/alphabets/ae_maedchen.mp3"
+            },
+            {
+              "example": "Bären",
+              "translation": "bears",
+              "sound": "sounds/alphabets/ae_baeren.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/ae.mp3"
+        },
+        {
+          "phrase": "Ö",
+          "meaning": "Öh",
+          "name": "Ö (Umlaut O)",
+          "response": "Öl",
+          "meaning_response": "oil",
+          "german_level": "A1",
+          "usage_context": "Found in common words like 'schön' (beautiful) or 'öffnen' (to open).",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "Ö is pronounced with rounded lips similar to the English 'i' in 'bird', but not exactly.",
+          "grammar_note": "It changes both the meaning and pronunciation, e.g., 'schon' vs. 'schön'.",
+          "ipa": "/øː/ or /œ/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Öl",
+              "translation": "oil",
+              "sound": "sounds/alphabets/oe_oel.mp3"
+            },
+            {
+              "example": "schön",
+              "translation": "beautiful",
+              "sound": "sounds/alphabets/oe_schoen.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/oe.mp3"
+        },
+        {
+          "phrase": "Ü",
+          "meaning": "Üh",
+          "name": "Ü (Umlaut U)",
+          "response": "über",
+          "meaning_response": "over / about",
+          "german_level": "A1",
+          "usage_context": "Frequent in everyday words like 'müde' (tired), 'Tür' (door).",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "Ü is a front-rounded vowel, similar to the French 'u' or Turkish 'ü'.",
+          "grammar_note": "The umlaut changes the position of the tongue and lips while pronouncing 'u'.",
+          "ipa": "/yː/ or /ʏ/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "über",
+              "translation": "over / about",
+              "sound": "sounds/alphabets/ue_ueber.mp3"
+            },
+            {
+              "example": "müde",
+              "translation": "tired",
+              "sound": "sounds/alphabets/ue_muede.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/ue.mp3"
+        },
+        {
+          "phrase": "ß",
+          "meaning": "Eszett / scharfes S",
+          "name": "ß (Sharp S)",
+          "response": "Straße",
+          "meaning_response": "street",
+          "german_level": "A1",
+          "usage_context": "Used mostly in Germany; Switzerland replaces it with 'ss'.",
+          "formality": "neutral",
+          "region": "Germany, Austria",
+          "discussion": "ß represents a sharp 's' sound, never pronounced as 'z'.",
+          "grammar_note": "Replaced by 'ss' in uppercase or Swiss writing. Example: 'Straße' → 'STRASSE'.",
+          "ipa": "/s/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Straße",
+              "translation": "street",
+              "sound": "sounds/alphabets/scharfes_s_strasse.mp3"
+            },
+            {
+              "example": "heißen",
+              "translation": "to be called",
+              "sound": "sounds/alphabets/scharfes_s_heissen.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/scharfes_s.mp3"
+        }
+      ]
+      
+    },
+
+    {
+      "category": "Quick Comparison (Tricky Letters)",
+      "category_slug": "quick-comparison-tricky-letters",
+      "goal": 1200,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "V",
+          "meaning": "sounds like 'f'",
+          "name": "V (fau)",
+          "response": "Vogel",
+          "meaning_response": "bird",
+          "german_level": "A1",
+          "usage_context": "Used in words like 'Vater' (father), 'Vogel' (bird), 'voll' (full).",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "German 'V' is usually pronounced like an English 'f'. For example, 'Vogel' sounds like 'Fogel'.",
+          "grammar_note": "Some foreign words (from English or French) may still use the 'v' sound, e.g., 'Video'.",
+          "ipa": "/f/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Vater",
+              "translation": "father",
+              "sound": "sounds/alphabets/v_vater.mp3"
+            },
+            {
+              "example": "Vogel",
+              "translation": "bird",
+              "sound": "sounds/alphabets/v_vogel.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/v.mp3"
+        },
+        {
+          "phrase": "W",
+          "meaning": "sounds like 'v'",
+          "name": "W (weh)",
+          "response": "Wasser",
+          "meaning_response": "water",
+          "german_level": "A1",
+          "usage_context": "Common in simple everyday words like 'Wasser', 'Welt', and 'wohnen'.",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "German 'W' is pronounced like the English 'v' sound, not like 'w'. Example: 'Wasser' sounds like 'Vasser'.",
+          "grammar_note": "Do not confuse 'W' and 'V' — they swap sounds compared to English!",
+          "ipa": "/v/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Welt",
+              "translation": "world",
+              "sound": "sounds/alphabets/w_welt.mp3"
+            },
+            {
+              "example": "Wasser",
+              "translation": "water",
+              "sound": "sounds/alphabets/w_wasser.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/w.mp3"
+        },
+        {
+          "phrase": "J",
+          "meaning": "sounds like 'y'",
+          "name": "J (yott)",
+          "response": "Jahr",
+          "meaning_response": "year",
+          "german_level": "A1",
+          "usage_context": "Used in names and common nouns like 'Jahr', 'Junge', 'jetzt'.",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "German 'J' is pronounced like the English 'y' in 'yes'. Example: 'Jahr' sounds like 'Yahr'.",
+          "grammar_note": "Never pronounced as English 'dj' or 'zh'.",
+          "ipa": "/j/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Jahr",
+              "translation": "year",
+              "sound": "sounds/alphabets/j_jahr.mp3"
+            },
+            {
+              "example": "Junge",
+              "translation": "boy",
+              "sound": "sounds/alphabets/j_junge.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/j.mp3"
+        },
+        {
+          "phrase": "Z",
+          "meaning": "sounds like 'ts'",
+          "name": "Z (tsett)",
+          "response": "Zeit",
+          "meaning_response": "time",
+          "german_level": "A1",
+          "usage_context": "Common in words like 'Zeit', 'Zug', and 'Zahl'.",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "German 'Z' is pronounced 'ts', as in 'cats'. 'Zeit' sounds like 'Tsait'.",
+          "grammar_note": "Never pronounced as 'zee' like in English.",
+          "ipa": "/ts/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Zeit",
+              "translation": "time",
+              "sound": "sounds/alphabets/z_zeit.mp3"
+            },
+            {
+              "example": "Zug",
+              "translation": "train",
+              "sound": "sounds/alphabets/z_zug.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/z.mp3"
+        },
+        {
+          "phrase": "R",
+          "meaning": "rolled or guttural 'r'",
+          "name": "R (err)",
+          "response": "rot",
+          "meaning_response": "red",
+          "german_level": "A1",
+          "usage_context": "Found everywhere: 'rot', 'reisen', 'richtig'.",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "German 'R' can be rolled (like Spanish) or guttural (from the throat). Both are correct, but the guttural one is more common in Germany.",
+          "grammar_note": "At the end of words ('er'), it often becomes a soft vowel sound, like 'Lehrer' ≈ 'Leh-uh'.",
+          "ipa": "/ʁ/ or /r/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "rot",
+              "translation": "red",
+              "sound": "sounds/alphabets/r_rot.mp3"
+            },
+            {
+              "example": "reisen",
+              "translation": "to travel",
+              "sound": "sounds/alphabets/r_reisen.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/r.mp3"
+        },
+        {
+          "phrase": "Ö / Ü",
+          "meaning": "no direct English equivalent",
+          "name": "Ö / Ü (Umlauts)",
+          "response": "schön / müde",
+          "meaning_response": "beautiful / tired",
+          "german_level": "A1",
+          "usage_context": "Common in daily words like 'Tür', 'über', 'schön'.",
+          "formality": "neutral",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "These umlauts don’t exist in English. Ö sounds like a rounded 'e' in 'her', and Ü sounds like French 'u' in 'tu'.",
+          "grammar_note": "Practice rounding lips more than usual. The tongue stays high and forward.",
+          "ipa": "/øː/, /œ/, /yː/, /ʏ/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "schön",
+              "translation": "beautiful",
+              "sound": "sounds/alphabets/oe_schoen.mp3"
+            },
+            {
+              "example": "müde",
+              "translation": "tired",
+              "sound": "sounds/alphabets/ue_muede.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/oe_ue.mp3"
+        },
+        {
+          "phrase": "ß",
+          "meaning": "sounds like 'ss'",
+          "name": "ß (Eszett / sharp s)",
+          "response": "Straße",
+          "meaning_response": "street",
+          "german_level": "A1",
+          "usage_context": "Used only in Germany and Austria; replaced by 'ss' in Switzerland.",
+          "formality": "neutral",
+          "region": "Germany, Austria",
+          "discussion": "Represents a sharp 's' sound. Example: 'Straße' = 'Strasse'.",
+          "grammar_note": "In uppercase, ß becomes 'SS' (e.g., 'STRASSE').",
+          "ipa": "/s/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Straße",
+              "translation": "street",
+              "sound": "sounds/alphabets/scharfes_s_strasse.mp3"
+            },
+            {
+              "example": "heißen",
+              "translation": "to be called",
+              "sound": "sounds/alphabets/scharfes_s_heissen.mp3"
+            }
+          ],
+          "sound": "sounds/alphabets/scharfes_s.mp3"
+        }
       ]
     }
   ]

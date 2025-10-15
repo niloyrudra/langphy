@@ -2,7 +2,41 @@ import SIZES from "@/constants/size";
 import dbJson from '@/db/db.json'; // or .ts export
 import { DB } from "@/types";
 import { StudyingDolphinIcon } from '@/utils/SVGImages'
+import * as Speech from 'expo-speech'
 
+export  const speechFastHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
+  Speech.speak(
+    speechContent || "Hallo!",
+    {
+      language: speechLang || "de-DE",
+      rate: 1.5, // Normal Speed
+      pitch: 1.2,// Deep Tone
+      volume: 1 // High
+    }
+  )
+}
+export  const speechHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
+  Speech.speak(
+    speechContent || "Hallo!",
+    {
+      language: speechLang || "de-DE",
+      rate: 1, // Normal Speed
+      pitch: 1.2,// Deep Tone
+      volume: 1 // High
+    }
+  )
+}
+export  const speechSlowHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
+  Speech.speak(
+    speechContent || "Hallo!",
+    {
+      language: speechLang || "de-DE",
+      rate: 0.2, // Normal Speed
+      pitch: 1.2,// Deep Tone
+      volume: 1 // High
+    }
+  )
+}
 
 // Cast dbJson to DB, transforming 'formality' to the correct type
 export const db: DB = {
@@ -314,6 +348,8 @@ export const db: DB = {
   animals: [],
   dresses: [],
   tools: [],
+  // flowers: [],
+  // countries: [],
   vehicles: []
 };
 

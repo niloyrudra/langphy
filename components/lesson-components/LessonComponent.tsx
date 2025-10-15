@@ -1,19 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { LessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext'
 import sizes from '@/constants/size';
+import { speechHandler, speechSlowHandler } from '@/utils';
 
-const LessonComponent: React.FC<LessonProps> = ({language, iconComponent, children, style, buttonStyle}) => {
+const LessonComponent: React.FC<LessonProps> = ({language, iconComponent, children, style, buttonStyle, speechContent, speechLang}) => {
   const { colors } = useTheme();
+
   return (
     <View style={[styles.speakerButtonWrapper, style, {backgroundColor: colors.cardBackgroundColor}]}>
 
       <View style={[styles.content]}>
 
-        <View style={[styles.speakerButton, buttonStyle]}>
+        <View
+          style={[styles.speakerButton, buttonStyle]}
+        >
           <Text style={[styles.languageText, {color: colors.text}]}>{language}</Text>
-          {iconComponent}
+
+          {/* Speaker */}
+          <View
+            style={{
+              flexDirection:"row",
+              gap: 10
+            }}
+          >
+
+            <TouchableOpacity onPress={() => speechHandler( speechContent, speechLang )}>
+              {iconComponent}
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => speechSlowHandler( speechContent, speechLang )}>
+              {iconComponent}
+            </TouchableOpacity>
+
+          </View>
+
         </View>
 
       </View>
@@ -50,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: 130,
+    width: 170, // 130
     height: 44,
     borderRadius: 100,
     paddingVertical: 6,
