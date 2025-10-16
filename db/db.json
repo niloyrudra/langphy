@@ -210,7 +210,7 @@
           "response": "Grüß dich! / Grüß euch!",
           "meaning": "Hello (to you / to you all)",
           "meaning_response": "Hello (to you / to you all)",
-          "german_level": "",
+          "german_level": "A1",
           "usage_context": "Informal; very common in southern regions.",
           "formality": "informal",
           "region": "South Germany, Austria",
@@ -12259,6 +12259,1273 @@
           "sound": ""
         }
       ]
+    }
+  ],
+
+  "medical_emergency": [
+    {
+      "category": "Making an Appointment (Terminvereinbarung)",
+      "category_slug": "making-doctor-appointment",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Ich möchte einen Termin vereinbaren.",
+          "meaning": "I’d like to make an appointment.",
+          "name": "Make an Appointment",
+          "response": "Wann passt es Ihnen am besten?",
+          "meaning_response": "When would be best for you?",
+          "german_level": "A2",
+          "usage_context": "Calling or visiting a doctor’s office.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used to schedule a medical consultation politely.",
+          "grammar_note": "Verb 'vereinbaren' is separable; 'einen Termin' is accusative.",
+          "ipa": "[ɪç møçtə aɪnən teːɐˈmiːn fɛɐˌaɪnˌbaːrən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich möchte einen Termin für nächste Woche vereinbaren.",
+              "translation": "I’d like to make an appointment for next week.",
+              "sound": "sounds/doctor/termin_vereinbaren.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/termin_vereinbaren.mp3"
+        },
+        {
+          "phrase": "Haben Sie heute noch einen Termin frei?",
+          "meaning": "Do you have an appointment available today?",
+          "name": "Check Appointment Availability",
+          "response": "Ja, wir haben einen Termin um 15 Uhr frei.",
+          "meaning_response": "Yes, we have an appointment at 3 PM.",
+          "german_level": "A2",
+          "usage_context": "Asking for same-day appointment availability.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Common when checking for urgent appointments.",
+          "grammar_note": "Verb 'haben' is in second position; 'frei' describes availability.",
+          "ipa": "[haːbən ziː hoɪtə nɔx aɪnən teːɐˈmiːn fraɪ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie heute noch einen Termin bei Dr. Müller frei?",
+              "translation": "Do you have an appointment with Dr. Müller today?",
+              "sound": "sounds/doctor/termin_heute_frei.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/termin_heute_frei.mp3"
+        },
+        {
+          "phrase": "Ich habe einen Termin um 10 Uhr.",
+          "meaning": "I have an appointment at 10 o’clock.",
+          "name": "State Appointment Time",
+          "response": "Gut, wir erwarten Sie dann.",
+          "meaning_response": "Good, we will expect you then.",
+          "german_level": "A2",
+          "usage_context": "Informing receptionist about your booking.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Polite way to confirm your scheduled time.",
+          "grammar_note": "Time is expressed using accusative for hours.",
+          "ipa": "[ɪç haːbə aɪnən teːɐˈmiːn ʊm tsɛn ʊːɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe einen Termin um 14 Uhr bei Dr. Schmidt.",
+              "translation": "I have an appointment at 2 PM with Dr. Schmidt.",
+              "sound": "sounds/doctor/termin_uhr.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/termin_uhr.mp3"
+        },
+        {
+          "phrase": "Ich bin etwas zu früh.",
+          "meaning": "I’m a bit early.",
+          "name": "Arriving Early",
+          "response": "Kein Problem, bitte nehmen Sie Platz.",
+          "meaning_response": "No problem, please take a seat.",
+          "german_level": "A2",
+          "usage_context": "Said upon arriving at the doctor’s office.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Polite notice to receptionist when arriving early.",
+          "grammar_note": "Uses dative 'zu früh' to indicate slight earliness.",
+          "ipa": "[ɪç bɪn ɛtvɑs tsuː fryː]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich bin 10 Minuten zu früh für meinen Termin.",
+              "translation": "I am 10 minutes early for my appointment.",
+              "sound": "sounds/doctor/zu_frueh.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/zu_frueh.mp3"
+        },
+        {
+          "phrase": "Ich muss meinen Termin verschieben.",
+          "meaning": "I need to reschedule my appointment.",
+          "name": "Reschedule Appointment",
+          "response": "Wann möchten Sie den Termin verschieben?",
+          "meaning_response": "When would you like to reschedule the appointment?",
+          "german_level": "A2",
+          "usage_context": "Calling to change the time/date of appointment.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Common when needing to adjust a scheduled appointment.",
+          "grammar_note": "Verb 'verschieben' is separable; 'meinen Termin' is accusative.",
+          "ipa": "[ɪç mʊs maɪnən teːɐˈmiːn fɛɐˈʃiːbən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich muss meinen Termin auf nächste Woche verschieben.",
+              "translation": "I need to reschedule my appointment to next week.",
+              "sound": "sounds/doctor/termin_verschieben.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/termin_verschieben.mp3"
+        },
+        {
+          "phrase": "Ich möchte den Termin absagen.",
+          "meaning": "I’d like to cancel the appointment.",
+          "name": "Cancel Appointment",
+          "response": "Alles klar, wir streichen den Termin.",
+          "meaning_response": "All right, we’ll cancel the appointment.",
+          "german_level": "A2",
+          "usage_context": "Politely cancelling an appointment.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Common courtesy when unable to attend.",
+          "grammar_note": "'absagen' is separable; politeness with modal 'möchte'.",
+          "ipa": "[ɪç møçtə deːn teːɐˈmiːn apˌzaːgən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich möchte den Termin morgen absagen.",
+              "translation": "I’d like to cancel the appointment tomorrow.",
+              "sound": "sounds/doctor/termin_absagen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/termin_absagen.mp3"
+        }
+      ]
+    },
+
+    {
+      "category": "At the Reception or Registration (Anmeldung)",
+      "category_slug": "at-reception",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Guten Tag, ich habe einen Termin bei Dr. Müller.",
+          "meaning": "Hello, I have an appointment with Dr. Müller.",
+          "name": "Check-In at Reception",
+          "response": "Bitte nehmen Sie im Wartezimmer Platz.",
+          "meaning_response": "Please take a seat in the waiting room.",
+          "german_level": "A2",
+          "usage_context": "Typical way to check in at the reception.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Polite greeting when arriving at a doctor’s office.",
+          "grammar_note": "Standard greeting + stating appointment with doctor.",
+          "ipa": "[ˈɡuːtən taːk ɪç haːbə aɪnən teːɐˈmiːn baɪ dɔktɐ ˈmʏlɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Guten Tag, ich habe einen Termin um 11 Uhr bei Dr. Müller.",
+              "translation": "Hello, I have an appointment at 11 AM with Dr. Müller.",
+              "sound": "sounds/doctor/checkin.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/checkin.mp3"
+        },
+
+        {
+          "phrase": "Können Sie bitte meine Versichertenkarte nehmen?",
+          "meaning": "Could you please take my health insurance card?",
+          "name": "Check-In at Reception",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "",
+          "usage_context": "Standard at every doctor visit.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Polite greeting when checking documents at a doctor’s office.",
+          "grammar_note": "",
+          "ipa": "/kœnən ziː bɪtə maɪnə fɛɐzɪçɐtənkaːrtə neːmən/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "",
+              "translation": "",
+              "sound": ""
+            }
+          ],
+          "sound": ""
+        },
+
+        {
+          "phrase": "Bitte nehmen Sie im Wartezimmer Platz.",
+          "meaning": "Please take a seat in the waiting room.",
+          "name": "Resting at the waition room.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "",
+          "usage_context": "Said by receptionists.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Polite greeting letting patients wait at waiting room.",
+          "grammar_note": "",
+          "ipa": "/bɪtə neːmən ziː ɪm vaːrtətsɪmɐ plats/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "",
+              "translation": "",
+              "sound": ""
+            }
+          ],
+          "sound": ""
+        },
+
+        {
+          "phrase": "Der Arzt kommt gleich.",
+          "meaning": "The doctor will be here soon.",
+          "name": "",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "",
+          "usage_context": "Reassuring phrase for waiting patients.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Polite greeting reassuring patients of doctor's arrival status at waiting room.",
+          "grammar_note": "",
+          "ipa": "/deːɐ aːrtst kɔmt glaɪç/",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "",
+              "translation": "",
+              "sound": ""
+            }
+          ],
+          "sound": ""
+        }
+      ]
+    },
+
+    {
+      "category": "Describing Symptoms (Symptome beschreiben)",
+      "category_slug": "describing-sysmptoms",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Mir ist schlecht.",
+          "meaning": "I feel sick.",
+          "name": "Feeling Sick",
+          "response": "Seit wann fühlen Sie sich so?",
+          "meaning_response": "Since when have you been feeling this way?",
+          "german_level": "A2",
+          "usage_context": "Describing nausea or general illness.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Basic phrase for discomfort or malaise.",
+          "grammar_note": "Dative pronoun 'mir' with 'ist' for personal feelings.",
+          "ipa": "[miːɐ ɪst ʃlɛçt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Mir ist seit gestern schlecht.",
+              "translation": "I have been feeling sick since yesterday.",
+              "sound": "sounds/doctor/mir_ist_schlecht.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/mir_ist_schlecht.mp3"
+        },
+        {
+          "phrase": "Ich habe Kopfschmerzen.",
+          "meaning": "I have a headache.",
+          "name": "Headache",
+          "response": "Haben Sie Fieber dazu?",
+          "meaning_response": "Do you have a fever as well?",
+          "german_level": "A2",
+          "usage_context": "Reporting headache symptoms to a doctor.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used for general headache complaint.",
+          "grammar_note": "'Kopfschmerzen' is plural; verb 'haben' agrees with subject.",
+          "ipa": "[ɪç haːbə kɔpʃˌmɛrt͡sən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe seit heute Morgen starke Kopfschmerzen.",
+              "translation": "I have had a strong headache since this morning.",
+              "sound": "sounds/doctor/kopfschmerzen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/kopfschmerzen.mp3"
+        },
+        
+        {
+          "phrase": "Ich habe Bauchschmerzen.",
+          "meaning": "I have stomach pain.",
+          "name": "Stomach Pain",
+          "response": "Seit wann haben Sie die Schmerzen?",
+          "meaning_response": "Since when do you have the pain?",
+          "german_level": "A2",
+          "usage_context": "For abdominal pain.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe abdominal discomfort to a doctor.",
+          "grammar_note": "'Bauchschmerzen' is plural; 'haben' takes accusative.",
+          "ipa": "[ɪç haːbə baʊxʃmɛrt͡sən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe seit gestern Bauchschmerzen.",
+              "translation": "I have had stomach pain since yesterday.",
+              "sound": "sounds/doctor/bauchschmerzen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/bauchschmerzen.mp3"
+        },
+
+        {
+          "phrase": "Ich habe Halsschmerzen.",
+          "meaning": "I have a sore throat.",
+          "name": "Sore Throat",
+          "response": "Haben Sie auch Fieber?",
+          "meaning_response": "Do you also have a fever?",
+          "german_level": "A2",
+          "usage_context": "Common cold symptom.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Describes throat pain for cold or flu.",
+          "grammar_note": "'Halsschmerzen' is plural; 'haben' with accusative.",
+          "ipa": "[ɪç haːbə halʃmɛrt͡sən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe Halsschmerzen und Husten.",
+              "translation": "I have a sore throat and cough.",
+              "sound": "sounds/doctor/halsschmerzen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/halsschmerzen.mp3"
+        },
+
+        {
+          "phrase": "Ich habe Fieber.",
+          "meaning": "I have a fever.",
+          "name": "Fever",
+          "response": "Wie hoch ist Ihre Temperatur?",
+          "meaning_response": "How high is your temperature?",
+          "german_level": "A2",
+          "usage_context": "For elevated temperature.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to report a fever to a doctor.",
+          "grammar_note": "'Fieber' is singular; 'haben' with accusative.",
+          "ipa": "[ɪç haːbə fiːbɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe seit heute Morgen Fieber.",
+              "translation": "I have had a fever since this morning.",
+              "sound": "sounds/doctor/fieber.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/fieber.mp3"
+        },
+
+        {
+          "phrase": "Ich habe Husten und Schnupfen.",
+          "meaning": "I have a cough and runny nose.",
+          "name": "Cough and Runny Nose",
+          "response": "Seit wann haben Sie diese Symptome?",
+          "meaning_response": "Since when do you have these symptoms?",
+          "german_level": "A2",
+          "usage_context": "For flu-like symptoms.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Describes common cold symptoms.",
+          "grammar_note": "'Husten' and 'Schnupfen' are singular nouns used together; 'haben' with accusative.",
+          "ipa": "[ɪç haːbə huːstən ʊnt ʃnʊpfən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe seit zwei Tagen Husten und Schnupfen.",
+              "translation": "I have had a cough and runny nose for two days.",
+              "sound": "sounds/doctor/husten_schnupfen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/husten_schnupfen.mp3"
+        },
+
+        {
+          "phrase": "Ich fühle mich schwach.",
+          "meaning": "I feel weak.",
+          "name": "Feeling Weak",
+          "response": "Ruhe Sie sich aus und trinken Sie viel.",
+          "meaning_response": "Rest and drink plenty of fluids.",
+          "german_level": "A2",
+          "usage_context": "Expressing fatigue.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe weakness or low energy.",
+          "grammar_note": "Reflexive pronoun 'mich' with 'fühlen'.",
+          "ipa": "[ɪç fyːlə mɪç ʃvaχ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich fühle mich seit gestern schwach.",
+              "translation": "I have been feeling weak since yesterday.",
+              "sound": "sounds/doctor/schwach.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/schwach.mp3"
+        },
+
+        {
+          "phrase": "Ich kann nicht schlafen.",
+          "meaning": "I can’t sleep.",
+          "name": "Insomnia",
+          "response": "Seit wann können Sie nicht schlafen?",
+          "meaning_response": "Since when have you been unable to sleep?",
+          "german_level": "A2",
+          "usage_context": "For insomnia discussion.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used when discussing sleep difficulties with a doctor.",
+          "grammar_note": "'kann' is first person singular modal verb; 'schlafen' infinitive.",
+          "ipa": "[ɪç kan nɪçt ʃlaːfən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich kann seit drei Nächten nicht schlafen.",
+              "translation": "I haven't been able to sleep for three nights.",
+              "sound": "sounds/doctor/nicht_schlafen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/nicht_schlafen.mp3"
+        },
+
+        {
+          "phrase": "Mir ist schwindlig.",
+          "meaning": "I feel dizzy.",
+          "name": "Dizziness",
+          "response": "Setzen Sie sich bitte hin.",
+          "meaning_response": "Please sit down.",
+          "german_level": "A2",
+          "usage_context": "For dizziness or vertigo.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Describes lightheadedness or vertigo.",
+          "grammar_note": "Dative pronoun 'mir' with 'ist' for sensations.",
+          "ipa": "[miːɐ ɪst ʃvɪndlɪç]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Mir ist schwindlig, nachdem ich aufgestanden bin.",
+              "translation": "I feel dizzy after standing up.",
+              "sound": "sounds/doctor/schwindlig.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/schwindlig.mp3"
+        },
+
+        {
+          "phrase": "Ich habe Rückenschmerzen.",
+          "meaning": "I have back pain.",
+          "name": "Back Pain",
+          "response": "Haben Sie Ihre Rückenschmerzen schon länger?",
+          "meaning_response": "Have you had your back pain for a long time?",
+          "german_level": "A2",
+          "usage_context": "For muscular or spinal pain.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe back pain or stiffness.",
+          "grammar_note": "'Rückenschmerzen' is plural; 'haben' with accusative.",
+          "ipa": "[ɪç haːbə rʏkənʃmɛrt͡sən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe seit gestern Rückenschmerzen.",
+              "translation": "I have had back pain since yesterday.",
+              "sound": "sounds/doctor/rueckenschmerzen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/rueckenschmerzen.mp3"
+        }
+      ]
+    },
+
+    {
+      "category": "During the Examination (Beim Arztgespräch)",
+      "category_slug": "during-health-examination",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Was fehlt Ihnen?",
+          "meaning": "What’s wrong with you?",
+          "name": "Doctor’s Question",
+          "response": "Ich habe Bauchschmerzen.",
+          "meaning_response": "I have stomach pain.",
+          "german_level": "A2",
+          "usage_context": "Doctor’s question.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used by doctors to start the consultation and ask the patient’s problem.",
+          "grammar_note": "'Ihnen' is dative; 'fehlen' is used for impersonal expressions of lack or ailment.",
+          "ipa": "[vas feːlt iːnən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Was fehlt Ihnen heute?",
+              "translation": "What’s wrong with you today?",
+              "sound": "sounds/doctor/was_fehlt_ihnen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/was_fehlt_ihnen.mp3"
+        },
+        {
+          "phrase": "Seit wann haben Sie die Beschwerden?",
+          "meaning": "Since when do you have the symptoms?",
+          "name": "Symptom Duration",
+          "response": "Seit zwei Tagen.",
+          "meaning_response": "For two days.",
+          "german_level": "A2",
+          "usage_context": "Asking about symptom duration.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Doctor inquires about how long the patient has been experiencing symptoms.",
+          "grammar_note": "Formal 'Sie'; 'Beschwerden' is plural.",
+          "ipa": "[zaɪt van haːbən ziː diː bəʃveːrdən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Seit wann haben Sie die Beschwerden?",
+              "translation": "Since when do you have these symptoms?",
+              "sound": "sounds/doctor/seit_wann_beschwerden.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/seit_wann_beschwerden.mp3"
+        },
+        {
+          "phrase": "Haben Sie Allergien?",
+          "meaning": "Do you have allergies?",
+          "name": "Allergy Check",
+          "response": "Ja, gegen Pollen.",
+          "meaning_response": "Yes, to pollen.",
+          "german_level": "A2",
+          "usage_context": "Doctor checking for allergies.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Important question to avoid prescribing medications that could trigger allergies.",
+          "grammar_note": "Formal 'Sie'; simple yes/no question.",
+          "ipa": "[haːbən ziː alɛʁgiːən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie Allergien gegen bestimmte Medikamente?",
+              "translation": "Do you have allergies to certain medications?",
+              "sound": "sounds/doctor/haben_sie_allergien.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/haben_sie_allergien.mp3"
+        },
+        {
+          "phrase": "Nehmen Sie regelmäßig Medikamente?",
+          "meaning": "Do you take medication regularly?",
+          "name": "Medication History",
+          "response": "Ja, täglich eine Tablette.",
+          "meaning_response": "Yes, one tablet daily.",
+          "german_level": "A2",
+          "usage_context": "For medical history.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Doctor asks to understand patient’s ongoing treatments.",
+          "grammar_note": "Formal 'Sie'; 'regelmäßig' emphasizes routine.",
+          "ipa": "[neːmən ziː reːglɛsˌmɛːsɪç mɛdikaːmɛntə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Nehmen Sie regelmäßig Medikamente gegen Bluthochdruck?",
+              "translation": "Do you take medication for high blood pressure regularly?",
+              "sound": "sounds/doctor/nehmen_sie_medikamente.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/nehmen_sie_medikamente.mp3"
+        },
+        {
+          "phrase": "Ich verschreibe Ihnen etwas.",
+          "meaning": "I’ll prescribe you something.",
+          "name": "Prescription",
+          "response": "Vielen Dank.",
+          "meaning_response": "Thank you very much.",
+          "german_level": "A2",
+          "usage_context": "Doctor’s statement.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used when the doctor decides to provide medication for treatment.",
+          "grammar_note": "'Ihnen' is dative; 'verschreiben' is the verb for prescribing.",
+          "ipa": "[ɪç fɛɐʃraɪbə iːnən ɛtvas]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich verschreibe Ihnen etwas gegen die Schmerzen.",
+              "translation": "I will prescribe you something for the pain.",
+              "sound": "sounds/doctor/verschreibe_ihnen.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/verschreibe_ihnen.mp3"
+        },
+        {
+          "phrase": "Sie brauchen Ruhe.",
+          "meaning": "You need rest.",
+          "name": "Rest Advice",
+          "response": "Okay, ich werde mich ausruhen.",
+          "meaning_response": "Okay, I will rest.",
+          "german_level": "A2",
+          "usage_context": "Common medical advice.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Doctor recommends resting to recover from illness.",
+          "grammar_note": "Formal 'Sie'; 'brauchen' for necessity.",
+          "ipa": "[ziː braʊxən ruːə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Sie brauchen Ruhe und keine körperliche Anstrengung.",
+              "translation": "You need rest and no physical exertion.",
+              "sound": "sounds/doctor/sie_brauchen_ruhe.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/sie_brauchen_ruhe.mp3"
+        },
+        {
+          "phrase": "Sie sollten viel trinken.",
+          "meaning": "You should drink a lot of fluids.",
+          "name": "Drink Fluids Advice",
+          "response": "Ich werde mehr Wasser trinken.",
+          "meaning_response": "I will drink more water.",
+          "german_level": "A2",
+          "usage_context": "Advice for cold or fever.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Doctor advises patient to stay hydrated for recovery.",
+          "grammar_note": "Modal verb 'sollten' used to give advice.",
+          "ipa": "[ziː zɔltən fiːl trɪŋkən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Sie sollten viel trinken, um Fieber zu senken.",
+              "translation": "You should drink a lot to reduce fever.",
+              "sound": "sounds/doctor/sie_sollten_trinken.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/sie_sollten_trinken.mp3"
+        },
+        {
+          "phrase": "Sie müssen im Bett bleiben.",
+          "meaning": "You must stay in bed.",
+          "name": "Stay in Bed",
+          "response": "Okay, ich bleibe im Bett.",
+          "meaning_response": "Okay, I will stay in bed.",
+          "german_level": "A2",
+          "usage_context": "Sick leave instruction.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Doctor instructs patient to remain in bed for proper recovery.",
+          "grammar_note": "Modal verb 'müssen' indicates obligation.",
+          "ipa": "[ziː mʏsən ɪm bɛt blaɪbən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Sie müssen im Bett bleiben, bis das Fieber weg ist.",
+              "translation": "You must stay in bed until the fever is gone.",
+              "sound": "sounds/doctor/sie_muessen_bett.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/sie_muessen_bett.mp3"
+        },
+        {
+          "phrase": "Ich schreibe Sie krank.",
+          "meaning": "I’ll give you a sick note.",
+          "name": "Sick Note",
+          "response": "Danke, das hilft mir sehr.",
+          "meaning_response": "Thank you, that helps me a lot.",
+          "german_level": "A2",
+          "usage_context": "Doctor provides medical leave.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used when doctor issues official leave for work or school.",
+          "grammar_note": "'schreiben' in context of giving a sick note.",
+          "ipa": "[ɪç ʃraɪbə ziː kraŋk]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich schreibe Sie für drei Tage krank.",
+              "translation": "I will give you a sick note for three days.",
+              "sound": "sounds/doctor/ich_schreibe_sie_krank.mp3"
+            }
+          ],
+          "sound": "sounds/doctor/ich_schreibe_sie_krank.mp3"
+        }
+      ]
+
+    },
+
+    {
+      "category": "Pharmacy & Prescriptions (Apotheke)",
+      "category_slug": "pharmacy-prescriptions",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Ich brauche ein Rezept.",
+          "meaning": "I need a prescription.",
+          "name": "Prescription Request",
+          "response": "Hier ist Ihr Rezept.",
+          "meaning_response": "Here is your prescription.",
+          "german_level": "A2",
+          "usage_context": "Used at doctor or pharmacy.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used when requesting a prescription from a doctor or pharmacy.",
+          "grammar_note": "'brauchen' indicates necessity; 'ein Rezept' is accusative object.",
+          "ipa": "[ɪç braʊxə aɪn rɛtsɛpt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich brauche ein Rezept für Antibiotika.",
+              "translation": "I need a prescription for antibiotics.",
+              "sound": "sounds/pharmacy/ich_brauche_ein_rezept.mp3"
+            }
+          ],
+          "sound": "sounds/pharmacy/ich_brauche_ein_rezept.mp3"
+        },
+        {
+          "phrase": "Wo ist die nächste Apotheke?",
+          "meaning": "Where is the nearest pharmacy?",
+          "name": "Pharmacy Location",
+          "response": "Die nächste Apotheke ist zwei Straßen weiter.",
+          "meaning_response": "The nearest pharmacy is two streets away.",
+          "german_level": "A2",
+          "usage_context": "Asking for pharmacy directions.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Common question when looking for a pharmacy.",
+          "grammar_note": "'nächste' is the superlative adjective; 'Apotheke' is feminine.",
+          "ipa": "[voː ɪst diː nɛːkstə apoːteːkə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Entschuldigung, wo ist die nächste Apotheke?",
+              "translation": "Excuse me, where is the nearest pharmacy?",
+              "sound": "sounds/pharmacy/wo_ist_die_naechste_apotheke.mp3"
+            }
+          ],
+          "sound": "sounds/pharmacy/wo_ist_die_naechste_apotheke.mp3"
+        },
+        {
+          "phrase": "Ich möchte dieses Rezept einlösen.",
+          "meaning": "I’d like to fill this prescription.",
+          "name": "Prescription Fill",
+          "response": "Natürlich, ich löse es für Sie ein.",
+          "meaning_response": "Of course, I will fill it for you.",
+          "german_level": "A2",
+          "usage_context": "At the pharmacy counter.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used when giving a prescription to a pharmacist.",
+          "grammar_note": "'einlösen' is a separable verb meaning to redeem/fill.",
+          "ipa": "[ɪç møçtə diːzəs rɛtsɛpt aɪnløːzən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich möchte dieses Rezept bitte einlösen.",
+              "translation": "I’d like to fill this prescription, please.",
+              "sound": "sounds/pharmacy/ich_moechte_rezept_einloesen.mp3"
+            }
+          ],
+          "sound": "sounds/pharmacy/ich_moechte_rezept_einloesen.mp3"
+        },
+        {
+          "phrase": "Haben Sie etwas gegen Kopfschmerzen?",
+          "meaning": "Do you have something for headaches?",
+          "name": "Headache Relief",
+          "response": "Ja, hier sind Tabletten gegen Kopfschmerzen.",
+          "meaning_response": "Yes, here are tablets for headaches.",
+          "german_level": "A2",
+          "usage_context": "Asking for over-the-counter relief.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Common question for self-medication in pharmacies.",
+          "grammar_note": "‘etwas gegen’ means ‘something for’; ‘Kopfschmerzen’ is plural.",
+          "ipa": "[haːbən ziː ɛtvas geːgən kɔpʃmɛrt͡sən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie etwas gegen Kopfschmerzen, bitte?",
+              "translation": "Do you have something for headaches, please?",
+              "sound": "sounds/pharmacy/gegen_kopfschmerzen.mp3"
+            }
+          ],
+          "sound": "sounds/pharmacy/gegen_kopfschmerzen.mp3"
+        },
+        {
+          "phrase": "Wie oft soll ich das nehmen?",
+          "meaning": "How often should I take this?",
+          "name": "Dosage Inquiry",
+          "response": "Dreimal täglich nach den Mahlzeiten.",
+          "meaning_response": "Three times a day after meals.",
+          "german_level": "A2",
+          "usage_context": "Asking for dosage.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used when patient needs instructions on how frequently to take medication.",
+          "grammar_note": "Modal verb 'soll' indicates advice.",
+          "ipa": "[viː ɔft zɔl ɪç das neːmən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie oft soll ich das Medikament einnehmen?",
+              "translation": "How often should I take the medicine?",
+              "sound": "sounds/pharmacy/wie_oft_soll.mp3"
+            }
+          ],
+          "sound": "sounds/pharmacy/wie_oft_soll.mp3"
+        },
+        {
+          "phrase": "Mit oder ohne Wasser?",
+          "meaning": "With or without water?",
+          "name": "Taking Medicine",
+          "response": "Mit Wasser, bitte.",
+          "meaning_response": "With water, please.",
+          "german_level": "A2",
+          "usage_context": "Asking how to take medicine.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Pharmacist asks how the patient wants to take the medication.",
+          "grammar_note": "Simple yes/no type of question with alternatives.",
+          "ipa": "[mɪt oːdɐ oːnə vasɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Soll ich die Tablette mit oder ohne Wasser nehmen?",
+              "translation": "Should I take the tablet with or without water?",
+              "sound": "sounds/pharmacy/mit_oder_ohne_wasser.mp3"
+            }
+          ],
+          "sound": "sounds/pharmacy/mit_oder_ohne_wasser.mp3"
+        },
+        {
+          "phrase": "Haben Sie pflanzliche Medizin?",
+          "meaning": "Do you have herbal medicine?",
+          "name": "Herbal Remedies",
+          "response": "Ja, hier sind pflanzliche Präparate.",
+          "meaning_response": "Yes, here are herbal preparations.",
+          "german_level": "A2",
+          "usage_context": "Asking for natural remedies.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used when patients prefer natural or homeopathic treatments.",
+          "grammar_note": "'pflanzliche' is adjective for 'plant-based'; 'Medizin' is feminine noun.",
+          "ipa": "[haːbən ziː pflan͡tslɪçə meːditsiːn]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie pflanzliche Medizin gegen Erkältung?",
+              "translation": "Do you have herbal medicine for a cold?",
+              "sound": "sounds/pharmacy/pflanzliche_medizin.mp3"
+            }
+          ],
+          "sound": "sounds/pharmacy/pflanzliche_medizin.mp3"
+        }
+      ]
+
+    },
+
+    {
+      "category": "Emergencies (Notfälle)",
+      "category_slug": "emergencies",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Rufen Sie bitte einen Arzt!",
+          "meaning": "Please call a doctor!",
+          "name": "Call a Doctor",
+          "response": "Ja, ich rufe sofort einen Arzt.",
+          "meaning_response": "Yes, I’ll call a doctor immediately.",
+          "german_level": "A2",
+          "usage_context": "In emergencies.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used to request urgent medical attention.",
+          "grammar_note": "'Rufen Sie' is the formal imperative; 'bitte' adds politeness.",
+          "ipa": "[ruːfən ziː bɪtə aɪnən aːrtst]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Rufen Sie bitte einen Arzt, er fühlt sich sehr schlecht!",
+              "translation": "Please call a doctor, he feels very unwell!",
+              "sound": "sounds/emergency/rufen_arzt.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/rufen_arzt.mp3"
+        },
+        {
+          "phrase": "Rufen Sie den Krankenwagen!",
+          "meaning": "Call an ambulance!",
+          "name": "Call Ambulance",
+          "response": "Der Krankenwagen ist unterwegs.",
+          "meaning_response": "The ambulance is on its way.",
+          "german_level": "A2",
+          "usage_context": "For urgent help.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used in critical situations requiring immediate transport.",
+          "grammar_note": "Formal imperative for urgent requests.",
+          "ipa": "[ruːfən ziː deːn kraŋkənvaːgən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Rufen Sie den Krankenwagen, es ist ein Unfall!",
+              "translation": "Call an ambulance, there’s been an accident!",
+              "sound": "sounds/emergency/rufen_krankenwagen.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/rufen_krankenwagen.mp3"
+        },
+        {
+          "phrase": "Es ist ein Unfall passiert!",
+          "meaning": "There’s been an accident!",
+          "name": "Report Accident",
+          "response": "Verstanden, Hilfe ist unterwegs.",
+          "meaning_response": "Understood, help is on its way.",
+          "german_level": "A2",
+          "usage_context": "Alerting bystanders.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to inform people nearby of an emergency.",
+          "grammar_note": "'passiert' is the perfect form of 'passieren'.",
+          "ipa": "[ɛs ɪst aɪn ʊnfaːl paziːɐt]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Es ist ein Unfall passiert, wir brauchen Hilfe!",
+              "translation": "There’s been an accident, we need help!",
+              "sound": "sounds/emergency/unfall_passiert.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/unfall_passiert.mp3"
+        },
+        {
+          "phrase": "Ich brauche Hilfe!",
+          "meaning": "I need help!",
+          "name": "Need Help",
+          "response": "Ich komme sofort!",
+          "meaning_response": "I’m coming immediately!",
+          "german_level": "A2",
+          "usage_context": "General emergency call.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to request assistance in any emergency.",
+          "grammar_note": "Simple declarative statement expressing necessity.",
+          "ipa": "[ɪç braʊxə hɪlfə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich brauche Hilfe, bitte schnell!",
+              "translation": "I need help, please quickly!",
+              "sound": "sounds/emergency/ich_brauche_hilfe.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/ich_brauche_hilfe.mp3"
+        },
+        {
+          "phrase": "Ich habe mich verletzt.",
+          "meaning": "I’ve injured myself.",
+          "name": "Injury",
+          "response": "Wo tut es weh?",
+          "meaning_response": "Where does it hurt?",
+          "german_level": "A2",
+          "usage_context": "For physical injuries.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to report personal injury to others or medical staff.",
+          "grammar_note": "'sich verletzen' is a reflexive verb.",
+          "ipa": "[ɪç haːbə mɪç fɛɐlɛtst]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe mich verletzt, können Sie mir helfen?",
+              "translation": "I’ve injured myself, can you help me?",
+              "sound": "sounds/emergency/ich_habe_mich_verletzt.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/ich_habe_mich_verletzt.mp3"
+        },
+        {
+          "phrase": "Ich blute!",
+          "meaning": "I’m bleeding!",
+          "name": "Bleeding",
+          "response": "Drücken Sie die Wunde!",
+          "meaning_response": "Press the wound!",
+          "german_level": "A2",
+          "usage_context": "For open wounds.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to alert someone to a bleeding injury.",
+          "grammar_note": "Simple present tense for immediate condition.",
+          "ipa": "[ɪç bluːtə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich blute stark am Arm!",
+              "translation": "I’m bleeding heavily on my arm!",
+              "sound": "sounds/emergency/ich_blute.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/ich_blute.mp3"
+        },
+        {
+          "phrase": "Ich kann nicht atmen!",
+          "meaning": "I can’t breathe!",
+          "name": "Breathing Difficulty",
+          "response": "Rufen Sie sofort den Notarzt!",
+          "meaning_response": "Call the emergency doctor immediately!",
+          "german_level": "A2",
+          "usage_context": "For severe breathing difficulty.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used in life-threatening situations.",
+          "grammar_note": "'können' in negation form 'kann nicht'.",
+          "ipa": "[ɪç kan nɪçt aːtmən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich kann nicht atmen, bitte helfen Sie mir!",
+              "translation": "I can’t breathe, please help me!",
+              "sound": "sounds/emergency/ich_kann_nicht_atmen.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/ich_kann_nicht_atmen.mp3"
+        },
+        {
+          "phrase": "Mir ist schwindlig, ich falle gleich um!",
+          "meaning": "I feel dizzy, I’m about to faint!",
+          "name": "Fainting",
+          "response": "Setzen Sie sich hin und legen Sie die Beine hoch!",
+          "meaning_response": "Sit down and elevate your legs!",
+          "german_level": "A2",
+          "usage_context": "Critical symptom.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used to describe acute dizziness or risk of fainting.",
+          "grammar_note": "Complex sentence with reflexive verb 'fallen'.",
+          "ipa": "[miːɐ ɪst ʃvɪndlɪç ɪç falə glaɪç ʊm]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Mir ist schwindlig, ich falle gleich um, bitte helfen!",
+              "translation": "I feel dizzy, I’m about to faint, please help!",
+              "sound": "sounds/emergency/schwindlig_falle_gleich_um.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/schwindlig_falle_gleich_um.mp3"
+        },
+        {
+          "phrase": "Wo ist das Krankenhaus?",
+          "meaning": "Where is the hospital?",
+          "name": "Hospital Location",
+          "response": "Es ist zwei Straßen weiter rechts.",
+          "meaning_response": "It is two streets further on the right.",
+          "german_level": "A2",
+          "usage_context": "Asking for nearest hospital.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Common question to locate hospitals in emergencies.",
+          "grammar_note": "Simple interrogative sentence.",
+          "ipa": "[voː ɪst das kraŋkhauz]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist das nächste Krankenhaus?",
+              "translation": "Where is the nearest hospital?",
+              "sound": "sounds/emergency/wo_ist_das_krankenhaus.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/wo_ist_das_krankenhaus.mp3"
+        },
+        {
+          "phrase": "Gibt es hier eine Notaufnahme?",
+          "meaning": "Is there an emergency room here?",
+          "name": "Emergency Room",
+          "response": "Ja, die Notaufnahme ist im ersten Stock.",
+          "meaning_response": "Yes, the emergency room is on the first floor.",
+          "german_level": "A2",
+          "usage_context": "For hospital or clinic.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used to locate emergency services at hospitals.",
+          "grammar_note": "Interrogative using 'gibt es' for existence.",
+          "ipa": "[gɪbt ɛs hiːɐ aɪnə noːt aʊfnaːmə]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es hier eine Notaufnahme für Verletzte?",
+              "translation": "Is there an emergency room here for the injured?",
+              "sound": "sounds/emergency/notaufnahme.mp3"
+            }
+          ],
+          "sound": "sounds/emergency/notaufnahme.mp3"
+        }
+      ]
+
+    },
+
+    {
+      "category": "Follow-Up & Recovery (Nachsorge)",
+      "category_slug": "follow-up-recovery",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Ich fühle mich schon besser.",
+          "meaning": "I’m feeling better already.",
+          "name": "Feeling Better",
+          "response": "Das freut mich zu hören!",
+          "meaning_response": "I’m glad to hear that!",
+          "german_level": "A2",
+          "usage_context": "Used after recovery.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Expresses improvement in health after treatment.",
+          "grammar_note": "'schon' emphasizes progress; reflexive verb 'sich fühlen'.",
+          "ipa": "[ɪç fyːlə mɪç ʃoːn bɛsɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich fühle mich schon besser nach der Behandlung.",
+              "translation": "I’m feeling better already after the treatment.",
+              "sound": "sounds/followup/ich_fuehle_mich_schon_besser.mp3"
+            }
+          ],
+          "sound": "sounds/followup/ich_fuehle_mich_schon_besser.mp3"
+        },
+        {
+          "phrase": "Wann soll ich wiederkommen?",
+          "meaning": "When should I come back?",
+          "name": "Follow-Up Appointment",
+          "response": "Kommen Sie in einer Woche wieder.",
+          "meaning_response": "Come back in one week.",
+          "german_level": "A2",
+          "usage_context": "For follow-up scheduling.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Asks the doctor about the next appointment or check-up.",
+          "grammar_note": "Uses modal verb 'sollen' for advice/suggestion.",
+          "ipa": "[van zɔl ɪç viːdɐkɔmən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wann soll ich wiederkommen, um die Ergebnisse zu besprechen?",
+              "translation": "When should I come back to discuss the results?",
+              "sound": "sounds/followup/wann_soll_ich_wiederkommen.mp3"
+            }
+          ],
+          "sound": "sounds/followup/wann_soll_ich_wiederkommen.mp3"
+        },
+        {
+          "phrase": "Muss ich noch Medikamente nehmen?",
+          "meaning": "Do I still have to take medicine?",
+          "name": "Medication Continuation",
+          "response": "Ja, bitte für drei weitere Tage.",
+          "meaning_response": "Yes, please for three more days.",
+          "german_level": "A2",
+          "usage_context": "Asking about continuation.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used to clarify ongoing treatment or dosage instructions.",
+          "grammar_note": "Modal verb 'müssen' expresses necessity.",
+          "ipa": "[mʊs ɪç nɔx meːdikaːmɛntə neːmən]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Muss ich noch Medikamente nehmen, oder ist die Behandlung abgeschlossen?",
+              "translation": "Do I still have to take medicine, or is the treatment finished?",
+              "sound": "sounds/followup/muss_ich_noch_medikamente.mp3"
+            }
+          ],
+          "sound": "sounds/followup/muss_ich_noch_medikamente.mp3"
+        },
+        {
+          "phrase": "Danke, es geht mir schon viel besser.",
+          "meaning": "Thank you, I’m feeling much better.",
+          "name": "Expressing Gratitude",
+          "response": "Das ist gut zu hören!",
+          "meaning_response": "That’s good to hear!",
+          "german_level": "A2",
+          "usage_context": "Expressing gratitude and recovery.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Polite way to acknowledge care and improvement.",
+          "grammar_note": "Uses adverb 'schon viel besser' to indicate significant improvement.",
+          "ipa": "[daŋkə ɛs geːt miːɐ ʃoːn fiːl bɛsɐ]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Danke, es geht mir schon viel besser nach der Einnahme der Medikamente.",
+              "translation": "Thank you, I’m feeling much better after taking the medication.",
+              "sound": "sounds/followup/danke_es_geht_mir_schon_viel_besser.mp3"
+            }
+          ],
+          "sound": "sounds/followup/danke_es_geht_mir_schon_viel_besser.mp3"
+        },
+        {
+          "phrase": "Ich brauche eine Krankmeldung für die Arbeit.",
+          "meaning": "I need a sick note for work.",
+          "name": "Sick Note Request",
+          "response": "Hier ist Ihre Krankmeldung.",
+          "meaning_response": "Here is your sick note.",
+          "german_level": "A2",
+          "usage_context": "Requesting official medical leave.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Used to provide proof of illness to employer.",
+          "grammar_note": "'brauchen' expresses necessity; 'für die Arbeit' specifies purpose.",
+          "ipa": "[ɪç braʊxə aɪnə kraŋkmɛldʊŋ fyːɐ diː aːrbait]",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich brauche eine Krankmeldung für die Arbeit, da ich krankgeschrieben werden muss.",
+              "translation": "I need a sick note for work as I need to be officially excused.",
+              "sound": "sounds/followup/ich_brauche_krankmeldung.mp3"
+            }
+          ],
+          "sound": "sounds/followup/ich_brauche_krankmeldung.mp3"
+        }
+      ]
+
     }
   ],
 

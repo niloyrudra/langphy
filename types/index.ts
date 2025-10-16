@@ -210,6 +210,7 @@ type DB = {
   services: UnitIndividualCategory[];
   foods: UnitIndividualCategory[];
   health: UnitIndividualCategory[];
+  medical_emergency: UnitIndividualCategory[];
   animals: UnitIndividualCategory[];
   shopping: UnitIndividualCategory[];
   dresses: UnitIndividualCategory[];

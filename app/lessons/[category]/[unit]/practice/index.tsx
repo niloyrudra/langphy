@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, FlatList, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, FlatList, NativeScrollEvent, NativeSyntheticEvent, Pressable } from 'react-native';
 import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import HorizontalLine from '@/components/HorizontalLine';
@@ -11,8 +11,9 @@ import {
   PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark
 } from '@/utils/SVGImages';
 import { useLocalSearchParams } from 'expo-router';
-import { db } from '@/utils';
+import { db, speechHandler } from '@/utils';
 import { UnitIndividualCategory } from '@/types';
+import SIZES from '@/constants/size';
 
 const PracticeLessons = () => {
   const { colors, theme } = useTheme();
@@ -69,7 +70,10 @@ const PracticeLessons = () => {
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
           onMomentumScrollEnd={handleScroll}
-          renderItem={({ item }) => (
+          renderItem={({ item }) => {
+            // console.log(item?.phrase.split('/'))
+            // console.log(item?.german_level)
+            return (
             <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
               <View style={{ flex: 1 }}>
                 {/* English Section */}
@@ -95,14 +99,58 @@ const PracticeLessons = () => {
                   speechContent={item?.phrase}
                   speechLang="de-DE"
                 >
-                  <Text style={[styles.mainText, { color: colors.textDark }]}>{item?.phrase}</Text>
+                  {                    
+                    item?.phrase.split('/').map((content: string, idx: number) => (
+                      <View key={idx} style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {content?.trim()?.split(" ").map((word: string, wIdx: number) => (
+                          <TouchableOpacity
+                            key={wIdx}
+                            style={{
+                              marginRight: 6,
+                              borderBottomWidth: 1,
+                              borderStyle: "dashed",
+                              borderBottomColor: '#1B7CF5',
+                              marginBottom: 10
+                            }}
+                            onPress={() => speechHandler( word, "de-DE" )}
+                          >
+                            {/* <Text style={[styles.mainText, { textDecorationStyle: 'dashed', textDecorationColor: '#1B7CF5', color: colors.textDark }]}>{word?.trim()}</Text> */}
+                            <Text style={[
+                              styles.mainText,
+                              {
+                                // textDecorationStyle: 'dashed',
+                                // textDecorationColor: '#1B7CF5',
+                                color: colors.textDark
+                              }
+                            ]}>{word?.trim()}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    ))
+                  }
+                  
                   <Text style={[styles.subText, { color: colors.textSubColor }]}>
                     ({item?.usage_context})
                   </Text>
+
+                  {
+                    item?.german_level && (
+                      <Text style={[styles.levelText, { color: colors.textSubColor }]}>
+                        German Level: ({item?.german_level})
+                      </Text>
+                    )
+                  }
+                  {
+                    item?.grammar_note && (
+                      <Text style={[styles.subText, { color: colors.textSubColor }]}>
+                        German Level: ({item?.grammar_note})
+                      </Text>
+                    )
+                  }
                 </LessonComponent>
               </View>
             </View>
-          )}
+          )}}
         />
 
         {/* Navigation Buttons */}
@@ -134,12 +182,21 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   mainText: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 20, // 16,
+    fontWeight: "700",
+
+    // marginBottom: 10,
+    // display: "flex"
   },
   subText: {
     fontSize: 12,
     fontWeight: "400",
+  },
+  levelText: {
+    fontSize: 14,
+    fontWeight: "600",
+    marginTop: 10
+    // marginVertical: 10
   },
   navButtons: {
     flexDirection: "row",

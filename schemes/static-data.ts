@@ -72,7 +72,7 @@ export const CATEGORY_DATA_V2 = [
   },
   {
     id: '5',
-    title: "House, Hotel & Restaurants",
+    title: "House",
     slug: "house",
     ImgComponent: FamilyIconV2
   },
@@ -144,143 +144,149 @@ export const CATEGORY_DATA_V2 = [
   },
   {
     id: '17',
+    title: "Doctors & Emergencies",
+    slug: "medical_emergency",
+    ImgComponent: HealthIconV2
+  },
+  {
+    id: '18',
     title: "Food & Drinks",
     slug: "foods",
     ImgComponent: FoodIconV2
   },
   {
-    id: '18',
+    id: '19',
     title: "Flowers",
     slug: "flowers",
     ImgComponent: FoodIconV2
   },
   {
-    id: '19',
+    id: '20',
     title: "Animals",
     slug: "animals",
     ImgComponent: FoodIconV2
   },
   {
-    id: '20',
+    id: '21',
     title: "Directions",
     slug: "locations",
     ImgComponent: DirectionIconV2
   },
   {
-    id: '21',
+    id: '22',
     title: "Travel",
     slug: "travels",
     ImgComponent: TravelIconV2
   },
   {
-    id: '22',
+    id: '23',
     title: "Landscape",
     slug: "Landscape",
     ImgComponent: TravelIconV2
   },
   {
-    id: '23',
+    id: '24',
     title: "Countries",
     slug: "Countries",
     ImgComponent: TravelIconV2
   },
   {
-    id: '24',
+    id: '25',
     title: "Shopping",
     slug: "shopping",
     ImgComponent: ShoppingIconV2
   },
   {
-    id: '25',
+    id: '26',
     title: "Dresses",
     slug: "dresses",
     ImgComponent: ShoppingIconV2
   },
   {
-    id: '26',
+    id: '27',
     title: "Tools",
     slug: "tools",
     ImgComponent: ShoppingIconV2
   },
   {
-    id: '27',
+    id: '28',
     title: "Vehicles",
     slug: "vehicles",
     ImgComponent: ShoppingIconV2
   },
   {
-    id: '28',
+    id: '29',
     title: "Work",
     slug: "work",
     ImgComponent: WorkIconV2
   },
   
   {
-    id: '29',
+    id: '30',
     title: "Preference",
     slug: "preference",
     ImgComponent: PreferenceIconV2
   },
   {
-    id: '30',
+    id: '31',
     title: "Invitations",
     slug: "invitations",
     ImgComponent: InvitationsIconV2
   },
   {
-    id: '31',
+    id: '32',
     title: "Technology",
     slug: "technology",
     ImgComponent: TechnologyIconV2
   },
   {
-    id: '32',
+    id: '33',
     title: "Education",
     slug: "education",
     ImgComponent: EducationIconV2
   },
   {
-    id: '33',
+    id: '34',
     title: "Schools & University",
     slug: "school",
     ImgComponent: EducationIconV2
   },
   {
-    id: '34',
+    id: '35',
     title: "Culture",
     slug: "culture",
     ImgComponent: CultureIconV2
   },
   {
-    id: '35',
+    id: '36',
     title: "Entertainment",
     slug: "entertainment",
     ImgComponent: EntertainmentIconV2
   },
   {
-    id: '36',
+    id: '37',
     title: "Opinions",
     slug: "opinion",
     ImgComponent: OpinionsIconV2
   },
   {
-    id: '37',
+    id: '38',
     title: "Tenses",
     slug: "tenses",
     ImgComponent: BookIcon
   },
   {
-    id: '38',
+    id: '39',
     title: "Grammar",
     slug: "grammar",
     ImgComponent: BookIcon
   },
   {
-    id: '39',
+    id: '40',
     title: "Vocabulary",
     slug: "vocabulary",
     ImgComponent: BookIcon
-  },
+  }
 ];
 
 export const CATEGORY_DATA = [

@@ -9,7 +9,7 @@ export  const speechFastHandler = (speechContent: string | undefined, speechLang
     speechContent || "Hallo!",
     {
       language: speechLang || "de-DE",
-      rate: 1.5, // Normal Speed
+      rate: 1.75, // Normal Speed
       pitch: 1.2,// Deep Tone
       volume: 1 // High
     }
@@ -235,6 +235,19 @@ export const db: DB = {
     }))
   })),
 
+  medical_emergency: dbJson.medical_emergency.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
   shopping: dbJson.shopping.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -355,3 +368,19 @@ export const db: DB = {
 
 export const getCardContainerWidth =  () =>  (SIZES.screenWidth - ( (SIZES.bodyPaddingHorizontal*2) + SIZES.cardGap )) / 2;
 // export const getMarginValue =  ({id}: {id: string}) =>  ( parseInt(id) % 2 !== 0) ? SIZES.cardGap : 0;
+
+export const color_legend = {
+  subject: "#1E90FF",
+  main_verb: "#32CD32",
+  modal_verb: "#2E8B57",
+  subordinate_verb: "#228B22",
+  direct_object: "#FF6347",
+  indirect_object: "#BA55D3",
+  conjunction: "#9932CC",
+  place: "#FF8C00",
+  preposition_article: "#FFD700",
+  adverb: "#FFA500",
+  time_adverb: "#FFA500",
+  article: "#FFD700",
+  possessive_article: "#DA70D6",
+}
