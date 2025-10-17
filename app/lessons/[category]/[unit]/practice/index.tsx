@@ -11,15 +11,17 @@ import {
   PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark
 } from '@/utils/SVGImages';
 import { useLocalSearchParams } from 'expo-router';
-import { db, speechHandler } from '@/utils';
-import { UnitIndividualCategory } from '@/types';
-import SIZES from '@/constants/size';
+import { color_legend, db, speechHandler } from '@/utils';
+import { UnitIndividualCategory, WordRole } from '@/types';
+// import SIZES from '@/constants/size';
 
 const PracticeLessons = () => {
   const { colors, theme } = useTheme();
   const { rootCategory, unitLessonCategory, slug } = useLocalSearchParams();
   const [data, setData] = useState<UnitIndividualCategory[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  // const [isPressed, setIsPressed] = useState<boolean>(false);
+  const [pressedWord, setPressedWord] = useState<{ sentenceIdx: number; wordIdx: number, word: string } | null>(null);
 
   const flatListRef = useRef<FlatList>(null);
 
@@ -73,6 +75,7 @@ const PracticeLessons = () => {
           renderItem={({ item }) => {
             // console.log(item?.phrase.split('/'))
             // console.log(item?.german_level)
+            // console.log(item?.analysis)
             return (
             <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
               <View style={{ flex: 1 }}>
@@ -101,52 +104,109 @@ const PracticeLessons = () => {
                 >
                   {                    
                     item?.phrase.split('/').map((content: string, idx: number) => (
-                      <View key={idx} style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                        {content?.trim()?.split(" ").map((word: string, wIdx: number) => (
-                          <TouchableOpacity
-                            key={wIdx}
-                            style={{
-                              marginRight: 6,
-                              borderBottomWidth: 1,
-                              borderStyle: "dashed",
-                              borderBottomColor: '#1B7CF5',
-                              marginBottom: 10
-                            }}
-                            onPress={() => speechHandler( word, "de-DE" )}
-                          >
-                            {/* <Text style={[styles.mainText, { textDecorationStyle: 'dashed', textDecorationColor: '#1B7CF5', color: colors.textDark }]}>{word?.trim()}</Text> */}
-                            <Text style={[
-                              styles.mainText,
-                              {
-                                // textDecorationStyle: 'dashed',
-                                // textDecorationColor: '#1B7CF5',
-                                color: colors.textDark
-                              }
-                            ]}>{word?.trim()}</Text>
-                          </TouchableOpacity>
-                        ))}
+                      <View key={idx} style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: (pressedWord?.sentenceIdx === idx && pressedWord?.word) ? 40 : 0 }}>
+                        
+                        {content?.trim()?.split(" ").map((word: string, wIdx: number) => {
+                          const key = word.trim();
+                          const roles = item?.analysis?.roles?.filter( (keyItem: WordRole) => keyItem?.word === key )[0];
+                          const role = roles?.role;
+                          const translation = roles?.translation;
+
+                          const colorForWord = color_legend[role as keyof typeof color_legend ] ?? colors.textDark;
+
+                          // let isPressed = false;
+                          // console.log(role, translation, colorForWord)
+
+                          const isPressed = pressedWord?.sentenceIdx === idx && pressedWord?.wordIdx === wIdx;
+
+                          return (
+                            <TouchableOpacity
+                              key={wIdx}
+                              style={{
+                                marginRight: 6,
+                                borderBottomWidth: 1,
+                                borderStyle: "dashed",
+                                borderBottomColor: '#1B7CF5',
+                                marginBottom: 10,
+
+                                position: "relative"
+                              }}
+                              onPress={() => {
+                                speechHandler( key, "de-DE" )
+                                // isPressed = !isPressed
+                                // setIsPressed( prevVal => !prevVal )
+                                // toggle press
+                                if (isPressed) {
+                                  setPressedWord(null);
+                                } else {
+                                  setPressedWord({ sentenceIdx: idx, wordIdx: wIdx, word: translation });
+                                }
+                              }}
+                            >
+                              <Text style={[styles.mainText, { color: colorForWord }]}>{key}</Text>
+
+                              {translation && isPressed && (
+                                <View
+                                  style={{
+                                    position: "absolute",
+                                    top: 30,
+                                    left: -20, // 0,
+                                    right: -20, // 0,
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10,
+                                    borderRadius: 6,
+                                    
+                                    minWidth: "auto",
+                                    // width: "100%",
+                                    maxWidth: 150,
+
+                                    backgroundColor: "#1B7CF5", // or "white"
+                                    zIndex: 9999,
+                                    shadowColor: "#000",
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.25,
+                                    shadowRadius: 4,
+                                    elevation: 5,
+                                  }}
+                                >
+                                  <View>
+
+                                    <Text style={[styles.mainText, { flexWrap: "nowrap", color: colors.textDark, textTransform: "capitalize" }]}>{translation}</Text>
+                                  </View>
+                                </View>
+                              )}
+
+                            </TouchableOpacity>
+                          );
+                        })}
+                        
                       </View>
                     ))
                   }
                   
-                  <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                    ({item?.usage_context})
-                  </Text>
+                  <View>
 
-                  {
-                    item?.german_level && (
-                      <Text style={[styles.levelText, { color: colors.textSubColor }]}>
-                        German Level: ({item?.german_level})
-                      </Text>
-                    )
-                  }
-                  {
-                    item?.grammar_note && (
-                      <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                        German Level: ({item?.grammar_note})
-                      </Text>
-                    )
-                  }
+                    <Text style={[styles.subText, { color: colors.textSubColor }]}>
+                      ({item?.usage_context})
+                    </Text>
+
+                    {
+                      item?.german_level && (
+                        <Text style={[styles.levelText, { color: colors.textSubColor }]}>
+                          German Level: ({item?.german_level})
+                        </Text>
+                      )
+                    }
+                    {
+                      item?.grammar_note && (
+                        <Text style={[styles.subText, { color: colors.textSubColor }]}>
+                          Grammar Notes: ({item?.grammar_note})
+                        </Text>
+                      )
+                    }
+
+                  </View>
+
                 </LessonComponent>
               </View>
             </View>

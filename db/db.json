@@ -8410,6 +8410,39 @@
       "ImgComponent": "",
       "items": [
         {
+          "phrase": "Ich gab das T-Shirt meiner Schwester gestern.",
+          "meaning": "I gave my sister the T-shirt yesterday.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "",
+              "translation": "",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "gab", "role": "main_verb", "case": null, "translation": "gave" },
+              { "word": "das", "role": "article", "case": "accusative", "translation": "the" },
+              { "word": "T-Shirt", "role": "direct_object", "case": "accusative", "translation": "T-shirt" },
+              { "word": "meiner", "role": "possessive_article", "case": "dative", "translation": "my (fem.)" },
+              { "word": "Schwester", "role": "indirect_object", "case": "dative", "translation": "sister" },
+              { "word": "gestern", "role": "time_adverb", "case": null, "translation": "yesterday" }
+            ]
+          }
+        },
+        {
           "phrase": "",
           "response": "",
           "meaning": "",
@@ -12196,36 +12229,1445 @@
 
   "shopping": [
     {
-      "category": "",
+      "category": "General Shopping Situations (Allgemeine Einkaufssituationen)",
       "category_slug": "",
       "goal": 1000,
       "completion": 0,
       "ImgComponent": "",
       "items": [
         {
-          "phrase": "",
-          "response": "",
-          "meaning": "",
-          "meaning_response": "",
-          "german_level": "",
-          "usage_context": "",
-          "formality": "",
-          "region": "",
-          "discussion": "",
-          "grammar_note": "",
-          "ipa": "",
+          "phrase": "Ich schaue mich nur um.",
+          "meaning": "I’m just looking around.",
+          "response": "Kein Problem, nehmen Sie sich Zeit.",
+          "meaning_response": "No problem, take your time.",
+          "german_level": "A1",
+          "usage_context": "Polite browsing in a store.",
+          "formality": "Polite",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "Used when you want to indicate that you are not ready to buy yet.",
+          "grammar_note": "Reflexive verb ‘sich umschauen’ means ‘to look around’.",
+          "ipa": "ɪç ˈʃaʊ̯ə mɪç nuːɐ̯ ʊm",
           "isCompleted": false,
           "examples": [
             {
-              "example": "",
-              "translation": "",
+              "example": "Ich schaue mich erst ein bisschen um.",
+              "translation": "I’m just looking around a bit first.",
               "sound": ""
             }
           ],
-          "sound": ""
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "schaue", "role": "main_verb", "case": null, "translation": "look" },
+              { "word": "mich", "role": "direct_object", "case": "accusative", "translation": "myself" },
+              { "word": "nur", "role": "adverb", "case": null, "translation": "just" },
+              { "word": "um", "role": "adverb", "case": null, "translation": "around" }
+            ]
+          }
+        },
+        {
+          "phrase": "Können Sie mir helfen?",
+          "meaning": "Can you help me?",
+          "response": "Natürlich, was suchen Sie genau?",
+          "meaning_response": "Of course, what exactly are you looking for?",
+          "german_level": "A1",
+          "usage_context": "Requesting assistance from a shop employee.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Common polite question when you need assistance in a store.",
+          "grammar_note": "Uses the modal verb ‘können’ followed by an infinitive ‘helfen’.",
+          "ipa": "ˈkœnən ziː miːɐ̯ ˈhɛlfən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Können Sie mir bitte helfen?",
+              "translation": "Could you please help me?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Können", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you" },
+              { "word": "mir", "role": "indirect_object", "case": "dative", "translation": "me" },
+              { "word": "helfen", "role": "main_verb", "case": null, "translation": "help" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich suche ein Geschenk.",
+          "meaning": "I’m looking for a gift.",
+          "response": "Für wen ist es denn?",
+          "meaning_response": "Who is it for?",
+          "german_level": "A1",
+          "usage_context": "When explaining what you’re shopping for.",
+          "formality": "Neutral",
+          "region": "Germany, Austria",
+          "discussion": "Used when telling a shopkeeper what you’re looking for.",
+          "grammar_note": "The verb ‘suchen’ means ‘to search for’ or ‘to look for’.",
+          "ipa": "ɪç ˈzuːxə aɪ̯n ɡəˈʃɛŋk",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich suche ein Geschenk für meine Mutter.",
+              "translation": "I’m looking for a gift for my mother.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "suche", "role": "main_verb", "case": null, "translation": "am looking for" },
+              { "word": "ein", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Geschenk", "role": "direct_object", "case": "accusative", "translation": "gift" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie etwas Günstigeres?",
+          "meaning": "Do you have something cheaper?",
+          "response": "Ja, das hier ist im Angebot.",
+          "meaning_response": "Yes, this one is on sale.",
+          "german_level": "A2",
+          "usage_context": "When asking for a cheaper alternative.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Commonly used in price negotiations or when comparing options.",
+          "grammar_note": "‘Haben’ is the main verb; ‘etwas’ is an indefinite pronoun meaning ‘something’.",
+          "ipa": "ˈhaːbn̩ ziː ˈɛtvas ˈɡʏnstɪɡərəs",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie etwas Größeres?",
+              "translation": "Do you have something bigger?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you" },
+              { "word": "etwas", "role": "direct_object", "case": "accusative", "translation": "something" },
+              { "word": "Günstigeres", "role": "adjective", "case": "accusative", "translation": "cheaper" }
+            ]
+          }
+        },
+        {
+          "phrase": "Gibt es neue Modelle?",
+          "meaning": "Are there new models?",
+          "response": "Ja, die sind gerade angekommen.",
+          "meaning_response": "Yes, they just arrived.",
+          "german_level": "A2",
+          "usage_context": "Inquiring about new stock or availability.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "‘Es gibt’ literally means ‘it gives’, but translates to ‘there is/are’.",
+          "grammar_note": "‘Es gibt’ + accusative object construction expresses existence.",
+          "ipa": "ɡɪpt ɛs ˈnɔɪ̯ə moˈdɛlə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es neue Farben?",
+              "translation": "Are there new colors?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Gibt", "role": "main_verb", "case": null, "translation": "is there" },
+              { "word": "es", "role": "subject", "case": "nominative", "translation": "there" },
+              { "word": "neue", "role": "adjective", "case": "accusative", "translation": "new" },
+              { "word": "Modelle", "role": "direct_object", "case": "accusative", "translation": "models" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich schaue mich noch ein bisschen um.",
+          "meaning": "I’ll look around a bit more.",
+          "response": "Gerne, ich bin hier, falls Sie Fragen haben.",
+          "meaning_response": "Sure, I’m here if you have any questions.",
+          "german_level": "A2",
+          "usage_context": "Polite way to pause the conversation with a shopkeeper.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "Extends the basic phrase ‘Ich schaue mich um’ with adverbs for nuance.",
+          "grammar_note": "Uses reflexive structure; ‘noch ein bisschen’ modifies the action.",
+          "ipa": "ɪç ˈʃaʊ̯ə mɪç nɔx aɪ̯n ˈbɪsçən ʊm",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich schaue mich noch etwas um.",
+              "translation": "I’ll look around a bit more.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "schaue", "role": "main_verb", "case": null, "translation": "look" },
+              { "word": "mich", "role": "direct_object", "case": "accusative", "translation": "myself" },
+              { "word": "noch", "role": "adverb", "case": null, "translation": "still" },
+              { "word": "ein", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "bisschen", "role": "adverb", "case": null, "translation": "bit" },
+              { "word": "um", "role": "adverb", "case": null, "translation": "around" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich bin nur am Stöbern.",
+          "meaning": "I’m just browsing.",
+          "response": "Kein Problem, viel Spaß beim Schauen.",
+          "meaning_response": "No problem, have fun looking around.",
+          "german_level": "A2",
+          "usage_context": "Casual or friendly shopping tone.",
+          "formality": "Informal",
+          "region": "Germany",
+          "discussion": "‘Am Stöbern sein’ expresses being in the process of browsing casually.",
+          "grammar_note": "‘Am + Verb’ construction describes ongoing actions in colloquial German.",
+          "ipa": "ɪç bɪn nuːɐ̯ am ˈʃtøːbɐn",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich bin nur am Gucken.",
+              "translation": "I’m just looking.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "bin", "role": "main_verb", "case": null, "translation": "am" },
+              { "word": "nur", "role": "adverb", "case": null, "translation": "just" },
+              { "word": "am", "role": "preposition_article", "case": null, "translation": "at the" },
+              { "word": "Stöbern", "role": "direct_object", "case": null, "translation": "browsing" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Clothing & Fitting (Kleidung & Anprobe)",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Wo ist die Umkleidekabine?",
+          "meaning": "Where is the changing room?",
+          "response": "Dort hinten links.",
+          "meaning_response": "Over there, to the left.",
+          "german_level": "A1",
+          "usage_context": "Finding fitting room.",
+          "formality": "Neutral",
+          "region": "Germany, Austria",
+          "discussion": "Common question when shopping for clothes and looking for a place to try them on.",
+          "grammar_note": "‘Wo ist ...?’ is a simple question structure meaning ‘Where is...?’ The noun ‘Umkleidekabine’ is feminine.",
+          "ipa": "voː ɪst diː ʊmˈklaɪ̯dəkaˌbiːnə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist die Toilette?",
+              "translation": "Where is the toilet?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "die", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Umkleidekabine", "role": "subject", "case": "nominative", "translation": "changing room" }
+            ]
+          }
+        },
+        {
+          "phrase": "Kann ich das anprobieren?",
+          "meaning": "Can I try this on?",
+          "response": "Natürlich, bitte schön.",
+          "meaning_response": "Of course, here you go.",
+          "german_level": "A1",
+          "usage_context": "Trying on clothes.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "Used when asking for permission to try on clothing.",
+          "grammar_note": "Uses modal verb ‘können’ in question form with infinitive ‘anprobieren’.",
+          "ipa": "kan ɪç das ˈanpʁoˌbiːʁən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Kann ich diese Jacke anprobieren?",
+              "translation": "Can I try on this jacket?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Kann", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "das", "role": "direct_object", "case": "accusative", "translation": "this" },
+              { "word": "anprobieren", "role": "main_verb", "case": null, "translation": "try on" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie das in einer anderen Größe?",
+          "meaning": "Do you have this in another size?",
+          "response": "Ja, ich hole sie Ihnen.",
+          "meaning_response": "Yes, I’ll get it for you.",
+          "german_level": "A2",
+          "usage_context": "Asking for a different size.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Commonly used when a size doesn’t fit and you want another one.",
+          "grammar_note": "‘Haben’ as main verb; ‘in einer anderen Größe’ is a prepositional phrase in dative.",
+          "ipa": "ˈhaːbn̩ ziː das ɪn ˈaɪ̯nɐ ˈandərən ˈɡrøːsə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie das in Größe M?",
+              "translation": "Do you have this in size M?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you" },
+              { "word": "das", "role": "direct_object", "case": "accusative", "translation": "this" },
+              { "word": "in", "role": "preposition_article", "case": "dative", "translation": "in" },
+              { "word": "einer", "role": "article", "case": "dative", "translation": "a" },
+              { "word": "anderen", "role": "adjective", "case": "dative", "translation": "different" },
+              { "word": "Größe", "role": "indirect_object", "case": "dative", "translation": "size" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie das in einer anderen Farbe?",
+          "meaning": "Do you have this in another color?",
+          "response": "Ja, in Blau oder Schwarz.",
+          "meaning_response": "Yes, in blue or black.",
+          "german_level": "A2",
+          "usage_context": "Asking for a color variation.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Useful when choosing colors for clothing or accessories.",
+          "grammar_note": "Same structure as size inquiry, only ‘Farbe’ instead of ‘Größe’.",
+          "ipa": "ˈhaːbn̩ ziː das ɪn ˈaɪ̯nɐ ˈandərən ˈfaʁbə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie das in Rot?",
+              "translation": "Do you have this in red?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you" },
+              { "word": "das", "role": "direct_object", "case": "accusative", "translation": "this" },
+              { "word": "in", "role": "preposition_article", "case": "dative", "translation": "in" },
+              { "word": "einer", "role": "article", "case": "dative", "translation": "a" },
+              { "word": "anderen", "role": "adjective", "case": "dative", "translation": "different" },
+              { "word": "Farbe", "role": "indirect_object", "case": "dative", "translation": "color" }
+            ]
+          }
+        },
+        {
+          "phrase": "Es passt gut.",
+          "meaning": "It fits well.",
+          "response": "Freut mich!",
+          "meaning_response": "I’m glad!",
+          "german_level": "A1",
+          "usage_context": "Positive feedback on clothing fit.",
+          "formality": "Neutral",
+          "region": "Germany, Austria",
+          "discussion": "Simple expression of satisfaction with clothing fit.",
+          "grammar_note": "‘Passen’ is an intransitive verb meaning ‘to fit’ and takes ‘es’ as subject.",
+          "ipa": "ɛs past ɡuːt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Kleid passt gut.",
+              "translation": "The dress fits well.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Es", "role": "subject", "case": "nominative", "translation": "it" },
+              { "word": "passt", "role": "main_verb", "case": null, "translation": "fits" },
+              { "word": "gut", "role": "adverb", "case": null, "translation": "well" }
+            ]
+          }
+        },
+        {
+          "phrase": "Es ist zu eng / zu weit.",
+          "meaning": "It’s too tight / too loose.",
+          "response": "Möchten Sie eine andere Größe probieren?",
+          "meaning_response": "Would you like to try another size?",
+          "german_level": "A2",
+          "usage_context": "Describing fit issues.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Common when something doesn’t fit properly.",
+          "grammar_note": "Uses adjective predicates with ‘zu’ for intensity (‘too’).",
+          "ipa": "ɛs ɪst tsuː ɛŋ / tsuː vaɪ̯t",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Die Hose ist zu eng.",
+              "translation": "The pants are too tight.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Es", "role": "subject", "case": "nominative", "translation": "it" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "zu", "role": "adverb", "case": null, "translation": "too" },
+              { "word": "eng", "role": "adjective", "case": null, "translation": "tight" },
+              { "word": "zu", "role": "adverb", "case": null, "translation": "too" },
+              { "word": "weit", "role": "adjective", "case": null, "translation": "loose" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie einen Spiegel?",
+          "meaning": "Do you have a mirror?",
+          "response": "Ja, gleich hier.",
+          "meaning_response": "Yes, right here.",
+          "german_level": "A1",
+          "usage_context": "Checking appearance.",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "Often used in fitting rooms or stores to check your outfit.",
+          "grammar_note": "‘Einen Spiegel’ is masculine in accusative case.",
+          "ipa": "ˈhaːbn̩ ziː ˈaɪ̯nən ˈʃpiːɡl̩",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie einen großen Spiegel?",
+              "translation": "Do you have a large mirror?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you" },
+              { "word": "einen", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Spiegel", "role": "direct_object", "case": "accusative", "translation": "mirror" }
+            ]
+          }
+        },
+        {
+          "phrase": "Gibt es das im Set?",
+          "meaning": "Is it available as a set?",
+          "response": "Ja, das Set kostet 40 Euro.",
+          "meaning_response": "Yes, the set costs 40 euros.",
+          "german_level": "A2",
+          "usage_context": "Outfit inquiry.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "Used when checking if an item is part of a set.",
+          "grammar_note": "‘Es gibt’ construction again, meaning ‘there is/are’.",
+          "ipa": "ɡɪpt ɛs das ɪm sɛt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es das im Angebot?",
+              "translation": "Is it available on sale?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Gibt", "role": "main_verb", "case": null, "translation": "is there" },
+              { "word": "es", "role": "subject", "case": "nominative", "translation": "there" },
+              { "word": "das", "role": "direct_object", "case": "accusative", "translation": "this" },
+              { "word": "im", "role": "preposition_article", "case": "dative", "translation": "in the" },
+              { "word": "Set", "role": "indirect_object", "case": "dative", "translation": "set" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Price & Offers (Preis & Angebot)",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Wie viel kostet das?",
+          "meaning": "How much does this cost?",
+          "response": "25 Euro, bitte.",
+          "meaning_response": "25 euros, please.",
+          "german_level": "A1",
+          "usage_context": "Asking for price",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common phrase when asking about the price of an item.",
+          "grammar_note": "‘Wie viel’ means ‘how much’; ‘kostet’ is the verb ‘to cost’.",
+          "ipa": "viː fiːl ˈkɔstət das",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie viel kostet der Pullover?",
+              "translation": "How much does the sweater cost?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie", "role": "adverb", "case": null, "translation": "how" },
+              { "word": "viel", "role": "adverb", "case": null, "translation": "much" },
+              { "word": "kostet", "role": "main_verb", "case": null, "translation": "costs" },
+              { "word": "das", "role": "subject", "case": "nominative", "translation": "this" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ist das im Angebot?",
+          "meaning": "Is this on sale?",
+          "response": "Ja, 30 Prozent günstiger.",
+          "meaning_response": "Yes, 30 percent cheaper.",
+          "german_level": "A1",
+          "usage_context": "Sales inquiry",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common in stores during sale seasons.",
+          "grammar_note": "‘Im Angebot’ is a fixed phrase meaning ‘on sale’.",
+          "ipa": "ɪst das ɪm ˈʔanɡəboːt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Sind diese Schuhe im Angebot?",
+              "translation": "Are these shoes on sale?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "das", "role": "subject", "case": "nominative", "translation": "this" },
+              { "word": "im", "role": "preposition_article", "case": "dative", "translation": "in the" },
+              { "word": "Angebot", "role": "place", "case": "dative", "translation": "sale" }
+            ]
+          }
+        },
+        {
+          "phrase": "Das ist aber teuer!",
+          "meaning": "That’s expensive!",
+          "response": "Qualität hat ihren Preis.",
+          "meaning_response": "Quality has its price.",
+          "german_level": "A1",
+          "usage_context": "Price reaction",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Expressing surprise at a high price.",
+          "grammar_note": "‘Aber’ adds emphasis, not contrast here.",
+          "ipa": "das ɪst ˈaːbɐ ˈtɔɪɐ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das ist aber wirklich teuer!",
+              "translation": "That’s really expensive!",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "exclamation",
+            "roles": [
+              { "word": "Das", "role": "subject", "case": "nominative", "translation": "that" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "aber", "role": "conjunction", "case": null, "translation": "but/really" },
+              { "word": "teuer", "role": "adjective", "case": null, "translation": "expensive" }
+            ]
+          }
+        },
+        {
+          "phrase": "Gibt es Rabatt?",
+          "meaning": "Is there a discount?",
+          "response": "Ja, mit Kundenkarte.",
+          "meaning_response": "Yes, with a customer card.",
+          "german_level": "A2",
+          "usage_context": "Discount inquiry",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common question when asking for price reductions.",
+          "grammar_note": "‘Gibt es’ literally means ‘gives it’, used as ‘is there’.",
+          "ipa": "ɡɪpt ɛs ʁaˈbat",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es Rabatt auf diese Jacke?",
+              "translation": "Is there a discount on this jacket?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Gibt", "role": "main_verb", "case": null, "translation": "is there" },
+              { "word": "es", "role": "subject", "case": "nominative", "translation": "it/there" },
+              { "word": "Rabatt", "role": "direct_object", "case": "accusative", "translation": "discount" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich nehme es, wenn es billiger ist.",
+          "meaning": "I’ll take it if it’s cheaper.",
+          "response": "Ich frage mal den Chef.",
+          "meaning_response": "I’ll ask the boss.",
+          "german_level": "A2",
+          "usage_context": "Bargaining",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Conditional sentence used during negotiations.",
+          "grammar_note": "‘Wenn’ introduces a subordinate clause.",
+          "ipa": "ɪç ˈneːmə ɛs vɛn ɛs ˈbɪlɪɡɐ ɪst",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich nehme es, wenn Sie mir Rabatt geben.",
+              "translation": "I’ll take it if you give me a discount.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "conditional",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "nehme", "role": "main_verb", "case": null, "translation": "take" },
+              { "word": "es", "role": "direct_object", "case": "accusative", "translation": "it" },
+              { "word": "wenn", "role": "conjunction", "case": null, "translation": "if" },
+              { "word": "es", "role": "subject", "case": "nominative", "translation": "it" },
+              { "word": "billiger", "role": "adjective", "case": null, "translation": "cheaper" },
+              { "word": "ist", "role": "subordinate_verb", "case": null, "translation": "is" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Preis ist fair.",
+          "meaning": "The price is fair.",
+          "response": "Schön zu hören.",
+          "meaning_response": "Nice to hear.",
+          "german_level": "A1",
+          "usage_context": "Agreement",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used to show satisfaction with price fairness.",
+          "grammar_note": "Simple statement using the verb ‘sein’.",
+          "ipa": "deːɐ̯ pʁaɪs ɪst fɛːɐ̯",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich finde, der Preis ist fair.",
+              "translation": "I think the price is fair.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Preis", "role": "subject", "case": "nominative", "translation": "price" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "fair", "role": "adjective", "case": null, "translation": "fair" }
+            ]
+          }
+        },
+        {
+          "phrase": "Das ist ein Sonderangebot.",
+          "meaning": "That’s a special offer.",
+          "response": "Genau! Nur heute.",
+          "meaning_response": "Exactly! Only today.",
+          "german_level": "A1",
+          "usage_context": "Limited sale",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used to describe discounted or limited-time offers.",
+          "grammar_note": "‘Sonderangebot’ is a compound noun meaning ‘special offer’.",
+          "ipa": "das ɪst aɪn ˈzɔndɐʔanɡəboːt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das ist ein Sonderangebot für Mitglieder.",
+              "translation": "That’s a special offer for members.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Das", "role": "subject", "case": "nominative", "translation": "that" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "ein", "role": "article", "case": "nominative", "translation": "a" },
+              { "word": "Sonderangebot", "role": "predicate_noun", "case": "nominative", "translation": "special offer" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "At the Checkout (An der Kasse)",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Wo finde ich die Kasse?",
+          "meaning": "Where is the checkout?",
+          "response": "Gleich dort vorne.",
+          "meaning_response": "Right over there.",
+          "german_level": "A1",
+          "usage_context": "Finding checkout",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common question when looking for where to pay.",
+          "grammar_note": "The verb 'finden' means 'to find'; 'wo' introduces the question.",
+          "ipa": "voː ˈfɪndə ɪç diː ˈkasə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo finde ich die Selbstbedienungskasse?",
+              "translation": "Where can I find the self-checkout?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "finde", "role": "main_verb", "case": null, "translation": "find" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "die", "role": "article", "case": "accusative", "translation": "the" },
+              { "word": "Kasse", "role": "direct_object", "case": "accusative", "translation": "checkout" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich nehme das.",
+          "meaning": "I’ll take this.",
+          "response": "Sehr gut! Ich packe es ein.",
+          "meaning_response": "Very good! I’ll pack it up.",
+          "german_level": "A1",
+          "usage_context": "Purchase intent",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used when deciding to buy something.",
+          "grammar_note": "‘Nehmen’ means ‘to take’; here it's used as ‘I’ll take it’.",
+          "ipa": "ɪç ˈneːmə das",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich nehme das rote Kleid.",
+              "translation": "I’ll take the red dress.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "nehme", "role": "main_verb", "case": null, "translation": "take" },
+              { "word": "das", "role": "direct_object", "case": "accusative", "translation": "this/that" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie eine Tüte?",
+          "meaning": "Do you have a bag?",
+          "response": "Ja, kostet 20 Cent.",
+          "meaning_response": "Yes, costs 20 cents.",
+          "german_level": "A1",
+          "usage_context": "After checkout",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Asked when needing a shopping bag.",
+          "grammar_note": "‘Haben Sie’ is a polite way to ask ‘Do you have’.",
+          "ipa": "ˈhaːbn ziː ˈaɪ̯nə ˈtyːtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie vielleicht eine größere Tüte?",
+              "translation": "Do you perhaps have a bigger bag?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "eine", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Tüte", "role": "direct_object", "case": "accusative", "translation": "bag" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe meine eigene Tasche.",
+          "meaning": "I brought my own bag.",
+          "response": "Sehr umweltfreundlich!",
+          "meaning_response": "Very eco-friendly!",
+          "german_level": "A2",
+          "usage_context": "Eco-friendly tone",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used when declining a store bag.",
+          "grammar_note": "‘Meine eigene’ emphasizes personal possession.",
+          "ipa": "ɪç ˈhaːbə ˈmaɪ̯nə ˈaɪ̯ɡənə ˈtaʃə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe meine eigene Flasche dabei.",
+              "translation": "I have my own bottle with me.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "meine", "role": "possessive_article", "case": "accusative", "translation": "my" },
+              { "word": "eigene", "role": "adjective", "case": "accusative", "translation": "own" },
+              { "word": "Tasche", "role": "direct_object", "case": "accusative", "translation": "bag" }
+            ]
+          }
+        },
+        {
+          "phrase": "Kann ich eine Quittung haben?",
+          "meaning": "Can I have a receipt?",
+          "response": "Natürlich.",
+          "meaning_response": "Of course.",
+          "german_level": "A1",
+          "usage_context": "Proof of purchase",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Used when requesting a receipt after payment.",
+          "grammar_note": "‘Kann ich haben’ is a modal structure meaning ‘may I have’.",
+          "ipa": "kan ɪç ˈaɪ̯nə ˈkvɪtʊŋ ˈhaːbn",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Kann ich bitte eine Quittung bekommen?",
+              "translation": "Can I get a receipt, please?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Kann", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "eine", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Quittung", "role": "direct_object", "case": "accusative", "translation": "receipt" },
+              { "word": "haben", "role": "main_verb", "case": null, "translation": "have" }
+            ]
+          }
+        },
+        {
+          "phrase": "Zahlen Sie bar oder mit Karte?",
+          "meaning": "Cash or card?",
+          "response": "Mit Karte, bitte.",
+          "meaning_response": "By card, please.",
+          "german_level": "A1",
+          "usage_context": "Checkout dialogue",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Common question by cashiers during payment.",
+          "grammar_note": "‘Bar’ means ‘cash’; ‘mit Karte’ means ‘with card’.",
+          "ipa": "ˈtsaːlən ziː baːɐ̯ ˈoːdɐ mɪt ˈkaʁtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Zahlen Sie bar oder kontaktlos?",
+              "translation": "Cash or contactless?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Zahlen", "role": "main_verb", "case": null, "translation": "pay" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "bar", "role": "adverb", "case": null, "translation": "cash" },
+              { "word": "oder", "role": "conjunction", "case": null, "translation": "or" },
+              { "word": "mit", "role": "preposition_article", "case": "dative", "translation": "with" },
+              { "word": "Karte", "role": "indirect_object", "case": "dative", "translation": "card" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Bon ist im Beutel.",
+          "meaning": "The receipt is in the bag.",
+          "response": "Danke schön.",
+          "meaning_response": "Thank you.",
+          "german_level": "A1",
+          "usage_context": "End of purchase",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used by cashiers after packing the bag.",
+          "grammar_note": "‘Bon’ is commonly used for ‘receipt’ in German stores.",
+          "ipa": "deːɐ̯ bɔŋ ɪst ɪm ˈbɔʏtəl",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Bon ist im Beutel, bitte schön.",
+              "translation": "The receipt is in the bag, here you go.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Bon", "role": "subject", "case": "nominative", "translation": "receipt" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "im", "role": "preposition_article", "case": "dative", "translation": "in the" },
+              { "word": "Beutel", "role": "place", "case": "dative", "translation": "bag" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Payment & Returns (Bezahlen & Rückgabe)",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Kann ich mit Karte bezahlen?",
+          "meaning": "Can I pay by card?",
+          "response": "Ja, gerne.",
+          "meaning_response": "Yes, of course.",
+          "german_level": "A1",
+          "usage_context": "Paying by card",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Common question at checkout when offering to pay with a debit or credit card.",
+          "grammar_note": "Uses modal verb 'können' in first person singular ('kann').",
+          "ipa": "kan ɪç mɪt ˈkaʁtə bəˈtsaːlən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Kann ich kontaktlos bezahlen?",
+              "translation": "Can I pay contactless?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Kann", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "mit", "role": "preposition_article", "case": "dative", "translation": "with" },
+              { "word": "Karte", "role": "indirect_object", "case": "dative", "translation": "card" },
+              { "word": "bezahlen", "role": "main_verb", "case": null, "translation": "pay" }
+            ]
+          }
+        },
+        {
+          "phrase": "Nehmen Sie Bargeld?",
+          "meaning": "Do you take cash?",
+          "response": "Natürlich.",
+          "meaning_response": "Of course.",
+          "german_level": "A1",
+          "usage_context": "Paying with cash",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Used when checking if a shop accepts cash payment.",
+          "grammar_note": "Polite form using 'Sie' (you formal) with verb 'nehmen' (to take).",
+          "ipa": "ˈneːmən ziː ˈbaːɐ̯ɡɛlt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Nehmen Sie auch ausländisches Bargeld?",
+              "translation": "Do you also take foreign cash?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Nehmen", "role": "main_verb", "case": null, "translation": "take" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "Bargeld", "role": "direct_object", "case": "accusative", "translation": "cash" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe nicht genug Kleingeld.",
+          "meaning": "I don’t have enough change.",
+          "response": "Kein Problem, Karte geht auch.",
+          "meaning_response": "No problem, card works too.",
+          "german_level": "A2",
+          "usage_context": "Payment issue",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used when short on coins or small bills.",
+          "grammar_note": "‘Nicht genug’ means ‘not enough’; ‘Kleingeld’ is a compound noun (small money).",
+          "ipa": "ɪç ˈhaːbə nɪçt ɡəˈnuːk ˈklaɪ̯nɡɛlt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe nicht genug Bargeld dabei.",
+              "translation": "I don't have enough cash with me.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "nicht", "role": "negation", "case": null, "translation": "not" },
+              { "word": "genug", "role": "adverb", "case": null, "translation": "enough" },
+              { "word": "Kleingeld", "role": "direct_object", "case": "accusative", "translation": "change" }
+            ]
+          }
+        },
+        {
+          "phrase": "Kann ich das zurückgeben?",
+          "meaning": "Can I return this?",
+          "response": "Ja, mit Kassenbon.",
+          "meaning_response": "Yes, with the receipt.",
+          "german_level": "A2",
+          "usage_context": "Returning an item",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Used when requesting a refund or return.",
+          "grammar_note": "Uses separable verb 'zurückgeben' (to give back).",
+          "ipa": "kan ɪç das tsuˈʁʏkˌɡeːbn̩",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Kann ich das auch ohne Bon zurückgeben?",
+              "translation": "Can I return this without a receipt?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Kann", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "das", "role": "direct_object", "case": "accusative", "translation": "this" },
+              { "word": "zurückgeben", "role": "main_verb", "case": null, "translation": "return" }
+            ]
+          }
+        },
+        {
+          "phrase": "Gibt es eine Garantie?",
+          "meaning": "Is there a warranty?",
+          "response": "Ja, zwei Jahre.",
+          "meaning_response": "Yes, two years.",
+          "german_level": "A2",
+          "usage_context": "Product inquiry",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common question when buying electronics or expensive goods.",
+          "grammar_note": "‘Gibt es’ literally means ‘there gives (is there)’.",
+          "ipa": "ɡɪpt ɛs ˈaɪ̯nə ɡaʁanˈtiː",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es eine längere Garantie?",
+              "translation": "Is there a longer warranty?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Gibt", "role": "main_verb", "case": null, "translation": "is there (gives)" },
+              { "word": "es", "role": "subject", "case": "nominative", "translation": "it/there" },
+              { "word": "eine", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Garantie", "role": "direct_object", "case": "accusative", "translation": "warranty" }
+            ]
+          }
+        },
+        {
+          "phrase": "Kann ich es umtauschen?",
+          "meaning": "Can I exchange it?",
+          "response": "Natürlich, kein Problem.",
+          "meaning_response": "Of course, no problem.",
+          "german_level": "A2",
+          "usage_context": "Exchange request",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Used when you want to replace a product with another one.",
+          "grammar_note": "‘Umtauschen’ is a separable verb (um + tauschen).",
+          "ipa": "kan ɪç ɛs ˈʊmˌtaʊ̯ʃən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Kann ich das gegen ein anderes Produkt umtauschen?",
+              "translation": "Can I exchange this for another product?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Kann", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "es", "role": "direct_object", "case": "accusative", "translation": "it" },
+              { "word": "umtauschen", "role": "main_verb", "case": null, "translation": "exchange" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "At the Supermarket & Bakery (Im Supermarkt & Bäckerei)",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "notes": [],
+      "items": [
+        {
+          "phrase": "Haben Sie frische Brötchen?",
+          "meaning": "Do you have fresh rolls?",
+          "response": "Ja, gerade gebacken.",
+          "meaning_response": "Yes, just baked.",
+          "german_level": "A1",
+          "usage_context": "Bakery inquiry",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Common question when buying bread or rolls at a bakery or supermarket.",
+          "grammar_note": "Polite form with 'Sie' as subject and plural verb 'haben'.",
+          "ipa": "ˈhaːbn̩ ziː ˈfʁɪʃə ˈbʁøːtçən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie auch Vollkornbrötchen?",
+              "translation": "Do you also have whole-grain rolls?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "frische", "role": "adjective", "case": "accusative", "translation": "fresh" },
+              { "word": "Brötchen", "role": "direct_object", "case": "accusative", "translation": "rolls" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ist das bio?",
+          "meaning": "Is this organic?",
+          "response": "Ja, alles Bio-Produkte hier.",
+          "meaning_response": "Yes, all organic products here.",
+          "german_level": "A1",
+          "usage_context": "Food quality check",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used when asking about organic products or food quality.",
+          "grammar_note": "Simple 'sein' (to be) structure in present tense.",
+          "ipa": "ɪst das ˈbiːo",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Sind die Äpfel bio?",
+              "translation": "Are the apples organic?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "das", "role": "subject", "case": "nominative", "translation": "this" },
+              { "word": "bio", "role": "predicate", "case": null, "translation": "organic" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo finde ich die Milchprodukte?",
+          "meaning": "Where can I find dairy items?",
+          "response": "Gleich neben dem Käse.",
+          "meaning_response": "Right next to the cheese.",
+          "german_level": "A2",
+          "usage_context": "Asking for location",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common question in a grocery store to locate dairy products.",
+          "grammar_note": "Uses verb 'finden' (to find) with object in accusative case.",
+          "ipa": "voː ˈfɪndə ɪç diː ˈmɪlçpʁoˌdʊktə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo finde ich das Brot?",
+              "translation": "Where can I find the bread?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "finde", "role": "main_verb", "case": null, "translation": "find" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "die", "role": "article", "case": "accusative", "translation": "the" },
+              { "word": "Milchprodukte", "role": "direct_object", "case": "accusative", "translation": "dairy products" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie vegetarische Produkte?",
+          "meaning": "Do you have vegetarian products?",
+          "response": "Ja, dort im grünen Regal.",
+          "meaning_response": "Yes, over there on the green shelf.",
+          "german_level": "A2",
+          "usage_context": "Dietary inquiry",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Asked when looking for vegetarian or vegan food options.",
+          "grammar_note": "Uses plural form of 'Produkt' (Produkte) with accusative case.",
+          "ipa": "ˈhaːbn̩ ziː veˈɡeːtaˌʁɪʃə pʁoˈdʊktə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie vegane Produkte?",
+              "translation": "Do you have vegan products?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "vegetarische", "role": "adjective", "case": "accusative", "translation": "vegetarian" },
+              { "word": "Produkte", "role": "direct_object", "case": "accusative", "translation": "products" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich brauche ein Kilo Äpfel.",
+          "meaning": "I need a kilo of apples.",
+          "response": "Hier, die sind frisch aus Bayern.",
+          "meaning_response": "Here, they’re fresh from Bavaria.",
+          "german_level": "A2",
+          "usage_context": "Produce section",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common at fruit and vegetable stands or markets.",
+          "grammar_note": "‘Brauche’ is from ‘brauchen’ (to need), accusative object.",
+          "ipa": "ɪç ˈbʁaʊ̯xə aɪ̯n ˈkiːloː ˈɛpfl̩",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich brauche zwei Kilo Kartoffeln.",
+              "translation": "I need two kilos of potatoes.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "brauche", "role": "main_verb", "case": null, "translation": "need" },
+              { "word": "ein", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Kilo", "role": "direct_object", "case": "accusative", "translation": "kilo" },
+              { "word": "Äpfel", "role": "genitive_object", "case": "genitive", "translation": "apples" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie viel kostet das Kilo Tomaten?",
+          "meaning": "How much per kilo of tomatoes?",
+          "response": "3 Euro fünfzig.",
+          "meaning_response": "Three euros fifty.",
+          "german_level": "A2",
+          "usage_context": "Asking for price",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common market question for price per kilogram.",
+          "grammar_note": "‘Wie viel’ is a question phrase for asking quantities or price.",
+          "ipa": "viː fiːl ˈkɔstət das ˈkiːlo toˈmaːtən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie viel kostet das Brot?",
+              "translation": "How much does the bread cost?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie viel", "role": "adverb", "case": null, "translation": "how much" },
+              { "word": "kostet", "role": "main_verb", "case": null, "translation": "costs" },
+              { "word": "das", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Kilo", "role": "subject", "case": "nominative", "translation": "kilo" },
+              { "word": "Tomaten", "role": "genitive_object", "case": "genitive", "translation": "tomatoes" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo sind die Getränke?",
+          "meaning": "Where are the drinks?",
+          "response": "Ganz hinten rechts.",
+          "meaning_response": "All the way in the back on the right.",
+          "german_level": "A1",
+          "usage_context": "Navigation help",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used when looking for beverage aisles in supermarkets.",
+          "grammar_note": "‘Sind’ is the plural of ‘sein’ (to be).",
+          "ipa": "voː zɪnt diː ɡəˈtʁɛŋkə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo sind die Tiefkühlprodukte?",
+              "translation": "Where are the frozen products?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "sind", "role": "main_verb", "case": null, "translation": "are" },
+              { "word": "die", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Getränke", "role": "subject", "case": "nominative", "translation": "drinks" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich nehme eine Flasche Wasser.",
+          "meaning": "I’ll take a bottle of water.",
+          "response": "Mit oder ohne Kohlensäure?",
+          "meaning_response": "With or without carbonation?",
+          "german_level": "A2",
+          "usage_context": "Beverage section",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Common phrase for selecting bottled drinks.",
+          "grammar_note": "‘Nehme’ is first person of ‘nehmen’ (to take).",
+          "ipa": "ɪç ˈneːmə ˈaɪ̯nə ˈflaʃə ˈvasɐ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich nehme zwei Flaschen Saft.",
+              "translation": "I’ll take two bottles of juice.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "nehme", "role": "main_verb", "case": null, "translation": "take" },
+              { "word": "eine", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Flasche", "role": "direct_object", "case": "accusative", "translation": "bottle" },
+              { "word": "Wasser", "role": "genitive_object", "case": "genitive", "translation": "water" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie eine Kundenkarte?",
+          "meaning": "Do you have a loyalty card?",
+          "response": "Ja, hier.",
+          "meaning_response": "Yes, here.",
+          "german_level": "A1",
+          "usage_context": "Checkout interaction",
+          "formality": "polite",
+          "region": "Germany",
+          "discussion": "Common question at checkout in stores with membership systems.",
+          "grammar_note": "‘Kundenkarte’ is a feminine noun (‘eine’).",
+          "ipa": "ˈhaːbn̩ ziː ˈaɪ̯nə ˈkʊndn̩ˌkaʁtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie eine neue Kundenkarte?",
+              "translation": "Do you have a new loyalty card?",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "eine", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Kundenkarte", "role": "direct_object", "case": "accusative", "translation": "loyalty card" }
+            ]
+          }
+        },
+        {
+          "phrase": "Das Brot ist sehr frisch.",
+          "meaning": "The bread is very fresh.",
+          "response": "Ja, heute Morgen gebacken.",
+          "meaning_response": "Yes, baked this morning.",
+          "german_level": "A1",
+          "usage_context": "Small talk at bakery",
+          "formality": "neutral",
+          "region": "Germany",
+          "discussion": "Used in casual conversation at a bakery or market.",
+          "grammar_note": "‘Sehr’ intensifies the adjective ‘frisch’.",
+          "ipa": "das bʁoːt ɪst zeːɐ̯ fʁɪʃ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Obst ist sehr frisch heute.",
+              "translation": "The fruit is very fresh today.",
+              "sound": ""
+            }
+          ],
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Das", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Brot", "role": "subject", "case": "nominative", "translation": "bread" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "sehr", "role": "adverb", "case": null, "translation": "very" },
+              { "word": "frisch", "role": "predicate", "case": null, "translation": "fresh" }
+            ]
+          }
         }
       ]
     }
+ 
   ],
 
   "health": [

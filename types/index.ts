@@ -154,6 +154,83 @@ type LessonProps = {
     speechLang?: string
 }
 
+
+
+// Define color legend for grammatical roles
+type ColorLegend = {
+  subject: string;
+  main_verb: string;
+  subordinate_verb: string;
+  direct_object: string;
+  modal_verb: string;
+  article: string;
+  possessive_article: string;
+  indirect_object: string;
+  time_adverb: string;
+  conjunction: string;
+  place: string;
+  preposition_article: string;
+  adverb: string;
+}
+
+// Define structure for example sentences
+type Example = {
+  example: string;
+  translation: string;
+  sound: string;
+}
+
+// Define grammatical role for each word in analysis
+type WordRole = {
+  word: string;
+  role:
+    | "subject"
+    | "main_verb"
+    | "subordinate_verb"
+    | "direct_object"
+    | "modal_verb"
+    | "article"
+    | "possessive_article"
+    | "indirect_object"
+    | "time_adverb"
+    | "conjunction"
+    | "place"
+    | "preposition_article"
+    | "adverb";
+  case: "nominative" | "accusative" | "dative" | "genitive" | null;
+  translation: string;
+}
+
+// Define analysis section of the phrase
+type Analysis = {
+  type: "statement" | "question" | "command" | "exclamation" | string;
+  roles: WordRole[];
+}
+
+// Define full item structure
+// type PhraseItem = {
+//   phrase: string;
+//   meaning: string;
+//   response: string;
+//   meaning_response: string;
+//   german_level: string;
+//   usage_context: string;
+//   formality: string;
+//   region: string;
+//   discussion: string;
+//   grammar_note: string;
+//   ipa: string;
+//   isCompleted: boolean;
+//   examples: Example[];
+//   analysis: Analysis;
+// }
+
+// Define dataset structure
+// type PhraseDataset = {
+//   items: PhraseItem[];
+//   color_legend: ColorLegend;
+// }
+
 type UnitIndividualCategoryItem = {
   phrase: string;
   name?: string;
@@ -168,8 +245,9 @@ type UnitIndividualCategoryItem = {
   audio_file?: string;
   region: string;
   ipa: string;
-  sound: string;
-  examples: string[]
+  sound?: string;
+  examples: Example[];
+  analysis?: Analysis;
 };
 
 type UnitIndividualCategory = {
@@ -241,5 +319,7 @@ export {
     SubmitButtonProps,
     InputProps,
     EyeProps,
-    LessonProps
+    LessonProps,
+    WordRole,
+    ColorLegend
 };

@@ -1,6 +1,6 @@
 import SIZES from "@/constants/size";
 import dbJson from '@/db/db.json'; // or .ts export
-import { DB } from "@/types";
+import { ColorLegend, DB } from "@/types";
 import { StudyingDolphinIcon } from '@/utils/SVGImages'
 import * as Speech from 'expo-speech'
 
@@ -369,7 +369,7 @@ export const db: DB = {
 export const getCardContainerWidth =  () =>  (SIZES.screenWidth - ( (SIZES.bodyPaddingHorizontal*2) + SIZES.cardGap )) / 2;
 // export const getMarginValue =  ({id}: {id: string}) =>  ( parseInt(id) % 2 !== 0) ? SIZES.cardGap : 0;
 
-export const color_legend = {
+export const color_legend: ColorLegend = {
   subject: "#1E90FF",
   main_verb: "#32CD32",
   modal_verb: "#2E8B57",
