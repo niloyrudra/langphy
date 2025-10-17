@@ -24,7 +24,7 @@ import {
 import { useLocalSearchParams } from 'expo-router';
 import { color_legend, db, speechHandler, stripPunctuationHandler } from '@/utils';
 import { UnitIndividualCategory, WordRole } from '@/types';
-import SIZES from '@/constants/size';
+// import SIZES from '@/constants/size';
 
 const PracticeLessons = () => {
   const { colors, theme } = useTheme();

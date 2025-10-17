@@ -286,6 +286,10 @@ type DB = {
   sports: UnitIndividualCategory[];
   activities: UnitIndividualCategory[];
   services: UnitIndividualCategory[];
+  airport: UnitIndividualCategory[];
+  transportation: UnitIndividualCategory[];
+  hotel: UnitIndividualCategory[];
+  restaurant: UnitIndividualCategory[];
   foods: UnitIndividualCategory[];
   health: UnitIndividualCategory[];
   medical_emergency: UnitIndividualCategory[];

@@ -8368,6 +8368,3223 @@
     }
   ],
 
+  "airport": [
+    {
+      "category": "Check-In & Boarding",
+      "category_slug": "check-in-and-boarding",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Ich möchte einchecken.",
+          "meaning": "I’d like to check in.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "At the airline counter",
+          "formality": "Polite",
+          "region": "Germany, Austria, Switzerland",
+          "discussion": "",
+          "grammar_note": "Möchte is the modal verb form of 'mögen' used to express polite wishes.",
+          "ipa": "ɪç møçtə ayn-ʧek-en",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich möchte einchecken, bitte.",
+              "translation": "I’d like to check in, please.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "möchte", "role": "modal_verb", "case": null, "translation": "would like to" },
+              { "word": "einchecken", "role": "main_verb", "case": null, "translation": "check in" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe ein Ticket auf den Namen...",
+          "meaning": "I have a ticket under the name...",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Presenting booking at airline counter",
+          "formality": "Polite",
+          "region": "Germany, Austria",
+          "discussion": "",
+          "grammar_note": "‘auf den Namen’ uses accusative case indicating the ticket is registered to someone.",
+          "ipa": "ɪç haːbə ayn tɪkɛt aʊf deːn naːmən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe ein Ticket auf den Namen Müller.",
+              "translation": "I have a ticket under the name Müller.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "ein", "role": "article", "case": "accusative", "translation": "a" },
+              { "word": "Ticket", "role": "direct_object", "case": "accusative", "translation": "ticket" },
+              { "word": "auf", "role": "preposition", "case": "accusative", "translation": "on/under" },
+              { "word": "den", "role": "article", "case": "accusative", "translation": "the" },
+              { "word": "Namen", "role": "indirect_object", "case": "accusative", "translation": "name" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie Ihren Reisepass?",
+          "meaning": "Do you have your passport?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asked by airline or security staff",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "‘Ihren’ is the formal possessive article (Accusative case) for ‘Sie’.",
+          "ipa": "haːbən ziː iːrən raɪzəpaːs",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie Ihren Reisepass?",
+              "translation": "Do you have your passport?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "Ihren", "role": "possessive_article", "case": "accusative", "translation": "your" },
+              { "word": "Reisepass", "role": "direct_object", "case": "accusative", "translation": "passport" }
+            ]
+          }
+        },
+        {
+          "phrase": "Hier ist mein Reisepass.",
+          "meaning": "Here is my passport.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Showing passport to staff",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "‘Hier ist’ is a common pattern for showing something.",
+          "ipa": "hiːɐ ɪst maɪn raɪzəpaːs",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Hier ist mein Reisepass.",
+              "translation": "Here is my passport.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Hier", "role": "adverb", "case": null, "translation": "here" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "mein", "role": "possessive_article", "case": "nominative", "translation": "my" },
+              { "word": "Reisepass", "role": "subject", "case": "nominative", "translation": "passport" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe nur Handgepäck.",
+          "meaning": "I have only hand luggage.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Passenger has no checked baggage",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "‘nur’ emphasizes limitation.",
+          "ipa": "ɪç haːbə nuːɐ hantgəpɛk",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe nur Handgepäck.",
+              "translation": "I have only hand luggage.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "nur", "role": "adverb", "case": null, "translation": "only" },
+              { "word": "Handgepäck", "role": "direct_object", "case": "accusative", "translation": "hand luggage" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie viele Koffer möchten Sie aufgeben?",
+          "meaning": "How many bags would you like to check in?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Airline staff question",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "‘Wie viele’ asks quantity.",
+          "ipa": "viː fiːlə kɔfɐ møçtən ziː aʊfgɛbən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie viele Koffer möchten Sie aufgeben?",
+              "translation": "How many bags would you like to check in?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie viele", "role": "quantifier", "case": null, "translation": "how many" },
+              { "word": "Koffer", "role": "direct_object", "case": "accusative", "translation": "bags" },
+              { "word": "möchten", "role": "modal_verb", "case": null, "translation": "would like to" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "aufgeben", "role": "main_verb", "case": null, "translation": "check in" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich möchte meinen Koffer aufgeben.",
+          "meaning": "I’d like to check in my suitcase.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Passenger checking luggage",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "‘meinen’ is dative masculine possessive.",
+          "ipa": "ɪç møçtə maɪnən kɔfɐ aʊfgɛbən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich möchte meinen Koffer aufgeben.",
+              "translation": "I’d like to check in my suitcase.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "möchte", "role": "modal_verb", "case": null, "translation": "would like to" },
+              { "word": "meinen", "role": "possessive_article", "case": "accusative", "translation": "my" },
+              { "word": "Koffer", "role": "direct_object", "case": "accusative", "translation": "suitcase" },
+              { "word": "aufgeben", "role": "main_verb", "case": null, "translation": "check in" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist der Check-in-Schalter von Lufthansa?",
+          "meaning": "Where is the Lufthansa check-in counter?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for a specific airline desk",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "‘Wo ist’ is used to ask location.",
+          "ipa": "voː ɪst deːɐ ʧɛk ɪn ʃaltɐ fɔn luft-han-sa",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist der Check-in-Schalter von Lufthansa?",
+              "translation": "Where is the Lufthansa check-in counter?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Check-in-Schalter", "role": "subject", "case": "nominative", "translation": "check-in counter" },
+              { "word": "von", "role": "preposition", "case": null, "translation": "of" },
+              { "word": "Lufthansa", "role": "proper_noun", "case": null, "translation": "Lufthansa" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wann beginnt das Boarding?",
+          "meaning": "When does boarding start?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking about boarding time",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "‘beginnt’ is third person singular of 'beginnen'.",
+          "ipa": "van bəgɪnt das boːrdɪŋ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wann beginnt das Boarding?",
+              "translation": "When does boarding start?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wann", "role": "adverb", "case": null, "translation": "when" },
+              { "word": "beginnt", "role": "main_verb", "case": null, "translation": "starts" },
+              { "word": "das", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Boarding", "role": "subject", "case": "nominative", "translation": "boarding" }
+            ]
+          }
+        },
+        {
+          "phrase": "Das Boarding hat begonnen.",
+          "meaning": "Boarding has started.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Announcement phrase",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Perfect tense construction: 'hat begonnen'.",
+          "ipa": "das boːrdɪŋ hat bəgɔnən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Das Boarding hat begonnen.",
+              "translation": "Boarding has started.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Das", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Boarding", "role": "subject", "case": "nominative", "translation": "boarding" },
+              { "word": "hat begonnen", "role": "main_verb", "case": null, "translation": "has started" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ihr Gate wurde geändert.",
+          "meaning": "Your gate has changed.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Heard in announcements — important to remember!",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Passive voice: 'wurde geändert'.",
+          "ipa": "iːɐ geɪt vʊrdə gɛndɐt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ihr Gate wurde geändert.",
+              "translation": "Your gate has changed.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ihr", "role": "possessive_article", "case": "nominative", "translation": "your" },
+              { "word": "Gate", "role": "subject", "case": "nominative", "translation": "gate" },
+              { "word": "wurde geändert", "role": "main_verb", "case": null, "translation": "was changed" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Security Check & Customs",
+      "category_slug": "security-check-and-customs",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "SecurityImg",
+      "items": [
+        {
+          "phrase": "Bitte zeigen Sie Ihre Bordkarte.",
+          "meaning": "Please show your boarding pass.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Security staff request",
+          "formality": "Formal",
+          "region": "Germany, Austria",
+          "discussion": "",
+          "grammar_note": "Polite request using 'Bitte' at the beginning.",
+          "ipa": "bɪtə tsaɪgən ziː iːrɛ boːrdkaːrtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Bitte zeigen Sie Ihre Bordkarte am Eingang.",
+              "translation": "Please show your boarding pass at the entrance.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "command",
+            "roles": [
+              { "word": "Bitte", "role": "politeness_marker", "case": null, "translation": "please" },
+              { "word": "zeigen", "role": "main_verb", "case": null, "translation": "show" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "Ihre", "role": "possessive_article", "case": "accusative", "translation": "your" },
+              { "word": "Bordkarte", "role": "direct_object", "case": "accusative", "translation": "boarding pass" }
+            ]
+          }
+        },
+        {
+          "phrase": "Haben Sie Flüssigkeiten im Handgepäck?",
+          "meaning": "Do you have liquids in your hand luggage?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asked at security check",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Yes/no question; 'im' = in dem (dative).",
+          "ipa": "haːbən ziː flʏsɪçkaɪtən ɪm hantgəpɛk",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Haben Sie Flüssigkeiten im Handgepäck?",
+              "translation": "Do you have liquids in your hand luggage?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Haben", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "Flüssigkeiten", "role": "direct_object", "case": "accusative", "translation": "liquids" },
+              { "word": "im", "role": "preposition_article", "case": "dative", "translation": "in the" },
+              { "word": "Handgepäck", "role": "noun", "case": "dative", "translation": "hand luggage" }
+            ]
+          }
+        },
+        {
+          "phrase": "Bitte nehmen Sie Ihren Laptop heraus.",
+          "meaning": "Please take out your laptop.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Standard airport security instruction",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Polite command using 'Bitte'; 'herausnehmen' = to take out.",
+          "ipa": "bɪtə neːmən ziː iːrən lap-top heraʊs",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Bitte nehmen Sie Ihren Laptop aus der Tasche heraus.",
+              "translation": "Please take your laptop out of the bag.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "command",
+            "roles": [
+              { "word": "Bitte", "role": "politeness_marker", "case": null, "translation": "please" },
+              { "word": "nehmen", "role": "main_verb", "case": null, "translation": "take" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "Ihren", "role": "possessive_article", "case": "accusative", "translation": "your" },
+              { "word": "Laptop", "role": "direct_object", "case": "accusative", "translation": "laptop" },
+              { "word": "heraus", "role": "particle", "case": null, "translation": "out" }
+            ]
+          }
+        },
+        {
+          "phrase": "Gürtel und Schuhe bitte ausziehen.",
+          "meaning": "Please take off your belt and shoes.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Before security scanner",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Command with 'ausziehen' for removing clothes/accessories.",
+          "ipa": "gyɐtəl ʊnt ʃuːə bɪtə aʊs-tsiːən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gürtel und Schuhe bitte ausziehen, bevor Sie durch den Scanner gehen.",
+              "translation": "Please take off your belt and shoes before going through the scanner.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "command",
+            "roles": [
+              { "word": "Gürtel", "role": "direct_object", "case": "accusative", "translation": "belt" },
+              { "word": "und", "role": "conjunction", "case": null, "translation": "and" },
+              { "word": "Schuhe", "role": "direct_object", "case": "accusative", "translation": "shoes" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" },
+              { "word": "ausziehen", "role": "main_verb", "case": null, "translation": "take off" }
+            ]
+          }
+        },
+        {
+          "phrase": "Alles in die Wanne legen, bitte.",
+          "meaning": "Put everything into the tray, please.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common phrase from airport staff",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Instructional phrase for placing items in tray.",
+          "ipa": "aləs ɪn diː vanə leːgən bɪtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Alles in die Wanne legen, bitte.",
+              "translation": "Put everything into the tray, please.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "command",
+            "roles": [
+              { "word": "Alles", "role": "direct_object", "case": "accusative", "translation": "everything" },
+              { "word": "in", "role": "preposition", "case": "accusative", "translation": "into" },
+              { "word": "die", "role": "article", "case": "accusative", "translation": "the" },
+              { "word": "Wanne", "role": "direct_object", "case": "accusative", "translation": "tray" },
+              { "word": "legen", "role": "main_verb", "case": null, "translation": "put" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe nichts zu verzollen.",
+          "meaning": "I have nothing to declare.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Used at customs when exiting",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'nichts zu verzollen' indicates nothing for customs declaration.",
+          "ipa": "ɪç haːbə nɪçts tsuː fɛɐtsɔlən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe nichts zu verzollen.",
+              "translation": "I have nothing to declare.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "nichts", "role": "direct_object", "case": "accusative", "translation": "nothing" },
+              { "word": "zu verzollen", "role": "verb_phrase", "case": null, "translation": "to declare" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe etwas zu verzollen.",
+          "meaning": "I have something to declare.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Used when declaring goods",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'etwas zu verzollen' indicates goods to declare.",
+          "ipa": "ɪç haːbə ɛtvas tsuː fɛɐtsɔlən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe etwas zu verzollen.",
+              "translation": "I have something to declare.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "etwas", "role": "direct_object", "case": "accusative", "translation": "something" },
+              { "word": "zu verzollen", "role": "verb_phrase", "case": null, "translation": "to declare" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist der Zollbereich?",
+          "meaning": "Where is the customs area?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for customs zone",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo ist' is standard for asking location.",
+          "ipa": "voː ɪst deːɐ tsɔl-bɛraɪç",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist der Zollbereich?",
+              "translation": "Where is the customs area?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Zollbereich", "role": "subject", "case": "nominative", "translation": "customs area" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Passport Control (Grenzkontrolle)",
+      "category_slug": "passport-control",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "PassportImg",
+      "items": [
+        {
+          "phrase": "Guten Tag, Ihr Pass bitte.",
+          "meaning": "Good day, your passport please.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "From border police",
+          "formality": "Formal",
+          "region": "Germany, Austria",
+          "discussion": "",
+          "grammar_note": "Polite greeting followed by a request using 'bitte'.",
+          "ipa": "guːtən taːk iːɐ pas bɪtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Guten Tag, bitte zeigen Sie Ihren Pass.",
+              "translation": "Good day, please show your passport.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "greeting_request",
+            "roles": [
+              { "word": "Guten Tag", "role": "greeting", "case": null, "translation": "Good day" },
+              { "word": "Ihr", "role": "possessive_article", "case": "accusative", "translation": "your" },
+              { "word": "Pass", "role": "direct_object", "case": "accusative", "translation": "passport" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" }
+            ]
+          }
+        },
+        {
+          "phrase": "Was ist der Zweck Ihrer Reise?",
+          "meaning": "What is the purpose of your trip?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Immigration officer question",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Was ist...' is standard for asking the purpose of something.",
+          "ipa": "vas ɪst deːɐ tsvɛk iːrɐ raɪzə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Was ist der Zweck Ihrer Reise nach Deutschland?",
+              "translation": "What is the purpose of your trip to Germany?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Was", "role": "interrogative_pronoun", "case": null, "translation": "what" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der", "role": "article", "case": "nominative", "translation": "the" },
+              { "word": "Zweck", "role": "subject", "case": "nominative", "translation": "purpose" },
+              { "word": "Ihrer", "role": "possessive_article", "case": "genitive", "translation": "your" },
+              { "word": "Reise", "role": "noun", "case": "genitive", "translation": "trip" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich bin hier im Urlaub.",
+          "meaning": "I’m here on vacation.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common answer for tourists",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'im Urlaub' = 'in dem Urlaub' (dative).",
+          "ipa": "ɪç bɪn hiːɐ ɪm ʊɐlaʊp",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich bin hier im Urlaub und möchte die Stadt besichtigen.",
+              "translation": "I’m here on vacation and want to see the city.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "bin", "role": "main_verb", "case": null, "translation": "am" },
+              { "word": "hier", "role": "adverb", "case": null, "translation": "here" },
+              { "word": "im", "role": "preposition_article", "case": "dative", "translation": "in the" },
+              { "word": "Urlaub", "role": "noun", "case": "dative", "translation": "vacation" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich bin geschäftlich hier.",
+          "meaning": "I’m here for business.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For business travelers",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'geschäftlich' = 'for business'.",
+          "ipa": "ɪç bɪn gəʃɛftlɪç hiːɐ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich bin geschäftlich hier, um an einem Meeting teilzunehmen.",
+              "translation": "I’m here for business to attend a meeting.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "bin", "role": "main_verb", "case": null, "translation": "am" },
+              { "word": "geschäftlich", "role": "adverb", "case": null, "translation": "for business" },
+              { "word": "hier", "role": "adverb", "case": null, "translation": "here" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie lange bleiben Sie?",
+          "meaning": "How long will you stay?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Border officer’s question",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard question for duration using 'bleiben'.",
+          "ipa": "viː laŋə blaɪbən ziː",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie lange bleiben Sie in Deutschland?",
+              "translation": "How long will you stay in Germany?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie lange", "role": "time_adverb", "case": null, "translation": "how long" },
+              { "word": "bleiben", "role": "main_verb", "case": null, "translation": "stay" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich bleibe eine Woche.",
+          "meaning": "I’ll stay one week.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Simple answer",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'eine Woche' = one week (accusative object).",
+          "ipa": "ɪç blaɪbə aɪnə voːxə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich bleibe eine Woche in Berlin.",
+              "translation": "I’ll stay one week in Berlin.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "bleibe", "role": "main_verb", "case": null, "translation": "stay" },
+              { "word": "eine", "role": "article", "case": "accusative", "translation": "one" },
+              { "word": "Woche", "role": "direct_object", "case": "accusative", "translation": "week" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo werden Sie übernachten?",
+          "meaning": "Where will you stay?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asked at passport control",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'werden + infinitive' used for future tense.",
+          "ipa": "voː veːrdən ziː yːbɐnaxtən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo werden Sie während Ihres Aufenthalts übernachten?",
+              "translation": "Where will you stay during your visit?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "werden", "role": "auxiliary_verb", "case": null, "translation": "will" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you (formal)" },
+              { "word": "übernachten", "role": "main_verb", "case": null, "translation": "stay" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Lost & Found / Problems",
+      "category_slug": "lost-found-problems",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "LostFoundImg",
+      "items": [
+        {
+          "phrase": "Mein Gepäck ist verloren gegangen.",
+          "meaning": "My luggage is lost.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Report lost baggage",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'ist verloren gegangen' = present perfect passive construction.",
+          "ipa": "maɪn gəpɛk ɪst fɛɐloːrən gəganən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Mein Gepäck ist verloren gegangen. Können Sie mir helfen?",
+              "translation": "My luggage is lost. Can you help me?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Mein", "role": "possessive_article", "case": "nominative", "translation": "my" },
+              { "word": "Gepäck", "role": "subject", "case": "nominative", "translation": "luggage" },
+              { "word": "ist", "role": "auxiliary_verb", "case": null, "translation": "is" },
+              { "word": "verloren gegangen", "role": "main_verb", "case": null, "translation": "lost" }
+            ]
+          }
+        },
+        {
+          "phrase": "Mein Koffer ist beschädigt.",
+          "meaning": "My suitcase is damaged.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For baggage claim",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'ist beschädigt' = simple passive description of the condition.",
+          "ipa": "maɪn kɔfɐ ɪst bəʃɛːdɪçt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Mein Koffer ist beschädigt. Ich möchte einen Anspruch geltend machen.",
+              "translation": "My suitcase is damaged. I want to make a claim.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Mein", "role": "possessive_article", "case": "nominative", "translation": "my" },
+              { "word": "Koffer", "role": "subject", "case": "nominative", "translation": "suitcase" },
+              { "word": "ist", "role": "auxiliary_verb", "case": null, "translation": "is" },
+              { "word": "beschädigt", "role": "adjective_predicate", "case": null, "translation": "damaged" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo kann ich das melden?",
+          "meaning": "Where can I report this?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Ask for the lost luggage office",
+          "formality": "Formal",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo kann ich ... melden?' = standard question format using modal verb 'kann'.",
+          "ipa": "voː kan ɪç das mɛldən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo kann ich mein Gepäck melden?",
+              "translation": "Where can I report my luggage?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "kann", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "das", "role": "direct_object", "case": "accusative", "translation": "this" },
+              { "word": "melden", "role": "main_verb", "case": null, "translation": "report" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe mein Handy / meine Tasche verloren.",
+          "meaning": "I lost my phone / bag.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common travel problem",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'habe verloren' = present perfect for lost items.",
+          "ipa": "ɪç haːbə maɪn hɛndi / maɪnə taʃə fɛɐloːrən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe mein Handy verloren. Können Sie mir helfen?",
+              "translation": "I lost my phone. Can you help me?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "auxiliary_verb", "case": null, "translation": "have" },
+              { "word": "mein", "role": "possessive_article", "case": "accusative", "translation": "my" },
+              { "word": "Handy / meine Tasche", "role": "direct_object", "case": "accusative", "translation": "phone / bag" },
+              { "word": "verloren", "role": "main_verb", "case": null, "translation": "lost" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "In the Plane / During Flight",
+      "category_slug": "in-plane-during-flight",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "FlightImg",
+      "items": [
+        {
+          "phrase": "Wo ist mein Sitzplatz?",
+          "meaning": "Where is my seat?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "While boarding",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard question format using 'Wo ist ...?'",
+          "ipa": "voː ɪst maɪn zɪtsplaːts",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist mein Sitzplatz? Ich habe Boarding Pass Nummer 12.",
+              "translation": "Where is my seat? I have boarding pass number 12.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "mein", "role": "possessive_article", "case": "nominative", "translation": "my" },
+              { "word": "Sitzplatz", "role": "subject", "case": "nominative", "translation": "seat" }
+            ]
+          }
+        },
+        {
+          "phrase": "Darf ich am Fenster sitzen?",
+          "meaning": "May I sit by the window?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for preferred seat",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Darf ich ... sitzen?' = modal verb question for permission.",
+          "ipa": "darf ɪç am fɛnstɐ zɪtsən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Darf ich am Fenster sitzen? Ich reise gern mit Aussicht.",
+              "translation": "May I sit by the window? I like traveling with a view.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Darf", "role": "modal_verb", "case": null, "translation": "may" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "am Fenster", "role": "prepositional_phrase", "case": "dative", "translation": "by the window" },
+              { "word": "sitzen", "role": "main_verb", "case": null, "translation": "sit" }
+            ]
+          }
+        },
+        {
+          "phrase": "Könnte ich bitte ein Glas Wasser bekommen?",
+          "meaning": "Could I please get a glass of water?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A2",
+          "usage_context": "Request to flight attendant",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Könnte ich ... bekommen?' = polite modal verb request.",
+          "ipa": "kœntə ɪç bɪtə aɪn glaːs vasɐ bəkɔmən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Könnte ich bitte ein Glas Wasser bekommen? Es ist sehr heiß.",
+              "translation": "Could I please get a glass of water? It is very hot.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Könnte", "role": "modal_verb", "case": null, "translation": "could" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" },
+              { "word": "ein Glas Wasser", "role": "direct_object", "case": "accusative", "translation": "a glass of water" },
+              { "word": "bekommen", "role": "main_verb", "case": null, "translation": "get" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie lange dauert der Flug?",
+          "meaning": "How long is the flight?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Useful question before takeoff",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wie lange dauert ...?' = question about duration.",
+          "ipa": "viː laŋə daʊɐt deːɐ fluːk",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie lange dauert der Flug nach Berlin?",
+              "translation": "How long is the flight to Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie lange", "role": "time_adverb", "case": null, "translation": "how long" },
+              { "word": "dauert", "role": "main_verb", "case": null, "translation": "lasts / is" },
+              { "word": "der Flug", "role": "subject", "case": "nominative", "translation": "the flight" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe Flugangst.",
+          "meaning": "I’m afraid of flying.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A2",
+          "usage_context": "Used to inform attendants if nervous",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'habe Flugangst' = expression of fear using verb 'haben'.",
+          "ipa": "ɪç haːbə fluːk-angst",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe Flugangst. Können Sie mir etwas Wasser bringen?",
+              "translation": "I’m afraid of flying. Can you bring me some water?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "Flugangst", "role": "direct_object", "case": "accusative", "translation": "fear of flying" }
+            ]
+          }
+        },
+        {
+          "phrase": "Bitte schnallen Sie sich an.",
+          "meaning": "Please fasten your seatbelt.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common cabin announcement",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'schnallen Sie sich an' = polite imperative with reflexive verb.",
+          "ipa": "bɪtə ʃnalən ziː zɪç an",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Bitte schnallen Sie sich an. Wir starten gleich.",
+              "translation": "Please fasten your seatbelt. We are about to take off.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "command",
+            "roles": [
+              { "word": "Bitte", "role": "politeness_marker", "case": null, "translation": "please" },
+              { "word": "schnallen Sie sich an", "role": "main_verb_phrase", "case": null, "translation": "fasten your seatbelt" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Arrival & Transportation",
+      "category_slug": "arrival-transportation",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "TransportationImg",
+      "items": [
+        {
+          "phrase": "Wo ist die Gepäckausgabe?",
+          "meaning": "Where is the baggage claim?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "After landing",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo ist ...?' = standard question structure.",
+          "ipa": "voː ɪst diː gəpɛk aʊsgaːbə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist die Gepäckausgabe? Ich habe meinen Koffer verloren.",
+              "translation": "Where is the baggage claim? I lost my suitcase.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "die Gepäckausgabe", "role": "subject", "case": "nominative", "translation": "baggage claim" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist der Ausgang?",
+          "meaning": "Where is the exit?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Finding way out",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard 'Wo ist ...?' question form.",
+          "ipa": "voː ɪst deːɐ aʊsgaŋ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist der Ausgang? Ich möchte zum Taxi.",
+              "translation": "Where is the exit? I want to go to the taxi.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der Ausgang", "role": "subject", "case": "nominative", "translation": "the exit" }
+            ]
+          }
+        },
+        {
+          "phrase": "Gibt es hier WLAN?",
+          "meaning": "Is there Wi-Fi here?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common modern question",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Gibt es ...?' = existential question.",
+          "ipa": "gɪbt ɛs hiːɐ veːlaːn",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es hier WLAN? Ich möchte meine E-Mails abrufen.",
+              "translation": "Is there Wi-Fi here? I want to check my emails.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Gibt", "role": "main_verb", "case": null, "translation": "is there" },
+              { "word": "es", "role": "subject", "case": "nominative", "translation": "it / there" },
+              { "word": "hier WLAN", "role": "direct_object", "case": "accusative", "translation": "Wi-Fi here" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo finde ich ein Taxi / den Bus / die U-Bahn?",
+          "meaning": "Where can I find a taxi / bus / subway?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "After leaving the airport",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo finde ich ...?' = question for location/searching.",
+          "ipa": "voː fɪndə ɪç aɪn taksi / deːn bʊs / diː uːbaːn",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo finde ich ein Taxi? Ich muss zum Hotel.",
+              "translation": "Where can I find a taxi? I need to go to the hotel.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "finde", "role": "main_verb", "case": null, "translation": "find" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "ein Taxi / den Bus / die U-Bahn", "role": "direct_object", "case": "accusative", "translation": "a taxi / bus / subway" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie komme ich ins Stadtzentrum?",
+          "meaning": "How do I get to the city center?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A2",
+          "usage_context": "Asking for directions",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wie komme ich ...?' = asking directions.",
+          "ipa": "viː kɔmə ɪç ɪns ʃtattsɛntrʊm",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie komme ich ins Stadtzentrum? Gibt es einen Bus?",
+              "translation": "How do I get to the city center? Is there a bus?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie", "role": "adverb", "case": null, "translation": "how" },
+              { "word": "komme", "role": "main_verb", "case": null, "translation": "do get" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "ins Stadtzentrum", "role": "prepositional_phrase", "case": "accusative", "translation": "to the city center" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich brauche ein Hotel in der Nähe.",
+          "meaning": "I need a hotel nearby.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "When newly arrived",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'brauche' = simple present for need/want.",
+          "ipa": "ɪç braʊxə aɪn hoːtɛl ɪn deːɐ neːə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich brauche ein Hotel in der Nähe. Können Sie mir helfen?",
+              "translation": "I need a hotel nearby. Can you help me?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "brauche", "role": "main_verb", "case": null, "translation": "need" },
+              { "word": "ein Hotel", "role": "direct_object", "case": "accusative", "translation": "a hotel" },
+              { "word": "in der Nähe", "role": "prepositional_phrase", "case": "dative", "translation": "nearby" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Emergency / Assistance",
+      "category_slug": "emergency-assistance",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "EmergencyImg",
+      "items": [
+        {
+          "phrase": "Ich habe meinen Anschlussflug verpasst.",
+          "meaning": "I missed my connecting flight.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A2",
+          "usage_context": "At airline desk after delay",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'verpasst' = past participle of 'verpassen'.",
+          "ipa": "ɪç haːbə maɪnən anschluːsfluːk fɛɐpast",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe meinen Anschlussflug verpasst. Was kann ich tun?",
+              "translation": "I missed my connecting flight. What can I do?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "auxiliary_verb", "case": null, "translation": "have" },
+              { "word": "meinen Anschlussflug", "role": "direct_object", "case": "accusative", "translation": "my connecting flight" },
+              { "word": "verpasst", "role": "main_verb", "case": null, "translation": "missed" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Flug wurde gestrichen.",
+          "meaning": "The flight was canceled.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A2",
+          "usage_context": "Common airport announcement",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'wurde gestrichen' = passive voice in past tense.",
+          "ipa": "deːɐ fluːk vʊrdə gəʃtrɪçən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Flug wurde gestrichen. Ich brauche Hilfe beim Umbuchen.",
+              "translation": "The flight was canceled. I need help with rebooking.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der Flug", "role": "subject", "case": "nominative", "translation": "the flight" },
+              { "word": "wurde", "role": "auxiliary_verb", "case": null, "translation": "was" },
+              { "word": "gestrichen", "role": "main_verb", "case": null, "translation": "canceled" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wann ist der nächste Flug nach...?",
+          "meaning": "When is the next flight to...?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A2",
+          "usage_context": "Asking for rebooking",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wann ist ...?' = question for time.",
+          "ipa": "van ɪst deːɐ nɛːkstə fluːk nax...?",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wann ist der nächste Flug nach Berlin?",
+              "translation": "When is the next flight to Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wann", "role": "adverb", "case": null, "translation": "when" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der nächste Flug", "role": "subject", "case": "nominative", "translation": "the next flight" },
+              { "word": "nach ...", "role": "prepositional_phrase", "case": "dative", "translation": "to ..." }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich brauche Hilfe, bitte.",
+          "meaning": "I need help, please.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "General emergency expression",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'brauche' = present tense of 'brauchen'.",
+          "ipa": "ɪç braʊxə hɪlfə bɪtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich brauche Hilfe, bitte. Mein Flug ist verspätet.",
+              "translation": "I need help, please. My flight is delayed.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "brauche", "role": "main_verb", "case": null, "translation": "need" },
+              { "word": "Hilfe", "role": "direct_object", "case": "accusative", "translation": "help" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist die Information?",
+          "meaning": "Where is the information desk?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For general inquiries",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo ist ...?' = standard question form.",
+          "ipa": "voː ɪst diː ɪnfɔrmaːtsjoːn",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist die Information? Ich möchte nach meinem Flug fragen.",
+              "translation": "Where is the information desk? I want to ask about my flight.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "die Information", "role": "subject", "case": "nominative", "translation": "the information desk" }
+            ]
+          }
+        }
+      ]
+    }
+
+  ],
+
+  "transportation": [
+    {
+      "category": "Buying Tickets",
+      "category_slug": "buying-tickets",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "Ich möchte ein Ticket kaufen.",
+          "meaning": "I’d like to buy a ticket.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Used at the ticket counter or machine.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'möchte' is the polite form of 'mögen' for requests.",
+          "ipa": "ɪç møçtə aɪn tɪkɛt kaʊfən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich möchte ein Ticket nach Berlin kaufen.",
+              "translation": "I’d like to buy a ticket to Berlin.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "möchte", "role": "modal_verb", "case": null, "translation": "would like" },
+              { "word": "ein Ticket", "role": "direct_object", "case": "accusative", "translation": "a ticket" },
+              { "word": "kaufen", "role": "main_verb", "case": null, "translation": "buy" }
+            ]
+          }
+        },
+        {
+          "phrase": "Eine Fahrkarte nach Berlin, bitte.",
+          "meaning": "A ticket to Berlin, please.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common way to ask for destination ticket.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard polite request at ticket counter.",
+          "ipa": "aɪnə faːrkaːrtə nax bɛrliːn bɪtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Eine Fahrkarte nach München, bitte.",
+              "translation": "A ticket to Munich, please.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Eine Fahrkarte", "role": "direct_object", "case": "accusative", "translation": "a ticket" },
+              { "word": "nach Berlin", "role": "prepositional_phrase", "case": "dative", "translation": "to Berlin" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" }
+            ]
+          }
+        },
+        {
+          "phrase": "Einfach oder hin und zurück?",
+          "meaning": "One-way or round-trip?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Question from ticket agent.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Asking for ticket type choice.",
+          "ipa": "aɪnfaχ oːdɐ hɪn ʊnt tsʏrʏk",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Einfach oder hin und zurück nach Berlin?",
+              "translation": "One-way or round-trip to Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Einfach", "role": "adjective", "case": null, "translation": "one-way" },
+              { "word": "oder", "role": "conjunction", "case": null, "translation": "or" },
+              { "word": "hin und zurück", "role": "adjective_phrase", "case": null, "translation": "round-trip" }
+            ]
+          }
+        },
+        {
+          "phrase": "Hin und zurück, bitte.",
+          "meaning": "Round-trip, please.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Response for round-trip.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Reply to specify round-trip ticket.",
+          "ipa": "hɪn ʊnt tsʏrʏk bɪtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Hin und zurück nach München, bitte.",
+              "translation": "Round-trip to Munich, please.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Hin und zurück", "role": "adjective_phrase", "case": null, "translation": "round-trip" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie viel kostet das Ticket?",
+          "meaning": "How much does the ticket cost?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking about price.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard way to ask price.",
+          "ipa": "viː fiːl kɔstət das tɪkɛt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie viel kostet das Ticket nach Berlin?",
+              "translation": "How much does the ticket to Berlin cost?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie viel", "role": "question_phrase", "case": null, "translation": "how much" },
+              { "word": "kostet", "role": "main_verb", "case": null, "translation": "does cost" },
+              { "word": "das Ticket", "role": "subject", "case": "nominative", "translation": "the ticket" }
+            ]
+          }
+        },
+        {
+          "phrase": "Gibt es Ermäßigungen?",
+          "meaning": "Are there any discounts?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For students, seniors, etc.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Used to inquire about discounts.",
+          "ipa": "gɪbt ɛs ɛɐmɛːsɪgʊŋən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es Ermäßigungen für Studenten?",
+              "translation": "Are there discounts for students?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Gibt", "role": "main_verb", "case": null, "translation": "is there" },
+              { "word": "es", "role": "subject", "case": "nominative", "translation": "there" },
+              { "word": "Ermäßigungen", "role": "direct_object", "case": "accusative", "translation": "discounts" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe eine BahnCard.",
+          "meaning": "I have a train discount card.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Mentioning discount card for cheaper fare.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'BahnCard' = German railway discount card.",
+          "ipa": "ɪç haːbə aɪnə baːn-kaːrt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe eine BahnCard für Studenten.",
+              "translation": "I have a student train discount card.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "eine BahnCard", "role": "direct_object", "case": "accusative", "translation": "a BahnCard" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist der Fahrkartenautomat?",
+          "meaning": "Where is the ticket machine?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for self-service ticket machine.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo ist ...?' = standard question for location.",
+          "ipa": "voː ɪst deːɐ faːrkaːrtən aʊtoːmaːt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist der Fahrkartenautomat am Bahnhof?",
+              "translation": "Where is the ticket machine at the station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der Fahrkartenautomat", "role": "subject", "case": "nominative", "translation": "the ticket machine" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich möchte online buchen.",
+          "meaning": "I want to book online.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common for digital travelers.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Expressing intention to book tickets digitally.",
+          "ipa": "ɪç møçtə ɔnlaɪn buːxən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich möchte online ein Ticket nach Berlin buchen.",
+              "translation": "I want to book a ticket to Berlin online.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "möchte", "role": "modal_verb", "case": null, "translation": "would like" },
+              { "word": "online", "role": "adverb", "case": null, "translation": "online" },
+              { "word": "buchen", "role": "main_verb", "case": null, "translation": "book" }
+            ]
+          }
+        },
+        {
+          "phrase": "Darf ich mit Karte zahlen?",
+          "meaning": "Can I pay by card?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For payment method clarification.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Darf ich ...?' = polite permission question.",
+          "ipa": "darf ɪç mɪt kaːrtə tsaːlən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Darf ich mit Karte oder bar zahlen?",
+              "translation": "Can I pay by card or cash?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Darf", "role": "modal_verb", "case": null, "translation": "may" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "mit Karte", "role": "prepositional_phrase", "case": "dative", "translation": "by card" },
+              { "word": "zahlen", "role": "main_verb", "case": null, "translation": "pay" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "At the Station",
+      "category_slug": "at-the-station",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "StationImg",
+      "items": [
+        {
+          "phrase": "Wo ist der Bahnhof?",
+          "meaning": "Where is the train station?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "General way to ask for station.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo ist ...?' = standard question for location.",
+          "ipa": "voː ɪst deːɐ baːnhoːf",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist der nächste Bahnhof?",
+              "translation": "Where is the nearest train station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der Bahnhof", "role": "subject", "case": "nominative", "translation": "the train station" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie komme ich zum Bahnhof?",
+          "meaning": "How do I get to the station?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for directions.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wie komme ich ...?' = polite way to ask for directions.",
+          "ipa": "viː kɔmə ɪç tsʊm baːnhoːf",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie komme ich zum Hauptbahnhof?",
+              "translation": "How do I get to the main station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie", "role": "question_adverb", "case": null, "translation": "how" },
+              { "word": "komme", "role": "main_verb", "case": null, "translation": "do I get" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "zum Bahnhof", "role": "prepositional_phrase", "case": "dative", "translation": "to the station" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist der Schalter?",
+          "meaning": "Where is the ticket counter?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "At the station.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard location question.",
+          "ipa": "voː ɪst deːɐ ʃaltɐ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist der Schalter für internationale Tickets?",
+              "translation": "Where is the counter for international tickets?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der Schalter", "role": "subject", "case": "nominative", "translation": "the counter" }
+            ]
+          }
+        },
+        {
+          "phrase": "Auf welchem Gleis fährt der Zug ab?",
+          "meaning": "From which platform does the train leave?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Very common question before boarding.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Use 'auf welchem Gleis ... abfahren?' to ask platform info.",
+          "ipa": "aʊf vaɪxəm glaɪs fɛːɐt deːɐ tsuːk ap",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Auf welchem Gleis fährt der ICE nach Berlin ab?",
+              "translation": "From which platform does the ICE to Berlin leave?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Auf welchem Gleis", "role": "prepositional_phrase", "case": "dative", "translation": "from which platform" },
+              { "word": "fährt", "role": "main_verb", "case": null, "translation": "does ... leave" },
+              { "word": "der Zug", "role": "subject", "case": "nominative", "translation": "the train" },
+              { "word": "ab", "role": "particle", "case": null, "translation": "off/depart" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Zug fährt von Gleis 3.",
+          "meaning": "The train leaves from platform 3.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Typical station announcement.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard phrase to indicate platform.",
+          "ipa": "deːɐ tsuːk fɛːɐt fɔn glaɪs draɪ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Zug fährt von Gleis 5 ab.",
+              "translation": "The train leaves from platform 5.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der Zug", "role": "subject", "case": "nominative", "translation": "the train" },
+              { "word": "fährt", "role": "main_verb", "case": null, "translation": "leaves" },
+              { "word": "von Gleis 3", "role": "prepositional_phrase", "case": "dative", "translation": "from platform 3" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Zug hat Verspätung.",
+          "meaning": "The train is delayed.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Most common train delay phrase.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Use 'hat Verspätung' to indicate delays.",
+          "ipa": "deːɐ tsuːk hat fɛɐʃpɛːtʊŋ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der ICE hat heute Verspätung.",
+              "translation": "The ICE train is delayed today.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der Zug", "role": "subject", "case": "nominative", "translation": "the train" },
+              { "word": "hat", "role": "main_verb", "case": null, "translation": "has" },
+              { "word": "Verspätung", "role": "predicate", "case": "accusative", "translation": "delay" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie lange hat der Zug Verspätung?",
+          "meaning": "How long is the delay?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for delay duration.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard question to ask duration of delay.",
+          "ipa": "viː laŋə hat deːɐ tsuːk fɛɐʃpɛːtʊŋ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie lange hat der ICE Verspätung?",
+              "translation": "How long is the ICE train delayed?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie lange", "role": "question_phrase", "case": null, "translation": "how long" },
+              { "word": "hat", "role": "main_verb", "case": null, "translation": "has" },
+              { "word": "der Zug", "role": "subject", "case": "nominative", "translation": "the train" },
+              { "word": "Verspätung", "role": "direct_object", "case": "accusative", "translation": "delay" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Zug fällt aus.",
+          "meaning": "The train is cancelled.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Important phrase for travelers.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'fällt aus' = train cancelled.",
+          "ipa": "deːɐ tsuːk fɛlt aʊs",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der ICE fällt heute aus.",
+              "translation": "The ICE train is cancelled today.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der Zug", "role": "subject", "case": "nominative", "translation": "the train" },
+              { "word": "fällt aus", "role": "predicate", "case": null, "translation": "is cancelled" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wann fährt der nächste Zug nach München?",
+          "meaning": "When does the next train to Munich leave?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For checking next schedule.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wann ... fährt?' = asking time of departure.",
+          "ipa": "van fɛːɐt deːɐ nɛːkstə tsuːk nax mʏnçən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wann fährt der nächste ICE nach Berlin?",
+              "translation": "When does the next ICE train to Berlin leave?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wann", "role": "question_adverb", "case": null, "translation": "when" },
+              { "word": "fährt", "role": "main_verb", "case": null, "translation": "does ... leave" },
+              { "word": "der nächste Zug", "role": "subject", "case": "nominative", "translation": "the next train" },
+              { "word": "nach München", "role": "prepositional_phrase", "case": "dative", "translation": "to Munich" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "On the Train / Public Transport",
+      "category_slug": "on-the-train-public-transport",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "TrainImg",
+      "items": [
+        {
+          "phrase": "Ist dieser Platz frei?",
+          "meaning": "Is this seat free?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking before sitting.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Ist dieser Platz frei?' = standard question to check if seat is free.",
+          "ipa": "ɪst diːzɐ plats fraɪ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ist dieser Platz noch frei?",
+              "translation": "Is this seat still free?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "dieser Platz", "role": "subject", "case": "nominative", "translation": "this seat" },
+              { "word": "frei", "role": "predicate_adjective", "case": null, "translation": "free" }
+            ]
+          }
+        },
+        {
+          "phrase": "Entschuldigung, das ist mein Platz.",
+          "meaning": "Sorry, that’s my seat.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common polite correction.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Use 'Entschuldigung' to politely correct someone.",
+          "ipa": "ɛntʃʊldɪgʊŋ das ɪst maɪn plats",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Entschuldigung, hier ist mein Platz.",
+              "translation": "Sorry, here is my seat.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Entschuldigung", "role": "interjection", "case": null, "translation": "excuse me" },
+              { "word": "das", "role": "subject", "case": "nominative", "translation": "that" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "mein Platz", "role": "predicate_noun", "case": "nominative", "translation": "my seat" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe reserviert.",
+          "meaning": "I have a reservation.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Used when you have a booked seat.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Short form to indicate reservation.",
+          "ipa": "ɪç haːbə rɛzɛrviːɐt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe einen Sitzplatz reserviert.",
+              "translation": "I have reserved a seat.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "reserviert", "role": "past_participle", "case": null, "translation": "reserved" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist der Speisewagen?",
+          "meaning": "Where is the dining car?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For long-distance trains.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard question to locate dining car.",
+          "ipa": "voː ɪst deːɐ ʃpaɪzəvaːgən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo finde ich den Speisewagen?",
+              "translation": "Where can I find the dining car?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "der Speisewagen", "role": "subject", "case": "nominative", "translation": "the dining car" }
+            ]
+          }
+        },
+        {
+          "phrase": "Können Sie mir helfen, bitte?",
+          "meaning": "Could you help me, please?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for assistance on board.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Polite way to request help.",
+          "ipa": "kœnən ziː miːɐ hɛlfən bɪtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Können Sie mir den Weg zeigen, bitte?",
+              "translation": "Could you show me the way, please?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Können", "role": "modal_verb", "case": null, "translation": "can" },
+              { "word": "Sie", "role": "subject", "case": "nominative", "translation": "you" },
+              { "word": "mir", "role": "indirect_object", "case": "dative", "translation": "me" },
+              { "word": "helfen", "role": "main_verb", "case": null, "translation": "help" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich muss umsteigen.",
+          "meaning": "I have to change trains.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Used when transferring.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'müssen' + infinitive = have to do something.",
+          "ipa": "ɪç mʊs ʊmʃtaɪgən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich muss am Hauptbahnhof umsteigen.",
+              "translation": "I have to change at the main station.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "muss", "role": "modal_verb", "case": null, "translation": "have to" },
+              { "word": "umsteigen", "role": "main_verb", "case": null, "translation": "change trains" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo muss ich umsteigen?",
+          "meaning": "Where do I have to change?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for transfer info.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Use 'Wo' to ask location, 'muss ich' = do I have to.",
+          "ipa": "voː mʊs ɪç ʊmʃtaɪgən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo muss ich in Berlin umsteigen?",
+              "translation": "Where do I have to change in Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "question_adverb", "case": null, "translation": "where" },
+              { "word": "muss", "role": "modal_verb", "case": null, "translation": "do have to" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "umsteigen", "role": "main_verb", "case": null, "translation": "change trains" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Zug endet hier.",
+          "meaning": "The train terminates here.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Announcement meaning train stops completely.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'endet' = ends, 'hier' = here.",
+          "ipa": "deːɐ tsuːk ɛndət hiːɐ",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Zug endet am Hauptbahnhof.",
+              "translation": "The train terminates at the main station.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der Zug", "role": "subject", "case": "nominative", "translation": "the train" },
+              { "word": "endet", "role": "main_verb", "case": null, "translation": "terminates" },
+              { "word": "hier", "role": "adverb", "case": null, "translation": "here" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wann kommen wir an?",
+          "meaning": "When do we arrive?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking arrival time.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard question to ask arrival.",
+          "ipa": "van kɔmən viːɐ an",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wann kommen wir in Berlin an?",
+              "translation": "When do we arrive in Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wann", "role": "question_adverb", "case": null, "translation": "when" },
+              { "word": "kommen", "role": "main_verb", "case": null, "translation": "do ... arrive" },
+              { "word": "wir", "role": "subject", "case": "nominative", "translation": "we" },
+              { "word": "an", "role": "particle", "case": null, "translation": "arrive" }
+            ]
+          }
+        },
+
+        {
+          "phrase": "Ich steige hier aus.",
+          "meaning": "I’m getting off here.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Saying when leaving train/bus.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'aussteigen' = get off, 'hier' = here.",
+          "ipa": "ɪç ʃtaɪgə hiːɐ aʊs",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich steige an der nächsten Station aus.",
+              "translation": "I’m getting off at the next station.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "steige aus", "role": "main_verb", "case": null, "translation": "get off" },
+              { "word": "hier", "role": "", "case": null, "translation": "here"}
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Bus, Tram, and U-Bahn (Metro)",
+      "category_slug": "bus-tram-ubahn-metro",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "BusImg",
+      "items": [
+        {
+          "phrase": "Wo ist die Bushaltestelle?",
+          "meaning": "Where is the bus stop?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for bus location.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wo' = where, 'ist' = is.",
+          "ipa": "voː ɪst diː bʊshaltəʃtɛlə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist die nächste Bushaltestelle?",
+              "translation": "Where is the nearest bus stop?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "question_adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "die Bushaltestelle", "role": "subject", "case": "nominative", "translation": "the bus stop" }
+            ]
+          }
+        },
+        {
+          "phrase": "Fährt dieser Bus zum Zentrum?",
+          "meaning": "Does this bus go to the city center?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Checking route direction.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Fährt' = goes, 'zum' = to the.",
+          "ipa": "fɛːɐt diːzɐ bʊs tsʊm tsɛntrʊm",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Fährt dieser Bus auch zum Bahnhof?",
+              "translation": "Does this bus also go to the train station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Fährt", "role": "main_verb", "case": null, "translation": "goes" },
+              { "word": "dieser Bus", "role": "subject", "case": "nominative", "translation": "this bus" },
+              { "word": "zum Zentrum", "role": "prepositional_phrase", "case": "dative", "translation": "to the city center" }
+            ]
+          }
+        },
+        {
+          "phrase": "Welche Linie fährt zur Hauptbahnhof?",
+          "meaning": "Which line goes to the main station?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for the right line.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Welche' = which, 'fährt' = goes.",
+          "ipa": "vɛlxə liːniː fɛːɐt tsʊɐ haʊptbaːnhoːf",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Welche Linie fährt zum Flughafen?",
+              "translation": "Which line goes to the airport?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Welche Linie", "role": "subject", "case": "nominative", "translation": "which line" },
+              { "word": "fährt", "role": "main_verb", "case": null, "translation": "goes" },
+              { "word": "zur Hauptbahnhof", "role": "prepositional_phrase", "case": "dative", "translation": "to the main station" }
+            ]
+          }
+        },
+        {
+          "phrase": "Muss ich umsteigen?",
+          "meaning": "Do I have to change?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking about transfers.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Modal verb 'müssen' in question form.",
+          "ipa": "mʊs ɪç ʊmʃtaɪgən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Muss ich in Berlin umsteigen?",
+              "translation": "Do I have to change in Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Muss", "role": "modal_verb", "case": null, "translation": "do have to" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "umsteigen", "role": "main_verb", "case": null, "translation": "change" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie oft fährt die U-Bahn?",
+          "meaning": "How often does the subway run?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for frequency.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wie oft' = how often, 'fährt' = runs.",
+          "ipa": "viː ɔft fɛːɐt diː uːbaːn",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie oft fährt der Bus hier?",
+              "translation": "How often does the bus run here?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie oft", "role": "question_adverb", "case": null, "translation": "how often" },
+              { "word": "fährt", "role": "main_verb", "case": null, "translation": "runs" },
+              { "word": "die U-Bahn", "role": "subject", "case": "nominative", "translation": "the subway" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Bus ist überfüllt.",
+          "meaning": "The bus is crowded.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Describing a full bus.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'ist' = is, 'überfüllt' = crowded.",
+          "ipa": "deːɐ bʊs ɪst yːbɐfʏlt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Bus ist heute sehr überfüllt.",
+              "translation": "The bus is very crowded today.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der Bus", "role": "subject", "case": "nominative", "translation": "the bus" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "überfüllt", "role": "adjective", "case": null, "translation": "crowded" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich brauche eine Tageskarte.",
+          "meaning": "I need a day pass.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For unlimited daily travel.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'brauchen' = need, 'Tageskarte' = day pass.",
+          "ipa": "ɪç braʊxə aɪnə taːgəskaːrtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich brauche eine Tageskarte für die U-Bahn.",
+              "translation": "I need a day pass for the subway.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "brauche", "role": "main_verb", "case": null, "translation": "need" },
+              { "word": "eine Tageskarte", "role": "direct_object", "case": "accusative", "translation": "a day pass" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe kein gültiges Ticket.",
+          "meaning": "I don’t have a valid ticket.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For explaining to ticket inspector.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'kein' = not any, 'gültiges' = valid.",
+          "ipa": "ɪç haːbə kaɪn gyltɪgəs tɪkɛt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe leider kein gültiges Ticket.",
+              "translation": "Unfortunately, I don’t have a valid ticket.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "main_verb", "case": null, "translation": "have" },
+              { "word": "kein gültiges Ticket", "role": "direct_object", "case": "accusative", "translation": "no valid ticket" }
+            ]
+          }
+        },
+        {
+          "phrase": "Kontrolle! Fahrkarten, bitte!",
+          "meaning": "Ticket inspection! Tickets, please!",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common phrase by ticket inspectors.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Used during ticket control.",
+          "ipa": "kɔntrɔlə faːrkaːrtən bɪtə",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Kontrolle! Bitte zeigen Sie Ihre Fahrkarten.",
+              "translation": "Inspection! Please show your tickets.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "exclamation",
+            "roles": [
+              { "word": "Kontrolle!", "role": "exclamation", "case": null, "translation": "inspection" },
+              { "word": "Fahrkarten", "role": "direct_object", "case": "accusative", "translation": "tickets" },
+              { "word": "bitte", "role": "politeness_marker", "case": null, "translation": "please" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Asking for Directions & Help",
+      "category_slug": "asking-for-directions-help",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "DirectionsImg",
+      "items": [
+        {
+          "phrase": "Entschuldigung, wo muss ich aussteigen?",
+          "meaning": "Excuse me, where should I get off?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for stop info.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Entschuldigung' = excuse me, modal verb 'müssen' in question form.",
+          "ipa": "ɛntʃʊldɪgʊŋ voː mʊs ɪç aʊsʃtaɪgən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Entschuldigung, wo muss ich am Hauptbahnhof aussteigen?",
+              "translation": "Excuse me, where should I get off at the main station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Entschuldigung", "role": "politeness_marker", "case": null, "translation": "excuse me" },
+              { "word": "wo", "role": "question_adverb", "case": null, "translation": "where" },
+              { "word": "muss", "role": "modal_verb", "case": null, "translation": "should" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "aussteigen", "role": "main_verb", "case": null, "translation": "get off" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie komme ich zum Flughafen?",
+          "meaning": "How do I get to the airport?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Common directional phrase.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wie' = how, 'kommen' = get/come, 'zum' = to the.",
+          "ipa": "viː kɔmə ɪç tsʊm fluːkhaːfən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie komme ich zum Bahnhof?",
+              "translation": "How do I get to the train station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie", "role": "question_adverb", "case": null, "translation": "how" },
+              { "word": "komme", "role": "main_verb", "case": null, "translation": "do I get" },
+              { "word": "ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "zum Flughafen", "role": "prepositional_phrase", "case": "dative", "translation": "to the airport" }
+            ]
+          }
+        },
+        {
+          "phrase": "Fährt dieser Zug direkt nach...?",
+          "meaning": "Does this train go directly to...?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking if no transfer needed.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Fährt' = goes, 'direkt' = directly, 'nach' = to.",
+          "ipa": "fɛːɐt diːzɐ tsuːk diːrɛkt nax",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Fährt dieser Zug direkt nach Berlin?",
+              "translation": "Does this train go directly to Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Fährt", "role": "main_verb", "case": null, "translation": "goes" },
+              { "word": "dieser Zug", "role": "subject", "case": "nominative", "translation": "this train" },
+              { "word": "direkt nach ...", "role": "adverbial_phrase", "case": null, "translation": "directly to ..." }
+            ]
+          }
+        },
+        {
+          "phrase": "Gibt es eine Verbindung nach...?",
+          "meaning": "Is there a connection to...?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For route planning.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Gibt es' = is there, 'Verbindung' = connection.",
+          "ipa": "gɪbt ɛs aɪnə fɛɐbɪndʊŋ nax",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Gibt es eine Verbindung nach München?",
+              "translation": "Is there a connection to Munich?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Gibt es", "role": "main_verb_phrase", "case": null, "translation": "is there" },
+              { "word": "eine Verbindung", "role": "subject", "case": "nominative", "translation": "a connection" },
+              { "word": "nach ...", "role": "prepositional_phrase", "case": "dative", "translation": "to ..." }
+            ]
+          }
+        },
+        {
+          "phrase": "Wie lange dauert die Fahrt?",
+          "meaning": "How long is the trip?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For time estimation.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Wie lange' = how long, 'dauert' = lasts.",
+          "ipa": "viː laŋə daʊɐt diː faːrt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wie lange dauert die Fahrt nach Berlin?",
+              "translation": "How long is the trip to Berlin?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wie lange", "role": "question_adverb", "case": null, "translation": "how long" },
+              { "word": "dauert", "role": "main_verb", "case": null, "translation": "lasts" },
+              { "word": "die Fahrt", "role": "subject", "case": "nominative", "translation": "the trip" }
+            ]
+          }
+        },
+        {
+          "phrase": "Können Sie mir den Weg zeigen?",
+          "meaning": "Can you show me the way?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Asking for visual help.",
+          "formality": "Polite",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'Können Sie' = can you, 'den Weg zeigen' = show the way.",
+          "ipa": "kœnən ziː miːɐ deːn veːk tsaɪgən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Können Sie mir den Weg zum Bahnhof zeigen?",
+              "translation": "Can you show me the way to the train station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Können Sie", "role": "modal_verb_phrase", "case": null, "translation": "can you" },
+              { "word": "mir", "role": "indirect_object", "case": "dative", "translation": "to me" },
+              { "word": "den Weg", "role": "direct_object", "case": "accusative", "translation": "the way" },
+              { "word": "zeigen", "role": "main_verb", "case": null, "translation": "show" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "category": "Emergencies or Problems",
+      "category_slug": "emergencies-or-problems",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "EmergencyImg",
+      "items": [
+        {
+          "phrase": "Ich habe den Zug verpasst.",
+          "meaning": "I missed the train.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Very common travel issue.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'haben' + past participle 'verpasst' = missed",
+          "ipa": "ɪç haːbə deːn tsuːk fɛɐpast",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe den Zug nach Berlin verpasst.",
+              "translation": "I missed the train to Berlin.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "auxiliary_verb", "case": null, "translation": "have" },
+              { "word": "den Zug", "role": "direct_object", "case": "accusative", "translation": "the train" },
+              { "word": "verpasst", "role": "past_participle", "case": null, "translation": "missed" }
+            ]
+          }
+        },
+        {
+          "phrase": "Mein Ticket ist abgelaufen.",
+          "meaning": "My ticket has expired.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Explaining issue to staff.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'sein' + past participle 'abgelaufen' = has expired",
+          "ipa": "maɪn tɪkɛt ɪst apgəlaʊfən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Mein Ticket für die Fahrt ist abgelaufen.",
+              "translation": "My ticket for the trip has expired.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Mein Ticket", "role": "subject", "case": "nominative", "translation": "my ticket" },
+              { "word": "ist", "role": "auxiliary_verb", "case": null, "translation": "is" },
+              { "word": "abgelaufen", "role": "past_participle", "case": null, "translation": "expired" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe mein Gepäck verloren.",
+          "meaning": "I lost my luggage.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Reporting lost items.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'haben' + past participle 'verloren' = lost",
+          "ipa": "ɪç haːbə maɪn gəpɛk fɛɐloːrən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe mein Gepäck am Bahnhof verloren.",
+              "translation": "I lost my luggage at the station.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "auxiliary_verb", "case": null, "translation": "have" },
+              { "word": "mein Gepäck", "role": "direct_object", "case": "accusative", "translation": "my luggage" },
+              { "word": "verloren", "role": "past_participle", "case": null, "translation": "lost" }
+            ]
+          }
+        },
+        {
+          "phrase": "Wo ist das Fundbüro?",
+          "meaning": "Where is the lost and found office?",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For reporting missing belongings.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Standard question with 'wo' = where",
+          "ipa": "voː ɪst das fʊndbyroː",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Wo ist das Fundbüro im Bahnhof?",
+              "translation": "Where is the lost and found office in the station?",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "question",
+            "roles": [
+              { "word": "Wo", "role": "question_adverb", "case": null, "translation": "where" },
+              { "word": "ist", "role": "main_verb", "case": null, "translation": "is" },
+              { "word": "das Fundbüro", "role": "subject", "case": "nominative", "translation": "the lost and found office" }
+            ]
+          }
+        },
+        {
+          "phrase": "Der Fahrkartenautomat funktioniert nicht.",
+          "meaning": "The ticket machine doesn’t work.",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "Reporting technical issues.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "'funktionieren' = to function, negated with 'nicht'",
+          "ipa": "deːɐ faːrkaːrtən aʊtoːmaːt fʊŋktsiːonɪːɐt nɪçt",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Der Fahrkartenautomat hier funktioniert nicht.",
+              "translation": "The ticket machine here doesn’t work.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Der Fahrkartenautomat", "role": "subject", "case": "nominative", "translation": "the ticket machine" },
+              { "word": "funktioniert", "role": "main_verb", "case": null, "translation": "functions" },
+              { "word": "nicht", "role": "negation", "case": null, "translation": "not" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe mich verfahren.",
+          "meaning": "I took the wrong route (by vehicle).",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For being on the wrong line or bus.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Reflexive verb 'sich verfahren' = to take the wrong route",
+          "ipa": "ɪç haːbə mɪç fɛɐfaːrən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe mich auf der falschen Strecke verfahren.",
+              "translation": "I took the wrong route on the wrong line.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "auxiliary_verb", "case": null, "translation": "have" },
+              { "word": "mich", "role": "reflexive_object", "case": "accusative", "translation": "myself" },
+              { "word": "verfahren", "role": "main_verb", "case": null, "translation": "took wrong route" }
+            ]
+          }
+        },
+        {
+          "phrase": "Ich habe mich verlaufen.",
+          "meaning": "I got lost (on foot).",
+          "response": "",
+          "meaning_response": "",
+          "german_level": "A1",
+          "usage_context": "For being lost while walking.",
+          "formality": "Neutral",
+          "region": "Germany",
+          "discussion": "",
+          "grammar_note": "Reflexive verb 'sich verlaufen' = to get lost on foot",
+          "ipa": "ɪç haːbə mɪç fɛɐlaʊfən",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "Ich habe mich in der Stadt verlaufen.",
+              "translation": "I got lost in the city.",
+              "sound": ""
+            }
+          ],
+          "sound": "",
+          "analysis": {
+            "type": "statement",
+            "roles": [
+              { "word": "Ich", "role": "subject", "case": "nominative", "translation": "I" },
+              { "word": "habe", "role": "auxiliary_verb", "case": null, "translation": "have" },
+              { "word": "mich", "role": "reflexive_object", "case": "accusative", "translation": "myself" },
+              { "word": "verlaufen", "role": "main_verb", "case": null, "translation": "got lost" }
+            ]
+          }
+        }
+      ]
+    }
+
+  ],
+
+  "hotel": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "german_level": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "",
+              "translation": "",
+              "sound": ""
+            }
+          ],
+          "sound": ""
+        }
+      ]
+    }
+  ],
+
+  "restaurant": [
+    {
+      "category": "",
+      "category_slug": "",
+      "goal": 1000,
+      "completion": 0,
+      "ImgComponent": "",
+      "items": [
+        {
+          "phrase": "",
+          "response": "",
+          "meaning": "",
+          "meaning_response": "",
+          "german_level": "",
+          "usage_context": "",
+          "formality": "",
+          "region": "",
+          "discussion": "",
+          "grammar_note": "",
+          "ipa": "",
+          "isCompleted": false,
+          "examples": [
+            {
+              "example": "",
+              "translation": "",
+              "sound": ""
+            }
+          ],
+          "sound": ""
+        }
+      ]
+    }
+  ],
+  
+
   "locations": [
     {
       "category": "",
@@ -8401,6 +11618,7 @@
       ]
     }
   ],
+
   "activities": [
     {
       "category": "",
