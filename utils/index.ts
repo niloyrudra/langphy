@@ -369,6 +369,8 @@ export const db: DB = {
 export const getCardContainerWidth =  () =>  (SIZES.screenWidth - ( (SIZES.bodyPaddingHorizontal*2) + SIZES.cardGap )) / 2;
 // export const getMarginValue =  ({id}: {id: string}) =>  ( parseInt(id) % 2 !== 0) ? SIZES.cardGap : 0;
 
+export const stripPunctuationHandler = (word: string) => word.replace(/[.,!?;:()"'„“]/g, "")
+
 export const color_legend: ColorLegend = {
   subject: "#1E90FF",
   main_verb: "#32CD32",

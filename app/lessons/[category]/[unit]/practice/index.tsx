@@ -22,7 +22,7 @@ import {
   PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark
 } from '@/utils/SVGImages';
 import { useLocalSearchParams } from 'expo-router';
-import { color_legend, db, speechHandler } from '@/utils';
+import { color_legend, db, speechHandler, stripPunctuationHandler } from '@/utils';
 import { UnitIndividualCategory, WordRole } from '@/types';
 import SIZES from '@/constants/size';
 
@@ -92,60 +92,68 @@ const PracticeLessons = () => {
         style={{ flex: 1 }}
         onPress={() => setTooltip(prev => ({ ...prev, visible: false }))}
       >
-        {/* <View ref={containerRef} style={{ flex: 1 }}> */}
+        <View ref={containerRef} style={{ flex: 1 }}>
+          <FlatList
+            ref={flatListRef}
+            data={data}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            pagingEnabled
+            scrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={handleScroll}
+            renderItem={({ item }) => (
+              <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
+                <View style={{ flex: 1 }}>
+                  {/* English Section */}
+                  <LessonComponent
+                    language="English"
+                    iconComponent={theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon />}
+                    style={{ borderColor: "#08C1D2" }}
+                    buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
+                    speechContent={item?.name || item?.meaning}
+                    speechLang="en-US"
+                  >
+                    <Text style={[styles.text, { color: colors.textDark }]}>{item?.name || item?.meaning}</Text>
+                  </LessonComponent>
 
-          <View ref={containerRef} style={{ flex: 1 }}>
-            <FlatList
-              ref={flatListRef}
-              data={data}
-              keyExtractor={(_, index) => index.toString()}
-              horizontal
-              pagingEnabled
-              scrollEnabled={false}
-              showsHorizontalScrollIndicator={false}
-              onMomentumScrollEnd={handleScroll}
-              renderItem={({ item }) => (
-                <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
-                  <View style={{ flex: 1 }}>
-                    {/* English Section */}
-                    <LessonComponent
-                      language="English"
-                      iconComponent={theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon />}
-                      style={{ borderColor: "#08C1D2" }}
-                      buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
-                      speechContent={item?.name || item?.meaning}
-                      speechLang="en-US"
-                    >
-                      <Text style={[styles.text, { color: colors.textDark }]}>{item?.name || item?.meaning}</Text>
-                    </LessonComponent>
+                  <HorizontalLine style={{ marginTop: 30, marginBottom: 50 }} />
 
-                    <HorizontalLine style={{ marginTop: 30, marginBottom: 50 }} />
+                  {/* German Section */}
+                  <LessonComponent
+                    language="German"
+                    iconComponent={theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />}
+                    style={{ borderColor: "#1B7CF5" }}
+                    buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
+                    speechContent={item?.phrase}
+                    speechLang="de-DE"
+                  >
+                    {item?.phrase.split('/').map((content: string, idx: number) => {
+                      const wordArr = content?.trim()?.split(" ")
+                      const roleArr = item?.analysis?.roles
 
-                    {/* German Section */}
-                    <LessonComponent
-                      language="German"
-                      iconComponent={theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />}
-                      style={{ borderColor: "#1B7CF5" }}
-                      buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
-                      speechContent={item?.phrase}
-                      speechLang="de-DE"
-                    >
-                      {item?.phrase.split('/').map((content: string, idx: number) => (
+                      return (
+
                         <View key={idx} style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
-                          {content?.trim()?.split(" ").map((word: string, wIdx: number) => {
-                            const key = word.trim();
-                            const roles = item?.analysis?.roles?.find((keyItem: WordRole) => keyItem?.word === key);
-                            const role = roles?.role;
-                            const translation = roles?.translation;
 
-                            const colorForWord = color_legend[role as keyof typeof color_legend] ?? colors.textDark;
+                          {wordArr.map((word: string, wIdx: number) => {
+                            const key = word.trim();
+                            const cleanKey = stripPunctuationHandler(key).toLocaleLowerCase(); // Stripping Punctuation from the Splitted words before comparing
+                            let role = ''
+                            let translation = ''
+                            if( roleArr?.length ) {
+                              const roles = roleArr?.find((keyItem: WordRole) => stripPunctuationHandler(keyItem?.word).toLocaleLowerCase() === cleanKey );
+                              role = roles?.role;
+                              translation = roles?.translation;
+                            }
+                            else translation = item?.name || item?.meaning
+
+
+                            const colorForWord = role && color_legend[role as keyof typeof color_legend] ? color_legend[role as keyof typeof color_legend] : colors.textDark;
 
                             return (
                               <TouchableOpacity
                                 key={wIdx}
-                                // ref={ref => {
-                                //   if (ref) wordRefs.current.set(`${idx}-${wIdx}`, ref);
-                                // }}
                                 ref={(r) => {
                                   const mapKey = `${idx}-${wIdx}`;
                                   if (r) {
@@ -221,78 +229,79 @@ const PracticeLessons = () => {
                               </TouchableOpacity>
                             );
                           })}
+
                         </View>
-                      ))}
 
-                      {/* Sentence Footer */}
-                      <View>
-                        <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                          ({item?.usage_context})
+                      )}
+                    )}
+
+                    {/* Sentence Footer */}
+                    <View>
+                      <Text style={[styles.subText, { color: colors.textSubColor }]}>
+                        ({item?.usage_context})
+                      </Text>
+
+                      {item?.german_level && (
+                        <Text style={[styles.levelText, { color: colors.textSubColor }]}>
+                          German Level: ({item?.german_level})
                         </Text>
-
-                        {item?.german_level && (
-                          <Text style={[styles.levelText, { color: colors.textSubColor }]}>
-                            German Level: ({item?.german_level})
-                          </Text>
-                        )}
-                        {item?.grammar_note && (
-                          <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                            Grammar Notes: ({item?.grammar_note})
-                          </Text>
-                        )}
-                      </View>
-                    </LessonComponent>
-                  </View>
+                      )}
+                      {item?.grammar_note && (
+                        <Text style={[styles.subText, { color: colors.textSubColor }]}>
+                          Grammar Notes: ({item?.grammar_note})
+                        </Text>
+                      )}
+                    </View>
+                  </LessonComponent>
                 </View>
-              )}
-            />
-
-            {/* Floating Tooltip */}
-            {tooltip.visible && (
-              <View
-                style={{
-                  position: "absolute",
-                  top: tooltip.y,
-                  left: tooltip.x,
-                  paddingVertical: 6,
-                  paddingHorizontal: 10,
-                  borderRadius: 8,
-                  backgroundColor: "#1B7CF5", // colors.cardBackground,
-                  maxWidth: 250,
-                  zIndex: 9999,
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 4,
-                  elevation: 5,
-                }}
-              >
-                <Text style={[styles.mainText, { textTransform: "capitalize", color: colors.textDark /*tooltip.color*/ }]}>
-                  {tooltip.translation}
-                </Text>
               </View>
             )}
+          />
 
-            {/* Navigation Buttons */}
-            <View style={styles.navButtons}>
-              <TouchableOpacity onPress={goToPrevious} disabled={currentIndex === 0}>
-                {theme === 'light'
-                  ? <PreviousBtnLight width={167} height={sizes.buttonHeight} opacity={currentIndex === 0 ? 0.5 : 1} />
-                  : <PreviousBtnDark width={167} height={sizes.buttonHeight} opacity={currentIndex === 0 ? 0.5 : 1} />}
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={goToNext} disabled={currentIndex === data.length - 1}>
-                {theme === 'light'
-                  ? <NextBtnLight width={167} height={sizes.buttonHeight} opacity={currentIndex === data.length - 1 ? 0.5 : 1} />
-                  : <NextBtnDark width={167} height={sizes.buttonHeight} opacity={currentIndex === data.length - 1 ? 0.5 : 1} />}
-              </TouchableOpacity>
+          {/* Floating Tooltip */}
+          {tooltip.visible && (
+            <View
+              style={{
+                position: "absolute",
+                top: tooltip.y,
+                left: tooltip.x,
+                paddingVertical: 6,
+                paddingHorizontal: 10,
+                borderRadius: 8,
+                backgroundColor: "#1B7CF5", // colors.cardBackground,
+                maxWidth: 250,
+                zIndex: 9999,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5,
+              }}
+            >
+              <Text style={[styles.mainText, { textTransform: "capitalize", color: colors.textDark /*tooltip.color*/ }]}>
+                {tooltip.translation}
+              </Text>
             </View>
+          )}
 
-            <FloatingDictionaryIcon />
+          {/* Navigation Buttons */}
+          <View style={styles.navButtons}>
+            <TouchableOpacity onPress={goToPrevious} disabled={currentIndex === 0}>
+              {theme === 'light'
+                ? <PreviousBtnLight width={167} height={sizes.buttonHeight} opacity={currentIndex === 0 ? 0.5 : 1} />
+                : <PreviousBtnDark width={167} height={sizes.buttonHeight} opacity={currentIndex === 0 ? 0.5 : 1} />}
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={goToNext} disabled={currentIndex === data.length - 1}>
+              {theme === 'light'
+                ? <NextBtnLight width={167} height={sizes.buttonHeight} opacity={currentIndex === data.length - 1 ? 0.5 : 1} />
+                : <NextBtnDark width={167} height={sizes.buttonHeight} opacity={currentIndex === data.length - 1 ? 0.5 : 1} />}
+            </TouchableOpacity>
           </View>
-        
-        {/* </View> */}
 
+          <FloatingDictionaryIcon />
+        </View>
+        
       </Pressable>
     </SafeAreaLayout>
   );

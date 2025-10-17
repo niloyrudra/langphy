@@ -185,18 +185,18 @@ type WordRole = {
   word: string;
   role:
     | "subject"
+    | "modal_verb"
     | "main_verb"
     | "subordinate_verb"
     | "direct_object"
-    | "modal_verb"
+    | "indirect_object"
     | "article"
     | "possessive_article"
-    | "indirect_object"
+    | "preposition_article"
+    | "adverb"
     | "time_adverb"
     | "conjunction"
-    | "place"
-    | "preposition_article"
-    | "adverb";
+    | "place";
   case: "nominative" | "accusative" | "dative" | "genitive" | null;
   translation: string;
 }
