@@ -266,6 +266,7 @@ type DB = {
   introduction: UnitIndividualCategory[];
   colors: UnitIndividualCategory[];
   numbers: UnitIndividualCategory[];
+  count_math_measurement: UnitIndividualCategory[];
   body_parts: UnitIndividualCategory[];
   locations: UnitIndividualCategory[];
   travels: UnitIndividualCategory[];

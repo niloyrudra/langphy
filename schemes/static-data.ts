@@ -84,42 +84,51 @@ export const CATEGORY_DATA_V2 = [
   },
   {
     id: '7',
+    title: "Counting, Mathematics & Measurements",
+    slug: "count_math_measurement",
+    ImgComponent: NumberIconV2
+  },
+  {
+    id: '8',
     title: "Colors",
     slug: "colors",
     ImgComponent: ColorsIconV2
   },
   {
-    id: '8',
+    id: '9',
     title: "Time",
     slug: "time",
     ImgComponent: TimeIconV2
   },
   {
-    id: '9',
+    id: '10',
     title: "Calendar",
     slug: "calendar",
     ImgComponent: CalendarIconV2
   },
   {
-    id: '10',
+    id: '11',
     title: "Seasons",
     slug: "seasons",
     ImgComponent: SeasonsIconV2
   },
   {
-    id: '11',
+    id: '12',
     title: "Weather",
     slug: "weather",
     ImgComponent: SeasonsIconV2
   },
   {
-    id: '12',
+    id: '13',
     title: "Sports",
     slug: "sports",
     ImgComponent: ActivitiesIconV2
   },
+
+  // TO DO
+
   {
-    id: '13',
+    id: '13_',
     title: "Activities",
     slug: "activities",
     ImgComponent: ActivitiesIconV2

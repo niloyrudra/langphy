@@ -118,6 +118,19 @@ export const db: DB = {
     }))
   })),
 
+  count_math_measurement: dbJson.count_math_measurement.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
   calendar: dbJson.calendar.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
