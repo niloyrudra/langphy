@@ -422,7 +422,7 @@ export const CATEGORY_DATA = [
   },
   {
     id: '15',
-    title: "House, Hotel & Restaurants",
+    title: "House & Neighborhood",
     slug: "house",
     ImgComponent: FamilyIcon
   },

@@ -24,6 +24,8 @@ import {
 import { useLocalSearchParams } from 'expo-router';
 import { color_legend, db, speechHandler, stripPunctuationHandler } from '@/utils';
 import { UnitIndividualCategory, WordRole } from '@/types';
+import ToolTipComponent from '@/components/ToolTipComponent';
+import PaginationButton from '@/components/PaginationButton';
 // import SIZES from '@/constants/size';
 
 const PracticeLessons = () => {
@@ -260,43 +262,24 @@ const PracticeLessons = () => {
 
           {/* Floating Tooltip */}
           {tooltip.visible && (
-            <View
-              style={{
-                position: "absolute",
-                top: tooltip.y,
-                left: tooltip.x,
-                paddingVertical: 6,
-                paddingHorizontal: 10,
-                borderRadius: 8,
-                backgroundColor: "#1B7CF5", // colors.cardBackground,
-                maxWidth: 250,
-                zIndex: 9999,
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-                elevation: 5,
-              }}
-            >
-              <Text style={[styles.mainText, { textTransform: "capitalize", color: colors.textDark /*tooltip.color*/ }]}>
-                {tooltip.translation}
-              </Text>
-            </View>
+            <ToolTipComponent
+              top={tooltip.y}
+              left={tooltip.x}
+              translation={tooltip.translation}
+            />
           )}
 
           {/* Navigation Buttons */}
           <View style={styles.navButtons}>
-            <TouchableOpacity onPress={goToPrevious} disabled={currentIndex === 0}>
-              {theme === 'light'
-                ? <PreviousBtnLight width={167} height={sizes.buttonHeight} opacity={currentIndex === 0 ? 0.5 : 1} />
-                : <PreviousBtnDark width={167} height={sizes.buttonHeight} opacity={currentIndex === 0 ? 0.5 : 1} />}
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={goToNext} disabled={currentIndex === data.length - 1}>
-              {theme === 'light'
-                ? <NextBtnLight width={167} height={sizes.buttonHeight} opacity={currentIndex === data.length - 1 ? 0.5 : 1} />
-                : <NextBtnDark width={167} height={sizes.buttonHeight} opacity={currentIndex === data.length - 1 ? 0.5 : 1} />}
-            </TouchableOpacity>
+            <PaginationButton
+              actionHandler={goToPrevious}
+              isDisabled={currentIndex === 0}
+              modeLeft={true}
+            />
+            <PaginationButton
+              actionHandler={goToNext}
+              isDisabled={currentIndex === data.length - 1}
+            />
           </View>
 
           <FloatingDictionaryIcon />
@@ -333,5 +316,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: sizes.bodyPaddingHorizontal,
     marginTop: 10,
-  },
+  }
 });
