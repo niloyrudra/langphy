@@ -38,6 +38,19 @@ export  const speechSlowHandler = (speechContent: string | undefined, speechLang
   )
 }
 
+// const CategoryDataType = dbJson.alphabets.map((cat: any) => ({
+//     category: cat.category,
+//     category_slug: cat.category_slug,
+//     goal: cat.goal,
+//     completion: cat.completion,
+//     ImgComponent: StudyingDolphinIcon,
+//     items: cat.items.map((item: any) => ({
+//       ...item,
+//       formality: item.formality as "formal" | "informal" | "neutral" | "both",
+//       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+//     }))
+//   }));
+
 // Cast dbJson to DB, transforming 'formality' to the correct type
 export const db: DB = {
   alphabets: dbJson.alphabets.map((cat: any) => ({
@@ -417,19 +430,164 @@ export const db: DB = {
     }))
   })),
 
-  body_parts: [],
-  landscape: [],
-  school: [],
-  house: [],
-  weather: [],
-  sports: [],
-  services: [],
-  animals: [],
-  dresses: [],
-  tools: [],
-  // flowers: [],
-  // countries: [],
-  vehicles: []
+  body_parts: dbJson.body_parts.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  landscape: dbJson.landscape.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  school: dbJson.school.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  house: dbJson.house.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  weather: dbJson.weather.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  sports: dbJson.sports.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  business_and_services: dbJson.business_and_services.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  animals: dbJson.animals.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  dresses: dbJson.dresses.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  tools: dbJson.tools.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  // flowers: dbJson?.flowers.map((cat: any) => ({
+  //   category: cat.category,
+  //   category_slug: cat.category_slug,
+  //   goal: cat.goal,
+  //   completion: cat.completion,
+  //   ImgComponent: StudyingDolphinIcon,
+  //   items: cat.items.map((item: any) => ({
+  //     ...item,
+  //     formality: item.formality as "formal" | "informal" | "neutral" | "both",
+  //     german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+  //   }))
+  // })),
+  countries: dbJson.countries.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+  vehicles: dbJson.vehicles.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
 };
 
 export const getCardContainerWidth =  () =>  (SIZES.screenWidth - ( (SIZES.bodyPaddingHorizontal*2) + SIZES.cardGap )) / 2;
@@ -447,8 +605,10 @@ export const color_legend: ColorLegend = {
   conjunction: "#9932CC",
   place: "#FF8C00",
   preposition_article: "#FFD700",
+  possessive_article: "#DA70D6",
   adverb: "#FFA500",
+  introgetive_adverb: "#08c721ff",
   time_adverb: "#FFA500",
   article: "#FFD700",
-  possessive_article: "#DA70D6",
+  adjective: "#ffa640ff",
 }

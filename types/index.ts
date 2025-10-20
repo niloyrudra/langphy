@@ -160,17 +160,19 @@ type LessonProps = {
 type ColorLegend = {
   subject: string;
   main_verb: string;
+  modal_verb: string;
   subordinate_verb: string;
   direct_object: string;
-  modal_verb: string;
+  indirect_object: string;
   article: string;
   possessive_article: string;
-  indirect_object: string;
+  preposition_article: string;
   time_adverb: string;
   conjunction: string;
   place: string;
-  preposition_article: string;
+  introgetive_adverb: string;
   adverb: string;
+  adjective: string;
 }
 
 // Define structure for example sentences
@@ -196,6 +198,7 @@ type WordRole = {
     | "adverb"
     | "time_adverb"
     | "conjunction"
+    | "adjective"
     | "place";
   case: "nominative" | "accusative" | "dative" | "genitive" | null;
   translation: string;
@@ -271,6 +274,8 @@ type DB = {
   locations: UnitIndividualCategory[];
   travels: UnitIndividualCategory[];
   landscape: UnitIndividualCategory[];
+  flowers: UnitIndividualCategory[];
+  countries: UnitIndividualCategory[];
   work: UnitIndividualCategory[];
   opinions: UnitIndividualCategory[];
   invitations: UnitIndividualCategory[];
@@ -286,7 +291,7 @@ type DB = {
   weather: UnitIndividualCategory[];
   sports: UnitIndividualCategory[];
   activities: UnitIndividualCategory[];
-  services: UnitIndividualCategory[];
+  business_and_services: UnitIndividualCategory[];
   airport: UnitIndividualCategory[];
   transportation: UnitIndividualCategory[];
   hotel: UnitIndividualCategory[];
@@ -301,6 +306,28 @@ type DB = {
   vehicles: UnitIndividualCategory[];
   culture: UnitIndividualCategory[];
   entertainment: UnitIndividualCategory[];
+  professions: UnitIndividualCategory[];
+  personalities: UnitIndividualCategory[];
+  science: UnitIndividualCategory[];
+  politics: UnitIndividualCategory[];
+  history: UnitIndividualCategory[];
+  geography: UnitIndividualCategory[];
+  government_diplomacy: UnitIndividualCategory[];
+  Hobbies: UnitIndividualCategory[];
+  warfairs: UnitIndividualCategory[];
+  nature: UnitIndividualCategory[];
+  natural_disasters: UnitIndividualCategory[];
+  music: UnitIndividualCategory[];
+  devices: UnitIndividualCategory[];
+  materials: UnitIndividualCategory[];
+  accessories: UnitIndividualCategory[];
+  office_corporates: UnitIndividualCategory[];
+  festivals: UnitIndividualCategory[];
+  contructions: UnitIndividualCategory[];
+  tele_conversation: UnitIndividualCategory[];
+  post_office: UnitIndividualCategory[];
+  embbacy_passport: UnitIndividualCategory[];
+  space_astronomy: UnitIndividualCategory[];
   // add other keys if needed
 };
 
