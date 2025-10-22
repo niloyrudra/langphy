@@ -313,8 +313,8 @@ type DB = {
   history: UnitIndividualCategory[];
   geography: UnitIndividualCategory[];
   government_diplomacy: UnitIndividualCategory[];
-  Hobbies: UnitIndividualCategory[];
-  warfairs: UnitIndividualCategory[];
+  hobbies: UnitIndividualCategory[];
+  warfare: UnitIndividualCategory[];
   nature: UnitIndividualCategory[];
   natural_disasters: UnitIndividualCategory[];
   music: UnitIndividualCategory[];

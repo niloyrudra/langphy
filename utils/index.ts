@@ -377,7 +377,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
-  
+
   airport: dbJson.airport.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -468,6 +468,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   house: dbJson.house.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -480,6 +481,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   weather: dbJson.weather.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -492,6 +494,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   sports: dbJson.sports.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -504,6 +507,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   business_and_services: dbJson.business_and_services.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -516,6 +520,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   animals: dbJson.animals.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -528,6 +533,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   dresses: dbJson.dresses.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -540,6 +546,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   tools: dbJson.tools.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -552,18 +559,7 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
-  // flowers: dbJson?.flowers.map((cat: any) => ({
-  //   category: cat.category,
-  //   category_slug: cat.category_slug,
-  //   goal: cat.goal,
-  //   completion: cat.completion,
-  //   ImgComponent: StudyingDolphinIcon,
-  //   items: cat.items.map((item: any) => ({
-  //     ...item,
-  //     formality: item.formality as "formal" | "informal" | "neutral" | "both",
-  //     german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
-  //   }))
-  // })),
+
   countries: dbJson.countries.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
@@ -576,7 +572,307 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   vehicles: dbJson.vehicles.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  accessories: dbJson.accessories.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  personalities: dbJson.personalities.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  flowers: dbJson.flowers.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  professions: dbJson.professions.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  science: dbJson.science.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  politics: dbJson.politics.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  history: dbJson.history.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  geography: dbJson.geography.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  government_diplomacy: dbJson.government_diplomacy.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  hobbies: dbJson.hobbies.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  warfare: dbJson.warfare.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  nature: dbJson.nature.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  natural_disasters: dbJson.natural_disasters.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  music: dbJson.music.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  devices: dbJson.devices.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  materials: dbJson.materials.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  office_corporates: dbJson.office_corporates.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  festivals: dbJson.festivals.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  contructions: dbJson.contructions.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  tele_conversation: dbJson.tele_conversation.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  post_office: dbJson.post_office.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  embbacy_passport: dbJson.embbacy_passport.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: StudyingDolphinIcon,
+    items: cat.items.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  space_astronomy: dbJson.space_astronomy.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
     goal: cat.goal,
