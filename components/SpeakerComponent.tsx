@@ -1,43 +1,71 @@
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { ReactNode } from 'react'
+import React, { useMemo, useState } from 'react';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import { speechHandler, speechSlowHandler } from '@/utils';
-import { SpeakerAltDarkIcon, SpeakerAltIcon, SpeakerDarkIcon, SpeakerIcon, SpeakerTurtleDarkDeIcon, SpeakerTurtleDarkEnIcon, SpeakerTurtleLightDeIcon, SpeakerTurtleLightEnIcon } from '@/utils/SVGImages';
+import {
+  SpeakerAltDarkIcon,
+  SpeakerAltIcon,
+  SpeakerDarkIcon,
+  SpeakerIcon,
+  SpeakerTurtleDarkDeIcon,
+  SpeakerTurtleDarkEnIcon,
+  SpeakerTurtleLightDeIcon,
+  SpeakerTurtleLightEnIcon,
+} from '@/utils/SVGImages';
 
-const SpeakerComponent = ({speechContent, speechLang, isSlowing=false}: {speechContent: string, speechLang: string, isSlowing?: boolean}) => {
-    const { colors, theme } = useTheme();
-    const [isLoading, setLoading] = React.useState<boolean>(false)
-    const iconComponent: ReactNode = !isSlowing
-                                        ?
-                                            (theme === 'dark'
-                                                ?
-                                                    ( speechLang === 'en-US' ? <SpeakerDarkIcon /> : <SpeakerAltDarkIcon />)
-                                                :
-                                                    ( speechLang === 'en-US' ? <SpeakerIcon /> : <SpeakerAltIcon />)
-                                            )
-                                        
-                                        :
-                                            (theme === 'dark'
-                                                ?
-                                                    ( speechLang === 'en-US' ? <SpeakerTurtleDarkEnIcon width={33} height={33} /> : <SpeakerTurtleDarkDeIcon width={33} height={33} />)
-                                                :
-                                                    ( speechLang === 'en-US' ? <SpeakerTurtleLightEnIcon width={33} height={33} /> : <SpeakerTurtleLightDeIcon width={33} height={33} />)
-                                            );
-    return (
-        <TouchableOpacity
-            disabled={isLoading}
-            onPress={ !isSlowing ? () => speechHandler( speechContent, speechLang, setLoading ) : () => speechSlowHandler( speechContent, speechLang, setLoading )}
-        >
-            {
-                isLoading ?
-                (<ActivityIndicator size={33} color={colors.primary} />)
-                :
-                (iconComponent)
-            }
-        </TouchableOpacity>
-    )
+interface SpeakerComponentProps {
+  speechContent: string;
+  speechLang: 'en-US' | 'de-DE' | string;
+  isSlowing?: boolean;
 }
 
-export default SpeakerComponent
+const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
+  speechContent,
+  speechLang,
+  isSlowing = false,
+}) => {
+  const { colors, theme } = useTheme();
+  const [isLoading, setLoading] = useState(false);
 
-const styles = StyleSheet.create({})
+  const handlePress = async () => {
+    const handler = isSlowing ? speechSlowHandler : speechHandler;
+    handler(speechContent, speechLang, setLoading);
+  };
+
+  const icon = useMemo(() => {
+    const isEnglish = speechLang === 'en-US';
+    const isDark = theme === 'dark';
+
+    if (!isSlowing) {
+      if (isDark) return isEnglish ? <SpeakerDarkIcon /> : <SpeakerAltDarkIcon />;
+      return isEnglish ? <SpeakerIcon /> : <SpeakerAltIcon />;
+    }
+
+    // Slowed icons
+    const iconProps = { width: 33, height: 33 };
+    if (isDark)
+      return isEnglish ? (
+        <SpeakerTurtleDarkEnIcon {...iconProps} />
+      ) : (
+        <SpeakerTurtleDarkDeIcon {...iconProps} />
+      );
+
+    return isEnglish ? (
+      <SpeakerTurtleLightEnIcon {...iconProps} />
+    ) : (
+      <SpeakerTurtleLightDeIcon {...iconProps} />
+    );
+  }, [isSlowing, speechLang, theme]);
+
+  return (
+    <TouchableOpacity disabled={isLoading} onPress={handlePress}>
+      {isLoading ? (
+        <ActivityIndicator size={33} color={colors.primary} />
+      ) : (
+        icon
+      )}
+    </TouchableOpacity>
+  );
+};
+
+export default React.memo(SpeakerComponent);
