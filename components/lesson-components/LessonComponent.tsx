@@ -1,11 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { LessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext'
 import sizes from '@/constants/size';
-import { speechHandler, speechSlowHandler } from '@/utils';
+import SpeakerComponent from '../SpeakerComponent';
 
-const LessonComponent: React.FC<LessonProps> = ({language, iconComponent, children, style, buttonStyle, speechContent, speechLang}) => {
+const LessonComponent: React.FC<LessonProps> = ({language, children, style, buttonStyle, speechContent, speechLang}) => {
   const { colors } = useTheme();
 
   return (
@@ -13,9 +13,7 @@ const LessonComponent: React.FC<LessonProps> = ({language, iconComponent, childr
 
       <View style={[styles.content]}>
 
-        <View
-          style={[styles.speakerButton, buttonStyle]}
-        >
+        <View style={[styles.speakerButtonContainer, style, buttonStyle]}>
           <Text style={[styles.languageText, {color: colors.text}]}>{language}</Text>
 
           {/* Speaker */}
@@ -26,13 +24,18 @@ const LessonComponent: React.FC<LessonProps> = ({language, iconComponent, childr
             }}
           >
 
-            <TouchableOpacity onPress={() => speechHandler( speechContent, speechLang )}>
-              {iconComponent}
-            </TouchableOpacity>
+            <SpeakerComponent
+              speechContent={speechContent!}
+              speechLang={speechLang!}
+            />
 
-            <TouchableOpacity onPress={() => speechSlowHandler( speechContent, speechLang )}>
-              {iconComponent}
-            </TouchableOpacity>
+            {/* {iconTurtleComponent && ( */}
+              <SpeakerComponent
+                speechContent={speechContent!}
+                speechLang={speechLang!}
+                isSlowing={true}
+              />
+            {/* )} */}
 
           </View>
 
@@ -66,9 +69,9 @@ const styles = StyleSheet.create({
     top: -23,
     justifyContent:"center",
     alignItems: "center",
-    zIndex: 2,
+    zIndex: 2
   },
-  speakerButton: {
+  speakerButtonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -78,7 +81,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 8,
     gap: 12,
-    fontWeight: "600"
+    fontWeight: "600",
+    borderWidth: 1
   },
   languageText: {
     fontSize: 16,

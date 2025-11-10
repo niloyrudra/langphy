@@ -5,6 +5,7 @@ import ButtonGradient from '@/assets/images/button/button-gradient.svg';
 // Exemplary
 import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
 import BookIcon from '@/assets/images/categories/unit/book.svg';
+import BookOpenIcon from '@/assets/images/unit/v2/book-open.svg';
 import StudyingDolphinIcon from '@/assets/images/categories/unit/studying-dolphin.svg';
 import StudyingDolphinSmallIcon from '@/assets/images/categories/unit/studying-dolphin-icon.svg';
 
@@ -62,12 +63,21 @@ import SettingIcon from '@/assets/images/header/account-settings-icon.svg';
 import SettingDarkIcon from '@/assets/images/header/account-settings-icon-dark.svg';
 // Steak Icon
 import SteakIcon from '@/assets/images/header/water-drop-icon.svg';
+
 // Speaker Light Icons
 import SpeakerAltIcon from "@/assets/images/screen-icons/speaker-alt-icon-light.svg";
 import SpeakerIcon from "@/assets/images/screen-icons/speaker-icon-light.svg";
 // Speaker Dark Icons
 import SpeakerDarkIcon from "@/assets/images/screen-icons/speaker-icon-dark.svg";
 import SpeakerAltDarkIcon from "@/assets/images/screen-icons/speaker-icon-alt-dark.svg";
+
+// Speaker Light Icons
+import SpeakerTurtleLightEnIcon from "@/assets/images/screen-icons/SpeakerTurtleLightEN.svg";
+import SpeakerTurtleLightDeIcon from "@/assets/images/screen-icons/SpeakerTurtleLightDE.svg";
+// Speaker Dark Icons
+import SpeakerTurtleDarkEnIcon from "@/assets/images/screen-icons/SpeakerTurtleDarkEN.svg";
+import SpeakerTurtleDarkDeIcon from "@/assets/images/screen-icons/SpeakerTurtleDarkDE.svg";
+
 // Light Theme Icons
 import EyeLightIcon from '@/assets/images/auth/toggled-eyes/light-theme/eye.svg'
 import EyeOffLightIcon from '@/assets/images/auth/toggled-eyes/light-theme/eye-off.svg'
@@ -98,6 +108,7 @@ import SoundWaveLightIcon from "@/assets/images/sound-waves/sound-wave-light.svg
 
 export {
     BookIcon,
+    BookOpenIcon,
     DolphinIcon,
     StudyingDolphinIcon,
     StudyingDolphinSmallIcon,
@@ -152,6 +163,12 @@ export {
     SpeakerAltIcon,
     SpeakerDarkIcon,
     SpeakerAltDarkIcon,
+
+    SpeakerTurtleDarkDeIcon,
+    SpeakerTurtleDarkEnIcon,
+    SpeakerTurtleLightDeIcon,
+    SpeakerTurtleLightEnIcon,
+
     EyeLightIcon,
     EyeOffLightIcon,
     EyeDarkIcon,

@@ -146,7 +146,8 @@ type EyeProps = {
 
 type LessonProps = {
     language: string,
-    iconComponent: ReactNode,
+    // iconComponent?: ReactNode,
+    // iconTurtleComponent?: ReactNode | undefined,
     children?: ReactNode | undefined,
     style?: StyleProp<ViewStyle>,
     buttonStyle?: StyleProp<ViewStyle>,

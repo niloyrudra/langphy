@@ -19,7 +19,9 @@ import LessonComponent from '@/components/lesson-components/LessonComponent';
 import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
 import {
   SpeakerIcon, SpeakerAltIcon, SpeakerAltDarkIcon, SpeakerDarkIcon,
-  PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark
+  PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark,
+  SpeakerTurtleDarkDeIcon,
+  SpeakerTurtleLightDeIcon
 } from '@/utils/SVGImages';
 import { useLocalSearchParams } from 'expo-router';
 import { color_legend, db, speechHandler, stripPunctuationHandler } from '@/utils';
@@ -110,7 +112,6 @@ const PracticeLessons = () => {
                   {/* English Section */}
                   <LessonComponent
                     language="English"
-                    iconComponent={theme === 'dark' ? <SpeakerDarkIcon /> : <SpeakerIcon />}
                     style={{ borderColor: "#08C1D2" }}
                     buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
                     speechContent={item?.name || item?.meaning}
@@ -124,12 +125,11 @@ const PracticeLessons = () => {
                   {/* German Section */}
                   <LessonComponent
                     language="German"
-                    iconComponent={theme === 'dark' ? <SpeakerAltDarkIcon /> : <SpeakerAltIcon />}
                     style={{ borderColor: "#1B7CF5" }}
                     buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
                     speechContent={item?.phrase}
                     speechLang="de-DE"
-                  >
+                  > 
                     {item?.phrase.split('/').map((content: string, idx: number) => {
                       const wordArr = content?.trim()?.split(" ")
                       const roleArr = item?.analysis?.roles
@@ -282,7 +282,8 @@ const PracticeLessons = () => {
             />
           </View>
 
-          <FloatingDictionaryIcon />
+          {/* <FloatingDictionaryIcon /> */}
+
         </View>
         
       </Pressable>

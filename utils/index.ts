@@ -4,7 +4,28 @@ import { ColorLegend, DB } from "@/types";
 import { StudyingDolphinIcon } from '@/utils/SVGImages'
 import * as Speech from 'expo-speech'
 
-export  const speechFastHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
+let speechReady = false;
+
+export const warmUpSpeech = async () => {
+  if (speechReady) return;
+  await new Promise((resolve) => {
+    Speech.speak(" ", {
+      language: "de-DE",
+      rate: 1,
+      onDone: () => {
+        Speech.stop();
+        speechReady = true;
+        resolve(true);
+      },
+    });
+  });
+};
+
+export  const speechFastHandler = async (
+  speechContent: string | undefined,
+  speechLang: string | undefined
+) => {
+  await warmUpSpeech();
   Speech.speak(
     speechContent || "Hallo!",
     {
@@ -15,27 +36,59 @@ export  const speechFastHandler = (speechContent: string | undefined, speechLang
     }
   )
 }
-export  const speechHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
-  Speech.speak(
-    speechContent || "Hallo!",
-    {
-      language: speechLang || "de-DE",
-      rate: 1, // Normal Speed
-      pitch: 1.2,// Deep Tone
-      volume: 1 // High
-    }
-  )
-}
-export  const speechSlowHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
+
+export const speechHandler = async (
+  speechContent: string | undefined,
+  speechLang: string | undefined,
+  setLoading?: (val: boolean) => void
+) => {
+  // await warmUpSpeech();
+  setLoading?.(true);
+  Speech.speak(speechContent || "Hallo!", {
+    language: speechLang || "de-DE",
+    rate: 1,
+    pitch: 1.2,
+    volume: 1,
+    onStart: () => setLoading?.(false),
+    onDone: () => setLoading?.(false),
+    onError: () => setLoading?.(false),
+  });
+  setTimeout(() => setLoading?.(false), 8000);
+};
+
+
+// export  const speechHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
+//   Speech.speak(
+//     speechContent || "Hallo!",
+//     {
+//       language: speechLang || "de-DE",
+//       rate: 1, // Normal Speed
+//       pitch: 1.2,// Deep Tone
+//       volume: 1 // High
+//     }
+//   )
+// }
+
+export  const speechSlowHandler = async (
+  speechContent: string | undefined,
+  speechLang: string | undefined,
+  setLoading?: (val: boolean) => void
+) => {
+  // await warmUpSpeech();
+  setLoading?.(true);
   Speech.speak(
     speechContent || "Hallo!",
     {
       language: speechLang || "de-DE",
       rate: 0.2, // Normal Speed
       pitch: 1.2,// Deep Tone
-      volume: 1 // High
+      volume: 1, // High
+      onStart: () => setLoading?.(false),
+      onDone: () => setLoading?.(false),
+      onError: () => setLoading?.(false),
     }
-  )
+  );
+  setTimeout(() => setLoading?.(false), 8000);
 }
 
 // const CategoryDataType = dbJson.alphabets.map((cat: any) => ({
