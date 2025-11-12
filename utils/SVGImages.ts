@@ -5,7 +5,7 @@ import ButtonGradient from '@/assets/images/button/button-gradient.svg';
 // Exemplary
 import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
 import BookIcon from '@/assets/images/categories/unit/book.svg';
-import BookOpenIcon from '@/assets/images/unit/v2/book-open.svg';
+import BookOpenIcon from '@/assets/images/categories/unit/book-open.svg';
 import StudyingDolphinIcon from '@/assets/images/categories/unit/studying-dolphin.svg';
 import StudyingDolphinSmallIcon from '@/assets/images/categories/unit/studying-dolphin-icon.svg';
 
@@ -105,8 +105,132 @@ import SpeakerActionButtonIcon from "@/assets/images/button/speaker-button-gradi
 
 import SoundWaveLightIcon from "@/assets/images/sound-waves/sound-wave-light.svg";
 
+/**
+ * V3 - Category Icons
+ */
+import ActivitiesIconV3 from '@/assets/images/categories/v3/Activities.svg';
+import AirportIconV3 from '@/assets/images/categories/v3/Airport.svg';
+import AlphabetIconV3 from '@/assets/images/categories/v3/Alphabate.svg';
+import AnimalIconV3 from '@/assets/images/categories/v3/Animals.svg';
+import BodyPartsIconV3 from '@/assets/images/categories/v3/Body-Parts.svg';
+import BusinessIconV3 from '@/assets/images/categories/v3/business.svg';
+import CalendeIconV3 from '@/assets/images/categories/v3/Calender.svg';
+import ColorsIconV3 from '@/assets/images/categories/v3/Colors.svg';
+import ConstructionIconV3 from '@/assets/images/categories/v3/Construction.svg';
+import CountingIconV3 from '@/assets/images/categories/v3/Counting.svg';
+import CountryIconV3 from '@/assets/images/categories/v3/Country.svg';
+import CultureIconV3 from '@/assets/images/categories/v3/Culture.svg';
+import CountingMathMeasureIconV3 from '@/assets/images/categories/v3/Counting.svg';
+import DeviceIconV3 from '@/assets/images/categories/v3/Device.svg';
+import DirectionIconV3 from '@/assets/images/categories/v3/Direction.svg';
+import DiseaseIconV3 from '@/assets/images/categories/v3/Disease.svg';
+import DressIconV3 from '@/assets/images/categories/v3/Dress.svg';
+import EducationIconV3 from '@/assets/images/categories/v3/Education.svg';
+import EntertainmentIconV3 from '@/assets/images/categories/v3/Entertainment.svg';
+import FamilyIconV3 from '@/assets/images/categories/v3/Family.svg';
+import FlowerIconV3 from '@/assets/images/categories/v3/Flower.svg';
+import FoodIconV3 from '@/assets/images/categories/v3/Food-and-Drink.svg';
+import GeographyIconV3 from '@/assets/images/categories/v3/Geography.svg';
+import GovernmentIconV3 from '@/assets/images/categories/v3/Goverment.svg';
+import GreetingsIconV3 from '@/assets/images/categories/v3/Greetings.svg';
+import HistoryIconV3 from '@/assets/images/categories/v3/History.svg';
+import HobbyIconV3 from '@/assets/images/categories/v3/Hobby.svg';
+import HotelIconV3 from '@/assets/images/categories/v3/Hotel.svg';
+import HouseIconV3 from '@/assets/images/categories/v3/House.svg';
+import IntroIconV3 from '@/assets/images/categories/v3/Introduction.svg';
+import InvitationIconV3 from '@/assets/images/categories/v3/Invitation.svg';
+import LandscapesIconV3 from '@/assets/images/categories/v3/Landscape.svg';
+import MaterialsIconV3 from '@/assets/images/categories/v3/Materials.svg';
+import MedicalIconV3 from '@/assets/images/categories/v3/Medical.svg';
+import MusicIconV3 from '@/assets/images/categories/v3/Music.svg';
+import NaturalDisastersIconV3 from '@/assets/images/categories/v3/Natural-Disaster.svg';
+import NatureIconV3 from '@/assets/images/categories/v3/Nature.svg';
+import NewspaperIconV3 from '@/assets/images/categories/v3/Newspaper.svg';
+import NumberIconV3 from '@/assets/images/categories/v3/Number.svg';
+import OfficeIconV3 from '@/assets/images/categories/v3/Office.svg';
+import OpinionIconV3 from '@/assets/images/categories/v3/Opinion.svg';
+import PassportIconV3 from '@/assets/images/categories/v3/Passport.svg';
+import PoliticsIconV3 from '@/assets/images/categories/v3/Politics.svg';
+import PreferencesIconV3 from '@/assets/images/categories/v3/Preference.svg';
+import RestaurantIconV3 from '@/assets/images/categories/v3/Restaurant.svg';
+import ScienceIconV3 from '@/assets/images/categories/v3/science.svg';
+import SeasonsIconV3 from '@/assets/images/categories/v3/Season.svg';
+import ShoppingIconV3 from '@/assets/images/categories/v3/Shopping.svg';
+import SpaceIconV3 from '@/assets/images/categories/v3/Space.svg';
+import SportsIconV3 from '@/assets/images/categories/v3/Sports.svg';
+import TechnologyIconV3 from '@/assets/images/categories/v3/Technology.svg';
+import TeleCommunicationIconV3 from '@/assets/images/categories/v3/Telephone-conversation.svg';
+import TimeIconV3 from '@/assets/images/categories/v3/Time.svg';
+import ToolsIconV3 from '@/assets/images/categories/v3/Tools.svg';
+import TransportationIconV3 from '@/assets/images/categories/v3/Transportation.svg';
+import TravelIconV3 from '@/assets/images/categories/v3/Travel.svg';
+import VehicleIconV3 from '@/assets/images/categories/v3/Vehicles.svg';
+import WarfareIconV3 from '@/assets/images/categories/v3/Warfare.svg';
+import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
+import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
+
 
 export {
+    ActivitiesIconV3,
+    AirportIconV3,
+    AlphabetIconV3,
+    AnimalIconV3,
+    BodyPartsIconV3,
+    BusinessIconV3,
+    CalendeIconV3,
+    ColorsIconV3,
+    ConstructionIconV3,
+    CountingMathMeasureIconV3,
+    CountryIconV3,
+    CultureIconV3,
+    DeviceIconV3,
+    DirectionIconV3,
+    DiseaseIconV3,
+    DressIconV3,
+    EducationIconV3,
+    EntertainmentIconV3,
+    FamilyIconV3,
+    FlowerIconV3,
+    FoodIconV3,
+    GeographyIconV3,
+    GovernmentIconV3,
+    GreetingsIconV3,
+    HistoryIconV3,
+    HobbyIconV3,
+    HotelIconV3,
+    HouseIconV3,
+    IntroIconV3,
+    InvitationIconV3,
+    LandscapesIconV3,
+    MaterialsIconV3,
+    MedicalIconV3,
+    MusicIconV3,
+    NaturalDisastersIconV3,
+    NatureIconV3,
+    NewspaperIconV3,
+    NumberIconV3,
+    OfficeIconV3,
+    OpinionIconV3,
+    PassportIconV3,
+    PoliticsIconV3,
+    PreferencesIconV3,
+    RestaurantIconV3,
+    ScienceIconV3,
+    SeasonsIconV3,
+    ShoppingIconV3,
+    SpaceIconV3,
+    SportsIconV3,
+    TechnologyIconV3,
+    TeleCommunicationIconV3,
+    TimeIconV3,
+    ToolsIconV3,
+    TransportationIconV3,
+    TravelIconV3,
+    VehicleIconV3,
+    WarfareIconV3,
+    WeatherIconV3,
+    WorkIconV3,
+
     BookIcon,
     BookOpenIcon,
     DolphinIcon,

@@ -40,5 +40,7 @@ const styles = StyleSheet.create({
     margin:0,
     minWidth: 172,
     // minHeight: 172,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 });

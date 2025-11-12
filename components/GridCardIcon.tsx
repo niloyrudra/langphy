@@ -10,6 +10,7 @@ const GridCardIcon = ({ImgComponent}: {ImgComponent: React.FC<SvgProps>}) => {
   return (
     <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.cardIconBackgroundColor}]}>
       <ImgComponent width={SIZES.gridCardIconDimension} height={SIZES.gridCardIconDimension} />
+      {/* <ImgComponent /> */}
     </View>
   );
 }
@@ -20,6 +21,10 @@ const styles = StyleSheet.create({
   imageWrapper: {
     width: SIZES.gridCardIconWrapDimension,
     height: SIZES.gridCardIconWrapDimension,
-    borderRadius: SIZES.gridCardIconWrapDimension/2
+    borderRadius: SIZES.gridCardIconWrapDimension/2,
+    padding: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
   }
 });

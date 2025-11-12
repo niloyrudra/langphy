@@ -26,8 +26,10 @@ const SIZES = {
     fontSizeTextInput: 16,
 
     // Card
-    gridCardIconWrapDimension: 80,
-    gridCardIconDimension: 56
+    // gridCardIconWrapDimension: 80,
+    // gridCardIconDimension: 56
+    gridCardIconWrapDimension: 96,
+    gridCardIconDimension: 72
 }
 
 export default SIZES;

@@ -16,22 +16,16 @@ import { useTheme } from '@/theme/ThemeContext';
 import HorizontalLine from '@/components/HorizontalLine';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import LessonComponent from '@/components/lesson-components/LessonComponent';
-import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
-import {
-  SpeakerIcon, SpeakerAltIcon, SpeakerAltDarkIcon, SpeakerDarkIcon,
-  PreviousBtnLight, PreviousBtnDark, NextBtnLight, NextBtnDark,
-  SpeakerTurtleDarkDeIcon,
-  SpeakerTurtleLightDeIcon
-} from '@/utils/SVGImages';
+// import FloatingDictionaryIcon from '@/components/action-components/FloatingDictionaryIcon';
+
 import { useLocalSearchParams } from 'expo-router';
 import { color_legend, db, speechHandler, stripPunctuationHandler } from '@/utils';
 import { UnitIndividualCategory, WordRole } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
-// import SIZES from '@/constants/size';
 
 const PracticeLessons = () => {
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
   const { rootCategory, unitLessonCategory, slug } = useLocalSearchParams();
   const [data, setData] = useState<UnitIndividualCategory[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);

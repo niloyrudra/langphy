@@ -6,7 +6,7 @@ import STYLES from '@/constants/styles';
 const TitleHeading = ({ title }: { title: string }) => {
     const { colors } = useTheme();
     return (
-        <Text style={[ STYLES.titleHeadingStyle, { color: colors.text }]}>
+        <Text style={[ STYLES.titleHeadingStyle, { color: colors.text, textAlign: 'center' }]}>
             {title}
         </Text>
     );
