@@ -13,13 +13,23 @@ import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 
 import { useLocalSearchParams } from 'expo-router';
 import { db } from '@/utils';
-import { ToolTip, UnitIndividualCategory } from '@/types';
+import { ToolTip, UnitIndividualCategory, UnitIndividualCategoryItem } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
 
 
 interface SessionLayoutProps {
-    children: ReactNode
+    children: (props: {
+      item: UnitIndividualCategoryItem;
+      index: number;
+      data?: UnitIndividualCategory[];
+      currentIndex: number;
+      goToNext?: () => void;
+      goToPrevious?: () => void;
+      wordRefs: React.MutableRefObject<Map<string, any>>;
+      containerRef: React.RefObject<View | null>;
+      setTooltip: (obj: ToolTip) => void
+    }) => ReactNode
 }
 
 const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
@@ -83,21 +93,31 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
         onPress={() => setTooltip(prev => ({ ...prev, visible: false }))}
       >
         <View ref={containerRef} style={{ flex: 1 }}>
-          <FlatList
-            ref={flatListRef}
-            data={data}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal
-            pagingEnabled
-            scrollEnabled={false}
-            showsHorizontalScrollIndicator={false}
-            onMomentumScrollEnd={handleScroll}
-            renderItem={({ item }) => (
-              <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
-                {children && children}
-              </View>
-            )}
-          />
+            <FlatList
+                ref={flatListRef}
+                data={data}
+                keyExtractor={(_, index) => index.toString()}
+                horizontal
+                pagingEnabled
+                scrollEnabled={false}
+                showsHorizontalScrollIndicator={false}
+                onMomentumScrollEnd={handleScroll}
+                renderItem={({ item, index }) => (
+                    <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
+                        {children && children({
+                            item,
+                            index,
+                            // data,
+                            currentIndex,
+                            // goToNext,
+                            // goToPrevious,
+                            wordRefs,
+                            containerRef,
+                            setTooltip
+                        })}
+                    </View>
+                )}
+            />
 
           {/* Floating Tooltip */}
           {tooltip.visible && (
