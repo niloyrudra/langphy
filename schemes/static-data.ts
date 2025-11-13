@@ -283,7 +283,7 @@ export const CATEGORY_DATA_V3 = [
   {
     id: '30',
     title: "Telephone Conversations",
-    slug: "tele_conversations",
+    slug: "tele_conversation",
     ImgComponent: TeleCommunicationIconV3
   },
   {
@@ -343,7 +343,7 @@ export const CATEGORY_DATA_V3 = [
   {
     id: '40',
     title: "Opinions",
-    slug: "opinion",
+    slug: "opinions",
     ImgComponent: OpinionIconV3
   },
   {
@@ -461,18 +461,37 @@ export const CATEGORY_DATA_V3 = [
     ImgComponent: WarfareIconV3
   },
 
+  /*  ******* *********** ********** ********************* */
 
+  {
+    id: '60',
+    title: "Personalities",
+    slug: "personalities",
+    ImgComponent: WarfareIconV3
+  },
+  {
+    id: '61',
+    title: "Accessories",
+    slug: "accessories",
+    ImgComponent: WarfareIconV3
+  },
+  {
+    id: '62',
+    title: "XYZ",
+    slug: "accessories",
+    ImgComponent: WarfareIconV3
+  },
 
   /*  ******* *********** ********** ********************* */
  
   {
-    id: '60',
+    id: '63',
     title: "Grammar",
     slug: "grammar",
     ImgComponent: BookIcon
   },
   {
-    id: '61',
+    id: '64',
     title: "Vocabulary",
     slug: "vocabulary",
     ImgComponent: BookIcon

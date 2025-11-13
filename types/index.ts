@@ -332,7 +332,16 @@ type DB = {
   // add other keys if needed
 };
 
+type ToolTip = {
+  visible: boolean;
+  x: number;
+  y: number;
+  translation: string;
+  color: string;
+}
+
 export {
+  ToolTip,
     Category,
     UnitIndividualCategoryItem,
     UnitIndividualCategory,

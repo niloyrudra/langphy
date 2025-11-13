@@ -1,17 +1,21 @@
 import React from 'react'
 import { UnitIndividualCategory } from '@/types'
-import { FlatList, View } from 'react-native'
+import { ActivityIndicator, FlatList, View } from 'react-native'
 import UnitRectangleCard from '../UnitRectangleCard'
 import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
 import { db } from '@/utils'
+import { useTheme } from '@/theme/ThemeContext'
 
 const UnitCardList = () => {
+  const {colors} = useTheme();
   const { slug, title } = useLocalSearchParams();
   const [data, setData] = React.useState<UnitIndividualCategory[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const loadData = async () => {
+      setLoading(true)
       // unitData is already an array of UnitIndividualCategory
       const unitData = await db[slug as keyof typeof db];
       
@@ -22,10 +26,13 @@ const UnitCardList = () => {
         console.warn(`No data found for slug: ${slug}`);
         setData([]); // fallback
       }
+      setLoading(false)
     };
     if( slug ) loadData();
   }, [slug]);
   
+  if(loading) return (<ActivityIndicator size={32} color={colors.primary} />)
+
   return (
     <>
       <FlatList

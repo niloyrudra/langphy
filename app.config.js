@@ -17,7 +17,8 @@ export default {
       adaptiveIcon: {
         foregroundImage: "./assets/images/splash-screen/logo-light-mode.png",
         backgroundColor: "#F9FAFB"
-      }
+      },
+      package: "com.niloyrudra.langphy"
     },
     web: {
       bundler: "metro",

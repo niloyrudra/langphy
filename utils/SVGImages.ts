@@ -113,7 +113,7 @@ import AirportIconV3 from '@/assets/images/categories/v3/Airport.svg';
 import AlphabetIconV3 from '@/assets/images/categories/v3/Alphabate.svg';
 import AnimalIconV3 from '@/assets/images/categories/v3/Animals.svg';
 import BodyPartsIconV3 from '@/assets/images/categories/v3/Body-Parts.svg';
-import BusinessIconV3 from '@/assets/images/categories/v3/business.svg';
+import BusinessIconV3 from '@/assets/images/categories/v3/Business.svg';
 import CalendeIconV3 from '@/assets/images/categories/v3/Calender.svg';
 import ColorsIconV3 from '@/assets/images/categories/v3/Colors.svg';
 import ConstructionIconV3 from '@/assets/images/categories/v3/Construction.svg';

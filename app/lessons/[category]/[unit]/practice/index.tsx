@@ -20,9 +20,10 @@ import LessonComponent from '@/components/lesson-components/LessonComponent';
 
 import { useLocalSearchParams } from 'expo-router';
 import { color_legend, db, speechHandler, stripPunctuationHandler } from '@/utils';
-import { UnitIndividualCategory, WordRole } from '@/types';
+import { ToolTip, UnitIndividualCategory, WordRole } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
+import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 
 const PracticeLessons = () => {
   const { colors } = useTheme();
@@ -31,13 +32,7 @@ const PracticeLessons = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   // floating tooltip info
-  const [tooltip, setTooltip] = useState<{
-    visible: boolean;
-    x: number;
-    y: number;
-    translation: string;
-    color: string;
-  }>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
+  const [tooltip, setTooltip] = useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
 
   const flatListRef = useRef<FlatList>(null);
   const wordRefs = useRef<Map<string, any>>(new Map());
@@ -49,7 +44,7 @@ const PracticeLessons = () => {
       const unitData = await db[rootCategory as keyof typeof db];
       if (Array.isArray(unitData)) {
         const unitSpecificData = unitData.filter(item => item.category === unitLessonCategory);
-        setData(unitSpecificData[0]?.items || []);
+        setData((unitSpecificData[0] as any)?.items || []);
       } else {
         console.warn(`No data found for slug: ${rootCategory}`);
         setData([]);
@@ -123,113 +118,14 @@ const PracticeLessons = () => {
                     buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
                     speechContent={item?.phrase}
                     speechLang="de-DE"
-                  > 
-                    {item?.phrase.split('/').map((content: string, idx: number) => {
-                      const wordArr = content?.trim()?.split(" ")
-                      const roleArr = item?.analysis?.roles
-
-                      return (
-
-                        <View key={idx} style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
-
-                          {wordArr.map((word: string, wIdx: number) => {
-                            const key = word.trim();
-                            const cleanKey = stripPunctuationHandler(key).toLocaleLowerCase(); // Stripping Punctuation from the Splitted words before comparing
-                            let role = ''
-                            let translation = ''
-                            if( roleArr?.length ) {
-                              const roles = roleArr?.find((keyItem: WordRole) => stripPunctuationHandler(keyItem?.word).toLocaleLowerCase() === cleanKey );
-                              role = roles?.role;
-                              translation = roles?.translation;
-                            }
-                            else translation = item?.name || item?.meaning
-
-
-                            const colorForWord = role && color_legend[role as keyof typeof color_legend] ? color_legend[role as keyof typeof color_legend] : colors.textDark;
-
-                            return (
-                              <TouchableOpacity
-                                key={wIdx}
-                                ref={(r) => {
-                                  const mapKey = `${idx}-${wIdx}`;
-                                  if (r) {
-                                    wordRefs.current.set(mapKey, r);
-                                  } else {
-                                    wordRefs.current.delete(mapKey);
-                                  }
-                                }}
-                                style={{
-                                  marginRight: 6,
-                                  borderBottomWidth: 1,
-                                  borderStyle: "dashed",
-                                  borderBottomColor: '#1B7CF5',
-                                  marginBottom: 10,
-                                }}
-
-                                onPress={() => {
-                                  speechHandler(key, "de-DE");
-
-                                  const mapKey = `${idx}-${wIdx}`;
-                                  const node = wordRefs.current.get(mapKey);
-                                  if (!node) return;
-
-                                  // helper to call measureInWindow on a node ref (prefers instance method)
-                                  const measureInWindowSafe = (refNode: any, cb: (x:number,y:number,w:number,h:number)=>void) => {
-                                    if (!refNode) return;
-                                    if (typeof refNode.measureInWindow === 'function') {
-                                      // instance method (preferred, not deprecated in usage)
-                                      (refNode as any).measureInWindow(cb);
-                                      return;
-                                    }
-                                    // fallback for older RN versions: use findNodeHandle + UIManager.measureInWindow (may be deprecated in types)
-                                    const handle = findNodeHandle(refNode);
-                                    if (!handle) return;
-                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                    // @ts-ignore - using UIManager.measureInWindow fallback
-                                    UIManager.measureInWindow(handle, cb);
-                                  };
-
-                                  // Measure the pressed word
-                                  measureInWindowSafe(node, (wordX, wordY, wordW, wordH) => {
-                                    // Measure the container to convert window coords -> container local coords
-                                    const containerNode = containerRef.current;
-                                    if (!containerNode) {
-                                      // If container not available, fallback to using window coords directly
-                                      setTooltip({
-                                        visible: true,
-                                        x: wordX,
-                                        y: wordY + wordH + 4,
-                                        translation: translation || "",
-                                        color: colorForWord,
-                                      });
-                                      return;
-                                    }
-
-                                    measureInWindowSafe(containerNode, (contX, contY, contW, contH) => {
-                                      const gap = 6;
-                                      const relativeTop = wordY - contY + wordH + gap;
-                                      // Optionally shift left if tooltip would overflow later (not shown here)
-                                      setTooltip({
-                                        visible: true,
-                                        x: Math.max(6, wordX - contX), // keep at least 6px left padding in container
-                                        y: relativeTop,
-                                        translation: translation || "",
-                                        color: colorForWord,
-                                      });
-                                    });
-                                  });
-                                }}
-
-                              >
-                                <Text style={[styles.mainText, { color: colorForWord }]}>{key}</Text>
-                              </TouchableOpacity>
-                            );
-                          })}
-
-                        </View>
-
-                      )}
-                    )}
+                  >
+                    {/* Tappable Words with ToolTip */}
+                    <ToolTipPerWordComponent
+                      onHandler={setTooltip}
+                      item={item}
+                      containerRef={containerRef}
+                      wordRefs={wordRefs}
+                    />
 
                     {/* Sentence Footer */}
                     <View>
