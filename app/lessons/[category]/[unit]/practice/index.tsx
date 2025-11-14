@@ -52,6 +52,7 @@ const PracticeLessons = () => {
                 item={item}
                 containerRef={containerRef}
                 wordRefs={wordRefs}
+                textContainerStyle={{marginBottom: 10}}
               />
 
               {/* Sentence Footer */}
@@ -98,12 +99,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     marginTop: 10
-  },
-  navButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: sizes.bodyPaddingHorizontal,
-    marginTop: 10,
   }
 });

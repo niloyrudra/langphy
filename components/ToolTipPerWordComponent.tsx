@@ -1,7 +1,7 @@
-import { findNodeHandle, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { findNodeHandle, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import React from 'react'
-import { ToolTip, UnitIndividualCategory, UnitIndividualCategoryItem, WordRole } from '@/types'
-import { color_legend, db, speechHandler, stripPunctuationHandler } from '@/utils'
+import { ToolTip, UnitIndividualCategoryItem, WordRole } from '@/types'
+import { color_legend, speechHandler, stripPunctuationHandler } from '@/utils'
 import { useTheme } from '@/theme/ThemeContext'
 // import { useLocalSearchParams } from 'expo-router'
 
@@ -10,9 +10,11 @@ interface ToolTipPerWordProps {
     onHandler: (value: ToolTip | ((prev: ToolTip) => ToolTip)) => void,
     wordRefs: React.RefObject<Map<string, any>>,
     containerRef: React.RefObject<View | null>,
+    textContainerStyle?: StyleProp<ViewStyle>
+    textStyle?: StyleProp<TextStyle>
 }
 
-const ToolTipPerWordComponent: React.FC<ToolTipPerWordProps> = ({item, onHandler, wordRefs, containerRef}) => {
+const ToolTipPerWordComponent: React.FC<ToolTipPerWordProps> = ({item, onHandler, wordRefs, containerRef, textContainerStyle, textStyle}) => {
     const { colors } = useTheme();
 
     // floating tooltip info
@@ -27,7 +29,7 @@ const ToolTipPerWordComponent: React.FC<ToolTipPerWordProps> = ({item, onHandler
                 const wordArr = content?.trim()?.split(" ")
                 const roleArr = item?.analysis?.roles
                 return (
-                    <View key={idx} style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
+                    <View key={idx} style={[{ flexDirection: 'row', flexWrap: 'wrap' }, ( textContainerStyle && textContainerStyle )]}>
 
                         {wordArr.map((word: string, wIdx: number) => {
                             const key = word.trim();
@@ -117,7 +119,7 @@ const ToolTipPerWordComponent: React.FC<ToolTipPerWordProps> = ({item, onHandler
                                         });
                                     }}
                                 >
-                                    <Text style={[styles.mainText, { color: colorForWord }]}>{key}</Text>
+                                    <Text style={[styles.mainText, { color: colorForWord }, (textStyle && textStyle)]}>{key}</Text>
                                 </TouchableOpacity>
                             );
                         })}

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 
@@ -18,6 +18,4 @@ const ChallengeScreenTitle = ({title}: {title: string}) => {
   )
 }
 
-export default ChallengeScreenTitle
-
-const styles = StyleSheet.create({})
+export default ChallengeScreenTitle;

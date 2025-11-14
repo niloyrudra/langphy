@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import SIZES from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
@@ -10,7 +10,13 @@ import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
+import SessionLayout from '@/components/layouts/SessionLayout';
+import SpeakerComponent from '@/components/SpeakerComponent';
+import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 
+const query=`Zu meiner Familie gehören vier Personen. Die Mutter bin ich und dann gehört natürlich mein Mann dazu. Wir haben zwei Kinder, einen Sohn, der sechs Jahre alt ist und eine dreijährige Tochter.`
+                
+const query2=`Wir wohnen in einem kleinen Haus mit einem Garten. Dort können die Kinder ein bisschen spielen. Unser Sohn kommt bald in die Schule, unsere Tochter geht noch eine Zeit lang in den Kindergarten. Meine Kinder sind am Nachmittag zu Hause. So arbeite ich nur halbtags.`;
 
 const ReadingLessons = () => {
   const { colors } = useTheme();
@@ -35,66 +41,94 @@ const ReadingLessons = () => {
   };
 
   return (
-    <SafeAreaLayout>
+    <SessionLayout>
 
-        {/* Content */}
-        <View style={{flex: 1}}>
+      {({ item, wordRefs, containerRef, setTooltip }) => {
 
+        const handleTooltip = (value: any) => {
+          setTooltip(value);
+        };
+
+        // item.phrase = query + ' ' + query2;
+
+        return (
           <View style={{flex: 1}}>
-            {/* Title Section */}
-            <ChallengeScreenTitle title="Read The Comprehension." />
 
-            {/* Writing Section Starts */}
-            <ChallengeScreenQuerySection
-              style={{
-                marginBottom: 0
-              }}
-              buttonStyle={{
-                width: SIZES.screenWidth - (SIZES.bodyPaddingHorizontal*2),
-                justifyContent:"flex-start",
-                alignItems:"flex-start",
-              }}
-              textStyle={{
-                fontSize: 12
-              }}
-              query="Zu meiner Familie gehören vier Personen. Die Mutter bin ich und dann gehört natürlich mein Mann dazu. Wir haben zwei Kinder, einen Sohn, der sechs Jahre alt ist und eine dreijährige Tochter.
-              
-              Wir wohnen in einem kleinen Haus mit einem Garten. Dort können die Kinder ein bisschen spielen. Unser Sohn kommt bald in die Schule, unsere Tochter geht noch eine Zeit lang in den Kindergarten. Meine Kinder sind am Nachmittag zu Hause. So arbeite ich nur halbtags.
-              "
-              
-              onTap={() => console.log("Tapping Query Button")}
-            />
+            <View style={{flex: 1}}>
+              {/* Title Section */}
+              <ChallengeScreenTitle title="Read The Comprehension." />
 
-            <HorizontalLine />
+                <View
+                  style={[
+                    styles.container
+                  ]}
+                >
+                  {/* Query Listen with Query Text Section */}
+                  <SpeakerComponent
+                      speechContent={item?.phrase}
+                      speechLang='de-DE'
+                  />
+                          
+                  {/* Tappable Words with ToolTip */}
+                  <ToolTipPerWordComponent
+                    onHandler={handleTooltip}
+                    item={item}
+                    containerRef={containerRef}
+                    wordRefs={wordRefs}
+                    textContainerStyle={{
+                      width: SIZES.screenWidth - 90
+                    }}
+                    textStyle={{
 
-            <View
-              style={{
-                flex: 1
-              }}
-            >
-              <View style={{marginBottom:10}}>
-                <Text style={{fontSize: 16, color: colors.text, fontWeight:"700"}}>How would you reckon someone?</Text>
+                      fontSize: 14,
+                      flexWrap: 'wrap'
+                    }}
+                  />
+                </View>
+
+              <HorizontalLine />
+
+              <View
+                style={{
+                  flex: 1
+                }}
+              >
+                <View style={{marginBottom:10}}>
+                  <Text style={{fontSize: 16, color: colors.text, fontWeight:"700"}}>How would you reckon someone?</Text>
+                </View>
+
+                {/* QUIZ Answer Options */}
+                <QuizOptionCardList height={cardWidth / 2} onSelect={handleSelect} isSelectionHappened={isSelectionHappened} />
+                {/* <QuizAnswerOptionGrid /> */}
+
               </View>
-
-              {/* QUIZ Answer Options */}
-              <QuizOptionCardList height={cardWidth / 2} onSelect={handleSelect} isSelectionHappened={isSelectionHappened} />
-              {/* <QuizAnswerOptionGrid /> */}
 
             </View>
 
+            {/* Action Buttons */}
+            {/* <ActionPrimaryButton
+              buttonTitle='Check'
+              onSubmit={() => console.log("Submitted")}
+              disabled={!selectedOption ? true : false }
+            /> */}
+
           </View>
-
-          {/* Action Buttons */}
-          <ActionPrimaryButton
-            buttonTitle='Check'
-            onSubmit={() => console.log("Submitted")}
-            disabled={!selectedOption ? true : false }
-          />
-
-        </View>
-
-    </SafeAreaLayout>
+        )
+      }}
+    </SessionLayout>              
   );
 }
 
 export default ReadingLessons;
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 30,
+        marginBottom: 0,
+        position: 'relative',
+        flexDirection: "row",
+        justifyContent: 'flex-start',
+        alignItems: "flex-start",
+        gap: 20
+    }
+})
