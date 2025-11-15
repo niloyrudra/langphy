@@ -28,6 +28,7 @@ const UnitRectangleCard: React.FC<UnitCategoryItemProps> = ({ title, unitLessonC
         
         <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
           <ImgComponent width={49} height={49} />
+          {/* <ImgComponent width={60} height={60} /> */}
         </View>
 
         <Title title={title} />

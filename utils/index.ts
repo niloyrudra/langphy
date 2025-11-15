@@ -1,7 +1,7 @@
 import SIZES from "@/constants/size";
 import dbJson from '@/db/db.json'; // or .ts export
 import { ColorLegend, DB } from "@/types";
-import { BookOpenIcon } from '@/utils/SVGImages'
+import { UnitListIconV3 } from '@/utils/SVGImages'
 import * as Speech from 'expo-speech'
 // import * as SpeechRecognition from "expo-speech-recognition";
 
@@ -149,7 +149,7 @@ export  const speechSlowHandler = async (
 //     category_slug: cat.category_slug,
 //     goal: cat.goal,
 //     completion: cat.completion,
-//     ImgComponent: BookOpenIcon,
+//     ImgComponent: UnitListIconV3,
 //     items: cat.items?.map((item: any) => ({
 //       ...item,
 //       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -164,7 +164,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -177,7 +177,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -190,7 +190,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -203,7 +203,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -216,7 +216,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -229,7 +229,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -242,7 +242,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -255,7 +255,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -268,7 +268,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -281,7 +281,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -294,7 +294,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -307,7 +307,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -320,7 +320,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -333,7 +333,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -346,7 +346,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -359,7 +359,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -372,7 +372,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -385,7 +385,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -398,7 +398,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -411,7 +411,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -424,7 +424,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -437,7 +437,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -450,7 +450,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -463,7 +463,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -476,7 +476,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -489,7 +489,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -502,7 +502,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -515,7 +515,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -528,7 +528,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -541,7 +541,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -554,7 +554,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -567,7 +567,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -580,7 +580,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -593,7 +593,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -606,7 +606,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -619,7 +619,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -632,7 +632,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -645,7 +645,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -658,7 +658,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -671,7 +671,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -684,7 +684,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -697,7 +697,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -710,7 +710,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -723,7 +723,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -736,7 +736,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -749,7 +749,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -762,7 +762,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -775,7 +775,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -788,7 +788,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -801,7 +801,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -814,7 +814,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -827,7 +827,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -840,7 +840,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -853,7 +853,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -866,7 +866,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -879,7 +879,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -892,7 +892,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -905,7 +905,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -918,7 +918,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -931,7 +931,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -944,7 +944,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -957,7 +957,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -970,7 +970,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",
@@ -983,7 +983,7 @@ export const db: DB = {
     category_slug: cat.category_slug,
     goal: cat.goal,
     completion: cat.completion,
-    ImgComponent: BookOpenIcon,
+    ImgComponent: UnitListIconV3,
     items: cat.items?.map((item: any) => ({
       ...item,
       formality: item.formality as "formal" | "informal" | "neutral" | "both",

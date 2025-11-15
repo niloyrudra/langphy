@@ -42,7 +42,7 @@
 
 
 import React from 'react';
-import { UnitLesson, UnitLessonProps } from '@/types';
+import { UnitLesson } from '@/types';
 import SIZES from '@/constants/size';
 import GridLayout from '../layouts/GridLayout';
 import { LESSON_UNIT_DATA } from '@/schemes/static-data'

@@ -21,7 +21,7 @@ const QuizOptionCardList = ({ height, isSelectionHappened, onSelect}: { height?:
           onSelect={onSelect}
           containerWidth={cardWidth}
           marginRight={(parseInt(id) % 2 !== 0) ? SIZES.cardGap : 0}
-          customStyle={[(height && {height: height})]}
+          customStyle={[...(height && [{height: height}] || [])]}
         />
       )}
     />

@@ -5,11 +5,8 @@ import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
 // Components
 import HorizontalLine from '@/components/HorizontalLine';
-import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
-import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';

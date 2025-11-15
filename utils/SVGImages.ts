@@ -108,9 +108,10 @@ import SoundWaveLightIcon from "@/assets/images/sound-waves/sound-wave-light.svg
 /**
  * V3 - Category Icons
  */
+import AccessoriesIconV3 from '@/assets/images/categories/v3/Accessesories.svg';
 import ActivitiesIconV3 from '@/assets/images/categories/v3/Activities.svg';
 import AirportIconV3 from '@/assets/images/categories/v3/Airport.svg';
-import AlphabetIconV3 from '@/assets/images/categories/v3/Alphabate.svg';
+import AlphabetIconV3 from '@/assets/images/categories/v3/Alphabates.svg';
 import AnimalIconV3 from '@/assets/images/categories/v3/Animals.svg';
 import BodyPartsIconV3 from '@/assets/images/categories/v3/Body-Parts.svg';
 import BusinessIconV3 from '@/assets/images/categories/v3/Business.svg';
@@ -128,8 +129,8 @@ import DressIconV3 from '@/assets/images/categories/v3/Dress.svg';
 import EducationIconV3 from '@/assets/images/categories/v3/Education.svg';
 import EntertainmentIconV3 from '@/assets/images/categories/v3/Entertainment.svg';
 import FamilyIconV3 from '@/assets/images/categories/v3/Family.svg';
-import FlowerIconV3 from '@/assets/images/categories/v3/Flower.svg';
-import FoodIconV3 from '@/assets/images/categories/v3/Food-and-Drink.svg';
+import FlowerIconV3 from '@/assets/images/categories/v3/Flowers.svg';
+import FoodIconV3 from '@/assets/images/categories/v3/Food.svg';
 import GeographyIconV3 from '@/assets/images/categories/v3/Geography.svg';
 import GovernmentIconV3 from '@/assets/images/categories/v3/Goverment.svg';
 import GreetingsIconV3 from '@/assets/images/categories/v3/Greetings.svg';
@@ -140,23 +141,29 @@ import HouseIconV3 from '@/assets/images/categories/v3/House.svg';
 import IntroIconV3 from '@/assets/images/categories/v3/Introduction.svg';
 import InvitationIconV3 from '@/assets/images/categories/v3/Invitation.svg';
 import LandscapesIconV3 from '@/assets/images/categories/v3/Landscape.svg';
+import ListeningIconV3 from '@/assets/images/categories/v3/Listening.svg';
 import MaterialsIconV3 from '@/assets/images/categories/v3/Materials.svg';
 import MedicalIconV3 from '@/assets/images/categories/v3/Medical.svg';
 import MusicIconV3 from '@/assets/images/categories/v3/Music.svg';
 import NaturalDisastersIconV3 from '@/assets/images/categories/v3/Natural-Disaster.svg';
 import NatureIconV3 from '@/assets/images/categories/v3/Nature.svg';
 import NewspaperIconV3 from '@/assets/images/categories/v3/Newspaper.svg';
-import NumberIconV3 from '@/assets/images/categories/v3/Number.svg';
+import NumberIconV3 from '@/assets/images/categories/v3/Numbers.svg';
 import OfficeIconV3 from '@/assets/images/categories/v3/Office.svg';
 import OpinionIconV3 from '@/assets/images/categories/v3/Opinion.svg';
 import PassportIconV3 from '@/assets/images/categories/v3/Passport.svg';
+import PersonalitiesIconV3 from '@/assets/images/categories/v3/Personalities.svg';
 import PoliticsIconV3 from '@/assets/images/categories/v3/Politics.svg';
+import PracticeIconV3 from '@/assets/images/categories/v3/Practice.svg';
 import PreferencesIconV3 from '@/assets/images/categories/v3/Preference.svg';
+import QuizIconV3 from '@/assets/images/categories/v3/Quiz.svg';
+import ReadingIconV3 from '@/assets/images/categories/v3/Reading.svg';
 import RestaurantIconV3 from '@/assets/images/categories/v3/Restaurant.svg';
 import ScienceIconV3 from '@/assets/images/categories/v3/science.svg';
 import SeasonsIconV3 from '@/assets/images/categories/v3/Season.svg';
 import ShoppingIconV3 from '@/assets/images/categories/v3/Shopping.svg';
 import SpaceIconV3 from '@/assets/images/categories/v3/Space.svg';
+import SpeakingIconV3 from '@/assets/images/categories/v3/Speaking.svg';
 import SportsIconV3 from '@/assets/images/categories/v3/Sports.svg';
 import TechnologyIconV3 from '@/assets/images/categories/v3/Technology.svg';
 import TeleCommunicationIconV3 from '@/assets/images/categories/v3/Telephone-conversation.svg';
@@ -164,13 +171,16 @@ import TimeIconV3 from '@/assets/images/categories/v3/Time.svg';
 import ToolsIconV3 from '@/assets/images/categories/v3/Tools.svg';
 import TransportationIconV3 from '@/assets/images/categories/v3/Transportation.svg';
 import TravelIconV3 from '@/assets/images/categories/v3/Travel.svg';
+import UnitListIconV3 from '@/assets/images/categories/v3/Unit-List-Icon.svg';
 import VehicleIconV3 from '@/assets/images/categories/v3/Vehicles.svg';
 import WarfareIconV3 from '@/assets/images/categories/v3/Warfare.svg';
 import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
+import WritingIconV3 from '@/assets/images/categories/v3/Writing.svg';
 import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
 
 
 export {
+    AccessoriesIconV3,
     ActivitiesIconV3,
     AirportIconV3,
     AlphabetIconV3,
@@ -181,6 +191,7 @@ export {
     ColorsIconV3,
     ConstructionIconV3,
     CountingMathMeasureIconV3,
+    CountingIconV3,
     CountryIconV3,
     CultureIconV3,
     DeviceIconV3,
@@ -202,6 +213,7 @@ export {
     IntroIconV3,
     InvitationIconV3,
     LandscapesIconV3,
+    ListeningIconV3,
     MaterialsIconV3,
     MedicalIconV3,
     MusicIconV3,
@@ -212,13 +224,18 @@ export {
     OfficeIconV3,
     OpinionIconV3,
     PassportIconV3,
+    PersonalitiesIconV3,
     PoliticsIconV3,
+    PracticeIconV3,
     PreferencesIconV3,
+    QuizIconV3,
+    ReadingIconV3,
     RestaurantIconV3,
     ScienceIconV3,
     SeasonsIconV3,
     ShoppingIconV3,
     SpaceIconV3,
+    SpeakingIconV3,
     SportsIconV3,
     TechnologyIconV3,
     TeleCommunicationIconV3,
@@ -226,9 +243,11 @@ export {
     ToolsIconV3,
     TransportationIconV3,
     TravelIconV3,
+    UnitListIconV3,
     VehicleIconV3,
     WarfareIconV3,
     WeatherIconV3,
+    WritingIconV3,
     WorkIconV3,
 
     BookIcon,
