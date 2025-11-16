@@ -147,7 +147,7 @@ import MedicalIconV3 from '@/assets/images/categories/v3/Medical.svg';
 import MusicIconV3 from '@/assets/images/categories/v3/Music.svg';
 import NaturalDisastersIconV3 from '@/assets/images/categories/v3/Natural-Disaster.svg';
 import NatureIconV3 from '@/assets/images/categories/v3/Nature.svg';
-import NewspaperIconV3 from '@/assets/images/categories/v3/Newspaper.svg';
+import NewspaperIconV3 from '@/assets/images/categories/v3/News.svg';
 import NumberIconV3 from '@/assets/images/categories/v3/Numbers.svg';
 import OfficeIconV3 from '@/assets/images/categories/v3/Office.svg';
 import OpinionIconV3 from '@/assets/images/categories/v3/Opinion.svg';
