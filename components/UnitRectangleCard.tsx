@@ -4,7 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 // import { useRouteInfo } from 'expo-router/build/hooks';
 
 import Title from './Title';
-import { UnitCategoryItemProps, UnitProps } from '@/types';
+import { UnitCategoryItemProps } from '@/types';
 import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
@@ -16,19 +16,14 @@ const UnitRectangleCard: React.FC<UnitCategoryItemProps> = ({ title, unitLessonC
   const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
 
-  // const nodes = useRouteInfo()
-
-  // console.log("lessons/[category]", nodes?.params)
-
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: `/lessons/${category}/${title.toLowerCase()}`, params: { title: title, rootCategory: rootCategory, unitLessonCategory: unitLessonCategory, completion: completion, goal: goal } } )}
+      onPress={() => router.push({ pathname: `/lessons/${String(category).toLowerCase()}/${String(title).toLowerCase()}`, params: { title: title, rootCategory: rootCategory, unitLessonCategory: unitLessonCategory, completion: completion, goal: goal } } )}
     >
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         
         <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
           <ImgComponent width={49} height={49} />
-          {/* <ImgComponent width={60} height={60} /> */}
         </View>
 
         <Title title={title} />
@@ -41,6 +36,7 @@ const UnitRectangleCard: React.FC<UnitCategoryItemProps> = ({ title, unitLessonC
     </TouchableOpacity>
   );
 }
+export default UnitRectangleCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -76,5 +72,3 @@ const styles = StyleSheet.create({
     width: 52
   }
 });
-
-export default UnitRectangleCard;
