@@ -429,7 +429,7 @@ export const CATEGORY_DATA_V3 = [
   {
     id: '53',
     title: "Natural Disasters",
-    slug: "natural_disaster",
+    slug: "natural_disasters",
     ImgComponent: NaturalDisastersIconV3
   },
   {

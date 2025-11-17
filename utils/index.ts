@@ -171,6 +171,18 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+  construction: dbJson?.construction?.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: UnitListIconV3,
+    items: cat.items?.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
 
   greetings: dbJson?.greetings?.map((cat: any) => ({
     category: cat.category,
