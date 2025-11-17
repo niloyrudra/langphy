@@ -317,6 +317,7 @@ type DB = {
   government_diplomacy: UnitIndividualCategory[];
   hobbies: UnitIndividualCategory[];
   warfare: UnitIndividualCategory[];
+  news: UnitIndividualCategory[];
   nature: UnitIndividualCategory[];
   natural_disasters: UnitIndividualCategory[];
   music: UnitIndividualCategory[];

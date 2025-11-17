@@ -1,5 +1,6 @@
 import SIZES from "@/constants/size";
-import dbJson from '@/db/db.json'; // or .ts export
+import dbJsonRaw from '@/db/db.json'; // or .ts export
+const dbJson: any = dbJsonRaw;
 import { ColorLegend, DB } from "@/types";
 import { UnitListIconV3 } from '@/utils/SVGImages'
 import * as Speech from 'expo-speech'
@@ -171,7 +172,21 @@ export const db: DB = {
       german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
     }))
   })),
+
   construction: dbJson?.construction?.map((cat: any) => ({
+    category: cat.category,
+    category_slug: cat.category_slug,
+    goal: cat.goal,
+    completion: cat.completion,
+    ImgComponent: UnitListIconV3,
+    items: cat.items?.map((item: any) => ({
+      ...item,
+      formality: item.formality as "formal" | "informal" | "neutral" | "both",
+      german_level: item.german_level as "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
+    }))
+  })),
+
+  news: dbJson?.news?.map((cat: any) => ({
     category: cat.category,
     category_slug: cat.category_slug,
     goal: cat.goal,

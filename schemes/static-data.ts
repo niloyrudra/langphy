@@ -453,7 +453,7 @@ export const CATEGORY_DATA_V3 = [
   {
     id: '57',
     title: "Government & Diplomacy",
-    slug: "government",
+    slug: "government_diplomacy",
     ImgComponent: GovernmentIconV3
   },
   {
