@@ -464,7 +464,7 @@ export const CATEGORY_DATA_V3 = [
   },
   {
     id: '59',
-    title: "Warfare",
+    title: "Defence, Missions, Battelions",
     slug: "warfare",
     ImgComponent: WarfareIconV3
   },
