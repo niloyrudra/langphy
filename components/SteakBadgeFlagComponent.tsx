@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         gap: 7,
-        borderWidth: 1,
-        borderColor: "#68F0F8",
-        paddingVertical: 4,
-        paddingHorizontal: 6,
-        borderRadius: 12,
-        height: 36,
+        // borderWidth: 1,
+        // borderColor: "#68F0F8",
+        // paddingVertical: 4,
+        // paddingHorizontal: 6,
+        // borderRadius: 12,
+        // height: 36,
     }
 });

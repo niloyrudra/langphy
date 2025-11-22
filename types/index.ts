@@ -4,16 +4,19 @@ import { ColorValue, ImageBackgroundProps, ImageSourcePropType, InputModeOptions
 import { SvgProps } from "react-native-svg"
 
 type Category = {
-  id: string,
+  // id: string,
+  _id: string,
   title: string,
   slug: string,
-  ImgComponent: React.FC<SvgProps>
+  position_at: string
+  // ImgComponent: React.FC<SvgProps>
 }
 
 type CategoryProps = {
+    cat_id: string,
     title: string,
     slug: string,
-    ImgComponent: React.FC<SvgProps>,
+    ImgComponent?: React.FC<SvgProps>,
     containerWidth?: number
     marginRight?: number
 }
@@ -55,7 +58,7 @@ type UnitCategoryItemProps = {
     rootCategory: string,
     completion: number,
     goal: number,
-    ImgComponent: React.FC<SvgProps>,
+    ImgComponent?: React.FC<SvgProps>,
     // imgSource: ImageSourcePropType | undefined,
     customStyle?: StyleProp<ViewStyle>,
     // items: any[]
@@ -265,33 +268,33 @@ type UnitIndividualCategory = {
 };
 
 type DB = {
+  accessories: UnitIndividualCategory[];
   alphabets: UnitIndividualCategory[];
-  greetings: UnitIndividualCategory[];
-  introduction: UnitIndividualCategory[];
+  animals: UnitIndividualCategory[];
+  body_parts: UnitIndividualCategory[];
   colors: UnitIndividualCategory[];
   construction: UnitIndividualCategory[];
-  numbers: UnitIndividualCategory[];
-  count_math_measurement: UnitIndividualCategory[];
-  body_parts: UnitIndividualCategory[];
+  devices: UnitIndividualCategory[];
+  office_corporates: UnitIndividualCategory[];
+  festivals: UnitIndividualCategory[];
+  embbacy_passport: UnitIndividualCategory[];
+  contructions: UnitIndividualCategory[];
+  count_measurement: UnitIndividualCategory[];
+  introduction: UnitIndividualCategory[];
   locations: UnitIndividualCategory[];
-  travels: UnitIndividualCategory[];
+  greetings: UnitIndividualCategory[];
   landscape: UnitIndividualCategory[];
   flowers: UnitIndividualCategory[];
   countries: UnitIndividualCategory[];
-  work: UnitIndividualCategory[];
   opinions: UnitIndividualCategory[];
   invitations: UnitIndividualCategory[];
   technology: UnitIndividualCategory[];
   education: UnitIndividualCategory[];
-  school: UnitIndividualCategory[];
   preference: UnitIndividualCategory[];
   time: UnitIndividualCategory[];
   family: UnitIndividualCategory[];
   house: UnitIndividualCategory[];
   calendar: UnitIndividualCategory[];
-  seasons: UnitIndividualCategory[];
-  weather: UnitIndividualCategory[];
-  sports: UnitIndividualCategory[];
   activities: UnitIndividualCategory[];
   business_and_services: UnitIndividualCategory[];
   airport: UnitIndividualCategory[];
@@ -299,9 +302,10 @@ type DB = {
   hotel: UnitIndividualCategory[];
   restaurant: UnitIndividualCategory[];
   foods: UnitIndividualCategory[];
+  math: UnitIndividualCategory[];
   health: UnitIndividualCategory[];
+  materials: UnitIndividualCategory[];
   medical_emergency: UnitIndividualCategory[];
-  animals: UnitIndividualCategory[];
   shopping: UnitIndividualCategory[];
   dresses: UnitIndividualCategory[];
   tools: UnitIndividualCategory[];
@@ -316,22 +320,19 @@ type DB = {
   geography: UnitIndividualCategory[];
   government_diplomacy: UnitIndividualCategory[];
   hobbies: UnitIndividualCategory[];
-  warfare: UnitIndividualCategory[];
-  news: UnitIndividualCategory[];
-  nature: UnitIndividualCategory[];
-  natural_disasters: UnitIndividualCategory[];
   music: UnitIndividualCategory[];
-  devices: UnitIndividualCategory[];
-  materials: UnitIndividualCategory[];
-  accessories: UnitIndividualCategory[];
-  office_corporates: UnitIndividualCategory[];
-  festivals: UnitIndividualCategory[];
-  contructions: UnitIndividualCategory[];
+  natural_disasters: UnitIndividualCategory[];
+  nature: UnitIndividualCategory[];
+  news: UnitIndividualCategory[];
+  numbers: UnitIndividualCategory[];
+  space: UnitIndividualCategory[];
+  seasons: UnitIndividualCategory[];
+  sports: UnitIndividualCategory[];
   tele_conversation: UnitIndividualCategory[];
-  post_office: UnitIndividualCategory[];
-  embbacy_passport: UnitIndividualCategory[];
-  space_astronomy: UnitIndividualCategory[];
-  // add other keys if needed
+  travels: UnitIndividualCategory[];
+  warfare: UnitIndividualCategory[];
+  weather: UnitIndividualCategory[];
+  work: UnitIndividualCategory[];
 };
 
 type ToolTip = {

@@ -11,9 +11,9 @@ const ToggleColorThemeComponent = () => {
         <TouchableOpacity onPress={toggleTheme}>
             {
                 theme === 'light' ?
-                (<MaterialIcons name="dark-mode" size={sizes.headerIcon} color={colors.themeIconColor} />) // (<Entypo name="moon" size={sizes.headerIcon} color={colors.themeIconColor} />)
+                (<MaterialIcons name="dark-mode" size={sizes.headerIcon - 5 } color={colors.themeIconColor} />) // (<Entypo name="moon" size={sizes.headerIcon} color={colors.themeIconColor} />)
                 :
-                (<MaterialIcons name="light-mode" size={sizes.headerIcon} color={colors.themeIconColor} />)
+                (<MaterialIcons name="light-mode" size={sizes.headerIcon - 5 } color={colors.themeIconColor} />)
             }
         </TouchableOpacity>
     )

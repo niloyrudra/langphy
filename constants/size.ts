@@ -28,7 +28,7 @@ const SIZES = {
     // Card
     // gridCardIconWrapDimension: 80,
     // gridCardIconDimension: 56
-    gridCardIconWrapDimension: 96,
+    gridCardIconWrapDimension: 90,
     gridCardIconDimension: 76
 }
 

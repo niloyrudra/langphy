@@ -8,7 +8,7 @@ const headerRightComponent = () => {
   return (
     <View style={styles.container}>
         <SteakBadgeFlagComponent />
-        <ToggleColorThemeComponent />
+        {/* <ToggleColorThemeComponent /> */}
         <SettingsButton />
     </View>
   )
@@ -18,7 +18,8 @@ export default headerRightComponent
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection:"row",
-        gap: 16
+      flexDirection:"row",
+      gap: 10,
+      alignItems: "center"
     }
 })

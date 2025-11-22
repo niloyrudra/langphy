@@ -4,13 +4,19 @@ import STYLES from '@/constants/styles'
 import { SvgProps } from 'react-native-svg'
 import { useTheme } from '@/theme/ThemeContext'
 import SIZES from '@/constants/size'
+import { categoryIcon } from '@/utils'
 
-const GridCardIcon = ({ImgComponent}: {ImgComponent: React.FC<SvgProps>}) => {
+const GridCardIcon = ({slug}: {slug: string}) => {
   const { colors } = useTheme();
+
+  const ImgComponent = categoryIcon[slug as keyof typeof categoryIcon];
+  if (!ImgComponent) {
+    console.warn(`Icon not found for slug: ${slug}`);
+    return null; // or a default placeholder icon
+  }
   return (
     <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.cardIconBackgroundColor}]}>
-      <ImgComponent width={SIZES.gridCardIconDimension} height={SIZES.gridCardIconDimension} />
-      {/* <ImgComponent /> */}
+      {ImgComponent && (<ImgComponent width={SIZES.gridCardIconDimension} height={SIZES.gridCardIconDimension} />)}
     </View>
   );
 }

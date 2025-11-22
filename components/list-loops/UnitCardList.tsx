@@ -9,9 +9,11 @@ import { useTheme } from '@/theme/ThemeContext'
 
 const UnitCardList = () => {
   const {colors} = useTheme();
-  const { slug, title } = useLocalSearchParams();
+  const { slug, categoryId } = useLocalSearchParams();
   const [data, setData] = React.useState<UnitIndividualCategory[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
+
+  console.log("Cat Id:", categoryId)
 
   React.useEffect(() => {
     const loadData = async () => {

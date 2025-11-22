@@ -1,12 +1,20 @@
 import { StyleProp, ViewProps } from "react-native";
 import sizes from "./size";
+import SIZES from "./size";
 
 const headerContainer: StyleProp<ViewProps> = <ViewProps> {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     paddingHorizontal: sizes.bodyPaddingHorizontal,
+    // gap: 10,
     paddingVertical: 10,
     height: sizes.headerHeight,
+    // width: SIZES.screenWidth,
+    // backgroundColor: "#000000",
+    // borderTopWidth: 1,
+    // borderBottomWidth: 1,
+    // borderColor: "#444555"
 };
 
 const boxShadow: StyleProp<ViewProps> = <ViewProps> {
@@ -48,9 +56,11 @@ const defaultContainer: StyleProp<ViewProps> = <ViewProps> {
 };
 
 const titleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
-    fontSize: 16,
+    // fontSize: 16,
+    fontSize: 12,
     fontWeight: "900",
-    lineHeight: 16,
+    lineHeight: 12,
+    // textTransform: "uppercase",
     fontFamily: 'PlusJakartaSans-ExtraBold',
 };
 const subTitleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {

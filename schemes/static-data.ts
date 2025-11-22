@@ -1,48 +1,5 @@
 import {
-  GreetingsIcon,
-  IntroIcon,
-  NumbersIcon,
-  TimeIcon,
-  ChatIcon,
-  FamilyIcon,
-  FoodsIcon,
-  LocationIcon,
-
-  GreetingsIconV2,
-  IntroIconV2,
-  NumberIconV2,
-  ColorsIconV2,
-  TimeIconV2,
-  CalendarIconV2,
-  SeasonsIconV2,
-  ActivitiesIconV2,
-  FamilyIconV2,
-  FoodIconV2,
-  DirectionIconV2,
-  TravelIconV2,
-  ShoppingIconV2,
-  WorkIconV2,
-  HealthIconV2,
-  PreferenceIconV2,
-  InvitationsIconV2,
-  TechnologyIconV2,
-  EducationIconV2,
-  CultureIconV2,
-  OpinionsIconV2,
-  EntertainmentIconV2,
-
   BookIcon,
-  BookOpenIcon,
-  DolphinIcon,
-  StudyingDolphinIcon,
-  StudyingDolphinSmallIcon,
-
-  PracticeIcon,
-  QuizIcon,
-  WritingIcon,
-  ReadingIcon,
-  SpeakingIcon,
-  ListeningIcon,
   AlphabetIconV3,
   GreetingsIconV3,
   IntroIconV3,
@@ -112,6 +69,8 @@ import {
   WritingIconV3,
 
 } from '@/utils/SVGImages'
+
+
 
 export const CATEGORY_DATA_V3 = [
   {
@@ -405,7 +364,7 @@ export const CATEGORY_DATA_V3 = [
   {
     id: '49',
     title: "Counting, Mathematics & Measurements",
-    slug: "count_math_measurement",
+    slug: "count_measurement",
     ImgComponent: CountingMathMeasureIconV3
   },
   {
@@ -464,7 +423,7 @@ export const CATEGORY_DATA_V3 = [
   },
   {
     id: '59',
-    title: "Defence, Missions, Battelions",
+    title: "Defence, Missions",
     slug: "warfare",
     ImgComponent: WarfareIconV3
   },
@@ -485,8 +444,8 @@ export const CATEGORY_DATA_V3 = [
   /*  ******* *********** ********** ********************* */
   {
     id: '62',
-    title: "XYZ",
-    slug: "accessories",
+    title: "Mathematics",
+    slug: "math",
     ImgComponent: WarfareIconV3
   },
   /*  ******* *********** ********** ********************* */

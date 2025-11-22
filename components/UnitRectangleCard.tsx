@@ -16,6 +16,8 @@ const UnitRectangleCard: React.FC<UnitCategoryItemProps> = ({ title, unitLessonC
   const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
 
+  
+
   return (
     <TouchableOpacity
       onPress={() => router.push({ pathname: `/lessons/${String(category).toLowerCase()}/${String(title).toLowerCase()}`, params: { title: title, rootCategory: rootCategory, unitLessonCategory: unitLessonCategory, completion: completion, goal: goal } } )}
