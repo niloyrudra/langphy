@@ -6,17 +6,17 @@ import { useTheme } from '@/theme/ThemeContext'
 import SIZES from '@/constants/size'
 import { categoryIcon } from '@/utils'
 
-const GridCardIcon = ({slug}: {slug: string}) => {
+const GridCardIcon = ({slug, ImgComponent}: {slug?: string, ImgComponent?: React.FC<SvgProps>}) => {
   const { colors } = useTheme();
 
-  const ImgComponent = categoryIcon[slug as keyof typeof categoryIcon];
-  if (!ImgComponent) {
+  const IconComponent = ImgComponent ? ImgComponent : categoryIcon[slug as keyof typeof categoryIcon];
+  if (!IconComponent) {
     console.warn(`Icon not found for slug: ${slug}`);
     return null; // or a default placeholder icon
   }
   return (
     <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.cardIconBackgroundColor}]}>
-      {ImgComponent && (<ImgComponent width={SIZES.gridCardIconDimension} height={SIZES.gridCardIconDimension} />)}
+      {IconComponent && (<IconComponent width={SIZES.gridCardIconDimension} height={SIZES.gridCardIconDimension} />)}
     </View>
   );
 }

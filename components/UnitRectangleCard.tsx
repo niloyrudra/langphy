@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 // import { useRouteInfo } from 'expo-router/build/hooks';
 
@@ -9,9 +9,18 @@ import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
+import { DolphinIcon } from '@/utils/SVGImages';
 
+type unitItemType = {
+  unitId: string,
+  categoryId: string,
+  title: string,
+  goal: number,
+  completion: number,
+  customStyle?: StyleProp<ViewStyle>
+}
 
-const UnitRectangleCard: React.FC<UnitCategoryItemProps> = ({ title, unitLessonCategory, rootCategory, completion, goal, ImgComponent, customStyle }) => {
+const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, categoryId, completion, goal, customStyle }) => {
   const { colors } = useTheme();
   const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
@@ -20,12 +29,13 @@ const UnitRectangleCard: React.FC<UnitCategoryItemProps> = ({ title, unitLessonC
 
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: `/lessons/${String(category).toLowerCase()}/${String(title).toLowerCase()}`, params: { title: title, rootCategory: rootCategory, unitLessonCategory: unitLessonCategory, completion: completion, goal: goal } } )}
+      onPress={() => router.push({ pathname: `/lessons/${String(category).toLowerCase()}/${String(title).toLowerCase()}`, params: { title: title, categoryId, unitId, completion: completion, goal: goal } } )}
     >
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         
         <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
-          <ImgComponent width={49} height={49} />
+          {/* <ImgComponent width={49} height={49} /> */}
+          <DolphinIcon width={49} height={49} />
         </View>
 
         <Title title={title} />

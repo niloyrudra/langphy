@@ -3,8 +3,8 @@ import { Category } from '@/types';
 import SIZES from '@/constants/size';
 import CategoryCard from '../CategoryCard';
 import GridLayout from '../layouts/GridLayout';
-import { CATEGORY_DATA_V3 } from '@/schemes/static-data';
-import { categoryIcon } from '@/utils';
+// import { CATEGORY_DATA_V3 } from '@/schemes/static-data';
+// import { categoryIcon } from '@/utils';
 
 const API_BASE = "http://192.168.1.6:3000/api/category";
 

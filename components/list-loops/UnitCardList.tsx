@@ -4,58 +4,67 @@ import { ActivityIndicator, FlatList, View } from 'react-native'
 import UnitRectangleCard from '../UnitRectangleCard'
 import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
-import { db } from '@/utils'
+// import { db } from '@/utils'
 import { useTheme } from '@/theme/ThemeContext'
 
+const UNIT_API_BASE = "http://192.168.1.6:3000/api/unit";
+
+type unitItemType = {
+  _id: string,
+  categoryId: string,
+  title: string,
+  slug: string
+}[]
+
 const UnitCardList = () => {
-  const {colors} = useTheme();
-  const { slug, categoryId } = useLocalSearchParams();
-  const [data, setData] = React.useState<UnitIndividualCategory[]>([]);
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const { colors } = useTheme();
+  const { categoryId } = useLocalSearchParams();
+  const [ unitData, setUnitData ] = React.useState<unitItemType[]>([]);
+  const [ loading, setLoading ] = React.useState<boolean>(false);
 
   console.log("Cat Id:", categoryId)
 
   React.useEffect(() => {
-    const loadData = async () => {
+    const dataLoad = async () => {
       setLoading(true)
-      // unitData is already an array of UnitIndividualCategory
-      const unitData = await db[slug as keyof typeof db];
-      
-      // TS may still complain if db[slug] could be undefined
-      if (Array.isArray(unitData)) {
-        setData(unitData);
-      } else {
-        console.warn(`No data found for slug: ${slug}`);
-        setData([]); // fallback
+      try {
+        const res = await fetch(`${UNIT_API_BASE}/category/${categoryId}`);
+        if (!res.ok) {
+          console.error("Error fetching units:", res.status);
+          // throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        setUnitData(data)
+      } catch (err) {
+        console.error("Error fetching units:", err);
+        setUnitData([])
+        // throw err;
       }
       setLoading(false)
-    };
-    if( slug ) loadData();
-  }, [slug]);
+    }
+
+    dataLoad();
+    if( categoryId ) dataLoad();
+  }, [categoryId]);
   
   if(loading) return (<ActivityIndicator size={32} color={colors.primary} />)
 
   return (
     <>
       <FlatList
-        data={data}
-        keyExtractor={({category}:UnitIndividualCategory) => category}
+        data={unitData}
+        keyExtractor={({_id}:unitItemType) => _id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: SIZES.cardGap }}
         ListHeaderComponent={(<View style={{height:0}}/>)}
-        renderItem={({item}: {item: UnitIndividualCategory}) => {
-          // console.log("Category:", item.category);
-          // console.log("Category Slug", item.category_slug);
-          // console.log("UnitIndividualCategory", item);
+        renderItem={({item}: {item: unitItemType}) => {
           return (
             <UnitRectangleCard
-              title={item.category}
-              unitLessonCategory={item.category as string}
-              rootCategory={slug as string}
-              completion={item?.completion}
-              goal={item?.goal}
-              ImgComponent={item?.ImgComponent}
-              // items={item?.items || []}
+              title={item?.title}
+              categoryId={item?.categoryId as string}
+              unitId={ item?._id as string}
+              completion={0}
+              goal={100}
             />
           )
         }}
