@@ -25,11 +25,9 @@ const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, categoryId, 
   const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
 
-  
-
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: `/lessons/${String(category).toLowerCase()}/${String(title).toLowerCase()}`, params: { title: title, categoryId, unitId, completion: completion, goal: goal } } )}
+      onPress={() => router.push({ pathname: `/lessons/${String(category).toLowerCase()}/${String(title).toLowerCase()}`, params: { title, categoryId, unitId, completion, goal } } )}
     >
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         

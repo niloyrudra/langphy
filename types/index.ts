@@ -258,6 +258,7 @@ type UnitIndividualCategoryItem = {
 };
 
 type UnitIndividualCategory = {
+  
   category: string;
   category_slug: string;
   goal: number;

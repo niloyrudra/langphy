@@ -7,15 +7,28 @@ import { UnitLessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
 import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
-import { db, getCardContainerWidth } from '@/utils';
+import { getCardContainerWidth } from '@/utils';
+import { SvgProps } from 'react-native-svg';
 
-const LessonUnitIndexCard: React.FC<UnitLessonProps> = ( { title, rootCategory, unitLessonCategory, slug, ImgComponent, completion, goal, marginRight=0} ) => {
+type UnitSessionType = {
+  title: string,
+  categoryId: string,
+  unitId: string,
+  goal: number,
+  completion: number,
+  marginRight?: number,
+  ImgComponent: React.FC<SvgProps>,
+  slug: string
+}
+
+const LessonUnitIndexCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug, ImgComponent, completion, goal, marginRight=0} ) => {
   const {colors} = useTheme();
   const {category, unit} = useLocalSearchParams();
+  // const { categoryId, unitId, completion, goal } = useLocalSearchParams();
   const cardWidth = getCardContainerWidth();
 
   return (
-    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lessons/${category}/${unit}/${slug}`, params: { completion: completion, goal: goal, slug: slug, rootCategory: rootCategory, unitLessonCategory: unitLessonCategory } })}>
+    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lessons/${category}/${unit}/${slug}`, params: { completion: completion, goal: goal, slug: slug, categoryId, unitId } })}>
       <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: cardWidth, height: cardWidth, marginRight: marginRight} ]}>
         
         <GridCardIcon ImgComponent={ImgComponent} />

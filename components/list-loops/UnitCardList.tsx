@@ -22,7 +22,7 @@ const UnitCardList = () => {
   const [ unitData, setUnitData ] = React.useState<unitItemType[]>([]);
   const [ loading, setLoading ] = React.useState<boolean>(false);
 
-  console.log("Cat Id:", categoryId)
+  // console.log("Cat Id:", categoryId)
 
   React.useEffect(() => {
     const dataLoad = async () => {

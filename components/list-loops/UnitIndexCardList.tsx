@@ -50,8 +50,8 @@ import LessonUnitIndexCard from '../LessonUnitIndexCard'
 import { useLocalSearchParams } from 'expo-router';
 
 const UnitIndexCardList = () => {
-   const {unitLessonCategory, rootCategory} = useLocalSearchParams();
-  //  console.log(unitLessonCategory, rootCategory);
+   const {unitId, categoryId} = useLocalSearchParams();
+  //  console.log(unitId, categoryId);
   return (
     <GridLayout<UnitLesson>
       data={LESSON_UNIT_DATA}
@@ -59,14 +59,13 @@ const UnitIndexCardList = () => {
       renderItem={({item}) => (
         <LessonUnitIndexCard
           title={item.title}
-          rootCategory={rootCategory as string}
-          unitLessonCategory={unitLessonCategory as string}
+          categoryId={categoryId as string}
+          unitId={unitId as string}
           slug={item.slug}
           ImgComponent={item.ImgComponent}
           completion={item.completion}
           goal={item.goal}
           marginRight={(parseInt(item?.id) % 2 !== 0) ? SIZES.cardGap : 0}
-          id={''}
         />
       )}
     />

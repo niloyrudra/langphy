@@ -12,31 +12,39 @@ import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 
 import { useLocalSearchParams } from 'expo-router';
-import { db } from '@/utils';
+// import { db } from '@/utils';
 import { ToolTip, UnitIndividualCategory, UnitIndividualCategoryItem } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
 
+const PRACTICE_API_BASE = "http://192.168.1.6:3000";
+
 
 interface SessionLayoutProps {
-    children: (props: {
-      item: UnitIndividualCategoryItem;
-      index: number;
-      data?: UnitIndividualCategory[];
-      currentIndex: number;
-      goToNext?: () => void;
-      goToPrevious?: () => void;
-      wordRefs: React.MutableRefObject<Map<string, any>>;
-      containerRef: React.RefObject<View | null>;
-      setTooltip: (obj: ToolTip) => void
-    }) => ReactNode
+  sessionType?: string,
+  categoryId?: string,
+  unitId?: string,
+  children: (props: {
+    item: UnitIndividualCategoryItem;
+    index: number;
+    data?: UnitIndividualCategory[];
+    currentIndex: number;
+    goToNext?: () => void;
+    goToPrevious?: () => void;
+    wordRefs: React.MutableRefObject<Map<string, any>>;
+    containerRef: React.RefObject<View | null>;
+    setTooltip: (obj: ToolTip) => void
+  }) => ReactNode
 }
 
 const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
   const { colors } = useTheme();
-  const { rootCategory, unitLessonCategory, slug } = useLocalSearchParams();
+  const { categoryId, unitId, slug } = useLocalSearchParams();
   const [data, setData] = useState<UnitIndividualCategory[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [ loading, setLoading ] = React.useState<boolean>(false);
+
+  console.log(slug, categoryId, unitId)
 
   // floating tooltip info
   const [tooltip, setTooltip] = useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
@@ -45,20 +53,27 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
   const wordRefs = useRef<Map<string, any>>(new Map());
   const containerRef = useRef<View | null>(null);
 
-
   useEffect(() => {
-    const loadData = async () => {
-      const unitData = await db[rootCategory as keyof typeof db];
-      if (Array.isArray(unitData)) {
-        const unitSpecificData = unitData.filter(item => item.category === unitLessonCategory);
-        setData((unitSpecificData[0] as any)?.items || []);
-      } else {
-        console.warn(`No data found for slug: ${rootCategory}`);
-        setData([]);
+    const dataLoad = async () => {
+      setLoading(true)
+      try {
+        const res = await fetch(`${PRACTICE_API_BASE}/api/${slug}/${categoryId}/${unitId}`);
+        if (!res.ok) {
+          console.error("Error fetching practice data:", res.status);
+          // throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        setData(data)
+      } catch (err) {
+        console.error("Error fetching practice data:", err);
+        setData([])
+        // throw err;
       }
-    };
-    if (rootCategory && unitLessonCategory && slug) loadData();
-  }, [rootCategory, unitLessonCategory, slug]);
+      setLoading(false)
+    }
+
+    if (categoryId && unitId && slug) dataLoad();
+  }, [categoryId, unitId, slug]);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const index = Math.round(
@@ -93,31 +108,31 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
         onPress={() => setTooltip(prev => ({ ...prev, visible: false }))}
       >
         <View ref={containerRef} style={{ flex: 1 }}>
-            <FlatList
-                ref={flatListRef}
-                data={data}
-                keyExtractor={(_, index) => index.toString()}
-                horizontal
-                pagingEnabled
-                scrollEnabled={false}
-                showsHorizontalScrollIndicator={false}
-                onMomentumScrollEnd={handleScroll}
-                renderItem={({ item, index }) => (
-                    <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
-                        {children && children({
-                            item,
-                            index,
-                            // data,
-                            currentIndex,
-                            // goToNext,
-                            // goToPrevious,
-                            wordRefs,
-                            containerRef,
-                            setTooltip
-                        })}
-                    </View>
-                )}
-            />
+          <FlatList
+            ref={flatListRef}
+            data={data}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            pagingEnabled
+            scrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={handleScroll}
+            renderItem={({ item, index }) => (
+              <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
+                  {children && children({
+                      item,
+                      index,
+                      // data,
+                      currentIndex,
+                      // goToNext,
+                      // goToPrevious,
+                      wordRefs,
+                      containerRef,
+                      setTooltip
+                  })}
+              </View>
+            )}
+          />
 
           {/* Floating Tooltip */}
           {tooltip.visible && (

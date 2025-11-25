@@ -4,18 +4,24 @@ import {
   View,
   Text
 } from 'react-native';
-import sizes from '@/constants/size';
+// import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import HorizontalLine from '@/components/HorizontalLine';
 import LessonComponent from '@/components/lesson-components/LessonComponent';
 
 import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import SessionLayout from '@/components/layouts/SessionLayout';
+import { useLocalSearchParams } from 'expo-router';
 
 const PracticeLessons = () => {
   const { colors } = useTheme();
+
+  const {category, categoryId, slug, unit, unitId} = useLocalSearchParams();
+
+  // console.log(params)
+
   return (
-    <SessionLayout>
+    <SessionLayout sessionType={typeof slug == 'string' ? slug : ""} categoryId={ typeof categoryId == 'string' ? categoryId : "" } unitId={ typeof unitId == 'string' ? unitId : "" }>
 
       {({ item, wordRefs, containerRef, setTooltip }) => {
 
