@@ -6,8 +6,9 @@ import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
 // import { db } from '@/utils'
 import { useTheme } from '@/theme/ThemeContext'
+import LoadingScreenComponent from '../LoadingScreenComponent'
 
-const UNIT_API_BASE = "http://192.168.1.6:3000/api/unit";
+// const UNIT_API_BASE = "http://192.168.1.6:3000/api/unit";
 
 type unitItemType = {
   _id: string,
@@ -17,7 +18,6 @@ type unitItemType = {
 }[]
 
 const UnitCardList = () => {
-  const { colors } = useTheme();
   const { categoryId } = useLocalSearchParams();
   const [ unitData, setUnitData ] = React.useState<unitItemType[]>([]);
   const [ loading, setLoading ] = React.useState<boolean>(false);
@@ -28,7 +28,7 @@ const UnitCardList = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${UNIT_API_BASE}/category/${categoryId}`);
+        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/unit/category/${categoryId}`);
         if (!res.ok) {
           console.error("Error fetching units:", res.status);
           // throw new Error(`HTTP error! status: ${res.status}`);
@@ -47,7 +47,7 @@ const UnitCardList = () => {
     if( categoryId ) dataLoad();
   }, [categoryId]);
   
-  if(loading) return (<ActivityIndicator size={32} color={colors.primary} />)
+  if( loading ) return (<LoadingScreenComponent />);
 
   return (
     <>

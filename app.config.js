@@ -47,6 +47,7 @@ export default {
       typedRoutes: true
     },
     extra: {
+      api_base: process.env.EXPO_PUBLIC_API_BASE,
       router: {},
       eas: {
         projectId: "b0b0ee89-261f-4471-b02d-e1d7aa2b975e"

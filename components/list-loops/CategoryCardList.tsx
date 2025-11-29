@@ -3,10 +3,11 @@ import { Category } from '@/types';
 import SIZES from '@/constants/size';
 import CategoryCard from '../CategoryCard';
 import GridLayout from '../layouts/GridLayout';
+import LoadingScreenComponent from '../LoadingScreenComponent';
 // import { CATEGORY_DATA_V3 } from '@/schemes/static-data';
 // import { categoryIcon } from '@/utils';
 
-const API_BASE = "http://192.168.1.6:3000/api/category";
+// const API_BASE = "http://192.168.1.6:3000/api/category";
 
 type CategoryDataType = {
   _id: string,
@@ -27,7 +28,7 @@ const CategoryCardList = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(API_BASE);
+        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/category`);
         if (!res.ok) {
           console.error("Error fetching categories:", res.status);
           // throw new Error(`HTTP error! status: ${res.status}`);
@@ -48,6 +49,8 @@ const CategoryCardList = () => {
   }, []);
 
   // console.log(catIcons['airport'])
+  // console.log(process.env.EXPO_PUBLIC_API_BASE)
+  if( loading ) return (<LoadingScreenComponent />);
 
   return (
     <GridLayout<Category>

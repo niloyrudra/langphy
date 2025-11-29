@@ -5,7 +5,9 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Pressable
+  Pressable,
+  ActivityIndicatorComponent,
+  ActivityIndicator
 } from 'react-native';
 import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
@@ -16,8 +18,9 @@ import { useLocalSearchParams } from 'expo-router';
 import { ToolTip, UnitIndividualCategory, UnitIndividualCategoryItem } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
+import LoadingScreenComponent from '../LoadingScreenComponent';
 
-const PRACTICE_API_BASE = "http://192.168.1.6:3000";
+// const PRACTICE_API_BASE = "http://192.168.1.6:3000";
 
 
 interface SessionLayoutProps {
@@ -44,7 +47,7 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [ loading, setLoading ] = React.useState<boolean>(false);
 
-  console.log(slug, categoryId, unitId)
+  // console.log(slug, categoryId, unitId)
 
   // floating tooltip info
   const [tooltip, setTooltip] = useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
@@ -57,7 +60,7 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${PRACTICE_API_BASE}/api/${slug}/${categoryId}/${unitId}`);
+        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/${slug}/${categoryId}/${unitId}`);
         if (!res.ok) {
           console.error("Error fetching practice data:", res.status);
           // throw new Error(`HTTP error! status: ${res.status}`);
@@ -100,6 +103,8 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
       setTooltip(prev => ({ ...prev, visible: false }));
     }
   };
+
+  if( loading ) return (<LoadingScreenComponent />)
 
   return (
     <SafeAreaLayout>
