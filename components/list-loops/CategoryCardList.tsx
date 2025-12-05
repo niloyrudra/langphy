@@ -4,19 +4,13 @@ import SIZES from '@/constants/size';
 import CategoryCard from '../CategoryCard';
 import GridLayout from '../layouts/GridLayout';
 import LoadingScreenComponent from '../LoadingScreenComponent';
-// import { CATEGORY_DATA_V3 } from '@/schemes/static-data';
-// import { categoryIcon } from '@/utils';
 
-// const API_BASE = "http://192.168.1.6:3000/api/category";
-
-type CategoryDataType = {
-  _id: string,
-  title: string,
-  slug: string,
-  position_at: string
-}[]
-
-// const catIcons = categoryIcon;
+// type CategoryDataType = {
+//   _id: string,
+//   title: string,
+//   slug: string,
+//   position_at: string
+// }[]
 
 const CategoryCardList = () => {
 
@@ -49,7 +43,7 @@ const CategoryCardList = () => {
   }, []);
 
   // console.log(catIcons['airport'])
-  // console.log(process.env.EXPO_PUBLIC_API_BASE)
+  console.log(process.env.EXPO_PUBLIC_API_BASE)
   if( loading ) return (<LoadingScreenComponent />);
 
   return (

@@ -149,17 +149,21 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
           )}
 
           {/* Navigation Buttons */}
-          <View style={styles.navButtons}>
-            <PaginationButton
-              actionHandler={goToPrevious}
-              isDisabled={currentIndex === 0}
-              modeLeft={true}
-            />
-            <PaginationButton
-              actionHandler={goToNext}
-              isDisabled={currentIndex === data.length - 1}
-            />
-          </View>
+          {
+            slug == 'practice' && (
+              <View style={styles.navButtons}>
+                <PaginationButton
+                  actionHandler={goToPrevious}
+                  isDisabled={currentIndex === 0}
+                  modeLeft={true}
+                />
+                <PaginationButton
+                  actionHandler={goToNext}
+                  isDisabled={currentIndex === data.length - 1}
+                />
+              </View>
+            )
+          }
 
           {/* <FloatingDictionaryIcon /> */}
 

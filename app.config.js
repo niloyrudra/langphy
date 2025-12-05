@@ -28,6 +28,13 @@ export default {
     plugins: [
       "expo-router",
       "expo-speech-recognition",
+      "expo-web-browser",
+      [
+        "expo-ads-admob",
+        {
+          userTrackingPermission: "This identifier will be used to deliver personalized ads to you."
+        }
+      ],
       [
         "expo-splash-screen",
         {

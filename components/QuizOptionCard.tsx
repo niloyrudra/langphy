@@ -7,25 +7,65 @@ import STYLES from '@/constants/styles';
 import TitleHeading from './TitleHeading';
 
 
-const QuizOptionCard = ( { title, isCorrect, isSelectionHappened, onSelect, marginRight=0, containerWidth=172, customStyle }: QuizProps ) => {
+const QuizOptionCard = ( {
+    option,
+    // ref,
+    answer,
+    selectedOption,
+    isSelectionHappened,
+    onSelect,
+    marginRight=0,
+    containerWidth=172,
+    customStyle
+  }: QuizProps ) => {
   const {colors} = useTheme();
 
-  // Action Handlers
-  const handlePress = () => {
-    onSelect(title, isCorrect);
+  // // Action Handlers
+  // const handlePress = () => {
+  //   if (typeof ref === 'function') {
+  //     ref(option);
+  //   } else if (ref && typeof ref === 'object' && 'current' in ref) {
+  //     ref.current = option;
+  //   }
+  //   onSelect(option);
+
+
+
+  //   if (typeof ref === 'function') {
+  //       console.log(ref(option), option);
+  //   } else if (ref && typeof ref === 'object' && 'current' in ref) {
+  //       console.log(ref.current, option);
+  //   }
+  // }
+  const isSelected = selectedOption === option;
+  const isCorrect = option === answer;
+
+  let backgroundColor = colors.cardBackgroundColor;
+  let borderColor = colors.cardBorderColor;
+
+  if (isSelectionHappened) {
+    if (isSelected && isCorrect) {
+      backgroundColor = '#9EFD8B3D';
+      borderColor = '#3CE811';
+    } else if (isSelected && !isCorrect) {
+      backgroundColor = '#FE01013B';
+      borderColor = '#E51919';
+    }
   }
 
   return (
     <TouchableOpacity
-      onPress={handlePress}
+      onPress={() => onSelect(option)}
     >
       <View style={
         [
           STYLES.contentCentered,
           styles.container,
           {
-            backgroundColor: isSelectionHappened ? ( isCorrect ? '#9EFD8B3D' : '#FE01013B') : colors.cardBackgroundColor,
-            borderColor: isSelectionHappened ? ( isCorrect ? '#3CE811' : '#E51919') : colors.cardBorderColor,
+            backgroundColor,
+            borderColor,
+            // backgroundColor: isSelectionHappened ? ( isCorrect ? '#9EFD8B3D' : '#FE01013B') : colors.cardBackgroundColor,
+            // borderColor: isSelectionHappened ? ( isCorrect ? '#3CE811' : '#E51919') : colors.cardBorderColor,
             width: containerWidth,
             height: containerWidth,
             marginRight: marginRight
@@ -33,9 +73,7 @@ const QuizOptionCard = ( { title, isCorrect, isSelectionHappened, onSelect, marg
           (customStyle && customStyle)
         ]}
       >
-        
-        <TitleHeading title={title}/>
-
+        <TitleHeading title={option}/>
       </View>
     </TouchableOpacity>
   );

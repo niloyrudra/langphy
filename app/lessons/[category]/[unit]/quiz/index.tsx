@@ -5,61 +5,84 @@ import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
+import SessionLayout from '@/components/layouts/SessionLayout';
+import { useLocalSearchParams } from 'expo-router';
 
 const Quiz = () => {
+  const {categoryId, slug, unitId} = useLocalSearchParams();
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
   const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
   
-  const handleSelect = (title: string, isCorrect: boolean) => {
-    setSelectedOption( prevValue => prevValue = title);
+  // const handleSelect = (title: string, isCorrect: boolean) => {
+  //   setSelectedOption( prevValue => prevValue = title);
+  //   setIsSelectionHappened( prevValue => prevValue = true);
+
+  //   if (isCorrect) {
+  //     // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
+  //     // Proceed to next question or show modal
+  //     console.log(selectedOption)
+  //   } else {
+  //     // Alert.alert('Incorrect', `The answer ${title} is incorrect. Try again.`);
+  //     // Provide feedback or allow retry
+  //     console.log(selectedOption)
+  //   }
+  // };
+  
+  const handleSelect = (option: string) => {
+    setSelectedOption( prevValue => prevValue = option);
     setIsSelectionHappened( prevValue => prevValue = true);
 
-    if (isCorrect) {
+    if (option) {
       // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
       // Proceed to next question or show modal
-      console.log(selectedOption)
+      // console.log(selectedOption)
     } else {
       // Alert.alert('Incorrect', `The answer ${title} is incorrect. Try again.`);
       // Provide feedback or allow retry
-      console.log(selectedOption)
+      // console.log(selectedOption)
     }
   };
 
   return (
-    <SafeAreaLayout>
-      
-      {/* Content */}
-      <View style={{flex: 1}}>
+    <SessionLayout sessionType={typeof slug == 'string' ? slug : ""} categoryId={ typeof categoryId == 'string' ? categoryId : "" } unitId={ typeof unitId == 'string' ? unitId : "" }>
+      {({ item, wordRefs, containerRef, setTooltip }) => {
 
-        <View style={{flex: 1}}>
-          {/* Title Section */}
-          <ChallengeScreenTitle title="Choose The Correct Answer." />
+        // const handleTooltip = (value: any) => {
+        //   setTooltip(value);
+        // };
 
-          {/* QUIZ Section Starts */}
-          <View>
+        return (
+          <View style={{flex: 1}}>
+            <View style={{flex: 1}}>
+              {/* Title Section */}
+              <ChallengeScreenTitle title="Choose The Correct Answer." />
 
-            <ChallengeScreenQuerySection query="Hello!" onTap={() => console.log("Tapping Query Button")} />
+              {/* QUIZ Section Starts */}
+              <View>
+                <ChallengeScreenQuerySection query={item?.question} />
 
-            {/* QUIZ Answer Options */}
-            <QuizOptionCardList onSelect={handleSelect} isSelectionHappened={isSelectionHappened} />
-            {/* <QuizAnswerOptionGrid /> */}
+                {/* QUIZ Answer Options */}
+                <QuizOptionCardList
+                  options={Array.isArray(item?.options) ? item.options : []}
+                  answer={item?.answer || ""}
+                  selectedOption={selectedOption || ""}
+                  onSelect={handleSelect}
+                  isSelectionHappened={isSelectionHappened} />
+                {/* <QuizAnswerOptionGrid /> */}
+              </View>
+              {/* QUIZ Section Ens */}
+            </View>
 
+            {/* Action Buttons */}
+            <ActionPrimaryButton
+              buttonTitle='Check'
+              onSubmit={() => console.log("Submitted")}
+              disabled={ !selectedOption ? true : false}
+            />
           </View>
-          {/* QUIZ Section Ens */}
-        
-        </View>
-
-        {/* Action Buttons */}
-
-        <ActionPrimaryButton
-          buttonTitle='Check'
-          onSubmit={() => console.log("Submitted")}
-          disabled={ !selectedOption ? true : false}
-        />
-
-      </View>
-          
-    </SafeAreaLayout>
+        );
+      }}
+    </SessionLayout>
   );
 }
 

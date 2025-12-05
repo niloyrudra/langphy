@@ -93,9 +93,13 @@ type Quiz = {
 }
 
 type QuizProps = {
-    title: string,
-    isCorrect: boolean,
-    onSelect: (title: string, isCorrect: boolean ) => void,
+    option: string,
+    // ref: React.Ref<any>,
+    selectedOption: string,
+    answer: string,
+    // isCorrect: boolean,
+    onSelect: (option: string ) => void,
+    // onSelect: (title: string, isCorrect: boolean ) => void,
     isSelectionHappened?: boolean,
     containerWidth: number
     marginRight?: number
