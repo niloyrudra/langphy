@@ -84,12 +84,33 @@ type UnitDataProps = {
     ImgComponent: React.FC<SvgProps>
 }
 
+// Reading
+type ReadingLessonItem = {
+  _id: string,
+  categoryId: string,
+  unitId: string,
+  question_en: string,
+  options: Array<string>,
+  answer: string,
+  explanation: string,
+  phrase: string
+}
 
 // QUIZ
+// type Quiz = {
+//   id: string,
+//   title: string,
+//   isCorrect: boolean
+// }
 type Quiz = {
-  id: string,
-  title: string,
-  isCorrect: boolean
+  _id: string,
+  categoryId: string,
+  unitId: string,
+  german_level: string,
+  question: string,
+  options: Array<string>,
+  answer: string,
+  explanation?: string
 }
 
 type QuizProps = {
@@ -162,7 +183,12 @@ type LessonProps = {
     speechLang?: string
 }
 
-
+interface WordDataShape {
+  phrase: string;
+  analysis?: { roles: WordRole[] };
+  name?: string;
+  meaning?: string;
+}
 
 // Define color legend for grammatical roles
 type ColorLegend = {
@@ -349,7 +375,9 @@ type ToolTip = {
 }
 
 export {
+  WordDataShape,
   ToolTip,
+  ReadingLessonItem,
     Category,
     UnitIndividualCategoryItem,
     UnitIndividualCategory,

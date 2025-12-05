@@ -10,11 +10,9 @@ import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
-
-const query=`Zu meiner Familie gehören vier Personen. Die Mutter bin ich und dann gehört natürlich mein Mann dazu. Wir haben zwei Kinder, einen Sohn, der sechs Jahre alt ist und eine dreijährige Tochter.`
+import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
+import { ReadingLessonItem } from '@/types';
                 
-const query2=`Wir wohnen in einem kleinen Haus mit einem Garten. Dort können die Kinder ein bisschen spielen. Unser Sohn kommt bald in die Schule, unsere Tochter geht noch eine Zeit lang in den Kindergarten. Meine Kinder sind am Nachmittag zu Hause. So arbeite ich nur halbtags.`;
-
 const ReadingLessons = () => {
   const { colors } = useTheme();
   const cardWidth = getCardContainerWidth();
@@ -22,11 +20,11 @@ const ReadingLessons = () => {
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
   const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
   
-  const handleSelect = (title: string, isCorrect: boolean) => {
-    setSelectedOption( prevValue => prevValue = title);
+  const handleSelect = (option: string) => {
+    setSelectedOption( prevValue => prevValue = option);
     setIsSelectionHappened( prevValue => prevValue = true);
     
-    if (isCorrect) {
+    if (option) {
       // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
       // Proceed to next question or show modal
       console.log(selectedOption)
@@ -38,15 +36,13 @@ const ReadingLessons = () => {
   };
 
   return (
-    <SessionLayout>
+    <SessionLayout<ReadingLessonItem> sessionType="reading">
 
       {({ item, wordRefs, containerRef, setTooltip }) => {
 
         const handleTooltip = (value: any) => {
           setTooltip(value);
         };
-
-        // item.phrase = query + ' ' + query2;
 
         return (
           <View style={{flex: 1}}>
@@ -62,21 +58,20 @@ const ReadingLessons = () => {
                 >
                   {/* Query Listen with Query Text Section */}
                   <SpeakerComponent
-                      speechContent={item?.phrase}
-                      speechLang='de-DE'
+                    speechContent={item?.phrase}
+                    speechLang='de-DE'
                   />
                           
                   {/* Tappable Words with ToolTip */}
                   <ToolTipPerWordComponent
                     onHandler={handleTooltip}
-                    item={item}
+                    item={{...item}}
                     containerRef={containerRef}
                     wordRefs={wordRefs}
                     textContainerStyle={{
                       width: SIZES.screenWidth - 90
                     }}
                     textStyle={{
-
                       fontSize: 14,
                       flexWrap: 'wrap'
                     }}
@@ -85,29 +80,31 @@ const ReadingLessons = () => {
 
               <HorizontalLine />
 
-              <View
-                style={{
-                  flex: 1
-                }}
-              >
+              <View style={{ flex: 1 }}>
                 <View style={{marginBottom:10}}>
-                  <Text style={{fontSize: 16, color: colors.text, fontWeight:"700"}}>How would you reckon someone?</Text>
+                  <Text style={{fontSize: 16, color: colors.text, fontWeight:"700"}}>{item?.question_en}</Text>
                 </View>
 
                 {/* QUIZ Answer Options */}
-                <QuizOptionCardList height={cardWidth / 2} onSelect={handleSelect} isSelectionHappened={isSelectionHappened} />
-                {/* <QuizAnswerOptionGrid /> */}
+                <QuizOptionCardList 
+                  height={cardWidth / 2} 
+                  options={Array.isArray(item?.options) && item.options.length > 0 ? [item.options[0]] : [""]}
+                  answer={item?.answer || ""}
+                  selectedOption={selectedOption || ""}
+                  onSelect={handleSelect}
+                  isSelectionHappened={isSelectionHappened}
+                />
 
               </View>
 
             </View>
 
             {/* Action Buttons */}
-            {/* <ActionPrimaryButton
+            <ActionPrimaryButton
               buttonTitle='Check'
               onSubmit={() => console.log("Submitted")}
               disabled={!selectedOption ? true : false }
-            /> */}
+            />
 
           </View>
         )

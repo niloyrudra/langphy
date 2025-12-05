@@ -7,8 +7,11 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { useLocalSearchParams } from 'expo-router';
+import { getCardContainerWidth } from '@/utils';
+import { Quiz } from '@/types';
 
 const Quiz = () => {
+  const cardWidth = getCardContainerWidth();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
   const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
@@ -44,7 +47,7 @@ const Quiz = () => {
   };
 
   return (
-    <SessionLayout sessionType={typeof slug == 'string' ? slug : ""} categoryId={ typeof categoryId == 'string' ? categoryId : "" } unitId={ typeof unitId == 'string' ? unitId : "" }>
+    <SessionLayout<Quiz> sessionType={typeof slug == 'string' ? slug : ""} categoryId={ typeof categoryId == 'string' ? categoryId : "" } unitId={ typeof unitId == 'string' ? unitId : "" }>
       {({ item, wordRefs, containerRef, setTooltip }) => {
 
         // const handleTooltip = (value: any) => {
@@ -63,7 +66,8 @@ const Quiz = () => {
 
                 {/* QUIZ Answer Options */}
                 <QuizOptionCardList
-                  options={Array.isArray(item?.options) ? item.options : []}
+                  height={cardWidth / 2} 
+                  options={Array.isArray(item?.options) && item.options.length > 0 ? [item.options[0]] : [""]}
                   answer={item?.answer || ""}
                   selectedOption={selectedOption || ""}
                   onSelect={handleSelect}

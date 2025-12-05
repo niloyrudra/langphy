@@ -5,32 +5,25 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Pressable,
-  ActivityIndicatorComponent,
-  ActivityIndicator
+  Pressable
 } from 'react-native';
 import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
-
 import { useLocalSearchParams } from 'expo-router';
-// import { db } from '@/utils';
 import { ToolTip, UnitIndividualCategory, UnitIndividualCategoryItem } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
 import LoadingScreenComponent from '../LoadingScreenComponent';
 
-// const PRACTICE_API_BASE = "http://192.168.1.6:3000";
-
-
-interface SessionLayoutProps {
+interface SessionLayoutProps<T> {
   sessionType?: string,
   categoryId?: string,
   unitId?: string,
   children: (props: {
-    item: UnitIndividualCategoryItem;
+    item: T; // UnitIndividualCategoryItem;
     index: number;
-    data?: UnitIndividualCategory[];
+    data?: T[]; // UnitIndividualCategory[];
     currentIndex: number;
     goToNext?: () => void;
     goToPrevious?: () => void;
@@ -40,10 +33,12 @@ interface SessionLayoutProps {
   }) => ReactNode
 }
 
-const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
+// const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
+function SessionLayout<T>( { children }: SessionLayoutProps<T>) {
   const { colors } = useTheme();
   const { categoryId, unitId, slug } = useLocalSearchParams();
-  const [data, setData] = useState<UnitIndividualCategory[]>([]);
+  // const [data, setData] = useState<UnitIndividualCategory[]>([]);
+  const [data, setData] = useState<T[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [ loading, setLoading ] = React.useState<boolean>(false);
 
@@ -65,7 +60,7 @@ const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
           console.error("Error fetching practice data:", res.status);
           // throw new Error(`HTTP error! status: ${res.status}`);
         }
-        const data = await res.json();
+        const data: T[] = await res.json();
         setData(data)
       } catch (err) {
         console.error("Error fetching practice data:", err);
