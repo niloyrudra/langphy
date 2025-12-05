@@ -11,7 +11,7 @@ import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import { ReadingLessonItem } from '@/types';
+import { ReadingSessionItem } from '@/types';
                 
 const ReadingLessons = () => {
   const { colors } = useTheme();
@@ -36,7 +36,7 @@ const ReadingLessons = () => {
   };
 
   return (
-    <SessionLayout<ReadingLessonItem> sessionType="reading">
+    <SessionLayout<ReadingSessionItem> sessionType="reading">
       {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
         const handleTooltip = (value: any) => {
           setTooltip(value);
@@ -126,7 +126,7 @@ const ReadingLessons = () => {
                 {/* QUIZ Answer Options */}
                 <QuizOptionCardList 
                   height={cardWidth / 2} 
-                  options={Array.isArray(item?.options) && item.options.length > 0 ? [...item.options] : [""]}
+                  options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
                   answer={item?.answer || ""}
                   selectedOption={selectedOption || ""}
                   onSelect={handleSelect}

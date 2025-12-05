@@ -7,7 +7,7 @@ import QuizOptionCard from '../QuizOptionCard'
 import GridLayout from '../layouts/GridLayout'
 import { getCardContainerWidth } from '@/utils'
 
-const QuizOptionCardList = ({ options, answer, selectedOption, height, isSelectionHappened, onSelect}: { options: [string], answer: string, selectedOption?: string, height?: number, isSelectionHappened: boolean, onSelect: (title: string, isCorrect: boolean ) => void }) => {
+const QuizOptionCardList = ({ options, answer, selectedOption, height, isSelectionHappened, onSelect}: { options: [string, string, string, string], answer: string, selectedOption?: string, height?: number, isSelectionHappened: boolean, onSelect: (title: string, isCorrect: boolean ) => void }) => {
   const cardWidth = getCardContainerWidth();
 
   const optionRef = React.useRef<Map<string, any>>(new Map());

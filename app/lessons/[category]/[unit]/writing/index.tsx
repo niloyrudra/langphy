@@ -1,33 +1,20 @@
 import React from 'react';
 import { Alert, View } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
-// import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-// import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
+import { WritingSessionItem } from '@/types';
 
-type WritingLessonItem = {
-  _id: string,
-  categoryId: string,
-  unitId: string,
-  phrase: string,
-  meaning: string,
-  german_level?: string,
-};
-
-const WritingLessons = () => {
+const WritingSession = () => {
   const { colors } = useTheme();
   const [ textContent, setTextContent ] = React.useState('')
 
   return (
-    <SessionLayout<WritingLessonItem> sessionType="writing" keyboardAvoid={true}>
-      {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
-        const handleTooltip = (value: any) => {
-          setTooltip(value);
-        };
+    <SessionLayout<WritingSessionItem> sessionType="writing" keyboardAvoid={true}>
+      {({ item, goToNext }) => {
         
         const onCheckHandler = () => {
           if(  textContent?.toLocaleLowerCase() === item?.phrase?.toLocaleLowerCase() ) {
@@ -119,4 +106,4 @@ const WritingLessons = () => {
   );
 }
 
-export default WritingLessons;
+export default WritingSession;

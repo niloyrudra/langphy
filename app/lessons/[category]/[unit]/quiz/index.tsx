@@ -8,29 +8,14 @@ import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreen
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { useLocalSearchParams } from 'expo-router';
 import { getCardContainerWidth } from '@/utils';
-import { Quiz } from '@/types';
+import { QuizSessionItem } from '@/types';
 
-const QuizLesson = () => {
+const QuizSession = () => {
   const cardWidth = getCardContainerWidth();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
   const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
-  
-  // const handleSelect = (title: string, isCorrect: boolean) => {
-  //   setSelectedOption( prevValue => prevValue = title);
-  //   setIsSelectionHappened( prevValue => prevValue = true);
-
-  //   if (isCorrect) {
-  //     // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
-  //     // Proceed to next question or show modal
-  //     console.log(selectedOption)
-  //   } else {
-  //     // Alert.alert('Incorrect', `The answer ${title} is incorrect. Try again.`);
-  //     // Provide feedback or allow retry
-  //     console.log(selectedOption)
-  //   }
-  // };
-  
+    
   const handleSelect = (option: string) => {
     setSelectedOption( prevValue => prevValue = option);
     setIsSelectionHappened( prevValue => prevValue = true);
@@ -47,12 +32,8 @@ const QuizLesson = () => {
   };
 
   return (
-    <SessionLayout<Quiz> sessionType={typeof slug == 'string' ? slug : ""} categoryId={ typeof categoryId == 'string' ? categoryId : "" } unitId={ typeof unitId == 'string' ? unitId : "" }>
-      {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
-
-        // const handleTooltip = (value: any) => {
-        //   setTooltip(value);
-        // };
+    <SessionLayout<QuizSessionItem> sessionType={typeof slug == 'string' ? slug : ""} categoryId={ typeof categoryId == 'string' ? categoryId : "" } unitId={ typeof unitId == 'string' ? unitId : "" }>
+      {({ item, goToNext }) => {
         const onCheckHandler = () => {
           if(  selectedOption === item?.answer ) {
             Alert.alert(
@@ -134,4 +115,4 @@ const QuizLesson = () => {
   );
 }
 
-export default QuizLesson;
+export default QuizSession;

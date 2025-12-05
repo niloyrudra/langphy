@@ -1,29 +1,19 @@
 import React from 'react'
 import { Alert, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
-import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
 import ChallengeScreenSpeakerActionSection from '@/components/challenges/ChallengeScreenSpeakerActionSection';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { speechHandler } from '@/utils';
-
-type ListeningLessonItem = {
-  _id: string,
-  categoryId: string,
-  unitId: string,
-  phrase: string,
-  meaning: string,
-  german_level?: string,
-};
+import { ListeningSessionItem } from '@/types';
 
 const ListeningLessons = () => {
   const { colors } = useTheme();
   const [ textContent, setTextContent ] = React.useState<string>('')
   return (
-    <SessionLayout<ListeningLessonItem> sessionType="writing" keyboardAvoid={true}>
+    <SessionLayout<ListeningSessionItem> sessionType="writing" keyboardAvoid={true}>
       {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
         const handleTooltip = (value: any) => {
           setTooltip(value);
@@ -83,7 +73,7 @@ const ListeningLessons = () => {
               <ChallengeScreenTitle title="Listen And Write." />
 
               {/* Writing Section Starts */}
-              <ChallengeScreenSpeakerActionSection onTap={() => speechHandler( item.phrase, "de-DE", () => true ) } />
+              <ChallengeScreenSpeakerActionSection onTap={() => speechHandler( item.phrase, "de-DE" ) } />
 
             </View>
 

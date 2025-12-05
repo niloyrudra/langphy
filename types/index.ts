@@ -85,30 +85,42 @@ type UnitDataProps = {
 }
 
 // Reading
-type ReadingLessonItem = {
+type ReadingSessionItem = {
   _id: string,
   categoryId: string,
   unitId: string,
   question_en: string,
-  options: Array<string>,
+  options: [string, string, string, string], // Array<string>,
   answer: string,
   explanation: string,
   phrase: string
 }
 
-// QUIZ
-// type Quiz = {
-//   id: string,
-//   title: string,
-//   isCorrect: boolean
-// }
-type Quiz = {
+type WritingSessionItem = {
+  _id: string,
+  categoryId: string,
+  unitId: string,
+  phrase: string,
+  meaning: string,
+  german_level?: string,
+}
+
+type ListeningSessionItem = {
+  _id: string,
+  categoryId: string,
+  unitId: string,
+  phrase: string,
+  meaning: string,
+  german_level?: string,
+}
+
+type QuizSessionItem = {
   _id: string,
   categoryId: string,
   unitId: string,
   german_level: string,
   question: string,
-  options: Array<string>,
+  options: [string, string, string, string], // Array<string>,
   answer: string,
   explanation?: string
 }
@@ -126,10 +138,11 @@ type QuizProps = {
     marginRight?: number
     customStyle?: StyleProp<ViewStyle>
 }
+
 // LINK Props
 type LinkProps = {
-    linkText: string,
-    route: Href
+  linkText: string,
+  route: Href
 }
 
 // BANNER Props
@@ -213,7 +226,7 @@ type ColorLegend = {
 type Example = {
   example: string;
   translation: string;
-  sound: string;
+  sound?: string;
 }
 
 // Define grammatical role for each word in analysis
@@ -245,29 +258,6 @@ type Analysis = {
 }
 
 // Define full item structure
-// type PhraseItem = {
-//   phrase: string;
-//   meaning: string;
-//   response: string;
-//   meaning_response: string;
-//   german_level: string;
-//   usage_context: string;
-//   formality: string;
-//   region: string;
-//   discussion: string;
-//   grammar_note: string;
-//   ipa: string;
-//   isCompleted: boolean;
-//   examples: Example[];
-//   analysis: Analysis;
-// }
-
-// Define dataset structure
-// type PhraseDataset = {
-//   items: PhraseItem[];
-//   color_legend: ColorLegend;
-// }
-
 type UnitIndividualCategoryItem = {
   phrase: string;
   name?: string;
@@ -377,7 +367,7 @@ type ToolTip = {
 export {
   WordDataShape,
   ToolTip,
-  ReadingLessonItem,
+  ReadingSessionItem,
     Category,
     UnitIndividualCategoryItem,
     UnitIndividualCategory,
@@ -389,7 +379,7 @@ export {
     UnitCategoryItemProps,
     UnitLessonItemProps,
     UnitDataProps,
-    Quiz,
+    QuizSessionItem,
     QuizProps,
     LinkProps,
     BannerProps,
@@ -399,5 +389,7 @@ export {
     EyeProps,
     LessonProps,
     WordRole,
-    ColorLegend
+    ColorLegend,
+    WritingSessionItem,
+    ListeningSessionItem
 };
