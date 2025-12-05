@@ -5,12 +5,13 @@ import SpeakerComponent from '../SpeakerComponent'
 
 type ChallengeQueryProps = {
     query: string,
+    lang?: string,
     style?: StyleProp<ViewStyle>,
     buttonStyle?: StyleProp<ViewStyle>,
     textStyle?: StyleProp<ViewProps>,
 }
 
-const ChallengeScreenQuerySection: React.FC<ChallengeQueryProps> = ({query, style, buttonStyle, textStyle} ) => {
+const ChallengeScreenQuerySection: React.FC<ChallengeQueryProps> = ({query, lang="de-DE", style, buttonStyle, textStyle} ) => {
     const {colors} = useTheme();
     return (
         <View
@@ -22,7 +23,7 @@ const ChallengeScreenQuerySection: React.FC<ChallengeQueryProps> = ({query, styl
             {/* Query Listen with Query Text Section */}
             <SpeakerComponent
                 speechContent={query}
-                speechLang='de-DE'
+                speechLang={lang}
             />
             
             <Text style={[styles.query, {color: colors.text}]}>{query}</Text>
