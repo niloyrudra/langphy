@@ -10,7 +10,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { getCardContainerWidth } from '@/utils';
 import { Quiz } from '@/types';
 
-const Quiz = () => {
+const QuizLesson = () => {
   const cardWidth = getCardContainerWidth();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
@@ -48,11 +48,55 @@ const Quiz = () => {
 
   return (
     <SessionLayout<Quiz> sessionType={typeof slug == 'string' ? slug : ""} categoryId={ typeof categoryId == 'string' ? categoryId : "" } unitId={ typeof unitId == 'string' ? unitId : "" }>
-      {({ item, wordRefs, containerRef, setTooltip }) => {
+      {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
 
         // const handleTooltip = (value: any) => {
         //   setTooltip(value);
         // };
+        const onCheckHandler = () => {
+          if(  selectedOption === item?.answer ) {
+            Alert.alert(
+              "Congratulations!",
+              "Correct Answer",
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => {
+                    setSelectedOption(null);
+                    setIsSelectionHappened(false);
+                  },
+                  style: 'cancel',
+                },
+                {
+                  text: 'OK',
+                  onPress: () => goToNext?.()
+                },
+              ]
+            )
+          } else {
+            Alert.alert(
+              "Unfortunately!",
+              "Wrong Answer",
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => {
+                    setSelectedOption(null);
+                    setIsSelectionHappened(false);
+                  },
+                  style: 'cancel',
+                },
+                {
+                  text: 'Try Again!',
+                  onPress: () => {
+                    setSelectedOption(null);
+                    setIsSelectionHappened(false);
+                  }
+                },
+              ]
+            )
+          }
+        };
 
         return (
           <View style={{flex: 1}}>
@@ -62,12 +106,12 @@ const Quiz = () => {
 
               {/* QUIZ Section Starts */}
               <View>
-                <ChallengeScreenQuerySection query={item?.question} />
+                <ChallengeScreenQuerySection query={item?.question} lang="en-US" />
 
                 {/* QUIZ Answer Options */}
                 <QuizOptionCardList
                   height={cardWidth / 2} 
-                  options={Array.isArray(item?.options) && item.options.length > 0 ? [item.options[0]] : [""]}
+                  options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
                   answer={item?.answer || ""}
                   selectedOption={selectedOption || ""}
                   onSelect={handleSelect}
@@ -80,7 +124,7 @@ const Quiz = () => {
             {/* Action Buttons */}
             <ActionPrimaryButton
               buttonTitle='Check'
-              onSubmit={() => console.log("Submitted")}
+              onSubmit={onCheckHandler}
               disabled={ !selectedOption ? true : false}
             />
           </View>
@@ -90,4 +134,4 @@ const Quiz = () => {
   );
 }
 
-export default Quiz;
+export default QuizLesson;

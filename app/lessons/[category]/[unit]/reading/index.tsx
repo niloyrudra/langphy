@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import SIZES from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
@@ -37,13 +37,55 @@ const ReadingLessons = () => {
 
   return (
     <SessionLayout<ReadingLessonItem> sessionType="reading">
-
-      {({ item, wordRefs, containerRef, setTooltip }) => {
-
+      {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
         const handleTooltip = (value: any) => {
           setTooltip(value);
         };
-
+        const onCheckHandler = () => {
+          if(  selectedOption === item?.answer ) {
+            Alert.alert(
+              "Congratulations!",
+              "Correct Answer",
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => {
+                    setSelectedOption(null);
+                    setIsSelectionHappened(false);
+                  },
+                  style: 'cancel',
+                },
+                {
+                  text: 'OK',
+                  onPress: () => goToNext?.()
+                },
+              ]
+            )
+          } else {
+            Alert.alert(
+              "Unfortunately!",
+              "Wrong Answer",
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => {
+                    setSelectedOption(null);
+                    setIsSelectionHappened(false);
+                  },
+                  style: 'cancel',
+                },
+                {
+                  text: 'Try Again!',
+                  onPress: () => {
+                    setSelectedOption(null);
+                    setIsSelectionHappened(false);
+                  }
+                },
+              ]
+            )
+          }
+        };
+        
         return (
           <View style={{flex: 1}}>
 
@@ -51,11 +93,7 @@ const ReadingLessons = () => {
               {/* Title Section */}
               <ChallengeScreenTitle title="Read The Comprehension." />
 
-                <View
-                  style={[
-                    styles.container
-                  ]}
-                >
+                <View style={[styles.container]}>
                   {/* Query Listen with Query Text Section */}
                   <SpeakerComponent
                     speechContent={item?.phrase}
@@ -88,7 +126,7 @@ const ReadingLessons = () => {
                 {/* QUIZ Answer Options */}
                 <QuizOptionCardList 
                   height={cardWidth / 2} 
-                  options={Array.isArray(item?.options) && item.options.length > 0 ? [item.options[0]] : [""]}
+                  options={Array.isArray(item?.options) && item.options.length > 0 ? [...item.options] : [""]}
                   answer={item?.answer || ""}
                   selectedOption={selectedOption || ""}
                   onSelect={handleSelect}
@@ -102,7 +140,7 @@ const ReadingLessons = () => {
             {/* Action Buttons */}
             <ActionPrimaryButton
               buttonTitle='Check'
-              onSubmit={() => console.log("Submitted")}
+              onSubmit={onCheckHandler}
               disabled={!selectedOption ? true : false }
             />
 

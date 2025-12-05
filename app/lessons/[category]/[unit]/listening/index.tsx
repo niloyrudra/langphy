@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
@@ -23,11 +23,57 @@ const ListeningLessons = () => {
   const { colors } = useTheme();
   const [ textContent, setTextContent ] = React.useState<string>('')
   return (
-    <SessionLayout<ListeningLessonItem> sessionType="writing">
-      {({ item, wordRefs, containerRef, setTooltip }) => {
+    <SessionLayout<ListeningLessonItem> sessionType="writing" keyboardAvoid={true}>
+      {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
         const handleTooltip = (value: any) => {
           setTooltip(value);
         };
+
+        const onCheckHandler = () => {
+          if(  textContent?.toLocaleLowerCase() === item?.phrase?.toLocaleLowerCase() ) {
+            Alert.alert(
+              "Congratulations!",
+              "Correct Answer",
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => {
+                    setTextContent("");
+                  },
+                  style: 'cancel',
+                },
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    setTextContent("");
+                    goToNext?.();
+                  }
+                },
+              ]
+            )
+          } else {
+            Alert.alert(
+              "Unfortunately!",
+              `Wrong Answer! The correct answer is: ${item?.phrase}`,
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => {
+                    setTextContent("");
+                  },
+                  style: 'cancel',
+                },
+                {
+                  text: 'Try Again!',
+                  onPress: () => {
+                    setTextContent("");
+                  }
+                },
+              ]
+            )
+          }
+        };
+
         return (
           <View style={{flex: 1}}>
           {/* Content */}
@@ -38,8 +84,6 @@ const ListeningLessons = () => {
 
               {/* Writing Section Starts */}
               <ChallengeScreenSpeakerActionSection onTap={() => speechHandler( item.phrase, "de-DE", () => true ) } />
-
-              <View style={{flex:1}}/>
 
             </View>
 
@@ -61,7 +105,7 @@ const ListeningLessons = () => {
             {/* Action Buttons */}
             <ActionPrimaryButton
               buttonTitle='Check'
-              onSubmit={() => console.log("Submitted")}
+              onSubmit={onCheckHandler}
               disabled={textContent.length === 0}
             />
 

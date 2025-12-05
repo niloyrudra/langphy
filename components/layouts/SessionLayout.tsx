@@ -5,12 +5,16 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Pressable
+  Pressable,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Dimensions
 } from 'react-native';
 import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { ToolTip, UnitIndividualCategory, UnitIndividualCategoryItem } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
@@ -18,6 +22,8 @@ import LoadingScreenComponent from '../LoadingScreenComponent';
 
 interface SessionLayoutProps<T> {
   sessionType?: string,
+  keyboardAvoid?: boolean,
+  keyboardVerticalOffset ?: number,
   categoryId?: string,
   unitId?: string,
   children: (props: {
@@ -34,7 +40,7 @@ interface SessionLayoutProps<T> {
 }
 
 // const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
-function SessionLayout<T>( { children }: SessionLayoutProps<T>) {
+function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
   const { colors } = useTheme();
   const { categoryId, unitId, slug } = useLocalSearchParams();
   // const [data, setData] = useState<UnitIndividualCategory[]>([]);
@@ -88,6 +94,16 @@ function SessionLayout<T>( { children }: SessionLayoutProps<T>) {
       setCurrentIndex(nextIndex);
       setTooltip(prev => ({ ...prev, visible: false }));
     }
+    else {
+      // Last item reached
+      Alert.alert(
+        "End of Session",
+        "You have completed all lessons in this session.",
+        [
+          { text: 'OK', onPress: () => router.back()}
+        ]
+      );
+    }
   };
 
   const goToPrevious = () => {
@@ -103,68 +119,84 @@ function SessionLayout<T>( { children }: SessionLayoutProps<T>) {
 
   return (
     <SafeAreaLayout>
-      <Pressable
+      <KeyboardAvoidingView
         style={{ flex: 1 }}
-        onPress={() => setTooltip(prev => ({ ...prev, visible: false }))}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        enabled={keyboardAvoid}
       >
-        <View ref={containerRef} style={{ flex: 1 }}>
-          <FlatList
-            ref={flatListRef}
-            data={data}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal
-            pagingEnabled
-            scrollEnabled={false}
-            showsHorizontalScrollIndicator={false}
-            onMomentumScrollEnd={handleScroll}
-            renderItem={({ item, index }) => (
-              <View style={{ width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
-                  {children && children({
-                      item,
-                      index,
-                      // data,
-                      currentIndex,
-                      // goToNext,
-                      // goToPrevious,
-                      wordRefs,
-                      containerRef,
-                      setTooltip
-                  })}
-              </View>
-            )}
-          />
+        <Pressable
+          style={{ flex: 1 }}
+          onPress={() => setTooltip(prev => ({ ...prev, visible: false }))}
+        >
+          <View ref={containerRef} style={{ flex: 1 }}>
+            <FlatList
+              ref={flatListRef}
+              data={data}
+              keyExtractor={(_, index) => index.toString()}
+              horizontal
+              pagingEnabled
+              scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
+              onMomentumScrollEnd={handleScroll}
+              keyboardShouldPersistTaps="handled"
 
-          {/* Floating Tooltip */}
-          {tooltip.visible && (
-            <ToolTipComponent
-              top={tooltip.y}
-              left={tooltip.x}
-              translation={tooltip.translation}
+              // IMPORTANT: these fix alignment issues
+              removeClippedSubviews={false}
+              disableVirtualization={true}
+
+              // contentContainerStyle={{
+                // flexGrow: 1,
+                // paddingBottom: keyboardAvoid ? keyboardVerticalOffset  : 0
+              // }}
+              renderItem={({ item, index }) => (
+                <View style={{flex:1, width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
+                    {children && children({
+                        item,
+                        index,
+                        // data,
+                        currentIndex,
+                        goToNext,
+                        // goToPrevious,
+                        wordRefs,
+                        containerRef,
+                        setTooltip
+                    })}
+                </View>
+              )}
             />
-          )}
 
-          {/* Navigation Buttons */}
-          {
-            slug == 'practice' && (
-              <View style={styles.navButtons}>
-                <PaginationButton
-                  actionHandler={goToPrevious}
-                  isDisabled={currentIndex === 0}
-                  modeLeft={true}
-                />
-                <PaginationButton
-                  actionHandler={goToNext}
-                  isDisabled={currentIndex === data.length - 1}
-                />
-              </View>
-            )
-          }
+            {/* Floating Tooltip */}
+            {tooltip.visible && (
+              <ToolTipComponent
+                top={tooltip.y}
+                left={tooltip.x}
+                translation={tooltip.translation}
+              />
+            )}
 
-          {/* <FloatingDictionaryIcon /> */}
+            {/* Navigation Buttons */}
+            {
+              slug == 'practice' && (
+                <View style={styles.navButtons}>
+                  <PaginationButton
+                    actionHandler={goToPrevious}
+                    isDisabled={currentIndex === 0}
+                    modeLeft={true}
+                  />
+                  <PaginationButton
+                    actionHandler={goToNext}
+                    isDisabled={currentIndex === data.length - 1}
+                  />
+                </View>
+              )
+            }
 
-        </View>
-        
-      </Pressable>
+            {/* <FloatingDictionaryIcon /> */}
+
+          </View>
+          
+        </Pressable>
+      </KeyboardAvoidingView>
     </SafeAreaLayout>
   );
 };
