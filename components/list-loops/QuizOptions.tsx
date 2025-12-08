@@ -1,17 +1,13 @@
 import React from 'react'
-// import { Quiz } from '@/types'
 import { QUIZ_DATA } from '@/schemes/static-data'
 import SIZES from '@/constants/size'
-
 import QuizOptionCard from '../QuizOptionCard'
 import GridLayout from '../layouts/GridLayout'
 import { getCardContainerWidth } from '@/utils'
+import { QuizOptionProps } from '@/types'
 
-const QuizOptionCardList = ({ options, answer, selectedOption, height, isSelectionHappened, onSelect}: { options: [string, string, string, string], answer: string, selectedOption?: string, height?: number, isSelectionHappened: boolean, onSelect: (title: string, isCorrect: boolean ) => void }) => {
+const QuizOptions: React.FC<QuizOptionProps> = ({ options, answer, isCorrect, selectedOption, height, isSelectionHappened, onSelect}) => {
   const cardWidth = getCardContainerWidth();
-
-  const optionRef = React.useRef<Map<string, any>>(new Map());
-
   return (
     <GridLayout<string>
       data={options.length ? options : QUIZ_DATA.map(item => item.title)}
@@ -21,6 +17,7 @@ const QuizOptionCardList = ({ options, answer, selectedOption, height, isSelecti
           option={option}
           selectedOption={selectedOption ?? ''}
           answer={answer}
+          isCorrect={ isCorrect }
           isSelectionHappened={isSelectionHappened}
           onSelect={(selected) => {
             const isCorrect = selected === answer;
@@ -35,4 +32,4 @@ const QuizOptionCardList = ({ options, answer, selectedOption, height, isSelecti
   );
 }
 
-export default QuizOptionCardList;
+export default QuizOptions;

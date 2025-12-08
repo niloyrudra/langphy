@@ -1,10 +1,10 @@
 import React from 'react';
-import UnitIndexCardList from '@/components/list-loops/UnitIndexCardList';
+import UnitSessionList from '@/components/list-loops/UnitSessionList';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 
-const LessonUnitIndex = () => (
-  <SafeAreaLayout> 
-    <UnitIndexCardList />
+const UnitSessions = () => (
+  <SafeAreaLayout>
+    <UnitSessionList />
   </SafeAreaLayout>
 );
-export default LessonUnitIndex;
+export default UnitSessions;

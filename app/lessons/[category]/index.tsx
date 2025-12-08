@@ -1,10 +1,10 @@
 import React from 'react';
-import UnitCardList from '@/components/list-loops/UnitCardList';
+import UnitList from '@/components/list-loops/UnitList';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 
 const CategoryScreen = () => (
   <SafeAreaLayout>
-    <UnitCardList />
+    <UnitList />
   </SafeAreaLayout>  
 );
 

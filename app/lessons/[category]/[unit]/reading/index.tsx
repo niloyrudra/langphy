@@ -1,17 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native'
-import SIZES from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
+import SIZES from '@/constants/size';
+import { ReadingSessionItem } from '@/types';
 // Components
 import HorizontalLine from '@/components/HorizontalLine';
-import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
+import QuizOptions from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import { ReadingSessionItem } from '@/types';
                 
 const ReadingLessons = () => {
   const { colors } = useTheme();
@@ -19,20 +19,21 @@ const ReadingLessons = () => {
   
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
   const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
+  const [isCorrect, setIsCorrect] = React.useState<boolean>(false)
   
   const handleSelect = (option: string) => {
     setSelectedOption( prevValue => prevValue = option);
     setIsSelectionHappened( prevValue => prevValue = true);
     
-    if (option) {
+    // if (option) {
       // Alert.alert('Correct!', `You selected the correct answer: ${title}`);
       // Proceed to next question or show modal
-      console.log(selectedOption)
-    } else {
+      // console.log(selectedOption)
+    // } else {
       // Alert.alert('Incorrect', `The answer ${title} is incorrect. Try again.`);
       // Provide feedback or allow retry
-      console.log(selectedOption)
-    }
+      // console.log(selectedOption)
+    // }
   };
 
   return (
@@ -43,6 +44,7 @@ const ReadingLessons = () => {
         };
         const onCheckHandler = () => {
           if(  selectedOption === item?.answer ) {
+            setIsCorrect( prevVal => prevVal = true )
             Alert.alert(
               "Congratulations!",
               "Correct Answer",
@@ -56,12 +58,13 @@ const ReadingLessons = () => {
                   style: 'cancel',
                 },
                 {
-                  text: 'OK',
+                  text: 'Next',
                   onPress: () => goToNext?.()
                 },
               ]
             )
           } else {
+            setIsCorrect( prevVal => prevVal = false )
             Alert.alert(
               "Unfortunately!",
               "Wrong Answer",
@@ -124,10 +127,11 @@ const ReadingLessons = () => {
                 </View>
 
                 {/* QUIZ Answer Options */}
-                <QuizOptionCardList 
+                <QuizOptions 
                   height={cardWidth / 2} 
                   options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
                   answer={item?.answer || ""}
+                  isCorrect={ isCorrect }
                   selectedOption={selectedOption || ""}
                   onSelect={handleSelect}
                   isSelectionHappened={isSelectionHappened}

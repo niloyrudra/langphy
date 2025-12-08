@@ -72,7 +72,7 @@ import TimeIconV3 from '@/assets/images/categories/v3/Time.svg';
 import ToolsIconV3 from '@/assets/images/categories/v3/Tools.svg';
 import TransportationIconV3 from '@/assets/images/categories/v3/Transportation.svg';
 import TravelIconV3 from '@/assets/images/categories/v3/Travel.svg';
-import UnitListIconV3 from '@/assets/images/categories/v3/Unit-List-Icon.svg';
+// import UnitListIconV3 from '@/assets/images/categories/v3/Unit-List-Icon.svg';
 import VehicleIconV3 from '@/assets/images/categories/v3/Vehicles.svg';
 import WarfareIconV3 from '@/assets/images/categories/v3/Warfare.svg';
 import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
@@ -80,7 +80,12 @@ import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
 import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
 // import { BookIcon } from "./SVGImages";
 import BookIcon from "@/assets/images/unit/v2/notebook.svg"
+// import { Dimensions } from "react-native";
+import { makeMutable, SharedValue } from 'react-native-reanimated';
 
+export const createEqualizerBars = (count: number): SharedValue<number>[] => {
+  return Array.from({ length: count }, () => makeMutable(0));
+};
 
 
 
@@ -172,20 +177,30 @@ export  const speechFastHandler = async (
 export const speechHandler = async (
   speechContent: string | undefined,
   speechLang: string | undefined,
-  setLoading?: (val: boolean) => void
+  onSpeakingState?: (isSpeaking: boolean) => void
 ) => {
   // await warmUpSpeech();
-  setLoading?.(true);
+  // setLoading?.(true);
   Speech.speak(speechContent || "Hallo!", {
     language: speechLang || "de-DE",
     rate: 1,
     pitch: 1.2,
     volume: 1,
-    onStart: () => setLoading?.(false),
-    onDone: () => setLoading?.(false),
-    onError: () => setLoading?.(false),
+    onStart: () => {
+      // setLoading?.(false)
+      onSpeakingState?.(true)
+    },
+    onDone: () => {
+      onSpeakingState?.(false)
+    },
+    onStopped: () => {
+      onSpeakingState?.(false)
+    },
+    onError: () => {
+      onSpeakingState?.(false)
+    },
   });
-  setTimeout(() => setLoading?.(false), 8000);
+  // setTimeout(() => setLoading?.(false), 8000);
 };
 
 
@@ -222,6 +237,33 @@ export  const speechSlowHandler = async (
   );
   setTimeout(() => setLoading?.(false), 8000);
 }
+
+/* ************************************************************************ */
+// utils/generateWavePattern.ts
+export function generateWavePattern(text: string) {
+  if (!text) return [1, 2, 3, 2, 1];
+
+  const words = text.split(/\s+/);
+
+  return words.map((word) => {
+    let intensity = word.length;
+
+    // punctuation → shape & emphasis
+    if (/!$/.test(word)) intensity += 4;        // strong emphasis
+    else if (/\?$/.test(word)) intensity += 2;  // rising tone
+    else if (/,/.test(word)) intensity -= 1;    // slight pause
+
+    // Add small randomness for organic feel
+    intensity += Math.floor(Math.random() * 3); // ±2 random variation
+
+    // cap intensity between 2–10 for animation bounds
+    return Math.max(2, Math.min(intensity, 10));
+  });
+}
+
+
+
+/* ************************************************************************ */
 
 // const CategoryDataType = dbJson?.alphabets?.map((cat: any) => ({
 //     category: cat.category,

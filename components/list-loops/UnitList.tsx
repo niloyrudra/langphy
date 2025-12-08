@@ -1,28 +1,21 @@
 import React from 'react'
-import { UnitIndividualCategory } from '@/types'
-import { ActivityIndicator, FlatList, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import UnitRectangleCard from '../UnitRectangleCard'
 import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
-// import { db } from '@/utils'
-import { useTheme } from '@/theme/ThemeContext'
 import LoadingScreenComponent from '../LoadingScreenComponent'
-
-// const UNIT_API_BASE = "http://192.168.1.6:3000/api/unit";
 
 type unitItemType = {
   _id: string,
   categoryId: string,
   title: string,
   slug: string
-}[]
+}
 
-const UnitCardList = () => {
+const UnitList = () => {
   const { categoryId } = useLocalSearchParams();
   const [ unitData, setUnitData ] = React.useState<unitItemType[]>([]);
   const [ loading, setLoading ] = React.useState<boolean>(false);
-
-  // console.log("Cat Id:", categoryId)
 
   React.useEffect(() => {
     const dataLoad = async () => {
@@ -57,12 +50,13 @@ const UnitCardList = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: SIZES.cardGap }}
         ListHeaderComponent={(<View style={{height:0}}/>)}
-        renderItem={({item}: {item: unitItemType}) => {
+        renderItem={({item: {title, categoryId, _id, slug}}: {item: unitItemType}) => {
           return (
             <UnitRectangleCard
-              title={item?.title}
-              categoryId={item?.categoryId as string}
-              unitId={ item?._id as string}
+              title={title}
+              categoryId={categoryId}
+              unitSlug={slug}
+              unitId={_id}
               completion={0}
               goal={100}
             />
@@ -74,4 +68,4 @@ const UnitCardList = () => {
   );
 }
 
-export default UnitCardList;
+export default UnitList;

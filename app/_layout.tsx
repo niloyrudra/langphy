@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, View } from "react-native";
 import { Stack } from "expo-router"; // 'Slot' for one-paged apps
-import {StatusBar} from 'expo-status-bar';
+// import {StatusBar} from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { ThemeProvider } from "@/theme/ThemeContext";
 

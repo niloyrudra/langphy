@@ -37,11 +37,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderWidth: 1,
     paddingVertical: 16,
-    // paddingHorizontal: 16, // 24
     margin:0,
-    // minWidth: 172,
-    // minHeight: 172,
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
 });

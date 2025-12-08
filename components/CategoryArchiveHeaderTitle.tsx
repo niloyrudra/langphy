@@ -17,7 +17,7 @@ export default CategoryArchiveHeaderTitle;
 const styles = StyleSheet.create({
   title: {
     fontWeight: "800",
-    fontSize: 24,
-    fontFamily: 'PlusJakartaSans-Bold'
+    fontSize: 20, // 24
+    // fontFamily: 'PlusJakartaSans-Bold'
   }
 })

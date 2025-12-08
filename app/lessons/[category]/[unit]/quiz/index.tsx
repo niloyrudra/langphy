@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, View } from 'react-native'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
-import QuizOptionCardList from '@/components/list-loops/QuizOptionCardList';
+import QuizOptionCardList from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';

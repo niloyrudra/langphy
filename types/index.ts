@@ -84,6 +84,17 @@ type UnitDataProps = {
     ImgComponent: React.FC<SvgProps>
 }
 
+type UnitSessionType = {
+  title: string,
+  categoryId: string,
+  unitId: string,
+  goal: number,
+  completion: number,
+  marginRight?: number,
+  ImgComponent: React.FC<SvgProps>,
+  slug: string
+}
+
 // Reading
 type ReadingSessionItem = {
   _id: string,
@@ -130,13 +141,23 @@ type QuizProps = {
     // ref: React.Ref<any>,
     selectedOption: string,
     answer: string,
-    // isCorrect: boolean,
+    isCorrect?: boolean,
     onSelect: (option: string ) => void,
     // onSelect: (title: string, isCorrect: boolean ) => void,
     isSelectionHappened?: boolean,
     containerWidth: number
     marginRight?: number
     customStyle?: StyleProp<ViewStyle>
+}
+
+type QuizOptionProps = {
+  options: [string, string, string, string],
+  answer: string,
+  isCorrect?: boolean,
+  selectedOption?: string,
+  height?: number,
+  isSelectionHappened: boolean,
+  onSelect: (title: string, isCorrect: boolean ) => void
 }
 
 // LINK Props
@@ -381,6 +402,7 @@ export {
     UnitDataProps,
     QuizSessionItem,
     QuizProps,
+    QuizOptionProps,
     LinkProps,
     BannerProps,
     TitleProps,
@@ -391,5 +413,6 @@ export {
     WordRole,
     ColorLegend,
     WritingSessionItem,
-    ListeningSessionItem
+    ListeningSessionItem,
+    UnitSessionType
 };

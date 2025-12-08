@@ -4,7 +4,7 @@
 // import SIZES from '@/constants/size';
 // import GridLayout from '../layouts/GridLayout';
 // import { LESSON_UNIT_DATA } from '@/schemes/static-data';
-// import LessonUnitIndexCard from '../LessonUnitIndexCard';
+// import UnitSessionCard from '../UnitSessionCard';
 
 // const UnitIndexCardList = () => {
 //   const { title, category,  } = useLocalSearchParams();
@@ -22,7 +22,7 @@
 //       data={LESSON_UNIT_DATA}
 //       keyExtractor={(item) => item.id}
 //       renderItem={({ item }) => (
-//         <LessonUnitIndexCard
+//         <UnitSessionCard
 //           title={item.title}
 //           slug={item.slug}
 //           ImgComponent={item.ImgComponent}
@@ -46,10 +46,10 @@ import { UnitLesson } from '@/types';
 import SIZES from '@/constants/size';
 import GridLayout from '../layouts/GridLayout';
 import { LESSON_UNIT_DATA } from '@/schemes/static-data'
-import LessonUnitIndexCard from '../LessonUnitIndexCard'
 import { useLocalSearchParams } from 'expo-router';
+import UnitSessionCard from '../UnitSessionCard';
 
-const UnitIndexCardList = () => {
+const UnitSessionList = () => {
    const {unitId, categoryId} = useLocalSearchParams();
   //  console.log(unitId, categoryId);
   return (
@@ -57,7 +57,7 @@ const UnitIndexCardList = () => {
       data={LESSON_UNIT_DATA}
       keyExtractor={(item) => item.id}
       renderItem={({item}) => (
-        <LessonUnitIndexCard
+        <UnitSessionCard
           title={item.title}
           categoryId={categoryId as string}
           unitId={unitId as string}
@@ -71,4 +71,4 @@ const UnitIndexCardList = () => {
     />
   );
 }
-export default UnitIndexCardList;
+export default UnitSessionList;
