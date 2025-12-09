@@ -13,6 +13,9 @@ export const lightColors = {
   cardBorderColor: "#BCE4FF",
   cardIconBackgroundColor: "#FFFFFF",
 
+  statsBackground: "#FFFFFF",
+  settingsTitle: "#999",
+
   hLineColor: "#EDEDED",
 
   LessonSourceCardBackgroundColor: "#FFFFFF",
@@ -61,6 +64,9 @@ export const darkColors = {
   cardBackgroundColor: "#021331",
   cardBorderColor: "#1751B6", // "#BCE4FF"
   cardIconBackgroundColor: "#142C57",
+
+  statsBackground: "#121212",
+  settingsTitle: "#999",
 
   hLineColor: "#0B3C5F",
 

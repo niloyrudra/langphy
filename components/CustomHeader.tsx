@@ -4,7 +4,7 @@ import { useTheme } from '@/theme/ThemeContext'
 import STYLES from '@/constants/styles';
 
 import HeaderLogo from './header/HeaderLogo'
-import HeaderRightComponent from './header/headerRightComponent'
+import HeaderRightComponent from './header/HeaderRightComponent'
 
 const CustomArchiveHeader = () => {
   const {colors} = useTheme()

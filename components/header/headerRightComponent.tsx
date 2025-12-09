@@ -1,20 +1,22 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import SettingsButton from '../SettingsButton';
+// import SettingsButton from '../SettingsButton';
 import ToggleColorThemeComponent from '../ToggleColorThemeComponent';
 import SteakBadgeFlagComponent from '../SteakBadgeFlagComponent';
+import Profile from './Profile';
 
-const headerRightComponent = () => {
+const HeaderRightComponent = () => {
   return (
     <View style={styles.container}>
         <SteakBadgeFlagComponent />
         {/* <ToggleColorThemeComponent /> */}
-        <SettingsButton />
+        {/* <SettingsButton /> */}
+        <Profile />
     </View>
   )
 }
 
-export default headerRightComponent
+export default HeaderRightComponent
 
 const styles = StyleSheet.create({
     container: {

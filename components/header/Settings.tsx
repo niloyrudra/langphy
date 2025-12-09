@@ -4,24 +4,24 @@ import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
 
-import { ArrowLeftDarkIcon, ArrowLeftIcon, LeftArrowDark, LeftArrowLight } from '@/utils/SVGImages';
+import { SettingDark, SettingLight } from '@/utils/SVGImages';
 
-const HeaderTopLeftArrowButton = () => {
+const Settings = () => {
   const { theme } = useTheme();
 
   const handlePress = () => {
-    router.back();
+    router.push('/dashboard/settings');
   };
 
   return (
     <TouchableOpacity onPress={handlePress}>
       {
         theme === 'light'
-        ? (<LeftArrowLight width={sizes.headerIcon} height={sizes.headerIcon} />)
-        : (<LeftArrowDark width={sizes.headerIcon} height={sizes.headerIcon} />)
+        ? (<SettingLight width={sizes.headerIcon} height={sizes.headerIcon} />)
+        : (<SettingDark width={sizes.headerIcon} height={sizes.headerIcon} />)
       }
     </TouchableOpacity>
   );
 };
 
-export default HeaderTopLeftArrowButton;
+export default Settings;

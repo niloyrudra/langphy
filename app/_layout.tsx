@@ -47,12 +47,7 @@ const RootLayout = () => {
       <ThemeProvider>
         <Stack
           screenOptions={{
-            headerShadowVisible: false,
-            headerShown: false,
-            contentStyle: {
-              flex: 1,
-              marginTop: 20 // StatusBar.get("height")
-            }
+            headerShadowVisible: false
           }}
           initialRouteName="lessons"
         >
@@ -62,6 +57,7 @@ const RootLayout = () => {
           <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
           <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
           <Stack.Screen name="lessons" options={{ headerShown: false }}/>
+          <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
           {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         </Stack>
         {/* <StatusBar backgroundColor="white" style="auto" /> */}

@@ -43,7 +43,7 @@ const CategoryCardList = () => {
   }, []);
 
   // console.log(catIcons['airport'])
-  console.log(process.env.EXPO_PUBLIC_API_BASE)
+  // console.log(process.env.EXPO_PUBLIC_API_BASE)
   if( loading ) return (<LoadingScreenComponent />);
 
   return (

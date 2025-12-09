@@ -1,6 +1,6 @@
 // Unused SVGs
-import ProgressBarActive from '@/assets/images/progress-bar/progress-bar.svg';
-import ButtonGradient from '@/assets/images/button/button-gradient.svg';
+// import ProgressBarActive from '@/assets/images/progress-bar/progress-bar.svg';
+// import ButtonGradient from '@/assets/images/button/button-gradient.svg';
 
 // Exemplary
 import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
@@ -54,13 +54,21 @@ import WritingIcon from '@/assets/images/unit/v2/license-draft.svg';
 // Dic
 import DictionaryIcon from '@/assets/images/screen-icons/dictionary-icon.svg';
 
+// Profile
+import ProfileLight from "@/assets/images/header/profile-light.svg";
+import ProfileDark from "@/assets/images/header/profile-dark.svg";
+
 // Flags
 import GermanyCircleFlagIcon from '@/assets/images/header/germany-flag.svg';
 import GermanySquareFlagIcon from '@/assets/images/header/flag-germany-square.svg';
 
-// Icons
+// Setting Icons
 import SettingIcon from '@/assets/images/header/account-settings-icon.svg';
 import SettingDarkIcon from '@/assets/images/header/account-settings-icon-dark.svg';
+/* NEW */
+import SettingLight from '@/assets/images/header/settings-light.svg';
+import SettingDark from '@/assets/images/header/settings-light.svg'; // TODO: Replace with dark version
+
 // Steak Icon
 import SteakIcon from '@/assets/images/header/water-drop-icon.svg';
 
@@ -87,9 +95,14 @@ import EyeOffDarkIcon from '@/assets/images/auth/toggled-eyes/dark-theme/eye-off
 // Logos
 import LightLogo from '@/assets/images/svg-images/top-nav-logo-light-mode.svg';
 import DarkLogo from '@/assets/images/svg-images/top-nav-logo-dark-mode.svg';
+
 // Left Arrow
 import ArrowLeftIcon from '@/assets/images/header/arrow-left-circle.svg';
 import ArrowLeftDarkIcon from '@/assets/images/header/arrow-left-circle-dark.svg';
+/** NEW */
+import LeftArrowLight from '@/assets/images/header/left-arrow-light.svg';
+import LeftArrowDark from '@/assets/images/header/left-arrow-dark.svg';
+
 // Next & Prev btn Light
 import NextBtnLight from "@/assets/images/button/lesson-screens/light/next-light.svg";
 import PreviousBtnLight from "@/assets/images/button/lesson-screens/light/prev-light.svg";
@@ -178,6 +191,11 @@ import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
 import WritingIconV3 from '@/assets/images/categories/v3/Writing.svg';
 import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
 
+/** Dashboard */
+import EditIconLight from '@/assets/images/dashboard/edit-icon-light.svg';
+import EditIconDark from '@/assets/images/dashboard/edit-icon-light.svg';
+
+import ProgressIcon from '@/assets/images/dashboard/progress-icon.svg';
 
 export {
     AccessoriesIconV3,
@@ -327,5 +345,16 @@ export {
     RecorderLightActiveIcon,
     RecorderDarkInactiveIcon,
     SpeakerActionButtonIcon,
-    SoundWaveLightIcon
+    SoundWaveLightIcon,
+
+    SettingLight,
+    SettingDark,
+    LeftArrowLight,
+    LeftArrowDark,
+    EditIconLight,
+    EditIconDark,
+    ProfileLight,
+    ProfileDark,
+
+    ProgressIcon
 };
