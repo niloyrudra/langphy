@@ -1,6 +1,6 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { router } from 'expo-router'
+import { router, useRouter } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
 
 import sizes from '@/constants/size'
@@ -15,11 +15,53 @@ import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerI
 import SocialButton from '@/components/form-components/auth/SocialButton'
 import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { UserData } from '@/types'
+import SIZES from '@/constants/size'
+
+const SignupSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+});
 
 const SignUp = () => {
   const { colors } = useTheme();
+  const router = useRouter();
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+
+  const handleSignup = async (email: string, password: string) => {
+    setLoading(true)
+    try {
+      // const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // await sendEmailVerification(userCredential.user);
+      Alert.alert("Check your email!", "Please verify your email before logging in.");
+
+      // Store user data in Firestore
+      const userData: UserData = {
+        email,
+        emailVerified: false,
+        password
+        // friendEmails: {},
+      };
+      
+      // await setDoc(doc(db, "users", userCredential.user.uid), userData);
+
+      // console.log("New User:", userCredential?.user)
+
+      router.push("/auth/login");
+
+    } catch (error: any) {
+      Alert.alert("Signup Error", error.message);
+    }
+    finally {
+      setLoading(false)
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={{ flex:1 }}>
@@ -31,7 +73,48 @@ const SignUp = () => {
         <FormHeaderTitle title="Create Account" />
 
         {/* FORM */}
-        <View style={styles.form}>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={SignupSchema}
+          onSubmit={(values) => handleSignup(values.email, values.password)}
+        >
+          {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+            <View
+              style={{
+                gap: 20,
+                width: SIZES.screenWidth
+              }}
+            >
+              <TextInputComponent
+                placeholder="Email"
+                inputMode="email"
+                value={values.email}
+                onChange={handleChange("email")}
+                onBlur={handleBlur("email")}
+              />
+              {errors.email && touched.email && <Text>{errors.email}</Text>}
+
+              <TextInputComponent
+                placeholder="Password"
+                isPassword={true}
+                value={values.password}
+                onChange={handleChange("password")}
+                onBlur={handleBlur("password")}
+              />
+              {errors.password && touched.password && <Text>{errors.password}</Text>}
+
+              {/* Submit Button */}
+              <ActionPrimaryButton
+                buttonTitle="Create Account"
+                onSubmit={handleSubmit}
+                isLoading={loading}
+              />
+              
+            </View>
+          )}
+        </Formik>
+      
+        {/* <View style={styles.form}>
          
          <TextInputComponent
             placeholder="Email"
@@ -57,7 +140,7 @@ const SignUp = () => {
             }}
           />
 
-        </View>
+        </View> */}
 
         <HorizontalSeparator />
 
@@ -102,19 +185,7 @@ const SignUp = () => {
 
           </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 4,
-              justifyContent: "center",
-              marginBottom: 20
-            }}
-          >
-            <Text style={{color: colors.textSubColor}}>Already have an account?</Text>
-
-            <PlainTextLink route="/auth/login" linkText='Sign In' />
-
-          </View>
+          <PlainTextLink text="Already have an account?" route="/auth/login" linkText="Login here." />
 
         </View>
 

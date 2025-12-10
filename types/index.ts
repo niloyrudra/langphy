@@ -3,6 +3,12 @@ import { ReactNode } from "react"
 import { ColorValue, ImageBackgroundProps, ImageSourcePropType, InputModeOptions, StyleProp, ViewProps, ViewStyle } from "react-native"
 import { SvgProps } from "react-native-svg"
 
+type UserData = {
+  email: string,
+  password: string,
+  emailVerified?: boolean
+}
+
 type Category = {
   // id: string,
   _id: string,
@@ -162,6 +168,7 @@ type QuizOptionProps = {
 
 // LINK Props
 type LinkProps = {
+  text?: string,
   linkText: string,
   route: Href
 }
@@ -183,13 +190,15 @@ type SubmitButtonProps = {
     onSubmit: () => void,
     buttonStyle?: StyleProp<ViewStyle>,
     buttonTextStyle?: StyleProp<ViewProps>,
-    disabled?: boolean
+    disabled?: boolean,
+    isLoading?: boolean
 }
 // TEXT_INPUT Props
 type InputProps = { // extends TextInputProps -> better approach
     value: string,
     placeholder?: string,
     onChange: (text: string) => void,
+    onBlur: (e: any) => void,
     // onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void,
     multiline?: boolean,
     numberOfLines?: number,
@@ -386,6 +395,7 @@ type ToolTip = {
 }
 
 export {
+  UserData,
   WordDataShape,
   ToolTip,
   ReadingSessionItem,

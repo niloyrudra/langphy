@@ -8,18 +8,22 @@ import { ButtonGradientPng } from '@/utils/pngImages';
 import { useTheme } from '@/theme/ThemeContext';
 
 const ActionPrimaryButton = ( {
-        buttonTitle="Submit",
-        onSubmit,
-        buttonStyle,
-        buttonTextStyle,
-        disabled=false
-    }: SubmitButtonProps ) => {
-        const {colors} = useTheme();
+    buttonTitle="Submit",
+    onSubmit,
+    buttonStyle,
+    buttonTextStyle,
+    disabled=false,
+    isLoading
+}: SubmitButtonProps ) => {
+    const {colors} = useTheme();
+
+    // if(  )
+
     return (
         <TouchableOpacity
             style={[ STYLES.childContentCentered, {position: "relative"}, (disabled && [styles.content, {backgroundColor: colors.disabledButtonBackgroundColor}]) ]}
             onPress={onSubmit}
-            disabled={disabled}
+            disabled={disabled || isLoading}
         >
             {
                 !disabled && (
@@ -33,7 +37,19 @@ const ActionPrimaryButton = ( {
                     />
                 )
             }
-            <Text style={[{position:"absolute", fontSize: 16, color: (disabled ? colors.disabledButtonColor : "#ffffff"), fontWeight: "800"}, (buttonTextStyle && buttonTextStyle)]}>{buttonTitle}</Text>
+            <Text
+                style={[
+                    {
+                        position:"absolute",
+                        fontSize: 16,
+                        color: (disabled ? colors.disabledButtonColor : "#ffffff"),
+                        fontWeight: "800"
+                    },
+                    (buttonTextStyle && buttonTextStyle)
+                ]}
+            >
+                {isLoading ? "Processing..." : buttonTitle}
+            </Text>
         </TouchableOpacity>
     );
 }

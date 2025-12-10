@@ -1,17 +1,24 @@
 import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import SIZES from '@/constants/size';
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from '@expo/vector-icons';
-import { ProgressIcon, SteakIcon } from '@/utils/SVGImages';
+import { EditIconDark, EditIconLight, LearningProgressCardBgLight, MilestonesGrdCardBgLight, ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import Title from '@/components/Title';
 import { getCardContainerWidth } from '@/utils';
 import { router } from 'expo-router';
 import GridLayout from '@/components/layouts/GridLayout';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 
-const learningProgressData = [
+type LearningProress = {
+  id: number,
+  learningCategoryTitle: string,
+  score: number,
+  ImgComponent: ReactNode
+}
+
+const learningProgressData: LearningProress[] = [
   {
     id: 1,
     learningCategoryTitle: "Total Words",
@@ -76,7 +83,7 @@ const Dashboard = () => {
   const { colors, theme } = useTheme();
   return (
     <SafeAreaLayout>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
 
         <View
           style={{
@@ -91,6 +98,18 @@ const Dashboard = () => {
             colors={['#CFFDFE', '#8ED4FF']}
             style={styles.topCard}
           >
+            {/* Profile Edit Button */}
+            <TouchableOpacity
+              style={styles.editButton}
+              onPress={() => router.push('/dashboard/profile-edit') }
+            >
+              {
+                theme === "light"
+                  ? (<EditIconLight width={28} height={28} />)
+                  : (<EditIconDark width={28} height={28} />)
+              }
+            </TouchableOpacity>
+
             {/* Name and ID */}
             <View
               style={{
@@ -106,7 +125,7 @@ const Dashboard = () => {
             {/* Birth Date and Email Address */}
             <View
               style={{
-                gap: 20,
+                gap: 12,
                 flexDirection: "row",
                 marginBottom: 20,
                 alignItems: "center",
@@ -124,7 +143,7 @@ const Dashboard = () => {
                 <Ionicons name="calendar-outline" size={16} color={colors.text} />
                 <Text style={styles.userInfo}>12.12.2025</Text>
               </View>
-
+              <View style={{width: 1, height: 10, backgroundColor: colors.text}} />
               <View
                 style={{
                   flexDirection: "row",
@@ -171,6 +190,8 @@ const Dashboard = () => {
                 <Text style={{fontSize: 14, fontWeight:"600", textAlign:"center", color: colors.text}}>Progress</Text>
               </View>
               
+              <View style={{width: 1, height: 36, backgroundColor: "#EDEDED"}} />
+
               <View
                 style={{
                   flexDirection: "column",
@@ -200,12 +221,10 @@ const Dashboard = () => {
           {/* Learning Progress */}
           <View>
             <Title title="Learning Progress" contentStyle={{ fontSize: 20, fontWeight: "600" }} />
-            <FlatList
-              data={learningProgressData}
-              keyExtractor={({id}) => id.toString()}
-              ListHeaderComponent={(<View style={{height: 10}} />)}
-              renderItem={({item}) => (
+            {
+              learningProgressData.map((item, idx) => (
                 <View
+                  key={idx.toString()}
                   style={{
                     height: 60,
                     borderRadius: 12,
@@ -225,9 +244,22 @@ const Dashboard = () => {
                       justifyContent: "flex-start",
                       alignItems: "center",
                       gap: 10,
-                      paddingHorizontal: 20
+                      paddingHorizontal: 20,
+                      position: "relative"
                     }}
                   >
+
+                    {/* Background Image */}
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0
+                      }}
+                    >
+                      <LearningProgressCardBgLight />
+                    </View>
+
                     <View style={{width: 40, height: 40, borderRadius: 40, backgroundColor: "#ddd"}} />
                     <Text style={{fontSize: 14, fontWeight: "500", color: colors.text }}>{item.learningCategoryTitle}</Text>
                   </View>
@@ -244,9 +276,9 @@ const Dashboard = () => {
                     <Text style={{fontSize: 16, fontWeight: "600" }}>{item.score}</Text>
                   </View>
                 </View>
-              )}
-              
-            />
+              ))
+            }
+
           </View>
 
           {/* Milestones */}
@@ -295,7 +327,7 @@ const Dashboard = () => {
                       backgroundColor: colors.statsBackground,
                       flexDirection: "row",
                       flex: 1,
-                      overflow: "hidden",
+                      overflow: "hidden"
                     }}
                   >
                     <View style={{width: "40%", height: "100%", backgroundColor: "#ddd"}} />
@@ -308,9 +340,22 @@ const Dashboard = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         gap: 5,
+                        position: "relative"
                         // paddingHorizontal: 20
                       }}
                     >
+
+                      {/* Background Image */}
+                      <View
+                        style={{
+                          position: "absolute",
+                          bottom: 0,
+                          right: 0
+                        }}
+                      >
+                        <MilestonesGrdCardBgLight />
+                      </View>
+
                       <Text style={{fontSize: 16, fontWeight: "800", color: colors.text }}>{item.milestonesTitle}</Text>
                       <Text style={{fontSize: 14, fontWeight: "400", color: colors.text }}>Streak</Text>
                     </View>
@@ -324,6 +369,8 @@ const Dashboard = () => {
 
         </View>
 
+        <View style={{height: 30}} />
+
       </ScrollView>
     </SafeAreaLayout>
   );
@@ -334,7 +381,13 @@ export default Dashboard;
 const styles = StyleSheet.create({
   topCard: {
     borderRadius: 16,
-    padding: 20
+    padding: 20,
+    position: "relative"
+  },
+  editButton: {
+    position: "absolute",
+    right: 10,
+    top: 10
   },
   userDisplayName: {
     fontSize: 24,

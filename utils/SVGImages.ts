@@ -197,6 +197,10 @@ import EditIconDark from '@/assets/images/dashboard/edit-icon-light.svg';
 
 import ProgressIcon from '@/assets/images/dashboard/progress-icon.svg';
 
+import LearningProgressCardBgLight from '@/assets/images/dashboard/learning-progress-rec-card-bg-light.svg';
+
+import MilestonesGrdCardBgLight from '@/assets/images/dashboard/milestones-grid-card-bg-light.svg';
+
 export {
     AccessoriesIconV3,
     ActivitiesIconV3,
@@ -356,5 +360,9 @@ export {
     ProfileLight,
     ProfileDark,
 
-    ProgressIcon
+    ProgressIcon,
+
+    LearningProgressCardBgLight,
+
+    MilestonesGrdCardBgLight
 };

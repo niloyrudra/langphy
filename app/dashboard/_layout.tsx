@@ -29,6 +29,19 @@ const DashboardLayout = () => {
             }}
         />
         <Stack.Screen
+            name="profile-edit"
+            options={{
+                headerStyle: {
+                    backgroundColor: colors.background
+                },
+                headerShadowVisible: false,
+                headerTitle: () => (<Title title="Profile Edit" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                // headerTitle: () => (<TitleHeading title="Profile" />),
+                headerLeft: () => (<HeaderTopLeftArrowButton />),
+                headerRight: () => (<Settings />)
+            }}
+        />
+        <Stack.Screen
             name="settings"
             options={{
                 // headerShown: false,

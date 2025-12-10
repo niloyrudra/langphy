@@ -13,6 +13,7 @@ const TextInputComponent = ({
     value='',
     placeholder,
     onChange,
+    onBlur,
     multiline=false,
     numberOfLines=1,
     maxLength=100,
@@ -55,7 +56,7 @@ const TextInputComponent = ({
 
             onChangeText={onChange}
             onFocus={() => setIsFocused(prevValue => prevValue = ! prevValue)}
-            onBlur={() => setIsFocused(prevValue => prevValue = ! prevValue)}
+            onBlur={onBlur} // {() => setIsFocused(prevValue => prevValue = ! prevValue)}
         />
 
         {
