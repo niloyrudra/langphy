@@ -1,3 +1,4 @@
+import { SettingsData } from '@/types';
 import {
   BookIcon,
   AlphabetIconV3,
@@ -69,8 +70,6 @@ import {
   WritingIconV3,
 
 } from '@/utils/SVGImages'
-
-
 
 export const CATEGORY_DATA_V3 = [
   {
@@ -464,7 +463,6 @@ export const CATEGORY_DATA_V3 = [
   }
 ];
 
-
 export const LESSON_UNIT_DATA = [
   {
     id: '1',
@@ -516,25 +514,109 @@ export const LESSON_UNIT_DATA = [
   }
 ];
 
-export const QUIZ_DATA = [
+export const SETTINGS_DATA: SettingsData[] = [
   {
-    id: '1',
-    title: 'Hola',
-    isCorrect: false,
+    subSettingTitle: "General",
+    settingsElements: [
+      {
+        elementTitle: "Sound Effect",
+        ImgComponent: null,
+        actionType: "switcher",
+        settingType: "sound_effect",
+        route: "/settings"
+      },
+      {
+        elementTitle: "Dark Mode",
+        ImgComponent: null,
+        actionType: "switcher",
+        settingType: "toggle_theme",
+        route: "/settings"
+      }
+    ]
   },
   {
-    id: '2',
-    title: 'Bonjoue',
-    isCorrect: false,
+    subSettingTitle: "Exercises",
+    settingsElements: [
+      {
+        elementTitle: "Speaking Exercise",
+        ImgComponent: null,
+        actionType: "switcher",
+        settingType: "speaking",
+        route: "/settings"
+      },
+      {
+        elementTitle: "Reading Exercise",
+        ImgComponent: null,
+        actionType: "switcher",
+        settingType: "reading",
+        route: "/settings"
+      },
+      {
+        elementTitle: "Listening Exercise",
+        ImgComponent: null,
+        actionType: "switcher",
+        settingType: "listening",
+        route: "/settings"
+      },
+      {
+        elementTitle: "Writing Exercise",
+        ImgComponent: null,
+        actionType: "switcher",
+        settingType: "writing",
+        route: "/settings"
+      }
+    ]
   },
   {
-    id: '3',
-    title: 'Moin Moin',
-    isCorrect: true,
+    subSettingTitle: "Notifications",
+    settingsElements: [
+      {
+        elementTitle: "Practise Reminder",
+        ImgComponent: null,
+        actionType: "switcher",
+        settingType: "push_notification",
+        route: "/settings"
+      }
+    ]
   },
   {
-    id: '4',
-    title: 'Hi!',
-    isCorrect: false,
+    subSettingTitle: "Others",
+    settingsElements: [
+      {
+        elementTitle: "Help Center",
+        ImgComponent: null,
+        actionType: "router",
+        settingType: "*",
+        route: "/dashboard/settings/others/help-center",
+      },
+      {
+        elementTitle: "Privacy Policy",
+        ImgComponent: null,
+        actionType: "router",
+        settingType: "*",
+        route: "/dashboard/settings/others/privacy-policy",
+      },
+      {
+        elementTitle: "Terms & Conditions",
+        ImgComponent: null,
+        actionType: "router",
+        settingType: "*",
+        route: "/dashboard/settings/others/terms-and-conditions",
+      },
+      {
+        elementTitle: "Achknowledgment",
+        ImgComponent: null,
+        actionType: "router",
+        settingType: "*",
+        route: "/dashboard/settings/others/acknowledgment",
+      },
+      {
+        elementTitle: "Feedback",
+        ImgComponent: null,
+        actionType: "router",
+        settingType: "*",
+        route: "/dashboard/settings/others/feedback",
+      }
+    ]
   },
 ];

@@ -219,7 +219,7 @@ const Dashboard = () => {
           </LinearGradient>
 
           {/* Learning Progress */}
-          <View>
+          <View style={{gap: 10}}>
             <Title title="Learning Progress" contentStyle={{ fontSize: 20, fontWeight: "600" }} />
             {
               learningProgressData.map((item, idx) => (
@@ -304,7 +304,7 @@ const Dashboard = () => {
               </TouchableOpacity>
             </View>
             
-            {/* Milestones */}
+            {/* Milestones Items */}
             <View
               style={{
                 flexDirection: "row",

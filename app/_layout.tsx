@@ -1,11 +1,13 @@
 import React from "react";
-import { SafeAreaView, View } from "react-native";
+// import { SafeAreaView, View } from "react-native";
 import { Stack } from "expo-router"; // 'Slot' for one-paged apps
 // import {StatusBar} from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { ThemeProvider } from "@/theme/ThemeContext";
 
 import * as SplashScreen from 'expo-splash-screen';
+import { SafeAreaView } from "react-native-safe-area-context";
+import StatusBarComponent from "@/components/StatusBarComponent";
 
 
 SplashScreen.preventAutoHideAsync();
@@ -46,9 +48,7 @@ const RootLayout = () => {
     <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider>
         <Stack
-          screenOptions={{
-            headerShadowVisible: false
-          }}
+          screenOptions={{headerShadowVisible: false}}
           initialRouteName="lessons"
         >
           <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -61,6 +61,7 @@ const RootLayout = () => {
           {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         </Stack>
         {/* <StatusBar backgroundColor="white" style="auto" /> */}
+        <StatusBarComponent />
       </ThemeProvider>
     </SafeAreaView>
   );

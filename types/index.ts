@@ -394,35 +394,50 @@ type ToolTip = {
   color: string;
 }
 
+type SettingsElement = {
+  elementTitle: string,
+  ImgComponent?: ReactNode,
+  actionType: "switcher" | "router",
+  settingType: string,
+  route: string,
+}
+
+type SettingsData = {
+  subSettingTitle: string,
+  settingsElements: SettingsElement[]
+}
+
 export {
+  SettingsData,
+  SettingsElement,
   UserData,
   WordDataShape,
   ToolTip,
   ReadingSessionItem,
-    Category,
-    UnitIndividualCategoryItem,
-    UnitIndividualCategory,
-    DB,
-    CategoryProps,
-    UnitLesson,
-    UnitLessonProps,
-    UnitProps,
-    UnitCategoryItemProps,
-    UnitLessonItemProps,
-    UnitDataProps,
-    QuizSessionItem,
-    QuizProps,
-    QuizOptionProps,
-    LinkProps,
-    BannerProps,
-    TitleProps,
-    SubmitButtonProps,
-    InputProps,
-    EyeProps,
-    LessonProps,
-    WordRole,
-    ColorLegend,
-    WritingSessionItem,
-    ListeningSessionItem,
-    UnitSessionType
+  Category,
+  UnitIndividualCategoryItem,
+  UnitIndividualCategory,
+  DB,
+  CategoryProps,
+  UnitLesson,
+  UnitLessonProps,
+  UnitProps,
+  UnitCategoryItemProps,
+  UnitLessonItemProps,
+  UnitDataProps,
+  QuizSessionItem,
+  QuizProps,
+  QuizOptionProps,
+  LinkProps,
+  BannerProps,
+  TitleProps,
+  SubmitButtonProps,
+  InputProps,
+  EyeProps,
+  LessonProps,
+  WordRole,
+  ColorLegend,
+  WritingSessionItem,
+  ListeningSessionItem,
+  UnitSessionType
 };

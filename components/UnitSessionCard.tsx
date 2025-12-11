@@ -7,7 +7,7 @@ import { useTheme } from '@/theme/ThemeContext';
 import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
 import { getCardContainerWidth } from '@/utils';
-import { SvgProps } from 'react-native-svg';
+// import { SvgProps } from 'react-native-svg';
 import { UnitSessionType } from '@/types';
 
 const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug, ImgComponent, completion, goal, marginRight=0} ) => {
@@ -17,7 +17,14 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
   const cardWidth = getCardContainerWidth();
 
   return (
-    <TouchableOpacity onPress={() =>  router.push({ pathname: `/lessons/${category}/${unit}/${slug}`, params: { completion: completion, goal: goal, slug: slug, categoryId, unitId } })}>
+    <TouchableOpacity
+      onPress={
+        () => router.push({
+            pathname: `/lessons/${category}/${unit}/${slug}`,
+            params: { title, slug, categoryId, unitId }
+          })
+        }
+      >
       <View 
         style={[
           STYLES.contentCentered,

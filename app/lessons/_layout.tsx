@@ -4,18 +4,20 @@ import HeaderRightComponent from '@/components/header/HeaderRightComponent';
 import { useTheme } from '@/theme/ThemeContext';
 import { Stack } from 'expo-router';
 
-export default function LessonsLayout() {
+const LessonCategoryLayout = () => {
   const {colors, theme} = useTheme();
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        statusBarStyle: theme === 'light' ? 'light' : 'dark'
+      }}
+    >
       <Stack.Screen
         name="index"
         options={{
-          headerStyle: {
-            backgroundColor: colors.background
-          },
-          headerTitle: "",
+          headerStyle: {backgroundColor: colors.background},
           headerShadowVisible: false,
+          headerTitle: "",
           headerLeft: () => (<HeaderLogo />),
           headerRight: () => (<HeaderRightComponent />)
           // header: () => (<CustomHeader />)
@@ -25,3 +27,5 @@ export default function LessonsLayout() {
     </Stack>
   );
 }
+
+export default LessonCategoryLayout;

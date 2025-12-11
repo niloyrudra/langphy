@@ -1,15 +1,14 @@
 import { StyleProp, ViewProps } from "react-native";
-import sizes from "./size";
 import SIZES from "./size";
 
 const headerContainer: StyleProp<ViewProps> = <ViewProps> {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    paddingHorizontal: sizes.bodyPaddingHorizontal,
+    paddingHorizontal: SIZES.bodyPaddingHorizontal,
     // gap: 10,
     paddingVertical: 10,
-    height: sizes.headerHeight,
+    height: SIZES.headerHeight,
     // width: SIZES.screenWidth,
     // backgroundColor: "#000000",
     // borderTopWidth: 1,
@@ -51,8 +50,9 @@ const childContentCentered: StyleProp<ViewProps> = <ViewProps> {
 };
 const defaultContainer: StyleProp<ViewProps> = <ViewProps> {
     flex: 1,
-    paddingHorizontal: sizes.bodyPaddingHorizontal,
-    paddingVertical: sizes.bodyPaddingVertical,
+    paddingHorizontal: SIZES.bodyPaddingHorizontal,
+    paddingTop: 0,// SIZES.bodyPaddingVertical,
+    paddingBottom: SIZES.bodyPaddingVertical,
 };
 
 const titleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {

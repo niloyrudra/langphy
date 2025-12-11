@@ -63,11 +63,14 @@ import GermanyCircleFlagIcon from '@/assets/images/header/germany-flag.svg';
 import GermanySquareFlagIcon from '@/assets/images/header/flag-germany-square.svg';
 
 // Setting Icons
-import SettingIcon from '@/assets/images/header/account-settings-icon.svg';
-import SettingDarkIcon from '@/assets/images/header/account-settings-icon-dark.svg';
+// import SettingIcon from '@/assets/images/header/account-settings-icon.svg';
+// import SettingDarkIcon from '@/assets/images/header/account-settings-icon-dark.svg';
 /* NEW */
 import SettingLight from '@/assets/images/header/settings-light.svg';
-import SettingDark from '@/assets/images/header/settings-light.svg'; // TODO: Replace with dark version
+import SettingDark from '@/assets/images/header/settings-dark.svg'; // TODO: Replace with dark version
+
+import ListIconLight from '@/assets/images/header/list-icon-light.svg';
+import ListIconDark from '@/assets/images/header/list-icon-dark.svg';
 
 // Steak Icon
 import SteakIcon from '@/assets/images/header/water-drop-icon.svg';
@@ -321,8 +324,8 @@ export {
     GermanyCircleFlagIcon,
     GermanySquareFlagIcon,
 
-    SettingIcon,
-    SettingDarkIcon,
+    // SettingIcon,
+    // SettingDarkIcon,
     SteakIcon,
     SpeakerIcon,
     SpeakerAltIcon,
@@ -359,6 +362,8 @@ export {
     EditIconDark,
     ProfileLight,
     ProfileDark,
+    ListIconLight,
+    ListIconDark,
 
     ProgressIcon,
 

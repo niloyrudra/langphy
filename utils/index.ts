@@ -1229,3 +1229,20 @@ export const categoryIcon = {
   weather: WeatherIconV3,
   work: WorkIconV3,
 }
+
+export const truncateString = ( str: string, maxLength: number ) => {
+  if (str.length > maxLength) {
+    // Truncate the string to the maximum length
+    let truncated = str.substring(0, maxLength); //
+
+    // Optional: Prevent cutting words in half by finding the last space
+    // If we can find a space before the cutoff, truncate there
+    const lastSpaceIndex = truncated.lastIndexOf(' ');
+    if (lastSpaceIndex !== -1) {
+      truncated = truncated.substring(0, lastSpaceIndex);
+    }
+    
+    return truncated + '...';
+  }
+  return str;
+}
