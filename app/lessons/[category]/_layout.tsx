@@ -1,5 +1,6 @@
 // app/lessons/[category]/_layout.tsx
 import CustomArchiveHeader from '@/components/CustomArchiveHeader';
+import HeaderTitle from '@/components/header/HeaderTitle';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import Settings from '@/components/header/Settings';
 import Title from '@/components/Title';
@@ -11,7 +12,7 @@ export default function CategoryLayout() {
   return (
     <Stack
         screenOptions={{
-          statusBarStyle: theme === 'light' ? 'light' : 'dark'
+          // statusBarStyle: theme === 'light' ? 'light' : 'dark'
         }}
     >
       <Stack.Screen
@@ -21,7 +22,7 @@ export default function CategoryLayout() {
           headerStyle: {backgroundColor: colors.background},
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
-          headerTitle: () => (<Title title={props.route.params?.title ?? "Units"} contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+          headerTitle: () => (<HeaderTitle title={props.route.params?.title ?? "Units"} />),
           headerRight: () => (<Settings />)
         })}
       />

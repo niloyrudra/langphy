@@ -9,7 +9,7 @@ const LessonCategoryLayout = () => {
   return (
     <Stack
       screenOptions={{
-        statusBarStyle: theme === 'light' ? 'light' : 'dark'
+        // statusBarStyle: theme === 'light' ? 'light' : 'dark'
       }}
     >
       <Stack.Screen

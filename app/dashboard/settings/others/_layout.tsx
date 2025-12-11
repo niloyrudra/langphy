@@ -1,5 +1,6 @@
+import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
-import Title from "@/components/Title";
+// import Title from "@/components/Title";
 import { useTheme } from "@/theme/ThemeContext";
 import { Stack } from "expo-router";
 
@@ -12,7 +13,7 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<Title title="Help Center" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                    headerTitle: () => (<HeaderTitle title="Help Center" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
                 }}
             />
@@ -21,7 +22,7 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<Title title="Privacy Policy" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                    headerTitle: () => (<HeaderTitle title="Privacy Policy" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
                 }}
             />
@@ -30,7 +31,7 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<Title title="Terms & Conditions" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                    headerTitle: () => (<HeaderTitle title="Terms & Conditions" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
                 }}
             />
@@ -39,7 +40,7 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<Title title="Acknowledgment" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                    headerTitle: () => (<HeaderTitle title="Acknowledgment" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
                 }}
             />
@@ -48,7 +49,7 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<Title title="Feedback" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                    headerTitle: () => (<HeaderTitle title="Feedback" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
                 }}
             />

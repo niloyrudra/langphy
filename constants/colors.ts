@@ -16,6 +16,8 @@ export const lightColors = {
   statsBackground: "#FFFFFF",
   settingsTitle: "#999",
 
+  listeningCardBackgroundColor: "#E5E5E5",
+
   hLineColor: "#EDEDED",
 
   LessonSourceCardBackgroundColor: "#FFFFFF",
@@ -67,6 +69,8 @@ export const darkColors = {
 
   statsBackground: "#121212",
   settingsTitle: "#999",
+
+  listeningCardBackgroundColor: "#061E3E",
 
   hLineColor: "#0B3C5F",
 

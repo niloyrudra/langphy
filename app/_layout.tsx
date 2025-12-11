@@ -48,7 +48,9 @@ const RootLayout = () => {
     <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider>
         <Stack
-          screenOptions={{headerShadowVisible: false}}
+          screenOptions={{
+            headerShadowVisible: false
+          }}
           initialRouteName="lessons"
         >
           <Stack.Screen name="index" options={{ headerShown: false }} />

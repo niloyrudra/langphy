@@ -8,14 +8,13 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
-  Platform,
-  Dimensions
+  Platform
 } from 'react-native';
 import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { router, useLocalSearchParams } from 'expo-router';
-import { ToolTip, UnitIndividualCategory, UnitIndividualCategoryItem } from '@/types';
+import { ToolTip } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
 import LoadingScreenComponent from '../LoadingScreenComponent';
@@ -27,9 +26,9 @@ interface SessionLayoutProps<T> {
   categoryId?: string,
   unitId?: string,
   children: (props: {
-    item: T; // UnitIndividualCategoryItem;
+    item: T;
     index: number;
-    data?: T[]; // UnitIndividualCategory[];
+    data?: T[];
     currentIndex: number;
     goToNext?: () => void;
     goToPrevious?: () => void;
@@ -150,17 +149,17 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
               // }}
               renderItem={({ item, index }) => (
                 <View style={{flex:1, width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
-                    {children && children({
-                        item,
-                        index,
-                        // data,
-                        currentIndex,
-                        goToNext,
-                        // goToPrevious,
-                        wordRefs,
-                        containerRef,
-                        setTooltip
-                    })}
+                  {children && children({
+                    item,
+                    index,
+                    // data,
+                    currentIndex,
+                    goToNext,
+                    // goToPrevious,
+                    wordRefs,
+                    containerRef,
+                    setTooltip
+                  })}
                 </View>
               )}
             />

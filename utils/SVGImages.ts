@@ -194,6 +194,13 @@ import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
 import WritingIconV3 from '@/assets/images/categories/v3/Writing.svg';
 import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
 
+/** SESSIONS */
+import SpeakerLight from '@/assets/images/sessions/speaker-dark.svg';
+import SpeakerDark from '@/assets/images/sessions/speaker-dark.svg';
+
+import SpeakerTurtleLight from '@/assets/images/sessions/speaker-turtle-dark.svg';
+import SpeakerTurtleDark from '@/assets/images/sessions/speaker-turtle-dark.svg';
+
 /** Dashboard */
 import EditIconLight from '@/assets/images/dashboard/edit-icon-light.svg';
 import EditIconDark from '@/assets/images/dashboard/edit-icon-light.svg';
@@ -369,5 +376,12 @@ export {
 
     LearningProgressCardBgLight,
 
-    MilestonesGrdCardBgLight
+    MilestonesGrdCardBgLight,
+
+    SpeakerLight,
+    SpeakerDark,
+    SpeakerTurtleLight,
+    SpeakerTurtleDark,
+    
+
 };

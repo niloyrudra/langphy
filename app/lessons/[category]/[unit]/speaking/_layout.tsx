@@ -6,13 +6,14 @@ import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButt
 import Title from '@/components/Title';
 import { truncateString } from '@/utils';
 import ShowListButton from '@/components/header/ShowListButton';
+import HeaderTitle from '@/components/header/HeaderTitle';
 
 const SpeakingSessionLayout = () => {
   const { colors, theme } = useTheme();
   return (
     <Stack
       screenOptions={{
-        statusBarStyle: theme === 'light' ? 'light' : 'dark'
+        // statusBarStyle: theme === 'light' ? 'light' : 'dark'
       }}
     >
       <Stack.Screen
@@ -23,10 +24,10 @@ const SpeakingSessionLayout = () => {
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
-            <Title
+            <HeaderTitle
               title={ props.route.params?.title ? truncateString( props.route.params?.title, 25 ) : "Unit Session" }
-              contentStyle={{fontWeight:"900", fontSize:24}}
-              containerStyle={{justifyContent:"center", alignItems:"center"}}
+              // contentStyle={{fontWeight:"900", fontSize:24}}
+              // containerStyle={{justifyContent:"center", alignItems:"center"}}
             />
           ),
           headerRight: () => (<ShowListButton />)

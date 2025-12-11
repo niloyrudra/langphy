@@ -85,8 +85,8 @@ type UnitLessonItemProps = {
 type UnitDataProps = {
     id: string,
     title: string,
-    completion: number,
-    goal: number,
+    completion?: number,
+    goal?: number,
     ImgComponent: React.FC<SvgProps>
 }
 
@@ -94,12 +94,33 @@ type UnitSessionType = {
   title: string,
   categoryId: string,
   unitId: string,
-  goal: number,
-  completion: number,
+  goal?: number,
+  completion?: number,
   marginRight?: number,
   ImgComponent: React.FC<SvgProps>,
   slug: string
 }
+
+// Define full item structure
+type PracticeSessionType = {
+  phrase: string;
+  name?: string;
+  response: string;
+  meaning: string;
+  meaning_response: string;
+  usage_context: string;
+  formality: "formal" | "informal" | "neutral" | "both";
+  german_level: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | null;
+  grammar_note: string;
+  example_sentences?: string[];
+  audio_file?: string;
+  region: string;
+  discussion?: string;
+  ipa: string;
+  sound?: string;
+  examples: Example[];
+  analysis?: Analysis;
+};
 
 // Reading
 type ReadingSessionItem = {
@@ -215,6 +236,18 @@ type EyeProps = {
     style?: StyleProp<ViewStyle>
 }
 
+type ListeningProps = {
+    language: string,
+    // iconComponent?: ReactNode,
+    // iconTurtleComponent?: ReactNode | undefined,
+    children?: ReactNode | undefined,
+    color?: ColorValue | undefined,
+    style?: StyleProp<ViewStyle>,
+    buttonStyle?: StyleProp<ViewStyle>,
+    speechContent?: string,
+    speechLang?: string
+}
+
 type LessonProps = {
     language: string,
     // iconComponent?: ReactNode,
@@ -287,28 +320,7 @@ type Analysis = {
   roles: WordRole[];
 }
 
-// Define full item structure
-type UnitIndividualCategoryItem = {
-  phrase: string;
-  name?: string;
-  response: string;
-  meaning: string;
-  meaning_response: string;
-  usage_context: string;
-  formality: "formal" | "informal" | "neutral" | "both";
-  german_level: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | null;
-  grammar_note: string;
-  example_sentences?: string[];
-  audio_file?: string;
-  region: string;
-  ipa: string;
-  sound?: string;
-  examples: Example[];
-  analysis?: Analysis;
-};
-
 type UnitIndividualCategory = {
-  
   category: string;
   category_slug: string;
   goal: number;
@@ -415,7 +427,7 @@ export {
   ToolTip,
   ReadingSessionItem,
   Category,
-  UnitIndividualCategoryItem,
+  PracticeSessionType,
   UnitIndividualCategory,
   DB,
   CategoryProps,
@@ -439,5 +451,7 @@ export {
   ColorLegend,
   WritingSessionItem,
   ListeningSessionItem,
-  UnitSessionType
+  UnitSessionType,
+
+  ListeningProps
 };

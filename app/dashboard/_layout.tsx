@@ -1,3 +1,4 @@
+import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
 import Settings from "@/components/header/Settings";
 import Title from "@/components/Title";
@@ -11,7 +12,7 @@ const DashboardLayout = () => {
     return (
     <Stack
         screenOptions={{
-            statusBarStyle: theme == "light" ? "light" : "dark",
+            // statusBarStyle: theme == "light" ? "light" : "dark",
         //     statusBarAnimation: "slide"
         }}
     >
@@ -21,7 +22,7 @@ const DashboardLayout = () => {
                 headerStyle: {backgroundColor: colors.background},
                 headerShadowVisible: false,
                 headerLeft: () => (<HeaderTopLeftArrowButton />),
-                headerTitle: () => (<Title title="Profile" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                headerTitle: () => (<HeaderTitle title="Profile" />),
                 headerRight: () => (<Settings />)
             }}
         />
@@ -31,7 +32,7 @@ const DashboardLayout = () => {
                 headerStyle: {backgroundColor: colors.background},
                 headerShadowVisible: false,
                 headerLeft: () => (<HeaderTopLeftArrowButton />),
-                headerTitle: () => (<Title title="Profile Edit" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                headerTitle: () => (<HeaderTitle title="Profile Edit" />),
                 headerRight: () => (<Settings />)
             }}
         />
@@ -44,7 +45,7 @@ const DashboardLayout = () => {
                 headerStyle: {backgroundColor: colors.background},
                 headerShadowVisible: false,
                 headerLeft: () => (<HeaderTopLeftArrowButton />),
-                headerTitle: () => (<Title title="Milestones" contentStyle={{fontWeight:"900", fontSize:24}} containerStyle={{justifyContent:"center", alignItems:"center"}} />),
+                headerTitle: () => (<HeaderTitle title="Milestones" />),
             }}
         />
     </Stack>
