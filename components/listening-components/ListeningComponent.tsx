@@ -18,25 +18,25 @@ const ListeningComponent: React.FC<ListeningProps> = ({language, children, color
 
         {/* Speaker */}
         <View
-            style={{
-                flexDirection:"row",
-                gap: 10
-            }}
+          style={{
+            flexDirection:"row",
+            gap: 10
+          }}
         >
-            {
-                speechLang === 'de-DE' && (
-                    <Speaker
-                        speechContent={speechContent!}
-                        speechLang={speechLang!}
-                        isSlowing={true}
-                    />
-                )
-            }
-            
-            <Speaker
+          {
+            speechLang === 'de-DE' && (
+              <Speaker
                 speechContent={speechContent!}
                 speechLang={speechLang!}
-            />
+                isSlowing={true}
+              />
+            )
+          }
+          
+          <Speaker
+            speechContent={speechContent!}
+            speechLang={speechLang!}
+          />
 
         </View>
 

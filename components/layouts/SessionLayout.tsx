@@ -18,6 +18,8 @@ import { ToolTip } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
 import PaginationButton from '@/components/PaginationButton';
 import LoadingScreenComponent from '../LoadingScreenComponent';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
+import LessonNavDots from '../LessonNavDots';
 
 interface SessionLayoutProps<T> {
   sessionType?: string,
@@ -116,6 +118,8 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
 
   if( loading ) return (<LoadingScreenComponent />)
 
+    // console.log(currentIndex)
+
   return (
     <SafeAreaLayout>
       <KeyboardAvoidingView
@@ -127,6 +131,9 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
           style={{ flex: 1 }}
           onPress={() => setTooltip(prev => ({ ...prev, visible: false }))}
         >
+
+          <LessonNavDots data={data.map((_, idx) => idx)} currentIndex={currentIndex} />
+
           <View ref={containerRef} style={{ flex: 1 }}>
             <FlatList
               ref={flatListRef}
