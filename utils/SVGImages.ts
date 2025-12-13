@@ -211,6 +211,17 @@ import LearningProgressCardBgLight from '@/assets/images/dashboard/learning-prog
 
 import MilestonesGrdCardBgLight from '@/assets/images/dashboard/milestones-grid-card-bg-light.svg';
 
+import ForwardIconLight from '@/assets/images/sessions/next-light.svg';
+import ForwardIconDark from '@/assets/images/sessions/next-dark.svg';
+
+import BackwardIconLight from '@/assets/images/sessions/previous-light.svg';
+import BackwardIconDark from '@/assets/images/sessions/previous-dark.svg';
+
+import BackwardIconLight2 from '@/assets/images/sessions/previous-light-2.svg';
+import BackwardIconDark2 from '@/assets/images/sessions/previous-dark-2.svg';
+
+import InfoIcon from '@/assets/images/sessions/Info-message.svg';
+
 export {
     AccessoriesIconV3,
     ActivitiesIconV3,
@@ -383,5 +394,11 @@ export {
     SpeakerTurtleLight,
     SpeakerTurtleDark,
     
-
+    ForwardIconLight,
+    ForwardIconDark,
+    BackwardIconLight,
+    BackwardIconDark,
+    BackwardIconLight2,
+    BackwardIconDark2,
+    InfoIcon
 };

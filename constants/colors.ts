@@ -2,6 +2,7 @@
 export const lightColors = {
   background: '#F9FAFB',
   text: '#142C57',
+  primary_950_50: '#FFFFFF',
   textDark: '#000000',
   textWhite: '#F9FAFB',
   textSubColor: '#999999',
@@ -56,6 +57,7 @@ export const lightColors = {
 export const darkColors = {
   background: '#061825',
   text: '#ECFFFF',
+  primary_950_50: '#142C57',
   textDark: '#ECFFFF',
   textWhite: '#061825',
   textSubColor: '#e1e1e1',

@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import {
-  StyleSheet,
+  Text,
   View,
   FlatList,
   NativeScrollEvent,
@@ -9,21 +9,30 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform
+  // TouchableOpacity
 } from 'react-native';
 import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { router, useLocalSearchParams } from 'expo-router';
-import { ToolTip } from '@/types';
+import { Lesson, ToolTip } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
-import PaginationButton from '@/components/PaginationButton';
+// import PaginationButton from '@/components/PaginationButton';
 import LoadingScreenComponent from '../LoadingScreenComponent';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+// import { AntDesign, Ionicons } from '@expo/vector-icons';
 import LessonNavDots from '../LessonNavDots';
+// import { InfoIcon } from '@/utils/SVGImages';
+// import SIZES from '@/constants/size';
+import SessionFooter from '../SessionFooter';
+// import { useSession } from '@/context/SessionContext';
+// import STYLES from '@/constants/styles';
 
 interface SessionLayoutProps<T> {
   sessionType?: string,
   keyboardAvoid?: boolean,
+  preFetchedData?: T[],
+  showFooter?: boolean,
+  onPositionChange?: (index: number) => void,
   keyboardVerticalOffset ?: number,
   categoryId?: string,
   unitId?: string,
@@ -40,25 +49,37 @@ interface SessionLayoutProps<T> {
   }) => ReactNode
 }
 
+type BackendLesson = {
+  _id: string;
+  meaning: string;
+};
+
 // const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
-function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
-  const { colors } = useTheme();
+function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPositionChange, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
+  const { colors, theme } = useTheme();
+
+  // const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
+
   const { categoryId, unitId, slug } = useLocalSearchParams();
-  // const [data, setData] = useState<UnitIndividualCategory[]>([]);
-  const [data, setData] = useState<T[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  const [data, setData] = React.useState<T[]>([]);
+  const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [ loading, setLoading ] = React.useState<boolean>(false);
 
-  // console.log(slug, categoryId, unitId)
-
   // floating tooltip info
-  const [tooltip, setTooltip] = useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
+  const [tooltip, setTooltip] = React.useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
 
-  const flatListRef = useRef<FlatList>(null);
-  const wordRefs = useRef<Map<string, any>>(new Map());
-  const containerRef = useRef<View | null>(null);
+  const flatListRef = React.useRef<FlatList>(null);
+  const wordRefs = React.useRef<Map<string, any>>(new Map());
+  const containerRef = React.useRef<View | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    setLoading(true)
+    if( preFetchedData ) {
+      setData(preFetchedData)
+      setLoading(false)
+      return;
+    }
     const dataLoad = async () => {
       setLoading(true)
       try {
@@ -68,7 +89,17 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
           // throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data: T[] = await res.json();
+        // const data: (T & BackendLesson)[] = await res.json();
         setData(data)
+
+        // setLessons(
+        //   data.map((l: BackendLesson): Lesson => ({
+        //     id: l._id,
+        //     title: l.meaning,
+        //     completed: false,
+        //   }))
+        // );
+
       } catch (err) {
         console.error("Error fetching practice data:", err);
         setData([])
@@ -86,6 +117,7 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
       (sizes.screenWidth - sizes.bodyPaddingHorizontal * 2)
     );
     setCurrentIndex(index);
+    if (onPositionChange) onPositionChange(index);
   };
 
   const goToNext = () => {
@@ -93,6 +125,8 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
       const nextIndex = currentIndex + 1;
       flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true });
       setCurrentIndex(nextIndex);
+      // setCurrentPosition(nextIndex)
+      if (onPositionChange) onPositionChange(nextIndex);
       setTooltip(prev => ({ ...prev, visible: false }));
     }
     else {
@@ -112,13 +146,13 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
       const prevIndex = currentIndex - 1;
       flatListRef.current?.scrollToIndex({ index: prevIndex, animated: true });
       setCurrentIndex(prevIndex);
+      // setCurrentPosition(prevIndex)
+      if (onPositionChange) onPositionChange(prevIndex);
       setTooltip(prev => ({ ...prev, visible: false }));
     }
   };
 
   if( loading ) return (<LoadingScreenComponent />)
-
-    // console.log(currentIndex)
 
   return (
     <SafeAreaLayout>
@@ -162,7 +196,7 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
                     // data,
                     currentIndex,
                     goToNext,
-                    // goToPrevious,
+                    goToPrevious,
                     wordRefs,
                     containerRef,
                     setTooltip
@@ -182,18 +216,13 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
 
             {/* Navigation Buttons */}
             {
-              slug == 'practice' && (
-                <View style={styles.navButtons}>
-                  <PaginationButton
-                    actionHandler={goToPrevious}
-                    isDisabled={currentIndex === 0}
-                    modeLeft={true}
-                  />
-                  <PaginationButton
-                    actionHandler={goToNext}
-                    isDisabled={currentIndex === data.length - 1}
-                  />
-                </View>
+              showFooter && (
+                <SessionFooter
+                  goToNext={goToNext}
+                  goToPrevious={goToPrevious}
+                  currentIndex={currentIndex}
+                  dataSize={data.length || 0}
+                />
               )
             }
 
@@ -202,19 +231,10 @@ function SessionLayout<T>( { children, keyboardAvoid = false, keyboardVerticalOf
           </View>
           
         </Pressable>
+
       </KeyboardAvoidingView>
     </SafeAreaLayout>
   );
 };
 
 export default SessionLayout;
-
-const styles = StyleSheet.create({
-  navButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: sizes.bodyPaddingHorizontal,
-    marginTop: 10,
-  }
-});

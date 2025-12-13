@@ -419,7 +419,31 @@ type SettingsData = {
   settingsElements: SettingsElement[]
 }
 
+/** Context Types */
+type Lesson = {
+    id: string;
+    title: string;
+    completed: boolean;
+};
+
+type SessionContextType = {
+  lessons: Lesson[];
+  currentPosition: number;
+  showLessonList: boolean;
+  setLessons: (l: Lesson[]) => void;
+  setCurrentPosition: (i: number) => void;
+  toggleLessonList: () => void;
+};
+
+type SessionProviderProps = {
+  children: ReactNode;
+};
+
 export {
+  Lesson,
+  SessionContextType,
+  SessionProviderProps,
+  
   SettingsData,
   SettingsElement,
   UserData,

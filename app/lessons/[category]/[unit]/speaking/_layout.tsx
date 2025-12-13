@@ -30,7 +30,7 @@ const SpeakingSessionLayout = () => {
               // containerStyle={{justifyContent:"center", alignItems:"center"}}
             />
           ),
-          headerRight: () => (<ShowListButton />)
+          // headerRight: () => (<ShowListButton />)
         })}
       />
     </Stack>
