@@ -222,6 +222,13 @@ import BackwardIconDark2 from '@/assets/images/sessions/previous-dark-2.svg';
 
 import InfoIcon from '@/assets/images/sessions/Info-message.svg';
 
+/** Modal icons */
+import InfoIndicatorLightIcon from '@/assets/images/modals/info-indicator-light.svg';
+import InfoIndicatorDarkIcon from '@/assets/images/modals/info-indicator-dark.svg';
+
+import ModalCloseLightIcon from '@/assets/images/modals/modal-close-light.svg';
+import ModalCloseDarkIcon from '@/assets/images/modals/modal-close-dark.svg';
+
 export {
     AccessoriesIconV3,
     ActivitiesIconV3,
@@ -400,5 +407,10 @@ export {
     BackwardIconDark,
     BackwardIconLight2,
     BackwardIconDark2,
-    InfoIcon
+
+    InfoIcon,
+    InfoIndicatorLightIcon,
+    InfoIndicatorDarkIcon,
+    ModalCloseLightIcon,
+    ModalCloseDarkIcon
 };

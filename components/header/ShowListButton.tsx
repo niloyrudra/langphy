@@ -11,10 +11,6 @@ const ShowListButton = () => {
   const { theme } = useTheme();
   const { toggleLessonList } = useSession();
 
-  // const [open, setOpen] = React.useState(false);
-
-  // const handlePress = () => setOpen(prev => !prev);
-
   return (
     <TouchableOpacity onPress={toggleLessonList}>
       {

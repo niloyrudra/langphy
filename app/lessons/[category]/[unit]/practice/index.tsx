@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   Text,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 
@@ -15,6 +16,7 @@ import ListeningComponent from '@/components/listening-components/ListeningCompo
 import { useSession } from '@/context/SessionContext';
 import STYLES from '@/constants/styles';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
+import SIZES from '@/constants/size';
 
 type BackendLesson = {
   _id: string;
@@ -23,6 +25,7 @@ type BackendLesson = {
 
 const PracticeLessons = () => {
   const { colors, theme } = useTheme();
+  const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
 
   const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
 
@@ -74,8 +77,11 @@ const PracticeLessons = () => {
         categoryId={ typeof categoryId == 'string' ? categoryId : "" }
         unitId={ typeof unitId == 'string' ? unitId : "" }
         onPositionChange={(index: number) => setCurrentPosition(index)}
+        onRegisterScroller={(scrollFn) => {
+          scrollToLessonRef.current = scrollFn
+        }}
       >
-        {({ item, wordRefs, containerRef, setTooltip }) => {
+        {({ item, wordRefs, containerRef, setCurrentIndex, setTooltip }) => {
           const handleTooltip = (value: any) => {
             setTooltip(value);
           };
@@ -236,30 +242,64 @@ const PracticeLessons = () => {
               {
                 position: "absolute",
                 top: 0,
-                right: 0,
+                right: SIZES.bodyPaddingHorizontal,
                 width: "70%",
                 height: "auto", // "100%",
                 backgroundColor: colors.primary_950_50, // "rgba(0,0,0,0.6)",
-                padding: 16,
-                borderRadius: 16,
+                paddingHorizontal: 16,
+                paddingVertical: 10,
+                borderStartStartRadius: 16,
+                borderStartEndRadius: 16,
+                borderEndEndRadius: 16,
+                borderEndStartRadius: 0,
                 zIndex: 100,
               },
               STYLES.boxShadow
             ]}
           >
-            {lessons.map((lesson, idx) => (
-              <Text
-                key={lesson.id}
+            <View
+              style={{
+                position: "relative"
+              }}
+            >
+
+              {/* <View
                 style={{
-                  color: idx === currentPosition ? (theme === 'light' ? 'blue' : "green") : colors.text,
-                  paddingVertical: 8,
-                  fontWeight: idx === currentPosition ? "bold" : "normal",
-                  opacity: lesson.completed ? 0.35 : 1,
+                  position: "absolute",
+                  top: -20, // -40,
+                  right: 10,
+                  width: 10,
+                  borderBottomWidth: 10,
+                  borderTopWidth: 0,
+                  borderLeftWidth: 10,
+                  borderRightWidth: 10,
+                  borderBottomColor: 'red',// colors.primary_950_50
+                  borderLeftColor: 'transparent',// colors.primary_950_50
+                  borderRightColor: 'transparent',// colors.primary_950_50
+                  zIndex: 2
                 }}
-              >
-                {idx + 1}. {lesson.title}
-              </Text>
-            ))}
+              /> */}
+
+              {lessons.map((lesson, idx) => (
+                <TouchableOpacity
+                  onPress={() => scrollToLessonRef.current?.(idx)}
+                >
+                  <Text
+                    key={lesson.id}
+                    style={{
+                      color: idx === currentPosition ? (theme === 'light' ? 'blue' : "green") : colors.text,
+                      paddingVertical: 8,
+                      fontWeight: idx === currentPosition ? "bold" : "normal",
+                      opacity: lesson.completed ? 0.35 : 1,
+                    }}
+                  >
+                    {idx + 1}. {lesson.title}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+
+            </View>
+
           </View>
         )
       }

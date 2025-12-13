@@ -2,14 +2,14 @@ import { View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { InfoIcon } from '@/utils/SVGImages'
 
-const InfoButton = () => {
+const InfoButton = ({onModalVisible}: {onModalVisible: () => void}) => {
   return (
     <View style={{flex: 1}}>
-        <TouchableOpacity
-            onPress={() => console.log('Info')}
-        >
-            <InfoIcon />
-        </TouchableOpacity>
+      <TouchableOpacity
+        onPress={onModalVisible}
+      >
+        <InfoIcon />
+      </TouchableOpacity>
     </View>
   )
 }

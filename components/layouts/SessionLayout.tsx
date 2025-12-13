@@ -33,6 +33,7 @@ interface SessionLayoutProps<T> {
   preFetchedData?: T[],
   showFooter?: boolean,
   onPositionChange?: (index: number) => void,
+  onRegisterScroller?: (scrollTo: (index: number) => void) => void,
   keyboardVerticalOffset ?: number,
   categoryId?: string,
   unitId?: string,
@@ -41,6 +42,7 @@ interface SessionLayoutProps<T> {
     index: number;
     data?: T[];
     currentIndex: number;
+    setCurrentIndex?: (e: number) => void;
     goToNext?: () => void;
     goToPrevious?: () => void;
     wordRefs: React.MutableRefObject<Map<string, any>>;
@@ -49,13 +51,7 @@ interface SessionLayoutProps<T> {
   }) => ReactNode
 }
 
-type BackendLesson = {
-  _id: string;
-  meaning: string;
-};
-
-// const SessionLayout: React.FC<SessionLayoutProps> = ( { children } ) => {
-function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPositionChange, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
+function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPositionChange, onRegisterScroller, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
   const { colors, theme } = useTheme();
 
   // const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
@@ -91,14 +87,6 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
         const data: T[] = await res.json();
         // const data: (T & BackendLesson)[] = await res.json();
         setData(data)
-
-        // setLessons(
-        //   data.map((l: BackendLesson): Lesson => ({
-        //     id: l._id,
-        //     title: l.meaning,
-        //     completed: false,
-        //   }))
-        // );
 
       } catch (err) {
         console.error("Error fetching practice data:", err);
@@ -152,6 +140,26 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
     }
   };
 
+  const scrollToIndex = React.useCallback((index: number) => {
+    if (index < 0 || index >= data.length) return;
+
+    flatListRef.current?.scrollToIndex({
+      index,
+      animated: true,
+    });
+
+    setCurrentIndex(index);
+    onPositionChange?.(index);
+    setTooltip(prev => ({ ...prev, visible: false }));
+  }, [data.length, onPositionChange]);
+
+  React.useEffect(() => {
+    if (onRegisterScroller) {
+      onRegisterScroller(scrollToIndex);
+    }
+  }, [onRegisterScroller, scrollToIndex]);
+
+
   if( loading ) return (<LoadingScreenComponent />)
 
   return (
@@ -195,6 +203,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
                     index,
                     // data,
                     currentIndex,
+                    setCurrentIndex,
                     goToNext,
                     goToPrevious,
                     wordRefs,
