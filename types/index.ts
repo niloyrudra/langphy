@@ -152,7 +152,7 @@ type ListeningSessionItem = {
   german_level?: string,
 }
 
-type QuizSessionItem = {
+type QuizSessionType = {
   _id: string,
   categoryId: string,
   unitId: string,
@@ -461,7 +461,7 @@ export {
   UnitCategoryItemProps,
   UnitLessonItemProps,
   UnitDataProps,
-  QuizSessionItem,
+  QuizSessionType,
   QuizProps,
   QuizOptionProps,
   LinkProps,

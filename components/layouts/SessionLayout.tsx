@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import {
-  Text,
   View,
   FlatList,
   NativeScrollEvent,
@@ -9,23 +8,16 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform
-  // TouchableOpacity
 } from 'react-native';
 import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Lesson, ToolTip } from '@/types';
+import { ToolTip } from '@/types';
 import ToolTipComponent from '@/components/ToolTipComponent';
-// import PaginationButton from '@/components/PaginationButton';
 import LoadingScreenComponent from '../LoadingScreenComponent';
-// import { AntDesign, Ionicons } from '@expo/vector-icons';
 import LessonNavDots from '../LessonNavDots';
-// import { InfoIcon } from '@/utils/SVGImages';
-// import SIZES from '@/constants/size';
 import SessionFooter from '../SessionFooter';
-// import { useSession } from '@/context/SessionContext';
-// import STYLES from '@/constants/styles';
 
 interface SessionLayoutProps<T> {
   sessionType?: string,
@@ -53,15 +45,10 @@ interface SessionLayoutProps<T> {
 
 function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPositionChange, onRegisterScroller, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
   const { colors, theme } = useTheme();
-
-  // const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
-
   const { categoryId, unitId, slug } = useLocalSearchParams();
-
   const [data, setData] = React.useState<T[]>([]);
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [ loading, setLoading ] = React.useState<boolean>(false);
-
   // floating tooltip info
   const [tooltip, setTooltip] = React.useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
 
@@ -82,10 +69,8 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
         const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/${slug}/${categoryId}/${unitId}`);
         if (!res.ok) {
           console.error("Error fetching practice data:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data: T[] = await res.json();
-        // const data: (T & BackendLesson)[] = await res.json();
         setData(data)
 
       } catch (err) {

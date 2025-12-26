@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 
-import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
+// import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { useLocalSearchParams } from 'expo-router';
 import { Lesson, PracticeSessionType } from '@/types';
@@ -17,6 +17,7 @@ import { useSession } from '@/context/SessionContext';
 import STYLES from '@/constants/styles';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SIZES from '@/constants/size';
+import NLPAnalyzedPhase from '@/components/NLPAnalyzedPhase';
 
 type BackendLesson = {
   _id: string;
@@ -38,7 +39,7 @@ const PracticeLessons = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/${slug}/${categoryId}/${unitId}`);
+        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/practices/${categoryId}/${unitId}`);
         if (!res.ok) {
           console.error("Error fetching practice data:", res.status);
           // throw new Error(`HTTP error! status: ${res.status}`);
@@ -85,7 +86,7 @@ const PracticeLessons = () => {
           const handleTooltip = (value: any) => {
             setTooltip(value);
           };
-
+          // console.log(nlpHandler(item.phrase))
           return (
             <ScrollView
               style={{flex: 1}}
@@ -117,14 +118,19 @@ const PracticeLessons = () => {
                   speechContent={item.phrase}
                   speechLang="de-DE"
                 >
+
+                  <NLPAnalyzedPhase phrase={item.phrase} />
+
+                  <View style={{height: 20}} />
+
                   {/* Tappable Words with ToolTip */}
-                  <ToolTipPerWordComponent
+                  {/* <ToolTipPerWordComponent
                     onHandler={handleTooltip}
                     item={item}
                     containerRef={containerRef}
                     wordRefs={wordRefs}
                     textContainerStyle={{marginBottom: 10}}
-                  />
+                  /> */}
 
                   {/* Sentence Footer */}
                   {
@@ -187,7 +193,7 @@ const PracticeLessons = () => {
                         </View>
 
                         {
-                          item?.examples.length && item.examples.every(item => item?.example !== "") && (
+                          item?.examples?.length > 0 && item.examples.every(item => item?.example !== "") && (
                             <View style={{flexDirection:"column", alignItems: "flex-start", marginTop: 10}}>
                               <Text style={[styles.subText, { color: "#24DEEC" }]}>Examples:</Text>
                               {

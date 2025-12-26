@@ -1,5 +1,5 @@
 import React from 'react'
-import { QUIZ_DATA } from '@/schemes/static-data'
+// import { QUIZ_DATA } from '@/schemes/static-data'
 import SIZES from '@/constants/size'
 import QuizOptionCard from '../QuizOptionCard'
 import GridLayout from '../layouts/GridLayout'
@@ -10,7 +10,7 @@ const QuizOptions: React.FC<QuizOptionProps> = ({ options, answer, isCorrect, se
   const cardWidth = getCardContainerWidth();
   return (
     <GridLayout<string>
-      data={options.length ? options : QUIZ_DATA.map(item => item.title)}
+      data={options.length ? options : []}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item: option }: { item: string }) => (
         <QuizOptionCard

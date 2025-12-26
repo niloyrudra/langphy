@@ -5,12 +5,7 @@ import CategoryCard from '../CategoryCard';
 import GridLayout from '../layouts/GridLayout';
 import LoadingScreenComponent from '../LoadingScreenComponent';
 
-// type CategoryDataType = {
-//   _id: string,
-//   title: string,
-//   slug: string,
-//   position_at: string
-// }[]
+console.log(`${process.env.EXPO_PUBLIC_API_BASE}/category`);
 
 const CategoryCardList = () => {
 

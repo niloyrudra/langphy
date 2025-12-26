@@ -21,7 +21,8 @@ const UnitList = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/unit/category/${categoryId}`);
+        // const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/unit/category/${categoryId}`);
+        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/unit/${categoryId}`);
         if (!res.ok) {
           console.error("Error fetching units:", res.status);
           // throw new Error(`HTTP error! status: ${res.status}`);
