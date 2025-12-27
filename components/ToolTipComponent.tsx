@@ -1,20 +1,58 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ColorValue, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-
-import sizes from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
+import { Token } from '@/types';
 
-const ToolTipComponent = ({top, left, translation}: {top: number, left: number, translation: string}) => {
+interface TooltipProps<T extends Token> {
+    top: number;
+    left: number;
+    token: T;
+    translation: string;
+    color: ColorValue | null;
+}
+
+const ToolTipComponent = ({top, left, translation, color}: {top: number, left: number, translation: string, color: ColorValue | null}) => {
     const { colors, theme } = useTheme();
+    // console.log("ToolTip Container Visibled...");
   return (
-    <View style={[styles.toolTip, {top: top, left: left}]}>
+    <View
+        pointerEvents='none'
+        style={[
+            styles.toolTip,
+            {top: top, left: left},
+            {
+                backgroundColor: colors.background,
+                borderWidth: 1,
+                borderColor: color ?? colors.textDark
+            }
+        ]}
+    >
         <View style={{ position: "relative" }}>
 
-            <Text style={[styles.mainText, { textTransform: "capitalize", color: colors.textDark /*tooltip.color*/ }]}>
+            <Text
+                style={[
+                    styles.mainText,
+                    {
+                        textTransform: "capitalize",
+                        // color: colors.textDark
+                        color: color ?? colors.textDark
+                    }
+                ]}
+            >
                 {translation}
             </Text>
             
-            <View style={styles.pointer} />
+            <View
+                style={[
+                    styles.pointer,
+                    {
+                        // borderTopColor: color ?? colors.textDark,
+                        // borderLeftColor: color ?? colors.textDark,
+                        // borderRightColor: color ?? colors.textDark,
+                        borderBottomColor: color ?? colors.textDark
+                    }
+                ]}
+            />
 
         </View>
     </View>
@@ -29,14 +67,14 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
         paddingHorizontal: 10,
         borderRadius: 8,
-        backgroundColor: "#1B7CF5", // colors.cardBackground,
+        // backgroundColor: "#1B7CF5", // colors.cardBackground,
         maxWidth: 250,
-        zIndex: 9999,
+        zIndex: 10000, // 9999,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5,
+        elevation: 50 // 5,
     },
     text: {
         fontSize: 16,
@@ -58,17 +96,21 @@ const styles = StyleSheet.create({
     pointer: {
         width: 0,
         height: 0,
+        // transform: {
+        //     ro
+        // }
+        // borderWidth: 12,
+        // borderTopWidth: 6,
         borderLeftWidth: 8,
         borderRightWidth: 8,
-        borderBottomWidth: 10,
-        // borderTopWidth: 10,
+        borderBottomWidth: 6,
+        // borderTopColor: 'transparent',
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
-        // borderTopColor: 'transparent', // '#1B7CF5',
-        borderBottomColor: '#1B7CF5',
-        // marginTop: -1,
-
+        // borderBottomColor: '#1B7CF5',
+        borderRadius: 4,
         position: "absolute",
-        top: -14
+        top: -12,
+        left: -5
     }
 })

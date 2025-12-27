@@ -3,21 +3,18 @@ import {
   StyleSheet,
   View,
   Text,
-  ScrollView,
-  TouchableOpacity
+  ScrollView
 } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
-
-// import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { useLocalSearchParams } from 'expo-router';
 import { Lesson, PracticeSessionType } from '@/types';
 import ListeningComponent from '@/components/listening-components/ListeningComponent';
 import { useSession } from '@/context/SessionContext';
-import STYLES from '@/constants/styles';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import SIZES from '@/constants/size';
 import NLPAnalyzedPhase from '@/components/NLPAnalyzedPhase';
+import PracticeLessonDetails from '@/components/practice-components/LessonDetails';
+import LessonList from '@/components/practice-components/LessonList';
 
 type BackendLesson = {
   _id: string;
@@ -25,7 +22,7 @@ type BackendLesson = {
 };
 
 const PracticeLessons = () => {
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
 
   const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
@@ -78,21 +75,19 @@ const PracticeLessons = () => {
         categoryId={ typeof categoryId == 'string' ? categoryId : "" }
         unitId={ typeof unitId == 'string' ? unitId : "" }
         onPositionChange={(index: number) => setCurrentPosition(index)}
-        onRegisterScroller={(scrollFn) => {
-          scrollToLessonRef.current = scrollFn
-        }}
+        onRegisterScroller={(scrollFn) => {scrollToLessonRef.current = scrollFn}}
       >
-        {({ item, wordRefs, containerRef, setCurrentIndex, setTooltip }) => {
-          const handleTooltip = (value: any) => {
-            setTooltip(value);
-          };
-          // console.log(nlpHandler(item.phrase))
+        {({ item, wordRefs, containerRef, setCurrentIndex, screenRef, setTooltip }) => {
+          const handleTooltip = (value: any) => setTooltip(value);
           return (
             <ScrollView
               style={{flex: 1}}
               showsVerticalScrollIndicator={false}
             >
-              <View style={{ flex: 1, paddingTop: 50 }}>
+              <View
+                ref={screenRef}
+                style={{ flex: 1, paddingTop: 50 }}
+              >
                 {/* English Section */}
                 <ListeningComponent
                   language="English"
@@ -102,131 +97,43 @@ const PracticeLessons = () => {
                   speechContent={item.meaning}
                   speechLang="en-US"
                 >
-                  {/* <Text style={[styles.text, { color: colors.textDark }]}>{item?.name || item?.meaning}</Text> */}
                   <Text style={[styles.text, { color: colors.text }]}>{item.meaning}</Text>
                 </ListeningComponent>
 
-                {/* <HorizontalLine style={{ marginTop: 30, marginBottom: 50 }} /> */}
                 <View style={{height: 80}} />
 
                 {/* German Section */}
                 <ListeningComponent
                   language="German"
                   color="#1B7CF5"
-                  style={{backgroundColor: colors.listeningCardBackgroundColor}} // {{ borderColor: "#1B7CF5" }}
+                  style={{backgroundColor: colors.listeningCardBackgroundColor}}
                   buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
                   speechContent={item.phrase}
                   speechLang="de-DE"
                 >
 
-                  <NLPAnalyzedPhase phrase={item.phrase} />
-
-                  <View style={{height: 20}} />
-
                   {/* Tappable Words with ToolTip */}
-                  {/* <ToolTipPerWordComponent
+                  <NLPAnalyzedPhase
+                    phrase={item.phrase}
                     onHandler={handleTooltip}
-                    item={item}
                     containerRef={containerRef}
+                    screenRef={screenRef}
                     wordRefs={wordRefs}
-                    textContainerStyle={{marginBottom: 10}}
-                  /> */}
+                    textContainerStyle={{marginBottom: 15}}
+                  />
 
                   {/* Sentence Footer */}
                   {
                     item?.usage_context && (
-                      <View
-                        style={{
-                          width: "100%",
-                          backgroundColor: "#142957",
-                          paddingVertical: 10,
-                          paddingHorizontal: 15,
-                          borderRadius: 16,
-                          marginTop: 'auto'
-                        }}
-                      >
-
-                        <View style={{gap: 6, flexDirection:"row", flexWrap: "wrap", marginBottom: 5}}>
-                          <Text style={[styles.subText, { color: "#24DEEC" }]}>Context:</Text>
-                          <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                            {item?.usage_context}
-                          </Text>
-                        </View>
-
-                        <View style={{gap: 6, flexDirection:"row", flexWrap: "wrap", marginBottom: 5}}>
-                          <Text style={[styles.subText, { color: "#24DEEC" }]}>Additional Info:</Text>
-                          <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                            {item?.discussion ?? "..."}
-                          </Text>
-                        </View>
-
-                        <View style={{gap: 6, flexDirection:"row", flexWrap: "wrap", marginBottom: 5}}>
-                          <Text style={[styles.subText, { color: "#24DEEC" }]}>Grammer Notes:</Text>
-                          <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                            {item?.grammar_note}
-                          </Text>
-                        </View>
-
-                        {
-                          item?.formality && (
-                            <View style={{gap: 6, flexDirection:"row", flexWrap: "wrap", marginBottom: 5}}>
-                              <Text style={[styles.subText, { color: "#24DEEC" }]}>Formality:</Text>
-                              <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                                {item?.formality}
-                              </Text>
-                            </View>
-                          )
-                        }
-
-                        <View style={{gap: 6, flexDirection:"row", flexWrap: "wrap", marginBottom: 5}}>
-                          <Text style={[styles.subText, { color: "#24DEEC" }]}>Regions:</Text>
-                          <Text style={[styles.subText, { color: colors.textSubColor }]}>
-                            {item?.region}
-                          </Text>
-                        </View>
-
-                        <View style={{gap: 6, flexDirection:"row", flexWrap: "wrap", marginBottom: 5, alignItems: "flex-end"}}>
-                          <Text style={[styles.subText, { color: "#24DEEC" }]}>Level:</Text>
-                          <Text style={[styles.subText, { fontSize: 16, fontWeight: "900", color: colors.textSubColor }]}>
-                            {item?.german_level || "A1"}
-                          </Text>
-                        </View>
-
-                        {
-                          item?.examples?.length > 0 && item.examples.every(item => item?.example !== "") && (
-                            <View style={{flexDirection:"column", alignItems: "flex-start", marginTop: 10}}>
-                              <Text style={[styles.subText, { color: "#24DEEC" }]}>Examples:</Text>
-                              {
-                                item.examples.map( (item, idx) => (
-                                  <View
-                                    key={idx.toString()}
-                                    style={{
-                                      flex: 1,
-                                      width: "100%",
-                                      padding: 10,
-                                      borderStartStartRadius: 0,
-                                      borderStartEndRadius: 15,
-                                      borderEndEndRadius: 15,
-                                      borderEndStartRadius: 15,
-                                      backgroundColor: colors.LessonSourceCardBackgroundColor,
-                                      marginTop: 10,
-                                      gap: 6
-                                    }}
-                                  >
-                                    <Text style={[styles.subText, { fontSize: 14, fontWeight: "900", color: colors.textSubColor }]}>
-                                      {item?.example}
-                                    </Text>
-                                    <Text style={[styles.subText, { fontSize: 13, fontWeight: "900", color: colors.textSubColor }]}>
-                                      [ {item?.translation} ]
-                                    </Text>
-                                  </View>
-                                ))
-                              }
-                            </View>
-                          )
-                        }
-
-                      </View>
+                      <PracticeLessonDetails
+                        usage_context={item?.usage_context || ""}
+                        german_level={item?.german_level || ""}
+                        formality={item?.formality || ""}
+                        discussion={item?.discussion || ""}
+                        region={item?.region || ""}
+                        grammar_note={item?.grammar_note || ""}
+                        examples={item?.examples || []}
+                      />
                     )
                   }
 
@@ -234,7 +141,6 @@ const PracticeLessons = () => {
 
                 <View style={{height: 30}} />
               </View>
-
             </ScrollView>
           )
         }}
@@ -243,70 +149,11 @@ const PracticeLessons = () => {
       {/* Overlay lesson inspector */}
       {
         showLessonList && (
-          <View
-            style={[
-              {
-                position: "absolute",
-                top: 0,
-                right: SIZES.bodyPaddingHorizontal,
-                width: "70%",
-                height: "auto", // "100%",
-                backgroundColor: colors.primary_950_50, // "rgba(0,0,0,0.6)",
-                paddingHorizontal: 16,
-                paddingVertical: 10,
-                borderStartStartRadius: 16,
-                borderStartEndRadius: 16,
-                borderEndEndRadius: 16,
-                borderEndStartRadius: 0,
-                zIndex: 100,
-              },
-              STYLES.boxShadow
-            ]}
-          >
-            <View
-              style={{
-                position: "relative"
-              }}
-            >
-
-              {/* <View
-                style={{
-                  position: "absolute",
-                  top: -20, // -40,
-                  right: 10,
-                  width: 10,
-                  borderBottomWidth: 10,
-                  borderTopWidth: 0,
-                  borderLeftWidth: 10,
-                  borderRightWidth: 10,
-                  borderBottomColor: 'red',// colors.primary_950_50
-                  borderLeftColor: 'transparent',// colors.primary_950_50
-                  borderRightColor: 'transparent',// colors.primary_950_50
-                  zIndex: 2
-                }}
-              /> */}
-
-              {lessons.map((lesson, idx) => (
-                <TouchableOpacity
-                  onPress={() => scrollToLessonRef.current?.(idx)}
-                >
-                  <Text
-                    key={lesson.id}
-                    style={{
-                      color: idx === currentPosition ? (theme === 'light' ? 'blue' : "green") : colors.text,
-                      paddingVertical: 8,
-                      fontWeight: idx === currentPosition ? "bold" : "normal",
-                      opacity: lesson.completed ? 0.35 : 1,
-                    }}
-                  >
-                    {idx + 1}. {lesson.title}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-
-            </View>
-
-          </View>
+          <LessonList
+            lessons={lessons}
+            scrollToLessonRef={scrollToLessonRef}
+            currentPosition={currentPosition}
+          />
         )
       }
     </>

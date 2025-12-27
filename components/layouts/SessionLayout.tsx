@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import {
+  // Text,
   View,
   FlatList,
   NativeScrollEvent,
@@ -7,10 +8,11 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Modal
 } from 'react-native';
 import sizes from '@/constants/size';
-import { useTheme } from '@/theme/ThemeContext';
+// import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ToolTip } from '@/types';
@@ -18,6 +20,8 @@ import ToolTipComponent from '@/components/ToolTipComponent';
 import LoadingScreenComponent from '../LoadingScreenComponent';
 import LessonNavDots from '../LessonNavDots';
 import SessionFooter from '../SessionFooter';
+import { useFloatingTooltip } from '@/hooks/useFloatingTooltip';
+// import SIZES from '@/constants/size';
 
 interface SessionLayoutProps<T> {
   sessionType?: string,
@@ -39,18 +43,23 @@ interface SessionLayoutProps<T> {
     goToPrevious?: () => void;
     wordRefs: React.MutableRefObject<Map<string, any>>;
     containerRef: React.RefObject<View | null>;
+    screenRef: React.RefObject<View | null>;
     setTooltip: (obj: ToolTip) => void
   }) => ReactNode
 }
 
 function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPositionChange, onRegisterScroller, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
-  const { colors, theme } = useTheme();
+  // const { colors, theme } = useTheme();
   const { categoryId, unitId, slug } = useLocalSearchParams();
+
+  const screenRef = React.useRef<View | null>(null);
+
   const [data, setData] = React.useState<T[]>([]);
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [ loading, setLoading ] = React.useState<boolean>(false);
   // floating tooltip info
-  const [tooltip, setTooltip] = React.useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
+  // const [tooltip, setTooltip] = React.useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
+  const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
 
   const flatListRef = React.useRef<FlatList>(null);
   const wordRefs = React.useRef<Map<string, any>>(new Map());
@@ -100,7 +109,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
       setCurrentIndex(nextIndex);
       // setCurrentPosition(nextIndex)
       if (onPositionChange) onPositionChange(nextIndex);
-      setTooltip(prev => ({ ...prev, visible: false }));
+      // setTooltip(prev => ({ ...prev, visible: false }));
     }
     else {
       // Last item reached
@@ -121,7 +130,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
       setCurrentIndex(prevIndex);
       // setCurrentPosition(prevIndex)
       if (onPositionChange) onPositionChange(prevIndex);
-      setTooltip(prev => ({ ...prev, visible: false }));
+      // setTooltip(prev => ({ ...prev, visible: false }));
     }
   };
 
@@ -135,7 +144,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
 
     setCurrentIndex(index);
     onPositionChange?.(index);
-    setTooltip(prev => ({ ...prev, visible: false }));
+    // setTooltip(prev => ({ ...prev, visible: false }));
   }, [data.length, onPositionChange]);
 
   React.useEffect(() => {
@@ -144,24 +153,23 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
     }
   }, [onRegisterScroller, scrollToIndex]);
 
-
   if( loading ) return (<LoadingScreenComponent />)
 
   return (
     <SafeAreaLayout>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         enabled={keyboardAvoid}
       >
         <Pressable
           style={{ flex: 1 }}
-          onPress={() => setTooltip(prev => ({ ...prev, visible: false }))}
+          onPress={hideTooltip}
         >
 
           <LessonNavDots data={data.map((_, idx) => idx)} currentIndex={currentIndex} />
 
-          <View ref={containerRef} style={{ flex: 1 }}>
+          <View ref={containerRef} style={{ flex: 1, position: "relative" }}>
             <FlatList
               ref={flatListRef}
               data={data}
@@ -193,20 +201,12 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
                     goToPrevious,
                     wordRefs,
                     containerRef,
-                    setTooltip
+                    screenRef,
+                    setTooltip: showTooltip
                   })}
                 </View>
               )}
             />
-
-            {/* Floating Tooltip */}
-            {tooltip.visible && (
-              <ToolTipComponent
-                top={tooltip.y}
-                left={tooltip.x}
-                translation={tooltip.translation}
-              />
-            )}
 
             {/* Navigation Buttons */}
             {
@@ -220,11 +220,20 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
               )
             }
 
-            {/* <FloatingDictionaryIcon /> */}
+            {/* Floating Tooltip */}
+            {tooltip.visible && (
+              <ToolTipComponent
+                top={tooltip.y}
+                left={tooltip.x}
+                translation={tooltip.translation}
+                color={tooltip.color}
+              />
+            )}
 
           </View>
-          
+        
         </Pressable>
+
 
       </KeyboardAvoidingView>
     </SafeAreaLayout>

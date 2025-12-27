@@ -14,7 +14,6 @@ const LessonNavDots = ({data, currentIndex}: LessonNav) => {
             style={{
                 flexDirection: "row",
                 flexWrap: "wrap",
-                // marginVertical: 10,
                 gap: 5
             }}
         >

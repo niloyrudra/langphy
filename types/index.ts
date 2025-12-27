@@ -439,6 +439,42 @@ type SessionProviderProps = {
   children: ReactNode;
 };
 
+type LessonListProps = {
+  lessons: Lesson[];
+  scrollToLessonRef:  React.RefObject<((index: number) => void) | null>;
+  currentPosition: number;
+};
+
+
+type NlpData = {
+  text: string;
+};
+
+type MeasureCallback = (
+  x: number,
+  y: number,
+  w: number,
+  h: number
+) => void;
+
+type Token = {
+  text: string;
+  lemma: string | null;
+  pos: string | null;
+  tag: string | null;
+  dep: string | null;
+  is_stop: boolean;
+  case: string | null;
+  gender: string | null;
+  number: string | null;
+  meaning_en: string | null;
+  default_article: string | null;
+  pronunciation: { difficulty: number, flags: string | string[] };
+  display: string | null;
+  color: string | null;
+    // color: ColorValue | string | null;
+}
+
 export {
   Lesson,
   SessionContextType,
@@ -477,5 +513,10 @@ export {
   ListeningSessionItem,
   UnitSessionType,
 
-  ListeningProps
+  ListeningProps,
+
+  LessonListProps,
+  Token,
+  MeasureCallback,
+  NlpData
 };
