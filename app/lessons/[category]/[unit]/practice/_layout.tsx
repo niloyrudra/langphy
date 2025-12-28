@@ -21,12 +21,17 @@ const PracticeSessionLayout = () => {
           options={(props) => ({
             headerStyle: {backgroundColor: colors.background},
             headerShadowVisible: false,
+            // sheetCornerRadius: 20,
             headerLeft: () => (<HeaderTopLeftArrowButton />),
             headerTitle: () => (
               <Title
                 title={ props.route.params?.title ? truncateString( props.route.params?.title, 25 ) : "Unit Session" }
                 contentStyle={{fontWeight:"900", fontSize:24}}
-                containerStyle={{justifyContent:"center", alignItems:"center"}}
+                containerStyle={{
+                  // backgroundColor: "green",
+                  justifyContent:"center",
+                  alignItems:"center"
+                }}
               />
             ),
             headerRight: () => (<ShowListButton />)

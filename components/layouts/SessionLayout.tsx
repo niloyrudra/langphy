@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import {
-  // Text,
   View,
   FlatList,
   NativeScrollEvent,
@@ -8,20 +7,17 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
-  Platform,
-  Modal
+  Platform
 } from 'react-native';
 import sizes from '@/constants/size';
-// import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ToolTip } from '@/types';
-import ToolTipComponent from '@/components/ToolTipComponent';
+import ToolTipComponent from '@/components/tooltip-components/ToolTipComponent';
 import LoadingScreenComponent from '../LoadingScreenComponent';
 import LessonNavDots from '../LessonNavDots';
 import SessionFooter from '../SessionFooter';
 import { useFloatingTooltip } from '@/hooks/useFloatingTooltip';
-// import SIZES from '@/constants/size';
 
 interface SessionLayoutProps<T> {
   sessionType?: string,
@@ -49,21 +45,18 @@ interface SessionLayoutProps<T> {
 }
 
 function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPositionChange, onRegisterScroller, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
-  // const { colors, theme } = useTheme();
   const { categoryId, unitId, slug } = useLocalSearchParams();
-
-  const screenRef = React.useRef<View | null>(null);
-
+  // States
   const [data, setData] = React.useState<T[]>([]);
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [ loading, setLoading ] = React.useState<boolean>(false);
-  // floating tooltip info
-  // const [tooltip, setTooltip] = React.useState<ToolTip>({ visible: false, x: 0, y: 0, translation: '', color: colors.textDark });
+  // floating tooltip hook
   const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
-
+  // Refs
   const flatListRef = React.useRef<FlatList>(null);
   const wordRefs = React.useRef<Map<string, any>>(new Map());
   const containerRef = React.useRef<View | null>(null);
+  const screenRef = React.useRef<View | null>(null);
 
   React.useEffect(() => {
     setLoading(true)
@@ -109,7 +102,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
       setCurrentIndex(nextIndex);
       // setCurrentPosition(nextIndex)
       if (onPositionChange) onPositionChange(nextIndex);
-      // setTooltip(prev => ({ ...prev, visible: false }));
+      hideTooltip();
     }
     else {
       // Last item reached
@@ -128,9 +121,8 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
       const prevIndex = currentIndex - 1;
       flatListRef.current?.scrollToIndex({ index: prevIndex, animated: true });
       setCurrentIndex(prevIndex);
-      // setCurrentPosition(prevIndex)
       if (onPositionChange) onPositionChange(prevIndex);
-      // setTooltip(prev => ({ ...prev, visible: false }));
+      hideTooltip();
     }
   };
 
@@ -144,7 +136,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
 
     setCurrentIndex(index);
     onPositionChange?.(index);
-    // setTooltip(prev => ({ ...prev, visible: false }));
+    hideTooltip();
   }, [data.length, onPositionChange]);
 
   React.useEffect(() => {
@@ -180,7 +172,6 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
               showsHorizontalScrollIndicator={false}
               onMomentumScrollEnd={handleScroll}
               keyboardShouldPersistTaps="handled"
-
               // IMPORTANT: these fix alignment issues
               removeClippedSubviews={false}
               disableVirtualization={true}
@@ -225,8 +216,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
               <ToolTipComponent
                 top={tooltip.y}
                 left={tooltip.x}
-                translation={tooltip.translation}
-                color={tooltip.color}
+                token={tooltip.token}
               />
             )}
 

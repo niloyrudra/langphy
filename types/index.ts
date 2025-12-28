@@ -398,12 +398,20 @@ type DB = {
   work: UnitIndividualCategory[];
 };
 
+type WordLayout = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
 type ToolTip = {
   visible: boolean;
   x: number;
   y: number;
-  translation: string;
-  color: string;
+  token: Token;
+  // translation: string;
+  // color: string;
 }
 
 type SettingsElement = {
@@ -518,5 +526,6 @@ export {
   LessonListProps,
   Token,
   MeasureCallback,
-  NlpData
+  NlpData,
+  WordLayout
 };

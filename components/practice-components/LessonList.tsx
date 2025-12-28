@@ -34,6 +34,7 @@ const LessonList: React.FC<LessonListProps> = ({
             <View style={{position: "relative"}}>
                 {lessons.map((lesson, idx) => (
                     <TouchableOpacity
+                        // key={idx.toString()}
                         onPress={() => scrollToLessonRef?.current?.(idx)}
                     >
                         <Text

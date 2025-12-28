@@ -124,13 +124,13 @@ function ToolTipPerWordComponent<T extends WordDataShape>({
 
                                             // fallback: position in window
                                             if (!containerNode) {
-                                                onHandler({
-                                                    visible: true,
-                                                    x: wordX,
-                                                    y: wordY + wordH + 4,
-                                                    translation: translation || "",
-                                                    color: colorForWord,
-                                                });
+                                                // onHandler({
+                                                //     visible: true,
+                                                //     x: wordX,
+                                                //     y: wordY + wordH + 4,
+                                                //     translation: translation || "",
+                                                //     color: colorForWord,
+                                                // });
                                                 return;
                                             }
 
@@ -142,13 +142,13 @@ function ToolTipPerWordComponent<T extends WordDataShape>({
                                                     const relativeTop =
                                                         wordY - contY + wordH + gap;
 
-                                                    onHandler({
-                                                        visible: true,
-                                                        x: Math.max(6, wordX - contX),
-                                                        y: relativeTop,
-                                                        translation: translation || "",
-                                                        color: colorForWord,
-                                                    });
+                                                    // onHandler({
+                                                    //     visible: true,
+                                                    //     x: Math.max(6, wordX - contX),
+                                                    //     y: relativeTop,
+                                                    //     translation: translation || "",
+                                                    //     color: colorForWord,
+                                                    // });
                                                 }
                                             );
                                         });

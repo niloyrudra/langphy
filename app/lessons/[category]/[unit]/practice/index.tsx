@@ -12,7 +12,7 @@ import { Lesson, PracticeSessionType } from '@/types';
 import ListeningComponent from '@/components/listening-components/ListeningComponent';
 import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import NLPAnalyzedPhase from '@/components/NLPAnalyzedPhase';
+import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import PracticeLessonDetails from '@/components/practice-components/LessonDetails';
 import LessonList from '@/components/practice-components/LessonList';
 

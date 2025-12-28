@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
 
-import { ArrowLeftDarkIcon, ArrowLeftIcon, LeftArrowDark, LeftArrowLight } from '@/utils/SVGImages';
+import { LeftArrowDark, LeftArrowLight } from '@/utils/SVGImages';
 
 const HeaderTopLeftArrowButton = () => {
   const { theme } = useTheme();
@@ -14,7 +14,10 @@ const HeaderTopLeftArrowButton = () => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity
+      onPress={handlePress}
+      // style={{backgroundColor: "black"}}
+    >
       {
         theme === 'light'
         ? (<LeftArrowLight width={sizes.headerIcon} height={sizes.headerIcon} />)
