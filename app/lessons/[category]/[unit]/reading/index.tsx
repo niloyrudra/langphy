@@ -12,6 +12,7 @@ import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
+import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
                 
 const ReadingLessons = () => {
   const { colors } = useTheme();
@@ -38,7 +39,7 @@ const ReadingLessons = () => {
 
   return (
     <SessionLayout<ReadingSessionItem> sessionType="reading">
-      {({ item, wordRefs, containerRef, setTooltip, goToNext }) => {
+      {({ item, wordRefs, containerRef, screenRef, setTooltip, goToNext }) => {
         const handleTooltip = (value: any) => {
           setTooltip(value);
         };
@@ -104,14 +105,12 @@ const ReadingLessons = () => {
                   />
                           
                   {/* Tappable Words with ToolTip */}
-                  <ToolTipPerWordComponent
+                  <NLPAnalyzedPhase
+                    phrase={item.phrase}
                     onHandler={handleTooltip}
-                    item={{...item}}
-                    containerRef={containerRef}
                     wordRefs={wordRefs}
-                    textContainerStyle={{
-                      width: SIZES.screenWidth - 90
-                    }}
+                    containerRef={containerRef}
+                    screenRef={screenRef}
                     textStyle={{
                       fontSize: 14,
                       flexWrap: 'wrap'

@@ -1,44 +1,15 @@
-import { ColorValue, StyleSheet, Text, View } from 'react-native'
+import { ColorValue, View } from 'react-native'
 import React from 'react'
-import { useTheme } from '@/theme/ThemeContext'
+import TranslatedWord from './TranslatedWord';
 
-const Translation = ({translation, color}: {translation: string, color: ColorValue | string}) => {
-    const {colors} = useTheme();
-  return (
+const Translation = ({translation, color}: {translation: string, color: ColorValue | string}) => (
     <View style={{flexDirection: "column"}}>
         {
-            translation && translation.split(",").map((word, idx) => word.trim() !== "" && (
-
-                <View
-                    key={idx.toString()}
-                    style={{
-                        borderBottomWidth: 1,
-                        borderBottomColor: colors.hLineColor
-                    }}
-                >
-                    <Text
-                        style={[
-                            styles.translation,
-                            {
-                                textTransform: "capitalize",
-                                color: color ?? colors.textDark
-                            }
-                        ]}
-                    >
-                        {word.trim()}
-                    </Text>
-                </View>
-            ))
+            translation
+                ? translation.split(",").map((word, idx) => (word.trim() !== "") && (<TranslatedWord key={idx.toString()} word={word.trim()} color={color} />))
+                : (<TranslatedWord word={'... ... ...'} color={color} />)
         }
     </View>
-  )
-}
+);
 
-export default Translation
-
-const styles = StyleSheet.create({
-    translation: {
-        fontSize: 12,
-        fontWeight: "400"
-    }
-})
+export default Translation;

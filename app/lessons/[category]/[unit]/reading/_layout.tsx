@@ -7,6 +7,7 @@ import { truncateString } from '@/utils';
 import ShowListButton from '@/components/header/ShowListButton';
 import { useTheme } from '@/theme/ThemeContext';
 import HeaderTitle from '@/components/header/HeaderTitle';
+import Settings from '@/components/header/Settings';
 
 const ReadingSessionLayout = () => {
   const { colors, theme } = useTheme();
@@ -18,19 +19,18 @@ const ReadingSessionLayout = () => {
     >
       <Stack.Screen
         name="index"
-        // options={{header: (props) => (<CustomLessonHeader completion={props.route.params?.completion} goal={props.route.params?.goal} />)}}
         options={(props) => ({
           headerStyle: {backgroundColor: colors.background},
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
-            <HeaderTitle
+            <Title
               title={ props.route.params?.title ? truncateString( props.route.params?.title, 25 ) : "Unit Session" }
-              // contentStyle={{fontWeight:"900", fontSize:24}}
-              // containerStyle={{justifyContent:"center", alignItems:"center"}}
+              contentStyle={{fontWeight:"900", fontSize:24}}
+              containerStyle={{justifyContent:"center", alignItems:"center"}}
             />
           ),
-          // headerRight: () => (<ShowListButton />)
+          headerRight: () => (<Settings />)
         })}
       />
     </Stack>

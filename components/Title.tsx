@@ -11,7 +11,7 @@ const Title = ({title, containerStyle, contentStyle}: {title: string, containerS
   )
 }
 
-export default Title
+export default Title;
 
 const styles = StyleSheet.create({
   container: {

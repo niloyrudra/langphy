@@ -80,11 +80,13 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
                     nlpTokens?.length && nlpTokens.map( (token: Token, idx: number) => (
                         <NLPWord
                             key={idx?.toString()}
+                            idx={idx?.toString()}
                             token={token}
                             onHandler={onHandler}
                             wordRefs={wordRefs}
                             containerRef={containerRef}
                             screenRef={screenRef}
+                            textStyle={textStyle}
                         />
                     ))
                 }

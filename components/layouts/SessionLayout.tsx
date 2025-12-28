@@ -100,7 +100,6 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
       const nextIndex = currentIndex + 1;
       flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true });
       setCurrentIndex(nextIndex);
-      // setCurrentPosition(nextIndex)
       if (onPositionChange) onPositionChange(nextIndex);
       hideTooltip();
     }
@@ -135,7 +134,7 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
     });
 
     setCurrentIndex(index);
-    onPositionChange?.(index);
+    if (onPositionChange) onPositionChange?.(index);
     hideTooltip();
   }, [data.length, onPositionChange]);
 

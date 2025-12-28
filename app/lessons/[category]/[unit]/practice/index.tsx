@@ -24,7 +24,7 @@ type BackendLesson = {
 const PracticeLessons = () => {
   const { colors } = useTheme();
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
-
+  const scrollToRef = React.useRef<ScrollView>(null);
   const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
 
   const {categoryId, slug, unitId} = useLocalSearchParams();
@@ -66,6 +66,11 @@ const PracticeLessons = () => {
 
   if( loading ) return (<LoadingScreenComponent />)
 
+  // console.log("ScrollViewRef ==>", scrollToRef?.current?.getScrollableNode());
+  // console.log("ScrollViewRef ==>", scrollToRef?.current?.scrollTo());
+  // console.log("ScrollViewRef ==>", scrollToRef?.current?.getNativeScrollRef());
+  console.log("ScrollViewRef ==>", scrollToRef?.current?.getInnerViewNode());
+
   return (
     <>
       <SessionLayout<PracticeSessionType>
@@ -81,6 +86,7 @@ const PracticeLessons = () => {
           const handleTooltip = (value: any) => setTooltip(value);
           return (
             <ScrollView
+              ref={scrollToRef}
               style={{flex: 1}}
               showsVerticalScrollIndicator={false}
             >
