@@ -11,16 +11,57 @@ import { RecorderDarkInactiveIcon, RecorderLightActiveIcon } from '@/utils/SVGIm
 import SessionLayout from '@/components/layouts/SessionLayout';
 import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import SpeakerComponent from '@/components/SpeakerComponent';
+import { SpeakingSessionType } from '@/types';
+import { useLocalSearchParams } from 'expo-router';
+import LoadingScreenComponent from '@/components/LoadingScreenComponent';
+import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
+import SoundRecorder from '@/components/recoder-components/SoundRecorder';
 
 
 const SpeakingLessons = () => {
   const { theme, colors } = useTheme();
   const [isRecorderActive, setIsRecorderActive] = React.useState(true)
 
-  return (
-    <SessionLayout>
+  const [data, setData] = React.useState<SpeakingSessionType[]>([]);
+  const [ loading, setLoading ] = React.useState<boolean>(false);
 
-      {({ item, wordRefs, containerRef, setTooltip }) => {
+  const {categoryId, slug, unitId} = useLocalSearchParams();
+
+  React.useEffect(() => {
+    const dataLoad = async () => {
+      setLoading(true)
+      try {
+        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/speaking/${categoryId}/${unitId}`);
+        if (!res.ok) {
+          console.error("Error fetching practice data:", res.status);
+          // throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        // const data: T[] = await res.json();
+        const data: (SpeakingSessionType)[] = await res.json();
+        setData(data)
+
+      } catch (err) {
+        console.error("Error fetching practice data:", err);
+        setData([])
+        // throw err;
+      }
+      setLoading(false)
+    }
+
+    if (categoryId && unitId && slug) dataLoad();
+  }, [categoryId, unitId, slug]);
+
+  if( loading ) return (<LoadingScreenComponent />)
+
+  return (
+    <SessionLayout<SpeakingSessionType>
+      preFetchedData={data}
+      sessionType={typeof slug == 'string' ? slug : ""}
+      categoryId={ typeof categoryId == 'string' ? categoryId : "" }
+      unitId={ typeof unitId == 'string' ? unitId : "" }
+    >
+
+      {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
 
         const handleTooltip = (value: any) => {
           setTooltip(value);
@@ -56,12 +97,19 @@ const SpeakingLessons = () => {
                   />
                           
                   {/* Tappable Words with ToolTip */}
-                  <ToolTipPerWordComponent
+                  <NLPAnalyzedPhase
+                    phrase={item.phrase}
+                    onHandler={handleTooltip}
+                    wordRefs={wordRefs}
+                    containerRef={containerRef}
+                    screenRef={screenRef}
+                  />
+                  {/* <ToolTipPerWordComponent
                     onHandler={handleTooltip}
                     item={item}
                     containerRef={containerRef}
                     wordRefs={wordRefs}
-                  />
+                  /> */}
                 </View>
 
 
@@ -102,6 +150,8 @@ const SpeakingLessons = () => {
             
             </View>
     
+            <SoundRecorder />
+
             {/* Action Buttons */}
             <ActionPrimaryButton
               buttonTitle='Check'

@@ -27,6 +27,7 @@ export default {
     },
     plugins: [
       "expo-router",
+      "expo-audio",
       "expo-speech-recognition",
       "expo-web-browser",
       [

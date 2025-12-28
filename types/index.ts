@@ -122,6 +122,19 @@ type PracticeSessionType = {
   analysis?: Analysis;
 };
 
+// Speaking Session Type
+type SpeakingSessionType = {
+  _id: string;
+  categoryId: string;
+  unitId: string;
+  phrase: string;
+  meaning: string;
+  german_level: string;
+  formality: string;
+  region: string;
+  usage_context: string;
+}
+
 // Reading
 type ReadingSessionItem = {
   _id: string,
@@ -506,6 +519,7 @@ export {
   UnitLessonItemProps,
   UnitDataProps,
   QuizSessionType,
+  SpeakingSessionType,
   QuizProps,
   QuizOptionProps,
   LinkProps,

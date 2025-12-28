@@ -23,6 +23,7 @@
     "dotenv": "^17.2.1",
     "expo": "~54.0.30",
     "expo-ads-admob": "^13.0.0",
+    "expo-audio": "~1.1.1",
     "expo-blur": "~15.0.8",
     "expo-constants": "~18.0.10",
     "expo-file-system": "~19.0.19",
