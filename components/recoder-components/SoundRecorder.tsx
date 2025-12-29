@@ -66,14 +66,52 @@ const SoundRecorder = () => {
             <Button
                 title={player.playing ? "Playing..." : "Play the audio"}
                 onPress={() => {
-                    if (!recordedUri) return;
-                    player.seekTo(0);
-                    player.play();
+                    playAudio()
+                    // if (!recordedUri) return;
+                    // player.seekTo(0);
+                    // player.play();
                     // player.seekTo(0); // For Replay
                     // console.log(player.isAudioSamplingSupported)
                     // player.play();
                     
                     // console.log(player.currentStatus)
+                }}
+            />
+            <Button
+                title="Check"
+                onPress={async () => {
+                    try {
+                        const formData = new FormData();
+                        formData.append("audio", {
+                            uri: audioRecorder.uri,
+                            type: "audio/m4a",  // or "audio/wav" if you convert
+                            name: "speech.m4a"
+                        } as any);
+
+                        // Add expected text
+                        formData.append("expected_text", "Ich heiße Anna"); // Replace with your actual expected text
+
+                        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/speech/evaluate`, {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                "Content-Type": "multipart/form-data"  // Some setups may not require this; React Native may handle it automatically
+                            }
+                        });
+
+                        if (!res.ok) {
+                            const text = await res.text(); // Read HTML or error message
+                            console.log("Error response:", text);
+                            return;
+                        }
+
+                        const data = await res.json();
+
+                        console.log("Success!", data)
+                    }
+                    catch(err) {
+                        console.error("Speech Checking Failed!", err)
+                    }
                 }}
             />
         </View>

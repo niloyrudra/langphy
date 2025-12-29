@@ -1266,3 +1266,9 @@ export const measureInWindowSafe = (
     UIManager.measureInWindow(handle, callback);
   }
 };
+
+export const confidenceColor = (avgLogProb: number) => {
+  if (avgLogProb > -0.5) return "green";
+  if (avgLogProb > -0.8) return "orange";
+  return "red";
+}
