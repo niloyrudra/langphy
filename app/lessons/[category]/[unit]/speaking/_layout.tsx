@@ -7,6 +7,7 @@ import Title from '@/components/Title';
 import { truncateString } from '@/utils';
 import ShowListButton from '@/components/header/ShowListButton';
 import HeaderTitle from '@/components/header/HeaderTitle';
+import Settings from '@/components/header/Settings';
 
 const SpeakingSessionLayout = () => {
   const { colors, theme } = useTheme();
@@ -30,7 +31,7 @@ const SpeakingSessionLayout = () => {
               // containerStyle={{justifyContent:"center", alignItems:"center"}}
             />
           ),
-          // headerRight: () => (<ShowListButton />)
+          headerRight: () => (<Settings />)
         })}
       />
     </Stack>

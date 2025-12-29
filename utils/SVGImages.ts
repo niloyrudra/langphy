@@ -201,6 +201,11 @@ import SpeakerDark from '@/assets/images/sessions/speaker-dark.svg';
 import SpeakerTurtleLight from '@/assets/images/sessions/speaker-turtle-dark.svg';
 import SpeakerTurtleDark from '@/assets/images/sessions/speaker-turtle-dark.svg';
 
+/** Action Buttons (Recorder)) */
+import RecorderStop from '@/assets/images/recorder/recorder-stop.svg';
+import RecorderPlay from '@/assets/images/recorder/recorder-play.svg';
+import RecorderReload from '@/assets/images/recorder/recorder-reload.svg';
+
 /** Dashboard */
 import EditIconLight from '@/assets/images/dashboard/edit-icon-light.svg';
 import EditIconDark from '@/assets/images/dashboard/edit-icon-light.svg';
@@ -400,6 +405,10 @@ export {
     SpeakerDark,
     SpeakerTurtleLight,
     SpeakerTurtleDark,
+
+    RecorderPlay,
+    RecorderReload,
+    RecorderStop,
     
     ForwardIconLight,
     ForwardIconDark,

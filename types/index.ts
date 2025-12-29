@@ -496,6 +496,36 @@ type Token = {
     // color: ColorValue | string | null;
 }
 
+type Segments = {
+  avg_logprob: number;
+  compression_ratio: number;
+  end: number;
+  start: number;
+  seek: number;
+  temperature: number;
+  no_speech_prob: number;
+  text: string;
+  token: number[]
+}
+
+type SpeechResultWordS = {
+  text: string;
+  confidence: string | number
+}
+
+type SpeechResult = {
+    analysis: {
+        feedback: string;
+        issues: string[];
+        pronunciation_score: number;
+        similarity: number;
+        spoken_text: string;
+    };
+    sagments: Segments[];
+    transcription: string;
+    words?: SpeechResultWordS[];
+}
+
 export {
   Lesson,
   SessionContextType,
@@ -541,5 +571,7 @@ export {
   Token,
   MeasureCallback,
   NlpData,
-  WordLayout
+  WordLayout,
+
+  SpeechResult
 };

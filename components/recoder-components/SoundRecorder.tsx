@@ -8,6 +8,7 @@ import {
     useAudioRecorderState,
     useAudioPlayer
 } from "expo-audio";
+import { confidenceColor } from "@/utils";
 
 const SoundRecorder = () => {
     const [recordedUri, setRecordedUri] = useState<string | null>(null);

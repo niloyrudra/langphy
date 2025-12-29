@@ -1,35 +1,49 @@
 import React from 'react';
-import { TouchableOpacity, View, StyleSheet } from 'react-native'
-import SIZES from '@/constants/size';
+import { Text, View, StyleSheet } from 'react-native'
+// import SIZES from '@/constants/size';
 import STYLES from '@/constants/styles';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import { RecorderDarkInactiveIcon, RecorderLightActiveIcon } from '@/utils/SVGImages';
+// import { RecorderDarkInactiveIcon, RecorderLightActiveIcon } from '@/utils/SVGImages';
 // import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
-
+import { confidenceColor } from "@/utils";
 import SessionLayout from '@/components/layouts/SessionLayout';
-import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
+// import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import { SpeakingSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
-import SoundRecorder from '@/components/recoder-components/SoundRecorder';
+// import SoundRecorder from '@/components/recoder-components/SoundRecorder';
+import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
+import useSpeechRecorder from '@/hooks/useSpeechRecorder';
+import AnalyzedResult from '@/components/recoder-components/AnalyzedResult';
 
 
 const SpeakingLessons = () => {
-  const { theme, colors } = useTheme();
-  const [isRecorderActive, setIsRecorderActive] = React.useState(true)
-
+  const { colors } = useTheme();
+  // const [isRecorderActive, setIsRecorderActive] = React.useState(true)
   const [data, setData] = React.useState<SpeakingSessionType[]>([]);
-  const [ loading, setLoading ] = React.useState<boolean>(false);
+  const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
 
   const {categoryId, slug, unitId} = useLocalSearchParams();
+  const {
+    isRecording,
+    setExpectedText,
+    startRecording,
+    stopRecording,
+    play,
+    analyzeSpeech,
+    isRecordingDone,
+    loading,
+    result,
+    error,
+  } = useSpeechRecorder("Ich heiße Anna");
 
   React.useEffect(() => {
     const dataLoad = async () => {
-      setLoading(true)
+      setIsLoading(true)
       try {
         const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/speaking/${categoryId}/${unitId}`);
         if (!res.ok) {
@@ -45,13 +59,13 @@ const SpeakingLessons = () => {
         setData([])
         // throw err;
       }
-      setLoading(false)
+      setIsLoading(false)
     }
 
     if (categoryId && unitId && slug) dataLoad();
   }, [categoryId, unitId, slug]);
 
-  if( loading ) return (<LoadingScreenComponent />)
+  if( isLoading ) return (<LoadingScreenComponent />)
 
   return (
     <SessionLayout<SpeakingSessionType>
@@ -62,7 +76,7 @@ const SpeakingLessons = () => {
     >
 
       {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
-
+        setExpectedText(prevVal => prevVal = item.phrase);
         const handleTooltip = (value: any) => {
           setTooltip(value);
         };
@@ -82,9 +96,6 @@ const SpeakingLessons = () => {
                 }}
               >
     
-                {/* <ChallengeScreenQuerySection query={item?.phrase || ''} /> */}
-
-
                 <View
                   style={[
                     styles.container
@@ -92,8 +103,8 @@ const SpeakingLessons = () => {
                 >
                   {/* Query Listen with Query Text Section */}
                   <SpeakerComponent
-                      speechContent={item?.phrase}
-                      speechLang='de-DE'
+                    speechContent={item?.phrase}
+                    speechLang='de-DE'
                   />
                           
                   {/* Tappable Words with ToolTip */}
@@ -104,59 +115,37 @@ const SpeakingLessons = () => {
                     containerRef={containerRef}
                     screenRef={screenRef}
                   />
-                  {/* <ToolTipPerWordComponent
-                    onHandler={handleTooltip}
-                    item={item}
-                    containerRef={containerRef}
-                    wordRefs={wordRefs}
-                  /> */}
                 </View>
 
-
-
-    
                 <View style={{flex:1}} />
     
                 {/* Writing Text Field/Input/Area Section */}
                 <View style={STYLES.childContentCentered}>
     
-                    <TouchableOpacity
-                      onPress={() => {
-                        setIsRecorderActive( prevVal => prevVal = !prevVal )
-                        // speechRecognitionPermission()
-                      }}
-                      style={!isRecorderActive && {opacity: 0.4}}
-                    >
-                      {
-                        theme === 'light'
-                          ?
-                            (
-                              isRecorderActive
-                                ? (<RecorderLightActiveIcon width={SIZES.speakerNRecorderDimensions} height={SIZES.speakerNRecorderDimensions} />)
-                                : (<RecorderLightActiveIcon width={SIZES.speakerNRecorderDimensions} height={SIZES.speakerNRecorderDimensions} />)
-                            )
-                          :
-                            (
-                              isRecorderActive
-                                ? (<RecorderLightActiveIcon width={SIZES.speakerNRecorderDimensions} height={SIZES.speakerNRecorderDimensions} />)
-                                : (<RecorderDarkInactiveIcon width={SIZES.speakerNRecorderDimensions} height={SIZES.speakerNRecorderDimensions} />)
-                            )
-                      }
-                    </TouchableOpacity>
-    
+                  <RecorderActionButton
+                    isActive={!isRecording}
+                    isRecorded={isRecordingDone}
+                    onActionHandler={isRecordingDone ? play : (isRecording ? stopRecording : startRecording)}
+                  />
+
+                  {error && <Text style={{ color: "red" }}>{error}</Text>}
+
+                  {result && (<AnalyzedResult result={result} />)}
+
                 </View>
                 
               </View>
             
             </View>
     
-            <SoundRecorder />
+            {/* <SoundRecorder /> */}
 
             {/* Action Buttons */}
             <ActionPrimaryButton
               buttonTitle='Check'
-              onSubmit={() => console.log("Submitted")}
-              disabled={true}
+              onSubmit={analyzeSpeech}
+              isLoading={loading}
+              disabled={!isRecordingDone}
             />
           </>
         )
