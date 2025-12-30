@@ -9,9 +9,23 @@ const AnalyzedResult = ({result}: {result: SpeechResult}) => {
     return (
         <View
             style={{
-            marginVertical: 10,
-            width: "100%",
-            gap: 5
+                marginVertical: 10,
+                width: "100%",
+                gap: 5,
+                // position: "absolute",
+                // bottom: 0,
+                // left: 0,
+                // right: 0,
+                padding: 10,
+                borderStartStartRadius: 20,
+                borderEndStartRadius: 20,
+                backgroundColor: colors.cardBackgroundColor,
+                borderTopWidth: 6,
+                borderLeftWidth: 1,
+                borderRightWidth: 1,
+                borderTopColor: colors.cardBorderColor,
+                borderLeftColor: colors.cardBorderColor,
+                borderRightColor: colors.cardBorderColor
             }}
         >
             <Text style={{color:colors.text}}>Transcription: {result.transcription}</Text>
@@ -21,10 +35,9 @@ const AnalyzedResult = ({result}: {result: SpeechResult}) => {
             {/* <Text style={{color:colors.text}}>Compression Ratio:{result.sagments[0].compression_ratio}</Text> */}
             {/* <Text style={{color:colors.text}}>Spoken Text: {result.analysis.spoken_text}</Text> */}
             {
-                // result.hasOwnProperty( 'words' ) && result?.words?.map( (word: {text: string, confidence: string | number}, idx: number) => (
-                    // <Text style={{color:colors.text}}>{word.text} | <Text style={{color: colors.text}}>{word.confidence}</Text></Text>
-                    // <Text style={{color:colors.text}}>{word.text} | <Text style={{color: confidenceColor( result.sagments[0].avg_logprob ) || colors.text}}>{word.confidence}</Text></Text>
-                // ))
+                result.hasOwnProperty( 'words' ) && result?.words?.map( (word: {text: string, confidence: string | number}, idx: number) => (
+                    <Text style={{color:colors.text}}>{word.text} | <Text style={{color: confidenceColor( result.sagments[0].avg_logprob ) || colors.text}}>{word.confidence}</Text></Text>
+                ))
             }
             <Text style={{color:colors.text}}>Issues: {result.analysis?.issues?.join(", ")}</Text>
 

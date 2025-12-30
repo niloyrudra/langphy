@@ -63,7 +63,7 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                     <HorizontalLine
                         style={{
                             backgroundColor: "#676767",
-                            marginVertical: 10,
+                            marginVertical: 4,
                             width: "100%"
                         }}
                     />
@@ -83,6 +83,43 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                             <ModalColorIndicatorComponent name="Feminine (Femini)" color="#FA44E7" />
                             <ModalColorIndicatorComponent name="Neuter (Kastrieren)" color="#C29B6C" />
                             <ModalColorIndicatorComponent name="Plural (Plural)" color="#EA831D" />
+                        </View>
+
+                    </View>
+
+                    <HorizontalLine
+                        style={{
+                            backgroundColor: "#676767",
+                            marginVertical: 4,
+                            width: "100%"
+                        }}
+                    />
+
+                    <View
+                        style={{
+                            marginVertical: 10
+                        }}
+                    >
+                        <ModalSectionTitle
+                            title='German Parts-of-speech'
+                            color="#68F0F8"
+                        />
+
+                        <View style={styles.contentWrapper}>
+                            <ModalColorIndicatorComponent name="Noun (Nominativ)" color="#FF9800" />
+                            {/* <ModalColorIndicatorComponent name="Proper Noun (Nominativ)" color="#FF9800" /> */}
+                            <ModalColorIndicatorComponent name="Pronoun (Femini)" color="#4CAF50" />
+                            <ModalColorIndicatorComponent name="Verb (Kastrieren)" color="#2196F3" />
+                            <ModalColorIndicatorComponent name="Auxiliary Verb (Plural)" color="#64B5F6" />
+                            <ModalColorIndicatorComponent name="Adjective (Nominativ)" color="#8BC34A" />
+                            <ModalColorIndicatorComponent name="Adverb (Femini)" color="#AED581" />
+                            <ModalColorIndicatorComponent name="Determiner (Femini)" color="#F06292" />
+                            <ModalColorIndicatorComponent name="Adposition (Femini)" color="#BA68C8" />
+                            <ModalColorIndicatorComponent name="Conjunction (Femini)" color="#90A4AE" />
+                            {/* <ModalColorIndicatorComponent name="Subordinating Conjunction (Femini)" color="#90A4AE" /> */}
+                            {/* <ModalColorIndicatorComponent name="Coordinating Conjunction (Femini)" color="#90A4AE" /> */}
+                            <ModalColorIndicatorComponent name="Numeral (Plural)" color="#FFD54F" />
+                            <ModalColorIndicatorComponent name="Participle (Kastrieren)" color="#B0BEC5" />
                         </View>
 
                     </View>
@@ -110,19 +147,19 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         shadowColor: '#000',
         shadowOffset: {
-        width: 0,
-        height: 2,
+            width: 0,
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5,
+        elevation: 10,
     },
     modalHeader: {
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
         gap: 10,
-        marginBottom: 10
+        marginBottom: 4
     },
     buttonClose: {
         position: "absolute",

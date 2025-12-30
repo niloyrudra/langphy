@@ -21,7 +21,12 @@ const ActionPrimaryButton = ( {
 
     return (
         <TouchableOpacity
-            style={[ STYLES.childContentCentered, {position: "relative"}, (disabled && [styles.content, {backgroundColor: colors.disabledButtonBackgroundColor}]) ]}
+            style={[
+                STYLES.childContentCentered,
+                {position: "relative"},
+                (disabled && [styles.content, {backgroundColor: colors.disabledButtonBackgroundColor}]),
+                (buttonStyle && buttonStyle)
+            ]}
             onPress={onSubmit}
             disabled={disabled || isLoading}
         >

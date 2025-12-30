@@ -26,6 +26,11 @@ interface SessionLayoutProps<T> {
   showFooter?: boolean,
   onPositionChange?: (index: number) => void,
   onRegisterScroller?: (scrollTo: (index: number) => void) => void,
+  onActiveItemChange?: (args: {
+    item: T;
+    index: number;
+    goToNext: () => void;
+  }) => void;
   keyboardVerticalOffset ?: number,
   categoryId?: string,
   unitId?: string,
@@ -44,7 +49,16 @@ interface SessionLayoutProps<T> {
   }) => ReactNode
 }
 
-function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPositionChange, onRegisterScroller, keyboardAvoid = false, keyboardVerticalOffset = 90 }: SessionLayoutProps<T>) {
+function SessionLayout<T>( {
+  children,
+  preFetchedData,
+  showFooter=false,
+  onPositionChange,
+  onRegisterScroller,
+  onActiveItemChange,
+  keyboardAvoid = false,
+  keyboardVerticalOffset = 90
+}: SessionLayoutProps<T>) {
   const { categoryId, unitId, slug } = useLocalSearchParams();
   // States
   const [data, setData] = React.useState<T[]>([]);
@@ -143,6 +157,16 @@ function SessionLayout<T>( { children, preFetchedData, showFooter=false, onPosit
       onRegisterScroller(scrollToIndex);
     }
   }, [onRegisterScroller, scrollToIndex]);
+
+  React.useEffect(() => {
+    if (!data.length) return;
+
+    onActiveItemChange?.({
+      item: data[currentIndex],
+      index: currentIndex,
+      goToNext,
+    });
+  }, [currentIndex, data]);
 
   if( loading ) return (<LoadingScreenComponent />)
 

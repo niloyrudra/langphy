@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext'
 import SIZES from '@/constants/size'
 import STYLES from '@/constants/styles'
@@ -55,6 +55,4 @@ const LessonList: React.FC<LessonListProps> = ({
     );
 }
 
-export default LessonList
-
-const styles = StyleSheet.create({})
+export default LessonList;

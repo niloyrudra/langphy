@@ -69,7 +69,7 @@ const PracticeLessons = () => {
   // console.log("ScrollViewRef ==>", scrollToRef?.current?.getScrollableNode());
   // console.log("ScrollViewRef ==>", scrollToRef?.current?.scrollTo());
   // console.log("ScrollViewRef ==>", scrollToRef?.current?.getNativeScrollRef());
-  console.log("ScrollViewRef ==>", scrollToRef?.current?.getInnerViewNode());
+  // console.log("ScrollViewRef ==>", scrollToRef?.current?.getInnerViewNode());
 
   return (
     <>

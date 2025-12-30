@@ -1,45 +1,51 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native'
-// import SIZES from '@/constants/size';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import STYLES from '@/constants/styles';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-// import { RecorderDarkInactiveIcon, RecorderLightActiveIcon } from '@/utils/SVGImages';
-// import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
-import { confidenceColor } from "@/utils";
 import SessionLayout from '@/components/layouts/SessionLayout';
-// import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import { SpeakingSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
-// import SoundRecorder from '@/components/recoder-components/SoundRecorder';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
 import AnalyzedResult from '@/components/recoder-components/AnalyzedResult';
+import { RecorderReload } from '@/utils/SVGImages';
+import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx';
 
 
 const SpeakingLessons = () => {
   const { colors } = useTheme();
-  // const [isRecorderActive, setIsRecorderActive] = React.useState(true)
+  const goToNextRef = React.useRef<(() => void) | null>(null);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
   const [data, setData] = React.useState<SpeakingSessionType[]>([]);
   const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
+
+  // const captureGoToNext = React.useCallback((fn?: () => void) => {
+  //   goToNextRef.current = fn ?? null;
+  // }, []);
 
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const {
     isRecording,
+    isPaused,
+    isPlaying,
     setExpectedText,
     startRecording,
     stopRecording,
     play,
+    pause,
+    reset,
     analyzeSpeech,
     isRecordingDone,
     loading,
     result,
     error,
-  } = useSpeechRecorder("Ich heiße Anna");
+  } = useSpeechRecorder(null);
 
   React.useEffect(() => {
     const dataLoad = async () => {
@@ -65,109 +71,160 @@ const SpeakingLessons = () => {
     if (categoryId && unitId && slug) dataLoad();
   }, [categoryId, unitId, slug]);
 
+  React.useEffect(() => {reset()}, [activeIndex]);
+
   if( isLoading ) return (<LoadingScreenComponent />)
 
   return (
-    <SessionLayout<SpeakingSessionType>
-      preFetchedData={data}
-      sessionType={typeof slug == 'string' ? slug : ""}
-      categoryId={ typeof categoryId == 'string' ? categoryId : "" }
-      unitId={ typeof unitId == 'string' ? unitId : "" }
-    >
+    <>
+      <SessionLayout<SpeakingSessionType>
+        preFetchedData={data}
+        sessionType={typeof slug == 'string' ? slug : ""}
+        categoryId={ typeof categoryId == 'string' ? categoryId : "" }
+        unitId={ typeof unitId == 'string' ? unitId : "" }
+        onPositionChange={setActiveIndex}
+        onActiveItemChange={({ item, goToNext }) => {
+          setExpectedText(item.phrase);
+          goToNextRef.current = goToNext;
+          reset(); // optional: reset recorder per item
+        }}
+      >
 
-      {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
-        setExpectedText(prevVal => prevVal = item.phrase);
-        const handleTooltip = (value: any) => {
-          setTooltip(value);
-        };
+        {({ item, wordRefs, screenRef, containerRef, setTooltip, goToNext }) => {
+          // capture latest goToNext
+          // captureGoToNext(goToNext);
 
-        return (
-          <>
-            <View style={{flex: 1}}>
-    
-              {/* Title Section */}
-              <ChallengeScreenTitle title="Speak This Sentence" />
-    
-              {/* Writing Section Starts */}
+          // React.useEffect(() => {
+          //   if( item.phrase ) {
+              setExpectedText(item.phrase);
+          //   }
+          // }, [item.phrase]);
+
+          // setExpectedText(prevVal => prevVal = item.phrase);
+          
+          const handleTooltip = (value: any) => {
+            setTooltip(value);
+          };
+
+          return (
+            <>
+              <View style={{flex: 1}}>
+      
+                {/* Title Section */}
+                <ChallengeScreenTitle title="Speak This Sentence" />
+      
+                {/* Writing Section Starts */}
+                <View
+                  style={{
+                    flex:1,
+                    marginBottom: 80
+                  }}
+                >
+      
+                  <View style={[styles.container]}>
+                    {/* Query Listen with Query Text Section */}
+                    <SpeakerComponent
+                      speechContent={item?.phrase}
+                      speechLang='de-DE'
+                    />
+                            
+                    {/* Tappable Words with ToolTip */}
+                    <NLPAnalyzedPhase
+                      phrase={item.phrase}
+                      onHandler={handleTooltip}
+                      wordRefs={wordRefs}
+                      containerRef={containerRef}
+                      screenRef={screenRef}
+                    />
+                  </View>
+
+                  <View style={{flex:1}} />
+      
+                  {/* Writing Text Field/Input/Area Section */}
+                  <View style={STYLES.childContentCentered}>
+      
+                    <RecorderActionButton
+                      isActive={!isRecording}
+                      isRecorded={isRecordingDone}
+                      isPaused={isPaused}
+                      isPlaying={isPlaying}
+                      onActionHandler={isRecordingDone ? play : (isRecording ? stopRecording : startRecording)}
+                    />
+
+                    {error && <Text style={{ color: "red" }}>{error}</Text>}
+
+                    
+
+                  </View>
+                  
+                </View>
+              
+              </View>
+      
+              {/* {result && (<AnalyzedResult result={result} />)} */}
+
+              {/* Action Buttons */}
               <View
                 style={{
-                  flex:1,
-                  marginBottom: 80
+                  width: "100%",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: 10
                 }}
               >
-    
-                <View
-                  style={[
-                    styles.container
-                  ]}
+                <TouchableOpacity
+                  onPress={reset}
+                  disabled={!isRecordingDone || loading}
+                  style={{opacity: (!isRecordingDone || loading) ? 0.5 : 1}}
                 >
-                  {/* Query Listen with Query Text Section */}
-                  <SpeakerComponent
-                    speechContent={item?.phrase}
-                    speechLang='de-DE'
-                  />
-                          
-                  {/* Tappable Words with ToolTip */}
-                  <NLPAnalyzedPhase
-                    phrase={item.phrase}
-                    onHandler={handleTooltip}
-                    wordRefs={wordRefs}
-                    containerRef={containerRef}
-                    screenRef={screenRef}
-                  />
-                </View>
+                  <RecorderReload />
+                </TouchableOpacity>
 
-                <View style={{flex:1}} />
-    
-                {/* Writing Text Field/Input/Area Section */}
-                <View style={STYLES.childContentCentered}>
-    
-                  <RecorderActionButton
-                    isActive={!isRecording}
-                    isRecorded={isRecordingDone}
-                    onActionHandler={isRecordingDone ? play : (isRecording ? stopRecording : startRecording)}
-                  />
-
-                  {error && <Text style={{ color: "red" }}>{error}</Text>}
-
-                  {result && (<AnalyzedResult result={result} />)}
-
-                </View>
-                
+                <ActionPrimaryButton
+                  buttonTitle='Check'
+                  onSubmit={analyzeSpeech}
+                  isLoading={loading}
+                  disabled={!isRecordingDone || loading}
+                  buttonStyle={{width: "70%", borderRadius: 30, overflow: "hidden"}}
+                />
               </View>
-            
-            </View>
-    
-            {/* <SoundRecorder /> */}
 
-            {/* Action Buttons */}
-            <ActionPrimaryButton
-              buttonTitle='Check'
-              onSubmit={analyzeSpeech}
-              isLoading={loading}
-              disabled={!isRecordingDone}
-            />
-          </>
-        )
-      }}
-    </SessionLayout>
+
+            </>
+          )
+        }}
+      </SessionLayout>
+
+      {result && (<SpeechResultModal
+        isVisible={result ? true : false}
+        result={result}
+        onContinue={() => {
+          reset();
+          // goToNext?.()
+          goToNextRef?.current && goToNextRef.current?.();
+        }}
+        onModalVisible={reset}
+        onRetry={reset}
+      />)}
+    </>
   );
 }
 
 export default SpeakingLessons;
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 30,
-        marginBottom: 20,
-        position: 'relative',
-        flexDirection: "row",
-        justifyContent: 'flex-start',
-        alignItems: "center",
-        gap: 20
-    },
-    query: {
-        fontSize: 24,
-        fontWeight: "700"
-    }
+  container: {
+    marginTop: 30,
+    marginBottom: 20,
+    position: 'relative',
+    flexDirection: "row",
+    justifyContent: 'flex-start',
+    alignItems: "center",
+    gap: 20
+  },
+  query: {
+    fontSize: 24,
+    fontWeight: "700"
+  }
 })

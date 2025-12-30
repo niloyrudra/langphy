@@ -10,6 +10,15 @@ import {
 } from "expo-audio";
 import { SpeechResult } from "@/types";
 
+const initialState = {
+    expectedText: null as string | null,
+    recordedUri: null as string | null,
+    loading: false,
+    isRecordingDone: false,
+    result: null as SpeechResult | null,
+    error: null as string | null,
+};
+
 const useSpeechRecorder = ( text: string | null ) => {
     const [ expectedText, setExpectedText ] = useState<string | null>(text);
     const [ recordedUri, setRecordedUri ] = useState<string | null>(null);
@@ -62,6 +71,13 @@ const useSpeechRecorder = ( text: string | null ) => {
         player.play();
     }, [player, recordedUri]);
 
+    /* 🔊 Pause */
+    const pause = useCallback(async () => {
+        if (!recordedUri) return;
+        // await player.seekTo(0);
+        player.pause();
+    }, [player, recordedUri]);
+
     /* ☁️ Send to backend (Whisper → SpaCy) */
     const analyzeSpeech = useCallback(async () => {
         if(!expectedText) {
@@ -112,10 +128,36 @@ const useSpeechRecorder = ( text: string | null ) => {
         }
     }, [recordedUri, expectedText]);
 
+    const reset = useCallback(async () => {
+        try {
+            if (recorderState.isRecording) {
+                await audioRecorder.stop();
+            }
+
+            setRecordedUri(null);
+            setIsRecordingDone(false);
+            setResult(null);
+            setError(null);
+            setLoading(false);
+
+            // optional: reset expected text
+            setExpectedText(text ?? null);
+
+            // reset player position
+            if (player) {
+                await player.pause(); // No .stop() method in AudioPlayer
+                // await player.seekTo(0);
+            }
+        } catch (e) {
+            console.warn("Reset failed", e);
+        }
+    }, [audioRecorder, recorderState.isRecording, player, text]);
+
     return {
         /* state */
         isRecording: recorderState.isRecording,
         isPlaying: player.playing,
+        isPaused: player.paused,
         isRecordingDone,
         recordedUri,
         loading,
@@ -127,6 +169,8 @@ const useSpeechRecorder = ( text: string | null ) => {
         startRecording,
         stopRecording,
         play,
+        pause,
+        reset,
         analyzeSpeech,
     };
 }
