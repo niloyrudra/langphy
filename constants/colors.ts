@@ -13,6 +13,9 @@ export const lightColors = {
   cardBackgroundColor: "#EEF8FF",
   cardBorderColor: "#BCE4FF",
   cardIconBackgroundColor: "#FFFFFF",
+  modalBoderColor: "#68F0F8",
+
+  modalBackDropColor: '#072D3790',
 
   statsBackground: "#FFFFFF",
   settingsTitle: "#999",
@@ -68,6 +71,9 @@ export const darkColors = {
   cardBackgroundColor: "#021331",
   cardBorderColor: "#1751B6", // "#BCE4FF"
   cardIconBackgroundColor: "#142C57",
+  modalBoderColor: "#68F0F8",
+
+  modalBackDropColor: '#072D3790',
 
   statsBackground: "#121212",
   settingsTitle: "#999",

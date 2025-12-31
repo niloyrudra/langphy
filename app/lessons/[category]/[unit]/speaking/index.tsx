@@ -12,7 +12,7 @@ import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
-import AnalyzedResult from '@/components/recoder-components/AnalyzedResult';
+// import AnalyzedResult from '@/components/recoder-components/AnalyzedResult';
 import { RecorderReload } from '@/utils/SVGImages';
 import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx';
 
@@ -20,7 +20,7 @@ import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx
 const SpeakingLessons = () => {
   const { colors } = useTheme();
   const goToNextRef = React.useRef<(() => void) | null>(null);
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
   const [data, setData] = React.useState<SpeakingSessionType[]>([]);
   const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
@@ -30,6 +30,7 @@ const SpeakingLessons = () => {
   // }, []);
 
   const {categoryId, slug, unitId} = useLocalSearchParams();
+
   const {
     isRecording,
     isPaused,
@@ -89,23 +90,11 @@ const SpeakingLessons = () => {
           reset(); // optional: reset recorder per item
         }}
       >
-
-        {({ item, wordRefs, screenRef, containerRef, setTooltip, goToNext }) => {
-          // capture latest goToNext
-          // captureGoToNext(goToNext);
-
-          // React.useEffect(() => {
-          //   if( item.phrase ) {
-              setExpectedText(item.phrase);
-          //   }
-          // }, [item.phrase]);
-
-          // setExpectedText(prevVal => prevVal = item.phrase);
-          
+        {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
+          setExpectedText(item.phrase);
           const handleTooltip = (value: any) => {
             setTooltip(value);
           };
-
           return (
             <>
               <View style={{flex: 1}}>
@@ -135,6 +124,7 @@ const SpeakingLessons = () => {
                       wordRefs={wordRefs}
                       containerRef={containerRef}
                       screenRef={screenRef}
+                      textContainerStyle={{width: '80%'}}
                     />
                   </View>
 
@@ -201,7 +191,6 @@ const SpeakingLessons = () => {
         result={result}
         onContinue={() => {
           reset();
-          // goToNext?.()
           goToNextRef?.current && goToNextRef.current?.();
         }}
         onModalVisible={reset}

@@ -106,20 +106,20 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                         />
 
                         <View style={styles.contentWrapper}>
-                            <ModalColorIndicatorComponent name="Noun (Nominativ)" color="#FF9800" />
-                            {/* <ModalColorIndicatorComponent name="Proper Noun (Nominativ)" color="#FF9800" /> */}
-                            <ModalColorIndicatorComponent name="Pronoun (Femini)" color="#4CAF50" />
-                            <ModalColorIndicatorComponent name="Verb (Kastrieren)" color="#2196F3" />
-                            <ModalColorIndicatorComponent name="Auxiliary Verb (Plural)" color="#64B5F6" />
-                            <ModalColorIndicatorComponent name="Adjective (Nominativ)" color="#8BC34A" />
-                            <ModalColorIndicatorComponent name="Adverb (Femini)" color="#AED581" />
-                            <ModalColorIndicatorComponent name="Determiner (Femini)" color="#F06292" />
-                            <ModalColorIndicatorComponent name="Adposition (Femini)" color="#BA68C8" />
-                            <ModalColorIndicatorComponent name="Conjunction (Femini)" color="#90A4AE" />
-                            {/* <ModalColorIndicatorComponent name="Subordinating Conjunction (Femini)" color="#90A4AE" /> */}
-                            {/* <ModalColorIndicatorComponent name="Coordinating Conjunction (Femini)" color="#90A4AE" /> */}
-                            <ModalColorIndicatorComponent name="Numeral (Plural)" color="#FFD54F" />
-                            <ModalColorIndicatorComponent name="Participle (Kastrieren)" color="#B0BEC5" />
+                            <ModalColorIndicatorComponent name="Noun (Substantiv)" color="#FF9800" />
+                            {/* <ModalColorIndicatorComponent name="Proper Noun (Eigenname)" color="#FF9800" /> */}
+                            <ModalColorIndicatorComponent name="Pronoun (Pronomen)" color="#4CAF50" />
+                            <ModalColorIndicatorComponent name="Verb (Verb)" color="#2196F3" />
+                            <ModalColorIndicatorComponent name="Auxiliary Verb (Hilfsverb)" color="#64B5F6" />
+                            <ModalColorIndicatorComponent name="Adjective (Adjektiv)" color="#8BC34A" />
+                            <ModalColorIndicatorComponent name="Adverb (Adverb)" color="#AED581" />
+                            <ModalColorIndicatorComponent name="Determiner (Determinierer)" color="#F06292" />
+                            <ModalColorIndicatorComponent name="Adposition (Adposition)" color="#BA68C8" />
+                            <ModalColorIndicatorComponent name="Conjunction (Konjunction)" color="#90A4AE" />
+                            {/* <ModalColorIndicatorComponent name="Subordinating Conjunction (Unterordnende Konjunktion)" color="#90A4AE" /> */}
+                            {/* <ModalColorIndicatorComponent name="Coordinating Conjunction (Koordinierende Konjunktion)" color="#90A4AE" /> */}
+                            <ModalColorIndicatorComponent name="Numeral (Ziffer/Zahl)" color="#FFD54F" />
+                            <ModalColorIndicatorComponent name="Particle (Teilchen)" color="#B0BEC5" />
                         </View>
 
                     </View>

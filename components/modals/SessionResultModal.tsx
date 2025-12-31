@@ -1,0 +1,110 @@
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
+import { useTheme } from '@/theme/ThemeContext';
+import { SessionResultType } from '@/types';
+import { feedbackComments } from '@/utils';
+import HorizontalLine from '../HorizontalLine';
+import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FontAwesome } from '@expo/vector-icons';
+import ResultDetail from './_partials/ResultDetail';
+import ModalLayout from './_partials/ModalLayout';
+
+interface SessionResultModalProps {
+    isVisible: boolean;
+    onModalVisible: () => void;
+    result: SessionResultType;
+    onRetry: () => void;
+    onContinue: () => void;
+}
+
+const SessionResultModal = ({isVisible, onModalVisible, result, onRetry, onContinue}: SessionResultModalProps) => {
+    const insets = useSafeAreaInsets();
+    const {colors} = useTheme();
+    const feedback = feedbackComments(result.similarity);
+
+    return (
+        <ModalLayout
+            isVisible={isVisible}
+            onModalVisible={onModalVisible}
+            feedback={feedback}
+            gradianColor={['#081A33', '#081A33', '#1FCAD7']} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
+        >
+
+            {/* Modal Content */}
+            <View style={{ gap: 5 }}>
+                <ResultDetail
+                    label="Similarity Score:"
+                    detail={Math.round(result.similarity * 100) + "%"}
+                    iconComponent={<FontAwesome name="trophy" size={20} color={colors.text} />}
+                />
+
+                {/* <ResultDetail
+                    label='Issues:'
+                    detail={result.analysis?.issues?.length > 0 ?result.analysis?.issues?.join(", ") : 'No issues found'}
+                    iconComponent={<MaterialIcons name="error" size={20} color={colors.text} />}
+                /> */}
+
+                <ResultDetail
+                    detail={result.feedback}
+                    iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
+                />          
+                
+                <HorizontalLine
+                    style={{
+                        marginVertical: 15,
+                        borderBottomColor: "#3FA1FF" // colors.cardBorderColor
+                    }}
+                />
+
+                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                    <ActionPrimaryButton buttonTitle='Retry' onSubmit={onRetry} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
+                    <ActionPrimaryButton buttonTitle='Continue' onSubmit={onContinue ? () =>onContinue() : () => console.log("Continue")} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
+                </View>
+
+            </View>
+
+        </ModalLayout>                    
+    );
+}
+
+export default SessionResultModal;
+
+const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        bottom: 0
+    },
+    modalView: {
+        // position: "relative",
+        borderStartStartRadius: 20,
+        borderEndStartRadius: 20,
+        borderTopWidth: 6,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        fontSize: 20,
+        fontWeight: "700"
+    },
+    contentWrapper: {
+        marginTop: 10,
+        flexDirection: "column",
+        gap: 5
+    }
+});

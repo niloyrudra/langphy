@@ -147,7 +147,7 @@ type ReadingSessionItem = {
   phrase: string
 }
 
-type WritingSessionItem = {
+type WritingSessionType = {
   _id: string,
   categoryId: string,
   unitId: string,
@@ -156,7 +156,7 @@ type WritingSessionItem = {
   german_level?: string,
 }
 
-type ListeningSessionItem = {
+type ListeningSessionType = {
   _id: string,
   categoryId: string,
   unitId: string,
@@ -526,6 +526,17 @@ type SpeechResult = {
     words?: SpeechResultWordS[];
 }
 
+type SessionResultType = {
+  similarity: number;
+  feedback: string;
+  details?: any;
+}
+
+type Feedback = {
+  label: string;
+  color: string;
+};
+
 export {
   Lesson,
   SessionContextType,
@@ -561,8 +572,8 @@ export {
   LessonProps,
   WordRole,
   ColorLegend,
-  WritingSessionItem,
-  ListeningSessionItem,
+  WritingSessionType,
+  ListeningSessionType,
   UnitSessionType,
 
   ListeningProps,
@@ -573,5 +584,8 @@ export {
   NlpData,
   WordLayout,
 
-  SpeechResult
+  SpeechResult,
+  SessionResultType,
+
+  Feedback
 };
