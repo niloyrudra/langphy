@@ -17,6 +17,7 @@ const WritingSession = () => {
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
   const [ textContent, setTextContent ] = React.useState<string>('')
+  const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
@@ -36,6 +37,7 @@ const WritingSession = () => {
 
     try {
       setLoading(true);
+      setActualDEQuery(expectedText);
       console.log( "Action triggered..." )
       const res = await fetch(
           `${process.env.EXPO_PUBLIC_API_BASE}/nlp/analyze/answer`,
@@ -185,8 +187,9 @@ const WritingSession = () => {
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
                 multiline={true}
-                numberOfLines={3}
+                numberOfLines={2}
                 maxLength={500}
+                // enterKeyHint="done"
                 placeholder='Write here...'
                 value={textContent}
                 onChange={(text) => setTextContent(text)}
@@ -194,7 +197,7 @@ const WritingSession = () => {
                 placeholderTextColor={colors.placeholderColor}
                 inputMode="text"
                 contentContainerStyle={{
-                  marginBottom: 40
+                  marginBottom: 20
                 }}
               />
 
@@ -213,6 +216,7 @@ const WritingSession = () => {
 
       {result && (<SessionResultModal
         isVisible={result ? true : false}
+        actualQuery={actualDEQuery}
         result={result!}
         onContinue={() => {
           reset();

@@ -12,13 +12,14 @@ import ModalLayout from './_partials/ModalLayout';
 
 interface SessionResultModalProps {
     isVisible: boolean;
+    actualQuery: string;
     onModalVisible: () => void;
     result: SessionResultType;
     onRetry: () => void;
     onContinue: () => void;
 }
 
-const SessionResultModal = ({isVisible, onModalVisible, result, onRetry, onContinue}: SessionResultModalProps) => {
+const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRetry, onContinue}: SessionResultModalProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
     const feedback = feedbackComments(result.similarity);
@@ -33,6 +34,13 @@ const SessionResultModal = ({isVisible, onModalVisible, result, onRetry, onConti
 
             {/* Modal Content */}
             <View style={{ gap: 5 }}>
+
+                <ResultDetail
+                    label="Expected Query:"
+                    detail={actualQuery}
+                    iconComponent={<FontAwesome name="question-circle" size={20} color={colors.text} />}
+                />
+
                 <ResultDetail
                     label="Similarity Score:"
                     detail={Math.round(result.similarity * 100) + "%"}

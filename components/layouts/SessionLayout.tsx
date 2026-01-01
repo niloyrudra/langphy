@@ -31,9 +31,10 @@ interface SessionLayoutProps<T> {
     index: number;
     goToNext: () => void;
   }) => void;
-  keyboardVerticalOffset ?: number,
-  categoryId?: string,
-  unitId?: string,
+  onSessionComplete?: () => void;
+  keyboardVerticalOffset ?: number;
+  categoryId?: string;
+  unitId?: string;
   children: (props: {
     item: T;
     index: number;
@@ -45,7 +46,7 @@ interface SessionLayoutProps<T> {
     wordRefs: React.MutableRefObject<Map<string, any>>;
     containerRef: React.RefObject<View | null>;
     screenRef: React.RefObject<View | null>;
-    setTooltip: (obj: ToolTip) => void
+    setTooltip: (obj: ToolTip) => void;
   }) => ReactNode
 }
 
@@ -56,6 +57,7 @@ function SessionLayout<T>( {
   onPositionChange,
   onRegisterScroller,
   onActiveItemChange,
+  onSessionComplete,
   keyboardAvoid = false,
   keyboardVerticalOffset = 90
 }: SessionLayoutProps<T>) {
@@ -119,13 +121,14 @@ function SessionLayout<T>( {
     }
     else {
       // Last item reached
-      Alert.alert(
-        "End of Session",
-        "You have completed all lessons in this session.",
-        [
-          { text: 'OK', onPress: () => router.back()}
-        ]
-      );
+      onSessionComplete && onSessionComplete(); // onSessionComplete?.()
+      // Alert.alert(
+      //   "End of Session",
+      //   "You have completed all lessons in this session.",
+      //   [
+      //     { text: 'OK', onPress: () => router.back()}
+      //   ]
+      // );
     }
   };
 

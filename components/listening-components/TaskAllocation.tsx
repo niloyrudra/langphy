@@ -28,30 +28,6 @@ const TaskAllocation: React.FC<TaskAllocationProps> = ({ taskTitle, taskPhrase, 
 
     const onSpeak = async () => {
         setIsSpeaking(true);
-        // await speechHandler(
-        //     taskPhrase,
-        //     "de-DE",
-        //     (speakingState: boolean) => {
-        //         setIsSpeaking(speakingState);
-        //     }
-        // );
-
-
-        // Speech.speak(taskPhrase, {
-        //     language: "de-DE",
-        //     pitch: 1,
-        //     rate: 1,
-        //     onDone: () => {
-        //         setIsSpeaking(false);
-        //     },
-        //     onStopped: () => {
-        //         setIsSpeaking(false);
-        //     },
-        //     onError: () => {
-        //         setIsSpeaking(false);
-        //     }
-
-        // });
         speechController.start(
             taskPhrase,
             "de-DE",
@@ -66,9 +42,9 @@ const TaskAllocation: React.FC<TaskAllocationProps> = ({ taskTitle, taskPhrase, 
         speechController.stop();
     }
 
-    useEffect(() => {
-        warmUpSpeech();
-    }, [taskPhrase]);
+    // useEffect(() => {
+    //     warmUpSpeech();
+    // }, [taskPhrase]);
 
     return (
         <View style={{flex: 1}}>

@@ -1,36 +1,38 @@
 import React from 'react'
-import { Alert, View } from 'react-native'
+import { View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
-import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
+// import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import ChallengeScreenSpeakerActionSection from '@/components/challenges/ChallengeScreenSpeakerActionSection';
+// import ChallengeScreenSpeakerActionSection from '@/components/challenges/ChallengeScreenSpeakerActionSection';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { generateWavePattern, speechHandler } from '@/utils';
+// import { generateWavePattern, speechHandler } from '@/utils';
 import { ListeningSessionType, SessionResultType } from '@/types';
 // import SpeechWave from '@/components/animated-components/SpeechWave';
 // import SpeechWaveDots from '@/components/animated-components/SpeechWaveDots';
 // import TalkingAvatar from '@/components/animated-components/TalkingAvatar';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
-import SoundRipple from '@/components/animated-components/_helper-components/SoundRipple';
+// import SoundRipple from '@/components/animated-components/_helper-components/SoundRipple';
 import TaskAllocation from '@/components/listening-components/TaskAllocation';
+import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 
 const ListeningLessons = () => {
   const { colors } = useTheme();
   const {categoryId, slug, unitId} = useLocalSearchParams();
-  const [ pattern, setPattern ] = React.useState<number[]>([]);
-  const [ isSpeaking, setIsSpeaking ] = React.useState<boolean>(false);
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
   const [ textContent, setTextContent ] = React.useState<string>('')
+  const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
   const [data, setData] = React.useState<ListeningSessionType[]>([]);
   const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
+  const [showCompletionModal, setShowCompletionModal] = React.useState<boolean>(false);
+
   
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent) {
@@ -44,6 +46,7 @@ const ListeningLessons = () => {
 
     try {
       setLoading(true);
+      setActualDEQuery(expectedText);
       console.log( "Action triggered..." )
       const res = await fetch(
           `${process.env.EXPO_PUBLIC_API_BASE}/nlp/analyze/answer`,
@@ -118,6 +121,7 @@ const ListeningLessons = () => {
           keyboardAvoid={true}
           preFetchedData={data}
           onPositionChange={setActiveIndex}
+          onSessionComplete={() => setShowCompletionModal(true)}
           onActiveItemChange={({ item, goToNext }) => {
             goToNextRef.current = goToNext;
             reset(); // optional: reset recorder per item
@@ -125,84 +129,24 @@ const ListeningLessons = () => {
         >
         {({ item }) => {
 
-          const onSpeak = (text: string) => {
-            const pattern = generateWavePattern(text);
-            setPattern(pattern);
-            // start animation immediately for snappy UX
-            setIsSpeaking(true);
-
-            speechHandler(text, 'de-DE', (speaking) => {
-              if (speaking) {
-                setPattern(generateWavePattern(text));
-                requestAnimationFrame(() => setIsSpeaking(true));
-              } else {
-                setIsSpeaking(false);
-              }
-            });
-
-          };
-
-          const onCheckHandler = () => {
-            analyzeListeningHandler( item.phrase );
-            // if(  textContent?.toLocaleLowerCase() === item?.phrase?.toLocaleLowerCase() ) {
-            //   Alert.alert(
-            //     "Congratulations!",
-            //     "Correct Answer",
-            //     [
-            //       {
-            //         text: 'Cancel',
-            //         onPress: () => {
-            //           setTextContent("");
-            //         },
-            //         style: 'cancel',
-            //       },
-            //       {
-            //         text: 'OK',
-            //         onPress: () => {
-            //           setTextContent("");
-            //           goToNext?.();
-            //         }
-            //       },
-            //     ]
-            //   )
-            // } else {
-            //   Alert.alert(
-            //     "Unfortunately!",
-            //     `Wrong Answer! The correct answer is: ${item?.phrase}`,
-            //     [
-            //       {
-            //         text: 'Cancel',
-            //         onPress: () => {
-            //           setTextContent("");
-            //         },
-            //         style: 'cancel',
-            //       },
-            //       {
-            //         text: 'Try Again!',
-            //         onPress: () => {
-            //           setTextContent("");
-            //         }
-            //       },
-            //     ]
-            //   )
-            // }
-          };
+          const onCheckHandler = () => analyzeListeningHandler( item.phrase );
 
           return (
             <View style={{flex: 1}}>
-            {/* Content */}
+              {/* Content */}
 
               <TaskAllocation
                 taskTitle={'Listen and Write afterwards.'}
                 taskPhrase={item.phrase}
-                rippleSize={120}
+                rippleSize={150}
               />
 
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
                 multiline={true}
-                numberOfLines={3}
+                numberOfLines={2}
                 maxLength={500}
+                // enterkeyhint='done'
                 placeholder='Write here...'
                 value={textContent}
                 onChange={(text) => setTextContent(text)}
@@ -210,7 +154,7 @@ const ListeningLessons = () => {
                 inputMode="text"
                 onBlur={() => {}}
                 contentContainerStyle={{
-                  marginBottom: 40
+                  marginBottom: 20
                 }}
               />
 
@@ -229,6 +173,7 @@ const ListeningLessons = () => {
 
       {result && (<SessionResultModal
         isVisible={result ? true : false}
+        actualQuery={actualDEQuery}
         result={result!}
         onContinue={() => {
           reset();
@@ -237,6 +182,27 @@ const ListeningLessons = () => {
         onModalVisible={reset}
         onRetry={reset}
       />)}
+
+      {
+        showCompletionModal && (
+          <UnitCompletionModal
+            isVisible={showCompletionModal}
+            stats={{
+              time:"00:00",
+              total: data.length,
+              correct: data.length,
+              accuracy: 100
+            }}
+            onContinue={() => {
+              reset();
+              setShowCompletionModal(false);
+              router.back();
+              // navigation back to units page
+            }}
+            onModalVisible={() => setShowCompletionModal(false)}
+          />
+        )
+      }
       
     </>
   );

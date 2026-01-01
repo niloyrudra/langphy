@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Modal, Dimensions, ColorValue } from 'react-native'
+import { StyleSheet, View, Text, Modal, Dimensions, ColorValue, ViewStyle, StyleProp } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@/theme/ThemeContext';
@@ -9,13 +9,12 @@ type ModalLayoutProps = {
     isVisible: boolean;
     onModalVisible: () => void;
     children: React.ReactNode;
-    feedback: Feedback;
+    feedback?: Feedback;
     gradianColor: readonly [ColorValue, ColorValue, ...ColorValue[]];
-    // onRetry?: () => void;
-    // onContinue?: () => void;
+    conainerStyle?: StyleProp<ViewStyle>;
 }
 
-const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColor}: ModalLayoutProps) => {
+const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColor, conainerStyle}: ModalLayoutProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
 
@@ -45,7 +44,8 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
                             borderRightColor: colors.modalBoderColor,
                             width: '98%',
                             overflow: 'hidden'
-                        }
+                        },
+                        (conainerStyle && conainerStyle)
                     ]}
                 >
                     {/* Modal Content */}
@@ -55,9 +55,11 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
                     >
 
                         {/* Modal Header */}
-                        <View style={{marginBottom: 15}}>
-                            <Text style={[styles.modalText, {color: feedback.color}]}>{feedback.label}</Text>
-                        </View>
+                        {feedback && (
+                            <View style={{marginBottom: 15}}>
+                                <Text style={[styles.modalText, {color: feedback.color}]}>{feedback.label}</Text>
+                            </View>
+                        )}
 
                         {/* Modal Content */}
                         {children && children}
