@@ -1,20 +1,20 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import { SessionResultType } from '@/types';
+import { SelectiveResultType, SessionResultType } from '@/types';
 import { feedbackComments } from '@/utils';
 import HorizontalLine from '../HorizontalLine';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FontAwesome } from '@expo/vector-icons';
+import { Entypo, FontAwesome } from '@expo/vector-icons';
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 
 interface SessionResultModalProps {
     isVisible: boolean;
-    actualQuery: string;
+    actualQuery?: string;
     onModalVisible: () => void;
-    result: SessionResultType;
+    result: SessionResultType | SelectiveResultType;
     onRetry: () => void;
     onContinue: () => void;
 }
@@ -22,7 +22,7 @@ interface SessionResultModalProps {
 const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRetry, onContinue}: SessionResultModalProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
-    const feedback = feedbackComments(result.similarity);
+    const feedback = 'answered' in result ? result.feedback : feedbackComments(result.similarity);
 
     return (
         <ModalLayout
@@ -34,38 +34,60 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
 
             {/* Modal Content */}
             <View style={{ gap: 5 }}>
+                {
+                    actualQuery && (
+                        <ResultDetail
+                            label="Expected Query:"
+                            detail={actualQuery}
+                            iconComponent={<FontAwesome name="question-circle" size={20} color={colors.text} />}
+                        />
+                    )
+                }
 
-                <ResultDetail
-                    label="Expected Query:"
-                    detail={actualQuery}
-                    iconComponent={<FontAwesome name="question-circle" size={20} color={colors.text} />}
-                />
+                {
+                    'answered' in result && (
+                        <ResultDetail
+                            label="Your Answer:"
+                            detail={result.answered}
+                            iconComponent={
+                                result.feedback.label === "Correct" 
+                                ? (<FontAwesome name="check-circle" size={20} color={colors.text} />) 
+                                : (<Entypo name="circle-with-cross" size={20} color={colors.text} />)
+                            }
+                        />
+                    )
+                }
 
-                <ResultDetail
-                    label="Similarity Score:"
-                    detail={Math.round(result.similarity * 100) + "%"}
-                    iconComponent={<FontAwesome name="trophy" size={20} color={colors.text} />}
-                />
+                {
+                    'similarity' in result && (
+                        <ResultDetail
+                            label="Similarity Score:"
+                            detail={Math.round(result.similarity * 100) + "%"}
+                            iconComponent={<FontAwesome name="trophy" size={20} color={colors.text} />}
+                        />
+                    )
+                }
 
                 {/* <ResultDetail
                     label='Issues:'
                     detail={result.analysis?.issues?.length > 0 ?result.analysis?.issues?.join(", ") : 'No issues found'}
                     iconComponent={<MaterialIcons name="error" size={20} color={colors.text} />}
                 /> */}
-
-                <ResultDetail
-                    detail={result.feedback}
-                    iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
-                />          
+                {'similarity' in result && (
+                    <ResultDetail
+                        detail={result.feedback}
+                        iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
+                    />          
+                )}
                 
-                <HorizontalLine
+                {/* <HorizontalLine
                     style={{
                         marginVertical: 15,
                         borderBottomColor: "#3FA1FF" // colors.cardBorderColor
                     }}
-                />
+                /> */}
 
-                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 30}}>
                     <ActionPrimaryButton buttonTitle='Retry' onSubmit={onRetry} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
                     <ActionPrimaryButton buttonTitle='Continue' onSubmit={onContinue ? () =>onContinue() : () => console.log("Continue")} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
                 </View>

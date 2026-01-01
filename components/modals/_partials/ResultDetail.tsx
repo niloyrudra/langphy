@@ -15,11 +15,20 @@ const ResultDetail = ({label, detail, iconComponent}: ResultDetailProps) => {
     const {colors} = useTheme();
     return (
         <View style={[styles.container]}>
-            {/* <FontAwesome name={iconName} size={iconSize ?? 20} color={iconColor ?? colors.text} /> */}
             { iconComponent && iconComponent }
-            <Text style={{color:colors.text}}>
+            {/* <Text style={{color:colors.text}}>
                 {label ? <>{label}{" "}<Text style={[styles.detail, {color:colors.text}]}>{detail}</Text></> : detail}
-            </Text>
+            </Text> */}
+            <View
+                style={{flexDirection: "row", alignItems: "center", gap: 5}}
+            >
+                {
+                    label && (
+                        <Text style={[ {color:colors.text}]}>{label}</Text>
+                    )
+                }
+                <Text style={[styles.detail, {color:colors.text}]}>{detail}</Text>
+            </View>
         </View>
     )
 }
@@ -35,6 +44,8 @@ const styles = StyleSheet.create({
     },
     detail: {
         fontWeight: "800",
-        fontSize: 16
+        fontSize: 16,
+        wordWrap: 'break-word',
+        flexShrink: 1,
     }
 })

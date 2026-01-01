@@ -136,7 +136,7 @@ type SpeakingSessionType = {
 }
 
 // Reading
-type ReadingSessionItem = {
+type ReadingSessionType = {
   _id: string,
   categoryId: string,
   unitId: string,
@@ -537,6 +537,14 @@ type Feedback = {
   color: string;
 };
 
+type SelectiveResultType = {
+  answered: string;
+  feedback: {
+    label: "Correct" | "Incorrect";
+    color: string;
+  };
+}
+
 export {
   Lesson,
   SessionContextType,
@@ -547,7 +555,7 @@ export {
   UserData,
   WordDataShape,
   ToolTip,
-  ReadingSessionItem,
+  ReadingSessionType,
   Category,
   PracticeSessionType,
   UnitIndividualCategory,
@@ -587,5 +595,6 @@ export {
   SpeechResult,
   SessionResultType,
 
-  Feedback
+  Feedback,
+  SelectiveResultType
 };

@@ -1,20 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
-// import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-// import ChallengeScreenSpeakerActionSection from '@/components/challenges/ChallengeScreenSpeakerActionSection';
 import SessionLayout from '@/components/layouts/SessionLayout';
-// import { generateWavePattern, speechHandler } from '@/utils';
 import { ListeningSessionType, SessionResultType } from '@/types';
-// import SpeechWave from '@/components/animated-components/SpeechWave';
-// import SpeechWaveDots from '@/components/animated-components/SpeechWaveDots';
-// import TalkingAvatar from '@/components/animated-components/TalkingAvatar';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
-// import SoundRipple from '@/components/animated-components/_helper-components/SoundRipple';
 import TaskAllocation from '@/components/listening-components/TaskAllocation';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 
@@ -28,7 +21,7 @@ const ListeningLessons = () => {
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
-  const [data, setData] = React.useState<ListeningSessionType[]>([]);
+  const [ data, setData ] = React.useState<ListeningSessionType[]>([]);
   const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
   const [showCompletionModal, setShowCompletionModal] = React.useState<boolean>(false);
@@ -123,8 +116,8 @@ const ListeningLessons = () => {
           onPositionChange={setActiveIndex}
           onSessionComplete={() => setShowCompletionModal(true)}
           onActiveItemChange={({ item, goToNext }) => {
-            goToNextRef.current = goToNext;
             reset(); // optional: reset recorder per item
+            goToNextRef.current = goToNext;
           }}
         >
         {({ item }) => {

@@ -3,6 +3,7 @@ import React from 'react'
 import ModalLayout from './_partials/ModalLayout';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { DolphinCongratulationsIcon, TargetIcon, WatchIcon } from '@/utils/SVGImages';
+import StatsCard from './_partials/StatsCard';
 
 type UnitCompletionModalProps = {
     isVisible: boolean;
@@ -69,56 +70,20 @@ const UnitCompletionModal = ({isVisible, onModalVisible, stats, onContinue}: Uni
                         // width: "80%"
                     }}
                 >
-                    
-                    <View
-                        style={{
-                            flex:1,
-                            borderRadius: 20,
-                            borderWidth: 1,
-                            borderColor: "#68F0F8",
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            padding: 16
-                        }}
-                    >
-                        <Text style={{fontSize: 14, color: '#EEF8FF'}}>Accuracy</Text>
-                        <View
-                            style={{
-                                marginVertical: 8,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <TargetIcon width={56} height={56} />
-                        </View>
-                        <Text style={{fontSize: 16, fontWeight: '800', color: '#68F0F8'}}>{stats.accuracy}%</Text>
-                        <Text style={{fontSize: 12, color: '#ECFFFF'}}>Impressive</Text>
-                    </View>
+ 
+                    <StatsCard
+                        title='Accuracy'
+                        IconComponent={<TargetIcon width={56} height={56} />}
+                        statsValue={stats.accuracy+"%"}
+                        feedbackText='Impressive'
+                    />
 
-                    <View
-                        style={{
-                            flex:1,
-                            borderRadius: 20,
-                            borderWidth: 1,
-                            borderColor: "#68F0F8",
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            padding: 16
-                        }}
-                    >
-                        <Text style={{fontSize: 14, color: '#EEF8FF'}}>Time</Text>
-                        <View
-                            style={{
-                                marginVertical: 8,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <WatchIcon width={56} height={56} />
-                        </View>
-                        <Text style={{fontSize: 16, fontWeight: '800', color: '#68F0F8'}}>{stats.time}</Text>
-                        <Text style={{fontSize: 12, color: '#ECFFFF'}}>Impressive</Text>
-                    </View>
+                    <StatsCard
+                        title='Time'
+                        IconComponent={<WatchIcon width={56} height={56} />}
+                        statsValue={stats.time}
+                        statsUnit="min"
+                    />
 
                 </View>
             </View>

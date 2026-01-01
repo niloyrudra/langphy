@@ -63,8 +63,8 @@ function SessionLayout<T>( {
 }: SessionLayoutProps<T>) {
   const { categoryId, unitId, slug } = useLocalSearchParams();
   // States
-  const [data, setData] = React.useState<T[]>([]);
-  const [currentIndex, setCurrentIndex] = React.useState<number>(0);
+  const [ data, setData ] = React.useState<T[]>([]);
+  const [ currentIndex, setCurrentIndex ] = React.useState<number>(0);
   const [ loading, setLoading ] = React.useState<boolean>(false);
   // floating tooltip hook
   const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
