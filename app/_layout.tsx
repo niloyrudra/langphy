@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/theme/ThemeContext";
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
+import { AuthProvider } from "@/context/AuthContext";
 
 
 SplashScreen.preventAutoHideAsync();
@@ -46,25 +47,27 @@ const RootLayout = () => {
   
   return (
     <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      <ThemeProvider>
-        <Stack
-          screenOptions={{
-            headerShadowVisible: false
-          }}
-          initialRouteName="lessons"
-        >
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-          <Stack.Screen name="auth/login" options={{ headerShown: false }} />
-          <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
-          <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
-          <Stack.Screen name="lessons" options={{ headerShown: false }}/>
-          <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
-          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-        </Stack>
-        {/* <StatusBar backgroundColor="white" style="auto" /> */}
-        <StatusBarComponent />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <Stack
+            screenOptions={{
+              headerShadowVisible: false
+            }}
+            initialRouteName="index"
+          >
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="auth/login" options={{ headerShown: false }} />
+            <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
+            <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
+            <Stack.Screen name="lessons" options={{ headerShown: false }}/>
+            <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
+            {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+          </Stack>
+          {/* <StatusBar backgroundColor="white" style="auto" /> */}
+          <StatusBarComponent />
+        </ThemeProvider>
+      </AuthProvider>
     </SafeAreaView>
   );
 }

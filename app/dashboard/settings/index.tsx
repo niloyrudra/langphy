@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import Title from '@/components/Title';
@@ -7,10 +7,58 @@ import { Ionicons } from '@expo/vector-icons';
 import SettingSwitcher from '@/components/dashboard/SettingSwitcher';
 import { router } from 'expo-router';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import { SETTINGS_DATA } from '@/schemes/static-data';
+import { SETTINGS_DATA } from '@/schemas/static-data';
+import { useAuth } from '@/context/AuthContext';
+import * as SecureStore from "expo-secure-store";
 
 const SettingsScreen = () => {
   const { colors } = useTheme();
+  const { user, setUser } = useAuth();
+
+  const handleSignout = async () => {
+    try {
+          const res = await fetch(
+            `${process.env.EXPO_PUBLIC_API_BASE}/users/signout`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+            }
+          );
+          const data = await res.json();
+    
+          console.log(res.status, data)
+    
+          if( res.status === 200 && data! ) {  
+            const { token, message } = data;
+
+            // await SecureStore.setItemAsync("accessToken", token);
+            await SecureStore.deleteItemAsync("accessToken");
+            setUser(null);
+
+            // await SecureStore.setItemAsync("accessToken", token);
+
+            if(message) Alert.alert( message )
+            else Alert.alert("Successfully signed out!");
+            
+            router.replace("/auth/login");
+          }
+          else {
+            Alert.alert( "Signout failed!" )
+          }
+    
+        }
+    catch(err) {
+      console.error("Signout Error:", err)
+      Alert.alert("Signout failed!")
+    }
+    finally {
+      // setEmail('')
+      // setPassword('')
+    }
+  }
+
   return (
     <SafeAreaLayout>
       <ScrollView style={{flex: 1}}>
@@ -73,7 +121,7 @@ const SettingsScreen = () => {
                           {
                             item.actionType == "router" && (
                               <TouchableOpacity
-                                onPress={() => router.push(item.route)}
+                                onPress={() => router.push(item?.route)}
                                 style={{ marginVertical: "auto" }}
                               >
                                 <Ionicons name="chevron-forward" size={24} color={colors.text} />
@@ -91,9 +139,7 @@ const SettingsScreen = () => {
 
           <ActionPrimaryButton
             buttonTitle='Logout'
-            onSubmit={() => {
-              router.push("/auth/login")    
-            }}
+            onSubmit={handleSignout}
           />
         </View>
 

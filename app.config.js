@@ -30,12 +30,7 @@ export default {
       "expo-audio",
       "expo-speech-recognition",
       "expo-web-browser",
-      [
-        "expo-ads-admob",
-        {
-          userTrackingPermission: "This identifier will be used to deliver personalized ads to you."
-        }
-      ],
+      "expo-secure-store",
       [
         "expo-splash-screen",
         {

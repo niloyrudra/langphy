@@ -11,7 +11,7 @@ let onSpeakingStateCb: ((v: boolean) => void) | undefined;
 
 export const preloadVoices = async () => {
   const voices = await Speech.getAvailableVoicesAsync();
-  console.log("Available voices:", voices);
+  // console.log("Available voices:", voices);
   
   // Optinal: pick a default voice to force-load
   const deVoice = voices.find( voice => voice.language === "de-DE" );

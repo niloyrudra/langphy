@@ -10,6 +10,7 @@ import { getCardContainerWidth } from '@/utils';
 import { router } from 'expo-router';
 import GridLayout from '@/components/layouts/GridLayout';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
+import { useAuth } from '@/context/AuthContext';
 
 type LearningProress = {
   id: number,
@@ -81,6 +82,7 @@ const milestonesData: Milestones[] = [
 
 const Dashboard = () => {
   const { colors, theme } = useTheme();
+  const { user } = useAuth();
   return (
     <SafeAreaLayout>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -118,8 +120,8 @@ const Dashboard = () => {
                 alignItems: "center"
               }}
             >
-              <Text style={styles.userDisplayName}>John Doe</Text>
-              <Text style={styles.userName}>User ID: johndoe</Text>
+              <Text style={styles.userDisplayName}>{user?.first_name ?? 'Anonymous'}</Text>
+              <Text style={styles.userName}>User ID: {user?.username ?? "..."}</Text>
             </View>
 
             {/* Birth Date and Email Address */}
@@ -141,7 +143,7 @@ const Dashboard = () => {
                 }}
               >
                 <Ionicons name="calendar-outline" size={16} color={colors.text} />
-                <Text style={styles.userInfo}>12.12.2025</Text>
+                <Text style={styles.userInfo}>{user?.created_at ? new Date( user.created_at ).toDateString() : '__/__/__'}</Text>
               </View>
               <View style={{width: 1, height: 10, backgroundColor: colors.text}} />
               <View

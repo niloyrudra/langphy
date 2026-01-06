@@ -1,6 +1,6 @@
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { router, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
 
 import sizes from '@/constants/size'
@@ -17,8 +17,10 @@ import HorizontalSeparator from '@/components/form-components/auth/HorizontalSep
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { UserData } from '@/types'
-import SIZES from '@/constants/size'
+// import { UserData } from '@/types';
+// import SIZES from '@/constants/size';
+import { useAuth } from '@/context/AuthContext';
+// import * as SecureStore from "expo-secure-store";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -28,40 +30,50 @@ const SignupSchema = Yup.object().shape({
 const SignUp = () => {
   const { colors } = useTheme();
   const router = useRouter();
+  const { setUser } = useAuth();
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState<boolean>(false);
 
-
-  const handleSignup = async (email: string, password: string) => {
-    setLoading(true)
+  const handleSignup = async ( email: string, password: string ) => {
     try {
-      // const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // await sendEmailVerification(userCredential.user);
-      Alert.alert("Check your email!", "Please verify your email before logging in.");
+      setLoading(true)
+      const res = await fetch(
+        `${process.env.EXPO_PUBLIC_API_BASE}/users/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({email, password})
+        }
+      );
+      const data = await res.json();
 
-      // Store user data in Firestore
-      const userData: UserData = {
-        email,
-        emailVerified: false,
-        password
-        // friendEmails: {},
-      };
-      
-      // await setDoc(doc(db, "users", userCredential.user.uid), userData);
+      console.log(res.status, data)
 
-      // console.log("New User:", userCredential?.user)
+      if( res.status === 201 && data! ) {  
+        const { user, message } = data;
+        // await SecureStore.setItemAsync("accessToken", token);
+        setUser(user);
+        if(message) Alert.alert( message )
+        else Alert.alert("Successfully signed up!");
+        
+        router.replace("/auth/login");
+      }
+      else {
+        Alert.alert( "Signup failed!" )
+        // await SecureStore.deleteItemAsync("accessToken");
+      }
 
-      router.push("/auth/login");
-
-    } catch (error: any) {
-      Alert.alert("Signup Error", error.message);
+    }
+    catch(err) {
+      console.error("Signup Error:", err)
+      Alert.alert("Signup failed!")
     }
     finally {
       setLoading(false)
     }
-  };
+  }
 
   return (
     <ScrollView contentContainerStyle={{ flex:1 }}>
@@ -79,12 +91,9 @@ const SignUp = () => {
           onSubmit={(values) => handleSignup(values.email, values.password)}
         >
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-            <View
-              style={{
-                gap: 20,
-                width: SIZES.screenWidth
-              }}
-            >
+            <View style={styles.form}>
+
+              {/* Email TextField Component */}
               <TextInputComponent
                 placeholder="Email"
                 inputMode="email"
@@ -114,34 +123,6 @@ const SignUp = () => {
           )}
         </Formik>
       
-        {/* <View style={styles.form}>
-         
-         <TextInputComponent
-            placeholder="Email"
-            value={email}
-            inputMode="email"
-            placeholderTextColor={colors.placeholderColor}
-            onChange={(text: string) => setEmail( prevValue => prevValue = text)}
-          />
-          <TextInputComponent
-            placeholder="Password"
-            value={password}
-            inputMode="text"
-            isPassword={true}
-            placeholderTextColor={colors.placeholderColor}
-            onChange={(text: string) => setPassword( prevValue => prevValue = text)}
-          />
-
-          <ActionPrimaryButton
-            buttonTitle='Create Account'
-            onSubmit={() => {
-              console.log("Submitted")
-              router.push("/onboarding")
-            }}
-          />
-
-        </View> */}
-
         <HorizontalSeparator />
 
         <View>

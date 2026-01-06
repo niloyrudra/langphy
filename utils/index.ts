@@ -83,6 +83,7 @@ import BookIcon from "@/assets/images/unit/v2/notebook.svg"
 // import { Dimensions } from "react-native";
 import { makeMutable, SharedValue } from 'react-native-reanimated';
 import { findNodeHandle, UIManager } from "react-native";
+import api from "@/lib/api";
 
 export const createEqualizerBars = (count: number): SharedValue<number>[] => {
   return Array.from({ length: count }, () => makeMutable(0));
@@ -438,4 +439,10 @@ export const feedbackComments = (similarity: number): Feedback => {
     label: "Needs Improvement ❗",
     color: "#E53935", // red
   };
+};
+
+
+const getProfile = async () => {
+  const { data } = await api.get("/profile");
+  return data;
 };

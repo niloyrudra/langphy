@@ -1,10 +1,17 @@
-import { warmUpSpeech } from "@/helpers/speechController";
+import LoadingScreenComponent from "@/components/LoadingScreenComponent";
+import { useAuth } from "@/context/AuthContext";
+// import { warmUpSpeech } from "@/helpers/speechController";
+// import { useAuth } from "@/hooks/useAuth";
 import { Redirect } from "expo-router";
-import * as Speech from "expo-speech";
-import { useEffect } from "react";
+// import * as Speech from "expo-speech";
+// import { useEffect } from "react";
 
 const App = () => {
-  const isLoggedIn = true; // Replace with actual auth state
+  const { user, loading } = useAuth();
+
+  if( loading ) return (<LoadingScreenComponent />);
+
+  // const isLoggedIn = true; // Replace with actual auth state
 
   
   // const initSpeechEngine = () => {
@@ -23,13 +30,10 @@ const App = () => {
   //   // Warm up speech engine
   //   initSpeechEngine();
   // }, []);
-  
-  useEffect(() => {
-    warmUpSpeech();
-  }, []);
 
+  console.log("User", user)
 
-  if (!isLoggedIn) {
+  if (!user) {
     return <Redirect href="/auth/login" />;
   }
 

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 
@@ -16,12 +16,62 @@ import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
 import SocialButton from '@/components/form-components/auth/SocialButton'
 import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
+import { useAuth } from '@/context/AuthContext'
+import * as Yup from "yup";
+import { Formik } from 'formik';
+import * as SecureStore from "expo-secure-store";
+import { router } from 'expo-router'
+
+const SignInSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required."),
+  password: Yup.string().min(6, "Password must be at least 6 characters.").required("Password is required.")
+});
 
 const Login = () => {
   const { colors } = useTheme();
+  const { signIn, setUser } = useAuth();
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const onSignInHandler = async ( email: string, password: string ) => {
+    try {
+      // const res = await signIn( email, password );
+      const res = await fetch(
+        `${process.env.EXPO_PUBLIC_API_BASE}/users/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({email, password})
+        }
+      );
+      const data = await res.json();
+
+      console.log(res.status, data)
+
+      if( res.status === 200 && data! ) {  
+        const { user, token, message } = data;
+        await SecureStore.setItemAsync("accessToken", token);
+        setUser(user);
+        if(message) Alert.alert( message )
+        else Alert.alert("Successfully signed in!");
+        
+        router.replace("/lessons");
+      }
+      else {
+        Alert.alert( "Login failed!" )
+        await SecureStore.deleteItemAsync("accessToken");
+      }
+
+    }
+    catch(err) {
+      console.error("Login Error:", err)
+      Alert.alert("Login failed!")
+    }
+    finally {
+      // setEmail('')
+      // setPassword('')
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={{ flex:1 }}>
@@ -35,41 +85,55 @@ const Login = () => {
         <FormHeaderTitle title="Sign In" />
 
         {/* FORM */}
-        <View style={styles.form}>
+        <Formik
+          initialValues={{email:"", password: ""}}
+          validationSchema={SignInSchema}
+          onSubmit={( values ) => onSignInHandler( values.email, values.password )}
+        >
+          {({ handleChange, handleBlur, handleSubmit, handleReset, values, errors, touched }) => (
+            <View style={styles.form}>
 
-          {/* Email TextField Component */}
-          <TextInputComponent
-            placeholder="Email"
-            value={email}
-            inputMode="email"
-            placeholderTextColor={colors.placeholderColor}
-            onChange={(text: string) => setEmail( prevValue => prevValue = text)}
-          />
+              {/* Email TextField Component */}
+              <TextInputComponent
+                placeholder="Email"
+                value={values.email}
+                inputMode="email"
+                placeholderTextColor={colors.placeholderColor}
+                onBlur={handleBlur('email')}
+                onChange={handleChange('email')}
+              />
+              {errors.email && touched.email && (<View><Text>{errors.email}</Text></View>)}
 
-          {/* Password TextField Component */}
-          <TextInputComponent
-            placeholder="Password"
-            value={password}
-            inputMode="text"
-            isPassword={true}
-            placeholderTextColor={colors.placeholderColor}
-            onChange={(text: string) => setPassword( prevValue => prevValue = text)}
-          />
+              {/* Password TextField Component */}
+              <TextInputComponent
+                placeholder="Password"
+                value={values.password}
+                inputMode="text"
+                isPassword={true}
+                placeholderTextColor={colors.placeholderColor}
+                onBlur={handleBlur("password")}
+                onChange={handleChange('password')}
+              />
+              {errors.password && touched.password && (<View><Text>{errors.password}</Text></View>)}
 
-          {/* Forgot Password Link Component */}
-          <ForgotPasswordLink />
+              {/* Forgot Password Link Component */}
+              <ForgotPasswordLink />
 
-          {/* Form Submit Button Component */}
-          <ActionPrimaryButton
-            buttonTitle='Sign In'
-            onSubmit={() => {
-              console.log("Submitted value", email, password)
-              setEmail('')
-              setPassword('')
-            }}
-          />
+              {/* Form Submit Button Component */}
+              <ActionPrimaryButton
+                buttonTitle='Sign In'
+                onSubmit={handleSubmit}
+                // onSubmit={() => {
+                //   handleSubmit();
+                //   handleReset();
+                // }}
+              />
 
-        </View>
+            </View>
+          )}
+
+
+        </Formik>
 
         {/* Section Breaker Component */}
         <HorizontalSeparator />
