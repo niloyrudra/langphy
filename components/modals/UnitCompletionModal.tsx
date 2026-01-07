@@ -4,6 +4,7 @@ import ModalLayout from './_partials/ModalLayout';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { DolphinCongratulationsIcon, TargetIcon, WatchIcon } from '@/utils/SVGImages';
 import StatsCard from './_partials/StatsCard';
+import { useTheme } from '@/theme/ThemeContext';
 
 type UnitCompletionModalProps = {
     isVisible: boolean;
@@ -18,11 +19,12 @@ type UnitCompletionModalProps = {
 }
 
 const UnitCompletionModal = ({isVisible, onModalVisible, stats, onContinue}: UnitCompletionModalProps) => {
-  return (
+    const {colors} = useTheme();
+    return (
     <ModalLayout
         isVisible={isVisible}
         onModalVisible={onModalVisible}
-        gradianColor={['#081A33', '#081A33', '#081A33', '#1FCAD7', '#3FA1FF']}
+        gradianColor={[colors.gradiantDeep, colors.gradiantDeep, colors.gradiantDeep, '#1FCAD7', '#3FA1FF']}
         conainerStyle={{
             // flex: 1,
             borderStartStartRadius: 0,

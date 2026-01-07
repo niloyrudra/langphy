@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 import LessonDetailsItem from './LessonDetailsItem';
+import STYLES from '@/constants/styles';
 
 type LessonExample = {
     example: string;
@@ -70,10 +71,10 @@ const PracticeLessonDetails: React.FC<PracticeLessonDetailsProps> = ({
                                     gap: 6
                                 }}
                             >
-                                <Text style={[styles.subText, { fontSize: 14, fontWeight: "900", color: colors.textSubColor }]}>
+                                <Text style={[styles.subText, STYLES.wordWrapStyle, { fontSize: 14, fontWeight: "900", color: colors.textSubColor }]}>
                                     {item.example}
                                 </Text>
-                                <Text style={[styles.subText, { fontSize: 13, fontWeight: "900", color: colors.textSubColor }]}>
+                                <Text style={[styles.subText, STYLES.wordWrapStyle, { fontSize: 13, fontWeight: "900", color: colors.textSubColor }]}>
                                     [ {item.translation} ]
                                 </Text>
                             </View>

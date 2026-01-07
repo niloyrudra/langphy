@@ -1,6 +1,7 @@
 import { type ColorValue, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
+import STYLES from '@/constants/styles';
 
 interface ResultDetailProps {
     // iconSize?: number;
@@ -27,7 +28,7 @@ const ResultDetail = ({label, detail, iconComponent}: ResultDetailProps) => {
                         <Text style={[ {color:colors.text}]}>{label}</Text>
                     )
                 }
-                <Text style={[styles.detail, {color:colors.text}]}>{detail}</Text>
+                <Text style={[styles.detail, STYLES.wordWrapStyle, {color:colors.text}]}>{detail}</Text>
             </View>
         </View>
     )
@@ -44,8 +45,6 @@ const styles = StyleSheet.create({
     },
     detail: {
         fontWeight: "800",
-        fontSize: 16,
-        wordWrap: 'break-word',
-        flexShrink: 1,
+        fontSize: 16
     }
 })

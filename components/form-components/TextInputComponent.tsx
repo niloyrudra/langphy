@@ -22,7 +22,7 @@ const TextInputComponent = ({
     isPassword=false,
     contentContainerStyle={}
 }: InputProps) => {
-    const { colors } = useTheme();
+    const { colors, theme } = useTheme();
     const [ isSecureTextEntry, setIsSecureTextEntry ] = React.useState(true);
     const [ isFocused, setIsFocused ] = React.useState(false);
 
@@ -31,7 +31,7 @@ const TextInputComponent = ({
         <TextInput
             placeholder={placeholder}
             value={value}
-            keyboardType='default'
+            keyboardType={ inputMode == 'email' ? "email-address" : 'default'}
 
             style={[
                 styles.input,
@@ -41,7 +41,8 @@ const TextInputComponent = ({
                     fontSize: SIZES.fontSizeTextArea,
                     height: SIZES.textFieldHeight * numberOfLines,
                     textAlignVertical: 'top'
-                })
+                }),
+                (inputMode == 'email' && { textTransform: "lowercase" })
             ]}
             // textContentType='none'
             // editable={editable}
@@ -51,6 +52,7 @@ const TextInputComponent = ({
             placeholderTextColor={placeholderTextColor}
             enterKeyHint="done"
             inputMode={inputMode}
+            keyboardAppearance={theme === 'light' ? 'light' : 'dark'}
     
             secureTextEntry={ isSecureTextEntry ?? isPassword}
 

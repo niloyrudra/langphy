@@ -9,7 +9,6 @@ import FacebookIcon from '@/assets/images/social/facebook.svg'
 import GoogleIcon from '@/assets/images/social/google.svg'
 
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
-import TextInputComponent from '@/components/form-components/TextInputComponent'
 import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
 import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
 import SocialButton from '@/components/form-components/auth/SocialButton'
@@ -17,10 +16,9 @@ import HorizontalSeparator from '@/components/form-components/auth/HorizontalSep
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
 import { Formik } from "formik";
 import * as Yup from "yup";
-// import { UserData } from '@/types';
-// import SIZES from '@/constants/size';
 import { useAuth } from '@/context/AuthContext';
-// import * as SecureStore from "expo-secure-store";
+import AuthInput from '@/components/form-components/auth/AuthInput'
+import AuthLayout from '@/components/layouts/AuthLayout'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -76,115 +74,107 @@ const SignUp = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={{ flex:1 }}>
+    <AuthLayout screenTitle={"Create Account"}>
 
-      <View style={[styles.container, {backgroundColor: colors.background}]}>
+      {/* FORM */}
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={SignupSchema}
+        onSubmit={(values, {resetForm}) => {
+          handleSignup(values.email, values.password);
+          resetForm();
+        }}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+          <View style={styles.form}>
 
-        <AuthTopBannerImage />
+            {/* Email TextField Component */}
+            <AuthInput
+              value={values.email}
+              placeholderText='Email'
+              inputMode='email'
+              handleBlur={handleBlur('email')}
+              handleChange={handleChange('email')}
+              error={errors.email || null}
+              touched={touched.email ? "true" : null}
+            />
 
-        <FormHeaderTitle title="Create Account" />
+            {/* Password TextField Component */}
+            <AuthInput
+              value={values.password}
+              placeholderText='Password'
+              inputMode='text'
+              handleBlur={handleBlur('password')}
+              handleChange={handleChange('password')}
+              error={errors.password || null}
+              touched={touched.password ? "true" : null}
+            />
 
-        {/* FORM */}
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          validationSchema={SignupSchema}
-          onSubmit={(values) => handleSignup(values.email, values.password)}
+            {/* Submit Button */}
+            <ActionPrimaryButton
+              buttonTitle="Create Account"
+              onSubmit={handleSubmit}
+              isLoading={loading}
+            />
+            
+          </View>
+        )}
+      </Formik>
+    
+      <HorizontalSeparator />
+
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 16,
+            height: sizes.buttonHeight,
+            marginBottom: 20
+          }}
         >
-          {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-            <View style={styles.form}>
+          <SocialButton
+            iconComponent={<FacebookIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
+            socialMediaName='facebook'
+            onTap={() => console.log("Facebook")}
+          />
 
-              {/* Email TextField Component */}
-              <TextInputComponent
-                placeholder="Email"
-                inputMode="email"
-                value={values.email}
-                onChange={handleChange("email")}
-                onBlur={handleBlur("email")}
-              />
-              {errors.email && touched.email && <Text>{errors.email}</Text>}
+          <SocialButton
+            iconComponent={<GoogleIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
+            socialMediaName='Google'
+            onTap={() => console.log("Google")}
+          />
+        </View>
 
-              <TextInputComponent
-                placeholder="Password"
-                isPassword={true}
-                value={values.password}
-                onChange={handleChange("password")}
-                onBlur={handleBlur("password")}
-              />
-              {errors.password && touched.password && <Text>{errors.password}</Text>}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            marginVertical: 20
+          }}
+        >
+          <Text style={{color: colors.textSubColor}}>By signing in to Langphy, you agree to our </Text>
 
-              {/* Submit Button */}
-              <ActionPrimaryButton
-                buttonTitle="Create Account"
-                onSubmit={handleSubmit}
-                isLoading={loading}
-              />
-              
-            </View>
-          )}
-        </Formik>
-      
-        <HorizontalSeparator />
+          <PlainTextLink route="/terms" linkText='Terms' />
 
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 16,
-              height: sizes.buttonHeight,
-              marginBottom: 20
-            }}
-          >
-            <SocialButton
-              iconComponent={<FacebookIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
-              socialMediaName='facebook'
-              onTap={() => console.log("Facebook")}
-            />
+          <Text style={{color: colors.textSubColor}}> and </Text>
 
-            <SocialButton
-              iconComponent={<GoogleIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
-              socialMediaName='Google'
-              onTap={() => console.log("Google")}
-            />
-          </View>
+          <PlainTextLink route="/privacy" linkText='Privacy Policy' />
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              marginVertical: 20
-            }}
-          >
-            <Text style={{color: colors.textSubColor}}>By signing in to Langphy, you agree to our </Text>
-
-            <PlainTextLink route="/terms" linkText='Terms' />
-
-            <Text style={{color: colors.textSubColor}}> and </Text>
-
-            <PlainTextLink route="/privacy" linkText='Privacy Policy' />
-
-            <Text style={{color: colors.textSubColor}}>.</Text>
-
-          </View>
-
-          <PlainTextLink text="Already have an account?" route="/auth/login" linkText="Login here." />
+          <Text style={{color: colors.textSubColor}}>.</Text>
 
         </View>
 
+        <PlainTextLink text="Already have an account?" route="/auth/login" linkText="Login here." />
+
       </View>
 
-    </ScrollView>
+    </AuthLayout>
   )
 }
 
 export default SignUp;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: sizes.bodyPaddingHorizontal,
-    paddingVertical: 30,
-    
-  },
   form: {
     flexDirection: 'column',
     gap: 16

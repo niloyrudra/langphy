@@ -1,4 +1,4 @@
-import { StyleProp, ViewProps } from "react-native";
+import { StyleProp, TextStyle, ViewProps } from "react-native";
 import SIZES from "./size";
 
 const headerContainer: StyleProp<ViewProps> = <ViewProps> {
@@ -70,6 +70,10 @@ const subTitleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
     fontFamily: 'PlusJakartaSans-Bold',
 };
 
+const wordWrapStyle: StyleProp<TextStyle> = <TextStyle> {
+    wordWrap: 'break-word',
+    flexShrink: 1,
+}
 
 const STYLES = {
     headerContainer,
@@ -81,7 +85,8 @@ const STYLES = {
     contentCentered,
     childContentCentered,
     titleHeadingStyle,
-    subTitleHeadingStyle
+    subTitleHeadingStyle,
+    wordWrapStyle
 };
 
 export default STYLES;

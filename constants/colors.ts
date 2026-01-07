@@ -15,6 +15,17 @@ export const lightColors = {
   cardIconBackgroundColor: "#FFFFFF",
   modalBoderColor: "#68F0F8",
 
+  gradiantDeep: '#FFFFFF',
+
+  red: "#FF0000",
+  redDanger: "#A6192E",
+  redSoft: "#ED4337",
+  redCommon: "#CC0000",
+
+  warningAmber: "#FFBF00",
+  warningYellow: "#FFFF00",
+  warningOrange: "#FFA500",
+
   modalBackDropColor: '#072D3790',
 
   statsBackground: "#FFFFFF",
@@ -72,6 +83,17 @@ export const darkColors = {
   cardBorderColor: "#1751B6", // "#BCE4FF"
   cardIconBackgroundColor: "#142C57",
   modalBoderColor: "#68F0F8",
+
+  gradiantDeep: '#081A33',
+
+  red: "#FF0000",
+  redDanger: "#A6192E",
+  redSoft: "#ED4337",
+  redCommon: "#CC0000",
+
+  warningAmber: "#FFBF00",
+  warningYellow: "#FFFF00",
+  warningOrange: "#FFA500",
 
   modalBackDropColor: '#072D3790',
 

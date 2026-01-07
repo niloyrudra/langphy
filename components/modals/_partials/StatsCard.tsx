@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         borderColor: "#68F0F8",
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: 16
+        padding: 16,
+        backgroundColor: "#12121225"
     }
 })
