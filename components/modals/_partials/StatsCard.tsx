@@ -32,7 +32,7 @@ const StatsCard = ({title, IconComponent, statsValue, statsUnit, feedbackText, c
     )
 }
 
-export default StatsCard
+export default StatsCard;
 
 const styles = StyleSheet.create({
     container: {
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 16,
-        backgroundColor: "#12121225"
+        backgroundColor: "#12121233"
     }
 })

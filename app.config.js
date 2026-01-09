@@ -31,6 +31,7 @@ export default {
       "expo-speech-recognition",
       "expo-web-browser",
       "expo-secure-store",
+      "expo-asset",
       [
         "expo-splash-screen",
         {
