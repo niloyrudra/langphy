@@ -15,6 +15,17 @@ export const lightColors = {
   cardIconBackgroundColor: "#FFFFFF",
   modalBoderColor: "#68F0F8",
 
+  profileGradientLight: "#CFFDFE",
+  profileGradientDark: "#8ED4FF",
+  profileGradientBox: "#F9FAFB",
+  profileCardBg: "#FFFFFF",
+  profileCardStatsGradientLight: "#48E4EF10",
+  profileCardStatsGradientDark: "#1B7CF510",
+  profileCardImgBgClr: "#D9EFFF",
+
+  accountDeletionModalBg: "#FFFFFF",
+  accountDeletionModalText: "#676767",
+
   gradiantDeep: '#FFFFFF',
 
   red: "#FF0000",
@@ -83,6 +94,17 @@ export const darkColors = {
   cardBorderColor: "#1751B6", // "#BCE4FF"
   cardIconBackgroundColor: "#142C57",
   modalBoderColor: "#68F0F8",
+
+  profileGradientLight: "#08C1D2",
+  profileGradientDark: "#1465E1",
+  profileGradientBox: "#142C57",
+  profileCardBg: "#142C57",
+  profileCardStatsGradientLight: "#48E4EF10",
+  profileCardStatsGradientDark: "#1B7CF510",
+  profileCardImgBgClr: "#061E3E",
+
+  accountDeletionModalBg: "#142C57",
+  accountDeletionModalText: "#DFDFDF",
 
   gradiantDeep: '#081A33',
 

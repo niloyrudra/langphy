@@ -4,7 +4,7 @@ import { useTheme } from '@/theme/ThemeContext';
 import SIZES from '@/constants/size';
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from '@expo/vector-icons';
-import { EditIconDark, EditIconLight, LearningProgressCardBgLight, MilestonesGrdCardBgLight, ProgressIcon, SteakIcon } from '@/utils/SVGImages';
+import { EditIconDark, EditIconLight, LearningProgressCardBgLight, MilestonesGrdCardBgLight, ProfileLearningProgressCardBg, ProfileLessonIcon, ProfilePhraseIcon, ProfileStreaks_3_Icon, ProfileUnitIcon, ProfileWordsIcon, ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import Title from '@/components/Title';
 import { getCardContainerWidth } from '@/utils';
 import { router } from 'expo-router';
@@ -24,31 +24,32 @@ const learningProgressData: LearningProress[] = [
     id: 1,
     learningCategoryTitle: "Total Words",
     score: 1000,
-    ImgComponent: ""
+    ImgComponent: <ProfileWordsIcon />
   },
   {
     id: 2,
     learningCategoryTitle: "Total Phrases",
     score: 500,
-    ImgComponent: ""
+    ImgComponent: <ProfilePhraseIcon />
   },
   {
     id: 3,
     learningCategoryTitle: "Total Units",
     score: 100,
-    ImgComponent: ""
+    ImgComponent: <ProfileUnitIcon />
   },
   {
     id: 4,
     learningCategoryTitle: "Total Lessons",
     score: 40,
-    ImgComponent: ""
+    ImgComponent: <ProfileLessonIcon />
   }
 ];
 
 type Milestones = {
   id: number,
   milestonesTitle: string,
+  isLocked: boolean;
   milestones: number,
   ImgComponent?: React.ReactNode
 }
@@ -57,26 +58,30 @@ const milestonesData: Milestones[] = [
   {
     id: 1,
     milestonesTitle: "3 Day",
+    isLocked: false,
     milestones: 3,
-    ImgComponent: ""
+    ImgComponent: <ProfileStreaks_3_Icon />
   },
   {
     id: 2,
     milestonesTitle: "7 Day",
+    isLocked: true,
     milestones: 7,
-    ImgComponent: ""
+    ImgComponent: <ProfileStreaks_3_Icon />
   },
   {
     id: 3,
     milestonesTitle: "14 Day",
+    isLocked: true,
     milestones: 14,
-    ImgComponent: ""
+    ImgComponent: <ProfileStreaks_3_Icon />
   },
   {
     id: 4,
     milestonesTitle: "30 Day",
+    isLocked: true,
     milestones: 30,
-    ImgComponent: ""
+    ImgComponent: <ProfileStreaks_3_Icon />
   }
 ];
 
@@ -97,7 +102,7 @@ const Dashboard = () => {
         >
           {/* User's Information */}
           <LinearGradient
-            colors={['#CFFDFE', '#8ED4FF']}
+            colors={[colors.profileGradientLight, colors.profileGradientDark]}
             style={styles.topCard}
           >
             {/* Profile Edit Button */}
@@ -120,8 +125,8 @@ const Dashboard = () => {
                 alignItems: "center"
               }}
             >
-              <Text style={styles.userDisplayName}>{user?.first_name ?? 'Anonymous'}</Text>
-              <Text style={styles.userName}>User ID: {user?.username ?? "..."}</Text>
+              <Text style={[styles.userDisplayName, {color: colors.text}]}>{user?.first_name ?? 'Anonymous'}</Text>
+              <Text style={[styles.userName, {color:colors.text}]}>User ID: {user?.username ?? "..."}</Text>
             </View>
 
             {/* Birth Date and Email Address */}
@@ -143,7 +148,7 @@ const Dashboard = () => {
                 }}
               >
                 <Ionicons name="calendar-outline" size={16} color={colors.text} />
-                <Text style={styles.userInfo}>{user?.created_at ? new Date( user.created_at ).toDateString() : '__/__/__'}</Text>
+                <Text style={[styles.userInfo, {color: colors.text}]}>{user?.created_at ? new Date( user.created_at ).toLocaleDateString() : '__/__/__'}</Text>
               </View>
               <View style={{width: 1, height: 10, backgroundColor: colors.text}} />
               <View
@@ -155,14 +160,14 @@ const Dashboard = () => {
                 }}
               >
                 <Ionicons name="mail-outline" size={16} color={colors.text} />
-                <Text style={styles.userInfo}>john.doe@gmail.com</Text>
+                <Text style={[styles.userInfo, {color: colors.text}]}>{user?.email ?? "___"}</Text>
               </View>
             </View>
 
             {/* Stats */}
             <View
               style={{
-                backgroundColor: colors.statsBackground,
+                backgroundColor: colors.profileGradientBox,
                 padding: 20,
                 borderRadius: 12,
                 flexDirection: "row",
@@ -231,12 +236,24 @@ const Dashboard = () => {
                     height: 60,
                     borderRadius: 12,
                     marginBottom: 10,
-                    backgroundColor: colors.statsBackground,
+                    backgroundColor: colors.profileCardBg,
                     flexDirection: "row",
                     flex: 1,
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    position: "relative"
                   }}
                 >
+                  {/* Background Image */}
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0
+                    }}
+                  >
+                    <ProfileLearningProgressCardBg />
+                  </View>
+
                   <View
                     style={{
                       flex: 1,
@@ -247,36 +264,42 @@ const Dashboard = () => {
                       alignItems: "center",
                       gap: 10,
                       paddingHorizontal: 20,
-                      position: "relative"
                     }}
                   >
-
-                    {/* Background Image */}
                     <View
                       style={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0
+                        flex: 1,
+                        width: "100%",
+                        height: "100%",
+                        flexDirection: "row",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        gap: 10,
                       }}
                     >
-                      <LearningProgressCardBgLight />
+
+                      <View style={{width: 32, height: 32, borderRadius: 32, justifyContent: "center",  alignItems: "center", backgroundColor: colors.profileCardImgBgClr}}>
+                        {item.ImgComponent}
+                      </View>
+                      <Text style={{fontSize: 14, fontWeight: "500", color: colors.text }}>{item.learningCategoryTitle}</Text>
                     </View>
 
-                    <View style={{width: 40, height: 40, borderRadius: 40, backgroundColor: "#ddd"}} />
-                    <Text style={{fontSize: 14, fontWeight: "500", color: colors.text }}>{item.learningCategoryTitle}</Text>
+                    <LinearGradient
+                      colors={[colors.profileCardStatsGradientLight, colors.profileCardStatsGradientDark]}
+                      style={{
+                        width: 100,
+                        height: 35,
+                        borderRadius: 12,
+                        justifyContent: "center",
+                        alignItems: "center"
+                      }}
+                    >
+                      <Text style={{fontSize: 16, fontWeight: "600", color: colors.text }}>{item.score}</Text>
+
+                    </LinearGradient>
+
                   </View>
 
-                  <View
-                    style={{
-                      height: "100%",
-                      width: 120,
-                      backgroundColor: "#A6F7FB",
-                      justifyContent: "center",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Text style={{fontSize: 16, fontWeight: "600" }}>{item.score}</Text>
-                  </View>
                 </View>
               ))
             }
@@ -321,18 +344,22 @@ const Dashboard = () => {
                     key={item.id.toString()}
                     style={{
                       height: 64,
-                      borderWidth: 1,
-                      borderColor: "#eee",
                       minWidth: getCardContainerWidth() - (SIZES.cardGap/2),
-                      borderRadius: 12,
-                      gap: SIZES.cardGap,
-                      backgroundColor: colors.statsBackground,
                       flexDirection: "row",
                       flex: 1,
-                      overflow: "hidden"
+                      opacity: item.isLocked ? 0.35 : 1
                     }}
                   >
-                    <View style={{width: "40%", height: "100%", backgroundColor: "#ddd"}} />
+                    <View
+                      style={{
+                        backgroundColor: colors.profileCardImgBgClr,
+                        borderTopStartRadius: 12,
+                        borderBottomStartRadius: 12
+                      }}
+                    >
+                      {item.ImgComponent}
+                    </View>
+
                     <View
                       style={{
                         flex: 1,
@@ -342,8 +369,11 @@ const Dashboard = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         gap: 5,
-                        position: "relative"
-                        // paddingHorizontal: 20
+                        position: "relative",
+                        overflow: 'hidden',
+                        borderTopEndRadius: 12,
+                        borderBottomEndRadius: 12,
+                        backgroundColor: colors.profileCardBg,
                       }}
                     >
 

@@ -1,19 +1,22 @@
 import React from 'react'
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import Title from '@/components/Title';
-import { Ionicons } from '@expo/vector-icons';
-import SettingSwitcher from '@/components/dashboard/SettingSwitcher';
 import { router } from 'expo-router';
-import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import { SETTINGS_DATA } from '@/schemas/static-data';
 import { useAuth } from '@/context/AuthContext';
 import * as SecureStore from "expo-secure-store";
+import SettingsElement from '@/components/settings/SettingsElement';
+import SettingsElementAction from '@/components/settings/SettingsElementAction';
+import ActionButton from '@/components/form-components/ActionButton';
+import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
+// import SIZES from '@/constants/size';
 
 const SettingsScreen = () => {
-  const { colors } = useTheme();
+  const { colors, theme } = useTheme();
   const { user, setUser } = useAuth();
+  const [showModal, setShowModal] = React.useState<boolean>(false);
 
   const handleSignout = async () => {
     try {
@@ -37,8 +40,6 @@ const SettingsScreen = () => {
             await SecureStore.deleteItemAsync("accessToken");
             setUser(null);
 
-            // await SecureStore.setItemAsync("accessToken", token);
-
             if(message) Alert.alert( message )
             else Alert.alert("Successfully signed out!");
             
@@ -60,94 +61,107 @@ const SettingsScreen = () => {
   }
 
   return (
-    <SafeAreaLayout>
-      <ScrollView style={{flex: 1}}>
+    <>
+      <SafeAreaLayout>
+        <ScrollView style={{flex: 1}}>
 
-        <View style={{flex: 1, marginBottom: 30}}>
-          {
-            SETTINGS_DATA.map((item, idx) => (
-              <View style={{ flex: 1, marginBottom: 30 }} key={idx.toString()}>
-                
-                <Title title={item.subSettingTitle} containerStyle={{marginTop: 20, marginBottom: 10}} contentStyle={{fontSize: 16, color: colors.settingsTitle}} />
-                
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    gap: 10
-                  }}
-                >
-                  {
-                    item.settingsElements.map((item, idx) => (
-                      <View
-                        key={idx.toString()}
-                        style={{
-                          paddingHorizontal: 20,
-                          borderRadius: 12,
-                          backgroundColor: colors.statsBackground,
+          <View style={{flex: 1, marginBottom: 30}}>
+            {
+              SETTINGS_DATA.map((item, idx) => (
+                <View style={{ flex: 1, marginBottom: 30 }} key={idx.toString()}>
+                  
+                  <Title title={item.subSettingTitle} containerStyle={{marginTop: 20, marginBottom: 10}} contentStyle={{fontSize: 16, color: colors.settingsTitle}} />
+                  
+                  <View style={[styles.settingItemContainer]}>
+                    {
+                      item.settingsElements.map((item, idx) => (
+                        <View
+                          key={idx.toString()}
+                          style={[styles.settingItem, {backgroundColor: colors.profileCardBg}]}
+                        >
+                          <SettingsElement
+                            title={item.elementTitle}
+                            Icon={theme === 'light' ? <item.ImgComponentLight /> : <item.ImgComponentDark />}
+                          />
 
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          height: 64
-                        }}
-                      >
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-start",
-                            gap: 10
-                          }}
-                        >
-                          <View style={{width: 40, height: 40, borderRadius: 40, backgroundColor: "#ddd"}} />
-                          {/* <Title title={item.elementTitle} /> */}
-                          <Text
-                            style={{
-                              fontSize: 16,
-                              color: colors.text,
-                              fontWeight: "600"
-                            }}
-                          >{item.elementTitle}</Text>
+                          <SettingsElementAction
+                            actionType={item.actionType}
+                            settingType={item.settingType}
+                            route={item?.route}
+                          />
+                          
                         </View>
-                        <View
-                          style={{
-                            alignItems: "center",
-                            height: "100%"
-                          }}
-                        >
-                          {
-                            item.actionType == "switcher" && (<SettingSwitcher settingType={item.settingType} />)
-                          }
-                          {
-                            item.actionType == "router" && (
-                              <TouchableOpacity
-                                onPress={() => router.push(item?.route)}
-                                style={{ marginVertical: "auto" }}
-                              >
-                                <Ionicons name="chevron-forward" size={24} color={colors.text} />
-                              </TouchableOpacity>
-                            )
-                          }
-                        </View>
-                      </View>
-                    ))
-                  }
+                      ))
+                    }
+                  </View>
                 </View>
-              </View>
-            ))
-          }
+              ))
+            }
 
-          <ActionPrimaryButton
-            buttonTitle='Logout'
-            onSubmit={handleSignout}
+            <ActionButton
+              buttonTitle='Logout'
+              onSubmit={handleSignout}
+              buttonStyle={{
+                backgroundColor: theme === 'light' ? "transparent" : "#FFFFFF",
+                borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
+                borderWidth: 1,
+              }}
+              textStyle={{
+                color: theme === 'light' ? "#142C57" : "#142C57"
+              }}
+            />
+            
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 30
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => setShowModal(true)}
+              >
+                <Text
+                  style={{
+                    color: "#EF1313",
+                    fontWeight: "800",
+                    fontSize: 16
+                  }}
+                >Delete Account</Text>
+              </TouchableOpacity>
+            </View>
+            
+          </View>
+
+        </ScrollView>
+      </SafeAreaLayout>
+
+      {
+        showModal && (
+          <AccountDeletionModal
+            isVisible={showModal}
+            onModalVisible={() => setShowModal(false)}
           />
-        </View>
+        )
+      }
 
-      </ScrollView>
-    </SafeAreaLayout>
+    </>
   )
 }
 
 export default SettingsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  settingItemContainer: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 10
+  },
+  settingItem: {
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 64
+  }
+});

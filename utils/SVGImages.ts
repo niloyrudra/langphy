@@ -208,11 +208,20 @@ import RecorderReload from '@/assets/images/recorder/recorder-reload.svg';
 
 /** Dashboard */
 import EditIconLight from '@/assets/images/dashboard/edit-icon-light.svg';
-import EditIconDark from '@/assets/images/dashboard/edit-icon-light.svg';
+import EditIconDark from '@/assets/images/dashboard/profile-edit-dark-icon.svg';
 
 import ProgressIcon from '@/assets/images/dashboard/progress-icon.svg';
 
 import LearningProgressCardBgLight from '@/assets/images/dashboard/learning-progress-rec-card-bg-light.svg';
+
+import ProfileWordsIcon from '@/assets/images/dashboard/profile-words-icon.svg';
+import ProfilePhraseIcon from '@/assets/images/dashboard/profile-phrase-icon.svg';
+import ProfileUnitIcon from '@/assets/images/dashboard/profile-unit-icon.svg';
+import ProfileLessonIcon from '@/assets/images/dashboard/profile-lesson-icon.svg';
+
+import ProfileLearningProgressCardBg from '@/assets/images/dashboard/profile-learning-progress-card-bg.svg';
+
+import ProfileStreaks_3_Icon from '@/assets/images/dashboard/profile-3-streaks-icon.svg';
 
 import MilestonesGrdCardBgLight from '@/assets/images/dashboard/milestones-grid-card-bg-light.svg';
 
@@ -237,6 +246,29 @@ import ModalCloseDarkIcon from '@/assets/images/modals/modal-close-dark.svg';
 import DolphinCongratulationsIcon from '@/assets/images/modals/dolphin-congratulation.svg';
 import TargetIcon from '@/assets/images/modals/target.svg';
 import WatchIcon from '@/assets/images/modals/watch.svg';
+
+import SoundEffectLightIcon from '@/assets/images/dashboard/settings/sound-effect-light-icon.svg';
+import SoundEffectDarkIcon from '@/assets/images/dashboard/settings/sound-effect-dark-icon.svg';
+import ReadingLightIcon from '@/assets/images/dashboard/settings/book-light.svg';
+import ReadingDarkIcon from '@/assets/images/dashboard/settings/book-dark.svg';
+import SpeakingDarkIcon from '@/assets/images/dashboard/settings/mic-dark.svg';
+import SpeakingLightIcon from '@/assets/images/dashboard/settings/mic-light.svg';
+import ListeningDarkIcon from '@/assets/images/dashboard/settings/headphones-dark.svg';
+import ListeningLightIcon from '@/assets/images/dashboard/settings/headphones-light.svg';
+import ThemeLightIcon from '@/assets/images/dashboard/settings/moon-light.svg';
+import ThemeDarkIcon from '@/assets/images/dashboard/settings/moon-dark.svg';
+import AcknoledgementDarkIcon from '@/assets/images/dashboard/settings/safe-delivery-dark.svg';
+import AcknowledgementLightIcon from '@/assets/images/dashboard/settings/safe-delivery-light.svg';
+import PracticeLightIcon from '@/assets/images/dashboard/settings/dumbbell-light.svg';
+import PracticDarkIcon from '@/assets/images/dashboard/settings/dumbbell-dark.svg';
+import HelpDarkIcon from '@/assets/images/dashboard/settings/help-circle-dark.svg';
+import HelpLightIcon from '@/assets/images/dashboard/settings/help-circle-light.svg';
+import PrivacyLightIcon from '@/assets/images/dashboard/settings/security-check-light.svg';
+import PrivacyDarkIcon from '@/assets/images/dashboard/settings/security-check-dark.svg';
+import TermDarkIcon from '@/assets/images/dashboard/settings/computer-terminal-dark.svg';
+import TermLightIcon from '@/assets/images/dashboard/settings/computer-terminal-light.svg';
+import FeedbackLightIcon from '@/assets/images/dashboard/settings/chat-feedback-light.svg';
+import FeedbackDarkIcon from '@/assets/images/dashboard/settings/chat-feedback-dark.svg';
 
 export {
     AccessoriesIconV3,
@@ -429,4 +461,34 @@ export {
     DolphinCongratulationsIcon,
     TargetIcon,
     WatchIcon,
+
+    ProfileWordsIcon,
+    ProfilePhraseIcon,
+    ProfileUnitIcon,
+    ProfileLessonIcon,
+    ProfileLearningProgressCardBg,
+    ProfileStreaks_3_Icon,
+
+    SoundEffectLightIcon,
+    SoundEffectDarkIcon,
+    ReadingLightIcon,
+    ReadingDarkIcon,
+    SpeakingDarkIcon,
+    SpeakingLightIcon,
+    ListeningDarkIcon,
+    ListeningLightIcon,
+    ThemeLightIcon,
+    ThemeDarkIcon,
+    AcknoledgementDarkIcon,
+    AcknowledgementLightIcon,
+    PracticeLightIcon,
+    PracticDarkIcon,
+    HelpDarkIcon,
+    HelpLightIcon,
+    PrivacyLightIcon,
+    PrivacyDarkIcon,
+    TermDarkIcon,
+    TermLightIcon,
+    FeedbackLightIcon,
+    FeedbackDarkIcon,
 };

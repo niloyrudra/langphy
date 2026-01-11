@@ -69,6 +69,29 @@ import {
   SpeakingIconV3,
   WritingIconV3,
 
+  SoundEffectLightIcon,
+  SoundEffectDarkIcon,
+  ReadingLightIcon,
+  ReadingDarkIcon,
+  SpeakingDarkIcon,
+  SpeakingLightIcon,
+  ThemeLightIcon,
+  ThemeDarkIcon,
+  AcknoledgementDarkIcon,
+  AcknowledgementLightIcon,
+  PracticeLightIcon,
+  PracticDarkIcon,
+  HelpDarkIcon,
+  HelpLightIcon,
+  PrivacyLightIcon,
+  PrivacyDarkIcon,
+  TermDarkIcon,
+  TermLightIcon,
+  FeedbackLightIcon,
+  FeedbackDarkIcon,
+  ListeningDarkIcon,
+  ListeningLightIcon,
+
 } from '@/utils/SVGImages'
 
 export const CATEGORY_DATA_V3 = [
@@ -520,14 +543,16 @@ export const SETTINGS_DATA: SettingsData[] = [
     settingsElements: [
       {
         elementTitle: "Sound Effect",
-        ImgComponent: null,
+        ImgComponentLight: SoundEffectLightIcon,
+        ImgComponentDark: SoundEffectDarkIcon,
         actionType: "switcher",
         settingType: "sound_effect",
         route: "/settings"
       },
       {
         elementTitle: "Dark Mode",
-        ImgComponent: null,
+        ImgComponentLight: ThemeLightIcon,
+        ImgComponentDark: ThemeDarkIcon,
         actionType: "switcher",
         settingType: "toggle_theme",
         route: "/settings"
@@ -539,32 +564,36 @@ export const SETTINGS_DATA: SettingsData[] = [
     settingsElements: [
       {
         elementTitle: "Speaking Exercise",
-        ImgComponent: null,
+        ImgComponentLight: SpeakingLightIcon,
+        ImgComponentDark: SpeakingDarkIcon,
         actionType: "switcher",
         settingType: "speaking",
         route: "/settings"
       },
       {
         elementTitle: "Reading Exercise",
-        ImgComponent: null,
+        ImgComponentLight: ReadingLightIcon,
+        ImgComponentDark: ReadingDarkIcon,
         actionType: "switcher",
         settingType: "reading",
         route: "/settings"
       },
       {
         elementTitle: "Listening Exercise",
-        ImgComponent: null,
+        ImgComponentLight: ListeningLightIcon,
+        ImgComponentDark: ListeningDarkIcon,
         actionType: "switcher",
         settingType: "listening",
         route: "/settings"
       },
-      {
-        elementTitle: "Writing Exercise",
-        ImgComponent: null,
-        actionType: "switcher",
-        settingType: "writing",
-        route: "/settings"
-      }
+      // {
+      //   elementTitle: "Writing Exercise",
+      //   ImgComponentLight: null,
+      //   ImgComponentDark: null,
+      //   actionType: "switcher",
+      //   settingType: "writing",
+      //   route: "/settings"
+      // }
     ]
   },
   {
@@ -572,7 +601,8 @@ export const SETTINGS_DATA: SettingsData[] = [
     settingsElements: [
       {
         elementTitle: "Practise Reminder",
-        ImgComponent: null,
+        ImgComponentLight: PracticeLightIcon,
+        ImgComponentDark: PracticDarkIcon,
         actionType: "switcher",
         settingType: "push_notification",
         route: "/settings"
@@ -584,35 +614,40 @@ export const SETTINGS_DATA: SettingsData[] = [
     settingsElements: [
       {
         elementTitle: "Help Center",
-        ImgComponent: null,
+        ImgComponentLight: HelpLightIcon,
+        ImgComponentDark: HelpDarkIcon,
         actionType: "router",
         settingType: "*",
         route: "/dashboard/settings/others/help-center",
       },
       {
         elementTitle: "Privacy Policy",
-        ImgComponent: null,
+        ImgComponentLight: PrivacyLightIcon,
+        ImgComponentDark: PrivacyDarkIcon,
         actionType: "router",
         settingType: "*",
         route: "/dashboard/settings/others/privacy-policy",
       },
       {
         elementTitle: "Terms & Conditions",
-        ImgComponent: null,
+        ImgComponentLight: TermLightIcon,
+        ImgComponentDark: TermDarkIcon,
         actionType: "router",
         settingType: "*",
         route: "/dashboard/settings/others/terms-and-conditions",
       },
       {
         elementTitle: "Achknowledgment",
-        ImgComponent: null,
+        ImgComponentLight: AcknowledgementLightIcon,
+        ImgComponentDark: AcknoledgementDarkIcon,
         actionType: "router",
         settingType: "*",
         route: "/dashboard/settings/others/acknowledgment",
       },
       {
         elementTitle: "Feedback",
-        ImgComponent: null,
+        ImgComponentLight: FeedbackLightIcon,
+        ImgComponentDark: FeedbackDarkIcon,
         actionType: "router",
         settingType: "*",
         route: "/dashboard/settings/others/feedback",

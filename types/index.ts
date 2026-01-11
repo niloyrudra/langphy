@@ -1,6 +1,6 @@
 import { Href } from "expo-router"
-import { ReactNode } from "react"
-import { ColorValue, ImageBackgroundProps, ImageSourcePropType, InputModeOptions, StyleProp, ViewProps, ViewStyle } from "react-native"
+import { FC, ReactNode, SVGProps } from "react"
+import { ColorValue, ImageBackgroundProps, ImageSourcePropType, InputModeOptions, StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native"
 import { SvgProps } from "react-native-svg"
 
 type UserData = {
@@ -224,6 +224,7 @@ type SubmitButtonProps = {
     onSubmit: () => void,
     buttonStyle?: StyleProp<ViewStyle>,
     buttonTextStyle?: StyleProp<ViewProps>,
+    textStyle?: StyleProp<TextStyle>,
     disabled?: boolean,
     isLoading?: boolean
 }
@@ -429,7 +430,8 @@ type ToolTip = {
 
 type SettingsElement = {
   elementTitle: string,
-  ImgComponent?: ReactNode,
+  ImgComponentLight: FC<SVGProps<SVGSVGElement>>,
+  ImgComponentDark: FC<SVGProps<SVGSVGElement>>,
   actionType: "switcher" | "router",
   settingType: string,
   route: string,
