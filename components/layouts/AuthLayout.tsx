@@ -16,7 +16,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({screenTitle, children}) => {
     return (
         <SafeAreaLayout>
             <KeyboardAvoidingViewLayout>
-
                 <ScrollView
                     // style={{ flex:1 }}
                     contentContainerStyle={{flex:1}}
@@ -46,5 +45,8 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({screenTitle, children}) => {
 export default AuthLayout
 
 const styles = StyleSheet.create({
-    container: {flex: 1}
+    container: {
+        flex: 1,
+        justifyContent: "center"
+    }
 })

@@ -1,15 +1,7 @@
 import { Alert, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
-
-import FacebookIcon from '@/assets/images/social/facebook.svg'
-import GoogleIcon from '@/assets/images/social/google.svg'
-
-import sizes from '@/constants/size'
 import ForgotPasswordLink from '@/components/form-components/auth/ForgotPasswordLink'
-import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
-import SocialButton from '@/components/form-components/auth/SocialButton'
-import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
 import { useAuth } from '@/context/AuthContext'
 import * as Yup from "yup";
@@ -18,6 +10,8 @@ import * as SecureStore from "expo-secure-store";
 import { router } from 'expo-router'
 import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
+import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
+import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required."),
@@ -25,7 +19,7 @@ const SignInSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const { colors } = useTheme();
+  const {colors} = useTheme();
   const { setUser } = useAuth();
   const [loading, setLoading] = React.useState<boolean>(false)
 
@@ -83,7 +77,7 @@ const Login = () => {
           resetForm();
         }}
       >
-        {({ handleChange, handleBlur, handleSubmit, handleReset, values, errors, touched }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
           <View style={styles.form}>
 
             {/* Email TextField Component */}
@@ -106,6 +100,7 @@ const Login = () => {
               handleChange={handleChange('password')}
               error={errors.password || null}
               touched={touched.password ? "true" : null}
+              isPassword={true}
             />
 
             {/* Forgot Password Link Component */}
@@ -120,52 +115,20 @@ const Login = () => {
 
           </View>
         )}
-
-
       </Formik>
 
-      {/* Section Breaker Component */}
-      <HorizontalSeparator />
+      {/* Social Media */}
+      {/* <SocialLoginSection /> */}
 
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 16,
-            height: sizes.buttonHeight,
-            marginBottom: 20
-          }}
-        >
-          <SocialButton
-            iconComponent={<FacebookIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
-            socialMediaName='facebook'
-            onTap={() => console.log("Facebook")}
-          />
-
-          <SocialButton
-            iconComponent={<GoogleIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
-            socialMediaName='Google'
-            onTap={() => console.log("Google")}
-          />
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 4,
-            justifyContent: "center",
-            marginBottom: 20
-          }}
-        >
-          <Text style={{color: colors.textSubColor}}>Don't have an account?</Text>
-
-          <PlainTextLink
-            route="/auth/signup"
-            linkText='Create Account'
-          />
-        </View>
-
+      {/* Route to Signup */}
+      <View style={[styles.footer, {marginTop: 30}]}>
+        <Text style={{color: colors.textSubColor}}>Don't have an account?</Text>
+        <PlainTextLink
+          route="/auth/signup"
+          linkText='Create Account.'
+        />
       </View>
+
     </AuthLayout>
   )
 }
@@ -186,5 +149,11 @@ const styles = StyleSheet.create({
   form: {
     flexDirection: 'column',
     gap: 16
+  },
+  footer: {
+    flexDirection: "row",
+    gap: 4,
+    justifyContent: "center",
+    marginBottom: 20
   }
 })

@@ -79,7 +79,7 @@ import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
 // import WritingIconV3 from '@/assets/images/categories/v3/Writing.svg';
 import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
 // import { BookIcon } from "./SVGImages";
-import BookIcon from "@/assets/images/unit/v2/notebook.svg"
+// import BookIcon from "@/assets/images/unit/v2/notebook.svg"
 // import { Dimensions } from "react-native";
 import { makeMutable, SharedValue } from 'react-native-reanimated';
 import { findNodeHandle, UIManager } from "react-native";
@@ -314,7 +314,7 @@ export const categoryIcon = {
   foods: FoodIconV3,
   geography: GeographyIconV3,
   government_diplomacy: GovernmentIconV3,
-  grammar: BookIcon,
+  // grammar: BookIcon,
   greetings: GreetingsIconV3,
   hobbies: HobbyIconV3,
   history: HistoryIconV3,
@@ -351,7 +351,7 @@ export const categoryIcon = {
   travels: TravelIconV3,
   tele_conversation: TeleCommunicationIconV3,
   vehicles: VehicleIconV3,
-  vocabulary: BookIcon,
+  // vocabulary: BookIcon,
   warfare: WarfareIconV3,
   weather: WeatherIconV3,
   work: WorkIconV3,

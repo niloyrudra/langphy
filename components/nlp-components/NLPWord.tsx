@@ -90,7 +90,7 @@ const NLPWord: React.FC<WordProps> = ({
                     styles.mainText,
                     {
                         color: token.color ?? colors.text,
-                        marginLeft: (token.pos === "PUNCT" ? -2 : 0)
+                        marginLeft: (token.pos === "PUNCT" ? -6 : 0)
                     },
                     (textStyle && textStyle)
                 ]}

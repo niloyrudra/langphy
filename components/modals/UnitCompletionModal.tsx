@@ -5,6 +5,7 @@ import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { DolphinCongratulationsIcon, TargetIcon, WatchIcon } from '@/utils/SVGImages';
 import StatsCard from './_partials/StatsCard';
 import { useTheme } from '@/theme/ThemeContext';
+import ActionButton from '../form-components/ActionButton';
 
 type UnitCompletionModalProps = {
     isVisible: boolean;
@@ -25,7 +26,7 @@ const UnitCompletionModal = ({isVisible, onModalVisible, stats, onContinue}: Uni
         isVisible={isVisible}
         onModalVisible={onModalVisible}
         gradianColor={[colors.gradiantDeep, colors.gradiantDeep, colors.gradiantDeep, '#1FCAD7', '#3FA1FF']}
-        conainerStyle={{
+        containerStyle={{
             // flex: 1,
             borderStartStartRadius: 0,
             borderEndStartRadius: 0,
@@ -54,7 +55,7 @@ const UnitCompletionModal = ({isVisible, onModalVisible, stats, onContinue}: Uni
                 {/* Top Greetings */}
                 <View style={{alignItems: 'center', justifyContent: 'center', padding: 20}}>
                     <View style={{marginBottom: 20, alignItems: 'center', justifyContent: 'center'}}>
-                        <DolphinCongratulationsIcon width={146.61} height={160.73} />
+                        <DolphinCongratulationsIcon width={152} height={156} />
                     </View>
                     {/* <Text style={{fontSize: 24, fontWeight: '800', marginBottom: 5, color: 'gold'}}>Congratulations!</Text> */}
                     <Text style={{fontSize: 32, fontWeight: '800', marginBottom: 5, color: '#68F0F8'}}>Lesson Complete</Text>
@@ -91,11 +92,18 @@ const UnitCompletionModal = ({isVisible, onModalVisible, stats, onContinue}: Uni
             </View>
 
             <View
-                style={{marginTop: "auto"}}
+                style={{marginTop: "auto", marginBottom: 20}}
             >
-                <ActionPrimaryButton
+                <ActionButton
                     buttonTitle="Continue"
                     onSubmit={onContinue}
+                    buttonStyle={{
+                        backgroundColor: "#FFFFFF",
+                        borderColor: "#FFFFFF"
+                    }}
+                    textStyle={{
+                        color: "#142C57"
+                    }}
                 />
             </View>
 

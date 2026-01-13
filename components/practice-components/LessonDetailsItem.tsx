@@ -7,7 +7,7 @@ const LessonDetailsItem = ( {label, content}: {label: string, content: string} )
     const {colors} = useTheme();
     return (
         <View style={{gap: 6, flexDirection:"row", marginBottom: 5}}>
-            <Text style={[styles.subText, STYLES.wordWrapStyle, { color: "#24DEEC" }]}>{label}:</Text>
+            <Text style={[styles.subText, { color: "#24DEEC" }]}>{label}:</Text>
             <Text style={[styles.subText, STYLES.wordWrapStyle, { color: colors.textSubColor }]}>{content}</Text>
         </View>
     )

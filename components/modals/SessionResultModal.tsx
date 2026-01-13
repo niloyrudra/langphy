@@ -29,7 +29,16 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
             isVisible={isVisible}
             onModalVisible={onModalVisible}
             feedback={feedback}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep, '#1FCAD7']} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
+            // gradianColor={[colors.gradiantDeep, colors.gradiantDeep, '#1FCAD7']} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
+            gradianColor={[colors.gradiantDeep, colors.gradiantDeep]} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
+            containerStyle={{
+                // borderLeftWidth: 0,
+                // borderRightWidth: 0,
+                // borderTopWidth: 2
+                // borderTopStartRadius: 50,
+                // borderTopEndRadius: 50,
+                width: "100%"
+            }}
         >
 
             {/* Modal Content */}

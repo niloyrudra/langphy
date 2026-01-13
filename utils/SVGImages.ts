@@ -4,7 +4,7 @@
 
 // Exemplary
 import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
-import BookIcon from '@/assets/images/categories/unit/book.svg';
+// import BookIcon from '@/assets/images/categories/unit/book.svg';
 import BookOpenIcon from '@/assets/images/categories/unit/book-open.svg';
 import StudyingDolphinIcon from '@/assets/images/categories/unit/studying-dolphin.svg';
 import StudyingDolphinSmallIcon from '@/assets/images/categories/unit/studying-dolphin-icon.svg';
@@ -43,13 +43,8 @@ import CultureIconV2 from '@/assets/images/categories/v2/culture.svg';
 import OpinionsIconV2 from '@/assets/images/categories/v2/opinions.svg';
 import EntertainmentIconV2 from '@/assets/images/categories/v2/entertainment.svg';
 
-// Lessons
-import PracticeIcon from '@/assets/images/unit/v2/notebook.svg';
-import QuizIcon from '@/assets/images/unit/v2/quiz.svg';
-import ListeningIcon from '@/assets/images/unit/v2/headphones.svg';
-import SpeakingIcon from '@/assets/images/unit/v2/microphone.svg';
-import ReadingIcon from '@/assets/images/unit/v2/book-open.svg';
-import WritingIcon from '@/assets/images/unit/v2/license-draft.svg';
+// Units
+import DolphinReading from '@/assets/images/unit/v2/dolphin-reading.svg';
 
 // Dic
 import DictionaryIcon from '@/assets/images/screen-icons/dictionary-icon.svg';
@@ -63,9 +58,6 @@ import GermanyCircleFlagIcon from '@/assets/images/header/germany-flag.svg';
 import GermanySquareFlagIcon from '@/assets/images/header/flag-germany-square.svg';
 
 // Setting Icons
-// import SettingIcon from '@/assets/images/header/account-settings-icon.svg';
-// import SettingDarkIcon from '@/assets/images/header/account-settings-icon-dark.svg';
-/* NEW */
 import SettingLight from '@/assets/images/header/settings-light.svg';
 import SettingDark from '@/assets/images/header/settings-dark.svg'; // TODO: Replace with dark version
 
@@ -341,7 +333,9 @@ export {
     WritingIconV3,
     WorkIconV3,
 
-    BookIcon,
+    DolphinReading,
+
+    // BookIcon,
     BookOpenIcon,
     DolphinIcon,
     StudyingDolphinIcon,
@@ -379,19 +373,10 @@ export {
     OpinionsIconV2,
     EntertainmentIconV2,
 
-    PracticeIcon,
-    QuizIcon,
-    WritingIcon,
-    ReadingIcon,
-    SpeakingIcon,
-    ListeningIcon,
-
     DictionaryIcon,
     GermanyCircleFlagIcon,
     GermanySquareFlagIcon,
 
-    // SettingIcon,
-    // SettingDarkIcon,
     SteakIcon,
     SpeakerIcon,
     SpeakerAltIcon,

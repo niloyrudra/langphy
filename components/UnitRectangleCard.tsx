@@ -1,15 +1,12 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-// import { useRouteInfo } from 'expo-router/build/hooks';
-
 import Title from './Title';
-// import { UnitCategoryItemProps } from '@/types';
 import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
 import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
-import { DolphinIcon } from '@/utils/SVGImages';
+import { DolphinReading } from '@/utils/SVGImages';
 
 type unitItemType = {
   unitId: string,
@@ -34,7 +31,7 @@ const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, ca
         
         <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
           {/* <ImgComponent width={49} height={49} /> */}
-          <DolphinIcon width={49} height={49} />
+          <DolphinReading width={49} height={49} />
         </View>
 
         <Title title={title} />

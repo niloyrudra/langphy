@@ -12,6 +12,7 @@ interface AuthInputProps {
   handleChange: (e: any) => void;
   error: string | null;
   touched: string | null;
+  isPassword?: boolean;
 }
 
 const AuthInput: React.FC<AuthInputProps> = ({
@@ -21,7 +22,8 @@ const AuthInput: React.FC<AuthInputProps> = ({
   handleBlur,
   handleChange,
   error,
-  touched
+  touched,
+  isPassword=false
 }) => {
   const {colors} = useTheme();
   return (
@@ -33,6 +35,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
         placeholderTextColor={colors.placeholderColor}
         onBlur={handleBlur}
         onChange={handleChange}
+        isPassword={isPassword}
       />
       {error && touched && (
         <View style={styles.errorContainer}>

@@ -42,8 +42,8 @@ const PracticeLessonDetails: React.FC<PracticeLessonDetailsProps> = ({
         >
 
             <LessonDetailsItem label={'Context'} content={usage_context ?? ""} />
-            <LessonDetailsItem label={'Additional Info'} content={discussion ?? ""} />
-            <LessonDetailsItem label={'Grammer Notes'} content={grammar_note ?? ""} />
+            <LessonDetailsItem label={'Info'} content={discussion ?? ""} />
+            <LessonDetailsItem label={'Notes'} content={grammar_note ?? ""} />
             {
                 formality && (<LessonDetailsItem label={'Formality'} content={formality} />)
             }

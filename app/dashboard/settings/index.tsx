@@ -34,7 +34,7 @@ const SettingsScreen = () => {
           console.log(res.status, data)
     
           if( res.status === 200 && data! ) {  
-            const { token, message } = data;
+            const { message } = data;
 
             // await SecureStore.setItemAsync("accessToken", token);
             await SecureStore.deleteItemAsync("accessToken");

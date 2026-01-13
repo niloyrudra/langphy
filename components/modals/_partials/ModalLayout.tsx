@@ -11,10 +11,10 @@ type ModalLayoutProps = {
     children: React.ReactNode;
     feedback?: Feedback;
     gradianColor: readonly [ColorValue, ColorValue, ...ColorValue[]];
-    conainerStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
 }
 
-const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColor, conainerStyle}: ModalLayoutProps) => {
+const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColor, containerStyle}: ModalLayoutProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
 
@@ -45,7 +45,7 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
                             width: '98%',
                             overflow: 'hidden'
                         },
-                        (conainerStyle && conainerStyle)
+                        (containerStyle && containerStyle)
                     ]}
                 >
                     {/* Modal Content */}

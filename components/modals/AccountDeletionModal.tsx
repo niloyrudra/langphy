@@ -19,50 +19,56 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
     const insets = useSafeAreaInsets();
     const {user, setUser } = useAuth();
     const {colors, theme} = useTheme();
+    const [loading, setLoading] = React.useState<boolean>(false);
 
     const handleAccountDeletion = async () => {
         try {
-        const userId = user?.id;
-        if(!userId) return Alert.alert( "User id is missing!" );
+            setLoading(true);
+            const userId = user?.id;
+            if(!userId) return Alert.alert( "User id is missing!" );
 
-        const res = await fetch(
-            `${process.env.EXPO_PUBLIC_API_BASE}/users/delete`,
-            {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                userId
-            })
-            }
-        );
-        
-        const data = await res.json();
-        
-        console.log(res.status, data)
-
-        if( res.status === 200 && data! ) {  
-            const { message } = data;
-
-            // await SecureStore.setItemAsync("accessToken", token);
-            await SecureStore.deleteItemAsync("accessToken");
-            setUser(null);
-
-            // await SecureStore.setItemAsync("accessToken", token);
-
-            if(message) Alert.alert( message )
-            else Alert.alert("Successfully account deleted!");
+            const res = await fetch(
+                `${process.env.EXPO_PUBLIC_API_BASE}/users/delete`,
+                {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId
+                })
+                }
+            );
             
-            router.replace("/auth/login");
-        }
-        else {
-            Alert.alert( "Account deletion failed!" )
-        }
+            const data = await res.json();
+            
+            console.log(res.status, data)
+
+            if( res.status === 200 && data! ) {  
+                const { message } = data;
+
+                // await SecureStore.setItemAsync("accessToken", token);
+                await SecureStore.deleteItemAsync("accessToken");
+                setUser(null);
+
+                // await SecureStore.setItemAsync("accessToken", token);
+
+                if(message) Alert.alert( message )
+                else Alert.alert("Successfully account deleted!");
+                
+                router.replace("/auth/login");
+            }
+            else {
+                Alert.alert( "Account deletion failed!" )
+            }
         }
         catch(err: any) {
             console.error("Delete Account action error:", err);
+            setLoading(false);
             Alert.alert( "Account deletion failed!" )
+        }
+        finally {
+            setLoading(false);
         }
     }
 
@@ -72,7 +78,13 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
             onModalVisible={onModalVisible}
             gradianColor={[colors.accountDeletionModalBg, colors.accountDeletionModalBg]} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
             conainerStyle={{
-                // width: '90%'
+                width: '90%',
+                marginVertical: "auto",
+                borderTopWidth: 1,
+                borderBottomWidth: 1,
+                borderBottomColor: colors.modalBoderColor,
+                borderBottomStartRadius: 20,
+                borderBottomEndRadius: 20,
             }}
         >
 
@@ -87,29 +99,29 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
                         // height: 60
                     }}
                 >
-                    <Title title="Delete" />
+                    <Title title="Delete" contentStyle={{fontSize: 24}} />
 
                     <TouchableOpacity
                         onPress={onModalVisible}
                     >
-                        <Ionicons name="close" color={colors.text} size={20} />
+                        <Ionicons name="close" color={colors.text} size={24} />
                     </TouchableOpacity>
                 </View>
 
                 <View>
-                    <Text
-                        style={{
-                            color: colors.accountDeletionModalText
-                        }}
-                    >
-                        Are you sure you want to delete your account? All your data, progress will permanently be deleted.
+                    <Text style={{ color: colors.accountDeletionModalText}}>
+                        Are you sure you want to delete your account?
+                    </Text>
+                    <Text style={{ color: colors.accountDeletionModalText}}>
+                        All your data, progress will permanently be deleted.
                     </Text>
                 </View>
                 
-                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                     <ActionButton
                         buttonTitle='Yes'
                         onSubmit={handleAccountDeletion}
+                        isLoading={loading}
                         buttonStyle={{
                             width: '45%',
                             backgroundColor: "transparent",

@@ -10,7 +10,6 @@ const ActionButton = ( {
     buttonTitle="Submit",
     onSubmit,
     buttonStyle,
-    buttonTextStyle,
     textStyle,
     disabled=false,
     isLoading
@@ -23,7 +22,8 @@ const ActionButton = ( {
                 styles.content,
                 (disabled && [
                     {
-                        backgroundColor: colors.disabledButtonBackgroundColor
+                        backgroundColor: colors.disabledButtonBackgroundColor,
+                        borderColor: colors.disabledButtonBackgroundColor
                     }
                 ]),
                 (buttonStyle && buttonStyle)
@@ -51,6 +51,7 @@ export default ActionButton;
 const styles = StyleSheet.create({
     content: {
         borderRadius: 100,
+        borderWidth: 1,
         height: SIZES.buttonHeight
     },
     button: {

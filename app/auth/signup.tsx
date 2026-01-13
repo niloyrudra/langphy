@@ -19,6 +19,7 @@ import * as Yup from "yup";
 import { useAuth } from '@/context/AuthContext';
 import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
+import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -121,52 +122,22 @@ const SignUp = () => {
         )}
       </Formik>
     
-      <HorizontalSeparator />
+      {/* <SocialLoginSection /> */}
 
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 16,
-            height: sizes.buttonHeight,
-            marginBottom: 20
-          }}
-        >
-          <SocialButton
-            iconComponent={<FacebookIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
-            socialMediaName='facebook'
-            onTap={() => console.log("Facebook")}
-          />
+      <View style={[styles.footer]}>
+        <Text style={{color: colors.textSubColor}}>By signing in to Langphy, you agree to our </Text>
 
-          <SocialButton
-            iconComponent={<GoogleIcon width={sizes.defaultIconSize} height={sizes.defaultIconSize} />}
-            socialMediaName='Google'
-            onTap={() => console.log("Google")}
-          />
-        </View>
+        <PlainTextLink route="/terms" linkText='Terms' />
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            marginVertical: 20
-          }}
-        >
-          <Text style={{color: colors.textSubColor}}>By signing in to Langphy, you agree to our </Text>
+        <Text style={{color: colors.textSubColor}}> and </Text>
 
-          <PlainTextLink route="/terms" linkText='Terms' />
+        <PlainTextLink route="/privacy" linkText='Privacy Policy' />
 
-          <Text style={{color: colors.textSubColor}}> and </Text>
-
-          <PlainTextLink route="/privacy" linkText='Privacy Policy' />
-
-          <Text style={{color: colors.textSubColor}}>.</Text>
-
-        </View>
-
-        <PlainTextLink text="Already have an account?" route="/auth/login" linkText="Login here." />
+        <Text style={{color: colors.textSubColor}}>.</Text>
 
       </View>
+
+      <PlainTextLink text="Already have an account?" route="/auth/login" linkText="Login here." />
 
     </AuthLayout>
   )
@@ -178,5 +149,10 @@ const styles = StyleSheet.create({
   form: {
     flexDirection: 'column',
     gap: 16
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 20
   }
 })

@@ -1,6 +1,6 @@
 import { SettingsData } from '@/types';
 import {
-  BookIcon,
+  // BookIcon,
   AlphabetIconV3,
   GreetingsIconV3,
   IntroIconV3,
@@ -472,18 +472,18 @@ export const CATEGORY_DATA_V3 = [
   },
   /*  ******* *********** ********** ********************* */
  
-  {
-    id: '63',
-    title: "Grammar",
-    slug: "grammar",
-    ImgComponent: BookIcon
-  },
-  {
-    id: '64',
-    title: "Vocabulary",
-    slug: "vocabulary",
-    ImgComponent: BookIcon
-  }
+  // {
+  //   id: '63',
+  //   title: "Grammar",
+  //   slug: "grammar",
+  //   ImgComponent: BookIcon
+  // },
+  // {
+  //   id: '64',
+  //   title: "Vocabulary",
+  //   slug: "vocabulary",
+  //   ImgComponent: BookIcon
+  // }
 ];
 
 export const LESSON_UNIT_DATA = [
