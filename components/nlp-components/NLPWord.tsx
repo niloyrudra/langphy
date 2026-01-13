@@ -44,17 +44,6 @@ const NLPWord: React.FC<WordProps> = ({
                 const data = wordLayouts.current.get(idx)
                 const relativeLeft = data?.x ?? wordX - contX; // Math.max(6, wordX - contX),
                 const relativeTop = data?.y ? wordY - contY + wordH + gap + data?.y : wordY - contY + wordH + gap;
-                // const relativeTop = wordY - contY + wordH + gap;
-
-                // console.log( "wordX:", wordX )
-                // console.log( "wordY:", wordY )
-                // console.log( "wordW:", wordW )
-                // console.log( "wordH:", wordH )
-                // console.log( "contX:", contX )
-                // console.log( "contY:", contY )
-                // console.log( "relativeTop:", relativeTop )
-                // console.log( "data:", data )
-
                 onHandler({
                     visible: true,
                     x: relativeLeft,

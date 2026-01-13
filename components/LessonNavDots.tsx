@@ -18,7 +18,8 @@ const LessonNavDots = ({data, currentIndex}: LessonNav) => {
             }}
         >
             {
-                data.length && data.map( (_, idx) => (
+                // data.length > 0 &&
+                data?.map( (_, idx) => (
                     <AntDesign key={idx.toString()} name="pinterest" size={15} color={currentIndex >= idx ? '#0A9AB0' : "#142C57"} />
                 ))
             }
