@@ -35,6 +35,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
         placeholderTextColor={colors.placeholderColor}
         onBlur={handleBlur}
         onChange={handleChange}
+        
         isPassword={isPassword}
       />
       {error && touched && (

@@ -1,34 +1,88 @@
-import { View, Text } from 'react-native'
+import { View, Alert } from 'react-native'
 import React from 'react'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
 import { Formik } from 'formik';
 import * as Yup from "yup";
-import TextInputComponent from '@/components/form-components/TextInputComponent';
-// import SIZES from '@/constants/size';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import { router } from 'expo-router';
+import { useTheme } from '@/theme/ThemeContext';
+import { useAuth } from '@/context/AuthContext';
+import AuthInput from '@/components/form-components/auth/AuthInput';
+import ActionButton from '@/components/form-components/ActionButton';
 
 const ProfileEditSchema = Yup.object().shape({
-    userDisplayName: Yup.string().min( 2, "Name must be at least 2 characters" ), // .required("Name is required"),
-    email: Yup.string().email("Invalid email"), // .required("Email is required"),
-    currentPassword: Yup.string().min(6, "Password must be at least 6 characters"), // .required("Current Password is required"),
-    NewPassword: Yup.string().min(6, "Password must be at least 6 characters") // .required("New Password is required"),
+    firstName: Yup.string().min( 2, "Name must be at least 2 characters" ),
+    lastName: Yup.string().min( 2, "Name must be at least 2 characters" ),
+    username: Yup.string().trim(), // .required("Email is required"),
+    profile_image: Yup.string().trim(), // .required("Email is required"),
 });
 
 const ProfileEditScreen = () => {
+    const {colors, theme} = useTheme();
+    const { user, setUser } = useAuth()
     const [loading, setLoading] = React.useState<boolean>(false);
 
     // Handler
     const handleProfileEdit = async (
-        displayName: string,
-        email: string,
-        currentPassword:
-        string, newPassword: string
+        firstName: string,
+        lastName: string,
+        username: string,
+        profile_image: string,
     ) => {
+        if (!user?.id) {
+            Alert.alert("User not loaded yet");
+            return;
+        }
+        try {
+            setLoading(true)
+            const res = await fetch(
+            `${process.env.EXPO_PUBLIC_API_BASE}/profile/update/${user.id}`,
+            {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    first_name: firstName,
+                    last_name: lastName,
+                    username,
+                    profile_image
+                })
+            }
+            );
+            const data = await res.json();
+    
+            console.log(res.status, data)
+    
+            if( res.status === 200 && data! ) {  
+                const { profile, message } = data;                
+                setUser({
+                    id: user?.id ?? "",
+                    email: user?.email ?? "",
+                    created_at: user?.created_at,
+                    provider: user?.provider ?? "",
+                    first_name: profile.first_name ?? "",
+                    last_name: profile.last_name ?? "",
+                    username: profile.username ?? "",
+                    profile_image: profile.profile_image ?? "",
+                });
 
-        // Get back to Dashboard
-        router.push('/dashboard');
+                if(message) Alert.alert( message )
+                else Alert.alert("Successfully updated profile!");
+            }
+            else {
+                Alert.alert( "Profile update failed!" )
+            }
+    
+        }
+        catch(err) {
+            console.error("Profile update Error:", err)
+            Alert.alert("Profile update failed!")
+        }
+        finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -37,67 +91,83 @@ const ProfileEditScreen = () => {
 
                 {/* FORM */}
                 <Formik
-                    initialValues={{ userDisplayName: "", email: "", currentPassword: "", newPassword: "" }}
+                    initialValues={{
+                        firstName: "",
+                        lastName: "",
+                        username:"",
+                        profile_image:""
+                    }}
                     validationSchema={ProfileEditSchema}
-                    onSubmit={(values) => {
-                        handleProfileEdit(
-                            values.userDisplayName,
-                            values.email,
-                            values.currentPassword,
-                            values.newPassword
+                    onSubmit={async (values, {resetForm}) => {
+                        await handleProfileEdit(
+                            values.firstName,
+                            values.lastName,
+                            values.username,
+                            values.profile_image
                         );
+                        resetForm();
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                        <View
-                            style={{
-                                gap: 20,
-                                // width: SIZES.screenWidth
-                            }}
-                        >
+                        <View style={{ flex:1, gap: 20 }}>
 
-                            <TextInputComponent
-                                placeholder="Your Full Name"
-                                inputMode="text"
-                                value={values.userDisplayName}
-                                onChange={handleChange("userDisplayName")}
-                                onBlur={handleBlur("userDisplayName")}
+                            <AuthInput
+                                value={values.firstName}
+                                placeholderText='Your First Name'
+                                inputMode='text'
+                                isPassword={false}
+                                handleBlur={handleBlur('firstName')}
+                                handleChange={handleChange('firstName')}
+                                error={errors.firstName || null}
+                                touched={touched.firstName ? "true" : null}
                             />
-                            {errors.userDisplayName && touched.userDisplayName && <Text>{errors.userDisplayName}</Text>}
 
-                            <TextInputComponent
-                                placeholder="Email"
-                                inputMode="email"
-                                value={values.email}
-                                onChange={handleChange("email")}
-                                onBlur={handleBlur("email")}
+                            <AuthInput
+                                value={values.lastName}
+                                placeholderText='Your Last Name'
+                                inputMode='text'
+                                handleBlur={handleBlur('lastName')}
+                                handleChange={handleChange('lastName')}
+                                error={errors.lastName || null}
+                                touched={touched.lastName ? "true" : null}
                             />
-                            {errors.email && touched.email && <Text>{errors.email}</Text>}
 
-                            <TextInputComponent
-                                placeholder="Current Password"
-                                isPassword={true}
-                                value={values.currentPassword}
-                                onChange={handleChange("currentPassword")}
-                                onBlur={handleBlur("currentPassword")}
+                            <AuthInput
+                                value={values.username}
+                                placeholderText='Your username'
+                                inputMode='text'
+                                handleBlur={handleBlur('username')}
+                                handleChange={handleChange('username')}
+                                error={errors.username || null}
+                                touched={touched.username ? "true" : null}
                             />
-                            {errors.currentPassword && touched.currentPassword && <Text>{errors.currentPassword}</Text>}
-                            
-                            <TextInputComponent
-                                placeholder="New Password"
-                                isPassword={true}
-                                value={values.newPassword}
-                                onChange={handleChange("newPassword")}
-                                onBlur={handleBlur("newPassword")}
+
+                            <AuthInput
+                                value={values.profile_image}
+                                placeholderText='Profile Image'
+                                inputMode='text'
+                                handleBlur={handleBlur('profile_image')}
+                                handleChange={handleChange('profile_image')}
+                                error={errors.profile_image || null}
+                                touched={touched.profile_image ? "true" : null}
                             />
-                            {errors.newPassword && touched.newPassword && <Text>{errors.newPassword}</Text>}
 
                             {/* Submit Button */}
-                            <ActionPrimaryButton
-                                buttonTitle="Create Account"
-                                onSubmit={handleSubmit}
-                                isLoading={loading}
-                            />
+                            <View style={{marginTop: "auto", gap: 20}}>
+                                <ActionPrimaryButton
+                                    buttonTitle="Create Account"
+                                    onSubmit={handleSubmit}
+                                    isLoading={loading}
+                                />
+
+                                <ActionButton
+                                    buttonTitle='Reset Password'
+                                    onSubmit={() => router.push('/dashboard/reset-user-password') }
+                                    buttonStyle={{
+                                        borderColor: theme == 'light' ? colors.primary : "#FFFFFF"
+                                    }}
+                                />
+                            </View>
                         
                         </View>
                     )}

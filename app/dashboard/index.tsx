@@ -1,16 +1,16 @@
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { ReactNode } from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import SIZES from '@/constants/size';
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from '@expo/vector-icons';
-import { EditIconDark, EditIconLight, LearningProgressCardBgLight, MilestonesGrdCardBgLight, ProfileLearningProgressCardBg, ProfileLessonIcon, ProfilePhraseIcon, ProfileStreaks_3_Icon, ProfileUnitIcon, ProfileWordsIcon, ProgressIcon, SteakIcon } from '@/utils/SVGImages';
+import { EditIconDark, EditIconLight, MilestonesGrdCardBgLight, ProfileLearningProgressCardBg, ProfileLessonIcon, ProfilePhraseIcon, ProfileStreaks_3_Icon, ProfileUnitIcon, ProfileWordsIcon, ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import Title from '@/components/Title';
 import { getCardContainerWidth } from '@/utils';
 import { router } from 'expo-router';
-import GridLayout from '@/components/layouts/GridLayout';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { useAuth } from '@/context/AuthContext';
+import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 
 type LearningProress = {
   id: number,
@@ -87,7 +87,59 @@ const milestonesData: Milestones[] = [
 
 const Dashboard = () => {
   const { colors, theme } = useTheme();
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+  const [loading, setLoading] = React.useState<boolean>(false)
+
+  React.useEffect(() => {
+    const profileData = async () => {
+      if (!user?.id) {
+          Alert.alert("User not loaded yet");
+          return;
+      }
+      console.log("User ID:",user?.id);
+      try {
+        setLoading(true)
+        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/profile/${user.id}`);
+
+        // console.log("Profile", res)
+
+        if (!res?.ok) {
+          const text = await res.text(); // NOT json
+          console.error("Profile fetch failed:", res.status, text);
+          return;
+        }
+
+        const data = await res.json();
+
+        console.log(data)
+        const {profile, message} = data
+        console.log("profile", profile)
+        if(profile) setUser({
+          id: user?.id ?? "",
+          email: user?.email ?? "",
+          created_at: user?.created_at,
+          provider: user?.provider ?? "",
+          first_name: profile.first_name ?? "",
+          last_name: profile.last_name ?? "",
+          username: profile.username ?? "",
+          profile_image: profile.profile_image ?? "",
+        });
+
+        if(message) Alert.alert(message);
+        
+      }
+      catch(err) {
+        setLoading(false)
+      }
+      finally {
+        setLoading(false)
+      }
+    }
+    if(user?.id) profileData();
+  }, [user?.id]);
+
+  if(loading) return (<LoadingScreenComponent/>);
+
   return (
     <SafeAreaLayout>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -125,7 +177,7 @@ const Dashboard = () => {
                 alignItems: "center"
               }}
             >
-              <Text style={[styles.userDisplayName, {color: colors.text}]}>{user?.first_name ?? 'Anonymous'}</Text>
+              <Text style={[styles.userDisplayName, {color: colors.text}]}>{user?.first_name ? `${user?.first_name} ${user?.last_name}` : 'Anonymous'}</Text>
               <Text style={[styles.userName, {color:colors.text}]}>User ID: {user?.username ?? "..."}</Text>
             </View>
 

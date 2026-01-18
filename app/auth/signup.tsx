@@ -1,25 +1,25 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
 
-import sizes from '@/constants/size'
+// import SIZES from '@/constants/size'
 
-import FacebookIcon from '@/assets/images/social/facebook.svg'
-import GoogleIcon from '@/assets/images/social/google.svg'
+// import FacebookIcon from '@/assets/images/social/facebook.svg'
+// import GoogleIcon from '@/assets/images/social/google.svg'
 
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
-import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
-import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
-import SocialButton from '@/components/form-components/auth/SocialButton'
-import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
+// import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
+// import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
+// import SocialButton from '@/components/form-components/auth/SocialButton'
+// import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from '@/context/AuthContext';
 import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
-import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
+// import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -52,7 +52,6 @@ const SignUp = () => {
 
       if( res.status === 201 && data! ) {  
         const { user, message } = data;
-        // await SecureStore.setItemAsync("accessToken", token);
         setUser(user);
         if(message) Alert.alert( message )
         else Alert.alert("Successfully signed up!");
@@ -61,7 +60,6 @@ const SignUp = () => {
       }
       else {
         Alert.alert( "Signup failed!" )
-        // await SecureStore.deleteItemAsync("accessToken");
       }
 
     }
@@ -81,8 +79,8 @@ const SignUp = () => {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={SignupSchema}
-        onSubmit={(values, {resetForm}) => {
-          handleSignup(values.email, values.password);
+        onSubmit={ async (values, {resetForm}) => {
+          await handleSignup(values.email, values.password);
           resetForm();
         }}
       >
@@ -109,6 +107,7 @@ const SignUp = () => {
               handleChange={handleChange('password')}
               error={errors.password || null}
               touched={touched.password ? "true" : null}
+              isPassword={true}
             />
 
             {/* Submit Button */}

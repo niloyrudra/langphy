@@ -20,12 +20,29 @@ const ForgotPasswordScreen = () => {
 
   const handleResetPassword = async ( email: string, password: string, confirmedPassword: string ) => {
     if( user?.email == email.trim() ) return Alert.alert("Your email is incorrect.");
+    if( password !== confirmedPassword ) return Alert.alert("Passwords must match each other!");
     try {
       setLoading(true)
+      const res = await fetch(
+      `${process.env.EXPO_PUBLIC_API_BASE}/users/reset-password`,
+      {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              email,
+              password: password
+          })
+      }
+      );
+      const data = await res.json();
+      console.log(data);
+      if( data.status == 200 ) Alert.alert(data.message);
     }
     catch(err) {
       setLoading(false)
-
+      Alert.alert( 'Password reset failed!' );
     }
     finally {
       setLoading(false);

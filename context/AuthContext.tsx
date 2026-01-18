@@ -9,6 +9,8 @@ type User = {
     username?: string | null;
     first_name?: string | null;
     last_name?: string | null;
+    profile_image?: string | null;
+    provider?: string;
     created_at?: Date;
     // token?: string;
 }
