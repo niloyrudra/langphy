@@ -23,8 +23,8 @@ const TextInputComponent = ({
     contentContainerStyle={}
 }: InputProps) => {
     const { colors, theme } = useTheme();
-    const [ isSecureTextEntry, setIsSecureTextEntry ] = React.useState(true);
-    const [ isFocused, setIsFocused ] = React.useState(false);
+    const [ isSecureTextEntry, setIsSecureTextEntry ] = React.useState<boolean>(isPassword);
+    const [ isFocused, setIsFocused ] = React.useState<boolean>(false);
 
   return (
     <View style={contentContainerStyle}>

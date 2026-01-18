@@ -30,13 +30,13 @@ const AuthInput: React.FC<AuthInputProps> = ({
     <>
       <TextInputComponent
         placeholder={placeholderText ?? ""}
-        value={value || ''}
+        value={value ?? ''}
         inputMode={inputMode}
         placeholderTextColor={colors.placeholderColor}
         onBlur={handleBlur}
         onChange={handleChange}
         
-        isPassword={isPassword}
+        isPassword={isPassword ?? false}
       />
       {error && touched && (
         <View style={styles.errorContainer}>

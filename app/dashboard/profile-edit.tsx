@@ -1,4 +1,4 @@
-import { View, Alert } from 'react-native'
+import { View, Alert, TextInput } from 'react-native'
 import React from 'react'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
@@ -12,21 +12,21 @@ import AuthInput from '@/components/form-components/auth/AuthInput';
 import ActionButton from '@/components/form-components/ActionButton';
 
 const ProfileEditSchema = Yup.object().shape({
-    firstName: Yup.string().min( 2, "Name must be at least 2 characters" ),
-    lastName: Yup.string().min( 2, "Name must be at least 2 characters" ),
-    username: Yup.string().trim(), // .required("Email is required"),
+    first_name: Yup.string().min( 2, "Name must be at least 2 characters." ),
+    last_name: Yup.string().min( 2, "Name must be at least 2 characters." ),
+    username: Yup.string().trim().lowercase(), // .required("Email is required"),
     profile_image: Yup.string().trim(), // .required("Email is required"),
 });
 
 const ProfileEditScreen = () => {
-    const {colors, theme} = useTheme();
+    const { colors, theme } = useTheme();
     const { user, setUser } = useAuth()
-    const [loading, setLoading] = React.useState<boolean>(false);
+    const [ loading, setLoading ] = React.useState<boolean>(false);
 
     // Handler
     const handleProfileEdit = async (
-        firstName: string,
-        lastName: string,
+        first_name: string,
+        last_name: string,
         username: string,
         profile_image: string,
     ) => {
@@ -41,20 +41,17 @@ const ProfileEditScreen = () => {
             {
                 method: "PUT",
                 headers: {
-                "Content-Type": "application/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    first_name: firstName,
-                    last_name: lastName,
+                    first_name,
+                    last_name,
                     username,
                     profile_image
                 })
             }
             );
-            const data = await res.json();
-    
-            console.log(res.status, data)
-    
+            const data = await res.json();    
             if( res.status === 200 && data! ) {  
                 const { profile, message } = data;                
                 setUser({
@@ -92,16 +89,16 @@ const ProfileEditScreen = () => {
                 {/* FORM */}
                 <Formik
                     initialValues={{
-                        firstName: "",
-                        lastName: "",
-                        username:"",
-                        profile_image:""
+                        first_name: user?.first_name ?? "",
+                        last_name: user?.last_name ?? "",
+                        username: user?.username ?? "",
+                        profile_image: user?.profile_image ?? ""
                     }}
                     validationSchema={ProfileEditSchema}
                     onSubmit={async (values, {resetForm}) => {
                         await handleProfileEdit(
-                            values.firstName,
-                            values.lastName,
+                            values.first_name,
+                            values.last_name,
                             values.username,
                             values.profile_image
                         );
@@ -112,30 +109,29 @@ const ProfileEditScreen = () => {
                         <View style={{ flex:1, gap: 20 }}>
 
                             <AuthInput
-                                value={values.firstName}
                                 placeholderText='Your First Name'
                                 inputMode='text'
-                                isPassword={false}
-                                handleBlur={handleBlur('firstName')}
-                                handleChange={handleChange('firstName')}
-                                error={errors.firstName || null}
-                                touched={touched.firstName ? "true" : null}
+                                value={values.first_name}
+                                handleBlur={handleBlur('first_name')}
+                                handleChange={handleChange('first_name')}
+                                error={errors.first_name || null}
+                                touched={touched.first_name ? "true" : null}
                             />
 
                             <AuthInput
-                                value={values.lastName}
                                 placeholderText='Your Last Name'
                                 inputMode='text'
-                                handleBlur={handleBlur('lastName')}
-                                handleChange={handleChange('lastName')}
-                                error={errors.lastName || null}
-                                touched={touched.lastName ? "true" : null}
+                                value={values.last_name}
+                                handleBlur={handleBlur('last_name')}
+                                handleChange={handleChange('last_name')}
+                                error={errors.last_name || null}
+                                touched={touched.last_name ? "true" : null}
                             />
 
                             <AuthInput
-                                value={values.username}
                                 placeholderText='Your username'
                                 inputMode='text'
+                                value={values.username}
                                 handleBlur={handleBlur('username')}
                                 handleChange={handleChange('username')}
                                 error={errors.username || null}
@@ -143,9 +139,9 @@ const ProfileEditScreen = () => {
                             />
 
                             <AuthInput
-                                value={values.profile_image}
                                 placeholderText='Profile Image'
                                 inputMode='text'
+                                value={values.profile_image}
                                 handleBlur={handleBlur('profile_image')}
                                 handleChange={handleChange('profile_image')}
                                 error={errors.profile_image || null}

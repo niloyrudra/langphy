@@ -1,7 +1,10 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Href } from "expo-router"
 import { FC, ReactNode, SVGProps } from "react"
 import { ColorValue, ImageBackgroundProps, ImageSourcePropType, InputModeOptions, StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native"
 import { SvgProps } from "react-native-svg"
+
+type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
 type UserData = {
   email: string,
@@ -548,6 +551,8 @@ type SelectiveResultType = {
 }
 
 export {
+  IoniconName,
+  
   Lesson,
   SessionContextType,
   SessionProviderProps,
