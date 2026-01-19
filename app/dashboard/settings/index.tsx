@@ -11,11 +11,13 @@ import SettingsElement from '@/components/settings/SettingsElement';
 import SettingsElementAction from '@/components/settings/SettingsElementAction';
 import ActionButton from '@/components/form-components/ActionButton';
 import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
+import { useProfile } from '@/context/ProfileContext';
 // import SIZES from '@/constants/size';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
-  const { user, setUser } = useAuth();
+  const { user } = useAuth();
+  const { profile, clear } = useProfile();
   const [showModal, setShowModal] = React.useState<boolean>(false);
 
   const handleSignout = async () => {
@@ -38,7 +40,8 @@ const SettingsScreen = () => {
 
             // await SecureStore.setItemAsync("accessToken", token);
             await SecureStore.deleteItemAsync("accessToken");
-            setUser(null);
+            // setUser(null);
+            clear();
 
             if(message) Alert.alert( message )
             else Alert.alert("Successfully signed out!");

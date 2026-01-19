@@ -29,7 +29,6 @@ const SignupSchema = Yup.object().shape({
 const SignUp = () => {
   const { colors } = useTheme();
   const router = useRouter();
-  const { setUser } = useAuth();
 
   const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -52,7 +51,7 @@ const SignUp = () => {
 
       if( res.status === 201 && data! ) {  
         const { user, message } = data;
-        setUser(user);
+        
         if(message) Alert.alert( message )
         else Alert.alert("Successfully signed up!");
         

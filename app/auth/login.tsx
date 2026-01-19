@@ -20,7 +20,6 @@ const SignInSchema = Yup.object().shape({
 
 const Login = () => {
   const {colors} = useTheme();
-  const { setUser } = useAuth();
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const onSignInHandler = async ( email: string, password: string ) => {
@@ -39,12 +38,12 @@ const Login = () => {
       );
       const data = await res.json();
 
-      console.log(res.status, data)
+      // console.log(res.status, data)
 
       if( res.status === 200 && data! ) {  
         const { user, token, message } = data;
         await SecureStore.setItemAsync("accessToken", token);
-        setUser(user);
+
         if(message) Alert.alert( message )
         else Alert.alert("Successfully signed in!");
         

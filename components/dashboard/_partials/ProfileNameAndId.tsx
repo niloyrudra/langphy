@@ -1,23 +1,25 @@
 import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
-import { useAuth } from '@/context/AuthContext';
+// import { useAuth } from '@/context/AuthContext';
+import { useProfile } from '@/context/ProfileContext';
 
 const ProfileNameAndId = () => {
     const {colors} = useTheme();
-    const {user} = useAuth();
+    const {profile, loading} = useProfile();
+
     const displayName = React.useCallback(() => {
-        if( !user?.first_name && !user?.last_name ) return "Anonymous"
-        else if( user?.first_name && !user?.last_name ) return user?.first_name
-        else if( !user?.first_name && user?.last_name ) return user?.last_name
-        else if( user.first_name && user.last_name ) return user.first_name + " " + user.last_name
+        if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
+        else if( profile?.first_name && !profile?.last_name ) return profile?.first_name
+        else if( !profile?.first_name && profile?.last_name ) return profile?.last_name
+        else if( profile.first_name && profile.last_name ) return profile.first_name + " " + profile.last_name
         else return "Anonymous"
-    }, [user?.first_name, user?.last_name]);
+    }, [profile?.first_name, profile?.last_name]);
 
     return (
         <View style={[styles.container]}>
             <Text style={[styles.userDisplayName, {color: colors.text}]}>{displayName()}</Text>
-            <Text style={[styles.userName, {color:colors.text}]}>User ID: {user?.username ?? "..."}</Text>
+            <Text style={[styles.userName, {color:colors.text}]}>User ID: {profile?.username ?? "..."}</Text>
         </View>
     )
 }

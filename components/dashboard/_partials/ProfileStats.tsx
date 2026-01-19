@@ -3,9 +3,11 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import StatsDetail from './StatsDetail';
+import { useStreaks } from '@/context/StreaksContext';
 
 const ProfileStats = () => {
     const {colors} = useTheme();
+    const { streaks } = useStreaks();
     return (
         <View style={[styles.container, {backgroundColor: colors.profileGradientBox}]}>
             <StatsDetail
@@ -18,7 +20,7 @@ const ProfileStats = () => {
 
             <StatsDetail
                 title="Streak"
-                stats="1000"
+                stats={streaks?.current ? streaks.current.toString() : "0"}
                 icon={<SteakIcon width={24} height={24} />}
             />
 

@@ -550,7 +550,20 @@ type SelectiveResultType = {
   };
 }
 
+/**
+ * USER
+ */
+type User = {
+    id: string;
+    email: string;
+    provider?: string;
+    created_at?: Date;
+    // token?: string;
+}
+
 export {
+  User,
+  
   IoniconName,
   
   Lesson,

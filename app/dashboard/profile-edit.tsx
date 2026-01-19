@@ -1,4 +1,4 @@
-import { View, Alert, TextInput } from 'react-native'
+import { View, Alert } from 'react-native'
 import React from 'react'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
@@ -7,9 +7,9 @@ import * as Yup from "yup";
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
-import { useAuth } from '@/context/AuthContext';
 import AuthInput from '@/components/form-components/auth/AuthInput';
 import ActionButton from '@/components/form-components/ActionButton';
+import { useProfile } from '@/context/ProfileContext';
 
 const ProfileEditSchema = Yup.object().shape({
     first_name: Yup.string().min( 2, "Name must be at least 2 characters." ),
@@ -20,8 +20,7 @@ const ProfileEditSchema = Yup.object().shape({
 
 const ProfileEditScreen = () => {
     const { colors, theme } = useTheme();
-    const { user, setUser } = useAuth()
-    const [ loading, setLoading ] = React.useState<boolean>(false);
+    const { profile, updateProfile, loading } = useProfile();
 
     // Handler
     const handleProfileEdit = async (
@@ -30,55 +29,34 @@ const ProfileEditScreen = () => {
         username: string,
         profile_image: string,
     ) => {
-        if (!user?.id) {
-            Alert.alert("User not loaded yet");
-            return;
-        }
         try {
-            setLoading(true)
-            const res = await fetch(
-            `${process.env.EXPO_PUBLIC_API_BASE}/profile/update/${user.id}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    first_name,
-                    last_name,
-                    username,
-                    profile_image
-                })
-            }
-            );
-            const data = await res.json();    
-            if( res.status === 200 && data! ) {  
-                const { profile, message } = data;                
-                setUser({
-                    id: user?.id ?? "",
-                    email: user?.email ?? "",
-                    created_at: user?.created_at,
-                    provider: user?.provider ?? "",
-                    first_name: profile.first_name ?? "",
-                    last_name: profile.last_name ?? "",
-                    username: profile.username ?? "",
-                    profile_image: profile.profile_image ?? "",
-                });
+            await updateProfile({
+                first_name,
+                last_name,
+                username,
+                profile_image
+            });
 
-                if(message) Alert.alert( message )
-                else Alert.alert("Successfully updated profile!");
-            }
-            else {
-                Alert.alert( "Profile update failed!" )
-            }
-    
+            Alert.alert(
+                "Congratualations!",
+                "Profile updated successfully.",
+                [
+                    {
+                        text: "Edit",
+                        onPress: () => {},
+                        style: 'cancel'
+                    },
+                    {
+                        text: "Go Back",
+                        onPress: () => router.push("/dashboard"),
+                        style: 'default'
+                    }
+                ]
+            );
         }
         catch(err) {
             console.error("Profile update Error:", err)
             Alert.alert("Profile update failed!")
-        }
-        finally {
-            setLoading(false)
         }
     }
 
@@ -89,10 +67,10 @@ const ProfileEditScreen = () => {
                 {/* FORM */}
                 <Formik
                     initialValues={{
-                        first_name: user?.first_name ?? "",
-                        last_name: user?.last_name ?? "",
-                        username: user?.username ?? "",
-                        profile_image: user?.profile_image ?? ""
+                        first_name: profile?.first_name ?? "",
+                        last_name: profile?.last_name ?? "",
+                        username: profile?.username ?? "",
+                        profile_image: profile?.profile_image ?? ""
                     }}
                     validationSchema={ProfileEditSchema}
                     onSubmit={async (values, {resetForm}) => {

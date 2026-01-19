@@ -1,25 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { jwtDecode } from "jwt-decode";
-import api from "@/lib/api";
-
-type User = {
-    id: string;
-    email: string;
-    username?: string | null;
-    first_name?: string | null;
-    last_name?: string | null;
-    profile_image?: string | null;
-    provider?: string;
-    created_at?: Date;
-    // token?: string;
-}
+// import api from "@/lib/api";
+import { User } from "@/types";
 
 type authContextType = {
     user: User | null;
     loading: boolean;
-    setUser: (e: User | null) => void;
-    signIn: ( email: string, password: string ) => Promise<void>;
+    // setUser: (e: User | null) => void;
+    // signIn: ( email: string, password: string ) => Promise<void>;
     signOut: () => Promise<void>;
 }
 
@@ -41,7 +30,8 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
             if(token) {
                 try {
                     const decode: any = jwtDecode(token);
-                    setUser( { id: decode.id, email: decode.email } );
+                    console.log("decode:", decode);
+                    setUser( { id: decode.id, email: decode.email, created_at: decode?.created_at } );
                 }
                 catch(err) {
                     await SecureStore.deleteItemAsync("accessToken");
@@ -53,21 +43,6 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
         restoreAuth();
     }, []);
 
-    const signInHandler = async (email: string, password: string) => {
-        try {
-
-            const { data } = await api.post( process.env.EXPO_PUBLIC_API_BASE+"/users/signin", {
-                email,
-                password,
-            });
-    
-            await SecureStore.setItemAsync("accessToken", data.accessToken);
-            setUser(data.user);
-        }
-        catch(err) {
-            console.error("SignI Error:", err)
-        }
-    };
 
     const signOutHandler = async () => {
         await SecureStore.deleteItemAsync("accessToken");
@@ -79,8 +54,8 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
             value={{
                 user,
                 loading,
-                setUser,
-                signIn: signInHandler,
+                // setUser,
+                // signIn: signInHandler,
                 signOut: signOutHandler
             }}
         >

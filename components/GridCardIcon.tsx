@@ -11,7 +11,7 @@ const GridCardIcon = ({slug, ImgComponent}: {slug?: string, ImgComponent?: React
 
   const IconComponent = ImgComponent ? ImgComponent : categoryIcon[slug as keyof typeof categoryIcon];
   if (!IconComponent) {
-    console.warn(`Icon not found for slug: ${slug}`);
+    // console.warn(`Icon not found for slug: ${slug}`);
     return null; // or a default placeholder icon
   }
   return (
