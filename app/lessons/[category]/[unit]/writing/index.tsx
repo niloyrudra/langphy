@@ -121,48 +121,6 @@ const WritingSession = () => {
           
           const onCheckHandler = () => {
             analyzeWritingHandler(item?.phrase);
-            // if(  textContent?.toLocaleLowerCase() === item?.phrase?.toLocaleLowerCase() ) {
-            //   Alert.alert(
-            //     "Congratulations!",
-            //     "Correct Answer",
-            //     [
-            //       {
-            //         text: 'Cancel',
-            //         onPress: () => {
-            //           setTextContent("");
-            //         },
-            //         style: 'cancel',
-            //       },
-            //       {
-            //         text: 'OK',
-            //         onPress: () => {
-            //           setTextContent("");
-            //           goToNext?.();
-            //         }
-            //       },
-            //     ]
-            //   )
-            // } else {
-            //   Alert.alert(
-            //     "Unfortunately!",
-            //     `Wrong Answer! The correct answer is: ${item?.phrase}`,
-            //     [
-            //       {
-            //         text: 'Cancel',
-            //         onPress: () => {
-            //           setTextContent("");
-            //         },
-            //         style: 'cancel',
-            //       },
-            //       {
-            //         text: 'Try Again!',
-            //         onPress: () => {
-            //           setTextContent("");
-            //         }
-            //       },
-            //     ]
-            //   )
-            // }
           };
           
           return (

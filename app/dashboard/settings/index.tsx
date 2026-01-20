@@ -5,19 +5,16 @@ import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import Title from '@/components/Title';
 import { router } from 'expo-router';
 import { SETTINGS_DATA } from '@/schemas/static-data';
-import { useAuth } from '@/context/AuthContext';
 import * as SecureStore from "expo-secure-store";
 import SettingsElement from '@/components/settings/SettingsElement';
 import SettingsElementAction from '@/components/settings/SettingsElementAction';
 import ActionButton from '@/components/form-components/ActionButton';
 import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
 import { useProfile } from '@/context/ProfileContext';
-// import SIZES from '@/constants/size';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
-  const { user } = useAuth();
-  const { profile, clear } = useProfile();
+  const { clear } = useProfile();
   const [showModal, setShowModal] = React.useState<boolean>(false);
 
   const handleSignout = async () => {
@@ -47,6 +44,7 @@ const SettingsScreen = () => {
             else Alert.alert("Successfully signed out!");
             
             router.replace("/auth/login");
+
           }
           else {
             Alert.alert( "Signout failed!" )
@@ -62,6 +60,8 @@ const SettingsScreen = () => {
       // setPassword('')
     }
   }
+
+  const modalHandler = () => setShowModal(prevValue => !prevValue);
 
   return (
     <>
@@ -122,7 +122,7 @@ const SettingsScreen = () => {
               }}
             >
               <TouchableOpacity
-                onPress={() => setShowModal(true)}
+                onPress={modalHandler}
               >
                 <Text
                   style={{
@@ -143,7 +143,7 @@ const SettingsScreen = () => {
         showModal && (
           <AccountDeletionModal
             isVisible={showModal}
-            onModalVisible={() => setShowModal(false)}
+            onModalVisible={modalHandler}
           />
         )
       }

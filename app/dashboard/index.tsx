@@ -8,14 +8,16 @@ import { useProfile } from '@/context/ProfileContext';
 
 const Dashboard = () => {
   const { refreshProfile, loading } = useProfile();
-  const onRefresh = async () => {
+  
+  const onRefresh = React.useCallback( async () => {
     try {
       await refreshProfile();
     }
     catch(err) {
       console.error(err)
     }
-  }
+  }, [])
+
   return (
     <SafeAreaLayout>
       <ScrollView

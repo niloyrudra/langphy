@@ -1,17 +1,16 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef, useState, memo } from 'react';
 import {
   View,
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
-  Alert,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from 'react-native';
 import sizes from '@/constants/size';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { ToolTip } from '@/types';
 import ToolTipComponent from '@/components/tooltip-components/ToolTipComponent';
 import LoadingScreenComponent from '../LoadingScreenComponent';
@@ -20,19 +19,15 @@ import SessionFooter from '../SessionFooter';
 import { useFloatingTooltip } from '@/hooks/useFloatingTooltip';
 
 interface SessionLayoutProps<T> {
-  sessionType?: string,
-  keyboardAvoid?: boolean,
-  preFetchedData?: T[],
-  showFooter?: boolean,
-  onPositionChange?: (index: number) => void,
-  onRegisterScroller?: (scrollTo: (index: number) => void) => void,
-  onActiveItemChange?: (args: {
-    item: T;
-    index: number;
-    goToNext: () => void;
-  }) => void;
+  sessionType?: string;
+  keyboardAvoid?: boolean;
+  preFetchedData?: T[];
+  showFooter?: boolean;
+  onPositionChange?: (index: number) => void;
+  onRegisterScroller?: (scrollTo: (index: number) => void) => void;
+  onActiveItemChange?: (args: { item: T; index: number; goToNext: () => void }) => void;
   onSessionComplete?: () => void;
-  keyboardVerticalOffset ?: number;
+  keyboardVerticalOffset?: number;
   categoryId?: string;
   unitId?: string;
   children: (props: {
@@ -47,147 +42,129 @@ interface SessionLayoutProps<T> {
     containerRef: React.RefObject<View | null>;
     screenRef: React.RefObject<View | null>;
     setTooltip: (obj: ToolTip) => void;
-  }) => ReactNode
+  }) => ReactNode;
 }
 
-function SessionLayout<T>( {
+const ITEM_WIDTH = sizes.screenWidth - sizes.bodyPaddingHorizontal * 2;
+
+function SessionLayout<T>({
   children,
   preFetchedData,
-  showFooter=false,
+  showFooter = false,
   onPositionChange,
   onRegisterScroller,
   onActiveItemChange,
   onSessionComplete,
   keyboardAvoid = false,
-  keyboardVerticalOffset = 90
+  keyboardVerticalOffset = 90,
 }: SessionLayoutProps<T>) {
   const { categoryId, unitId, slug } = useLocalSearchParams();
-  // States
-  const [ data, setData ] = React.useState<T[]>([]);
-  const [ currentIndex, setCurrentIndex ] = React.useState<number>(0);
-  const [ loading, setLoading ] = React.useState<boolean>(false);
-  // floating tooltip hook
+  
+  const [data, setData] = useState<T[]>(preFetchedData || []);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
-  // Refs
-  const flatListRef = React.useRef<FlatList>(null);
-  const wordRefs = React.useRef<Map<string, any>>(new Map());
-  const containerRef = React.useRef<View | null>(null);
-  const screenRef = React.useRef<View | null>(null);
 
-  React.useEffect(() => {
-    setLoading(true)
-    if( preFetchedData ) {
-      setData(preFetchedData)
-      setLoading(false)
-      return;
-    }
-    const dataLoad = async () => {
-      setLoading(true)
-      try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/${slug}/${categoryId}/${unitId}`);
-        if (!res.ok) {
-          console.error("Error fetching practice data:", res.status);
-        }
-        const data: T[] = await res.json();
-        setData(data)
+  const flatListRef = useRef<FlatList>(null);
+  const wordRefs = useRef<Map<string, any>>(new Map());
+  const containerRef = useRef<View | null>(null);
+  const screenRef = useRef<View | null>(null);
 
-      } catch (err) {
-        console.error("Error fetching practice data:", err);
-        setData([])
-        // throw err;
-      }
-      setLoading(false)
-    }
+  // Memoized scroll functions
+  const scrollToIndex = useCallback(
+    (index: number) => {
+      if (index < 0 || index >= data.length) return;
+      flatListRef.current?.scrollToIndex({ index, animated: true });
+      setCurrentIndex(index);
+      onPositionChange?.(index);
+      hideTooltip();
+    },
+    [data.length, hideTooltip, onPositionChange]
+  );
 
-    if (categoryId && unitId && slug) dataLoad();
-  }, [categoryId, unitId, slug]);
-
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const index = Math.round(
-      event.nativeEvent.contentOffset.x /
-      (sizes.screenWidth - sizes.bodyPaddingHorizontal * 2)
-    );
-    setCurrentIndex(index);
-    if (onPositionChange) onPositionChange(index);
-  };
-
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     if (currentIndex < data.length - 1) {
-      const nextIndex = currentIndex + 1;
-      flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true });
-      setCurrentIndex(nextIndex);
-      if (onPositionChange) onPositionChange(nextIndex);
-      hideTooltip();
+      scrollToIndex(currentIndex + 1);
+    } else {
+      onSessionComplete?.();
     }
-    else {
-      // Last item reached
-      onSessionComplete && onSessionComplete(); // onSessionComplete?.()
-      // Alert.alert(
-      //   "End of Session",
-      //   "You have completed all lessons in this session.",
-      //   [
-      //     { text: 'OK', onPress: () => router.back()}
-      //   ]
-      // );
-    }
-  };
+  }, [currentIndex, data.length, scrollToIndex, onSessionComplete]);
 
-  const goToPrevious = () => {
-    if (currentIndex > 0) {
-      const prevIndex = currentIndex - 1;
-      flatListRef.current?.scrollToIndex({ index: prevIndex, animated: true });
-      setCurrentIndex(prevIndex);
-      if (onPositionChange) onPositionChange(prevIndex);
-      hideTooltip();
-    }
-  };
+  const goToPrevious = useCallback(() => {
+    if (currentIndex > 0) scrollToIndex(currentIndex - 1);
+  }, [currentIndex, scrollToIndex]);
 
-  const scrollToIndex = React.useCallback((index: number) => {
-    if (index < 0 || index >= data.length) return;
+  // FlatList on scroll
+  const handleScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const index = Math.round(
+        event.nativeEvent.contentOffset.x / (sizes.screenWidth - sizes.bodyPaddingHorizontal * 2)
+      );
+      setCurrentIndex(index);
+      onPositionChange?.(index);
+    },
+    [onPositionChange]
+  );
 
-    flatListRef.current?.scrollToIndex({
-      index,
-      animated: true,
-    });
-
-    setCurrentIndex(index);
-    if (onPositionChange) onPositionChange?.(index);
-    hideTooltip();
-  }, [data.length, onPositionChange]);
-
-  React.useEffect(() => {
-    if (onRegisterScroller) {
-      onRegisterScroller(scrollToIndex);
-    }
+  // Register scroller callback
+  useEffect(() => {
+    if (onRegisterScroller) onRegisterScroller(scrollToIndex);
   }, [onRegisterScroller, scrollToIndex]);
 
-  React.useEffect(() => {
+  // Active item callback
+  useEffect(() => {
     if (!data.length) return;
+    onActiveItemChange?.({ item: data[currentIndex], index: currentIndex, goToNext });
+  }, [currentIndex, data, goToNext, onActiveItemChange]);
 
-    onActiveItemChange?.({
-      item: data[currentIndex],
-      index: currentIndex,
-      goToNext,
-    });
-  }, [currentIndex, data]);
+  if (loading) return <LoadingScreenComponent />;
 
-  if( loading ) return (<LoadingScreenComponent />)
+  // Memoized renderItem for FlatList
+  const renderItem = useCallback(
+    ({ item, index }: { item: T; index: number }) => (
+      <View
+        style={{ flex: 1, width: sizes.screenWidth - sizes.bodyPaddingHorizontal * 2, marginTop: 25 }}
+      >
+        {children({
+          item,
+          index,
+          currentIndex,
+          setCurrentIndex,
+          goToNext,
+          goToPrevious,
+          wordRefs,
+          containerRef,
+          screenRef,
+          setTooltip: showTooltip,
+        })}
+      </View>
+    ),
+    [children, currentIndex, goToNext, goToPrevious, showTooltip]
+  );
+
+  // Fixed layout optimization for FlatList
+  const getItemLayout = useCallback(
+    (_: ArrayLike<T> | null | undefined, index: number) => ({
+      length: ITEM_WIDTH,
+      offset: ITEM_WIDTH * index,
+      index,
+    }),
+    []
+  );
 
   return (
     <SafeAreaLayout>
       <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         enabled={keyboardAvoid}
+        keyboardVerticalOffset={keyboardVerticalOffset}
       >
-        <Pressable
-          style={{ flex: 1 }}
-          onPress={hideTooltip}
-        >
-
+        <Pressable style={{ flex: 1 }} onPress={hideTooltip}>
           <LessonNavDots data={data.map((_, idx) => idx)} currentIndex={currentIndex} />
 
-          <View ref={containerRef} style={{ flex: 1, position: "relative" }}>
+          <View ref={containerRef} style={{ flex: 1, position: 'relative' }}>
             <FlatList
               ref={flatListRef}
               data={data}
@@ -198,62 +175,33 @@ function SessionLayout<T>( {
               showsHorizontalScrollIndicator={false}
               onMomentumScrollEnd={handleScroll}
               keyboardShouldPersistTaps="handled"
-              // IMPORTANT: these fix alignment issues
-              removeClippedSubviews={false}
-              disableVirtualization={true}
-
-              // contentContainerStyle={{
-                // flexGrow: 1,
-                // paddingBottom: keyboardAvoid ? keyboardVerticalOffset  : 0
-              // }}
-              renderItem={({ item, index }) => (
-                <View style={{flex:1, width: sizes.screenWidth - (sizes.bodyPaddingHorizontal * 2), marginTop: 25 }}>
-                  {children && children({
-                    item,
-                    index,
-                    // data,
-                    currentIndex,
-                    setCurrentIndex,
-                    goToNext,
-                    goToPrevious,
-                    wordRefs,
-                    containerRef,
-                    screenRef,
-                    setTooltip: showTooltip
-                  })}
-                </View>
-              )}
+              removeClippedSubviews
+              initialNumToRender={3}
+              maxToRenderPerBatch={3}
+              windowSize={5}
+              getItemLayout={getItemLayout}
+              renderItem={renderItem}
             />
 
-            {/* Navigation Buttons */}
-            {
-              showFooter && (
-                <SessionFooter
-                  goToNext={goToNext}
-                  goToPrevious={goToPrevious}
-                  currentIndex={currentIndex}
-                  dataSize={data.length || 0}
-                />
-              )
-            }
-
-            {/* Floating Tooltip */}
-            {tooltip.visible && (
-              <ToolTipComponent
-                top={tooltip.y}
-                left={tooltip.x}
-                token={tooltip.token}
+            {showFooter && (
+              <SessionFooter
+                goToNext={goToNext}
+                goToPrevious={goToPrevious}
+                currentIndex={currentIndex}
+                dataSize={data.length}
               />
             )}
 
+            {tooltip.visible && (
+              <ToolTipComponent top={tooltip.y} left={tooltip.x} token={tooltip.token} />
+            )}
           </View>
-        
         </Pressable>
-
-
       </KeyboardAvoidingView>
     </SafeAreaLayout>
   );
-};
+}
 
-export default SessionLayout;
+export default memo(SessionLayout) as <T>(
+  props: SessionLayoutProps<T>
+) => JSX.Element;

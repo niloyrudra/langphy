@@ -9,8 +9,6 @@ const HeaderRightComponent = () => {
   return (
     <View style={styles.container}>
         <SteakBadgeFlagComponent />
-        {/* <ToggleColorThemeComponent /> */}
-        {/* <SettingsButton /> */}
         <Profile />
     </View>
   )

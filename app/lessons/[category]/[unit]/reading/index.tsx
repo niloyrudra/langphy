@@ -98,51 +98,12 @@ const ReadingLessons = () => {
                 answered: selectedOption || "",
                 feedback: { label: "Correct", color: "green" }
               });
-              // Alert.alert(
-              //   "Congratulations!",
-              //   "Correct Answer",
-              //   [
-              //     {
-              //       text: 'Cancel',
-              //       onPress: () => {
-              //         setSelectedOption(null);
-              //         setIsSelectionHappened(false);
-              //       },
-              //       style: 'cancel',
-              //     },
-              //     {
-              //       text: 'Next',
-              //       onPress: () => goToNext?.()
-              //     },
-              //   ]
-              // )
             } else {
               setIsCorrect( prevVal => prevVal = false );
               setResult({
                 answered: selectedOption || "",
                 feedback: { label: "Incorrect", color: "red" }
               });
-              // Alert.alert(
-              //   "Unfortunately!",
-              //   "Wrong Answer",
-              //   [
-              //     {
-              //       text: 'Cancel',
-              //       onPress: () => {
-              //         setSelectedOption(null);
-              //         setIsSelectionHappened(false);
-              //       },
-              //       style: 'cancel',
-              //     },
-              //     {
-              //       text: 'Try Again!',
-              //       onPress: () => {
-              //         setSelectedOption(null);
-              //         setIsSelectionHappened(false);
-              //       }
-              //     },
-              //   ]
-              // )
             }
           };
           
@@ -251,13 +212,13 @@ const ReadingLessons = () => {
 export default ReadingLessons;
 
 const styles = StyleSheet.create({
-    container: {
-      marginTop: 30,
-      marginBottom: 0,
-      position: 'relative',
-      flexDirection: "row",
-      justifyContent: 'flex-start',
-      alignItems: "flex-start",
-      gap: 20
-    }
+  container: {
+    marginTop: 30,
+    marginBottom: 0,
+    position: 'relative',
+    flexDirection: "row",
+    justifyContent: 'flex-start',
+    alignItems: "flex-start",
+    gap: 20
+  }
 });
