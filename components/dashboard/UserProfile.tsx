@@ -10,10 +10,18 @@ import { useProfile } from '@/context/ProfileContext';
 
 const UserProfile = () => {
     const { colors } = useTheme();
-    const {profile, refreshProfile, loading} = useProfile();
+    const { profile, refreshProfile, loading } = useProfile();
 
     React.useEffect(() => {
-        (async () => !profile && refreshProfile())()
+        const loadProfile = async () => {
+            try {
+                if( !profile ) await refreshProfile()
+            }
+            catch(err) {
+                console.warn("Profile loding error: ", err)
+            }
+        }
+        loadProfile();
     }, [profile]);
 
     if (loading) {

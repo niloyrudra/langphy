@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, ScrollView, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
+import { Alert, StyleSheet, TouchableOpacity, View, Text, SectionList } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import Title from '@/components/Title';
@@ -11,6 +11,7 @@ import SettingsElementAction from '@/components/settings/SettingsElementAction';
 import ActionButton from '@/components/form-components/ActionButton';
 import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
 import { useProfile } from '@/context/ProfileContext';
+import STYLES from '@/constants/styles';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
@@ -66,77 +67,68 @@ const SettingsScreen = () => {
   return (
     <>
       <SafeAreaLayout>
-        <ScrollView style={{flex: 1}}>
+        <View style={{flex: 1, marginBottom: 30}}>
 
-          <View style={{flex: 1, marginBottom: 30}}>
-            {
-              SETTINGS_DATA.map((item, idx) => (
-                <View style={{ flex: 1, marginBottom: 30 }} key={idx.toString()}>
-                  
-                  <Title title={item.subSettingTitle} containerStyle={{marginTop: 20, marginBottom: 10}} contentStyle={{fontSize: 16, color: colors.settingsTitle}} />
-                  
-                  <View style={[styles.settingItemContainer]}>
-                    {
-                      item.settingsElements.map((item, idx) => (
-                        <View
-                          key={idx.toString()}
-                          style={[styles.settingItem, {backgroundColor: colors.profileCardBg}]}
-                        >
-                          <SettingsElement
-                            title={item.elementTitle}
-                            Icon={theme === 'light' ? <item.ImgComponentLight /> : <item.ImgComponentDark />}
-                          />
+          <SectionList
+            sections={SETTINGS_DATA}
+            keyExtractor={(item, index) => item.elementTitle+index}
+            // onRefresh={}
+            renderItem={({item, index}) => (
+              <View style={[styles.settingItemContainer]}>
+                <View
+                  key={index.toString()}
+                  style={[styles.settingItem, {backgroundColor: colors.profileCardBg}]}
+                >
+                  <SettingsElement
+                    title={item.elementTitle}
+                    Icon={theme === 'light' ? <item.ImgComponentLight /> : <item.ImgComponentDark />}
+                  />
 
-                          <SettingsElementAction
-                            actionType={item.actionType}
-                            settingType={item.settingType}
-                            route={item?.route}
-                          />
-                          
-                        </View>
-                      ))
-                    }
-                  </View>
+                  <SettingsElementAction
+                    actionType={item.actionType}
+                    settingType={item.settingType}
+                    route={item?.route}
+                  />
+                  
                 </View>
-              ))
-            }
+              </View>
+            )}
+            renderSectionHeader={({section: {title}}) => (
+              <Title title={title}
+                containerStyle={{marginTop: 20, marginBottom: 10}}
+                contentStyle={[styles.settingsTitle, {color: colors.settingsTitle}]}
+              />
+            )}
+            // renderSectionFooter={() => (<View style={{height:30}} />)}
+            scrollEnabled={true}
+          />
 
-            <ActionButton
-              buttonTitle='Logout'
-              onSubmit={handleSignout}
-              buttonStyle={{
-                backgroundColor: theme === 'light' ? "transparent" : "#FFFFFF",
-                borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
-                borderWidth: 1,
-              }}
-              textStyle={{
-                color: theme === 'light' ? "#142C57" : "#142C57"
-              }}
-            />
-            
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 30
-              }}
-            >
-              <TouchableOpacity
-                onPress={modalHandler}
-              >
-                <Text
-                  style={{
-                    color: "#EF1313",
-                    fontWeight: "800",
-                    fontSize: 16
-                  }}
-                >Delete Account</Text>
-              </TouchableOpacity>
-            </View>
-            
-          </View>
+          <ActionButton
+            buttonTitle='Logout'
+            onSubmit={handleSignout}
+            buttonStyle={{
+              backgroundColor: theme === 'light' ? "transparent" : "#FFFFFF",
+              borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
+              borderWidth: 1,
+            }}
+            textStyle={{
+              color: theme === 'light' ? "#142C57" : "#142C57"
+            }}
+          />
+          
+          <ActionButton
+            buttonTitle='Delete Account'
+            onSubmit={modalHandler}
+            buttonStyle={{
+              marginTop: 10,
+              borderWidth: 0
+            }}
+            textStyle={{
+              color: "#EF1313"
+            }}
+          />
 
-        </ScrollView>
+        </View>
       </SafeAreaLayout>
 
       {
@@ -158,7 +150,10 @@ const styles = StyleSheet.create({
   settingItemContainer: {
     flex: 1,
     flexDirection: "column",
-    gap: 10
+    marginBottom: 10,
+  },
+  settingsTitle: {
+    fontSize: 16
   },
   settingItem: {
     paddingHorizontal: 20,

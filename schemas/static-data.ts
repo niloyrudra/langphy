@@ -539,8 +539,8 @@ export const LESSON_UNIT_DATA = [
 
 export const SETTINGS_DATA: SettingsData[] = [
   {
-    subSettingTitle: "General",
-    settingsElements: [
+    title: "General",
+    data: [
       {
         elementTitle: "Sound Effect",
         ImgComponentLight: SoundEffectLightIcon,
@@ -560,8 +560,8 @@ export const SETTINGS_DATA: SettingsData[] = [
     ]
   },
   {
-    subSettingTitle: "Exercises",
-    settingsElements: [
+    title: "Exercises",
+    data: [
       {
         elementTitle: "Speaking Exercise",
         ImgComponentLight: SpeakingLightIcon,
@@ -597,8 +597,8 @@ export const SETTINGS_DATA: SettingsData[] = [
     ]
   },
   {
-    subSettingTitle: "Notifications",
-    settingsElements: [
+    title: "Notifications",
+    data: [
       {
         elementTitle: "Practise Reminder",
         ImgComponentLight: PracticeLightIcon,
@@ -610,8 +610,8 @@ export const SETTINGS_DATA: SettingsData[] = [
     ]
   },
   {
-    subSettingTitle: "Others",
-    settingsElements: [
+    title: "Others",
+    data: [
       {
         elementTitle: "Help Center",
         ImgComponentLight: HelpLightIcon,

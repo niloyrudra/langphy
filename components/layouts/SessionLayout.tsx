@@ -7,10 +7,12 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import sizes from '@/constants/size';
+import SIZES from '@/constants/size';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
-import { useLocalSearchParams } from 'expo-router';
+// import { useLocalSearchParams } from 'expo-router';
 import { ToolTip } from '@/types';
 import ToolTipComponent from '@/components/tooltip-components/ToolTipComponent';
 import LoadingScreenComponent from '../LoadingScreenComponent';
@@ -36,6 +38,8 @@ interface SessionLayoutProps<T> {
     data?: T[];
     currentIndex: number;
     setCurrentIndex?: (e: number) => void;
+    disableHorizontalScroll: () => void;
+    enableHorizontalScroll: () => void;
     goToNext?: () => void;
     goToPrevious?: () => void;
     wordRefs: React.MutableRefObject<Map<string, any>>;
@@ -45,11 +49,11 @@ interface SessionLayoutProps<T> {
   }) => ReactNode;
 }
 
-const ITEM_WIDTH = sizes.screenWidth - sizes.bodyPaddingHorizontal * 2;
+const ITEM_WIDTH = SIZES.screenWidth - SIZES.bodyPaddingHorizontal * 2;
 
 function SessionLayout<T>({
   children,
-  preFetchedData,
+  preFetchedData=[],
   showFooter = false,
   onPositionChange,
   onRegisterScroller,
@@ -58,11 +62,12 @@ function SessionLayout<T>({
   keyboardAvoid = false,
   keyboardVerticalOffset = 90,
 }: SessionLayoutProps<T>) {
-  const { categoryId, unitId, slug } = useLocalSearchParams();
+  // const { categoryId, unitId, slug } = useLocalSearchParams();
   
-  const [data, setData] = useState<T[]>(preFetchedData || []);
+  const [data, setData] = useState<T[]>(preFetchedData);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [ horizontalEnabled, setHorizontalEnabled ] = useState<boolean>(true)
 
   const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
 
@@ -99,13 +104,16 @@ function SessionLayout<T>({
   const handleScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const index = Math.round(
-        event.nativeEvent.contentOffset.x / (sizes.screenWidth - sizes.bodyPaddingHorizontal * 2)
+        event.nativeEvent.contentOffset.x / (SIZES.screenWidth - SIZES.bodyPaddingHorizontal * 2)
       );
       setCurrentIndex(index);
       onPositionChange?.(index);
     },
     [onPositionChange]
   );
+
+  const disableHorizontalScroll = () => setHorizontalEnabled(false);
+  const enableHorizontalScroll = () => setHorizontalEnabled(true);
 
   // Register scroller callback
   useEffect(() => {
@@ -123,14 +131,14 @@ function SessionLayout<T>({
   // Memoized renderItem for FlatList
   const renderItem = useCallback(
     ({ item, index }: { item: T; index: number }) => (
-      <View
-        style={{ flex: 1, width: sizes.screenWidth - sizes.bodyPaddingHorizontal * 2, marginTop: 25 }}
-      >
+      <View style={styles.content}>
         {children({
           item,
           index,
           currentIndex,
           setCurrentIndex,
+          disableHorizontalScroll,
+          enableHorizontalScroll,
           goToNext,
           goToPrevious,
           wordRefs,
@@ -161,42 +169,51 @@ function SessionLayout<T>({
         enabled={keyboardAvoid}
         keyboardVerticalOffset={keyboardVerticalOffset}
       >
-        <Pressable style={{ flex: 1 }} onPress={hideTooltip}>
-          <LessonNavDots data={data.map((_, idx) => idx)} currentIndex={currentIndex} />
+        <LessonNavDots data={data.map((_, idx) => idx)} currentIndex={currentIndex} />
+        <View ref={containerRef} style={styles.container}>
+          <FlatList
+            ref={flatListRef}
+            data={data}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            pagingEnabled
+            scrollEnabled={ horizontalEnabled }
+            nestedScrollEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={handleScroll}
+            keyboardShouldPersistTaps="handled"
+            removeClippedSubviews={false}
+            initialNumToRender={3}
+            maxToRenderPerBatch={3}
+            windowSize={5}
+            getItemLayout={getItemLayout}
+            renderItem={renderItem}
+          />
 
-          <View ref={containerRef} style={{ flex: 1, position: 'relative' }}>
-            <FlatList
-              ref={flatListRef}
-              data={data}
-              keyExtractor={(_, index) => index.toString()}
-              horizontal
-              pagingEnabled
-              scrollEnabled={false}
-              showsHorizontalScrollIndicator={false}
-              onMomentumScrollEnd={handleScroll}
-              keyboardShouldPersistTaps="handled"
-              removeClippedSubviews
-              initialNumToRender={3}
-              maxToRenderPerBatch={3}
-              windowSize={5}
-              getItemLayout={getItemLayout}
-              renderItem={renderItem}
+          {showFooter && (
+            <SessionFooter
+              goToNext={goToNext}
+              goToPrevious={goToPrevious}
+              currentIndex={currentIndex}
+              dataSize={data.length}
             />
+          )}
 
-            {showFooter && (
-              <SessionFooter
-                goToNext={goToNext}
-                goToPrevious={goToPrevious}
-                currentIndex={currentIndex}
-                dataSize={data.length}
+          {tooltip.visible && (
+            <>
+              <Pressable
+                style={StyleSheet.absoluteFill}
+                onPress={hideTooltip}
               />
-            )}
+              <ToolTipComponent
+                top={tooltip.y}
+                left={tooltip.x}
+                token={tooltip.token}
+              />
+            </>
+          )}
 
-            {tooltip.visible && (
-              <ToolTipComponent top={tooltip.y} left={tooltip.x} token={tooltip.token} />
-            )}
-          </View>
-        </Pressable>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaLayout>
   );
@@ -205,3 +222,15 @@ function SessionLayout<T>({
 export default memo(SessionLayout) as <T>(
   props: SessionLayoutProps<T>
 ) => JSX.Element;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: 'relative'
+  },
+  content: {
+    flex: 1,
+    width: SIZES.screenWidth - SIZES.bodyPaddingHorizontal * 2,
+    marginTop: 25
+  }
+});

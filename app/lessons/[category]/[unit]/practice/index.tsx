@@ -82,13 +82,17 @@ const PracticeLessons = () => {
         onPositionChange={(index: number) => setCurrentPosition(index)}
         onRegisterScroller={(scrollFn) => {scrollToLessonRef.current = scrollFn}}
       >
-        {({ item, wordRefs, containerRef, setCurrentIndex, screenRef, setTooltip }) => {
+        {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, screenRef, setTooltip }) => {
           const handleTooltip = (value: any) => setTooltip(value);
           return (
             <ScrollView
               ref={scrollToRef}
               style={{flex: 1}}
+              nestedScrollEnabled
               showsVerticalScrollIndicator={false}
+              onScrollBeginDrag={disableHorizontalScroll}
+              onScrollEndDrag={enableHorizontalScroll}
+              scrollEventThrottle={16}
             >
               <View
                 ref={screenRef}

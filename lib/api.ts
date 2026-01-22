@@ -9,15 +9,18 @@ const api = axios.create({
 /**
  * Attach token to every request
  */
-api.interceptors.request.use(async (config) => {
-  const token = await SecureStore.getItemAsync("accessToken");
+api.interceptors.request.use(
+  async (config) => {
+    const token = await SecureStore.getItemAsync("accessToken");
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
-  return config;
-});
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 /**
  * Handle expired / invalid token

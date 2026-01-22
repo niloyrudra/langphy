@@ -440,9 +440,13 @@ type SettingsElement = {
   route: string,
 }
 
+// type SettingsData = {
+//   subSettingTitle: string,
+//   settingsElements: SettingsElement[]
+// }
 type SettingsData = {
-  subSettingTitle: string,
-  settingsElements: SettingsElement[]
+  title: string,
+  data: SettingsElement[]
 }
 
 /** Context Types */
