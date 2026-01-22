@@ -1,5 +1,5 @@
 import { Lesson, SessionContextType, SessionProviderProps } from "@/types";
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 const SessionContext = createContext<SessionContextType | null>(null);
 
@@ -7,6 +7,11 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     const [ lessons, setLessons ] = useState<Lesson[]>([]);
     const [currentPosition, setCurrentPosition] = useState<number>(0);
     const [showLessonList, setShowLessonList] = useState<boolean>(false);
+
+    const lessonCompletionHandler = useCallback(() => {
+        const currentLesson = lessons[currentPosition]
+        currentLesson.completed = true;
+    }, [lessons[currentPosition]]);
 
     return (
         <SessionContext.Provider
@@ -16,6 +21,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
                 showLessonList,
                 setLessons,
                 setCurrentPosition,
+                lessonCompletionHandler,
                 toggleLessonList: () => setShowLessonList(v => !v),
             }}
         >

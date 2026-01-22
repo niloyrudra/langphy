@@ -5,47 +5,57 @@ import { useTheme } from '@/theme/ThemeContext'
 // import SpeakerComponent from '../SpeakerComponent';
 import SIZES from '@/constants/size';
 import Speaker from '../Speaker';
+import InfoButton from '../InfoButton';
+import InfoModal from '../modals/InfoModal';
 
 const ListeningComponent: React.FC<ListeningProps> = ({language, children, color, style: customStyle, buttonStyle, speechContent, speechLang}) => {
   const { colors } = useTheme();
-
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   return (
-    <View style={[styles.speakerButtonWrapper, customStyle, {borderColor: color}]}>
+    <>
+      <View style={[styles.speakerButtonWrapper, customStyle, {borderColor: color}]}>
 
-      <View style={[styles.content, {backgroundColor: color}]}>
+        <View style={[styles.content, {backgroundColor: color}]}>
 
-        <Text style={[styles.languageText, {color: colors.text}]}>{language}</Text>
+          <Text style={[styles.languageText]}>{language}</Text>
+          {/* <Text style={[styles.languageText, {color: colors.text}]}>{language}</Text> */}
 
-        {/* Speaker */}
-        <View
-          style={{
-            flexDirection:"row",
-            gap: 10
-          }}
-        >
-          {
-            speechLang === 'de-DE' && (
-              <Speaker
-                speechContent={speechContent!}
-                speechLang={speechLang!}
-                isSlowing={true}
-              />
-            )
-          }
-          
-          <Speaker
-            speechContent={speechContent!}
-            speechLang={speechLang!}
-          />
+          {/* Speaker */}
+          <View style={styles.speakerContainer}>
+            {
+              speechLang === 'de-DE' && (
+                <InfoButton onModalVisible={() => setModalVisible(!modalVisible)} />
+              )}
+            {
+              speechLang === 'de-DE' && (
+                <Speaker
+                  speechContent={speechContent!}
+                  speechLang={speechLang!}
+                  isSlowing={true}
+                />
+              )
+            }
+            
+            <Speaker
+              speechContent={speechContent!}
+              speechLang={speechLang!}
+            />
+
+          </View>
 
         </View>
 
+        {/* Render children if provided; otherwise show default text */}
+        {children && children}
+
       </View>
-
-      {/* Render children if provided; otherwise show default text */}
-      {children && children}
-
-    </View>
+      {
+        <InfoModal
+          isVisible={modalVisible}
+          onModalVisible={() => setModalVisible(!modalVisible)}
+        />
+      }
+    </>
   )
 }
 
@@ -80,7 +90,13 @@ const styles = StyleSheet.create({
     borderEndEndRadius: 0,
     borderStartEndRadius: 0
   },
+  speakerContainer: {
+    flexDirection:"row",
+    gap: 10,
+    // width: "50%"
+  },
   languageText: {
+    color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "700",
     marginLeft: 10,

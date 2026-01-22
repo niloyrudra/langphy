@@ -28,6 +28,8 @@ export const lightColors = {
 
   gradiantDeep: '#FFFFFF',
 
+  activeLessonText: "blue",
+
   red: "#FF0000",
   redDanger: "#A6192E",
   redSoft: "#ED4337",
@@ -42,7 +44,8 @@ export const lightColors = {
   statsBackground: "#FFFFFF",
   settingsTitle: "#999",
 
-  listeningCardBackgroundColor: "#E5E5E5",
+  listeningCardBackgroundColor: "#FFFFFF", // "#E5E5E5",
+  listeningInfoBgColor: "#FFFFFF",
 
   hLineColor: "#EDEDED",
 
@@ -108,6 +111,8 @@ export const darkColors = {
 
   gradiantDeep: '#081A33',
 
+  activeLessonText: "green",
+
   red: "#FF0000",
   redDanger: "#A6192E",
   redSoft: "#ED4337",
@@ -123,6 +128,7 @@ export const darkColors = {
   settingsTitle: "#999",
 
   listeningCardBackgroundColor: "#061E3E",
+  listeningInfoBgColor: "#142957",
 
   hLineColor: "#0B3C5F",
 

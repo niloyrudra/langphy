@@ -24,33 +24,12 @@ const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
   };
 
   const icon = useMemo(() => {
-    // const isEnglish = speechLang === 'en-US';
     const isDark = theme === 'dark';
 
     if( !isSlowing ) {
         return isDark ? <SpeakerDark /> : <SpeakerLight />
     }
     return isDark ? <SpeakerTurtleDark /> : <SpeakerTurtleLight />
-
-    // if (!isSlowing) {
-    //   if (isDark) return isEnglish ? <SpeakerDarkIcon /> : <SpeakerAltDarkIcon />;
-    //   return isEnglish ? <SpeakerIcon /> : <SpeakerAltIcon />;
-    // }
-
-    // Slowed icons
-    // const iconProps = { width: 33, height: 33 };
-    // if (isDark)
-    //   return isEnglish ? (
-    //     <SpeakerTurtleDarkEnIcon {...iconProps} />
-    //   ) : (
-    //     <SpeakerTurtleDarkDeIcon {...iconProps} />
-    //   );
-
-    // return isEnglish ? (
-    //   <SpeakerTurtleLightEnIcon {...iconProps} />
-    // ) : (
-    //   <SpeakerTurtleLightDeIcon {...iconProps} />
-    // );
   }, [isSlowing, speechLang, theme]);
 
   return (

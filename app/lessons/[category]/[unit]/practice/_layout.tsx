@@ -5,6 +5,8 @@ import { useTheme } from '@/theme/ThemeContext';
 import { truncateString } from '@/utils';
 import ShowListButton from '@/components/header/ShowListButton';
 import { SessionProvider } from '@/context/SessionContext';
+import Settings from '@/components/header/Settings';
+import { View } from 'react-native';
 
 const PracticeSessionLayout = () => {
   const { colors, theme } = useTheme();
@@ -34,7 +36,12 @@ const PracticeSessionLayout = () => {
                 }}
               />
             ),
-            headerRight: () => (<ShowListButton />)
+            headerRight: () => (
+              <View style={{flexDirection: "row", gap: 10}}>
+                <ShowListButton />
+                <Settings />
+              </View>
+            )
           })}
         />
       </Stack>

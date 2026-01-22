@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, StyleSheet, TouchableOpacity, View, Text, SectionList } from 'react-native'
+import { Alert, StyleSheet, View, SectionList } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import Title from '@/components/Title';
@@ -77,7 +77,11 @@ const SettingsScreen = () => {
               <View style={[styles.settingItemContainer]}>
                 <View
                   key={index.toString()}
-                  style={[styles.settingItem, {backgroundColor: colors.profileCardBg}]}
+                  style={[
+                    styles.settingItem,
+                    {backgroundColor: colors.profileCardBg},
+                    // STYLES.boxShadowLight
+                  ]}
                 >
                   <SettingsElement
                     title={item.elementTitle}
@@ -95,38 +99,40 @@ const SettingsScreen = () => {
             )}
             renderSectionHeader={({section: {title}}) => (
               <Title title={title}
-                containerStyle={{marginTop: 20, marginBottom: 10}}
+                containerStyle={styles.titleContainer}
                 contentStyle={[styles.settingsTitle, {color: colors.settingsTitle}]}
               />
             )}
-            // renderSectionFooter={() => (<View style={{height:30}} />)}
             scrollEnabled={true}
+            ListFooterComponent={(
+              <View style={styles.buttonContainer}>
+                <ActionButton
+                  buttonTitle='Logout'
+                  onSubmit={handleSignout}
+                  buttonStyle={{
+                    backgroundColor: theme === 'light' ? "transparent" : "#FFFFFF",
+                    borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
+                    borderWidth: 1,
+                  }}
+                  textStyle={{
+                    color: theme === 'light' ? "#142C57" : "#142C57"
+                  }}
+                />
+                
+                <ActionButton
+                  buttonTitle='Delete Account'
+                  onSubmit={modalHandler}
+                  buttonStyle={{
+                    borderWidth: 0
+                  }}
+                  textStyle={{
+                    color: "#EF1313"
+                  }}
+                />
+              </View>
+            )}
           />
 
-          <ActionButton
-            buttonTitle='Logout'
-            onSubmit={handleSignout}
-            buttonStyle={{
-              backgroundColor: theme === 'light' ? "transparent" : "#FFFFFF",
-              borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
-              borderWidth: 1,
-            }}
-            textStyle={{
-              color: theme === 'light' ? "#142C57" : "#142C57"
-            }}
-          />
-          
-          <ActionButton
-            buttonTitle='Delete Account'
-            onSubmit={modalHandler}
-            buttonStyle={{
-              marginTop: 10,
-              borderWidth: 0
-            }}
-            textStyle={{
-              color: "#EF1313"
-            }}
-          />
 
         </View>
       </SafeAreaLayout>
@@ -152,6 +158,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginBottom: 10,
   },
+  titleContainer: {
+    marginTop: 20,
+    marginBottom: 10
+  },
   settingsTitle: {
     fontSize: 16
   },
@@ -161,5 +171,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     height: 64
+  },
+  buttonContainer: {
+    marginTop: 10,
+    gap: 10
   }
 });

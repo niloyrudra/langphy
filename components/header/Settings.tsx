@@ -2,10 +2,8 @@ import { TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
-import sizes from '@/constants/size';
 
 import { SettingDark, SettingLight } from '@/utils/SVGImages';
-import STYLES from '@/constants/styles';
 import SIZES from '@/constants/size';
 
 const Settings = () => {
@@ -19,8 +17,8 @@ const Settings = () => {
     <TouchableOpacity onPress={handlePress} style={styles.button}>
       {
         theme === 'light'
-        ? (<SettingLight width={sizes.headerIcon} height={sizes.headerIcon} />)
-        : (<SettingDark width={sizes.headerIcon} height={sizes.headerIcon} />)
+        ? (<SettingLight width={SIZES.headerIcon} height={SIZES.headerIcon} />)
+        : (<SettingDark width={SIZES.headerIcon} height={SIZES.headerIcon} />)
       }
     </TouchableOpacity>
   );

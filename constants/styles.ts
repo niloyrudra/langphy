@@ -16,6 +16,17 @@ const headerContainer: StyleProp<ViewProps> = <ViewProps> {
     // borderColor: "#444555"
 };
 
+const boxShadowLight: StyleProp<ViewProps> = <ViewProps> {
+    elevation: 3,
+    shadowColor: "#55565615",
+    shadowOffset: {
+        width: 1,
+        height: 1
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3
+};
+
 const boxShadow: StyleProp<ViewProps> = <ViewProps> {
     elevation: 5,
     shadowColor: "#55565626",
@@ -79,6 +90,7 @@ const STYLES = {
     headerContainer,
     defaultContainer,
     boxShadow,
+    boxShadowLight,
     textShadow,
     textHeader,
     textSubHeader,

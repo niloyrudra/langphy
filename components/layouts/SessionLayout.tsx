@@ -8,17 +8,16 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  TouchableWithoutFeedback,
+  ListRenderItem,
 } from 'react-native';
 import SIZES from '@/constants/size';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
-// import { useLocalSearchParams } from 'expo-router';
 import { ToolTip } from '@/types';
 import ToolTipComponent from '@/components/tooltip-components/ToolTipComponent';
-import LoadingScreenComponent from '../LoadingScreenComponent';
 import LessonNavDots from '../LessonNavDots';
 import SessionFooter from '../SessionFooter';
 import { useFloatingTooltip } from '@/hooks/useFloatingTooltip';
+import { useSessionPager } from '@/hooks/useSessionPager';
 
 interface SessionLayoutProps<T> {
   sessionType?: string;
@@ -62,49 +61,19 @@ function SessionLayout<T>({
   keyboardAvoid = false,
   keyboardVerticalOffset = 90,
 }: SessionLayoutProps<T>) {
-  // const { categoryId, unitId, slug } = useLocalSearchParams();
-  
-  const [data, setData] = useState<T[]>(preFetchedData);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
   const [ horizontalEnabled, setHorizontalEnabled ] = useState<boolean>(true)
-
   const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
-
-  const flatListRef = useRef<FlatList>(null);
   const wordRefs = useRef<Map<string, any>>(new Map());
   const containerRef = useRef<View | null>(null);
   const screenRef = useRef<View | null>(null);
 
-  // Memoized scroll functions
-  const scrollToIndex = useCallback(
-    (index: number) => {
-      if (index < 0 || index >= data.length) return;
-      flatListRef.current?.scrollToIndex({ index, animated: true });
-      setCurrentIndex(index);
-      onPositionChange?.(index);
-      hideTooltip();
-    },
-    [data.length, hideTooltip, onPositionChange]
-  );
-
-  const goToNext = useCallback(() => {
-    if (currentIndex < data.length - 1) {
-      scrollToIndex(currentIndex + 1);
-    } else {
-      onSessionComplete?.();
-    }
-  }, [currentIndex, data.length, scrollToIndex, onSessionComplete]);
-
-  const goToPrevious = useCallback(() => {
-    if (currentIndex > 0) scrollToIndex(currentIndex - 1);
-  }, [currentIndex, scrollToIndex]);
+  const { flatListRef, currentIndex, setCurrentIndex, scrollToIndex, goToNext, goToPrevious } = useSessionPager<T>( preFetchedData.length, onPositionChange, onSessionComplete );
 
   // FlatList on scroll
   const handleScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const index = Math.round(
-        event.nativeEvent.contentOffset.x / (SIZES.screenWidth - SIZES.bodyPaddingHorizontal * 2)
+        event.nativeEvent.contentOffset.x / ITEM_WIDTH
       );
       setCurrentIndex(index);
       onPositionChange?.(index);
@@ -112,8 +81,8 @@ function SessionLayout<T>({
     [onPositionChange]
   );
 
-  const disableHorizontalScroll = () => setHorizontalEnabled(false);
-  const enableHorizontalScroll = () => setHorizontalEnabled(true);
+  const disableHorizontalScroll = useCallback(() => setHorizontalEnabled(false), []);
+  const enableHorizontalScroll = useCallback(() => setHorizontalEnabled(true), []);
 
   // Register scroller callback
   useEffect(() => {
@@ -122,14 +91,12 @@ function SessionLayout<T>({
 
   // Active item callback
   useEffect(() => {
-    if (!data.length) return;
-    onActiveItemChange?.({ item: data[currentIndex], index: currentIndex, goToNext });
-  }, [currentIndex, data, goToNext, onActiveItemChange]);
-
-  if (loading) return <LoadingScreenComponent />;
+    if (!preFetchedData.length) return;
+    onActiveItemChange?.({ item: preFetchedData[currentIndex], index: currentIndex, goToNext });
+  }, [currentIndex, preFetchedData, goToNext, onActiveItemChange]);
 
   // Memoized renderItem for FlatList
-  const renderItem = useCallback(
+  const renderItem: ListRenderItem<T> = useCallback(
     ({ item, index }: { item: T; index: number }) => (
       <View style={styles.content}>
         {children({
@@ -169,11 +136,11 @@ function SessionLayout<T>({
         enabled={keyboardAvoid}
         keyboardVerticalOffset={keyboardVerticalOffset}
       >
-        <LessonNavDots data={data.map((_, idx) => idx)} currentIndex={currentIndex} />
+        <LessonNavDots data={preFetchedData.map((_, idx) => idx)} currentIndex={currentIndex} />
         <View ref={containerRef} style={styles.container}>
           <FlatList
             ref={flatListRef}
-            data={data}
+            data={preFetchedData}
             keyExtractor={(_, index) => index.toString()}
             horizontal
             pagingEnabled
@@ -195,7 +162,7 @@ function SessionLayout<T>({
               goToNext={goToNext}
               goToPrevious={goToPrevious}
               currentIndex={currentIndex}
-              dataSize={data.length}
+              dataSize={preFetchedData.length}
             />
           )}
 

@@ -462,6 +462,7 @@ type SessionContextType = {
   showLessonList: boolean;
   setLessons: (l: Lesson[]) => void;
   setCurrentPosition: (i: number) => void;
+  lessonCompletionHandler: () => void;
   toggleLessonList: () => void;
 };
 

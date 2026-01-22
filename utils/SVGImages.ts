@@ -1,10 +1,5 @@
-// Unused SVGs
-// import ProgressBarActive from '@/assets/images/progress-bar/progress-bar.svg';
-// import ButtonGradient from '@/assets/images/button/button-gradient.svg';
-
 // Exemplary
 import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
-// import BookIcon from '@/assets/images/categories/unit/book.svg';
 import BookOpenIcon from '@/assets/images/categories/unit/book-open.svg';
 import StudyingDolphinIcon from '@/assets/images/categories/unit/studying-dolphin.svg';
 import StudyingDolphinSmallIcon from '@/assets/images/categories/unit/studying-dolphin-icon.svg';

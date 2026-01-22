@@ -1,65 +1,86 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ListRenderItem, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext'
 import SIZES from '@/constants/size'
 import STYLES from '@/constants/styles'
-import { LessonListProps } from '@/types'
+import { Lesson, LessonListProps } from '@/types'
+import { useSession } from '@/context/SessionContext'
+import React, { useCallback } from 'react'
+
+const getTextStyle = (
+    active: boolean,
+    completed: boolean,
+    color: string
+) => [
+    styles.text,
+    active && styles.activeText,
+    completed && styles.completedText,
+    { color },
+];
 
 const LessonList: React.FC<LessonListProps> = ({
     lessons,
     scrollToLessonRef,
     currentPosition
 }) => {
-    const {colors, theme} = useTheme();
+    const {colors} = useTheme();
+    const {toggleLessonList} = useSession();
+    
+    const renderItem: ListRenderItem<Lesson> = useCallback(({item, index}: {item: Lesson, index: number}) => {
+        const onScrollHandler = () => scrollToLessonRef?.current?.(index);
+        const isActive = index === currentPosition;
+        // const color = isActive ? colors.activeLessonText : colors.text;
+        const color = isActive ? "green" : colors.text;
+
+        return (
+        <TouchableOpacity onPress={onScrollHandler}>
+            <Text style={getTextStyle(isActive, item.completed, color)}>
+                {index + 1}. {item.title}
+            </Text>
+        </TouchableOpacity>
+    )}, [currentPosition, colors.text, colors.activeLessonText, scrollToLessonRef]);
+
     return (
-        <View
-            style={[
-                styles.listContainer,
-                {
-                    backgroundColor: colors.primary_950_50,
-                },
-                STYLES.boxShadow
-            ]}
-        >
-            <View style={{position: "relative"}}>
-                {
-                    lessons?.map((lesson, idx) => (
-                        <TouchableOpacity
-                            key={idx.toString()}
-                            onPress={() => scrollToLessonRef?.current?.(idx)}
-                        >
-                            <Text
-                                style={{
-                                    color: idx === currentPosition ? (theme === 'light' ? 'blue' : "green") : colors.text,
-                                    paddingVertical: 8,
-                                    fontWeight: idx === currentPosition ? "bold" : "normal",
-                                    opacity: lesson.completed ? 0.35 : 1,
-                                }}
-                            >
-                                {idx + 1}. {lesson.title}
-                            </Text>
-                        </TouchableOpacity>
-                    ))
-                }
+        <>
+            <Pressable onPress={toggleLessonList} style={StyleSheet.absoluteFill} />
+            <View style={styles.container}>
+                <View style={[styles.content, STYLES.boxShadow, {backgroundColor: colors.primary_950_50}]}>
+                    <FlatList
+                        data={lessons}
+                        keyExtractor={(item) => item?.id?.toString()}
+                        showsVerticalScrollIndicator={true}
+                        renderItem={renderItem}
+                    />
+                </View>
             </View>
-        </View>
+        </>
     );
 }
 
-export default LessonList;
+export default React.memo(LessonList);
 
 const styles = StyleSheet.create({
-    listContainer: {
+    container: {
         position: "absolute",
         top: 0,
         right: SIZES.bodyPaddingHorizontal,
         width: "70%",
-        height: "auto", // "100%",
+        height: "67%", // "auto", // "100%",
+        zIndex: 100,
+    },
+    content: {
+        position: "relative",
         paddingHorizontal: 16,
         paddingVertical: 10,
-        borderStartStartRadius: 16,
-        borderStartEndRadius: 16,
-        borderEndEndRadius: 16,
-        borderEndStartRadius: 0,
-        zIndex: 100,
-    }
+        borderRadius: 16
+    },
+    text: {
+        paddingVertical: 8,
+        fontSize: 12,
+    },
+    activeText: {
+        fontWeight: 'bold',
+    },
+    completedText: {
+        opacity: 0.30,
+    },
 });

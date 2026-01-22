@@ -30,16 +30,7 @@ const PracticeLessonDetails: React.FC<PracticeLessonDetailsProps> = ({
 }) => {
     const {colors} = useTheme();
     return (
-        <View
-            style={{
-                width: "100%",
-                backgroundColor: "#142957",
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 16,
-                marginTop: 'auto'
-            }}
-        >
+        <View style={[styles.container, {backgroundColor: colors.listeningInfoBgColor}]}>
 
             <LessonDetailsItem label={'Context'} content={usage_context ?? ""} />
             <LessonDetailsItem label={'Info'} content={discussion ?? ""} />
@@ -91,24 +82,31 @@ const PracticeLessonDetails: React.FC<PracticeLessonDetailsProps> = ({
 export default PracticeLessonDetails;
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    fontWeight: "600",
-    textAlign: "center",
-    alignItems: "center"
-  },
-  mainText: {
-    fontSize: 20,
-    fontWeight: "700",
-  },
-  subText: {
-    fontSize: 13,
-    fontWeight: "400",
-    // flexWrap: "wrap"
-  },
-  levelText: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginTop: 10
-  }
+    container: {
+        width: "100%",
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 16,
+        marginTop: 'auto'
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: "600",
+        textAlign: "center",
+        alignItems: "center"
+    },
+    mainText: {
+        fontSize: 20,
+        fontWeight: "700",
+    },
+    subText: {
+        fontSize: 13,
+        fontWeight: "400",
+        // flexWrap: "wrap"
+    },
+    levelText: {
+        fontSize: 14,
+        fontWeight: "600",
+        marginTop: 10
+    }
 });

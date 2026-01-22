@@ -66,11 +66,6 @@ const PracticeLessons = () => {
 
   if( loading ) return (<LoadingScreenComponent />)
 
-  // console.log("ScrollViewRef ==>", scrollToRef?.current?.getScrollableNode());
-  // console.log("ScrollViewRef ==>", scrollToRef?.current?.scrollTo());
-  // console.log("ScrollViewRef ==>", scrollToRef?.current?.getNativeScrollRef());
-  // console.log("ScrollViewRef ==>", scrollToRef?.current?.getInnerViewNode());
-
   return (
     <>
       <SessionLayout<PracticeSessionType>
@@ -87,7 +82,7 @@ const PracticeLessons = () => {
           return (
             <ScrollView
               ref={scrollToRef}
-              style={{flex: 1}}
+              // style={{flex: 1}}
               nestedScrollEnabled
               showsVerticalScrollIndicator={false}
               onScrollBeginDrag={disableHorizontalScroll}
