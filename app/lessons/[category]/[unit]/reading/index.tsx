@@ -17,6 +17,7 @@ import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
+import api from '@/lib/api';
 
 const ReadingLessons = () => {
   const { colors } = useTheme();
@@ -24,12 +25,12 @@ const ReadingLessons = () => {
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
-  const [showCompletionModal, setShowCompletionModal] = React.useState<boolean>(false);
+  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ data, setData ] = React.useState<ReadingSessionType[]>([]);
-  const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
-  const [isSelectionHappened, setIsSelectionHappened] = React.useState<boolean>(false)
-  const [isCorrect, setIsCorrect] = React.useState<boolean>(false)
-  const [activeIndex, setActiveIndex] = React.useState<number>(0);
+  const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
+  const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
+  const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
+  const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
   const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
@@ -52,14 +53,11 @@ const ReadingLessons = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/reading/${categoryId}/${unitId}`);
-        if (!res.ok) {
-          console.error("Error fetching reading data:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        // const data: T[] = await res.json();
-        const data: (ReadingSessionType)[] = await res.json();
-        setData(data)
+        const res = await api.get(`/reading/${categoryId}/${unitId}`);
+        if ( res.status !== 200 ) return setData([]);
+
+        const data: (ReadingSessionType)[] = res.data;
+        if( data ) setData(data)
 
       } catch (err) {
         console.error("Error fetching reading data:", err);
@@ -128,13 +126,8 @@ const ReadingLessons = () => {
                       wordRefs={wordRefs}
                       containerRef={containerRef}
                       screenRef={screenRef}
-                      textStyle={{
-                        fontSize: 14,
-                        flexWrap: 'wrap'
-                      }}
-                      textContainerStyle={{
-                        width: "80%"
-                      }}
+                      textStyle={styles.text}
+                      textContainerStyle={styles.textContainer}
                     />
                   </View>
 
@@ -220,5 +213,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: "flex-start",
     gap: 20
+  },
+  text: {
+    fontSize: 14,
+    flexWrap: 'wrap'
+  },
+  textContainer: {
+    width: "80%"
   }
 });

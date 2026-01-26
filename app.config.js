@@ -14,6 +14,7 @@ export default {
       supportsTablet: true
     },
     android: {
+      usesCleartextTraffic: true,
       adaptiveIcon: {
         foregroundImage: "./assets/images/splash-screen/logo-light-mode.png",
         backgroundColor: "#F9FAFB"

@@ -23,6 +23,7 @@ const PracticeSessionLayout = () => {
           options={(props) => ({
             headerStyle: {backgroundColor: colors.background},
             headerShadowVisible: false,
+            // headerTitleAlign: "center",
             // sheetCornerRadius: 20,
             headerLeft: () => (<HeaderTopLeftArrowButton />),
             headerTitle: () => (

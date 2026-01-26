@@ -10,6 +10,8 @@ const App = () => {
     warmUpSpeech();
   }, []);
 
+  console.log(process.env.EXPO_PUBLIC_API_BASE)
+
   if( loading ) return (<LoadingScreenComponent />);
 
   if (!user) {

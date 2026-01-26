@@ -10,9 +10,12 @@ import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import TaskAllocation from '@/components/listening-components/TaskAllocation';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
+import { useListening } from '@/context/ListeningContext';
+import api from '@/lib/api';
 
 const ListeningLessons = () => {
   const { colors } = useTheme();
+  const { resultHandler } = useListening();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
@@ -40,29 +43,14 @@ const ListeningLessons = () => {
     try {
       setLoading(true);
       setActualDEQuery(expectedText);
-      console.log( "Action triggered..." )
-      const res = await fetch(
-          `${process.env.EXPO_PUBLIC_API_BASE}/nlp/analyze/answer`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              expected: expectedText,
-              user_answer: textContent
-            }),
-          }
-      );
+      const res = await api.post( `/nlp/analyze/answer`, {
+        expected: expectedText,
+        user_answer: textContent
+      });
+      if( res.status !== 200 ) return setResult(null);
 
-      if (!res.ok) {
-          const text = await res.text();
-          throw new Error(text);
-      }
-      console.log("No error during fetching....")
-      const data = await res.json();
-
-      setResult(data);
+      const {data} = res;
+      if( data ) setResult(data);
 
       console.log("data:", data)
 
@@ -81,25 +69,28 @@ const ListeningLessons = () => {
     setLoading(false);
   }, []);
 
+  const lessonCompletionHandler = React.useCallback( async () => {
+    await resultHandler(result!);
+    reset();
+    goToNextRef?.current && goToNextRef.current?.();
+  }, [reset, goToNextRef, result]);
+
   React.useEffect(() => {
     const dataLoad = async () => {
-      setIsLoading(true)
+      setLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/listening/${categoryId}/${unitId}`);
-        if (!res.ok) {
-          console.error("Error fetching listening data:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
+        const res = await api.get(`/listening/${categoryId}/${unitId}`);
+        if(res.status !== 200) return setData([])
+        
+        const data: (ListeningSessionType)[] = res.data;  
+        if( data ) {
+          setData(data);
         }
-        // const data: T[] = await res.json();
-        const data: (ListeningSessionType)[] = await res.json();
-        setData(data)
-
       } catch (err) {
         console.error("Error fetching listening data:", err);
         setData([])
-        // throw err;
       }
-      setIsLoading(false)
+      setLoading(false)
     }
 
     if (categoryId && unitId && slug) dataLoad();
@@ -110,16 +101,15 @@ const ListeningLessons = () => {
   return (
     <>
       <SessionLayout<ListeningSessionType>
-          sessionType="listening"
-          keyboardAvoid={true}
-          preFetchedData={data}
-          onPositionChange={setActiveIndex}
-          onSessionComplete={() => setShowCompletionModal(true)}
-          onActiveItemChange={({ item, goToNext }) => {
-            reset(); // optional: reset recorder per item
-            goToNextRef.current = goToNext;
-          }}
-        >
+        sessionType="listening"
+        keyboardAvoid={true}
+        preFetchedData={data}
+        onPositionChange={setActiveIndex}
+        onSessionComplete={() => setShowCompletionModal(true)}
+        onActiveItemChange={({ item, goToNext }) => {
+          goToNextRef.current = goToNext;
+        }}
+      >
         {({ item }) => {
 
           const onCheckHandler = () => analyzeListeningHandler( item.phrase );
@@ -142,7 +132,7 @@ const ListeningLessons = () => {
                 // enterkeyhint='done'
                 placeholder='Write here...'
                 value={textContent}
-                onChange={(text) => setTextContent(text)}
+                onChange={setTextContent}
                 placeholderTextColor={colors.placeholderColor}
                 inputMode="text"
                 onBlur={() => {}}
@@ -168,10 +158,7 @@ const ListeningLessons = () => {
         isVisible={result ? true : false}
         actualQuery={actualDEQuery}
         result={result!}
-        onContinue={() => {
-          reset();
-          goToNextRef?.current && goToNextRef.current?.();
-        }}
+        onContinue={lessonCompletionHandler}
         onModalVisible={reset}
         onRetry={reset}
       />)}

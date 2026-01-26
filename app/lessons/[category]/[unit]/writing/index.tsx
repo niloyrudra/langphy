@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
@@ -10,6 +10,7 @@ import { SessionResultType, WritingSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
+import api from '@/lib/api';
 
 const WritingSession = () => {
   const { colors } = useTheme();
@@ -23,11 +24,11 @@ const WritingSession = () => {
   const [ loading, setLoading ] = React.useState<boolean>(false)
   const [data, setData] = React.useState<WritingSessionType[]>([]);
   const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
-  const [activeIndex, setActiveIndex] = React.useState<number>(0);
+  // const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
-    if(!textContent) {
-      setError("No expected text found!");
+    if(!textContent.trim()) {
+      setError("Please write your answer first!");
       return;
     }
     if (!expectedText) {
@@ -38,39 +39,20 @@ const WritingSession = () => {
     try {
       setLoading(true);
       setActualDEQuery(expectedText);
-      console.log( "Action triggered..." )
-      const res = await fetch(
-          `${process.env.EXPO_PUBLIC_API_BASE}/nlp/analyze/answer`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              expected: expectedText,
-              user_answer: textContent
-            }),
-          }
-      );
-
-      if (!res.ok) {
-          const text = await res.text();
-          throw new Error(text);
+      const res = await api.post( `/nlp/analyze/answer`, {
+        expected: expectedText,
+        user_answer: textContent
+      });
+      if (res.status === 200 && res.data) {
+        setResult(res.data);
       }
-      console.log("No error during fetching....")
-      const data = await res.json();
-
-      setResult(data);
-
-      console.log("data:", data)
-
     } catch (err: any) {
       console.error(err);
       setError("Speech analysis failed");
     } finally {
       setLoading(false);
     }
-  }, [textContent]);
+  }, [textContent, api]);
 
   const reset = React.useCallback(() => {
     setTextContent("");
@@ -80,27 +62,27 @@ const WritingSession = () => {
   }, []);
 
   React.useEffect(() => {
-    const dataLoad = async () => {
-      setIsLoading(true)
-      try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/writing/${categoryId}/${unitId}`);
-        if (!res.ok) {
-          console.error("Error fetching writing data:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        // const data: T[] = await res.json();
-        const data: (WritingSessionType)[] = await res.json();
-        setData(data)
+    let isMounted = true;
 
-      } catch (err) {
-        console.error("Error fetching writing data:", err);
-        setData([])
-        // throw err;
+    const dataLoad = async () => {
+      if (!isMounted) return;
+      setIsLoading(true);
+
+      try {
+        const res = await api.get(`/writing/${categoryId}/${unitId}`);
+        setData(res.status === 200 ? res.data : []);
+        if (isMounted) {
+          setData(res.status === 200 ? res.data : []);
+        }
+      } catch {
+        if (isMounted) setData([]);
+      } finally {
+        if (isMounted) setIsLoading(false);
       }
-      setIsLoading(false)
-    }
+    };
 
     if (categoryId && unitId && slug) dataLoad();
+    return () => { isMounted = false };
   }, [categoryId, unitId, slug]);
 
   if( isLoading ) return (<LoadingScreenComponent />)
@@ -111,10 +93,10 @@ const WritingSession = () => {
         sessionType="writing"
         keyboardAvoid={true}
         preFetchedData={data}
-        onPositionChange={setActiveIndex}
+        // onPositionChange={setActiveIndex}
         onActiveItemChange={({ item, goToNext }) => {
           goToNextRef.current = goToNext;
-          reset(); // optional: reset recorder per item
+          // reset();
         }}
       >
         {({ item }) => {
@@ -147,10 +129,9 @@ const WritingSession = () => {
                 multiline={true}
                 numberOfLines={2}
                 maxLength={500}
-                // enterKeyHint="done"
                 placeholder='Write here...'
                 value={textContent}
-                onChange={(text) => setTextContent(text)}
+                onChange={setTextContent}
                 onBlur={() => {}}
                 placeholderTextColor={colors.placeholderColor}
                 inputMode="text"

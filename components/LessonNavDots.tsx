@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons'
-// import { ToolTip } from '@/types';
+import { useTheme } from '@/theme/ThemeContext';
 
 interface LessonNav {
     data: number[];
@@ -9,18 +9,12 @@ interface LessonNav {
 }
 
 const LessonNavDots = ({data, currentIndex}: LessonNav) => {
+    const {colors} = useTheme();
     return (
-        <View
-            style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                gap: 5
-            }}
-        >
+        <View style={styles.dotContainer}>
             {
-                // data.length > 0 &&
                 data?.map( (_, idx) => (
-                    <AntDesign key={idx.toString()} name="pinterest" size={15} color={currentIndex >= idx ? '#0A9AB0' : "#142C57"} />
+                    <AntDesign key={idx.toString()} name="pinterest" size={15} color={currentIndex >= idx ? '#0A9AB0' : colors.lessonListDot} />
                 ))
             }
         </View>
@@ -29,4 +23,10 @@ const LessonNavDots = ({data, currentIndex}: LessonNav) => {
 
 export default LessonNavDots;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    dotContainer: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 5
+    }
+})

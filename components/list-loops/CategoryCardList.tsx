@@ -4,11 +4,9 @@ import SIZES from '@/constants/size';
 import CategoryCard from '../CategoryCard';
 import GridLayout from '../layouts/GridLayout';
 import LoadingScreenComponent from '../LoadingScreenComponent';
-
-console.log(`${process.env.EXPO_PUBLIC_API_BASE}/category`);
+import api from '@/lib/api';
 
 const CategoryCardList = () => {
-
   const [loading, setLoading] = React.useState<boolean>(false)
   const [ categories, setCategories ] = React.useState<Category[]>([])
 
@@ -17,33 +15,28 @@ const CategoryCardList = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/category`);
-        if (!res.ok) {
-          console.error("Error fetching categories:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        setCategories(data)
+        const res = await api.get(`/category`);
+        if(res.status !== 200) return setCategories([])
+        
+        const {data} = res;  
+        if( data ) setCategories(data);
       } catch (err) {
         console.error("Error fetching categories:", err);
         setCategories([])
-        // throw err;
       }
       setLoading(false)
     }
 
     dataLoad();
 
-    return setCategories([])
+    return setCategories([]);
   }, []);
 
-  // console.log(catIcons['airport'])
-  // console.log(process.env.EXPO_PUBLIC_API_BASE)
   if( loading ) return (<LoadingScreenComponent />);
 
   return (
     <GridLayout<Category>
-      data={categories || []}
+      data={categories}
       keyExtractor={(item) => item._id}
       renderItem={({item}: {item: Category}) => (
         <CategoryCard

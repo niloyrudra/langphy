@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Alert, StyleSheet, View, SectionList } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
@@ -11,7 +11,8 @@ import SettingsElementAction from '@/components/settings/SettingsElementAction';
 import ActionButton from '@/components/form-components/ActionButton';
 import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
 import { useProfile } from '@/context/ProfileContext';
-import STYLES from '@/constants/styles';
+// import STYLES from '@/constants/styles';
+import api from '@/lib/api';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
@@ -30,19 +31,22 @@ const SettingsScreen = () => {
             }
           );
           const data = await res.json();
+
+          const axiosRes = await api.post("/users/signout");
     
-          console.log(res.status, data)
+          console.log(axiosRes)
     
           if( res.status === 200 && data! ) {  
-            const { message } = data;
+            // const { message } = res.data;
 
             // await SecureStore.setItemAsync("accessToken", token);
             await SecureStore.deleteItemAsync("accessToken");
             // setUser(null);
             clear();
 
-            if(message) Alert.alert( message )
-            else Alert.alert("Successfully signed out!");
+            // if(message) Alert.alert( message )
+            // else Alert.alert("Successfully signed out!");
+            Alert.alert("Successfully signed out!");
             
             router.replace("/auth/login");
 
@@ -56,18 +60,14 @@ const SettingsScreen = () => {
       console.error("Signout Error:", err)
       Alert.alert("Signout failed!")
     }
-    finally {
-      // setEmail('')
-      // setPassword('')
-    }
   }
 
-  const modalHandler = () => setShowModal(prevValue => !prevValue);
+  const modalHandler = useCallback(() => setShowModal(prevValue => !prevValue), [setShowModal]);
 
   return (
     <>
       <SafeAreaLayout>
-        <View style={{flex: 1, marginBottom: 30}}>
+        <View style={styles.container}>
 
           <SectionList
             sections={SETTINGS_DATA}
@@ -79,8 +79,7 @@ const SettingsScreen = () => {
                   key={index.toString()}
                   style={[
                     styles.settingItem,
-                    {backgroundColor: colors.profileCardBg},
-                    // STYLES.boxShadowLight
+                    {backgroundColor: colors.profileCardBg}
                   ]}
                 >
                   <SettingsElement
@@ -133,10 +132,8 @@ const SettingsScreen = () => {
             )}
           />
 
-
         </View>
       </SafeAreaLayout>
-
       {
         showModal && (
           <AccountDeletionModal
@@ -145,7 +142,6 @@ const SettingsScreen = () => {
           />
         )
       }
-
     </>
   )
 }
@@ -153,6 +149,10 @@ const SettingsScreen = () => {
 export default SettingsScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginBottom: 30
+  },
   settingItemContainer: {
     flex: 1,
     flexDirection: "column",

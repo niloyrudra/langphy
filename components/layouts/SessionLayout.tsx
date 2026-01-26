@@ -29,8 +29,6 @@ interface SessionLayoutProps<T> {
   onActiveItemChange?: (args: { item: T; index: number; goToNext: () => void }) => void;
   onSessionComplete?: () => void;
   keyboardVerticalOffset?: number;
-  categoryId?: string;
-  unitId?: string;
   children: (props: {
     item: T;
     index: number;

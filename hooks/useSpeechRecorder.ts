@@ -94,7 +94,7 @@ const useSpeechRecorder = ( text: string | null ) => {
             console.log( "Action triggered..." )
             const formData = new FormData();
             formData.append("audio", {
-                uri: recordedUri,
+                uri: recordedUri.startsWith("file://") ? recordedUri : `file://${recordedUri}`,
                 name: "speech.m4a",
                 type: "audio/m4a",
             } as any);

@@ -13,6 +13,7 @@ import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useTheme } from '@/theme/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
+import api from '@/lib/api';
 
 const QuizSession = () => {
   const {colors} = useTheme();
@@ -46,14 +47,11 @@ const QuizSession = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/quizzes/${categoryId}/${unitId}`);
-        if (!res.ok) {
-          console.error("Error fetching Quiz data:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
-          setError(`Error fetching Quiz data`);
-        }
-        const data: (QuizSessionType)[] = await res.json();
-        setData(data)
+        const res = await api.get(`/quizzes/${categoryId}/${unitId}`);
+        if( res.status !== 200 ) return setData([]);
+
+        const data: (QuizSessionType)[] = res.data;
+        if( data ) setData(data)
 
       } catch (err: any) {
         console.error("Error fetching Quiz data:", err);
@@ -73,7 +71,6 @@ const QuizSession = () => {
     <>
       <SessionLayout<QuizSessionType>
         preFetchedData={data}
-        sessionType={typeof slug == 'string' ? slug : ""}
         onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({item, goToNext}) => {

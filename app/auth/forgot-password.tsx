@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import AuthInput from '@/components/form-components/auth/AuthInput';
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink';
+import api from '@/lib/api';
 
 const ResetPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is rewuired!"),
@@ -23,22 +24,18 @@ const ForgotPasswordScreen = () => {
     if( password !== confirmedPassword ) return Alert.alert("Passwords must match each other!");
     try {
       setLoading(true)
-      const res = await fetch(
-      `${process.env.EXPO_PUBLIC_API_BASE}/users/reset-password`,
-      {
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              email,
-              password: password
-          })
-      }
+      const res = await api.put(
+        `/users/reset-password`,
+        {
+          email,
+          password: password
+        }
       );
-      const data = await res.json();
+      if( res.status !== 200 ) return Alert.alert(res.statusText)
+      // const data = await res.json();
+      const {data} = res
       console.log(data);
-      if( data.status == 200 ) Alert.alert(data.message);
+      if( data.message ) Alert.alert(data.message);
     }
     catch(err) {
       setLoading(false)
@@ -54,11 +51,10 @@ const ForgotPasswordScreen = () => {
 
       {/* FORM */}
       <Formik
-        initialValues={{ email: "", password: "", confirmedPassword: "" }}
+        initialValues={{ email: "", newPassword: "", confirmedPassword: "" }}
         validationSchema={ResetPasswordSchema}
-        // style={{flex:1}}
         onSubmit={(values, {resetForm}) => {
-          handleResetPassword( values.email, values.password, values.confirmedPassword);
+          handleResetPassword( values.email, values.newPassword, values.confirmedPassword);
           resetForm();
         }}
       >
@@ -78,13 +74,14 @@ const ForgotPasswordScreen = () => {
 
             {/* Password TextField Component */}
             <AuthInput
-              value={values.password}
-              placeholderText='Password'
+              value={values.newPassword}
+              placeholderText='New Password'
               inputMode='text'
-              handleBlur={handleBlur('password')}
-              handleChange={handleChange('password')}
-              error={errors.password || null}
-              touched={touched.password ? "true" : null}
+              handleBlur={handleBlur('newPassword')}
+              handleChange={handleChange('newPassword')}
+              error={errors.newPassword || null}
+              touched={touched.newPassword ? "true" : null}
+              isPassword={true}
             />
 
             <AuthInput
@@ -95,6 +92,7 @@ const ForgotPasswordScreen = () => {
               handleChange={handleChange('confirmedPassword')}
               error={errors.confirmedPassword || null}
               touched={touched.confirmedPassword ? "true" : null}
+              isPassword={true}
             />
 
             {/* Submit Button */}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import STYLES from '@/constants/styles';
-import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
@@ -12,22 +11,17 @@ import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
-// import AnalyzedResult from '@/components/recoder-components/AnalyzedResult';
 import { RecorderReload } from '@/utils/SVGImages';
 import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx';
+import api from '@/lib/api';
 
 
 const SpeakingLessons = () => {
-  const { colors } = useTheme();
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
   const [data, setData] = React.useState<SpeakingSessionType[]>([]);
   const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
-
-  // const captureGoToNext = React.useCallback((fn?: () => void) => {
-  //   goToNextRef.current = fn ?? null;
-  // }, []);
 
   const {categoryId, slug, unitId} = useLocalSearchParams();
 
@@ -52,19 +46,15 @@ const SpeakingLessons = () => {
     const dataLoad = async () => {
       setIsLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/speaking/${categoryId}/${unitId}`);
-        if (!res.ok) {
-          console.error("Error fetching practice data:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        // const data: T[] = await res.json();
-        const data: (SpeakingSessionType)[] = await res.json();
-        setData(data)
+        const res = await api.get(`/speaking/${categoryId}/${unitId}`);
+        if( res.status !== 200 ) return setData([])
+
+        const data: (SpeakingSessionType)[] = res.data;
+        if( data ) setData(data)
 
       } catch (err) {
         console.error("Error fetching practice data:", err);
         setData([])
-        // throw err;
       }
       setIsLoading(false)
     }
@@ -72,26 +62,19 @@ const SpeakingLessons = () => {
     if (categoryId && unitId && slug) dataLoad();
   }, [categoryId, unitId, slug]);
 
-  React.useEffect(() => {reset()}, [activeIndex]);
-
   if( isLoading ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<SpeakingSessionType>
         preFetchedData={data}
-        sessionType={typeof slug == 'string' ? slug : ""}
-        categoryId={ typeof categoryId == 'string' ? categoryId : "" }
-        unitId={ typeof unitId == 'string' ? unitId : "" }
         onPositionChange={setActiveIndex}
         onActiveItemChange={({ item, goToNext }) => {
-          setExpectedText(item.phrase);
+          setExpectedText(prevValue => prevValue = item.phrase.trim())
           goToNextRef.current = goToNext;
-          reset(); // optional: reset recorder per item
         }}
       >
         {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
-          setExpectedText(item.phrase);
           const handleTooltip = (value: any) => {
             setTooltip(value);
           };
@@ -103,12 +86,7 @@ const SpeakingLessons = () => {
                 <ChallengeScreenTitle title="Speak This Sentence" />
       
                 {/* Writing Section Starts */}
-                <View
-                  style={{
-                    flex:1,
-                    marginBottom: 80
-                  }}
-                >
+                <View style={styles.taskContainer}>
       
                   <View style={[styles.container]}>
                     {/* Query Listen with Query Text Section */}
@@ -143,26 +121,12 @@ const SpeakingLessons = () => {
 
                     {error && <Text style={{ color: "red" }}>{error}</Text>}
 
-                    
-
                   </View>
-                  
                 </View>
-              
               </View>
       
-              {/* {result && (<AnalyzedResult result={result} />)} */}
-
               {/* Action Buttons */}
-              <View
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: 10
-                }}
-              >
+              <View style={styles.recordingSection}>
                 <TouchableOpacity
                   onPress={reset}
                   disabled={!isRecordingDone || loading}
@@ -173,14 +137,15 @@ const SpeakingLessons = () => {
 
                 <ActionPrimaryButton
                   buttonTitle='Check'
-                  onSubmit={analyzeSpeech}
+                  onSubmit={() => {
+                    setExpectedText(prevValue => prevValue = item.phrase.trim())
+                    analyzeSpeech()
+                  }}
                   isLoading={loading}
                   disabled={!isRecordingDone || loading}
                   buttonStyle={{width: "70%", borderRadius: 30, overflow: "hidden"}}
                 />
               </View>
-
-
             </>
           )
         }}
@@ -212,8 +177,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20
   },
+  taskContainer: {
+    flex:1,
+    marginBottom: 80
+  },
   query: {
     fontSize: 24,
     fontWeight: "700"
+  },
+  recordingSection: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10
   }
 })

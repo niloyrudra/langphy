@@ -26,6 +26,8 @@ export const lightColors = {
   accountDeletionModalBg: "#FFFFFF",
   accountDeletionModalText: "#676767",
 
+  lessonListDot: "#EDEDED",
+
   gradiantDeep: '#FFFFFF',
 
   activeLessonText: "blue",
@@ -108,6 +110,8 @@ export const darkColors = {
 
   accountDeletionModalBg: "#142C57",
   accountDeletionModalText: "#DFDFDF",
+
+  lessonListDot: "#142C57",
 
   gradiantDeep: '#081A33',
 

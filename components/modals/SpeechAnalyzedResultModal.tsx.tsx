@@ -22,7 +22,7 @@ interface SpeechResultModalProps {
 const SpeechResultModal = ({isVisible, onModalVisible, result, onRetry, onContinue}: SpeechResultModalProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
-    const feedback = feedbackComments(result.analysis.similarity);
+    const feedback = feedbackComments(result?.analysis?.similarity ?? "");
 
     return (
         <Modal
@@ -32,12 +32,7 @@ const SpeechResultModal = ({isVisible, onModalVisible, result, onRetry, onContin
             visible={isVisible}
             onRequestClose={onModalVisible}
             backdropColor={colors.modalBackDropColor}
-            style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').height,
-                bottom: 0
-            }}
-            
+            style={styles.modalContainer}
         >
             <View style={[styles.centeredView]}>
                 
@@ -55,16 +50,12 @@ const SpeechResultModal = ({isVisible, onModalVisible, result, onRetry, onContin
                 >
                     {/* Modal Content */}
                     <LinearGradient
-                        colors={['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']}
-                        style={[{padding: 20}]}
+                        colors={[colors.gradiantDeep, colors.gradiantDeep]}
+                        style={[styles.gradientCard]}
                     >
 
                         {/* Modal Header */}
-                        <View
-                            style={{
-                                marginBottom: 15
-                            }}
-                        >
+                        <View style={styles.modalHeader}>
                             <Text style={[styles.modalText, {color: feedback.color}]}>{feedback.label}</Text>
                         </View>
 
@@ -80,26 +71,42 @@ const SpeechResultModal = ({isVisible, onModalVisible, result, onRetry, onContin
                                 iconComponent={<FontAwesome name="microphone" size={22} color={colors.text} />}
                             />
 
+                            <View>
+
+                                {
+                                    result.words?.map((word, index) => (
+                                        <View key={index.toString()}>
+                                            <Text style={{color: colors.text}}>Word: {word.text}</Text>
+                                            <Text style={{color: colors.text}}>
+                                                Confidence: <Text style={{textTransform: "capitalize", fontWeight: "800"}}>{word.confidence}</Text>
+                                            </Text>
+                                            
+                                        </View>
+                                    ))
+                                }
+                            
+                            </View>
+
                             <ResultDetail
                                 label="Similarity Score:"
-                                detail={Math.round(result.analysis.similarity * 100) + "%"}
+                                detail={Math.round(result?.analysis?.similarity * 100) + "%"}
                                 iconComponent={<FontAwesome name="trophy" size={20} color={colors.text} />}
                             />
                             
                             <ResultDetail
                                 label="Pronunciation Score:"
-                                detail={`${result.analysis.pronunciation_score}`}
+                                detail={`${result?.analysis?.pronunciation_score}`}
                                 iconComponent={<FontAwesome6 name="crown" size={16} color={colors.text} />}
                             />
 
                             <ResultDetail
                                 label='Issues:'
-                                detail={result.analysis?.issues?.length > 0 ?result.analysis?.issues?.join(", ") : 'No issues found'}
+                                detail={result.analysis?.issues?.length > 0 ? result?.analysis?.issues?.join(", ") : 'No issues found'}
                                 iconComponent={<MaterialIcons name="error" size={20} color={colors.text} />}
                             />
 
                             <ResultDetail
-                                detail={result.analysis.feedback}
+                                detail={result?.analysis?.feedback}
                                 iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
                             />
 
@@ -133,6 +140,11 @@ const SpeechResultModal = ({isVisible, onModalVisible, result, onRetry, onContin
 export default SpeechResultModal;
 
 const styles = StyleSheet.create({
+    modalContainer: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        bottom: 0
+    },
     centeredView: {
         flex: 1,
         justifyContent: 'flex-end',
@@ -168,5 +180,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "column",
         gap: 5
-    }
+    },
+    gradientCard: {padding: 20},
+    modalHeader: {marginBottom: 15},
 });

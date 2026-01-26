@@ -15,6 +15,7 @@ import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import PracticeLessonDetails from '@/components/practice-components/LessonDetails';
 import LessonList from '@/components/practice-components/LessonList';
+import api from '@/lib/api';
 
 type BackendLesson = {
   _id: string;
@@ -36,31 +37,27 @@ const PracticeLessons = () => {
     const dataLoad = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${process.env.EXPO_PUBLIC_API_BASE}/practices/${categoryId}/${unitId}`);
-        if (!res.ok) {
-          console.error("Error fetching practice data:", res.status);
-          // throw new Error(`HTTP error! status: ${res.status}`);
+        const res = await api.get(`/practices/${categoryId}/${unitId}`);
+        if(res.status !== 200) return setData([])
+        
+        const data: (PracticeSessionType & BackendLesson)[] = res.data;  
+        if( data ) {
+          setData(data);
+          setLessons(
+            data.map((lesson: BackendLesson): Lesson => ({
+              id: lesson._id,
+              title: lesson.meaning,
+              completed: false
+            }))
+          );
         }
-        // const data: T[] = await res.json();
-        const data: (PracticeSessionType & BackendLesson)[] = await res.json();
-        setData(data)
-
-        setLessons(
-          data.map((l: BackendLesson): Lesson => ({
-            id: l._id,
-            title: l.meaning,
-            completed: false,
-          }))
-        );
-
       } catch (err) {
         console.error("Error fetching practice data:", err);
         setData([])
-        // throw err;
       }
       setLoading(false)
     }
-
+    
     if (categoryId && unitId && slug) dataLoad();
   }, [categoryId, unitId, slug]);
 
@@ -71,9 +68,6 @@ const PracticeLessons = () => {
       <SessionLayout<PracticeSessionType>
         preFetchedData={data}
         showFooter={true}
-        sessionType={typeof slug == 'string' ? slug : ""}
-        categoryId={ typeof categoryId == 'string' ? categoryId : "" }
-        unitId={ typeof unitId == 'string' ? unitId : "" }
         onPositionChange={(index: number) => setCurrentPosition(index)}
         onRegisterScroller={(scrollFn) => {scrollToLessonRef.current = scrollFn}}
       >
@@ -82,7 +76,6 @@ const PracticeLessons = () => {
           return (
             <ScrollView
               ref={scrollToRef}
-              // style={{flex: 1}}
               nestedScrollEnabled
               showsVerticalScrollIndicator={false}
               onScrollBeginDrag={disableHorizontalScroll}
