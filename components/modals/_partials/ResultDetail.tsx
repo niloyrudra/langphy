@@ -1,47 +1,56 @@
-import { type ColorValue, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { memo, ReactNode } from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
 
 interface ResultDetailProps {
-    // iconSize?: number;
-    // iconColor?: ColorValue;
-    // iconName: string;
     label?: string;
-    detail: string;
-    iconComponent?: React.ReactNode;
+    detail: string | ReactNode;
+    iconComponent?: ReactNode;
 }
 
 const ResultDetail = ({label, detail, iconComponent}: ResultDetailProps) => {
     const {colors} = useTheme();
     return (
         <View style={[styles.container]}>
-            { iconComponent && iconComponent }
-            {/* <Text style={{color:colors.text}}>
-                {label ? <>{label}{" "}<Text style={[styles.detail, {color:colors.text}]}>{detail}</Text></> : detail}
-            </Text> */}
-            <View
-                style={{flexDirection: "row", alignItems: "center", gap: 5}}
-            >
+            { iconComponent && (
+                <View style={styles.iconContainer}>
+                    {iconComponent}
+                </View>
+            )}
+
+            <View style={styles.content}>
+                {label && (<Text style={[ {color:colors.text}]}>{label}</Text>)}
                 {
-                    label && (
-                        <Text style={[ {color:colors.text}]}>{label}</Text>
-                    )
+                    typeof detail === 'string'
+                        ? (<Text style={[styles.detail, STYLES.wordWrapStyle, {color:colors.text}]}>
+                            {detail}
+                            </Text>)
+                        : detail
                 }
-                <Text style={[styles.detail, STYLES.wordWrapStyle, {color:colors.text}]}>{detail}</Text>
             </View>
         </View>
     )
 }
 
-export default ResultDetail
+export default memo(ResultDetail);
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         justifyContent: "flex-start",
+        alignItems: "flex-start",
+        gap: 10
+    },
+    iconContainer: {
+        width: 24,
+        alignItems:"flex-start",
+        justifyContent: "flex-start"
+    },
+    content: {
+        flexDirection: "row",
         alignItems: "center",
-        gap: 20
+        gap: 5
     },
     detail: {
         fontWeight: "800",

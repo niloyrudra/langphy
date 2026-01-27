@@ -533,7 +533,7 @@ type SpeechResult = {
     };
     sagments: Segments[];
     transcription: string;
-    words?: SpeechResultWordS[];
+    words?: WordConfidence[]; // SpeechResultWordS[];
 }
 
 type SessionResultType = {
@@ -566,6 +566,18 @@ type User = {
     // token?: string;
 }
 
+type Confidence = {
+    key: string;
+    score: string;
+    label: string;
+    color: string;
+}
+
+type WordConfidence = {
+    text: string;
+    confidence: Confidence;
+}
+
 export {
   User,
   
@@ -574,6 +586,9 @@ export {
   Lesson,
   SessionContextType,
   SessionProviderProps,
+
+  WordConfidence,
+  Confidence,
   
   SettingsData,
   SettingsElement,

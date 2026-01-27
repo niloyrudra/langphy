@@ -18,7 +18,7 @@ export const preloadVoices = async () => {
   
   if( deVoice ) {
     Speech.speak(
-      "Willkommen",
+      "", // Willkommen
       {
         voice: deVoice.identifier,
         volume: 0,
