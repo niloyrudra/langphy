@@ -1,0 +1,22 @@
+import { db } from "./index";
+import {
+    CREATE_CATEGORIES_TABLE,
+    CREATE_LESSONS_TABLE,
+    CREATE_PROFILE_TABLE,
+    CREATE_PROGRESS_TABLE,
+    CREATE_SETTINGS_TABLE,
+    CREATE_STREAKS_TABLE,
+    CREATE_UNITS_TABLE
+} from "./schema";
+
+export const runMigrations = async () => {
+    await Promise.all([
+        db.execAsync(CREATE_PROFILE_TABLE),
+        db.execAsync(CREATE_SETTINGS_TABLE),
+        db.execAsync(CREATE_PROGRESS_TABLE),
+        db.execAsync(CREATE_STREAKS_TABLE),
+        db.execAsync(CREATE_CATEGORIES_TABLE),
+        db.execAsync(CREATE_UNITS_TABLE),
+        db.execAsync(CREATE_LESSONS_TABLE),
+    ]);
+};

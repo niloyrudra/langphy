@@ -1,12 +1,15 @@
 import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
+import { useProfile } from '@/hooks/useProfile';
+import { useAuth } from '@/context/AuthContext';
 // import { useAuth } from '@/context/AuthContext';
-import { useProfile } from '@/context/ProfileContext';
+// import { useProfile } from '@/context/ProfileContext';
 
 const ProfileNameAndId = () => {
     const {colors} = useTheme();
-    const {profile, loading} = useProfile();
+    const {user} = useAuth();
+    const {data: profile, isLoading: loading} = useProfile(user?.id as string);
 
     const displayName = React.useCallback(() => {
         if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
@@ -15,6 +18,8 @@ const ProfileNameAndId = () => {
         else if( profile.first_name && profile.last_name ) return profile.first_name + " " + profile.last_name
         else return "Anonymous"
     }, [profile?.first_name, profile?.last_name]);
+
+    console.log("Profile data in ProfileNameAndId: ", profile);
 
     return (
         <View style={[styles.container]}>

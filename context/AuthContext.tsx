@@ -3,6 +3,9 @@ import * as SecureStore from "expo-secure-store";
 import { jwtDecode } from "jwt-decode";
 // import api from "@/lib/api";
 import { User } from "@/types";
+import { bootstrapProfileFromToken } from "@/bootstraps/profile.bootstrap";
+import { bootstrapSettingsFromToken } from "@/bootstraps/settings.bootstrap";
+import { bootstrapStreaks } from "@/bootstraps/streaks.bootstrap";
 
 type authContextType = {
     user: User | null;
@@ -32,6 +35,18 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                     const decode: any = jwtDecode(token);
                     console.log("decode:", decode);
                     setUser( { id: decode.id, email: decode.email, created_at: decode?.created_at } );
+                    // Storing profile locally
+                    await bootstrapProfileFromToken({
+                        id: decode.id,
+                        email: decode.email,
+                        created_at: decode?.created_at
+                    });
+                    await bootstrapSettingsFromToken({
+                        user_id: decode.id,
+                    });
+                    await bootstrapStreaks({
+                        user_id: decode.id,
+                    });
                 }
                 catch(err) {
                     await SecureStore.deleteItemAsync("accessToken");

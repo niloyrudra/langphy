@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import StatsDetail from './StatsDetail';
-import { useStreaks } from '@/context/StreaksContext';
+import { useStreak } from '@/hooks/useStreaks';
 
 const ProfileStats = () => {
     const {colors} = useTheme();
-    const { streaks } = useStreaks();
+    const { data: streaks } = useStreak();
+    console.log("Streaks data in ProfileStats: ", streaks);
     return (
         <View style={[styles.container, {backgroundColor: colors.profileGradientBox}]}>
             <StatsDetail
@@ -16,11 +17,11 @@ const ProfileStats = () => {
                 icon={<ProgressIcon width={24} height={24} />}
             />
             
-            <View style={{width: 1, height: 36, backgroundColor: "#EDEDED"}} />
+            <View style={styles.divider} />
 
             <StatsDetail
                 title="Streak"
-                stats={streaks?.current ? streaks.current.toString() : "0"}
+                stats={streaks?.current_streak ? streaks.current_streak.toString() : "0"}
                 icon={<SteakIcon width={24} height={24} />}
             />
 
@@ -37,5 +38,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent:"space-evenly",
         alignItems: "center"
+    },
+    divider: {
+        width: 1,
+        height: 36,
+        backgroundColor: "#EDEDED"
     }
 });

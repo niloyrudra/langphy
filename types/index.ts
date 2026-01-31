@@ -13,12 +13,17 @@ type UserData = {
 }
 
 type Category = {
-  // id: string,
   _id: string,
   title: string,
   slug: string,
   position_at: string
-  // ImgComponent: React.FC<SvgProps>
+}
+
+type LocalCategory = {
+  id: string;
+  title: string;
+  slug: string;
+  position_at: string;
 }
 
 type CategoryProps = {
@@ -31,6 +36,20 @@ type CategoryProps = {
 }
 
 // UNIT LESSON
+type LocalUnitType = {
+    id: string;
+    category_id: string;
+    title: string;
+    slug: string;
+}
+
+type APIUnitType = {
+  _id: string,
+  categoryId: string,
+  title: string,
+  slug: string
+}
+
 type UnitLesson = {
   id: string,
   title: string,
@@ -574,8 +593,14 @@ type Confidence = {
 }
 
 type WordConfidence = {
-    text: string;
-    confidence: Confidence;
+  text: string;
+  confidence: Confidence;
+}
+
+type ContentType = "practice" | "quiz" | "listening" | "reading" | "writing" | "speaking";
+type BackendLesson = {
+  _id: string;
+  meaning: string;
 }
 
 export {
@@ -587,6 +612,9 @@ export {
   SessionContextType,
   SessionProviderProps,
 
+  ContentType,
+  BackendLesson,
+
   WordConfidence,
   Confidence,
   
@@ -595,22 +623,31 @@ export {
   UserData,
   WordDataShape,
   ToolTip,
-  ReadingSessionType,
-  Category,
-  PracticeSessionType,
-  UnitIndividualCategory,
+  
   DB,
+
+  ReadingSessionType,
+  PracticeSessionType,
+  
+  Category,
+  LocalCategory,
   CategoryProps,
+  
+  LocalUnitType,
+  APIUnitType,
   UnitLesson,
   UnitLessonProps,
   UnitProps,
   UnitCategoryItemProps,
   UnitLessonItemProps,
   UnitDataProps,
+  UnitIndividualCategory,
+
   QuizSessionType,
   SpeakingSessionType,
   QuizProps,
   QuizOptionProps,
+
   LinkProps,
   BannerProps,
   TitleProps,

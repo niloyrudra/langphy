@@ -10,59 +10,41 @@ import SettingsElement from '@/components/settings/SettingsElement';
 import SettingsElementAction from '@/components/settings/SettingsElementAction';
 import ActionButton from '@/components/form-components/ActionButton';
 import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
-import { useProfile } from '@/context/ProfileContext';
-// import STYLES from '@/constants/styles';
 import api from '@/lib/api';
+import { useSettings } from '@/hooks/useSettings';
+import { useAuth } from '@/context/AuthContext';
+import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
-  const { clear } = useProfile();
+  const {user} = useAuth();
+  const { data: settings, isLoading, isFetching } = useSettings(user?.id as string);
+  // const { clear } = useProfile();
   const [showModal, setShowModal] = React.useState<boolean>(false);
 
-  const handleSignout = async () => {
+  const handleSignout = useCallback(async () => {
     try {
-          const res = await fetch(
-            `${process.env.EXPO_PUBLIC_API_BASE}/users/signout`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-            }
-          );
-          const data = await res.json();
-
-          const axiosRes = await api.post("/users/signout");
-    
-          console.log(axiosRes)
-    
-          if( res.status === 200 && data! ) {  
-            // const { message } = res.data;
-
-            // await SecureStore.setItemAsync("accessToken", token);
-            await SecureStore.deleteItemAsync("accessToken");
-            // setUser(null);
-            clear();
-
-            // if(message) Alert.alert( message )
-            // else Alert.alert("Successfully signed out!");
-            Alert.alert("Successfully signed out!");
-            
-            router.replace("/auth/login");
-
-          }
-          else {
-            Alert.alert( "Signout failed!" )
-          }
-    
-        }
+      const axiosRes = await api.post("/users/signout");
+      if( axiosRes.status === 200 && axiosRes.data ) {  
+        await SecureStore.deleteItemAsync("accessToken");
+        // clear();
+        Alert.alert("Successfully signed out!");
+        
+        router.replace("/auth/login");
+      }
+      else {
+        Alert.alert( "Signout failed!" )
+      }
+    }
     catch(err) {
       console.error("Signout Error:", err)
       Alert.alert("Signout failed!")
     }
-  }
+  }, [router])
 
   const modalHandler = useCallback(() => setShowModal(prevValue => !prevValue), [setShowModal]);
+
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />);
 
   return (
     <>

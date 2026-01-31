@@ -1,7 +1,7 @@
 import SIZES from "@/constants/size";
 // import dbJsonRaw from '@/db/db.json'; // or .ts export
 // const dbJson: any = dbJsonRaw;
-import { ColorLegend, Feedback, MeasureCallback } from "@/types";
+import { ColorLegend, Feedback, MeasureCallback, LocalUnitType, APIUnitType, Category, LocalCategory } from "@/types";
 // import { ActivitiesIconV3, AirportIconV3, AlphabetIconV3, AnimalIconV3, BodyPartsIconV3, BookIcon, BusinessIconV3, CalendeIconV3, ColorsIconV3, ConstructionIconV3, CountingMathMeasureIconV3, CountryIconV3, CultureIconV3, DeviceIconV3, DirectionIconV3, DressIconV3, EducationIconV3, EntertainmentIconV3, FamilyIconV3, FlowerIconV3, FoodIconV3, GeographyIconV3, GovernmentIconV3, GreetingsIconV3, HealthIconV2, HistoryIconV3, HobbyIconV3, HotelIconV3, HouseIconV3, IntroIconV3, InvitationIconV3, LandscapesIconV3, MaterialsIconV3, MedicalIconV3, MusicIconV3, NaturalDisastersIconV3, NatureIconV3, NewspaperIconV3, NumberIconV3, OfficeIconV3, OpinionIconV3, PassportIconV3, PersonalitiesIconV3, PoliticsIconV3, PreferencesIconV3, RestaurantIconV3, ScienceIconV3, SeasonsIconV3, ShoppingIconV3, SpaceIconV3, SportsIconV3, TechnologyIconV3, TeleCommunicationIconV3, TimeIconV3, ToolsIconV3, TransportationIconV3, TravelIconV3, UnitListIconV3, VehicleIconV3, WarfareIconV3, WeatherIconV3, WorkIconV3 } from '@/utils/SVGImages'
 import * as Speech from 'expo-speech'
 // import * as SpeechRecognition from "expo-speech-recognition";
@@ -445,4 +445,36 @@ export const feedbackComments = (similarity: number): Feedback => {
 const getProfile = async () => {
   const { data } = await api.get("/profile");
   return data;
+};
+
+// universal normalize function for all collections
+export const normalizeId = <T extends { _id: string }>(item: T) => ({ id: item._id, ...item });
+export const normalizeIds = <T extends { _id: string }>(items: T[]) => items.map(normalizeId);
+
+// Generic mapping helper
+// For a single item
+export const normalizeMongoId = <T extends { _id: string }>(item: T) => {
+  const { _id, ...rest } = item;
+  return { id: _id, ...rest };
+};
+
+// For an array of items
+export const normalizeLessonData = <T extends { _id: string }>(items: T[]) => items.map(normalizeMongoId);
+
+export const normalizeCategories = (categories: Category[]): LocalCategory[] => {
+  return categories.map(cat => ({
+    id: cat._id,               // map _id → id
+    title: cat.title,
+    slug: cat.slug,
+    position_at: cat.position_at
+  }));
+};
+
+export const normalizeUnits = (units: APIUnitType[]): LocalUnitType[] => {
+  return units.map(u => ({
+    id: u._id,               // map _id → id
+    category_id: u.categoryId, // map categoryId → category_id
+    title: u.title,
+    slug: u.slug
+  }));
 };

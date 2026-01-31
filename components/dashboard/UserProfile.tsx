@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import EditButton from './_partials/EditButton';
@@ -6,25 +6,15 @@ import { useTheme } from '@/theme/ThemeContext';
 import ProfileNameAndId from './_partials/ProfileNameAndId';
 import ProfileDOBAndEmail from './_partials/ProfileDOBAndEmail';
 import ProfileStats from './_partials/ProfileStats';
-import { useProfile } from '@/context/ProfileContext';
+import { useProfile } from '@/hooks/useProfile';
+import { useAuth } from '@/context/AuthContext';
 
 const UserProfile = () => {
     const { colors } = useTheme();
-    const { profile, refreshProfile, loading } = useProfile();
+    const {user} = useAuth()
+    const { isLoading, isFetching } = useProfile(user?.id as string);
 
-    React.useEffect(() => {
-        const loadProfile = async () => {
-            try {
-                if( !profile ) await refreshProfile()
-            }
-            catch(err) {
-                console.warn("Profile loding error: ", err)
-            }
-        }
-        loadProfile();
-    }, [profile]);
-
-    if (loading) {
+    if (isLoading || isFetching) {
         return (
             <LinearGradient
                 colors={[colors.profileGradientLight, colors.profileGradientDark]}
@@ -34,8 +24,6 @@ const UserProfile = () => {
             </LinearGradient>
         );
     }
-
-    // if (!profile) return null;
 
     return (
         <LinearGradient

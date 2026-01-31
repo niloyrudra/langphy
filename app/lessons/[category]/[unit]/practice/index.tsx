@@ -8,25 +8,23 @@ import {
 import { useTheme } from '@/theme/ThemeContext';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { useLocalSearchParams } from 'expo-router';
-import { Lesson, PracticeSessionType } from '@/types';
+import { BackendLesson, Lesson, PracticeSessionType } from '@/types';
 import ListeningComponent from '@/components/listening-components/ListeningComponent';
 import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import PracticeLessonDetails from '@/components/practice-components/LessonDetails';
 import LessonList from '@/components/practice-components/LessonList';
-import api from '@/lib/api';
-
-type BackendLesson = {
-  _id: string;
-  meaning: string;
-};
+import { fetchPracticeData } from '@/services/practice.service';
+import { useProgress } from '@/context/ProgressContext';
 
 const PracticeLessons = () => {
   const { colors } = useTheme();
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
   const scrollToRef = React.useRef<ScrollView>(null);
   const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
+
+  const { progress, updateProgress } = useProgress();
 
   const {categoryId, slug, unitId} = useLocalSearchParams();
 
@@ -35,12 +33,11 @@ const PracticeLessons = () => {
 
   React.useEffect(() => {
     const dataLoad = async () => {
+      let category_id = typeof categoryId == 'string' ? categoryId : '';
+      let unit_id = typeof unitId == 'string' ? unitId : '';
       setLoading(true)
       try {
-        const res = await api.get(`/practices/${categoryId}/${unitId}`);
-        if(res.status !== 200) return setData([])
-        
-        const data: (PracticeSessionType & BackendLesson)[] = res.data;  
+        const data = await fetchPracticeData( category_id, unit_id );
         if( data ) {
           setData(data);
           setLessons(
@@ -55,7 +52,9 @@ const PracticeLessons = () => {
         console.error("Error fetching practice data:", err);
         setData([])
       }
-      setLoading(false)
+      finally {
+        setLoading(false)
+      }
     }
     
     if (categoryId && unitId && slug) dataLoad();
@@ -84,7 +83,7 @@ const PracticeLessons = () => {
             >
               <View
                 ref={screenRef}
-                style={{ flex: 1, paddingTop: 50 }}
+                style={styles.container}
               >
                 {/* English Section */}
                 <ListeningComponent
@@ -137,7 +136,6 @@ const PracticeLessons = () => {
 
                 </ListeningComponent>
 
-                <View style={{height: 30}} />
               </View>
             </ScrollView>
           )
@@ -161,6 +159,11 @@ const PracticeLessons = () => {
 export default PracticeLessons;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    marginBottom: 30
+  },
   text: {
     fontSize: 20,
     fontWeight: "600",

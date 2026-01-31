@@ -4,57 +4,30 @@ import UnitRectangleCard from '../UnitRectangleCard'
 import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
 import LoadingScreenComponent from '../LoadingScreenComponent'
-import api from '@/lib/api'
-
-type unitItemType = {
-  _id: string,
-  categoryId: string,
-  title: string,
-  slug: string
-}
+import { useUnits } from '@/hooks/useUnits'
+import { LocalUnitType } from '@/types'
 
 const UnitList = () => {
   const { categoryId } = useLocalSearchParams();
-  const [ unitData, setUnitData ] = React.useState<unitItemType[]>([]);
-  const [ loading, setLoading ] = React.useState<boolean>(false);
+  const { data: units, isLoading, isFetching, isSuccess, isError } = useUnits( categoryId as string );
 
-  React.useEffect(() => {
-    const dataLoad = async () => {
-      setLoading(true)
-      try {
-        const res = await api.get(`/unit/${categoryId}`);
-        if(res.status !== 200) return setUnitData([])
-
-        const {data} = res;
-        if( data ) setUnitData(data);
-      } catch (err) {
-        console.error("Error fetching units:", err);
-        setUnitData([])
-      }
-      setLoading(false)
-    }
-
-    dataLoad();
-    if( categoryId ) dataLoad();
-  }, [categoryId]);
-  
-  if( loading ) return (<LoadingScreenComponent />);
-
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />);
+  // console.log("units length:", units?.length)
   return (
     <>
       <FlatList
-        data={unitData}
-        keyExtractor={({_id}:unitItemType) => _id}
+        data={units}
+        keyExtractor={({id}:LocalUnitType) => id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: SIZES.cardGap }}
         ListHeaderComponent={(<View style={{height:0}}/>)}
-        renderItem={({item: {title, categoryId, _id, slug}}: {item: unitItemType}) => {
+        renderItem={({item: {title, category_id, id, slug}}: {item: LocalUnitType}) => {
           return (
             <UnitRectangleCard
               title={title}
-              categoryId={categoryId}
+              categoryId={category_id}
               unitSlug={slug}
-              unitId={_id}
+              unitId={id}
               completion={0}
               goal={100}
             />

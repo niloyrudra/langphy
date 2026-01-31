@@ -4,16 +4,17 @@ import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
 
 import { SteakIcon } from '@/utils/SVGImages';
-import { useStreaks } from '@/context/StreaksContext';
+import { useStreak } from '@/hooks/useStreaks';
+// import { useStreaks } from '@/context/StreaksContext';
 
 const SteakBadge = () => {
   const {colors,theme} = useTheme();
-  const { streaks } = useStreaks();
+  const { data: streaks } = useStreak()
   return (
     <View style={[STYLES.childContentCentered, styles.container, {backgroundColor: colors.steakBadgeBackgroundColor}]}>
       <SteakIcon width={12} height={18} />
       <Text style={[styles.steakCount, {color: colors.text}, (theme === 'dark' && STYLES.textShadow)]}>
-        {streaks?.current ?? '0'}
+        {streaks?.current_streak ?? '0'}
       </Text>
     </View>
   )

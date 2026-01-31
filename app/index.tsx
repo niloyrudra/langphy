@@ -1,12 +1,17 @@
 import LoadingScreenComponent from "@/components/LoadingScreenComponent";
 import { useAuth } from "@/context/AuthContext";
+// import { runMigrations } from "@/db/migrate";
 import { warmUpSpeech } from "@/helpers/speechController";
 import { Redirect } from "expo-router";
 import React from "react";
 
 const App = () => {
   const { user, loading } = useAuth();
+
   React.useEffect(() => {
+    // (async () => {
+    //   await runMigrations();
+    // })()
     warmUpSpeech();
   }, []);
 

@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Modal, Dimensions } from 'react-native'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { SpeechResult } from '@/types';
 import { feedbackComments } from '@/utils';

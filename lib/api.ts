@@ -2,7 +2,7 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
 const api = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_BASE || "http://192.168.1.6/api", // "https://api.example.com", // your gateway / auth service
+  baseURL: process.env.EXPO_PUBLIC_API_BASE || "http://192.168.1.6/api",
   timeout: 10000,
 });
 

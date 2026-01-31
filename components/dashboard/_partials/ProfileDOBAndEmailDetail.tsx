@@ -4,7 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/theme/ThemeContext';
 // import { useAuth } from '@/context/AuthContext';
 import { IoniconName } from '@/types';
-import { useProfile } from '@/context/ProfileContext';
+import { useProfile } from '@/hooks/useProfile';
+import { useAuth } from '@/context/AuthContext';
+// import { useProfile } from '@/context/ProfileContext';
 
 interface DetailProps {
     iconName: IoniconName;
@@ -15,7 +17,8 @@ interface DetailProps {
 
 const ProfileDOBAndEmailDetail = ({iconName, iconSize=16, dob=false, email=false}: DetailProps) => {
     const {colors} = useTheme();
-    const { profile } = useProfile();
+    const {user} = useAuth();
+    const { data: profile } = useProfile(user?.id as string);
 
     return (
         <View style={[styles.container]}>

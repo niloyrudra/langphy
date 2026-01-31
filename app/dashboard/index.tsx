@@ -4,26 +4,20 @@ import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import UserProfile from '@/components/dashboard/UserProfile';
 import LearningProgress from '@/components/dashboard/LearningProgress';
 import Milestones from '@/components/dashboard/Milestones';
-import { useProfile } from '@/context/ProfileContext';
+import { useProfile } from '@/hooks/useProfile';
+import { useAuth } from '@/context/AuthContext';
 
 const Dashboard = () => {
-  const { refreshProfile, loading } = useProfile();
-  
-  const onRefresh = React.useCallback( async () => {
-    try {
-      await refreshProfile();
-    }
-    catch(err) {
-      console.error(err)
-    }
-  }, [])
+  const { user } = useAuth();
+  const { isLoading, isFetching, refetch } = useProfile(  user?.id as string );
+  const onRefresh = React.useCallback( () => refetch(), [refetch] )
 
   return (
     <SafeAreaLayout>
       <ScrollView
-        style={{flex: 1}}
+        style={styles.wrapper}
         showsVerticalScrollIndicator={false}
-        refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
+        refreshControl={<RefreshControl refreshing={isLoading || isFetching} onRefresh={onRefresh} />}
       >
 
         <View style={styles.container}>
@@ -38,8 +32,6 @@ const Dashboard = () => {
 
         </View>
 
-        <View style={{height: 30}} />
-
       </ScrollView>
     </SafeAreaLayout>
   );
@@ -48,10 +40,14 @@ const Dashboard = () => {
 export default Dashboard;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1
+  },
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    gap: 30
+    gap: 30,
+    marginBottom: 30
   }
 });

@@ -28,6 +28,8 @@ export default {
     },
     plugins: [
       "expo-router",
+      "expo-sqlite",
+      "expo-background-task",
       "expo-audio",
       "expo-speech-recognition",
       "expo-web-browser",

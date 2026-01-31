@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import * as SecureStore from "expo-secure-store";
 import { User } from "@/types";
 import { useAuth } from "./AuthContext";
+import api from "@/lib/api";
 
 interface Profile extends User {
     username: string | null;
@@ -17,7 +17,6 @@ type profileContextType = {
     refreshProfile: () => Promise<void>;
     updateProfile: ( updates: Partial<Profile> ) => Promise<void>;
     clear: () => void;
-    // setProfile: (e: Profile | null) => void;
 }
 
 const ProfileContext = createContext<profileContextType>(null!);
@@ -40,15 +39,11 @@ export const ProfileProvider = ({children}: {children: React.ReactNode}) => {
         setLoading(true);
 
         try {
-            const res = await fetch(
-                `${process.env.EXPO_PUBLIC_API_BASE}/profile/${user.id}`
-            );
-            if (!res.ok) {
-                throw new Error("Failed to fetch profile");
-            }
+            const res = await api.get(`/profile/${user.id}`);
 
-            const data = await res.json();
-            const { profile } = data;
+            if( res.status !== 200 ) return console.warn("Failed to fetch Profile data");
+
+            const { data: profile } = res;
 
             setProfile({
                 id: user.id,
@@ -59,6 +54,8 @@ export const ProfileProvider = ({children}: {children: React.ReactNode}) => {
                 profile_image: profile?.profile_image ?? null,
                 created_at: profile?.created_at ?? null,
             });
+
+            console.log("Profile data fetching completed!");
 
         }
         catch(err) {

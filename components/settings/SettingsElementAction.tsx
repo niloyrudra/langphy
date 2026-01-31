@@ -21,7 +21,7 @@ const SettingsElementAction = ({actionType, settingType, route}: SettingsElement
             {
             actionType == "router" && (
                 <TouchableOpacity
-                    onPress={() => router.push(route)}
+                    onPress={() => router.push(route as any)}
                     style={{ marginVertical: "auto" }}
                 >
                     <Ionicons name="chevron-forward" size={24} color={colors.text} />
