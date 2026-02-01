@@ -4,11 +4,13 @@ import { useTheme } from '@/theme/ThemeContext';
 import { ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import StatsDetail from './StatsDetail';
 import { useStreak } from '@/hooks/useStreaks';
+import { useAuth } from '@/context/AuthContext';
 
 const ProfileStats = () => {
     const {colors} = useTheme();
-    const { data: streaks } = useStreak();
-    console.log("Streaks data in ProfileStats: ", streaks);
+    const { user } = useAuth();
+    const { data: streaks } = useStreak(user?.id as string);
+
     return (
         <View style={[styles.container, {backgroundColor: colors.profileGradientBox}]}>
             <StatsDetail

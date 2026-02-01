@@ -9,7 +9,7 @@ import { useAuth } from '@/context/AuthContext';
 const ProfileNameAndId = () => {
     const {colors} = useTheme();
     const {user} = useAuth();
-    const {data: profile, isLoading: loading} = useProfile(user?.id as string);
+    const {data: profile} = useProfile(user?.id as string);
 
     const displayName = React.useCallback(() => {
         if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
@@ -19,13 +19,15 @@ const ProfileNameAndId = () => {
         else return "Anonymous"
     }, [profile?.first_name, profile?.last_name]);
 
-    console.log("Profile data in ProfileNameAndId: ", profile);
+    // React.useEffect(() => {
+    //     console.log("ProfileNameAndId Profile Data:", profile);
+    // }, [profile]);
 
     return (
-        <View style={[styles.container]}>
-            <Text style={[styles.userDisplayName, {color: colors.text}]}>{displayName()}</Text>
-            <Text style={[styles.userName, {color:colors.text}]}>User ID: {profile?.username ?? "..."}</Text>
-        </View>
+      <View style={[styles.container]}>
+        <Text style={[styles.userDisplayName, {color: colors.text}]}>{displayName()}</Text>
+        <Text style={[styles.userName, {color:colors.text}]}>User ID: {profile?.username ?? "..."}</Text>
+      </View>
     )
 }
 

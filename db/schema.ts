@@ -46,13 +46,13 @@ CREATE TABLE IF NOT EXISTS lp_progress (
 
 export const CREATE_STREAKS_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_streaks (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT NOT NULL,
-    current_streak INTEGER NOT NULL DEFAULT 0,
-    longest_streak INTEGER NOT NULL DEFAULT 0,
-    last_activity_date INTEGER,
-    updated_at INTEGER NOT NULL,
-    dirty INTEGER NOT NULL DEFAULT 0
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT NOT NULL UNIQUE,
+  current_streak INTEGER NOT NULL DEFAULT 0,
+  longest_streak INTEGER NOT NULL DEFAULT 0,
+  last_activity_date INTEGER,
+  updated_at INTEGER NOT NULL,
+  dirty INTEGER NOT NULL DEFAULT 0
 );
 `;
 

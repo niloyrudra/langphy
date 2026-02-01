@@ -17,9 +17,25 @@ export type DBSettings = {
   updated_at: number;
 };
 
+const SETTINGS_FIELDS = [
+  "toggle_theme",
+  "sound_effect",
+  "speaking_service",
+  "reading_service",
+  "listening_service",
+  "writing_service",
+  "practice_service",
+  "quiz_service",
+  "push_notification",
+  "notifications",
+  "language",
+] as const;
+
+type SettingsField = typeof SETTINGS_FIELDS[number];
+
 export const getLocalSettings = async (userId: string): Promise<DBSettings | null> => {
   const result = await db.getFirstAsync<DBSettings>(
-    "SELECT * FROM lp_settings LIMIT 1 WHERE user_id = ?",
+    "SELECT * FROM lp_settings WHERE user_id = ? LIMIT 1",
     [userId]
   );
   return result || null;
@@ -46,8 +62,6 @@ export const upsertSettings = async (p: {
     quiz_service: boolean;
     notifications: boolean;
     language: string;
-    last_name?: string | null;
-    profile_image?: string | null;
     dirty?: number;
 }): Promise<DBSettings> => {
   const now = Math.floor(Date.now() / 1000);
@@ -89,6 +103,32 @@ export const upsertSettings = async (p: {
     ]
   );
 
+  return result!;
+};
+
+export const updateSettingField = async ( payload: {
+  user_id: string;
+  field: SettingsField;
+  value: string | number | boolean;
+} ): Promise<DBSettings> => {
+
+  if( !SETTINGS_FIELDS.includes( payload.field ) ) {
+    throw new Error("Invalid settings field: " + payload.field);
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  const result = await db.getFirstAsync<DBSettings>(
+    `
+      UPDATE lp_settings
+        SET ${payload.field} = ?, updated_at = ?, dirty = 1 WHERE user_id = ?
+      RETURNING *
+    `,
+    [
+      payload.value,
+      now,
+      payload.user_id
+    ]
+  );
   return result!;
 };
 

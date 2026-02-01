@@ -1,11 +1,9 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
-import { Appearance, useColorScheme } from "react-native";
-
-// import AsyncStorage, {useAsyncStorage, AsyncStorageStatic} from '@react-native-async-storage/async-storage'
-// import { AsyncStorageHook } from "@react-native-async-storage/async-storage/lib/typescript/types";
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import { useColorScheme } from "react-native";
 import { darkColors, lightColors } from "@/constants/colors";
+import { useAuth } from "@/context/AuthContext";
+import { useSettings } from "@/hooks/useSettings";
+import { useUpdateSettings } from "@/hooks/useUpdateSettings";
 
 type Theme = 'light' | 'dark' | null;
 
@@ -20,12 +18,14 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 const ThemeProvider = ( { children }: { children: ReactNode  } ) => {
     const systemColorScheme = useColorScheme();
     const [ theme, setTheme ] = useState<Theme>( systemColorScheme === 'dark' ? 'dark' : 'light' );
+    
+    const { user } = useAuth();
+    const { data: settings } = useSettings( ( user?.id as string ) );
+    const { mutate: updateSettings } = useUpdateSettings( ( user?.id as string ) );
 
     useEffect(() => {
         const loadTheme = async () => {
-            const storedTheme = await AsyncStorage.getItem( 'theme' );
-            // const storedTheme: AsyncStorageHook = await useAsyncStorage('theme');
-            // if( storedTheme ) setTheme( storedTheme as unknown as Theme );
+            const storedTheme = settings?.theme ?? 'light';
             if( storedTheme ) setTheme( storedTheme as Theme );
         }
         loadTheme();
@@ -34,8 +34,7 @@ const ThemeProvider = ( { children }: { children: ReactNode  } ) => {
     const toggleTheme = async () => {
         const newTheme = (theme === 'light') ? 'dark' : 'light';
         setTheme( prevTheme => prevTheme = newTheme );
-
-        await AsyncStorage.setItem( 'theme', newTheme );
+        updateSettings({ field: 'toggle_theme', value: newTheme });
     }
 
     const colors = theme === 'light' ? lightColors : darkColors;

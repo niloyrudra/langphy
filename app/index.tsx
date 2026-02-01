@@ -4,13 +4,16 @@ import { useAuth } from "@/context/AuthContext";
 import { warmUpSpeech } from "@/helpers/speechController";
 import { Redirect } from "expo-router";
 import React from "react";
+// import AsyncStorage from '@react-native-async-storage/async-storage'
+// import * as SecureStore from "expo-secure-store";
 
 const App = () => {
   const { user, loading } = useAuth();
-
+  
   React.useEffect(() => {
     // (async () => {
-    //   await runMigrations();
+      //   await AsyncStorage.removeItem( 'theme' );
+      // await SecureStore.deleteItemAsync("accessToken");
     // })()
     warmUpSpeech();
   }, []);

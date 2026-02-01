@@ -10,8 +10,13 @@ import * as SecureStore from "expo-secure-store";
 import { router } from 'expo-router'
 import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
-import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
+// import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
+import api from '@/lib/api'
+import { jwtDecode } from 'jwt-decode'
+import { bootstrapProfileFromToken } from '@/bootstraps/profile.bootstrap'
+import { bootstrapSettingsFromToken } from '@/bootstraps/settings.bootstrap'
+import { bootstrapStreaks } from '@/bootstraps/streaks.bootstrap'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required."),
@@ -20,29 +25,37 @@ const SignInSchema = Yup.object().shape({
 
 const Login = () => {
   const {colors} = useTheme();
+  const { setUser } = useAuth();
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const onSignInHandler = async ( email: string, password: string ) => {
     try {
       setLoading(true)
       // const res = await signIn( email, password );
-      const res = await fetch(
-        `${process.env.EXPO_PUBLIC_API_BASE}/users/signin`,
+      const res = await api.post(
+        `/users/signin`,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({email, password})
+          email,
+          password
         }
+        
       );
-      const data = await res.json();
 
-      // console.log(res.status, data)
-
-      if( res.status === 200 && data! ) {  
-        const { user, token, message } = data;
+      if( res.status === 200 && res.data ) {  
+        const { token, message } = res.data;
         await SecureStore.setItemAsync("accessToken", token);
+
+        const decode: any = jwtDecode(token);
+        setUser( { id: decode.id, email: decode.email, created_at: decode.created_at } );
+        // Storing profile locally
+        await bootstrapProfileFromToken({
+            id: decode.id,
+            email: decode.email,
+            created_at: decode.created_at
+        });
+        await bootstrapSettingsFromToken({ user_id: decode.id});
+        await bootstrapStreaks({ user_id: decode.id });
+        console.log("Bootstrapped data from Login");
 
         if(message) Alert.alert( message )
         else Alert.alert("Successfully signed in!");

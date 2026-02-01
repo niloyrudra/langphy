@@ -11,7 +11,7 @@ import { useAuth } from '@/context/AuthContext';
 
 const UserProfile = () => {
     const { colors } = useTheme();
-    const {user} = useAuth()
+    const { user } = useAuth()
     const { isLoading, isFetching } = useProfile(user?.id as string);
 
     if (isLoading || isFetching) {

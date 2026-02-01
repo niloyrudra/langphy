@@ -6,8 +6,15 @@ export const useSettings = (userId: string) => {
         queryKey: ["lp_settings", userId],
         enabled: !!userId,
         queryFn: async () => {
-            const res = await getLocalSettings(userId);
-            return res;
+            try {
+                console.log("Fetching settings for userId:", userId);
+                const res = await getLocalSettings(userId);
+                return res;
+            }
+            catch(error) {
+                console.error("Error fetching settings:", error);
+                throw error;
+            }
         },
         staleTime: Infinity,
         gcTime: Infinity

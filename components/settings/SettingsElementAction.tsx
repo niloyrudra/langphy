@@ -7,26 +7,27 @@ import { Ionicons } from '@expo/vector-icons';
 
 interface SettingsElementActionProps  {
     actionType: string;
+    enabled: boolean;
     settingType: string;
     route: Route | string;
 }
 
-const SettingsElementAction = ({actionType, settingType, route}: SettingsElementActionProps) => {
+const SettingsElementAction = ({actionType, enabled, settingType, route}: SettingsElementActionProps) => {
     const {colors} = useTheme();
     return (
         <View style={styles.container}>
             {
-            actionType == "switcher" && (<SettingSwitcher settingType={settingType} />)
+                actionType == "switcher" && (<SettingSwitcher enabled={enabled} settingType={settingType} />)
             }
             {
-            actionType == "router" && (
-                <TouchableOpacity
-                    onPress={() => router.push(route as any)}
-                    style={{ marginVertical: "auto" }}
-                >
-                    <Ionicons name="chevron-forward" size={24} color={colors.text} />
-                </TouchableOpacity>
-            )
+                actionType == "router" && (
+                    <TouchableOpacity
+                        onPress={() => router.push(route as any)}
+                        style={{ marginVertical: "auto" }}
+                    >
+                        <Ionicons name="chevron-forward" size={24} color={colors.text} />
+                    </TouchableOpacity>
+                )
             }
         </View>
     );

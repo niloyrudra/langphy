@@ -9,8 +9,10 @@ import { useAuth } from '@/context/AuthContext';
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const { isLoading, isFetching, refetch } = useProfile(  user?.id as string );
-  const onRefresh = React.useCallback( () => refetch(), [refetch] )
+  const { data: profile, isLoading, isFetching, refetch } = useProfile(  user?.id as string );
+  const onRefresh = React.useCallback( () => refetch(), [refetch] );
+
+  React.useEffect(() => console.log("Dashboard Profile Data:", profile), [profile]);
 
   return (
     <SafeAreaLayout>

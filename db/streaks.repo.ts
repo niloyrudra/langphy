@@ -23,28 +23,42 @@ export const getDirtyStreaks = async (userId: string): Promise<DBStreak | null> 
         [userId]
     );
 };
+
 export const upsertStreak = async (s: {
-    id: string;
     user_id: string;
     current_streak: number;
     longest_streak: number;
-    last_activity_date: number;
-    updated_at: number;
+    last_activity_date?: number;
+    updated_at?: number;
 }) => {
-    await db.runAsync(
-        `INSERT OR REPLACE INTO lp_streaks
-     (id, user_id, current_streak, longest_streak, last_activity_date, updated_at, dirty)
-     VALUES (?, ?, ?, ?, ?, ?, 1)`,
+    const now = Math.floor(Date.now() / 1000);
+
+    const result = await db.getFirstAsync(
+        `
+        INSERT INTO lp_streaks
+            (user_id, current_streak, longest_streak, last_activity_date, updated_at, dirty)
+        VALUES (?, ?, ?, ?, ?, 1)
+        ON CONFLICT(user_id) DO UPDATE SET
+            current_streak = excluded.current_streak,
+            longest_streak = excluded.longest_streak,
+            last_activity_date = excluded.last_activity_date,
+            updated_at = excluded.updated_at,
+            dirty = 1
+        RETURNING *
+        `,
         [
-            s.id,
             s.user_id,
             s.current_streak,
             s.longest_streak,
-            s.last_activity_date,
-            s.updated_at,
+            s.last_activity_date ?? now,
+            s.updated_at ?? now,
         ]
     );
+
+    return result!;
 };
+
+
 export const markStreaksClean = async (items: DBStreak[]) => {
     if (!items.length) return;
     const ids = items.map(

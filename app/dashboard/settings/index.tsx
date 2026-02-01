@@ -14,14 +14,17 @@ import api from '@/lib/api';
 import { useSettings } from '@/hooks/useSettings';
 import { useAuth } from '@/context/AuthContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
+// import { useProfile } from '@/hooks/useProfile';
+// import { refresh } from '@react-native-community/netinfo';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
   const {user} = useAuth();
-  const { data: settings, isLoading, isFetching } = useSettings(user?.id as string);
+  const { data: settings, isLoading, isFetching, refetch } = useSettings(user?.id as string);
   // const { clear } = useProfile();
   const [showModal, setShowModal] = React.useState<boolean>(false);
 
+  // Handlers
   const handleSignout = useCallback(async () => {
     try {
       const axiosRes = await api.post("/users/signout");
@@ -42,7 +45,31 @@ const SettingsScreen = () => {
     }
   }, [router])
 
+  const isServiceEnabled = useCallback(( serviceType: string ): boolean => {
+    switch (serviceType) {
+      case 'sound_effect':
+        return settings?.sound_effect ?? false;
+      case 'theme_toggle':
+        return settings?.theme === 'dark' ? true : false;
+      case 'practice':
+        return settings?.practice_service ?? false;
+      case 'quiz':
+        return settings?.quiz_service ?? false;
+      case 'speaking':
+        return settings?.speaking_service ?? false;
+      case 'listening':
+        return settings?.listening_service ?? false;
+      case 'reading':
+        return settings?.reading_service ?? false;
+      case 'writing':
+        return settings?.writing_service ?? false;
+      default:
+        return false;
+    }
+  }, [settings])
+
   const modalHandler = useCallback(() => setShowModal(prevValue => !prevValue), [setShowModal]);
+  const onRefresh = React.useCallback( () => refetch(), [refetch] );
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
 
@@ -54,7 +81,9 @@ const SettingsScreen = () => {
           <SectionList
             sections={SETTINGS_DATA}
             keyExtractor={(item, index) => item.elementTitle+index}
-            // onRefresh={}
+            refreshing={isFetching}
+            onRefresh={onRefresh}
+            showsVerticalScrollIndicator={false}
             renderItem={({item, index}) => (
               <View style={[styles.settingItemContainer]}>
                 <View
@@ -69,8 +98,10 @@ const SettingsScreen = () => {
                     Icon={theme === 'light' ? <item.ImgComponentLight /> : <item.ImgComponentDark />}
                   />
 
+                  {/* Switch / Route */}
                   <SettingsElementAction
                     actionType={item.actionType}
+                    enabled={isServiceEnabled(item.settingType)}
                     settingType={item.settingType}
                     route={item?.route}
                   />
@@ -91,12 +122,13 @@ const SettingsScreen = () => {
                   buttonTitle='Logout'
                   onSubmit={handleSignout}
                   buttonStyle={{
-                    backgroundColor: theme === 'light' ? "transparent" : "#FFFFFF",
+                    backgroundColor: "#FFFFFF",
                     borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
                     borderWidth: 1,
                   }}
                   textStyle={{
-                    color: theme === 'light' ? "#142C57" : "#142C57"
+                    // color: theme === 'light' ? "#142C57" : "#142C57"
+                    color: "#142C57"
                   }}
                 />
                 

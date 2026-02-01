@@ -10,7 +10,7 @@ import { bootstrapStreaks } from "@/bootstraps/streaks.bootstrap";
 type authContextType = {
     user: User | null;
     loading: boolean;
-    // setUser: (e: User | null) => void;
+    setUser: (e: User | null) => void;
     // signIn: ( email: string, password: string ) => Promise<void>;
     signOut: () => Promise<void>;
 }
@@ -34,19 +34,17 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                 try {
                     const decode: any = jwtDecode(token);
                     console.log("decode:", decode);
-                    setUser( { id: decode.id, email: decode.email, created_at: decode?.created_at } );
+                    setUser( { id: decode.id, email: decode.email, created_at: decode.created_at } );
                     // Storing profile locally
                     await bootstrapProfileFromToken({
                         id: decode.id,
                         email: decode.email,
-                        created_at: decode?.created_at
+                        created_at: decode.created_at
                     });
-                    await bootstrapSettingsFromToken({
-                        user_id: decode.id,
-                    });
-                    await bootstrapStreaks({
-                        user_id: decode.id,
-                    });
+                    await bootstrapSettingsFromToken({ user_id: decode.id});
+                    await bootstrapStreaks({ user_id: decode.id });
+                    
+                    console.log("Auth Restored from Token");
                 }
                 catch(err) {
                     await SecureStore.deleteItemAsync("accessToken");
@@ -69,7 +67,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
             value={{
                 user,
                 loading,
-                // setUser,
+                setUser,
                 // signIn: signInHandler,
                 signOut: signOutHandler
             }}

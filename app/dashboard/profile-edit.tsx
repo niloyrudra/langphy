@@ -9,7 +9,9 @@ import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import AuthInput from '@/components/form-components/auth/AuthInput';
 import ActionButton from '@/components/form-components/ActionButton';
-import { useProfile } from '@/context/ProfileContext';
+import { useProfile } from '@/hooks/useProfile';
+import { useAuth } from '@/context/AuthContext';
+import { useUpdateProfile } from '@/hooks/useUpdateProfile';
 
 const ProfileEditSchema = Yup.object().shape({
     first_name: Yup.string().min( 2, "Name must be at least 2 characters." ),
@@ -20,7 +22,9 @@ const ProfileEditSchema = Yup.object().shape({
 
 const ProfileEditScreen = () => {
     const { colors, theme } = useTheme();
-    const { profile, updateProfile, loading } = useProfile();
+    const {user} = useAuth();
+    const { data:profile } = useProfile(user?.id as string);
+    const { mutate: updateProfile, isPending } = useUpdateProfile(user?.id as string);
 
     // Handler
     const handleProfileEdit = async (
@@ -31,6 +35,9 @@ const ProfileEditScreen = () => {
     ) => {
         try {
             await updateProfile({
+                id: user?.id,
+                email: user?.email,
+                created_at: user?.created_at,
                 first_name,
                 last_name,
                 username,
@@ -131,7 +138,7 @@ const ProfileEditScreen = () => {
                                 <ActionPrimaryButton
                                     buttonTitle="Create Account"
                                     onSubmit={handleSubmit}
-                                    isLoading={loading}
+                                    isLoading={isPending}
                                 />
 
                                 <ActionButton

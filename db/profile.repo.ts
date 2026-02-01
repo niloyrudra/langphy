@@ -3,11 +3,11 @@ import { db } from "./index";
 export type DBProfile = {
   id: string;
   email: string;
+  created_at: string;
   username: string | null;
   first_name: string | null;
   last_name: string | null;
   profile_image: string | null;
-  created_at: string;
   updated_at: number;
   dirty: number;
 };
@@ -31,7 +31,7 @@ export const getDirtyProfiles = async (userId: string): Promise<DBProfile[]> => 
 export const upsertProfile = async (p: {
   id: string;
   email: string;
-  created_at?: string;
+  created_at: string;
   username?: string | null;
   first_name?: string | null;
   last_name?: string | null;
@@ -61,7 +61,7 @@ export const upsertProfile = async (p: {
       p.first_name || null,
       p.last_name || null,
       p.profile_image || null,
-      now, // created_at
+      p.created_at || now, // created_at
       now, // updated_at
       p.dirty || 1
     ]
