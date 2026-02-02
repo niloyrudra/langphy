@@ -481,7 +481,8 @@ type SessionContextType = {
   showLessonList: boolean;
   setLessons: (l: Lesson[]) => void;
   setCurrentPosition: (i: number) => void;
-  lessonCompletionHandler: () => void;
+  lessonCompletionHandler?: () => void;
+  markLessonCompleted: (id: string) => void;
   toggleLessonList: () => void;
 };
 
@@ -603,6 +604,16 @@ type BackendLesson = {
   meaning: string;
 }
 
+type ProgressPayload = {
+  content_type: ContentType;
+  content_id: string;
+
+  completed?: boolean;
+  score?: number;
+  progress_percent?: number;
+  updated_at?: number
+};
+
 export {
   User,
   
@@ -673,5 +684,7 @@ export {
   SessionResultType,
 
   Feedback,
-  SelectiveResultType
+  SelectiveResultType,
+
+  ProgressPayload
 };

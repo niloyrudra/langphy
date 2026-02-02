@@ -7,7 +7,7 @@ export const getCategories = async (): Promise<LocalCategory[]> => {
 }
 
 export const saveCategories = async ( categories: LocalCategory[] ) => {
-    const now = Date.now();
+    // const now = Date.now();
 
     await db.withTransactionAsync( async () => {
         for( const category of categories ) {
@@ -37,5 +37,11 @@ export const saveCategories = async ( categories: LocalCategory[] ) => {
 }
 
 export const clearCategories = async () => {
-    await db.runAsync(`DELETE FROM lp_categories`);
+    try {
+        await db.runAsync(`DELETE FROM lp_categories`);
+        console.log("Cleared all categories from lp_categories table.");
+    }
+    catch(error) {
+        console.error("Clear Categories Error:", error)
+    }
 }

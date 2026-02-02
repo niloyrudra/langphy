@@ -27,8 +27,8 @@ export const upsertProgress = async (p: {
   content_id: string;
   completed?: boolean;
   score?: number;
-  progressPercent?: number;
-  updatedAt: number;
+  progress_percent?: number;
+  updated_at: number;
 }) => {
   await db.runAsync(
     `INSERT OR REPLACE INTO lp_progress
@@ -39,8 +39,8 @@ export const upsertProgress = async (p: {
       p.content_id,
       p.completed ? 1 : 0,
       p.score ?? 0,
-      p.progressPercent ?? 0,
-      p.updatedAt,
+      p.progress_percent ?? 0,
+      p.updated_at,
     ]
   );
 };

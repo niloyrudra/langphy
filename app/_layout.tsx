@@ -6,11 +6,13 @@ import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
 import { UserDataProvider } from "@/context/UserDataProvider";
+import { runMigrations } from "@/db/migrate";
 
 
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
+  const [ready, setReady] = React.useState<boolean>(false);
   // Fonts Loading
   const [ loaded, error ] = useFonts({
     'PlusJakartaSans-Regular':    require( '../assets/fonts/PlusJakartaSans-Regular.ttf' ),
@@ -37,6 +39,10 @@ const RootLayout = () => {
       await SplashScreen.hideAsync();
     }
   }, [loaded, error]);
+
+  React.useEffect(() => {
+    runMigrations().then(() => setReady(true)).then(() => console.log("Migration done!")).catch(console.warn);
+  }, []);
 
   if (!loaded && !error) {
     return null;

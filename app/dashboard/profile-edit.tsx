@@ -136,7 +136,7 @@ const ProfileEditScreen = () => {
                             {/* Submit Button */}
                             <View style={{marginTop: "auto", gap: 20}}>
                                 <ActionPrimaryButton
-                                    buttonTitle="Create Account"
+                                    buttonTitle="Save"
                                     onSubmit={handleSubmit}
                                     isLoading={isPending}
                                 />

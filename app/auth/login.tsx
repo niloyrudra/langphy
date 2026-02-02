@@ -49,9 +49,9 @@ const Login = () => {
         setUser( { id: decode.id, email: decode.email, created_at: decode.created_at } );
         // Storing profile locally
         await bootstrapProfileFromToken({
-            id: decode.id,
-            email: decode.email,
-            created_at: decode.created_at
+          id: decode.id,
+          email: decode.email,
+          created_at: decode.created_at
         });
         await bootstrapSettingsFromToken({ user_id: decode.id});
         await bootstrapStreaks({ user_id: decode.id });

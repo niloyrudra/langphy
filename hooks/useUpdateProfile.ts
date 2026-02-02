@@ -12,10 +12,11 @@ export const useUpdateProfile = (userId: string) => {
 
       const updated = { ...current, ...updates };
 
-      // ensure upsertProfile receives the shape it expects (requires `id`)
+      // ensure upsertProfile receives the shape it expects (requires `id` and `created_at`)
       const profilePayload = {
         id: (updated as any).id ?? (updated as any).id,
         email: (updated as any).email ?? (updated as any).email,
+        created_at: (updated as any).created_at ?? (updated as any).created_at,
         username: (updated as any).username,
         first_name: (updated as any).first_name,
         last_name: (updated as any).last_name,

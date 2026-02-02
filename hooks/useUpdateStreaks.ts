@@ -5,7 +5,7 @@ export const useUpdateStreaks = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (streak: any) => upsertStreak(streak),
+        mutationFn: async (streak: any) => await upsertStreak(streak),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['lp_streaks']

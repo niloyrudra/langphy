@@ -1,4 +1,4 @@
-import { getLocalSettings, updateSettingField, upsertSettings } from "@/db/settings.repo";
+import { DBSettings, updateSettingField } from "@/db/settings.repo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type SettingsField =
@@ -37,9 +37,9 @@ export const useUpdateSettings = (userId: string) => {
             // await upsertSettings(updated);
             // return updated;
         },
-        onSuccess: (result: any) => {
-            // queryClient.invalidateQueries({ queryKey: ["lp_settings"] });
-            queryClient.setQueryData( ["lp_settings", result.user_id], result );
+        // onSuccess: (updates: DBSettings) => {
+        onSuccess: (updates: any) => {
+            queryClient.setQueryData( ["lp_settings", updates.user_id], updates );
         }
     });
 }

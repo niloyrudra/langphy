@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,64 +8,56 @@ import {
 import { useTheme } from '@/theme/ThemeContext';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { useLocalSearchParams } from 'expo-router';
-import { BackendLesson, Lesson, PracticeSessionType } from '@/types';
+import { ContentType, PracticeSessionType } from '@/types';
 import ListeningComponent from '@/components/listening-components/ListeningComponent';
 import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import PracticeLessonDetails from '@/components/practice-components/LessonDetails';
 import LessonList from '@/components/practice-components/LessonList';
-import { fetchPracticeData } from '@/services/practice.service';
-import { useProgress } from '@/context/ProgressContext';
+import { useLessons } from '@/hooks/useLessons';
+import { useProgress } from '@/hooks/useProgress';
 
 const PracticeLessons = () => {
   const { colors } = useTheme();
+  const {categoryId, slug, unitId} = useLocalSearchParams();
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
   const scrollToRef = React.useRef<ScrollView>(null);
-  const { lessons, setLessons, currentPosition, showLessonList, setCurrentPosition } = useSession();
 
-  const { progress, updateProgress } = useProgress();
+  const { currentPosition, showLessonList, setCurrentPosition } = useSession();
+  const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { data: progress } = useProgress();
 
-  const {categoryId, slug, unitId} = useLocalSearchParams();
+  const practiceData = useMemo<PracticeSessionType[]>(() => {
+    if (!practiceLessons) return [];
 
-  const [data, setData] = React.useState<PracticeSessionType[]>([]);
-  const [ loading, setLoading ] = React.useState<boolean>(false);
+    return practiceLessons.map(l => JSON.parse(l.payload));
+  }, [practiceLessons]);
 
-  React.useEffect(() => {
-    const dataLoad = async () => {
-      let category_id = typeof categoryId == 'string' ? categoryId : '';
-      let unit_id = typeof unitId == 'string' ? unitId : '';
-      setLoading(true)
-      try {
-        const data = await fetchPracticeData( category_id, unit_id );
-        if( data ) {
-          setData(data);
-          setLessons(
-            data.map((lesson: BackendLesson): Lesson => ({
-              id: lesson._id,
-              title: lesson.meaning,
-              completed: false
-            }))
-          );
-        }
-      } catch (err) {
-        console.error("Error fetching practice data:", err);
-        setData([])
-      }
-      finally {
-        setLoading(false)
-      }
-    }
-    
-    if (categoryId && unitId && slug) dataLoad();
-  }, [categoryId, unitId, slug]);
+  const lessonListData = useMemo(() => {
+    if (!practiceLessons || !progress) return [];
 
-  if( loading ) return (<LoadingScreenComponent />)
+    return practiceLessons.map(l => {
+      const payload = JSON.parse(l.payload);
+      const p = progress.find(pr => pr.content_id === l.id);
+
+      return {
+        id: l.id,
+        title: payload.meaning,
+        completed: p?.completed === 1,
+      };
+    });
+  }, [practiceLessons, progress]);
+
+
+  if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />)
+
+    // console.log("Practice Data:", practiceLessons)
 
   return (
     <>
       <SessionLayout<PracticeSessionType>
-        preFetchedData={data}
+        preFetchedData={practiceData}
         showFooter={true}
         onPositionChange={(index: number) => setCurrentPosition(index)}
         onRegisterScroller={(scrollFn) => {scrollToLessonRef.current = scrollFn}}
@@ -146,7 +138,7 @@ const PracticeLessons = () => {
       {
         showLessonList && (
           <LessonList
-            lessons={lessons}
+            lessons={lessonListData}
             scrollToLessonRef={scrollToLessonRef}
             currentPosition={currentPosition}
           />

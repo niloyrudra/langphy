@@ -1,33 +1,33 @@
 export const CREATE_PROFILE_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_profiles (
-    id TEXT PRIMARY KEY,
-    email TEXT,
-    username TEXT,
-    first_name TEXT,
-    last_name TEXT,
-    profile_image TEXT,
-    created_at INTEGER NOT NULL,
-    updated_at INTEGER NOT NULL,
-    dirty INTEGER NOT NULL DEFAULT 0
+  id TEXT PRIMARY KEY,
+  email TEXT,
+  username TEXT,
+  first_name TEXT,
+  last_name TEXT,
+  profile_image TEXT,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  dirty INTEGER NOT NULL DEFAULT 0
 );
 `;
 
 export const CREATE_SETTINGS_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_settings (
-    id TEXT PRIMARY KEY,
-    user_id TEXT UNIQUE NOT NULL,
-    theme TEXT DEFAULT 'light',
-    sound_effect INTEGER DEFAULT 1,
-    speaking_service INTEGER DEFAULT 1,
-    reading_service INTEGER DEFAULT 1,
-    listening_service INTEGER DEFAULT 1,
-    writing_service INTEGER DEFAULT 1,
-    practice_service INTEGER DEFAULT 1,
-    quiz_service INTEGER DEFAULT 1,
-    notifications INTEGER DEFAULT 1,
-    language TEXT DEFAULT 'en',
-    updated_at INTEGER NOT NULL,
-    dirty INTEGER NOT NULL DEFAULT 0
+  id TEXT PRIMARY KEY,
+  user_id TEXT UNIQUE NOT NULL,
+  theme TEXT DEFAULT 'light',
+  sound_effect INTEGER DEFAULT 1,
+  speaking_service INTEGER DEFAULT 1,
+  reading_service INTEGER DEFAULT 1,
+  listening_service INTEGER DEFAULT 1,
+  writing_service INTEGER DEFAULT 1,
+  practice_service INTEGER DEFAULT 1,
+  quiz_service INTEGER DEFAULT 1,
+  notifications INTEGER DEFAULT 1,
+  language TEXT DEFAULT 'en',
+  updated_at INTEGER NOT NULL,
+  dirty INTEGER NOT NULL DEFAULT 0
 );
 `;
 
@@ -82,6 +82,8 @@ CREATE TABLE IF NOT EXISTS lp_lessons (
   type TEXT NOT NULL, -- practice | listening | speaking | reading | writing | quiz
   category_id TEXT NOT NULL,
   unit_id TEXT NOT NULL,
-  payload TEXT NOT NULL -- JSON blob
+  payload TEXT NOT NULL, -- JSON blob
+  dirty INTEGER DEFAULT 0,
+  updated_at INTEGER NOT NULL
 );
 `;

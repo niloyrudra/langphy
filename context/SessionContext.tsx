@@ -8,10 +8,9 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     const [currentPosition, setCurrentPosition] = useState<number>(0);
     const [showLessonList, setShowLessonList] = useState<boolean>(false);
 
-    const lessonCompletionHandler = useCallback(() => {
-        const currentLesson = lessons[currentPosition]
-        currentLesson.completed = true;
-    }, [lessons[currentPosition]]);
+    const markLessonCompleted = useCallback(( lessonId: string ) => {
+        setLessons( prevValue => prevValue.map( lesson => lesson.id === lessonId ? { ...lesson, completed: true } : lesson ));
+    }, []);
 
     return (
         <SessionContext.Provider
@@ -21,8 +20,9 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
                 showLessonList,
                 setLessons,
                 setCurrentPosition,
-                lessonCompletionHandler,
+                // lessonCompletionHandler,
                 toggleLessonList: () => setShowLessonList(v => !v),
+                markLessonCompleted
             }}
         >
             {children}
