@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { ContentType, PracticeSessionType } from '@/types';
 import ListeningComponent from '@/components/listening-components/ListeningComponent';
 import { useSession } from '@/context/SessionContext';
@@ -17,23 +17,28 @@ import PracticeLessonDetails from '@/components/practice-components/LessonDetail
 import LessonList from '@/components/practice-components/LessonList';
 import { useLessons } from '@/hooks/useLessons';
 import { useProgress } from '@/hooks/useProgress';
+import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 
 const PracticeLessons = () => {
   const { colors } = useTheme();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
   const scrollToRef = React.useRef<ScrollView>(null);
+  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
 
+  // Essential Custom hooks
   const { currentPosition, showLessonList, setCurrentPosition } = useSession();
   const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
   const { data: progress } = useProgress();
 
+  // Fetch Primary Lesson data
   const practiceData = useMemo<PracticeSessionType[]>(() => {
     if (!practiceLessons) return [];
 
     return practiceLessons.map(l => JSON.parse(l.payload));
   }, [practiceLessons]);
 
+  // Update LessonList data
   const lessonListData = useMemo(() => {
     if (!practiceLessons || !progress) return [];
 
@@ -49,16 +54,14 @@ const PracticeLessons = () => {
     });
   }, [practiceLessons, progress]);
 
-
   if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />)
-
-    // console.log("Practice Data:", practiceLessons)
 
   return (
     <>
       <SessionLayout<PracticeSessionType>
         preFetchedData={practiceData}
         showFooter={true}
+        onSessionComplete={() => setShowCompletionModal(true)}
         onPositionChange={(index: number) => setCurrentPosition(index)}
         onRegisterScroller={(scrollFn) => {scrollToLessonRef.current = scrollFn}}
       >
@@ -89,7 +92,7 @@ const PracticeLessons = () => {
                   <Text style={[styles.text, { color: colors.text }]}>{item.meaning}</Text>
                 </ListeningComponent>
 
-                <View style={{height: 80}} />
+                <View style={styles.space} />
 
                 {/* German Section */}
                 <ListeningComponent
@@ -108,7 +111,7 @@ const PracticeLessons = () => {
                     containerRef={containerRef}
                     screenRef={screenRef}
                     wordRefs={wordRefs}
-                    textContainerStyle={{marginBottom: 15}}
+                    textContainerStyle={styles.nlp}
                   />
 
                   {/* Sentence Footer */}
@@ -144,6 +147,27 @@ const PracticeLessons = () => {
           />
         )
       }
+
+      {
+        showCompletionModal && (
+          <UnitCompletionModal
+            isVisible={showCompletionModal}
+            stats={{
+              time:"00:00",
+              total: practiceData.length,
+              correct: practiceData.length,
+              accuracy: 100
+            }}
+            onContinue={() => {
+              // reset();
+              setShowCompletionModal(false);
+              router.back();
+              // navigation back to units page
+            }}
+            onModalVisible={() => setShowCompletionModal(false)}
+          />
+        )
+      }
     </>
   );
 };
@@ -155,6 +179,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     marginBottom: 30
+  },
+  space: {
+    height: 80
   },
   text: {
     fontSize: 20,
@@ -175,5 +202,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     marginTop: 10
+  },
+  nlp: {
+    marginBottom: 15
   }
 });

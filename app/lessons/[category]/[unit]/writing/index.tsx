@@ -1,30 +1,40 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { SessionResultType, WritingSessionType } from '@/types';
-import { useLocalSearchParams } from 'expo-router';
+import { ContentType, SessionResultType, WritingSessionType } from '@/types';
+import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import api from '@/lib/api';
+import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
+import { useLessons } from '@/hooks/useLessons';
+import { useUpdateProgress } from '@/hooks/useUpdateProgess';
 
 const WritingSession = () => {
   const { colors } = useTheme();
-  const {categoryId, slug, unitId} = useLocalSearchParams();
-  const goToNextRef = React.useRef<(() => void) | null>(null);
-
+  const { categoryId, slug, unitId } = useLocalSearchParams();
+  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
-  const [data, setData] = React.useState<WritingSessionType[]>([]);
-  const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
-  // const [activeIndex, setActiveIndex] = React.useState<number>(0);
+
+  const goToNextRef = React.useRef<(() => void) | null>(null);
+
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { mutate: updateProgress } = useUpdateProgress();
+
+  const lessonData = React.useMemo<WritingSessionType[]>(() => {
+    if( !readingLessons ) return [];
+    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
+  }, [readingLessons]);
+
 
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent.trim()) {
@@ -61,39 +71,40 @@ const WritingSession = () => {
     setLoading(false);
   }, []);
 
-  React.useEffect(() => {
-    let isMounted = true;
+  // React.useEffect(() => {
+  //   let isMounted = true;
 
-    const dataLoad = async () => {
-      if (!isMounted) return;
-      setIsLoading(true);
+  //   const dataLoad = async () => {
+  //     if (!isMounted) return;
+  //     setIsLoading(true);
 
-      try {
-        const res = await api.get(`/writing/${categoryId}/${unitId}`);
-        setData(res.status === 200 ? res.data : []);
-        if (isMounted) {
-          setData(res.status === 200 ? res.data : []);
-        }
-      } catch {
-        if (isMounted) setData([]);
-      } finally {
-        if (isMounted) setIsLoading(false);
-      }
-    };
+  //     try {
+  //       const res = await api.get(`/writing/${categoryId}/${unitId}`);
+  //       setData(res.status === 200 ? res.data : []);
+  //       if (isMounted) {
+  //         setData(res.status === 200 ? res.data : []);
+  //       }
+  //     } catch {
+  //       if (isMounted) setData([]);
+  //     } finally {
+  //       if (isMounted) setIsLoading(false);
+  //     }
+  //   };
 
-    if (categoryId && unitId && slug) dataLoad();
-    return () => { isMounted = false };
-  }, [categoryId, unitId, slug]);
+  //   if (categoryId && unitId && slug) dataLoad();
+  //   return () => { isMounted = false };
+  // }, [categoryId, unitId, slug]);
 
-  if( isLoading ) return (<LoadingScreenComponent />)
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<WritingSessionType>
         sessionType="writing"
         keyboardAvoid={true}
-        preFetchedData={data}
+        preFetchedData={lessonData}
         // onPositionChange={setActiveIndex}
+        onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({ item, goToNext }) => {
           goToNextRef.current = goToNext;
           // reset();
@@ -106,10 +117,10 @@ const WritingSession = () => {
           };
           
           return (
-            <View style={{flex: 1}}>
+            <View style={styles.flex}>
               {/* Content */}
 
-              <View style={{flex: 1}}>
+              <View style={styles.flex}>
                 {/* Title Section */}
                 <ChallengeScreenTitle title="Listen And Write." />
 
@@ -164,8 +175,33 @@ const WritingSession = () => {
         onModalVisible={reset}
         onRetry={reset}
       />)}
-    </>    
+
+      {
+        showCompletionModal && (
+          <UnitCompletionModal
+            isVisible={showCompletionModal}
+            stats={{
+              time:"00:00",
+              total: lessonData.length,
+              correct: lessonData.length,
+              accuracy: 100
+            }}
+            onContinue={() => {
+              reset();
+              setShowCompletionModal(false);
+              router.back();
+              // navigation back to units page
+            }}
+            onModalVisible={() => setShowCompletionModal(false)}
+          />
+        )
+      }
+    </>
   );
 }
 
 export default WritingSession;
+
+const styles = StyleSheet.create({
+  flex: {flex: 1}
+});

@@ -1,10 +1,10 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { ListeningSessionType, SessionResultType } from '@/types';
+import { ContentType, ListeningSessionType, SessionResultType } from '@/types';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
@@ -12,6 +12,8 @@ import TaskAllocation from '@/components/listening-components/TaskAllocation';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useListening } from '@/context/ListeningContext';
 import api from '@/lib/api';
+import { useLessons } from '@/hooks/useLessons';
+import { useUpdateProgress } from '@/hooks/useUpdateProgess';
 
 const ListeningLessons = () => {
   const { colors } = useTheme();
@@ -19,15 +21,21 @@ const ListeningLessons = () => {
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { mutate: updateProgress } = useUpdateProgress();
+
+  const lessonData = React.useMemo<ListeningSessionType[]>(() => {
+    if( !readingLessons ) return [];
+    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
+  }, [readingLessons]);
+
+  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
-  const [ data, setData ] = React.useState<ListeningSessionType[]>([]);
-  const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
-  const [showCompletionModal, setShowCompletionModal] = React.useState<boolean>(false);
 
   
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
@@ -75,35 +83,14 @@ const ListeningLessons = () => {
     goToNextRef?.current && goToNextRef.current?.();
   }, [reset, goToNextRef, result]);
 
-  React.useEffect(() => {
-    const dataLoad = async () => {
-      setLoading(true)
-      try {
-        const res = await api.get(`/listening/${categoryId}/${unitId}`);
-        if(res.status !== 200) return setData([])
-        
-        const data: (ListeningSessionType)[] = res.data;  
-        if( data ) {
-          setData(data);
-        }
-      } catch (err) {
-        console.error("Error fetching listening data:", err);
-        setData([])
-      }
-      setLoading(false)
-    }
-
-    if (categoryId && unitId && slug) dataLoad();
-  }, [categoryId, unitId, slug]);
-
-  if( isLoading ) return (<LoadingScreenComponent />)
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<ListeningSessionType>
         sessionType="listening"
         keyboardAvoid={true}
-        preFetchedData={data}
+        preFetchedData={lessonData}
         onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({ item, goToNext }) => {
@@ -115,7 +102,7 @@ const ListeningLessons = () => {
           const onCheckHandler = () => analyzeListeningHandler( item.phrase );
 
           return (
-            <View style={{flex: 1}}>
+            <View style={styles.flex}>
               {/* Content */}
 
               <TaskAllocation
@@ -126,19 +113,16 @@ const ListeningLessons = () => {
 
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
-                multiline={true}
-                numberOfLines={2}
+                // multiline={true}
+                // numberOfLines={2}
                 maxLength={500}
-                // enterkeyhint='done'
                 placeholder='Write here...'
                 value={textContent}
                 onChange={setTextContent}
                 placeholderTextColor={colors.placeholderColor}
                 inputMode="text"
                 onBlur={() => {}}
-                contentContainerStyle={{
-                  marginBottom: 20
-                }}
+                contentContainerStyle={styles.textInput}
               />
 
               {/* Action Buttons */}
@@ -169,8 +153,8 @@ const ListeningLessons = () => {
             isVisible={showCompletionModal}
             stats={{
               time:"00:00",
-              total: data.length,
-              correct: data.length,
+              total: lessonData.length,
+              correct: lessonData.length,
               accuracy: 100
             }}
             onContinue={() => {
@@ -189,3 +173,10 @@ const ListeningLessons = () => {
 }
 
 export default ListeningLessons;
+
+const styles = StyleSheet.create({
+  flex: {flex: 1},
+  textInput: {
+    marginBottom: 20
+  }
+});

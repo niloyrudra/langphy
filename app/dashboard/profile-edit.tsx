@@ -23,18 +23,18 @@ const ProfileEditSchema = Yup.object().shape({
 const ProfileEditScreen = () => {
     const { colors, theme } = useTheme();
     const {user} = useAuth();
-    const { data:profile } = useProfile(user?.id as string);
+    const { data: profile } = useProfile(user?.id as string);
     const { mutate: updateProfile, isPending } = useUpdateProfile(user?.id as string);
 
     // Handler
-    const handleProfileEdit = async (
+    const handleProfileEdit = React.useCallback( (
         first_name: string,
         last_name: string,
         username: string,
         profile_image: string,
     ) => {
         try {
-            await updateProfile({
+            updateProfile({
                 id: user?.id,
                 email: user?.email,
                 created_at: user?.created_at,
@@ -65,7 +65,7 @@ const ProfileEditScreen = () => {
             console.error("Profile update Error:", err)
             Alert.alert("Profile update failed!")
         }
-    }
+    }, [user])
 
     return (
         <SafeAreaLayout>
@@ -80,8 +80,8 @@ const ProfileEditScreen = () => {
                         profile_image: profile?.profile_image ?? ""
                     }}
                     validationSchema={ProfileEditSchema}
-                    onSubmit={async (values, {resetForm}) => {
-                        await handleProfileEdit(
+                    onSubmit={ (values, {resetForm}) => {
+                        handleProfileEdit(
                             values.first_name,
                             values.last_name,
                             values.username,

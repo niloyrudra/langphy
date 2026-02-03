@@ -1,39 +1,46 @@
 import React from 'react';
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import QuizOptionCardList from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { router, useLocalSearchParams } from 'expo-router';
 import { getCardContainerWidth } from '@/utils';
-import { QuizSessionType, SelectiveResultType } from '@/types';
+import { ContentType, ProgressPayload, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useTheme } from '@/theme/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
-import api from '@/lib/api';
+import { useLessons } from '@/hooks/useLessons';
+import { useUpdateProgress } from '@/hooks/useUpdateProgess';
 
 const QuizSession = () => {
   const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
+
+  const { data: quizLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { mutate: updateProgress } = useUpdateProgress();
+
+  const quizzes = React.useMemo<QuizSessionType[]>(() => {
+    if( !quizLessons ) return [];
+    return quizLessons.map( lesson => JSON.parse( lesson.payload ) );
+  }, [quizLessons]);
   
   const [showCompletionModal, setShowCompletionModal] = React.useState<boolean>(false);
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
   const [ error, setError ] = React.useState<string>('')
-  const [ data, setData ] = React.useState<QuizSessionType[]>([]);
   const [ loading, setLoading ] = React.useState<boolean>(false);
   const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
     
-  const handleSelect = (option: string) => {
+  const handleSelect = React.useCallback((option: string) => {
     setSelectedOption( prevValue => prevValue = option);
     setIsSelectionHappened( prevValue => prevValue = true);
-  };
+  }, []);
 
   const reset = React.useCallback(() => {
     setSelectedOption("");
@@ -43,34 +50,12 @@ const QuizSession = () => {
     setLoading(false);
   }, []);
 
-  React.useEffect(() => {
-    const dataLoad = async () => {
-      setLoading(true)
-      try {
-        const res = await api.get(`/quizzes/${categoryId}/${unitId}`);
-        if( res.status !== 200 ) return setData([]);
-
-        const data: (QuizSessionType)[] = res.data;
-        if( data ) setData(data)
-
-      } catch (err: any) {
-        console.error("Error fetching Quiz data:", err);
-        setData([])
-        // throw err;
-        setError(`Error fetching Quiz data`);
-      }
-      setLoading(false)
-    }
-
-    if (categoryId && unitId && slug) dataLoad();
-  }, [categoryId, unitId, slug]);
-
   if( loading ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<QuizSessionType>
-        preFetchedData={data}
+        preFetchedData={quizzes}
         onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({item, goToNext}) => {
@@ -83,6 +68,16 @@ const QuizSession = () => {
 
           const onCheckHandler = () => {
             if(  selectedOption === item?.answer ) {
+              const payload: ProgressPayload = {
+                content_type: slug as ContentType,
+                content_id: item.id,
+                completed: true,
+                score: 100,
+                progress_percent: 100
+              };
+
+              updateProgress( payload );
+
               setResult({
                 answered: selectedOption || "",
                 feedback: { label: "Correct", color: "green" }
@@ -98,35 +93,16 @@ const QuizSession = () => {
           };
 
           return (
-            <View style={{flex: 1}}>
-              <View style={{flex: 1}}>
+            <View style={styles.flex}>
+              <View style={styles.flex}>
                 {/* Title Section */}
                 <ChallengeScreenTitle title="Choose The Correct Answer." />
 
                 {/* QUIZ Section Starts */}
                 <View>
-                  {/* <ChallengeScreenQuerySection query={item?.question} lang="en-US" /> */}
-                  <View
-                    style={{
-                      flexDirection :"row",
-                      // flexWrap: 'wrap',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      marginBottom: 20,
-                      marginTop: 10,
-                      gap: 20
-                    }}
-                  >
+                  <View style={styles.questionWrapper}>
                     <MaterialIcons name="quiz" size={32} color={colors.primary} />
-                    <Text
-                      style={{
-                        fontSize: 24,
-                        color: colors.primary,
-                        fontWeight: '700',
-                        wordWrap: 'break-word',
-                        flexShrink: 1,
-                      }}
-                    >
+                    <Text style={[styles.question, {color: colors.primary}]}>
                       {item?.question}
                     </Text> 
                   </View>
@@ -175,8 +151,8 @@ const QuizSession = () => {
             isVisible={showCompletionModal}
             stats={{
               time:"00:00",
-              total: data.length,
-              correct: data.length,
+              total: quizzes.length,
+              correct: quizzes.length,
               accuracy: 100
             }}
             onContinue={() => {
@@ -194,3 +170,22 @@ const QuizSession = () => {
 }
 
 export default QuizSession;
+
+const styles = StyleSheet.create({
+  flex: {flex:1},
+  questionWrapper: {
+    flexDirection :"row",
+    // flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginBottom: 20,
+    marginTop: 10,
+    gap: 20
+  },
+  question: {
+    fontSize: 24,
+    fontWeight: '700',
+    wordWrap: 'break-word',
+    flexShrink: 1,
+  }
+});

@@ -1,23 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
-// import SIZES from '@/constants/size';
-import { SelectiveResultType, ReadingSessionType } from '@/types';
+import { SelectiveResultType, ReadingSessionType, ContentType, ProgressPayload } from '@/types';
 // Components
 import HorizontalLine from '@/components/HorizontalLine';
 import QuizOptions from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
-// import ToolTipPerWordComponent from '@/components/ToolTipPerWordComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
-import api from '@/lib/api';
+import { useLessons } from '@/hooks/useLessons';
+import { useUpdateProgress } from '@/hooks/useUpdateProgess';
 
 const ReadingLessons = () => {
   const { colors } = useTheme();
@@ -25,14 +24,20 @@ const ReadingLessons = () => {
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { mutate: updateProgress, isPending } = useUpdateProgress();
+
+  const lessonData = React.useMemo<ReadingSessionType[]>(() => {
+    if( !readingLessons ) return [];
+    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
+  }, [readingLessons]);
+
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
-  const [ data, setData ] = React.useState<ReadingSessionType[]>([]);
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
   const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
   const [ error, setError ] = React.useState<string>('')
-  const [ loading, setLoading ] = React.useState<boolean>(false)
   const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
   
   const handleSelect = (option: string) => {
@@ -46,37 +51,15 @@ const ReadingLessons = () => {
     setIsCorrect(false);
     setResult(null);
     setError("");
-    setLoading(false);
+    // setLoading(false);
   }, []);
 
-  React.useEffect(() => {
-    const dataLoad = async () => {
-      setLoading(true)
-      try {
-        const res = await api.get(`/reading/${categoryId}/${unitId}`);
-        if ( res.status !== 200 ) return setData([]);
-
-        const data: (ReadingSessionType)[] = res.data;
-        if( data ) setData(data)
-
-      } catch (err) {
-        console.error("Error fetching reading data:", err);
-        setData([])
-        // throw err;
-      }
-      setLoading(false)
-    }
-
-    if (categoryId && unitId && slug) dataLoad();
-  }, [categoryId, unitId, slug]);
-
-  if( loading ) return (<LoadingScreenComponent />)
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<ReadingSessionType>
-        preFetchedData={data}
-        sessionType="reading"
+        preFetchedData={lessonData}
         onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({item, goToNext}) => {
@@ -92,6 +75,17 @@ const ReadingLessons = () => {
           const onCheckHandler = () => {
             if(  selectedOption === item?.answer ) {
               setIsCorrect( prevVal => prevVal = true )
+
+              const payload: ProgressPayload = {
+                content_type: slug as ContentType,
+                content_id: item.id,
+                completed: true,
+                score: 100,
+                progress_percent: 100
+              };
+
+              updateProgress( payload );
+
               setResult({
                 answered: selectedOption || "",
                 feedback: { label: "Correct", color: "green" }
@@ -106,9 +100,9 @@ const ReadingLessons = () => {
           };
           
           return (
-            <View style={{flex: 1}}>
+            <View style={styles.flex}>
 
-              <View style={{flex: 1}}>
+              <View style={styles.flex}>
                 {/* Title Section */}
                 <ChallengeScreenTitle title="Read The Comprehension." />
 
@@ -133,9 +127,9 @@ const ReadingLessons = () => {
 
                 <HorizontalLine />
 
-                <View style={{ flex: 1 }}>
-                  <View style={{marginBottom:10}}>
-                    <Text style={{fontSize: 16, color: colors.text, fontWeight:"700"}}>{item?.question_en}</Text>
+                <View style={styles.questionSection}>
+                  <View style={styles.questionWrapper}>
+                    <Text style={[styles.question, {color: colors.text}]}>{item?.question_en}</Text>
                   </View>
 
                   {/* QUIZ Answer Options */}
@@ -184,8 +178,8 @@ const ReadingLessons = () => {
             isVisible={showCompletionModal}
             stats={{
               time:"00:00",
-              total: data.length,
-              correct: data.length,
+              total: lessonData.length,
+              correct: lessonData.length,
               accuracy: 100
             }}
             onContinue={() => {
@@ -205,6 +199,7 @@ const ReadingLessons = () => {
 export default ReadingLessons;
 
 const styles = StyleSheet.create({
+  flex: {flex:1},
   container: {
     marginTop: 30,
     marginBottom: 0,
@@ -214,6 +209,9 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     gap: 20
   },
+  questionSection: {flex:1},
+  questionWrapper: {marginBottom:10},
+  question: {fontSize: 16, fontWeight:"700"},
   text: {
     fontSize: 14,
     flexWrap: 'wrap'

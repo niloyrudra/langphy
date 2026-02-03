@@ -60,56 +60,56 @@ type UnitLesson = {
 }
 
 type UnitLessonProps = {
-    id: string,
-    title: string,
-    slug: string,
-    rootCategory: string,
-    unitLessonCategory: string,
-    completion: number,
-    goal: number,
-    ImgComponent: React.FC<SvgProps>,
-    containerWidth?: number,
-    marginRight?: number
+  id: string,
+  title: string,
+  slug: string,
+  rootCategory: string,
+  unitLessonCategory: string,
+  completion: number,
+  goal: number,
+  ImgComponent: React.FC<SvgProps>,
+  containerWidth?: number,
+  marginRight?: number
 }
 // UNIT Props
 type UnitProps = {
-    title: string,
-    completion: number,
-    goal: number,
-    ImgComponent: React.FC<SvgProps>,
-    // imgSource: ImageSourcePropType | undefined,
-    customStyle?: StyleProp<ViewStyle>
+  title: string,
+  completion: number,
+  goal: number,
+  ImgComponent: React.FC<SvgProps>,
+  // imgSource: ImageSourcePropType | undefined,
+  customStyle?: StyleProp<ViewStyle>
 }
 type UnitCategoryItemProps = {
-    title: string,
-    unitLessonCategory: string,
-    rootCategory: string,
-    completion: number,
-    goal: number,
-    ImgComponent?: React.FC<SvgProps>,
-    // imgSource: ImageSourcePropType | undefined,
-    customStyle?: StyleProp<ViewStyle>,
+  title: string,
+  unitLessonCategory: string,
+  rootCategory: string,
+  completion: number,
+  goal: number,
+  ImgComponent?: React.FC<SvgProps>,
+  // imgSource: ImageSourcePropType | undefined,
+  customStyle?: StyleProp<ViewStyle>,
     // items: any[]
 }
 type UnitLessonItemProps = {
-    id: string,
-    title: string,
-    slug: string,
-    completion: number,
-    goal: number,
-    ImgComponent: React.FC<SvgProps>,
-    containerWidth?: number,
-    marginRight?: number,
-    // items: any[]
+  id: string,
+  title: string,
+  slug: string,
+  completion: number,
+  goal: number,
+  ImgComponent: React.FC<SvgProps>,
+  containerWidth?: number,
+  marginRight?: number,
+  // items: any[]
 }
 
 // UNIT DATA Props
 type UnitDataProps = {
-    id: string,
-    title: string,
-    completion?: number,
-    goal?: number,
-    ImgComponent: React.FC<SvgProps>
+  id: string,
+  title: string,
+  completion?: number,
+  goal?: number,
+  ImgComponent: React.FC<SvgProps>
 }
 
 type UnitSessionType = {
@@ -146,7 +146,8 @@ type PracticeSessionType = {
 
 // Speaking Session Type
 type SpeakingSessionType = {
-  _id: string;
+  // _id: string;
+  id: string;
   categoryId: string;
   unitId: string;
   phrase: string;
@@ -159,7 +160,8 @@ type SpeakingSessionType = {
 
 // Reading
 type ReadingSessionType = {
-  _id: string,
+  // _id: string,
+  id: string,
   categoryId: string,
   unitId: string,
   question_en: string,
@@ -170,7 +172,8 @@ type ReadingSessionType = {
 }
 
 type WritingSessionType = {
-  _id: string,
+  // _id: string,
+  id: string,
   categoryId: string,
   unitId: string,
   phrase: string,
@@ -179,7 +182,8 @@ type WritingSessionType = {
 }
 
 type ListeningSessionType = {
-  _id: string,
+  // _id: string,
+  id: string,
   categoryId: string,
   unitId: string,
   phrase: string,
@@ -188,7 +192,8 @@ type ListeningSessionType = {
 }
 
 type QuizSessionType = {
-  _id: string,
+  // _id: string,
+  id: string,
   categoryId: string,
   unitId: string,
   german_level: string,

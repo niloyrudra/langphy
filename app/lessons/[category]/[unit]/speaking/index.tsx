@@ -5,25 +5,30 @@ import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
-import { SpeakingSessionType } from '@/types';
-import { useLocalSearchParams } from 'expo-router';
+import { ContentType, SpeakingSessionType } from '@/types';
+import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
 import { RecorderReload } from '@/utils/SVGImages';
 import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx';
-import api from '@/lib/api';
+import { useLessons } from '@/hooks/useLessons';
+import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 
 
 const SpeakingLessons = () => {
   const goToNextRef = React.useRef<(() => void) | null>(null);
-  const [activeIndex, setActiveIndex] = React.useState<number>(0);
+  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
+  const { categoryId, slug, unitId } = useLocalSearchParams();
 
-  const [data, setData] = React.useState<SpeakingSessionType[]>([]);
-  const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  // const { mutate: updateProgress } = useUpdateProgress();
 
-  const {categoryId, slug, unitId} = useLocalSearchParams();
+  const lessonData = React.useMemo<SpeakingSessionType[]>(() => {
+    if( !readingLessons ) return [];
+    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
+  }, [readingLessons]);
 
   const {
     isRecording,
@@ -42,33 +47,13 @@ const SpeakingLessons = () => {
     error,
   } = useSpeechRecorder(null);
 
-  React.useEffect(() => {
-    const dataLoad = async () => {
-      setIsLoading(true)
-      try {
-        const res = await api.get(`/speaking/${categoryId}/${unitId}`);
-        if( res.status !== 200 ) return setData([])
-
-        const data: (SpeakingSessionType)[] = res.data;
-        if( data ) setData(data)
-
-      } catch (err) {
-        console.error("Error fetching practice data:", err);
-        setData([])
-      }
-      setIsLoading(false)
-    }
-
-    if (categoryId && unitId && slug) dataLoad();
-  }, [categoryId, unitId, slug]);
-
-  if( isLoading ) return (<LoadingScreenComponent />)
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<SpeakingSessionType>
-        preFetchedData={data}
-        onPositionChange={setActiveIndex}
+        preFetchedData={lessonData}
+        onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({ item, goToNext }) => {
           setExpectedText(prevValue => prevValue = item.phrase.trim())
           goToNextRef.current = goToNext;
@@ -80,7 +65,7 @@ const SpeakingLessons = () => {
           };
           return (
             <>
-              <View style={{flex: 1}}>
+              <View style={styles.flex}>
       
                 {/* Title Section */}
                 <ChallengeScreenTitle title="Speak This Sentence" />
@@ -106,7 +91,7 @@ const SpeakingLessons = () => {
                     />
                   </View>
 
-                  <View style={{flex:1}} />
+                  <View style={styles.flex} />
       
                   {/* Writing Text Field/Input/Area Section */}
                   <View style={STYLES.childContentCentered}>
@@ -161,6 +146,26 @@ const SpeakingLessons = () => {
         onModalVisible={reset}
         onRetry={reset}
       />)}
+      {
+        showCompletionModal && (
+          <UnitCompletionModal
+            isVisible={showCompletionModal}
+            stats={{
+              time:"00:00",
+              total: lessonData.length,
+              correct: lessonData.length,
+              accuracy: 100
+            }}
+            onContinue={() => {
+              reset();
+              setShowCompletionModal(false);
+              router.back();
+              // navigation back to units page
+            }}
+            onModalVisible={() => setShowCompletionModal(false)}
+          />
+        )
+      }
     </>
   );
 }
@@ -168,6 +173,7 @@ const SpeakingLessons = () => {
 export default SpeakingLessons;
 
 const styles = StyleSheet.create({
+  flex: {flex: 1},
   container: {
     marginTop: 30,
     marginBottom: 20,
