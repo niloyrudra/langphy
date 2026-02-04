@@ -64,8 +64,6 @@ const SpeechResultModal = ({isVisible, onModalVisible, result, onRetry, onContin
                             borderTopColor: colors.modalBoderColor,
                             borderLeftColor: colors.modalBoderColor,
                             borderRightColor: colors.modalBoderColor,
-                            width: "98%",
-                            overflow: "hidden"
                         },
                     ]}
                 >
@@ -156,7 +154,8 @@ const styles = StyleSheet.create({
         bottom: 0
     },
     modalView: {
-        // position: "relative",
+        width: "98%",
+        overflow: "hidden",
         borderStartStartRadius: 20,
         borderEndStartRadius: 20,
         borderTopWidth: 6,

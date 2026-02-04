@@ -6,7 +6,7 @@ import TextInputComponent from '@/components/form-components/TextInputComponent'
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { ContentType, SessionResultType, WritingSessionType } from '@/types';
+import { SessionType, SessionResultType, WritingSessionType } from '@/types';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
@@ -27,7 +27,7 @@ const WritingSession = () => {
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { mutate: updateProgress } = useUpdateProgress();
 
   const lessonData = React.useMemo<WritingSessionType[]>(() => {

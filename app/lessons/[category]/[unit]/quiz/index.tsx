@@ -6,7 +6,7 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { router, useLocalSearchParams } from 'expo-router';
 import { getCardContainerWidth } from '@/utils';
-import { ContentType, ProgressPayload, QuizSessionType, SelectiveResultType } from '@/types';
+import { SessionType, ProgressPayload, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import SessionResultModal from '@/components/modals/SessionResultModal';
@@ -21,7 +21,7 @@ const QuizSession = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
-  const { data: quizLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { data: quizLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { mutate: updateProgress } = useUpdateProgress();
 
   const quizzes = React.useMemo<QuizSessionType[]>(() => {
@@ -69,7 +69,7 @@ const QuizSession = () => {
           const onCheckHandler = () => {
             if(  selectedOption === item?.answer ) {
               const payload: ProgressPayload = {
-                content_type: slug as ContentType,
+                content_type: slug as SessionType,
                 content_id: item.id,
                 completed: true,
                 score: 100,

@@ -4,7 +4,7 @@ import { useTheme } from '@/theme/ThemeContext';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { ContentType, ListeningSessionType, SessionResultType } from '@/types';
+import { SessionType, ListeningSessionType, SessionResultType } from '@/types';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
@@ -18,24 +18,23 @@ import { useUpdateProgress } from '@/hooks/useUpdateProgess';
 const ListeningLessons = () => {
   const { colors } = useTheme();
   const { resultHandler } = useListening();
-  const {categoryId, slug, unitId} = useLocalSearchParams();
+  const { categoryId, slug, unitId } = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
-
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
-  const { mutate: updateProgress } = useUpdateProgress();
-
-  const lessonData = React.useMemo<ListeningSessionType[]>(() => {
-    if( !readingLessons ) return [];
-    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
-  }, [readingLessons]);
-
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
-  const [activeIndex, setActiveIndex] = React.useState<number>(0);
+  // const [activeIndex, setActiveIndex] = React.useState<number>(0);
+
+  const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+
+  const lessonData = React.useMemo<ListeningSessionType[]>(() => {
+    if( !listeningLessons ) return [];
+    return listeningLessons.map( lesson => JSON.parse( lesson.payload ) );
+  }, [listeningLessons]);
+
 
   
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
@@ -91,7 +90,7 @@ const ListeningLessons = () => {
         sessionType="listening"
         keyboardAvoid={true}
         preFetchedData={lessonData}
-        onPositionChange={setActiveIndex}
+        // onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({ item, goToNext }) => {
           goToNextRef.current = goToNext;

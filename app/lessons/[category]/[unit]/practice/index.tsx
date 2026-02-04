@@ -8,7 +8,7 @@ import {
 import { useTheme } from '@/theme/ThemeContext';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { router, useLocalSearchParams } from 'expo-router';
-import { ContentType, PracticeSessionType } from '@/types';
+import { SessionType, PracticeSessionType } from '@/types';
 import ListeningComponent from '@/components/listening-components/ListeningComponent';
 import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
@@ -28,7 +28,7 @@ const PracticeLessons = () => {
 
   // Essential Custom hooks
   const { currentPosition, showLessonList, setCurrentPosition } = useSession();
-  const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { data: progress } = useProgress();
 
   // Fetch Primary Lesson data

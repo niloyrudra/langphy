@@ -5,7 +5,7 @@ import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
-import { ContentType, SpeakingSessionType } from '@/types';
+import { SessionType, SpeakingSessionType } from '@/types';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
@@ -22,7 +22,7 @@ const SpeakingLessons = () => {
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const { categoryId, slug, unitId } = useLocalSearchParams();
 
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   // const { mutate: updateProgress } = useUpdateProgress();
 
   const lessonData = React.useMemo<SpeakingSessionType[]>(() => {

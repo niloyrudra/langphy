@@ -1,33 +1,23 @@
-// app/lessons/[category]/[unit]/_layout.tsx
 import { Stack } from 'expo-router';
-import CustomArchiveHeader from '@/components/CustomArchiveHeader';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import Settings from '@/components/header/Settings';
-import Title from '@/components/Title';
 import { useTheme } from '@/theme/ThemeContext';
 import { truncateString } from '@/utils';
 import HeaderTitle from '@/components/header/HeaderTitle';
 
 export default function UnitLayout() {
-  const {colors, theme} = useTheme();
+  const {colors} = useTheme();
   return (
-    <Stack
-      screenOptions={{
-        // statusBarStyle: theme === 'light' ? 'light' : 'dark'
-      }}
-    >
+    <Stack>
       <Stack.Screen
         name="index"
-        // options={{ header: (props) => (<CustomArchiveHeader title={props.route.params?.title ?? "Lessons"} />) }} />
         options={(props) => ({
           headerStyle: {backgroundColor: colors.background},
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
             <HeaderTitle
-              title={ props.route.params?.title ? truncateString( props.route.params?.title, 25 ) : "Unit Sessions"}
-              // contentStyle={{fontWeight:"900", fontSize:24}}
-              // containerStyle={{justifyContent:"center", alignItems:"center"}}
+              title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Sessions"}
             />
           ),
           headerRight: () => (<Settings />)

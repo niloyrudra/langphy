@@ -1,3 +1,4 @@
+import { StreaksType } from "@/types";
 import { db } from "./index";
 
 export type DBStreak = {
@@ -24,13 +25,7 @@ export const getDirtyStreaks = async (userId: string): Promise<DBStreak | null> 
     );
 };
 
-export const upsertStreak = async (s: {
-    user_id: string;
-    current_streak: number;
-    longest_streak: number;
-    last_activity_date?: number;
-    updated_at?: number;
-}) => {
+export const upsertStreak = async (s: StreaksType) => {
     const now = Math.floor(Date.now() / 1000);
 
     const result = await db.getFirstAsync(

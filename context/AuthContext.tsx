@@ -7,6 +7,7 @@ import { bootstrapProfileFromToken } from "@/bootstraps/profile.bootstrap";
 import { bootstrapSettingsFromToken } from "@/bootstraps/settings.bootstrap";
 import { bootstrapStreaks } from "@/bootstraps/streaks.bootstrap";
 import { bootstrap } from "@/bootstraps/bootstrap";
+import { authSnapshot } from "@/snapshots/authSnapshot";
 
 type authContextType = {
     user: User | null;
@@ -35,12 +36,21 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                 try {
                     const decode: any = jwtDecode(token);
                     console.log("decode:", decode);
+                    authSnapshot.set(
+                        decode.id,
+                        token
+                    );
+                    console.log("authSnapshot is set.")
                     // Bootstrap user data
                     await bootstrap( decode );
+                    console.log("bootstrap is set.")
                 }
                 catch(err) {
                     await SecureStore.deleteItemAsync("accessToken");
                 }
+            }
+            else {
+                authSnapshot.clear();
             }
 
             setLoading(false);

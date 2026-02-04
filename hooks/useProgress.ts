@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllProgress } from "@/db/progress.repo";
+import { getSessionProgress } from "@/db/progress.repo";
 
-export const useProgress = () => useQuery({
-    queryKey: ["lp_progress"],
-    queryFn: getAllProgress,
-    initialData: [],
+export const useProgress = ( sessionKey: string ) => useQuery({
+    queryKey: ["lp_progress", sessionKey],
+    queryFn: () => getSessionProgress( sessionKey ),
+    // initialData: [],
+    staleTime: Infinity,
+    gcTime: Infinity
 });

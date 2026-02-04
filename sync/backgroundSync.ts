@@ -1,20 +1,46 @@
 import * as TaskManager from "expo-task-manager";
 import * as BackgroundTask from "expo-background-task";
-import { syncProgress } from "./progressSync";
-import { syncStreaks } from "./streaksSync";
+import { syncDirtyProgress } from "./syncProgress";
+import { syncDirtyStreaks } from "./syncStreaks";
 import NetInfo from "@react-native-community/netinfo";
-import { syncProfile } from "./profileSync";
-import { syncSettings } from "./settingsSync";
+import { syncDirtyProfile } from "./syncProfile";
+import { syncDirtySettings } from "./syncSettings";
+import { authSnapshot } from "@/snapshots/authSnapshot";
 
 const BACKGROUND_SYNC_TASK = "BACKGROUND_SYNC_TASK";
 
 export const runSync = async () => {
-  await Promise.all([
-    syncProfile(),
-    syncSettings(),
-    syncProgress(),
-    syncStreaks()
-  ]);
+  try {
+
+    if (!authSnapshot.isReady()) {
+      console.warn("Auth not ready, skipping sync");
+      return BackgroundTask.BackgroundTaskResult.Success;
+    }
+
+    const userId = authSnapshot.getUserId()!;
+
+    // await Promise.all([
+    //   syncProfile( userId ),
+    //   syncSettings( userId ),
+    //   syncProgress( userId ),
+    //   syncStreaks( userId )
+    // ]);
+
+    let didWork = false;
+
+    didWork ||= !!(await syncDirtyProfile(userId));
+    didWork ||= !!(await syncDirtySettings(userId));
+    didWork ||= !!(await syncDirtyProgress(userId));
+    // didWork ||= await syncPerformance(userId);
+    didWork ||= !!(await syncDirtyStreaks(userId));
+
+    return didWork
+      ? BackgroundTask.BackgroundTaskResult.Success // NewData
+      : BackgroundTask.BackgroundTaskResult.Success; // NoData
+  } catch (err) {
+    console.error("Background sync failed:", err);
+    return BackgroundTask.BackgroundTaskResult.Failed;
+  }
 }
 
 /**

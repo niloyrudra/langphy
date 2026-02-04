@@ -2,6 +2,7 @@ import { db } from "./index";
 import {
     CREATE_CATEGORIES_TABLE,
     CREATE_LESSONS_TABLE,
+    CREATE_PERFORMANCE_TABLE,
     CREATE_PROFILE_TABLE,
     CREATE_PROGRESS_TABLE,
     CREATE_SETTINGS_TABLE,
@@ -10,9 +11,9 @@ import {
 } from "./schema";
 
 export const runMigrations = async () => {
-    await db.runAsync(`DELETE FROM lp_profiles`);
-    await db.runAsync(`DELETE FROM lp_settings`);
-    await db.runAsync(`DELETE FROM lp_streaks`);
+    // await db.runAsync(`DELETE FROM lp_profiles`);
+    // await db.runAsync(`DELETE FROM lp_settings`);
+    // await db.runAsync(`DELETE FROM lp_streaks`);
 
     // await db.runAsync(`DROP TABLE IF EXISTS lp_streaks`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_lessons`);
@@ -25,5 +26,6 @@ export const runMigrations = async () => {
         db.execAsync(CREATE_CATEGORIES_TABLE),
         db.execAsync(CREATE_UNITS_TABLE),
         db.execAsync(CREATE_LESSONS_TABLE),
+        db.execAsync(CREATE_PERFORMANCE_TABLE),
     ]);
 };

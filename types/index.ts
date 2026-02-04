@@ -603,21 +603,67 @@ type WordConfidence = {
   confidence: Confidence;
 }
 
-type ContentType = "practice" | "quiz" | "listening" | "reading" | "writing" | "speaking";
+type SessionType = "practice" | "quiz" | "listening" | "reading" | "writing" | "speaking";
+
 type BackendLesson = {
   _id: string;
   meaning: string;
 }
 
 type ProgressPayload = {
-  content_type: ContentType;
+  content_type: SessionType;
   content_id: string;
-
+  session_key: string;
   completed?: boolean;
   score?: number;
   progress_percent?: number;
   updated_at?: number
 };
+
+type StreaksType = {
+  user_id: string;
+  current_streak: number;
+  longest_streak: number;
+  last_activity_date?: number;
+  updated_at?: number;
+}
+
+type PerformanceUpdateInput = {
+  userId: string;
+  type: SessionType;
+  score?: number;
+  maxScore?: number
+}
+
+type CompleteLessonInput = {
+  userId: string;
+  lessonId: string;
+  unitId: string;
+  categoryId: string;
+  type: SessionType;
+  score?: number;
+  maxScore?: number;
+  timeSpentSec: number;
+};
+
+type CompleteLessonChainInput = {
+  userId: string;
+  lessonIds: string[];        // all lessons in this session
+  unitId: string;
+  sessionType: SessionType;   // practice | listening | ...
+  score?: number;
+  maxScore?: number;
+  timeSpentSec: number;
+};
+
+type SessionCompletedInput = {
+  userId: string;
+  sessionKey: string;
+  type: SessionType
+  score?: number,
+  maxScore?: number,
+  timeSpentSec: number
+}
 
 export {
   User,
@@ -628,7 +674,7 @@ export {
   SessionContextType,
   SessionProviderProps,
 
-  ContentType,
+  SessionType,
   BackendLesson,
 
   WordConfidence,
@@ -691,5 +737,11 @@ export {
   Feedback,
   SelectiveResultType,
 
-  ProgressPayload
+  ProgressPayload,
+  StreaksType,
+
+  PerformanceUpdateInput,
+  CompleteLessonInput,
+  CompleteLessonChainInput,
+  SessionCompletedInput
 };

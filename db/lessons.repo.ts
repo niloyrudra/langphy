@@ -1,18 +1,18 @@
 import { db } from "./index";
-import { ContentType } from "@/types";
+import { SessionType } from "@/types";
 
 type LocalLesson = {
     id: string;
     // user_id: string;
     category_id: string;
     unit_id: string;
-    type: ContentType;
+    type: SessionType;
     payload: string; // JSON stringified content
     dirty?: number;
     updated_at?: number;
 }
 
-export const getLessonsByUnit = async (unitId: string, type: ContentType): Promise<LocalLesson[]> => {
+export const getLessonsByUnit = async (unitId: string, type: SessionType): Promise<LocalLesson[]> => {
     try {
         const lessons = await db.getAllAsync<LocalLesson>(`
             SELECT * FROM lp_lessons WHERE unit_id = ? AND type = ?
@@ -22,6 +22,16 @@ export const getLessonsByUnit = async (unitId: string, type: ContentType): Promi
     catch(error) {
         console.error("Get Lessons Error:", error)
         throw error;
+    }
+}
+
+export const getLessonBySession = async (unitId: string, type: SessionType): Promise<LocalLesson[] | undefined> => {
+    try {
+        return []
+    }
+    catch(error) {
+        console.error("Fetch Lessons by Session Error:", error);
+        return [];
     }
 }
 

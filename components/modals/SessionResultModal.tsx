@@ -3,7 +3,7 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { SelectiveResultType, SessionResultType } from '@/types';
 import { feedbackComments } from '@/utils';
-import HorizontalLine from '../HorizontalLine';
+// import HorizontalLine from '../HorizontalLine';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
@@ -29,16 +29,8 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
             isVisible={isVisible}
             onModalVisible={onModalVisible}
             feedback={feedback}
-            // gradianColor={[colors.gradiantDeep, colors.gradiantDeep, '#1FCAD7']} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
             gradianColor={[colors.gradiantDeep, colors.gradiantDeep]} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
-            containerStyle={{
-                // borderLeftWidth: 0,
-                // borderRightWidth: 0,
-                // borderTopWidth: 2
-                // borderTopStartRadius: 50,
-                // borderTopEndRadius: 50,
-                width: "100%"
-            }}
+            containerStyle={styles.modalContainer}
         >
 
             {/* Modal Content */}
@@ -82,6 +74,7 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
                     detail={result.analysis?.issues?.length > 0 ?result.analysis?.issues?.join(", ") : 'No issues found'}
                     iconComponent={<MaterialIcons name="error" size={20} color={colors.text} />}
                 /> */}
+
                 {'similarity' in result && (
                     <ResultDetail
                         detail={result.feedback}
@@ -89,20 +82,12 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
                     />          
                 )}
                 
-                {/* <HorizontalLine
-                    style={{
-                        marginVertical: 15,
-                        borderBottomColor: "#3FA1FF" // colors.cardBorderColor
-                    }}
-                /> */}
-
                 <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 30}}>
                     <ActionPrimaryButton buttonTitle='Retry' onSubmit={onRetry} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
                     <ActionPrimaryButton buttonTitle='Continue' onSubmit={onContinue ? () =>onContinue() : () => console.log("Continue")} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
                 </View>
 
             </View>
-
         </ModalLayout>                    
     );
 }
@@ -110,6 +95,9 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
 export default SessionResultModal;
 
 const styles = StyleSheet.create({
+    modalContainer: {
+        width: "100%"
+    },
     centeredView: {
         flex: 1,
         justifyContent: 'flex-end',

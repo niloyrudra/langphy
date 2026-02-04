@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
-import { SelectiveResultType, ReadingSessionType, ContentType, ProgressPayload } from '@/types';
+import { SelectiveResultType, ReadingSessionType, SessionType, ProgressPayload } from '@/types';
 // Components
 import HorizontalLine from '@/components/HorizontalLine';
 import QuizOptions from '@/components/list-loops/QuizOptions';
@@ -24,7 +24,7 @@ const ReadingLessons = () => {
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as ContentType );
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { mutate: updateProgress, isPending } = useUpdateProgress();
 
   const lessonData = React.useMemo<ReadingSessionType[]>(() => {
@@ -77,7 +77,7 @@ const ReadingLessons = () => {
               setIsCorrect( prevVal => prevVal = true )
 
               const payload: ProgressPayload = {
-                content_type: slug as ContentType,
+                content_type: slug as SessionType,
                 content_id: item.id,
                 completed: true,
                 score: 100,

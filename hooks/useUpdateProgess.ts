@@ -11,6 +11,7 @@ export const useUpdateProgress = () => {
         await upsertProgress({
           content_type: progress.content_id,
           content_id: progress.content_id,
+          session_key: progress.session_key,
           completed: progress.completed,
           score: progress.score ?? 0,
           progress_percent: progress.progress_percent ?? 0,
