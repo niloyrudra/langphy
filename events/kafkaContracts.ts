@@ -1,16 +1,22 @@
-export type LessonCompletedEvent = {
-  type: "lesson.completed.v1";
+import { SessionType } from "@/types";
+
+export interface LessonCompletedEvent {
+  // type: "lesson.completed.v1";
   userId: string;
   lessonId: string;
   sessionKey: string;
-  timestamp: number;
+  lessonType: SessionType;
+  score?: number;
+  duration_ms?: number;
+  occurredAt: number
 };
 
-export type SessionCompletedEvent = {
-  type: "session.completed.v1";
+export interface SessionCompletedEvent {
+  // type: "session.completed.v1";
   userId: string;
   sessionKey: string;
   sessionType: string;
-  score?: number;
-  timestamp: number;
+  // score?: number;
+  total_duration_ms?: number;
+  occurredAt: number;
 };

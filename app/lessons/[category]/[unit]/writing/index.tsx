@@ -13,10 +13,19 @@ import SessionResultModal from '@/components/modals/SessionResultModal';
 import api from '@/lib/api';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useLessons } from '@/hooks/useLessons';
-import { useUpdateProgress } from '@/hooks/useUpdateProgess';
+import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
+import { authSnapshot } from '@/snapshots/authSnapshot';
 
 const WritingSession = () => {
   const { colors } = useTheme();
+  const userId: string = authSnapshot.getUserId() ?? "";
+  const timer = useLessonTimer();
+
+  const goToNextRef = React.useRef<(() => void) | null>(null);
+  const activeLessonOrderRef = React.useRef<number>(0);
+  const currentLessonRef = React.useRef<WritingSessionType | null>(null);
+  
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
@@ -25,17 +34,41 @@ const WritingSession = () => {
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
 
-  const goToNextRef = React.useRef<(() => void) | null>(null);
 
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  const { mutate: updateProgress } = useUpdateProgress();
 
   const lessonData = React.useMemo<WritingSessionType[]>(() => {
     if( !readingLessons ) return [];
     return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [readingLessons]);
 
-
+  // Handlers
+  const onLessonComplete = React.useCallback(async (lesson: WritingSessionType, score: number) => {
+    if(!userId) return;
+    try {
+      const duration_ms = timer.stop();
+      const sessionType = slug as SessionType;
+      const sessionKey = `${unitId}:${sessionType}`;
+      const lessonOrder = activeLessonOrderRef.current;
+      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  
+      await lessonCompletionChain({
+        userId,
+        sessionKey,
+        lessonId: lesson.id,
+        lessonOrder: activeLessonOrderRef.current,
+        sessionType,
+        lessonType: sessionType,
+        score: score,
+        duration_ms,
+        isFinalLesson
+      });
+    }
+    catch(error) {
+      console.error("onLessonComplete error:", error)
+    }
+  }, [userId, slug, lessonData?.length]);
+  
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent.trim()) {
       setError("Please write your answer first!");
@@ -71,29 +104,21 @@ const WritingSession = () => {
     setLoading(false);
   }, []);
 
-  // React.useEffect(() => {
-  //   let isMounted = true;
+  const onContinue = React.useCallback(async () => {
+    const score = (result && result!.similarity) ? result!.similarity*100 : 0;
+    await onLessonComplete(currentLessonRef.current!, score);
+    reset();
+    goToNextRef?.current && goToNextRef.current?.();
+  }, [reset, result, onLessonComplete]);
 
-  //   const dataLoad = async () => {
-  //     if (!isMounted) return;
-  //     setIsLoading(true);
-
-  //     try {
-  //       const res = await api.get(`/writing/${categoryId}/${unitId}`);
-  //       setData(res.status === 200 ? res.data : []);
-  //       if (isMounted) {
-  //         setData(res.status === 200 ? res.data : []);
-  //       }
-  //     } catch {
-  //       if (isMounted) setData([]);
-  //     } finally {
-  //       if (isMounted) setIsLoading(false);
-  //     }
-  //   };
-
-  //   if (categoryId && unitId && slug) dataLoad();
-  //   return () => { isMounted = false };
-  // }, [categoryId, unitId, slug]);
+  const onContinueHandler = React.useCallback(() => {
+    reset();
+    setShowCompletionModal(false);
+    // navigation back to units page
+    router.back();
+  }, [reset, setShowCompletionModal, router]);
+  
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
@@ -105,17 +130,17 @@ const WritingSession = () => {
         preFetchedData={lessonData}
         // onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
-        onActiveItemChange={({ item, goToNext }) => {
+        onActiveItemChange={({ item, index, goToNext }) => {
+          activeLessonOrderRef.current = index;
+          currentLessonRef.current = item;
           goToNextRef.current = goToNext;
           // reset();
         }}
       >
         {({ item }) => {
-          
           const onCheckHandler = () => {
             analyzeWritingHandler(item?.phrase);
           };
-          
           return (
             <View style={styles.flex}>
               {/* Content */}
@@ -128,10 +153,10 @@ const WritingSession = () => {
                 <ChallengeScreenQuerySection
                   query={item.meaning}
                   lang="en-US"
-                  style={{ width: '80%'}}
+                  style={styles.query}
                 />
 
-                <View style={{flex:1}}/>
+                <View style={styles.flex}/>
 
               </View>
 
@@ -146,9 +171,7 @@ const WritingSession = () => {
                 onBlur={() => {}}
                 placeholderTextColor={colors.placeholderColor}
                 inputMode="text"
-                contentContainerStyle={{
-                  marginBottom: 20
-                }}
+                contentContainerStyle={styles.textInput}
               />
 
               {/* Action Buttons */}
@@ -168,10 +191,7 @@ const WritingSession = () => {
         isVisible={result ? true : false}
         actualQuery={actualDEQuery}
         result={result!}
-        onContinue={() => {
-          reset();
-          goToNextRef?.current && goToNextRef.current?.();
-        }}
+        onContinue={onContinue}
         onModalVisible={reset}
         onRetry={reset}
       />)}
@@ -180,19 +200,9 @@ const WritingSession = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            stats={{
-              time:"00:00",
-              total: lessonData.length,
-              correct: lessonData.length,
-              accuracy: 100
-            }}
-            onContinue={() => {
-              reset();
-              setShowCompletionModal(false);
-              router.back();
-              // navigation back to units page
-            }}
-            onModalVisible={() => setShowCompletionModal(false)}
+            sessionKey={`${unitId}:${slug}`}
+            onContinue={onContinueHandler}
+            onModalVisible={modalVisibilityHandler}
           />
         )
       }
@@ -203,5 +213,9 @@ const WritingSession = () => {
 export default WritingSession;
 
 const styles = StyleSheet.create({
-  flex: {flex: 1}
+  flex: {flex: 1},
+  query: { width: '80%'},
+  textInput: {
+    marginBottom: 20
+  }
 });

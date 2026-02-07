@@ -17,19 +17,19 @@ import PracticeLessonDetails from '@/components/practice-components/LessonDetail
 import LessonList from '@/components/practice-components/LessonList';
 import { useLessons } from '@/hooks/useLessons';
 import { useProgress } from '@/hooks/useProgress';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
+// import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 
 const PracticeLessons = () => {
   const { colors } = useTheme();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
   const scrollToRef = React.useRef<ScrollView>(null);
-  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
+  // const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
 
   // Essential Custom hooks
   const { currentPosition, showLessonList, setCurrentPosition } = useSession();
   const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  const { data: progress } = useProgress();
+  const { data: progress } = useProgress(`${unitId}:${slug}`);
 
   // Fetch Primary Lesson data
   const practiceData = useMemo<PracticeSessionType[]>(() => {
@@ -61,7 +61,7 @@ const PracticeLessons = () => {
       <SessionLayout<PracticeSessionType>
         preFetchedData={practiceData}
         showFooter={true}
-        onSessionComplete={() => setShowCompletionModal(true)}
+        // onSessionComplete={() => setShowCompletionModal(true)}
         onPositionChange={(index: number) => setCurrentPosition(index)}
         onRegisterScroller={(scrollFn) => {scrollToLessonRef.current = scrollFn}}
       >
@@ -148,7 +148,7 @@ const PracticeLessons = () => {
         )
       }
 
-      {
+      {/* {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
@@ -167,7 +167,7 @@ const PracticeLessons = () => {
             onModalVisible={() => setShowCompletionModal(false)}
           />
         )
-      }
+      } */}
     </>
   );
 };

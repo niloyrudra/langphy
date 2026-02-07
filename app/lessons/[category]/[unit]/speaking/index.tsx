@@ -15,10 +15,19 @@ import { RecorderReload } from '@/utils/SVGImages';
 import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx';
 import { useLessons } from '@/hooks/useLessons';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
+import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 
 
 const SpeakingLessons = () => {
+  const userId: string = authSnapshot.getUserId() ?? "";
+  const timer = useLessonTimer();
+
   const goToNextRef = React.useRef<(() => void) | null>(null);
+  const activeLessonOrderRef = React.useRef<number>(0);
+  const currentLessonRef = React.useRef<SpeakingSessionType | null>(null);
+
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const { categoryId, slug, unitId } = useLocalSearchParams();
 
@@ -47,6 +56,49 @@ const SpeakingLessons = () => {
     error,
   } = useSpeechRecorder(null);
 
+  // Handlers
+  const onLessonComplete = React.useCallback(async (lesson: SpeakingSessionType, score: number) => {
+    if(!userId) return;
+    try {
+      const duration_ms = timer.stop();
+      const sessionType = slug as SessionType;
+      const sessionKey = `${unitId}:${sessionType}`;
+      const lessonOrder = activeLessonOrderRef.current;
+      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  
+      await lessonCompletionChain({
+        userId,
+        sessionKey,
+        lessonId: lesson.id,
+        lessonOrder: activeLessonOrderRef.current,
+        sessionType,
+        lessonType: sessionType,
+        score: score,
+        duration_ms,
+        isFinalLesson
+      });
+    }
+    catch(error) {
+      console.error("onLessonComplete error:", error)
+    }
+  }, [userId, slug, lessonData?.length]);
+
+  const onContinue = React.useCallback( async () => {
+    const score = (result && result!.analysis.similarity) ? result!.analysis.similarity*100 : 0;
+    await onLessonComplete(currentLessonRef.current!, score);
+    reset();
+    goToNextRef?.current && goToNextRef.current?.();
+  }, [reset, result]);
+
+  const onContinueHandler = React.useCallback(() => {
+    reset();
+    setShowCompletionModal(false);
+    // navigation back to units page
+    router.back();
+  }, [reset, setShowCompletionModal, router]);
+  
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
@@ -54,8 +106,10 @@ const SpeakingLessons = () => {
       <SessionLayout<SpeakingSessionType>
         preFetchedData={lessonData}
         onSessionComplete={() => setShowCompletionModal(true)}
-        onActiveItemChange={({ item, goToNext }) => {
+        onActiveItemChange={({ item, index, goToNext }) => {
           setExpectedText(prevValue => prevValue = item.phrase.trim())
+          activeLessonOrderRef.current = index;
+          currentLessonRef.current = item;
           goToNextRef.current = goToNext;
         }}
       >
@@ -123,7 +177,7 @@ const SpeakingLessons = () => {
                 <ActionPrimaryButton
                   buttonTitle='Check'
                   onSubmit={() => {
-                    setExpectedText(prevValue => prevValue = item.phrase.trim())
+                    setExpectedText((prevValue) => prevValue = item.phrase.trim())
                     analyzeSpeech()
                   }}
                   isLoading={loading}
@@ -139,10 +193,7 @@ const SpeakingLessons = () => {
       {result && (<SpeechResultModal
         isVisible={result ? true : false}
         result={result}
-        onContinue={() => {
-          reset();
-          goToNextRef?.current && goToNextRef.current?.();
-        }}
+        onContinue={onContinue}
         onModalVisible={reset}
         onRetry={reset}
       />)}
@@ -150,19 +201,9 @@ const SpeakingLessons = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            stats={{
-              time:"00:00",
-              total: lessonData.length,
-              correct: lessonData.length,
-              accuracy: 100
-            }}
-            onContinue={() => {
-              reset();
-              setShowCompletionModal(false);
-              router.back();
-              // navigation back to units page
-            }}
-            onModalVisible={() => setShowCompletionModal(false)}
+            sessionKey={`${unitId}:${slug}`}
+            onContinue={onContinueHandler}
+            onModalVisible={modalVisibilityHandler}
           />
         )
       }

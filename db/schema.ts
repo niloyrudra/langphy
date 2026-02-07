@@ -35,12 +35,11 @@ export const CREATE_PROGRESS_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_progress (
   content_type TEXT NOT NULL,
   content_id TEXT NOT NULL,
-
   session_key TEXT NOT NULL,
   lesson_order INTEGER NOT NULL,
-
   completed INTEGER DEFAULT 0,
   score INTEGER DEFAULT 0,
+  duration_ms INTEGER DEFAULT 0,
   progress_percent INTEGER DEFAULT 0,
   updated_at INTEGER NOT NULL,
   dirty INTEGER NOT NULL DEFAULT 0,
@@ -61,28 +60,55 @@ CREATE TABLE IF NOT EXISTS lp_streaks (
 `;
 
 export const CREATE_PERFORMANCE_TABLE = `
-CREATE TABLE IF NOT EXISTS lp_performance (
-  user_id TEXT PRIMARY KEY,
-  total_lessons_completed INTEGER NOT NULL DEFAULT 0,
-  total_session_completed INTEGER NOT NULL DEFAULT 0,
-  practice_completed INTEGER NOT NULL DEFAULT 0,
-  quiz_completed INTEGER NOT NULL DEFAULT 0,
-  reading_completed INTEGER NOT NULL DEFAULT 0,
-  speaking_completed INTEGER NOT NULL DEFAULT 0,
-  listening_completed INTEGER NOT NULL DEFAULT 0,
-  writing_completed INTEGER NOT NULL DEFAULT 0,
-  avg_quiz_score FLOAT,
-  avg_speaking_score FLOAT,
-  avg_listening_score FLOAT,
-  avg_writing_score FLOAT,
-  quiz_score_count INTEGER NOT NULL DEFAULT 0,
-  speaking_score_count INTEGER NOT NULL DEFAULT 0,
-  listening_score_count INTEGER NOT NULL DEFAULT 0,
-  writing_score_count INTEGER NOT NULL DEFAULT 0,
-  created_at INTEGER NOT NULL,
+CREATE TABLE IF NOT EXISTS lp_session_performance (
+  session_key TEXT NOT NULL,
+  session_type TEXT NOT NULL,
+  avg_score REAL,
+  total_duration_ms INTEGER NOT NULL DEFAULT 0,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  completed INTEGER NOT NULL DEFAULT 0,
   updated_at INTEGER NOT NULL,
-  dirty INTEGER NOT NULL DEFAULT 0
-)
+  dirty INTEGER NOT NULL DEFAULT 1
+);
+`;
+
+// export const CREATE_PERFORMANCE_OLD_TABLE = `
+// CREATE TABLE IF NOT EXISTS lp_performance (
+//   user_id TEXT PRIMARY KEY,
+//   total_lessons_completed INTEGER NOT NULL DEFAULT 0,
+//   total_session_completed INTEGER NOT NULL DEFAULT 0,
+//   practice_completed INTEGER NOT NULL DEFAULT 0,
+//   quiz_completed INTEGER NOT NULL DEFAULT 0,
+//   reading_completed INTEGER NOT NULL DEFAULT 0,
+//   speaking_completed INTEGER NOT NULL DEFAULT 0,
+//   listening_completed INTEGER NOT NULL DEFAULT 0,
+//   writing_completed INTEGER NOT NULL DEFAULT 0,
+//   avg_quiz_score FLOAT,
+//   avg_speaking_score FLOAT,
+//   avg_listening_score FLOAT,
+//   avg_writing_score FLOAT,
+//   quiz_score_count INTEGER NOT NULL DEFAULT 0,
+//   speaking_score_count INTEGER NOT NULL DEFAULT 0,
+//   listening_score_count INTEGER NOT NULL DEFAULT 0,
+//   writing_score_count INTEGER NOT NULL DEFAULT 0,
+//   created_at INTEGER NOT NULL,
+//   updated_at INTEGER NOT NULL,
+//   dirty INTEGER NOT NULL DEFAULT 0
+// )
+// `;
+
+
+// KAFKA EVENTS
+export const CREATE_KAFKA_EVENTS_TABLE = `
+CREATE TABLE IF NOT EXISTS lp_event_outbox (
+  event_id TEXT PRIMARY KEY,
+  event_type TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  idempotency_key TEXT NOT NULL,
+  payload TEXT NOT NULL,
+  occurred_at INTEGER NOT NULL,
+  published INTEGER DEFAULT 0
+);
 `;
 
 // TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now() is not supported in SQLite, consider using INTEGER to store Unix timestamps

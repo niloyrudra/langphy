@@ -13,13 +13,21 @@ import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useListening } from '@/context/ListeningContext';
 import api from '@/lib/api';
 import { useLessons } from '@/hooks/useLessons';
-import { useUpdateProgress } from '@/hooks/useUpdateProgess';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
+import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 
 const ListeningLessons = () => {
   const { colors } = useTheme();
-  const { resultHandler } = useListening();
+  const userId: string = authSnapshot.getUserId() ?? "";
+  const timer = useLessonTimer();
   const { categoryId, slug, unitId } = useLocalSearchParams();
+
+  const { resultHandler } = useListening();
   const goToNextRef = React.useRef<(() => void) | null>(null);
+  const activeLessonOrderRef = React.useRef<number>(0);
+  const currentLessonRef = React.useRef<ListeningSessionType | null>(null);
+
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
@@ -35,7 +43,32 @@ const ListeningLessons = () => {
     return listeningLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [listeningLessons]);
 
-
+  // Handlers
+  const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
+    if(!userId) return;
+    try {
+      const duration_ms = timer.stop();
+      const sessionType = slug as SessionType;
+      const sessionKey = `${unitId}:${sessionType}`;
+      const lessonOrder = activeLessonOrderRef.current;
+      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  
+      await lessonCompletionChain({
+        userId,
+        sessionKey,
+        lessonId: lesson.id,
+        lessonOrder: activeLessonOrderRef.current,
+        sessionType,
+        lessonType: sessionType,
+        score: score,
+        duration_ms,
+        isFinalLesson
+      });
+    }
+    catch(error) {
+      console.error("onLessonComplete error:", error)
+    }
+  }, [userId, slug, lessonData?.length]);
   
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent) {
@@ -77,22 +110,39 @@ const ListeningLessons = () => {
   }, []);
 
   const lessonCompletionHandler = React.useCallback( async () => {
-    await resultHandler(result!);
-    reset();
-    goToNextRef?.current && goToNextRef.current?.();
+    try {
+      const score = result!.similarity ? result!.similarity*100 : 0;
+      await onLessonComplete(currentLessonRef.current!, score);
+      resultHandler(result!);
+      reset();
+      goToNextRef?.current && goToNextRef.current?.();
+    }
+    catch(error) {
+      console.error("lessonCompletionHandler error:", error)
+    }
   }, [reset, goToNextRef, result]);
+
+  const onContinueHandler = React.useCallback(() => {
+    reset();
+    setShowCompletionModal(false);
+    // navigation back to units page
+    router.back();
+  }, [reset, setShowCompletionModal, router]);
+
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<ListeningSessionType>
-        sessionType="listening"
         keyboardAvoid={true}
         preFetchedData={lessonData}
         // onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
-        onActiveItemChange={({ item, goToNext }) => {
+        onActiveItemChange={({ item, index, goToNext }) => {
+          activeLessonOrderRef.current = index;
+          currentLessonRef.current = item;
           goToNextRef.current = goToNext;
         }}
       >
@@ -150,19 +200,9 @@ const ListeningLessons = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            stats={{
-              time:"00:00",
-              total: lessonData.length,
-              correct: lessonData.length,
-              accuracy: 100
-            }}
-            onContinue={() => {
-              reset();
-              setShowCompletionModal(false);
-              router.back();
-              // navigation back to units page
-            }}
-            onModalVisible={() => setShowCompletionModal(false)}
+            sessionKey={`${unitId}:${slug}`}
+            onContinue={onContinueHandler}
+            onModalVisible={modalVisibilityHandler}
           />
         )
       }

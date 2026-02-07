@@ -450,7 +450,7 @@ type ToolTip = {
   visible: boolean;
   x: number;
   y: number;
-  token: Token;
+  token?: Token;
   // translation: string;
   // color: string;
 }
@@ -640,7 +640,7 @@ type CompleteLessonInput = {
   lessonId: string;
   unitId: string;
   categoryId: string;
-  type: SessionType;
+  sessionType: SessionType;
   score?: number;
   maxScore?: number;
   timeSpentSec: number;
@@ -665,7 +665,35 @@ type SessionCompletedInput = {
   timeSpentSec: number
 }
 
+// Local DB Types
+type DBProgress = {
+  content_type: string;
+  content_id: string;
+  completed: number;
+  session_key: string;
+  lesson_order?: number;
+  duration_ms: number;
+  score: number;
+  progress_percent: number;
+  updated_at: number;
+  dirty: number;
+};
+
+type SessionPerformance = {
+  session_key: string;
+  session_type: SessionType;
+  avg_score: number | null;
+  total_duration_ms: number;
+  attempts: number;
+  completed: number;
+  updated_at: number;
+  dirty: number;
+};
+
 export {
+  DBProgress,
+  SessionPerformance,
+  
   User,
   
   IoniconName,

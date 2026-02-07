@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import { SelectiveResultType, SessionResultType } from '@/types';
+import { Lesson, SelectiveResultType, SessionResultType } from '@/types';
 import { feedbackComments } from '@/utils';
 // import HorizontalLine from '../HorizontalLine';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
@@ -9,6 +9,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
+import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
 
 interface SessionResultModalProps {
     isVisible: boolean;

@@ -22,7 +22,7 @@ const QuizSession = () => {
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
   const { data: quizLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  const { mutate: updateProgress } = useUpdateProgress();
+  // const { mutate: updateProgress } = useUpdateProgress();
 
   const quizzes = React.useMemo<QuizSessionType[]>(() => {
     if( !quizLessons ) return [];
@@ -50,7 +50,21 @@ const QuizSession = () => {
     setLoading(false);
   }, []);
 
-  if( loading ) return (<LoadingScreenComponent />)
+  const onContinue = React.useCallback(() => {
+    reset();
+    goToNextRef?.current && goToNextRef.current?.();
+  }, [reset]);
+
+  const onContinueHandler = React.useCallback(() => {
+    reset();
+    setShowCompletionModal(false);
+    // navigation back to units page
+    router.back();
+  }, [reset, setShowCompletionModal, router]);
+    
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
     <>
@@ -68,15 +82,15 @@ const QuizSession = () => {
 
           const onCheckHandler = () => {
             if(  selectedOption === item?.answer ) {
-              const payload: ProgressPayload = {
-                content_type: slug as SessionType,
-                content_id: item.id,
-                completed: true,
-                score: 100,
-                progress_percent: 100
-              };
+              // const payload: ProgressPayload = {
+              //   content_type: slug as SessionType,
+              //   content_id: item.id,
+              //   completed: true,
+              //   score: 100,
+              //   progress_percent: 100
+              // };
 
-              updateProgress( payload );
+              // updateProgress( payload );
 
               setResult({
                 answered: selectedOption || "",
@@ -125,7 +139,6 @@ const QuizSession = () => {
                 buttonTitle='Check'
                 onSubmit={onCheckHandler}
                 disabled={ !selectedOption ? true : false}
-
               />
             </View>
           );
@@ -136,10 +149,7 @@ const QuizSession = () => {
         result && (<SessionResultModal
           isVisible={result ? true : false}
           result={result!}
-          onContinue={() => {
-            reset();
-            goToNextRef?.current && goToNextRef.current?.();
-          }}
+          onContinue={onContinue}
           onModalVisible={reset}
           onRetry={reset}
         />)
@@ -149,19 +159,9 @@ const QuizSession = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            stats={{
-              time:"00:00",
-              total: quizzes.length,
-              correct: quizzes.length,
-              accuracy: 100
-            }}
-            onContinue={() => {
-              reset();
-              setShowCompletionModal(false);
-              router.back();
-              // navigation back to units page
-            }}
-            onModalVisible={() => setShowCompletionModal(false)}
+            sessionKey={`${unitId}:${slug}`}
+            onContinue={onContinueHandler}
+            onModalVisible={modalVisibilityHandler}
           />
         )
       }

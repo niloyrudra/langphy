@@ -5,49 +5,26 @@ import { DolphinCongratulationsIcon, TargetIcon, WatchIcon } from '@/utils/SVGIm
 import StatsCard from './_partials/StatsCard';
 import { useTheme } from '@/theme/ThemeContext';
 import ActionButton from '../form-components/ActionButton';
-import { useProgress } from '@/hooks/useProgress';
-import { useUpdateStreaks } from '@/hooks/useUpdateStreaks';
-import { useAuth } from '@/context/AuthContext';
-import { useStreak } from '@/hooks/useStreaks';
+import { usePerformance } from '@/hooks/usePerformance';
+import { formatDuration } from '@/utils';
 
 type UnitCompletionModalProps = {
     isVisible: boolean;
-    lessonIds?: string[];
+    sessionKey: string;
     onModalVisible: () => void;
-    stats: {
-        total: number;
-        correct: number;
-        accuracy: number;
-        time: string;
-    };
+    // stats?: {
+    //     total: number;
+    //     correct: number;
+    //     accuracy: number;
+    //     time: string;
+    // };
     onContinue: () => void;
-}
+};
 
-const UnitCompletionModal = ({isVisible, lessonIds, onModalVisible, stats, onContinue}: UnitCompletionModalProps) => {
+const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}: UnitCompletionModalProps) => {
     const {colors} = useTheme();
-    const { user } = useAuth();
-    const { data: progress, isLoading, isFetching } = useProgress();
-    const { data: streaks } = useStreak( user?.id as string );
-    const { mutateAsync: updateStreaks, isPending } = useUpdateStreaks();
 
-    React.useEffect(() => {
-        const updateData = async () => {
-            try {
-                const currentStreaks = ( streaks?.current_streak || 1 ) + 1;
-                const longestStreaks = ( streaks?.longest_streak && streaks?.longest_streak > currentStreaks ) ? streaks?.longest_streak : currentStreaks;
-                await updateStreaks({
-                    user_id: user?.id || "",
-                    current_streak: currentStreaks,
-                    longest_streak: longestStreaks
-                });
-            }
-            catch(error) {
-                console.error("updateData error:", error)
-            }
-        }
-
-        updateData()
-    }, []);
+    const { data: performance, isLoading, isFetching } = usePerformance( sessionKey );
 
     return (
         <ModalLayout
@@ -65,7 +42,6 @@ const UnitCompletionModal = ({isVisible, lessonIds, onModalVisible, stats, onCon
                         <View style={styles.greetingContent}>
                             <DolphinCongratulationsIcon width={152} height={156} />
                         </View>
-                        {/* <Text style={{fontSize: 24, fontWeight: '800', marginBottom: 5, color: 'gold'}}>Congratulations!</Text> */}
                         <Text style={styles.resultHeader}>Lesson Complete</Text>
                         <Text style={styles.resultSubHeader}>Great job! Keep learning and improve your skills!</Text>
                     </View>
@@ -76,14 +52,19 @@ const UnitCompletionModal = ({isVisible, lessonIds, onModalVisible, stats, onCon
                         <StatsCard
                             title='Accuracy'
                             IconComponent={<TargetIcon width={56} height={56} />}
-                            statsValue={stats.accuracy+"%"}
+                            // statsValue={stats?.accuracy+"%"}
+                            statsValue={
+                                performance?.avg_score !== null
+                                    ? `${Math.round(performance!.avg_score)}%`
+                                    : `--`
+                            }
                             feedbackText='Impressive'
                         />
 
                         <StatsCard
                             title='Time'
                             IconComponent={<WatchIcon width={56} height={56} />}
-                            statsValue={stats.time}
+                            statsValue={formatDuration(performance!.total_duration_ms)}
                             statsUnit="min"
                         />
 

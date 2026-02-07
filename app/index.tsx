@@ -3,15 +3,17 @@ import { useAuth } from "@/context/AuthContext";
 import { warmUpSpeech } from "@/helpers/speechController";
 import { Redirect } from "expo-router";
 import React from "react";
-import * as SecureStore from "expo-secure-store";
+// import * as SecureStore from "expo-secure-store";
 import { runForegroundSync } from "@/sync/foregroundSync";
-import { useForegroundSync } from "@/sync/useForegroundSync";
+// import { useForegroundSync } from "@/sync/useForegroundSync";
 import { AppState } from "react-native";
 // import * as BackgroundTask from "expo-background-task";
 import { registerBackgroundSync } from "@/sync/backgroundSync";
+import { useLessonTimer } from "@/hooks/useLessonTimer";
 
 const App = () => {
   const { user, loading } = useAuth();
+  const timer = useLessonTimer();
   if( loading ) return (<LoadingScreenComponent />);
   
   React.useEffect(() => {
@@ -27,6 +29,7 @@ const App = () => {
   React.useEffect(() => {
     const sub = AppState.addEventListener("change", state => {
       if (state === "active") {
+        timer.reset();
         runForegroundSync();
       }
     });

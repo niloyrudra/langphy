@@ -17,8 +17,9 @@ export const preloadVoices = async () => {
   const deVoice = voices.find( voice => voice.language === "de-DE" );
   
   if( deVoice ) {
+    // Silent or ultra-short speech initializes the engine
     Speech.speak(
-      "", // Willkommen
+      " ", // Willkommen
       {
         voice: deVoice.identifier,
         volume: 0,
@@ -43,13 +44,6 @@ export const warmUpSpeech = async () => {
   });
 
   preloadVoices();
-
-  // // Silent or ultra-short speech initializes the engine
-  // Speech.speak(" ", {
-  //   volume: 0,
-  //   rate: 1,
-  //   pitch: 1,
-  // });
 
   isWarm = true;
 };

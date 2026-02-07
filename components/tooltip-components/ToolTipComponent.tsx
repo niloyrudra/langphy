@@ -63,7 +63,7 @@ const ToolTipComponent: React.FC<TooltipProps> = ({top, left, token}) => {
     )
 }
 
-export default ToolTipComponent
+export default ToolTipComponent;
 
 const styles = StyleSheet.create({
     toolTip: {

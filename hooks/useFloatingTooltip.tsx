@@ -1,4 +1,3 @@
-// src/hooks/useFloatingTooltip.ts
 import { useCallback, useState } from "react";
 import { ToolTip } from "@/types";
 
@@ -6,8 +5,7 @@ const INITIAL_TOOLTIP: ToolTip = {
   visible: false,
   x: 0,
   y: 0,
-  translation: "",
-  color: "#000",
+  token: undefined // token from NLP Analysis
 };
 
 export function useFloatingTooltip() {

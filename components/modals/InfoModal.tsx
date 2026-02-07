@@ -41,11 +41,7 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                     </View>
                 
                     {/* Modal Content */}
-                    <View
-                        style={{
-                            marginVertical: 10
-                        }}
-                    >
+                    <View style={styles.sectionContainer}>
                         <ModalSectionTitle
                             title='Four German Cases (Fälle)'
                             color="#68F0F8"
@@ -60,19 +56,9 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
 
                     </View>
 
-                    <HorizontalLine
-                        style={{
-                            backgroundColor: "#676767",
-                            marginVertical: 4,
-                            width: "100%"
-                        }}
-                    />
+                    <HorizontalLine style={styles.horizontal}/>
 
-                    <View
-                        style={{
-                            marginVertical: 10
-                        }}
-                    >
+                    <View style={styles.sectionContainer}>
                         <ModalSectionTitle
                             title='Four German Genders (Geschlechter)'
                             color="#68F0F8"
@@ -87,19 +73,9 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
 
                     </View>
 
-                    <HorizontalLine
-                        style={{
-                            backgroundColor: "#676767",
-                            marginVertical: 4,
-                            width: "100%"
-                        }}
-                    />
+                    <HorizontalLine style={styles.horizontal}/>
 
-                    <View
-                        style={{
-                            marginVertical: 10
-                        }}
-                    >
+                    <View style={styles.sectionContainer}>
                         <ModalSectionTitle
                             title='German Parts-of-speech'
                             color="#68F0F8"
@@ -161,6 +137,9 @@ const styles = StyleSheet.create({
         gap: 10,
         marginBottom: 4
     },
+    sectionContainer: {
+        marginVertical: 10
+    },
     buttonClose: {
         position: "absolute",
         top: 10,
@@ -179,5 +158,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "column",
         gap: 5
+    },
+    horizontal: {
+        backgroundColor: "#676767",
+        marginVertical: 4,
+        width: "100%"
     }
 });

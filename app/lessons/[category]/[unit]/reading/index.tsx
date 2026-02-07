@@ -16,30 +16,30 @@ import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useLessons } from '@/hooks/useLessons';
-import { useUpdateProgress } from '@/hooks/useUpdateProgess';
+// import { useUpdateProgress } from '@/hooks/useUpdateProgess';
 
 const ReadingLessons = () => {
   const { colors } = useTheme();
   const cardWidth = getCardContainerWidth();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const goToNextRef = React.useRef<(() => void) | null>(null);
+  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
+  const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
+  const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
+  const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
+  // const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
+  const [ error, setError ] = React.useState<string>('')
+  const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
 
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  const { mutate: updateProgress, isPending } = useUpdateProgress();
+  // const { mutate: updateProgress, isPending } = useUpdateProgress();
 
   const lessonData = React.useMemo<ReadingSessionType[]>(() => {
     if( !readingLessons ) return [];
     return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [readingLessons]);
 
-  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
-  const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
-  const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
-  const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
-  const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
-  const [ error, setError ] = React.useState<string>('')
-  const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
-  
+  // Handlers
   const handleSelect = (option: string) => {
     setSelectedOption( prevValue => prevValue = option);
     setIsSelectionHappened( prevValue => prevValue = true);
@@ -54,13 +54,28 @@ const ReadingLessons = () => {
     // setLoading(false);
   }, []);
 
+  const onContinue = React.useCallback(() => {
+    reset();
+    goToNextRef?.current && goToNextRef.current?.();
+  }, [reset]);
+
+  const onContinueHandler = React.useCallback(() => {
+    reset();
+    setShowCompletionModal(false);
+    // navigation back to units page
+    router.back();
+  }, [reset, setShowCompletionModal, router]);
+  
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+
+
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
     <>
       <SessionLayout<ReadingSessionType>
         preFetchedData={lessonData}
-        onPositionChange={setActiveIndex}
+        // onPositionChange={setActiveIndex}
         onSessionComplete={() => setShowCompletionModal(true)}
         onActiveItemChange={({item, goToNext}) => {
           reset();
@@ -76,15 +91,15 @@ const ReadingLessons = () => {
             if(  selectedOption === item?.answer ) {
               setIsCorrect( prevVal => prevVal = true )
 
-              const payload: ProgressPayload = {
-                content_type: slug as SessionType,
-                content_id: item.id,
-                completed: true,
-                score: 100,
-                progress_percent: 100
-              };
+              // const payload: ProgressPayload = {
+              //   content_type: slug as SessionType,
+              //   content_id: item.id,
+              //   completed: true,
+              //   score: 100,
+              //   progress_percent: 100
+              // };
 
-              updateProgress( payload );
+              // updateProgress( payload );
 
               setResult({
                 answered: selectedOption || "",
@@ -144,7 +159,6 @@ const ReadingLessons = () => {
                   />
 
                 </View>
-
               </View>
 
               {/* Action Buttons */}
@@ -163,10 +177,7 @@ const ReadingLessons = () => {
         result && (<SessionResultModal
           isVisible={result ? true : false}
           result={result!}
-          onContinue={() => {
-            reset();
-            goToNextRef?.current && goToNextRef.current?.();
-          }}
+          onContinue={onContinue}
           onModalVisible={reset}
           onRetry={reset}
         />)
@@ -176,19 +187,9 @@ const ReadingLessons = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            stats={{
-              time:"00:00",
-              total: lessonData.length,
-              correct: lessonData.length,
-              accuracy: 100
-            }}
-            onContinue={() => {
-              reset();
-              setShowCompletionModal(false);
-              router.back();
-              // navigation back to units page
-            }}
-            onModalVisible={() => setShowCompletionModal(false)}
+            sessionKey={`${unitId}:${slug}`}
+            onContinue={onContinueHandler}
+            onModalVisible={modalVisibilityHandler}
           />
         )
       }

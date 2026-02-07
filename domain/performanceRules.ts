@@ -1,4 +1,4 @@
-import { upsertPerformance } from "@/db/performance.repo";
+// import { upsertPerformance } from "@/db/performance.repo";
 import { SessionType } from "@/types";
 
 type PerformanceInput = {
@@ -10,12 +10,12 @@ type PerformanceInput = {
 
 export const updatePerformance = async (payload: PerformanceInput) => {
     try {
-        await upsertPerformance({
-            userId: payload.userId,
-            type: payload.type,
-            score: payload.score,
-            maxScore: payload.maxScore
-        });
+        // await upsertPerformance({
+        //     userId: payload.userId,
+        //     type: payload.type,
+        //     score: payload.score,
+        //     maxScore: payload.maxScore
+        // });
     }
     catch(error) {
         console.error("updatePerformance error:", error);

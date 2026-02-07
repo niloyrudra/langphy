@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLessonsByUnit, saveLessons } from "@/db/lessons.repo";
-import { ContentType } from "@/types";
+import { SessionType } from "@/types";
 import { normalizeLessons } from "@/utils";
 import { fetchLessonsFromAPI } from "@/services/lessons.service";
 
-export const useLessons = ( categoryId: string, unitId: string, type: ContentType ) => {
+export const useLessons = ( categoryId: string, unitId: string, type: SessionType ) => {
     return useQuery({
         queryKey: ["lp_lessons", categoryId, unitId, type],
         enabled: !!categoryId && !!unitId && !!type,

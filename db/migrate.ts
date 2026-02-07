@@ -1,6 +1,7 @@
 import { db } from "./index";
 import {
     CREATE_CATEGORIES_TABLE,
+    CREATE_KAFKA_EVENTS_TABLE,
     CREATE_LESSONS_TABLE,
     CREATE_PERFORMANCE_TABLE,
     CREATE_PROFILE_TABLE,
@@ -27,5 +28,6 @@ export const runMigrations = async () => {
         db.execAsync(CREATE_UNITS_TABLE),
         db.execAsync(CREATE_LESSONS_TABLE),
         db.execAsync(CREATE_PERFORMANCE_TABLE),
+        db.execAsync(CREATE_KAFKA_EVENTS_TABLE),
     ]);
 };

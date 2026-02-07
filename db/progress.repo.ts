@@ -1,17 +1,5 @@
-import { SessionType } from "@/types";
+import { DBProgress, SessionType } from "@/types";
 import { db } from "./index";
-
-export type DBProgress = {
-  content_type: string;
-  content_id: string;
-  completed: number;
-  session_key: string;
-  lesson_order?: number;
-  score: number;
-  progress_percent: number;
-  updated_at: number;
-  dirty: number;
-};
 
 export const getAllProgress = async (): Promise<DBProgress[]> => {
   return await db.getAllAsync<DBProgress>(
@@ -25,9 +13,7 @@ export const getDirtyProgress = async (): Promise<DBProgress[]> => {
   );
 };
 
-export const getSessionProgress = async (
-  sessionKey: string
-): Promise<DBProgress[]> => {
+export const getSessionProgress = async ( sessionKey: string ): Promise<DBProgress[]> => {
   try {
     return await db.getAllAsync<DBProgress>(
       "SELECT * FROM lp_progress WHERE session_key = ?",
@@ -39,18 +25,10 @@ export const getSessionProgress = async (
   }
 };
 
-export const upsertProgress = async (p: {
-  content_type: string;
-  content_id: string;
-  session_key: string;
-  completed?: boolean;
-  score?: number;
-  progress_percent?: number;
-  updated_at: number;
-}) => {
+export const upsertProgress = async ( p: DBProgress ) => {
   await db.runAsync(
     `INSERT OR REPLACE INTO lp_progress
-     (content_type, content_id, session_key, completed, score, progress_percent, updated_at, dirty)
+     (content_type, content_id, session_key, completed, score, duration_ms, progress_percent, updated_at, dirty)
      VALUES (?, ?, ?, ?, ?, ?, 1)`,
     [
       p.content_type,
@@ -58,6 +36,7 @@ export const upsertProgress = async (p: {
       p.session_key,
       p.completed ? 1 : 0,
       p.score ?? 0,
+      p.duration_ms ?? 0,
       p.progress_percent ?? 0,
       p.updated_at,
     ]
@@ -82,7 +61,9 @@ interface MarkLessonCompleted {
   content_type: SessionType;
   lessonId: string;
   sessionKey: string;
-  score?: number
+  score?: number;
+  duration_ms?: number;
+  lesson_order?: number;
 }
 
 export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
@@ -92,7 +73,7 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
     await db.runAsync(
       `
       INSERT INTO lp_progress
-        (content_type, content_id, completed, score, progress_percent, session_key, updated_at, dirty)
+        (content_type, content_id, completed, score, duration_ms, lesson_order, progress_percent, session_key, updated_at, dirty)
       VALUES
         (?, ?, 1, ?, 100, ?, ?, 1)
       ON CONFLICT(content_type, content_id)
@@ -107,6 +88,8 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
         payload.content_type,
         payload.lessonId,
         payload.score ?? 0,
+        payload.duration_ms ?? 0,
+        payload.lesson_order ?? 0,
         payload.sessionKey,
         now
       ]

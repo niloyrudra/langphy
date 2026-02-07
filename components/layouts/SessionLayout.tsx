@@ -18,6 +18,7 @@ import LessonNavDots from '../LessonNavDots';
 import SessionFooter from '../SessionFooter';
 import { useFloatingTooltip } from '@/hooks/useFloatingTooltip';
 import { useSessionPager } from '@/hooks/useSessionPager';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
 
 interface SessionLayoutProps<T> {
   sessionType?: string;
@@ -59,13 +60,37 @@ function SessionLayout<T>({
   keyboardAvoid = false,
   keyboardVerticalOffset = 90,
 }: SessionLayoutProps<T>) {
+  const timer = useLessonTimer();
   const [ horizontalEnabled, setHorizontalEnabled ] = useState<boolean>(true)
   const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
   const wordRefs = useRef<Map<string, any>>(new Map());
   const containerRef = useRef<View | null>(null);
   const screenRef = useRef<View | null>(null);
+  const activeLessonIdRef = useRef<string | null>(null)
 
   const { flatListRef, currentIndex, setCurrentIndex, scrollToIndex, goToNext, goToPrevious } = useSessionPager<T>( preFetchedData.length, onPositionChange, onSessionComplete );
+
+  // On Viewable Item Changed
+  const viewabilityConfig = {
+    itemVisiblePercentThreshold: 90,
+  };
+
+  const onVirewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: any[] }) => {
+      const visible = viewableItems[0]
+      if( !visible ) return;
+
+      const lessonId = visible.item.id;
+
+      // same lesson -> do nothing
+      if( activeLessonIdRef.current === lessonId ) return;
+
+      // New Lesson appeared
+      activeLessonIdRef.current = lessonId;
+      timer.reset();
+      timer.start();
+    }
+  ).current;
 
   // FlatList on scroll
   const handleScroll = useCallback(
@@ -146,6 +171,10 @@ function SessionLayout<T>({
             nestedScrollEnabled
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={handleScroll}
+
+            onViewableItemsChanged={onVirewableItemsChanged}
+            viewabilityConfig={viewabilityConfig}
+
             keyboardShouldPersistTaps="handled"
             removeClippedSubviews={false}
             initialNumToRender={3}
@@ -160,12 +189,12 @@ function SessionLayout<T>({
               goToNext={goToNext}
               goToPrevious={goToPrevious}
               currentIndex={currentIndex}
-              contentId={preFetchedData[currentIndex]?._id ?? ''}
+              contentId={(preFetchedData[currentIndex] as any)?.id ?? ''}
               dataSize={preFetchedData.length}
             />
           )}
 
-          {tooltip.visible && (
+          {tooltip.visible && tooltip?.token && (
             <>
               <Pressable
                 style={StyleSheet.absoluteFill}
