@@ -362,6 +362,17 @@ export const categoryIcon = {
   work: WorkIconV3,
 }
 
+export const isToday = (unixSeconds: number) => {
+  const date = new Date(unixSeconds * 1000);
+  const now = new Date();
+
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate()
+  );
+};
+
 export const formatDuration = (ms?: number) => {
   if (!ms) return "00:00";
   const totalSeconds = Math.floor(ms / 1000);

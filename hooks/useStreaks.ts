@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getStreaks } from "@/db/streaks.repo";
+import { DBStreak } from "@/types";
 
 export const useStreak = (userId: string) => {
-    return useQuery({
+    return useQuery<DBStreak | null>({
         queryKey: ["lp_streaks", userId],
         queryFn: async () => {
             try {

@@ -12,12 +12,6 @@ type UnitCompletionModalProps = {
     isVisible: boolean;
     sessionKey: string;
     onModalVisible: () => void;
-    // stats?: {
-    //     total: number;
-    //     correct: number;
-    //     accuracy: number;
-    //     time: string;
-    // };
     onContinue: () => void;
 };
 

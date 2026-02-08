@@ -665,6 +665,14 @@ type SessionCompletedInput = {
   timeSpentSec: number
 }
 
+type Streak = {
+  user_id: string;
+  current_streak: number;
+  longest_streak: number;
+  last_activity_date: string;
+  last_updated_at: number; // unix seconds
+};
+
 // Local DB Types
 type DBProgress = {
   content_type: string;
@@ -677,6 +685,16 @@ type DBProgress = {
   progress_percent: number;
   updated_at: number;
   dirty: number;
+};
+
+type DBStreak = {
+    id: string;
+    user_id: string;
+    current_streak: number;
+    longest_streak: number;
+    last_activity_date: number;
+    updated_at: number;
+    dirty: number;
 };
 
 type SessionPerformance = {
@@ -692,9 +710,11 @@ type SessionPerformance = {
 
 export {
   DBProgress,
+  DBStreak,
   SessionPerformance,
   
   User,
+  Streak,
   
   IoniconName,
   

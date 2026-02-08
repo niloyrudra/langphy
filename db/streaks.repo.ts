@@ -1,15 +1,5 @@
-import { StreaksType } from "@/types";
+import { DBStreak, StreaksType } from "@/types";
 import { db } from "./index";
-
-export type DBStreak = {
-    id: string;
-    user_id: string;
-    current_streak: number;
-    longest_streak: number;
-    last_activity_date: number;
-    updated_at: number;
-    dirty: number;
-};
 
 export const getStreaks = async (userId: string): Promise<DBStreak | null> => {
     return await db.getFirstAsync<DBStreak>(

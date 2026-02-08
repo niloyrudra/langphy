@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import { Lesson, SelectiveResultType, SessionResultType } from '@/types';
+import { SelectiveResultType, SessionResultType } from '@/types';
 import { feedbackComments } from '@/utils';
 // import HorizontalLine from '../HorizontalLine';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
@@ -9,9 +9,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
-import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
-import { authSnapshot } from '@/snapshots/authSnapshot';
-import { useLessonTimer } from '@/hooks/useLessonTimer';
+// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+// import { authSnapshot } from '@/snapshots/authSnapshot';
+// import { useLessonTimer } from '@/hooks/useLessonTimer';
 
 interface SessionResultModalProps {
     isVisible: boolean;
@@ -37,7 +37,7 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
         >
 
             {/* Modal Content */}
-            <View style={{ gap: 5 }}>
+            <View style={styles.content}>
                 {
                     actualQuery && (
                         <ResultDetail
@@ -85,7 +85,7 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
                     />          
                 )}
                 
-                <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 30}}>
+                <View style={styles.buttonWrapper}>
                     <ActionPrimaryButton buttonTitle='Retry' onSubmit={onRetry} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
                     <ActionPrimaryButton buttonTitle='Continue' onSubmit={onContinue ? () =>onContinue() : () => console.log("Continue")} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
                 </View>
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         bottom: 0
     },
+    content: { gap: 5 },
     modalView: {
         // position: "relative",
         borderStartStartRadius: 20,
@@ -136,5 +137,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "column",
         gap: 5
+    },
+    buttonWrapper: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 30
     }
 });
