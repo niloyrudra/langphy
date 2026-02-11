@@ -16,8 +16,12 @@ export const runMigrations = async () => {
     // await db.runAsync(`DELETE FROM lp_settings`);
     // await db.runAsync(`DELETE FROM lp_streaks`);
 
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_profiles`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_settings`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_streaks`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_lessons`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_categories`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_units`);
     
     await Promise.all([
         db.execAsync(CREATE_PROFILE_TABLE),

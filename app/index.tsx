@@ -14,15 +14,12 @@ import { useLessonTimer } from "@/hooks/useLessonTimer";
 const App = () => {
   const { user, loading } = useAuth();
   const timer = useLessonTimer();
-  if( loading ) return (<LoadingScreenComponent />);
-  
+
   React.useEffect(() => {
-    // console.log(process.env.EXPO_PUBLIC_API_BASE)
-    // console.log("APP -> user:", user)
     (async () => {
-      // await SecureStore.deleteItemAsync("accessToken");
       await registerBackgroundSync();
-    })()
+    })();
+
     warmUpSpeech();
   }, []);
 
@@ -34,17 +31,21 @@ const App = () => {
       }
     });
 
-    // const sub = useForegroundSync(runForegroundSync)
-
     runForegroundSync(); // app launch
 
     return () => sub.remove();
   }, []);
+
+  // ✅ Now conditionals come AFTER hooks
+  if (loading) {
+    return <LoadingScreenComponent />;
+  }
 
   if (!user) {
     return <Redirect href="/auth/login" />;
   }
 
   return <Redirect href="/lessons" />;
-}
+};
+
 export default App;
