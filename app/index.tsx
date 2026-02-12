@@ -1,3 +1,4 @@
+// import 'react-native-get-random-values';
 import LoadingScreenComponent from "@/components/LoadingScreenComponent";
 import { useAuth } from "@/context/AuthContext";
 import { warmUpSpeech } from "@/helpers/speechController";
@@ -24,6 +25,7 @@ const App = () => {
   }, []);
 
   React.useEffect(() => {
+    if(!user) return;
     const sub = AppState.addEventListener("change", state => {
       if (state === "active") {
         timer.reset();
@@ -34,7 +36,7 @@ const App = () => {
     runForegroundSync(); // app launch
 
     return () => sub.remove();
-  }, []);
+  }, [user]);
 
   // ✅ Now conditionals come AFTER hooks
   if (loading) {

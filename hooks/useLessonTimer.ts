@@ -4,22 +4,33 @@ export const useLessonTimer = () => {
     const startRef = useRef<number | null>(null);
 
     const start = useCallback(() => {
-        if( startRef.current === null ) startRef.current = Date.now()
-    }, [Date]);
+        if (startRef.current !== null) return;
+
+        startRef.current = Date.now();
+        console.log("***TIMER*** Started...", startRef.current);
+    }, []);
 
     const stop = useCallback(() => {
-        if( startRef.current == null ) return 0;
+        if( startRef.current === null ) {
+            console.log("***TIMER*** Stopped... at 0");
+            return 0
+        };
 
-        const duration = Date.now() - startRef.current;
+        const duration = Math.max(0, Date.now() - startRef.current); // Prevent Negetive/Edge Case Durations 
+
+        console.log("***TIMER*** Stopped...", Date.now() - startRef.current);
 
         startRef.current = null;
         
         return duration;
-    }, [Date]);
-
+    }, []);
+    
     const reset = useCallback(() => {
         startRef.current = null;
+        console.log("***TIMER*** Reset...");        
     }, [])
 
-    return { start, stop, reset };
+    const isRunning: boolean = startRef.current !== null;
+
+    return { start, stop, reset, isRunning };
 }

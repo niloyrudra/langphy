@@ -16,13 +16,18 @@ import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+import { randomUUID } from 'expo-crypto';
+
+const attemptId = randomUUID();
 
 const ListeningLessons = () => {
-  const { colors } = useTheme();
-  const userId: string = authSnapshot.getUserId() ?? "";
-  const timer = useLessonTimer();
   const { categoryId, slug, unitId } = useLocalSearchParams();
+  const userId: string = authSnapshot.getUserId() ?? "";
+  const { colors } = useTheme();
+  const {start, stop, isRunning} = useLessonTimer();
+  const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
 
+  const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { resultHandler } = useListening();
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
@@ -36,7 +41,6 @@ const ListeningLessons = () => {
   const [ loading, setLoading ] = React.useState<boolean>(false)
   // const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
-  const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const lessonData = React.useMemo<ListeningSessionType[]>(() => {
     if( !listeningLessons ) return [];
@@ -47,7 +51,7 @@ const ListeningLessons = () => {
   const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
     if(!userId) return;
     try {
-      const duration_ms = timer.stop();
+      const duration_ms = stop();
       const sessionType = slug as SessionType;
       const sessionKey = `${unitId}:${sessionType}`;
       const lessonOrder = activeLessonOrderRef.current;
@@ -56,8 +60,9 @@ const ListeningLessons = () => {
       await lessonCompletionChain({
         userId,
         sessionKey,
-        lessonId: lesson.id,
-        lessonOrder: activeLessonOrderRef.current,
+        performanceSessionKey,
+        lessonId: lesson?.id ?? lesson?._id,
+        lessonOrder: lessonOrder,
         sessionType,
         lessonType: sessionType,
         score: score,
@@ -68,7 +73,7 @@ const ListeningLessons = () => {
     catch(error) {
       console.error("onLessonComplete error:", error)
     }
-  }, [userId, slug, lessonData?.length]);
+  }, [userId, slug, lessonData?.length, stop]);
   
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent) {
@@ -120,7 +125,7 @@ const ListeningLessons = () => {
     catch(error) {
       console.error("lessonCompletionHandler error:", error)
     }
-  }, [reset, goToNextRef, result]);
+  }, [reset, result, onLessonComplete]);
 
   const onContinueHandler = React.useCallback(() => {
     reset();
@@ -129,7 +134,20 @@ const ListeningLessons = () => {
     router.back();
   }, [reset, setShowCompletionModal, router]);
 
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
+  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+
+  const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: ListeningSessionType, index: number, goToNext: () => void}) => {
+    activeLessonOrderRef.current = index;
+    currentLessonRef.current = item;
+    goToNextRef.current = goToNext;
+    // reset();
+  }, []);
+
+  // Timer
+  React.useEffect(() => {
+    if(!isRunning) start();
+  }, [isRunning]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
@@ -138,13 +156,8 @@ const ListeningLessons = () => {
       <SessionLayout<ListeningSessionType>
         keyboardAvoid={true}
         preFetchedData={lessonData}
-        // onPositionChange={setActiveIndex}
-        onSessionComplete={() => setShowCompletionModal(true)}
-        onActiveItemChange={({ item, index, goToNext }) => {
-          activeLessonOrderRef.current = index;
-          currentLessonRef.current = item;
-          goToNextRef.current = goToNext;
-        }}
+        onSessionComplete={modalVisibilityHandler}
+        onActiveItemChange={activeItemChangeHandler}
       >
         {({ item }) => {
 
@@ -200,9 +213,9 @@ const ListeningLessons = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            sessionKey={`${unitId}:${slug}`}
+            sessionKey={performanceSessionKey}
             onContinue={onContinueHandler}
-            onModalVisible={modalVisibilityHandler}
+            onModalVisible={modalCloseHandler}
           />
         )
       }

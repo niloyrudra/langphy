@@ -1,4 +1,6 @@
 import { db } from "@/db";
+// import { v4 as uuid } from 'uuid';
+import * as Crypto from 'expo-crypto';
 
 export const emitSessionCompletedEvent = async (payload: any) => {
     try {
@@ -28,7 +30,7 @@ export const enqueueEvent = async <T>(
 ) => {
     try {
         const now = Math.floor( Date.now() / 1000 );
-        const eventId = crypto.randomUUID();
+        const eventId = Crypto.randomUUID();
 
         await db.runAsync(
             `INSERT OR IGNORE INTO lp_event_outbox

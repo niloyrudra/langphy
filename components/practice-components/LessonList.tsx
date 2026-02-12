@@ -13,8 +13,8 @@ const getTextStyle = (
 ) => [
     styles.text,
     active && styles.activeText,
-    completed && styles.completedText,
     { color },
+    completed && styles.completedText,
 ];
 
 const LessonList: React.FC<LessonListProps> = ({
@@ -34,7 +34,7 @@ const LessonList: React.FC<LessonListProps> = ({
         return (
         <TouchableOpacity onPress={onScrollHandler}>
             <Text style={getTextStyle(isActive, item.completed, color)}>
-                {index + 1}. {item.title}
+                {index + 1}. {item.title} {(item.completed) ? "*" : ""}
             </Text>
         </TouchableOpacity>
     )}, [currentPosition, colors.text, colors.activeLessonText, scrollToLessonRef]);

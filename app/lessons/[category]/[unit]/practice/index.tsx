@@ -17,19 +17,28 @@ import PracticeLessonDetails from '@/components/practice-components/LessonDetail
 import LessonList from '@/components/practice-components/LessonList';
 import { useLessons } from '@/hooks/useLessons';
 import { useProgress } from '@/hooks/useProgress';
-// import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
+import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
+import { randomUUID } from 'expo-crypto';
+
+const attemptId = randomUUID();
 
 const PracticeLessons = () => {
   const { colors } = useTheme();
   const {categoryId, slug, unitId} = useLocalSearchParams();
+  const {start, stop, isRunning} = useLessonTimer();
+  const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
   const scrollToRef = React.useRef<ScrollView>(null);
-  // const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
+  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
+
+  const sessionKey = `${unitId}:${slug}`; // unitId:sessionType:attemptId
 
   // Essential Custom hooks
   const { currentPosition, showLessonList, setCurrentPosition } = useSession();
   const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  const { data: progress } = useProgress(`${unitId}:${slug}`);
+  const { data: progress } = useProgress( sessionKey );
 
   // Fetch Primary Lesson data
   const practiceData = useMemo<PracticeSessionType[]>(() => {
@@ -54,6 +63,21 @@ const PracticeLessons = () => {
     });
   }, [practiceLessons, progress]);
 
+  const onContinueHandler = React.useCallback(() => {
+    setShowCompletionModal(false);
+    // navigation back to units page
+    router.back();
+  }, [router, setShowCompletionModal]);
+
+  const onModalOpenHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
+  const onModalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const onPositionChangeHandler = React.useCallback((index: number) => setCurrentPosition(index), [setCurrentPosition]);
+  const onScrollerHandler = React.useCallback((scrollFn: ((index: number) => void)) => {scrollToLessonRef.current = scrollFn}, []);
+
+  React.useEffect(() => {
+    if(!isRunning) start();
+  }, [ isRunning ])
+
   if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
@@ -61,9 +85,9 @@ const PracticeLessons = () => {
       <SessionLayout<PracticeSessionType>
         preFetchedData={practiceData}
         showFooter={true}
-        // onSessionComplete={() => setShowCompletionModal(true)}
-        onPositionChange={(index: number) => setCurrentPosition(index)}
-        onRegisterScroller={(scrollFn) => {scrollToLessonRef.current = scrollFn}}
+        onSessionComplete={onModalOpenHandler}
+        onPositionChange={onPositionChangeHandler}
+        onRegisterScroller={onScrollerHandler} // {(scrollFn) => {scrollToLessonRef.current = scrollFn}}
       >
         {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, screenRef, setTooltip }) => {
           const handleTooltip = (value: any) => setTooltip(value);
@@ -84,7 +108,7 @@ const PracticeLessons = () => {
                 <ListeningComponent
                   language="English"
                   color="#0A9AB0"
-                  style={{backgroundColor: colors.listeningCardBackgroundColor}} // {{ borderColor: "#08C1D2" }}
+                  style={{backgroundColor: colors.listeningCardBackgroundColor}}
                   buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
                   speechContent={item.meaning}
                   speechLang="en-US"
@@ -148,26 +172,16 @@ const PracticeLessons = () => {
         )
       }
 
-      {/* {
+      {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            stats={{
-              time:"00:00",
-              total: practiceData.length,
-              correct: practiceData.length,
-              accuracy: 100
-            }}
-            onContinue={() => {
-              // reset();
-              setShowCompletionModal(false);
-              router.back();
-              // navigation back to units page
-            }}
-            onModalVisible={() => setShowCompletionModal(false)}
+            sessionKey={sessionKey}
+            onContinue={onContinueHandler}
+            onModalVisible={onModalCloseHandler}
           />
         )
-      } */}
+      }
     </>
   );
 };

@@ -189,7 +189,7 @@ function SessionLayout<T>({
               goToNext={goToNext}
               goToPrevious={goToPrevious}
               currentIndex={currentIndex}
-              contentId={(preFetchedData[currentIndex] as any)?.id ?? ''}
+              contentId={(preFetchedData[currentIndex] as any)?._id ?? ''}
               dataSize={preFetchedData.length}
             />
           )}

@@ -6,23 +6,32 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { router, useLocalSearchParams } from 'expo-router';
 import { getCardContainerWidth } from '@/utils';
-import { SessionType, ProgressPayload, QuizSessionType, SelectiveResultType } from '@/types';
+import { SessionType, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useTheme } from '@/theme/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useLessons } from '@/hooks/useLessons';
-import { useUpdateProgress } from '@/hooks/useUpdateProgess';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
+import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+import { randomUUID } from 'expo-crypto';
+
+const attemptId = randomUUID();
 
 const QuizSession = () => {
+  const { categoryId, slug, unitId } = useLocalSearchParams();
+  const userId = authSnapshot.getUserId() ?? "";
+  const {start, stop, isRunning} = useLessonTimer();
+  const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
-  const { categoryId, slug, unitId } = useLocalSearchParams();
-  const goToNextRef = React.useRef<(() => void) | null>(null);
 
   const { data: quizLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  // const { mutate: updateProgress } = useUpdateProgress();
+  const goToNextRef = React.useRef<(() => void) | null>(null);
+  const activeQuizQuestionOrderRef = React.useRef<number>(0);
+  const currentQuizQuestionRef = React.useRef<QuizSessionType | null>(null);
 
   const quizzes = React.useMemo<QuizSessionType[]>(() => {
     if( !quizLessons ) return [];
@@ -32,11 +41,11 @@ const QuizSession = () => {
   const [showCompletionModal, setShowCompletionModal] = React.useState<boolean>(false);
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
-  const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
+  // const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
   const [ error, setError ] = React.useState<string>('')
-  const [ loading, setLoading ] = React.useState<boolean>(false);
+  // const [ loading, setLoading ] = React.useState<boolean>(false);
   const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
-    
+
   const handleSelect = React.useCallback((option: string) => {
     setSelectedOption( prevValue => prevValue = option);
     setIsSelectionHappened( prevValue => prevValue = true);
@@ -47,13 +56,47 @@ const QuizSession = () => {
     setIsSelectionHappened(false);
     setResult(null);
     setError("");
-    setLoading(false);
+    // setLoading(false);
   }, []);
 
-  const onContinue = React.useCallback(() => {
-    reset();
-    goToNextRef?.current && goToNextRef.current?.();
-  }, [reset]);
+  const onQuizQuestionCompletion = React.useCallback( async (quizQuestion: QuizSessionType, score: number) => {
+    if( !userId ) return;
+    try {
+      const duration_ms = stop();
+      const sessionType = slug as SessionType;
+      const sessionKey = `${unitId}:${slug}`;
+      const quizQuestionOrder = activeQuizQuestionOrderRef.current;
+      const isFinalLesson = quizQuestionOrder === quizzes.length - 1;
+
+      await lessonCompletionChain({
+        userId,
+        sessionKey,
+        performanceSessionKey,
+        lessonId: quizQuestion.id ?? quizQuestion?._id,
+        lessonOrder: quizQuestionOrder,
+        sessionType,
+        lessonType: sessionType,
+        score,
+        duration_ms,
+        isFinalLesson
+      });
+    }
+    catch(error) {
+      console.error("onQuizQuestionCompletion error:", error);
+    }
+  }, [userId, slug, unitId, quizzes?.length, stop]);
+
+  const onContinue = React.useCallback( async () => {
+    try {
+      const score = result?.isCorrect ? 100 : 0;
+      await onQuizQuestionCompletion( currentQuizQuestionRef.current!, score );
+      reset();
+      goToNextRef?.current && goToNextRef.current?.();
+    }
+    catch(error) {
+      console.error("Quiz Question Completion error:", error);
+    }
+  }, [reset, result, onQuizQuestionCompletion]);
 
   const onContinueHandler = React.useCallback(() => {
     reset();
@@ -62,7 +105,21 @@ const QuizSession = () => {
     router.back();
   }, [reset, setShowCompletionModal, router]);
     
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
+  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+
+  const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: QuizSessionType, index: number, goToNext: () => void}) => {
+    activeQuizQuestionOrderRef.current = index;
+    currentQuizQuestionRef.current = item;
+    reset();
+    // You can use goToNextRef.current() to navigate to the next item from outside
+    goToNextRef.current = goToNext;
+  }, [reset])
+
+  // Timer
+  React.useEffect(() => {
+    if(!isRunning) start();
+  }, [isRunning]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
@@ -70,40 +127,21 @@ const QuizSession = () => {
     <>
       <SessionLayout<QuizSessionType>
         preFetchedData={quizzes}
-        onPositionChange={setActiveIndex}
-        onSessionComplete={() => setShowCompletionModal(true)}
-        onActiveItemChange={({item, goToNext}) => {
-          reset();
-          // You can use goToNextRef.current() to navigate to the next item from outside
-          goToNextRef.current = goToNext;
-        }}
+        onSessionComplete={modalVisibilityHandler}
+        onActiveItemChange={activeItemChangeHandler}
       >
         {({ item }) => {
 
           const onCheckHandler = () => {
-            if(  selectedOption === item?.answer ) {
-              // const payload: ProgressPayload = {
-              //   content_type: slug as SessionType,
-              //   content_id: item.id,
-              //   completed: true,
-              //   score: 100,
-              //   progress_percent: 100
-              // };
-
-              // updateProgress( payload );
-
-              setResult({
-                answered: selectedOption || "",
-                feedback: { label: "Correct", color: "green" }
-              });
-
-            } else {
-              setResult({
-                answered: selectedOption || "",
-                feedback: { label: "Incorrect", color: "red" }
-              });
-
-            }
+            const isCorrect: boolean = selectedOption === item?.answer;
+            setResult({
+              isCorrect: isCorrect,
+              answered: selectedOption || "",
+              feedback: {
+                label: isCorrect ? "Correct" : "Incorrect",
+                color: isCorrect ? "green" : "red"
+              }
+            });
           };
 
           return (
@@ -159,9 +197,9 @@ const QuizSession = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            sessionKey={`${unitId}:${slug}`}
+            sessionKey={performanceSessionKey}
             onContinue={onContinueHandler}
-            onModalVisible={modalVisibilityHandler}
+            onModalVisible={modalCloseHandler}
           />
         )
       }

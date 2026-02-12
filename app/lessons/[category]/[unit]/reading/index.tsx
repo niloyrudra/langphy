@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
-import { SelectiveResultType, ReadingSessionType, SessionType, ProgressPayload } from '@/types';
+import { SelectiveResultType, ReadingSessionType, SessionType } from '@/types';
 // Components
 import HorizontalLine from '@/components/HorizontalLine';
 import QuizOptions from '@/components/list-loops/QuizOptions';
@@ -16,23 +16,33 @@ import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useLessons } from '@/hooks/useLessons';
-// import { useUpdateProgress } from '@/hooks/useUpdateProgess';
+import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
+import { randomUUID } from 'expo-crypto';
+
+const attemptId = randomUUID();
 
 const ReadingLessons = () => {
-  const { colors } = useTheme();
-  const cardWidth = getCardContainerWidth();
   const {categoryId, slug, unitId} = useLocalSearchParams();
+  const userId = authSnapshot.getUserId() ?? "";
+  const { colors } = useTheme();
+  const {start, stop, isRunning} = useLessonTimer();
+  const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+  const cardWidth = getCardContainerWidth();
+
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const goToNextRef = React.useRef<(() => void) | null>(null);
+  const activeLessonOrderRef = React.useRef<number>(0);
+  const currentLessonRef = React.useRef<ReadingSessionType | null>(null);
+
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
-  // const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
   const [ error, setError ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
 
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  // const { mutate: updateProgress, isPending } = useUpdateProgress();
 
   const lessonData = React.useMemo<ReadingSessionType[]>(() => {
     if( !readingLessons ) return [];
@@ -54,10 +64,44 @@ const ReadingLessons = () => {
     // setLoading(false);
   }, []);
 
-  const onContinue = React.useCallback(() => {
-    reset();
-    goToNextRef?.current && goToNextRef.current?.();
-  }, [reset]);
+  const onLessonComplete = React.useCallback(async (lesson: ReadingSessionType, score: number) => {
+    if(!userId) return;
+    try {
+      const duration_ms = stop();
+      const sessionType = slug as SessionType;
+      const sessionKey = `${unitId}:${sessionType}`;
+      const lessonOrder = activeLessonOrderRef.current;
+      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  
+      await lessonCompletionChain({
+        userId,
+        sessionKey,
+        performanceSessionKey,
+        lessonId: lesson.id ?? lesson?._id,
+        lessonOrder: lessonOrder,
+        sessionType,
+        lessonType: sessionType,
+        score,
+        duration_ms,
+        isFinalLesson
+      });
+    }
+    catch(error) {
+      console.error("onLessonComplete error:", error)
+    }
+  }, [userId, slug, lessonData?.length, stop]);
+
+  const onContinue = React.useCallback( async () => {
+    try {
+      const score = result?.isCorrect ? 100 : 0;
+      await onLessonComplete( currentLessonRef.current!, score );
+      reset();
+      goToNextRef?.current && goToNextRef.current?.();
+    }
+    catch(error) {
+      console.error("Reading Question Completion error:", error);
+    }
+  }, [reset, result, onLessonComplete]);
 
   const onContinueHandler = React.useCallback(() => {
     reset();
@@ -66,8 +110,21 @@ const ReadingLessons = () => {
     router.back();
   }, [reset, setShowCompletionModal, router]);
   
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
+  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
 
+  const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: ReadingSessionType, index: number, goToNext: () => void}) => {
+    activeLessonOrderRef.current = index;
+    currentLessonRef.current = item;
+    reset();
+    // You can use goToNextRef.current() to navigate to the next item from outside
+    goToNextRef.current = goToNext;
+  }, [reset])
+
+  // Timer
+  React.useEffect(() => {
+    if(!isRunning) start();
+  }, [isRunning]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
@@ -75,43 +132,24 @@ const ReadingLessons = () => {
     <>
       <SessionLayout<ReadingSessionType>
         preFetchedData={lessonData}
-        // onPositionChange={setActiveIndex}
-        onSessionComplete={() => setShowCompletionModal(true)}
-        onActiveItemChange={({item, goToNext}) => {
-          reset();
-          // You can use goToNextRef.current() to navigate to the next item from outside
-          goToNextRef.current = goToNext;
-        }}
+        onSessionComplete={modalVisibilityHandler}
+        onActiveItemChange={activeItemChangeHandler}
       >
         {({ item, wordRefs, containerRef, screenRef, setTooltip }) => {
           const handleTooltip = (value: any) => {
             setTooltip(value);
           };
           const onCheckHandler = () => {
-            if(  selectedOption === item?.answer ) {
-              setIsCorrect( prevVal => prevVal = true )
-
-              // const payload: ProgressPayload = {
-              //   content_type: slug as SessionType,
-              //   content_id: item.id,
-              //   completed: true,
-              //   score: 100,
-              //   progress_percent: 100
-              // };
-
-              // updateProgress( payload );
-
-              setResult({
-                answered: selectedOption || "",
-                feedback: { label: "Correct", color: "green" }
-              });
-            } else {
-              setIsCorrect( prevVal => prevVal = false );
-              setResult({
-                answered: selectedOption || "",
-                feedback: { label: "Incorrect", color: "red" }
-              });
-            }
+            const result: boolean = selectedOption === item?.answer;
+            setIsCorrect( result )
+            setResult({
+              isCorrect: result,
+              answered: selectedOption || "",
+              feedback: {
+                label: result ? "Correct" : "Incorrect",
+                color: result ? "green" : "red"
+              }
+            });
           };
           
           return (
@@ -187,9 +225,9 @@ const ReadingLessons = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            sessionKey={`${unitId}:${slug}`}
+            sessionKey={performanceSessionKey}
             onContinue={onContinueHandler}
-            onModalVisible={modalVisibilityHandler}
+            onModalVisible={modalCloseHandler}
           />
         )
       }

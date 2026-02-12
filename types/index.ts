@@ -146,7 +146,7 @@ type PracticeSessionType = {
 
 // Speaking Session Type
 type SpeakingSessionType = {
-  // _id: string;
+  _id?: string;
   id: string;
   categoryId: string;
   unitId: string;
@@ -160,7 +160,7 @@ type SpeakingSessionType = {
 
 // Reading
 type ReadingSessionType = {
-  // _id: string,
+  _id?: string,
   id: string,
   categoryId: string,
   unitId: string,
@@ -172,7 +172,7 @@ type ReadingSessionType = {
 }
 
 type WritingSessionType = {
-  // _id: string,
+  _id?: string,
   id: string,
   categoryId: string,
   unitId: string,
@@ -182,7 +182,7 @@ type WritingSessionType = {
 }
 
 type ListeningSessionType = {
-  // _id: string,
+  _id?: string,
   id: string,
   categoryId: string,
   unitId: string,
@@ -192,7 +192,7 @@ type ListeningSessionType = {
 }
 
 type QuizSessionType = {
-  // _id: string,
+  _id?: string,
   id: string,
   categoryId: string,
   unitId: string,
@@ -573,6 +573,7 @@ type Feedback = {
 };
 
 type SelectiveResultType = {
+  isCorrect: boolean;
   answered: string;
   feedback: {
     label: "Correct" | "Incorrect";
@@ -609,16 +610,6 @@ type BackendLesson = {
   _id: string;
   meaning: string;
 }
-
-type ProgressPayload = {
-  content_type: SessionType;
-  content_id: string;
-  session_key: string;
-  completed?: boolean;
-  score?: number;
-  progress_percent?: number;
-  updated_at?: number
-};
 
 type StreaksType = {
   user_id: string;
@@ -674,6 +665,16 @@ type Streak = {
 };
 
 // Local DB Types
+type ProgressPayload = {
+  content_type: SessionType;
+  content_id: string;
+  session_key: string;
+  completed: number;
+  score?: number;
+  progress_percent?: number;
+  updated_at?: number
+};
+
 type DBProgress = {
   content_type: string;
   content_id: string;

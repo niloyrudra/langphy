@@ -9,7 +9,7 @@ import {
   LocalCategory,
   SessionType
 } from "@/types";
-import * as Speech from 'expo-speech'
+import * as Speech from 'expo-speech';
 
 /**
  * V3 - Category Icons
@@ -24,7 +24,6 @@ import BusinessIconV3 from '@/assets/images/categories/v3/Business.svg';
 import CalendeIconV3 from '@/assets/images/categories/v3/Calender.svg';
 import ColorsIconV3 from '@/assets/images/categories/v3/Colors.svg';
 import ConstructionIconV3 from '@/assets/images/categories/v3/Construction.svg';
-// import CountingIconV3 from '@/assets/images/categories/v3/Counting.svg';
 import CountryIconV3 from '@/assets/images/categories/v3/Country.svg';
 import CultureIconV3 from '@/assets/images/categories/v3/Culture.svg';
 import CountingMathMeasureIconV3 from '@/assets/images/categories/v3/Counting.svg';
@@ -47,7 +46,6 @@ import HouseIconV3 from '@/assets/images/categories/v3/House.svg';
 import IntroIconV3 from '@/assets/images/categories/v3/Introduction.svg';
 import InvitationIconV3 from '@/assets/images/categories/v3/Invitation.svg';
 import LandscapesIconV3 from '@/assets/images/categories/v3/Landscape.svg';
-// import ListeningIconV3 from '@/assets/images/categories/v3/Listening.svg';
 import MaterialsIconV3 from '@/assets/images/categories/v3/Materials.svg';
 import MedicalIconV3 from '@/assets/images/categories/v3/Medical.svg';
 import MusicIconV3 from '@/assets/images/categories/v3/Music.svg';
@@ -60,16 +58,12 @@ import OpinionIconV3 from '@/assets/images/categories/v3/Opinion.svg';
 import PassportIconV3 from '@/assets/images/categories/v3/Passport.svg';
 import PersonalitiesIconV3 from '@/assets/images/categories/v3/Personalities.svg';
 import PoliticsIconV3 from '@/assets/images/categories/v3/Politics.svg';
-// import PracticeIconV3 from '@/assets/images/categories/v3/Practice.svg';
 import PreferencesIconV3 from '@/assets/images/categories/v3/Preference.svg';
-// import QuizIconV3 from '@/assets/images/categories/v3/Quiz.svg';
-// import ReadingIconV3 from '@/assets/images/categories/v3/Reading.svg';
 import RestaurantIconV3 from '@/assets/images/categories/v3/Restaurant.svg';
 import ScienceIconV3 from '@/assets/images/categories/v3/science.svg';
 import SeasonsIconV3 from '@/assets/images/categories/v3/Season.svg';
 import ShoppingIconV3 from '@/assets/images/categories/v3/Shopping.svg';
 import SpaceIconV3 from '@/assets/images/categories/v3/Space.svg';
-// import SpeakingIconV3 from '@/assets/images/categories/v3/Speaking.svg';
 import SportsIconV3 from '@/assets/images/categories/v3/Sports.svg';
 import TechnologyIconV3 from '@/assets/images/categories/v3/Technology.svg';
 import TeleCommunicationIconV3 from '@/assets/images/categories/v3/Telephone-conversation.svg';
@@ -77,15 +71,10 @@ import TimeIconV3 from '@/assets/images/categories/v3/Time.svg';
 import ToolsIconV3 from '@/assets/images/categories/v3/Tools.svg';
 import TransportationIconV3 from '@/assets/images/categories/v3/Transportation.svg';
 import TravelIconV3 from '@/assets/images/categories/v3/Travel.svg';
-// import UnitListIconV3 from '@/assets/images/categories/v3/Unit-List-Icon.svg';
 import VehicleIconV3 from '@/assets/images/categories/v3/Vehicles.svg';
 import WarfareIconV3 from '@/assets/images/categories/v3/Warfare.svg';
 import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
-// import WritingIconV3 from '@/assets/images/categories/v3/Writing.svg';
 import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
-// import { BookIcon } from "./SVGImages";
-// import BookIcon from "@/assets/images/unit/v2/notebook.svg"
-// import { Dimensions } from "react-native";
 import { makeMutable, SharedValue } from 'react-native-reanimated';
 import { findNodeHandle, UIManager } from "react-native";
 import api from "@/lib/api";
@@ -94,42 +83,7 @@ export const createEqualizerBars = (count: number): SharedValue<number>[] => {
   return Array.from({ length: count }, () => makeMutable(0));
 };
 
-
-
 export const textToolTipHandler = async () => {}
-
-// import { addSpeechRecognitionListener, ExpoSpeechRecognitionModule } from "expo-speech-recognition";
-
-// SPEECH_TO_TEXT
-// export const speechRecognition = async () => {
-//   try {
-//     const result = await SpeechRecognition?.startSpeechRecognitionAsync({
-//       lang: "de-DE", // for German recognition
-//       interimResults: false,
-//     });
-//     return result[0]?.transcript || "";
-//   } catch (error) {
-//     return "";
-//   }
-// }
-
-// export const speechRecognitionPermission = async () => {
-//     ExpoSpeechRecognitionModule.getPermissionsAsync().then((result) => {
-//     console.log("Status:", result.status);
-//     console.log("Granted:", result.granted);
-//     console.log("Can ask again:", result.canAskAgain);
-//     console.log("Expires:", result.expires);
-//   });
-
-//   ExpoSpeechRecognitionModule.requestPermissionsAsync().then((result) => {
-//     if (!result.granted) {
-//       console.warn("Permissions not granted", result);
-//       return;
-//     }
-//     // Permissions granted! Start speech recognition, or at some other time...
-//     ExpoSpeechRecognitionModule.start({ lang: "de-DE" });
-//   });
-// }
 
 export const calculateSimilarity = (a: string, b: string) => {
   const longer = a.length > b.length ? a : b;
@@ -147,29 +101,11 @@ export const getFeedback = (score: number, spoken: string) => {
   return `😕 Needs work. You said: "${spoken}"`;
 };
 
-// let speechReady = false;
-
-// export const warmUpSpeech = async () => {
-//   if (speechReady) return;
-//   await new Promise((resolve) => {
-//     Speech.speak(" ", {
-//       language: "de-DE",
-//       rate: 1,
-//       onDone: () => {
-//         Speech.stop();
-//         speechReady = true;
-//         resolve(true);
-//       },
-//     });
-//   });
-// };
-
 // TEXT_TO_SPEECH
 export  const speechFastHandler = async (
   speechContent: string | undefined,
   speechLang: string | undefined
 ) => {
-  // await warmUpSpeech();
   Speech.speak(
     speechContent || "Hallo!",
     {
@@ -184,13 +120,8 @@ export  const speechFastHandler = async (
 export const speechHandler = async (
   speechContent: string | undefined,
   speechLang: string | undefined,
-  onSpeakingState?: (isSpeaking: boolean) => void
+  onLoading?: (isLoading: boolean) => void
 ) => {
-  // await warmUpSpeech();
-  // setLoading?.(true);
-
-  // Speech.s
-
   Speech.speak(speechContent || "Hallo!", {
     language: speechLang || "de-DE",
     rate: 1,
@@ -198,33 +129,20 @@ export const speechHandler = async (
     volume: 1,
     onStart: () => {
       // setLoading?.(false)
-      onSpeakingState?.(true)
+      onLoading?.(false)
     },
     onDone: () => {
-      onSpeakingState?.(false)
+      onLoading?.(false)
     },
     onStopped: () => {
-      onSpeakingState?.(false)
+      onLoading?.(false)
     },
     onError: () => {
-      onSpeakingState?.(false)
+      onLoading?.(false)
     },
   });
   // setTimeout(() => setLoading?.(false), 8000);
 };
-
-
-// export  const speechHandler = (speechContent: string | undefined, speechLang: string | undefined) => {
-//   Speech.speak(
-//     speechContent || "Hallo!",
-//     {
-//       language: speechLang || "de-DE",
-//       rate: 1, // Normal Speed
-//       pitch: 1.2,// Deep Tone
-//       volume: 1 // High
-//     }
-//   )
-// }
 
 export  const speechSlowHandler = async (
   speechContent: string | undefined,

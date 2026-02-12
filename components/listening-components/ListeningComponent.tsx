@@ -1,15 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ListeningProps } from '@/types';
-import { useTheme } from '@/theme/ThemeContext'
-// import SpeakerComponent from '../SpeakerComponent';
 import SIZES from '@/constants/size';
 import Speaker from '../Speaker';
 import InfoButton from '../InfoButton';
 import InfoModal from '../modals/InfoModal';
 
 const ListeningComponent: React.FC<ListeningProps> = ({language, children, color, style: customStyle, buttonStyle, speechContent, speechLang}) => {
-  const { colors } = useTheme();
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   return (
     <>
@@ -18,7 +15,6 @@ const ListeningComponent: React.FC<ListeningProps> = ({language, children, color
         <View style={[styles.content, {backgroundColor: color}]}>
 
           <Text style={[styles.languageText]}>{language}</Text>
-          {/* <Text style={[styles.languageText, {color: colors.text}]}>{language}</Text> */}
 
           {/* Speaker */}
           <View style={styles.speakerContainer}>

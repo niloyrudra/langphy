@@ -26,21 +26,30 @@ export const getSessionProgress = async ( sessionKey: string ): Promise<DBProgre
 };
 
 export const upsertProgress = async ( p: DBProgress ) => {
-  await db.runAsync(
-    `INSERT OR REPLACE INTO lp_progress
-     (content_type, content_id, session_key, completed, score, duration_ms, progress_percent, updated_at, dirty)
-     VALUES (?, ?, ?, ?, ?, ?, 1)`,
-    [
-      p.content_type,
-      p.content_id,
-      p.session_key,
-      p.completed ? 1 : 0,
-      p.score ?? 0,
-      p.duration_ms ?? 0,
-      p.progress_percent ?? 0,
-      p.updated_at,
-    ]
-  );
+  try {
+    const result = await db.runAsync(
+      `INSERT OR REPLACE INTO lp_progress
+      (content_type, content_id, session_key, lesson_order, completed, score, duration_ms, progress_percent, updated_at, dirty)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      RETURNING session_key`,
+      [
+        p.content_type,
+        p.content_id,
+        p.session_key,
+        p.lesson_order ?? 0, // ✅ REQUIRED
+        p.completed ? 1 : 0,
+        p.score ?? 0,
+        p.duration_ms ?? 0,
+        p.progress_percent ?? 0,
+        p.updated_at,
+        p.dirty ?? 1,
+      ]
+    );
+    console.log("Progress inserted result:", result);
+  }
+  catch(error) {
+    console.error("Progress repo upsertProgress error:", error);
+  }
 };
 
 export const countCompletedLessons = async ( sessionKey: string ) => {
@@ -75,7 +84,7 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
       INSERT INTO lp_progress
         (content_type, content_id, completed, score, duration_ms, lesson_order, progress_percent, session_key, updated_at, dirty)
       VALUES
-        (?, ?, 1, ?, 100, ?, ?, 1)
+        (?, ?, 1, ?, ?, ?, 100, ?, ?, 1)
       ON CONFLICT(content_type, content_id)
       DO UPDATE SET
         completed = 1,

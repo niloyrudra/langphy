@@ -5,7 +5,7 @@ import { getSessionProgress } from "./progress.repo";
 type SessionPerformanceUpsertType = {
   sessionKey: string;
   sessionType: SessionType;
-  score?: number
+  avgScore: number
   totalDurationMs?: number
   completed?: number
 }
@@ -22,7 +22,7 @@ const rollingAverage = (
 export const upsertSessionPerformance = async ({
   sessionKey,
   sessionType,
-  score,
+  avgScore,
   totalDurationMs,
   completed
 }: SessionPerformanceUpsertType ) => {
@@ -35,26 +35,24 @@ export const upsertSessionPerformance = async ({
     );
 
     if(!existing) {
-      // const lessons = await getSessionProgress(  sessionKey );
-
-      // const totalDuration = lessons?.length > 0 ? lessons.reduce((a, l) => a + l.duration_ms, 0) : 0;
-
       await db.runAsync(
         `
         INSERT INTO lp_session_performance
           (session_key, session_type, avg_score, total_duration_ms, attempts, completed, updated_at, dirty)
         VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+        RETURNING *
         `,
         [
           sessionKey,
           sessionType,
-          score ?? null,
+          avgScore,
           totalDurationMs ?? 0,
-          score !== undefined ? 1 : 0,
+          avgScore !== undefined ? 1 : 0,
           completed ?? 0,
           now,
         ]
       );
+      console.log("Inserted new session performance - sessionKey", sessionKey);
       return;
     }
 
@@ -62,10 +60,10 @@ export const upsertSessionPerformance = async ({
     let newAvg = existing.avg_score;
     let newAttempts = existing.attempts;
 
-    if( score !== undefined ) {
-      newAvg = existing.attempts === 0 ? score : ( existing.avg_score * existing.attempts + score ) / ( existing.attempts + 1 );
-      newAttempts += 1;
-    }
+    // if( score !== undefined ) {
+    //   newAvg = existing.attempts === 0 ? score : ( existing.avg_score * existing.attempts + score ) / ( existing.attempts + 1 );
+    //   newAttempts += 1;
+    // }
 
     await db.runAsync(
       `
@@ -83,7 +81,7 @@ export const upsertSessionPerformance = async ({
         sessionKey
       ]
     );
-
+    console.error( "upsertSessionPerformance updated", newAvg, newAttempts, sessionKey );
   }
   catch(error) {
     console.error( "upsertSessionPerformance error:", error );
@@ -110,6 +108,7 @@ export const getPerformance = async (sessionKey: string): Promise<SessionPerform
       'SELECT * FROM lp_session_performance WHERE session_key = ?',
       [sessionKey]
     );
+    // console.log("getPerformance result:", result, sessionKey)
     return result ?? null;
   }
   catch(error) {

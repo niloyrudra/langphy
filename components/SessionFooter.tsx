@@ -1,13 +1,14 @@
 import { View, StyleSheet, Alert } from 'react-native'
-import React from 'react'
+import React, { useCallback } from 'react'
 import SIZES from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import PaginationButton from './PaginationButton';
-import { ContentType, ProgressPayload } from '@/types';
+import { SessionType, DBProgress } from '@/types';
 import ActionPrimaryButton from './form-components/ActionPrimaryButton';
-import { useSession } from '@/context/SessionContext';
 import { useUpdateProgress } from '@/hooks/useUpdateProgess';
-// import { useProgress } from '@/hooks/useProgress';
+import { useLocalSearchParams } from 'expo-router';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
+import { markLessonCompleted } from '@/db/progress.repo';
 
 interface SessionFooterProps {
     goToNext: () => void,
@@ -17,19 +18,32 @@ interface SessionFooterProps {
     dataSize: number
 }
 
-const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, currentIndex, contentId, dataSize }) => {    const {colors} = useTheme();
-    const { markLessonCompleted } = useSession();
-    // const { data: progress } = useProgress();
+const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, currentIndex, contentId, dataSize }) => {
+    const {colors} = useTheme();
+    const {unitId, slug} = useLocalSearchParams();
+    const { stop } = useLessonTimer()
     const { mutateAsync: updateProgress } = useUpdateProgress();
     
-    const submissionHandler = () => {
-        const payload: ProgressPayload = {
-            content_type: "practice" as ContentType,
+    const submissionHandler = useCallback(() => {
+        if( !contentId ) return Alert.alert("Lesson Id is missing.")
+        const duration = stop();
+        const now = Math.floor( Date.now() / 1000 );
+        const attemptId = Date.now();
+        const sessionkey = `${unitId}:${slug}:${attemptId}`;
+
+        const payload: DBProgress = {
+            content_type: "practice" as SessionType,
+            session_key: sessionkey,
             content_id: contentId,
-            completed: true,
-            score: 0, // Coming from NLP Analysis
-            progress_percent: 0 // Coming from NLP Analysis
-        }
+            completed: 1,
+            lesson_order: currentIndex,
+            score: 1, // Coming from NLP Analysis
+            duration_ms: duration,
+            progress_percent: 100, // Coming from NLP Analysis
+            updated_at: now,
+            dirty: 1
+        };
+
         Alert.alert(
             "Lesson Completion",
             "You have completed this lesson",
@@ -42,7 +56,14 @@ const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, c
                     text: 'Continue',
                     onPress: async () => {
                         // lessonCompletionHandler();
-                        markLessonCompleted(contentId)
+                        // await markLessonCompleted({
+                        //     content_type: slug as SessionType,
+                        //     lessonId: payload.content_id,
+                        //     sessionKey: payload.session_key,
+                        //     score: payload.score,
+                        //     duration_ms: payload.duration_ms,
+                        //     lesson_order: payload.lesson_order,
+                        // })
                         
                         await updateProgress(payload)
                         
@@ -51,7 +72,8 @@ const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, c
                 }
             ]
         );
-    }
+    }, [markLessonCompleted, stop, goToNext, contentId, unitId, slug ])
+
     return (
         <View
             style={[

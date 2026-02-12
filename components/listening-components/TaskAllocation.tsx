@@ -1,22 +1,18 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect } from 'react'
-import ChallengeScreenTitle from '../challenges/ChallengeScreenTitle'
-import SoundRipple from '../animated-components/_helper-components/SoundRipple'
-import { useTheme } from '@/theme/ThemeContext'
-import ChallengeScreenSpeakerActionSection from '../challenges/ChallengeScreenSpeakerActionSection'
-import { RecorderStop, SpeakerActionButtonIcon } from '@/utils/SVGImages'
-import SIZES from '@/constants/size'
-import { speechController, warmUpSpeech } from '@/helpers/speechController'
-
-import * as Speech from 'expo-speech';
-import { speechHandler } from '@/utils'
-
+import React from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import ChallengeScreenTitle from '../challenges/ChallengeScreenTitle';
+import SoundRipple from '../animated-components/_helper-components/SoundRipple';
+import { useTheme } from '@/theme/ThemeContext';
+import { RecorderStop, SpeakerActionButtonIcon } from '@/utils/SVGImages';
+import SIZES from '@/constants/size';
+import { speechController } from '@/helpers/speechController';
 
 interface TaskAllocationProps {
     rippleSize?: number;
     taskTitle: string;
     taskPhrase: string
 }
+
 const TaskAllocation: React.FC<TaskAllocationProps> = ({ taskTitle, taskPhrase, rippleSize }) => {
     const { colors } = useTheme();
     const [ isSpeaking, setIsSpeaking ] = React.useState<boolean>(false);
@@ -42,46 +38,46 @@ const TaskAllocation: React.FC<TaskAllocationProps> = ({ taskTitle, taskPhrase, 
         speechController.stop();
     }
 
-    // useEffect(() => {
-    //     warmUpSpeech();
-    // }, [taskPhrase]);
-
     return (
-        <View style={{flex: 1}}>
-                {/* Title Section */}
-                <ChallengeScreenTitle title={taskTitle} />               
+        <View style={styles.flex}>
+            {/* Title Section */}
+            <ChallengeScreenTitle title={taskTitle} />               
 
-                <View
-                    style={{
-                        flex: 1,
-                        position: "relative",
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}
+            <View style={styles.container}>
+
+                <SoundRipple
+                    isSpeaking={isSpeaking}
+                    size={rippleSize || 100}
+                    color={colors.primary}
+                />
+
+                <TouchableOpacity
+                    onPress={isSpeaking ? onStop : onSpeak}
+                    style={styles.button}
                 >
-
-                    <SoundRipple
-                        isSpeaking={isSpeaking}
-                        size={rippleSize || 100}
-                        color={colors.primary}
-                    />
-
-                    <TouchableOpacity
-                        onPress={isSpeaking ? onStop : onSpeak}
-                        style={{
-                            position: "absolute",
-                            zIndex: 1
-                        }}
-                    >
-                        {
-                            !isSpeaking ? (<SpeakerActionButtonIcon {...dimentions} />) : (<RecorderStop {...dimentions} />)
-                        }                        
-                    </TouchableOpacity>
-                </View>
+                    {
+                        !isSpeaking
+                            ? (<SpeakerActionButtonIcon {...dimentions} />)
+                            : (<RecorderStop {...dimentions} />)
+                    }                        
+                </TouchableOpacity>
+            </View>
         </View>
-    )
+    );
 }
 
-export default TaskAllocation
+export default TaskAllocation;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    flex: {flex: 1},
+    container: {
+        flex: 1,
+        position: "relative",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    button: {
+        position: "absolute",
+        zIndex: 1
+    }
+});

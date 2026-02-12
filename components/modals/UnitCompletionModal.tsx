@@ -17,9 +17,7 @@ type UnitCompletionModalProps = {
 
 const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}: UnitCompletionModalProps) => {
     const {colors} = useTheme();
-
     const { data: performance, isLoading, isFetching } = usePerformance( sessionKey );
-
     return (
         <ModalLayout
             isVisible={isVisible}
@@ -44,21 +42,24 @@ const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}
                     <View style={styles.stats}>
     
                         <StatsCard
-                            title='Accuracy'
+                            title="Accuracy"
                             IconComponent={<TargetIcon width={56} height={56} />}
-                            // statsValue={stats?.accuracy+"%"}
                             statsValue={
-                                performance?.avg_score !== null
-                                    ? `${Math.round(performance!.avg_score)}%`
-                                    : `--`
+                                typeof performance?.avg_score === "number"
+                                ? `${Math.round(performance.avg_score)}%`
+                                : "--"
                             }
-                            feedbackText='Impressive'
+                            feedbackText="Impressive"
                         />
 
                         <StatsCard
-                            title='Time'
+                            title="Time"
                             IconComponent={<WatchIcon width={56} height={56} />}
-                            statsValue={formatDuration(performance!.total_duration_ms)}
+                            statsValue={
+                                typeof performance?.total_duration_ms === "number"
+                                ? formatDuration(performance.total_duration_ms)
+                                : "--"
+                            }
                             statsUnit="min"
                         />
 

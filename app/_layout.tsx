@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
 import { UserDataProvider } from "@/context/UserDataProvider";
 import { runMigrations } from "@/db/migrate";
+import { db } from "@/db";
 
 
 SplashScreen.preventAutoHideAsync();
@@ -41,6 +42,12 @@ const RootLayout = () => {
   }, [loaded, error]);
 
   React.useEffect(() => {
+    (async () => {
+      // const columns = await db.getAllAsync("PRAGMA table_info(lp_session_performance)");
+      // console.log(columns);
+      // const lessonColumns = await db.getAllAsync("PRAGMA table_info(lp_performance)");
+      // console.log(lessonColumns);
+    })()
     runMigrations().then(() => setReady(true)).then(() => console.log("Migration done!")).catch(console.warn);
   }, []);
 

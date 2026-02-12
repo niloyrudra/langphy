@@ -30,3 +30,24 @@ export const sumSessionDuration = async ( sessionKey: string ): Promise<number> 
         return 0;
     }
 }
+
+export const avgScore = async ( sessionKey: string ): Promise<number> => {
+    try {
+        const result = await db.getFirstAsync<{ avg_score: number }>(
+            `
+            SELECT COALESCE(AVG(score), 0) AS avg_score
+            FROM lp_progress
+            WHERE session_key = ?
+                AND completed = 1
+                AND score IS NOT NULL
+            `,
+            [sessionKey]
+        );
+
+        return result?.avg_score ?? 0;
+    }
+    catch(error) {
+        console.error( "avgScore error:", error );
+        return 0;
+    }
+}

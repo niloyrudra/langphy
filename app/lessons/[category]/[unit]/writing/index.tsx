@@ -16,24 +16,27 @@ import { useLessons } from '@/hooks/useLessons';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { authSnapshot } from '@/snapshots/authSnapshot';
+import { randomUUID } from 'expo-crypto';
+
+const attemptId = randomUUID();
 
 const WritingSession = () => {
   const { colors } = useTheme();
   const userId: string = authSnapshot.getUserId() ?? "";
-  const timer = useLessonTimer();
+  const { categoryId, slug, unitId } = useLocalSearchParams();
+  const {start, stop, isRunning} = useLessonTimer();
+  const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<WritingSessionType | null>(null);
   
-  const { categoryId, slug, unitId } = useLocalSearchParams();
   const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
-
 
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
@@ -46,7 +49,7 @@ const WritingSession = () => {
   const onLessonComplete = React.useCallback(async (lesson: WritingSessionType, score: number) => {
     if(!userId) return;
     try {
-      const duration_ms = timer.stop();
+      const duration_ms = stop();
       const sessionType = slug as SessionType;
       const sessionKey = `${unitId}:${sessionType}`;
       const lessonOrder = activeLessonOrderRef.current;
@@ -55,8 +58,9 @@ const WritingSession = () => {
       await lessonCompletionChain({
         userId,
         sessionKey,
-        lessonId: lesson.id,
-        lessonOrder: activeLessonOrderRef.current,
+        performanceSessionKey,
+        lessonId: lesson.id ?? lesson?._id,
+        lessonOrder: lessonOrder,
         sessionType,
         lessonType: sessionType,
         score: score,
@@ -67,7 +71,7 @@ const WritingSession = () => {
     catch(error) {
       console.error("onLessonComplete error:", error)
     }
-  }, [userId, slug, lessonData?.length]);
+  }, [userId, slug, lessonData?.length, stop]);
   
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent.trim()) {
@@ -83,8 +87,8 @@ const WritingSession = () => {
       setLoading(true);
       setActualDEQuery(expectedText);
       const res = await api.post( `/nlp/analyze/answer`, {
-        expected: expectedText,
-        user_answer: textContent
+        expected: expectedText.trim(),
+        user_answer: textContent.trim()
       });
       if (res.status === 200 && res.data) {
         setResult(res.data);
@@ -118,7 +122,20 @@ const WritingSession = () => {
     router.back();
   }, [reset, setShowCompletionModal, router]);
   
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
+  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+
+  const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: WritingSessionType, index: number, goToNext: () => void}) => {
+    activeLessonOrderRef.current = index;
+    currentLessonRef.current = item;
+    goToNextRef.current = goToNext;
+    // reset();
+  }, []);
+
+  // Timer
+  React.useEffect(() => {
+    if(!isRunning) start();
+  }, [isRunning]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
@@ -128,14 +145,8 @@ const WritingSession = () => {
         sessionType="writing"
         keyboardAvoid={true}
         preFetchedData={lessonData}
-        // onPositionChange={setActiveIndex}
-        onSessionComplete={() => setShowCompletionModal(true)}
-        onActiveItemChange={({ item, index, goToNext }) => {
-          activeLessonOrderRef.current = index;
-          currentLessonRef.current = item;
-          goToNextRef.current = goToNext;
-          // reset();
-        }}
+        onSessionComplete={modalVisibilityHandler}
+        onActiveItemChange={activeItemChangeHandler}
       >
         {({ item }) => {
           const onCheckHandler = () => {
@@ -162,8 +173,8 @@ const WritingSession = () => {
 
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
-                multiline={true}
-                numberOfLines={2}
+                // multiline={true}
+                // numberOfLines={2}
                 maxLength={500}
                 placeholder='Write here...'
                 value={textContent}
@@ -200,9 +211,9 @@ const WritingSession = () => {
         showCompletionModal && (
           <UnitCompletionModal
             isVisible={showCompletionModal}
-            sessionKey={`${unitId}:${slug}`}
+            sessionKey={performanceSessionKey}
             onContinue={onContinueHandler}
-            onModalVisible={modalVisibilityHandler}
+            onModalVisible={modalCloseHandler}
           />
         )
       }
