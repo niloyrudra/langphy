@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
@@ -11,12 +11,12 @@ import SessionResultModal from '@/components/modals/SessionResultModal';
 import TaskAllocation from '@/components/listening-components/TaskAllocation';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useListening } from '@/context/ListeningContext';
-import api from '@/lib/api';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
+import { analysisNLP } from '@/services/nlpAnalysis.service';
 
 const attemptId = randomUUID();
 
@@ -24,7 +24,7 @@ const ListeningLessons = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const userId: string = authSnapshot.getUserId() ?? "";
   const { colors } = useTheme();
-  const {start, stop, isRunning} = useLessonTimer();
+  const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
 
   const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
@@ -88,24 +88,16 @@ const ListeningLessons = () => {
     try {
       setLoading(true);
       setActualDEQuery(expectedText);
-      const res = await api.post( `/nlp/analyze/answer`, {
-        expected: expectedText,
-        user_answer: textContent
-      });
-      if( res.status !== 200 ) return setResult(null);
-
-      const {data} = res;
-      if( data ) setResult(data);
-
-      console.log("data:", data)
-
+      const data = await analysisNLP( expectedText, textContent );
+      if( data ) setResult( data );
+      console.log( "data:", data );
     } catch (err: any) {
       console.error(err);
       setError("Speech analysis failed");
     } finally {
       setLoading(false);
     }
-  }, [textContent]);
+  }, [textContent, analysisNLP]);
 
   const reset = React.useCallback(() => {
     setTextContent("");
@@ -173,10 +165,16 @@ const ListeningLessons = () => {
                 rippleSize={150}
               />
 
+              {
+                error && (
+                  <View style={styles.errorContainer}>
+                    <Text style={{color: colors.redDanger}}>{error}</Text>
+                  </View>
+                )
+              }
+
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
-                // multiline={true}
-                // numberOfLines={2}
                 maxLength={500}
                 placeholder='Write here...'
                 value={textContent}
@@ -230,5 +228,10 @@ const styles = StyleSheet.create({
   flex: {flex: 1},
   textInput: {
     marginBottom: 20
+  },
+  errorContainer: {
+    marginVertical: 20,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

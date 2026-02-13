@@ -5,10 +5,8 @@ import { ThemeProvider } from "@/theme/ThemeContext";
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
-import { UserDataProvider } from "@/context/UserDataProvider";
+import { AppProvider } from "@/context/AppContext";
 import { runMigrations } from "@/db/migrate";
-import { db } from "@/db";
-
 
 SplashScreen.preventAutoHideAsync();
 
@@ -57,7 +55,7 @@ const RootLayout = () => {
   
   return (
     <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      <UserDataProvider>
+      <AppProvider>
 
           <ThemeProvider>
             <Stack
@@ -77,7 +75,7 @@ const RootLayout = () => {
             <StatusBarComponent />
           </ThemeProvider>
 
-      </UserDataProvider>
+      </AppProvider>
     </SafeAreaView>
   );
 }

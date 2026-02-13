@@ -1,18 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { jwtDecode } from "jwt-decode";
-// import api from "@/lib/api";
 import { User } from "@/types";
-import { bootstrapProfileFromToken } from "@/bootstraps/profile.bootstrap";
-import { bootstrapSettingsFromToken } from "@/bootstraps/settings.bootstrap";
-import { bootstrapStreaks } from "@/bootstraps/streaks.bootstrap";
 import { bootstrap } from "@/bootstraps/bootstrap";
 import { authSnapshot } from "@/snapshots/authSnapshot";
 
 type authContextType = {
     user: User | null;
     loading: boolean;
-    setUser: (e: User | null) => void;
+    // setUser: (e: User | null) => void;
     // signIn: ( email: string, password: string ) => Promise<void>;
     signOut: () => Promise<void>;
 }
@@ -36,16 +32,21 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                 try {
                     const decode: any = jwtDecode(token);
                     console.log("decode:", decode);
+                    
+                    setUser( { id: decode.id, email: decode.email, created_at: decode.created_at } );
+                    
                     authSnapshot.set(
                         decode.id,
                         token
                     );
-                    console.log("authSnapshot is set.")
+                    console.log("setUser and authSnapshot are set.")
+                    
                     // Bootstrap user data
                     await bootstrap( decode );
                     console.log("bootstrap is set.")
                 }
                 catch(err) {
+                    console.error("restoreAuth error:", err);
                     await SecureStore.deleteItemAsync("accessToken");
                 }
             }
@@ -69,7 +70,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
             value={{
                 user,
                 loading,
-                setUser,
+                // setUser,
                 // signIn: signInHandler,
                 signOut: signOutHandler
             }}

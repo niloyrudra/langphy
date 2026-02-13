@@ -1,13 +1,11 @@
-import {
-    markLessonCompleted,
-} from "@/db/progress.repo";
-import { getAvgScoreBySessionType, upsertSessionPerformance } from "@/db/performance.repo";
-import { upsertStreak } from "@/db/streaks.repo";
+import { markLessonCompleted } from "@/db/progress.repo";
+import { upsertSessionPerformance } from "@/db/performance.repo";
+// import { getStreaks, upsertStreak } from "@/db/streaks.repo";
 import { SessionType } from "@/types";
-import { avgScore, isSessionCompleted, sumSessionDuration } from "./sessionRules";
-import { applyStreakIfEligible, hasCompletedSessionToday } from "./streakRules";
+import { avgScore, sumSessionDuration } from "./sessionRules";
+import { applyStreakIfEligible } from "./streakRules";
 import { enqueueEvent } from "@/events/localEvents";
-import { LessonCompletedEvent, SessionCompletedEvent } from "@/events/kafkaContracts";
+import { LessonCompletedEvent, SessionCompletedEvent, StreakUpdateEvent } from "@/events/kafkaContracts";
 
 type LessonCompletionChainInput = {
   userId: string;
@@ -77,10 +75,24 @@ export const lessonCompletionChain = async (
   /* ----------------------------------
    * 4️⃣ STREAK (guarded)
    * ---------------------------------- */
-  await applyStreakIfEligible({
+  const streak = await applyStreakIfEligible({
     userId: input.userId,
     occurredAt: now,
   });
+
+  if( streak.updated ) {
+    await enqueueEvent<StreakUpdateEvent>(
+      "streak.updated.v1",
+      input.userId,
+      `streak:${input.userId}`,
+      {
+        userId: input.userId,
+        occurredAt: now
+      }
+    );
+    console.log("Streak Updated...");
+  }
+
 
   // 5️⃣ Emit session.completed event
   await enqueueEvent<SessionCompletedEvent>(
@@ -96,5 +108,5 @@ export const lessonCompletionChain = async (
     }
   );
 
-  console.log("Session Completion Updated...", input.performanceSessionKey);
+  console.log("Session Completion Updated...");
 };

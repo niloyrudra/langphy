@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
@@ -10,13 +10,14 @@ import { SessionType, SessionResultType, WritingSessionType } from '@/types';
 import { router, useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
-import api from '@/lib/api';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useLessons } from '@/hooks/useLessons';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
+import { analysisNLP } from '@/services/nlpAnalysis.service';
+import STYLES from '@/constants/styles';
 
 const attemptId = randomUUID();
 
@@ -24,7 +25,7 @@ const WritingSession = () => {
   const { colors } = useTheme();
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
-  const {start, stop, isRunning} = useLessonTimer();
+  const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
@@ -86,20 +87,16 @@ const WritingSession = () => {
     try {
       setLoading(true);
       setActualDEQuery(expectedText);
-      const res = await api.post( `/nlp/analyze/answer`, {
-        expected: expectedText.trim(),
-        user_answer: textContent.trim()
-      });
-      if (res.status === 200 && res.data) {
-        setResult(res.data);
-      }
+      const data = await analysisNLP( expectedText, textContent );
+      if( data ) setResult(data);
+      console.log("data:", data);
     } catch (err: any) {
       console.error(err);
       setError("Speech analysis failed");
     } finally {
       setLoading(false);
     }
-  }, [textContent, api]);
+  }, [textContent, analysisNLP]);
 
   const reset = React.useCallback(() => {
     setTextContent("");
@@ -142,16 +139,14 @@ const WritingSession = () => {
   return (
     <>
       <SessionLayout<WritingSessionType>
-        sessionType="writing"
         keyboardAvoid={true}
         preFetchedData={lessonData}
         onSessionComplete={modalVisibilityHandler}
         onActiveItemChange={activeItemChangeHandler}
       >
         {({ item }) => {
-          const onCheckHandler = () => {
-            analyzeWritingHandler(item?.phrase);
-          };
+          const onCheckHandler = () => analyzeWritingHandler(item?.phrase);
+          
           return (
             <View style={styles.flex}>
               {/* Content */}
@@ -171,10 +166,16 @@ const WritingSession = () => {
 
               </View>
 
+              {
+                error && (
+                  <View style={styles.errorContainer}>
+                    <Text style={{color: colors.redDanger}}>{error}</Text>
+                  </View>
+                )
+              }
+
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
-                // multiline={true}
-                // numberOfLines={2}
                 maxLength={500}
                 placeholder='Write here...'
                 value={textContent}
@@ -228,5 +229,10 @@ const styles = StyleSheet.create({
   query: { width: '80%'},
   textInput: {
     marginBottom: 20
+  },
+  errorContainer: {
+    marginVertical: 20,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

@@ -1,7 +1,6 @@
 import { SessionType } from "@/types";
 
 export interface LessonCompletedEvent {
-  // type: "lesson.completed.v1";
   userId: string;
   lessonId: string;
   sessionKey: string;
@@ -12,11 +11,14 @@ export interface LessonCompletedEvent {
 };
 
 export interface SessionCompletedEvent {
-  // type: "session.completed.v1";
   userId: string;
   sessionKey: string;
   sessionType: string;
-  // score?: number;
   total_duration_ms?: number;
   occurredAt: number;
 };
+
+export interface StreakUpdateEvent {
+  userId: string;
+  occurredAt: number;
+}

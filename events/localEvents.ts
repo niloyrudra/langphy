@@ -1,6 +1,6 @@
 import { db } from "@/db";
-// import { v4 as uuid } from 'uuid';
-import * as Crypto from 'expo-crypto';
+import { randomUUID } from 'expo-crypto';
+import { dispatchLocalEvent } from "./localBus";
 
 export const emitSessionCompletedEvent = async (payload: any) => {
     try {
@@ -30,7 +30,7 @@ export const enqueueEvent = async <T>(
 ) => {
     try {
         const now = Math.floor( Date.now() / 1000 );
-        const eventId = Crypto.randomUUID();
+        const eventId = randomUUID();
 
         await db.runAsync(
             `INSERT OR IGNORE INTO lp_event_outbox
@@ -46,6 +46,10 @@ export const enqueueEvent = async <T>(
                 now
             ]
         );
+
+        // 🔥 Immediately dispatch locally
+        await dispatchLocalEvent(eventType, payload);
+
         return eventId;
     }
     catch(error) {

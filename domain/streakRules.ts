@@ -24,47 +24,43 @@ export const applyStreakIfEligible = async ({
     // First-ever streak
     if (!streak) {
         await db.runAsync(
-        `
-        INSERT INTO lp_streaks (
-            user_id,
-            current_streak,
-            longest_streak,
-            last_activity_date,
-            updated_at,
-            dirty
-        ) VALUES (?, 1, 1, ?, ?, 1)
-        `,
-        [userId, today, occurredAt]
+            `
+            INSERT INTO lp_streaks (
+                user_id,
+                current_streak,
+                longest_streak,
+                last_activity_date,
+                updated_at,
+                dirty
+            ) VALUES (?, 1, 1, ?, ?, 1)
+            `,
+            [userId, today, occurredAt]
         );
-        return;
+        return {updated: true};
     }
 
     // Already counted today
-    if (streak.last_activity_date === today) {
-        return;
-    }
+    if (streak.last_activity_date === today)  return {updated: false};
 
     const yesterday = today - 1;
 
-    const nextStreak =
-        streak.last_activity_date === yesterday
-        ? streak.current_streak + 1
-        : 1;
+    const nextStreak = streak.last_activity_date === yesterday ? streak.current_streak + 1 : 1;
 
-    const longest = Math.max(streak.longest_streak, nextStreak);
+    const longest = Math.max( streak.longest_streak, nextStreak );
 
     await db.runAsync(
         `
         UPDATE lp_streaks SET
-        current_streak = ?,
-        longest_streak = ?,
-        last_activity_date = ?,
-        updated_at = ?,
-        dirty = 1
+            current_streak = ?,
+            longest_streak = ?,
+            last_activity_date = ?,
+            updated_at = ?,
+            dirty = 1
         WHERE user_id = ?
         `,
         [nextStreak, longest, today, occurredAt, userId]
     );
+     return {updated: true};
 };
 
 

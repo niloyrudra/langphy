@@ -4,12 +4,13 @@ import { DBStreak } from "@/types";
 
 export const useStreak = (userId: string) => {
     return useQuery<DBStreak | null>({
-        queryKey: ["lp_streaks", userId],
+        queryKey: [ "lp_streaks", userId ],
+        enabled: !!userId,
         queryFn: async () => {
             try {
                 console.log("Fetching streaks for userId:", userId);
-                const res = await getStreaks(userId);
-                return res;
+                const result = await getStreaks( userId );
+                return result;
             }
             catch(error) {
                 console.error("Error fetching streaks:", error);
@@ -17,7 +18,7 @@ export const useStreak = (userId: string) => {
             }
         },
         // initialData: null,
-        staleTime: Infinity,
+        // staleTime: Infinity,
         gcTime: Infinity
     });
 }
