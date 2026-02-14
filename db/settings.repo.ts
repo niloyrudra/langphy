@@ -88,18 +88,18 @@ export const upsertSettings = async (p: {
     [
       p.id,
       p.user_id,
-      p.theme || "light",
-      p.sound_effect || false,
-      p.speaking_service || false,
-      p.reading_service || false,
-      p.listening_service || false,
-      p.writing_service || false,
-      p.practice_service || false,
-      p.quiz_service || false,
-      p.notifications || false,
-      p.language || "en",
+      p.theme ?? "light",
+      p.sound_effect ?? false,
+      p.speaking_service ?? false,
+      p.reading_service ?? false,
+      p.listening_service ?? false,
+      p.writing_service ?? false,
+      p.practice_service ?? false,
+      p.quiz_service ?? false,
+      p.notifications ?? false,
+      p.language ?? "en",
       now, // updated_at
-      p.dirty || 1
+      p.dirty ?? 1
     ]
   );
 

@@ -57,6 +57,8 @@ const WritingSession = () => {
       const isFinalLesson = lessonOrder === lessonData.length - 1;
   
       await lessonCompletionChain({
+        categoryId: categoryId as string,
+        unitId: unitId as string,
         userId,
         sessionKey,
         performanceSessionKey,

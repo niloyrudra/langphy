@@ -29,10 +29,12 @@ export const upsertProgress = async ( p: DBProgress ) => {
   try {
     const result = await db.runAsync(
       `INSERT OR REPLACE INTO lp_progress
-      (content_type, content_id, session_key, lesson_order, completed, score, duration_ms, progress_percent, updated_at, dirty)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (category_id, unit_id, content_type, content_id, session_key, lesson_order, completed, score, duration_ms, progress_percent, updated_at, dirty)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       RETURNING session_key`,
       [
+        p.category_id,
+        p.unit_id,
         p.content_type,
         p.content_id,
         p.session_key,
@@ -67,6 +69,8 @@ export const countCompletedLessons = async ( sessionKey: string ) => {
 }
 
 interface MarkLessonCompleted {
+  category_id: string,
+  unit_id: string,
   content_type: SessionType;
   lessonId: string;
   sessionKey: string;
@@ -82,9 +86,20 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
     await db.runAsync(
       `
       INSERT INTO lp_progress
-        (content_type, content_id, completed, score, duration_ms, lesson_order, progress_percent, session_key, updated_at, dirty)
+        (category_id,
+        unit_id,
+        content_type,
+        content_id,
+        completed,
+        score,
+        duration_ms,
+        lesson_order,
+        progress_percent,
+        session_key,
+        updated_at,
+        dirty)
       VALUES
-        (?, ?, 1, ?, ?, ?, 100, ?, ?, 1)
+        (?, ?, ?, ?, 1, ?, ?, ?, 100, ?, ?, 1)
       ON CONFLICT(content_type, content_id)
       DO UPDATE SET
         completed = 1,
@@ -94,6 +109,8 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
         dirty = 1
       `,
       [
+        payload.category_id,
+        payload.unit_id,
         payload.content_type,
         payload.lessonId,
         payload.score ?? 0,

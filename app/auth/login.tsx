@@ -17,6 +17,7 @@ import { jwtDecode } from 'jwt-decode'
 import { bootstrapProfileFromToken } from '@/bootstraps/profile.bootstrap'
 import { bootstrapSettingsFromToken } from '@/bootstraps/settings.bootstrap'
 import { bootstrapStreaks } from '@/bootstraps/streaks.bootstrap'
+import { authSnapshot } from '@/snapshots/authSnapshot'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required."),
@@ -47,6 +48,10 @@ const Login = () => {
 
         const decode: any = jwtDecode(token);
         setUser( { id: decode.id, email: decode.email, created_at: decode.created_at } );
+        authSnapshot.set(
+            decode.id,
+            token
+        );
         // Storing profile locally
         await bootstrapProfileFromToken({
           id: decode.id,

@@ -12,6 +12,11 @@ import {
 } from "./schema";
 
 export const runMigrations = async () => {
+    // await db.runAsync(`DELETE FROM lp_profiles`);
+    // await db.runAsync(`DELETE FROM lp_streaks`);
+    // await db.runAsync(`DELETE FROM lp_settngs`);
+    // await db.runAsync(`DELETE FROM lp_lesson`);
+    // await db.runAsync(`DELETE FROM lp_session_performance`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_profiles`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_settings`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_streaks`);

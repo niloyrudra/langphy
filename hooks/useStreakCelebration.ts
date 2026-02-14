@@ -3,12 +3,11 @@ import { useStreak } from "./useStreaks"
 import { isToday } from "@/utils";
 
 export const useStreakCelebration = ( userId: string ) => {
-    const { data: streak, isLoading, isFetching } = useStreak( userId );
+    const { data: streak } = useStreak( userId );
     const lastShownRef = useRef<number | null>(null);
     const [ show, setShow ] = useState<boolean>(false);
 
     useEffect(() => {
-        if( isLoading || isFetching ) return;
         if( !streak ) return;
         if( !isToday( streak.last_activity_date ) ) return;
         if( streak.current_streak === 0 ) return;
@@ -19,11 +18,11 @@ export const useStreakCelebration = ( userId: string ) => {
         lastShownRef.current = streak.last_activity_date;
         setShow( true );
 
-    }, [ streak, isLoading, isFetching ]);
+    }, [ streak?.current_streak ]);
 
     return {
         showStreakModal: show,
         dismiss: () => setShow( false ),
         streak
-    }
+    };
 }

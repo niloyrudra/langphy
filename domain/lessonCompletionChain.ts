@@ -8,6 +8,8 @@ import { enqueueEvent } from "@/events/localEvents";
 import { LessonCompletedEvent, SessionCompletedEvent, StreakUpdateEvent } from "@/events/kafkaContracts";
 
 type LessonCompletionChainInput = {
+  categoryId: string;
+  unitId: string;
   userId: string;
   sessionKey: string;
   performanceSessionKey: string;
@@ -29,6 +31,8 @@ export const lessonCompletionChain = async (
    * 1️⃣ PROGRESS (always)
    * ---------------------------------- */
   await markLessonCompleted({
+    category_id: input.categoryId,
+    unit_id: input.unitId,
     content_type: input.lessonType,
     lessonId: input.lessonId,
     sessionKey: input.sessionKey,
@@ -38,20 +42,13 @@ export const lessonCompletionChain = async (
   });
 
   // 2️⃣ Emit lesson.completed event
-  // const progressPayload = {
-  //   userId: input.userId,
-  //   sessionKey: input.sessionKey,
-  //   lessonId: input.lessonId,
-  //   lessonType: input.lessonType,
-  //   score: input.score,
-  //   duration_ms: input.duration_ms,
-  //   occurredAt: now,
-  // };
   await enqueueEvent<LessonCompletedEvent>(
     "lesson.completed.v1",
     input.userId,
     `lesson:${input.lessonId}`,
     {
+      categoryId: input.categoryId,
+      unitId: input.unitId,
       userId: input.userId,
       sessionKey: input.sessionKey,
       lessonId: input.lessonId,

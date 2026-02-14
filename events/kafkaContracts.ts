@@ -1,6 +1,8 @@
 import { SessionType } from "@/types";
 
 export interface LessonCompletedEvent {
+  categoryId: string;
+  unitId: string;
   userId: string;
   lessonId: string;
   sessionKey: string;

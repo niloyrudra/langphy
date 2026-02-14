@@ -39,8 +39,6 @@ const ListeningLessons = () => {
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
-  // const [activeIndex, setActiveIndex] = React.useState<number>(0);
-
 
   const lessonData = React.useMemo<ListeningSessionType[]>(() => {
     if( !listeningLessons ) return [];
@@ -48,33 +46,13 @@ const ListeningLessons = () => {
   }, [listeningLessons]);
 
   // Handlers
-  const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
-    if(!userId) return;
-    try {
-      const duration_ms = stop();
-      const sessionType = slug as SessionType;
-      const sessionKey = `${unitId}:${sessionType}`;
-      const lessonOrder = activeLessonOrderRef.current;
-      const isFinalLesson = lessonOrder === lessonData.length - 1;
-  
-      await lessonCompletionChain({
-        userId,
-        sessionKey,
-        performanceSessionKey,
-        lessonId: lesson?.id ?? lesson?._id,
-        lessonOrder: lessonOrder,
-        sessionType,
-        lessonType: sessionType,
-        score: score,
-        duration_ms,
-        isFinalLesson
-      });
-    }
-    catch(error) {
-      console.error("onLessonComplete error:", error)
-    }
-  }, [userId, slug, lessonData?.length, stop]);
-  
+    const reset = React.useCallback(() => {
+    setTextContent("");
+    setResult(null);
+    setError("");
+    setLoading(false);
+  }, []);
+
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent) {
       setError("No expected text found!");
@@ -90,7 +68,7 @@ const ListeningLessons = () => {
       setActualDEQuery(expectedText);
       const data = await analysisNLP( expectedText, textContent );
       if( data ) setResult( data );
-      console.log( "data:", data );
+
     } catch (err: any) {
       console.error(err);
       setError("Speech analysis failed");
@@ -99,14 +77,42 @@ const ListeningLessons = () => {
     }
   }, [textContent, analysisNLP]);
 
-  const reset = React.useCallback(() => {
-    setTextContent("");
-    setResult(null);
-    setError("");
-    setLoading(false);
-  }, []);
-
+  const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
+    console.log("onLessonCompleted userId:", userId);
+    if(!userId) return;
+    try {
+      const duration_ms = stop();
+      const sessionType = slug as SessionType;
+      const sessionKey = `${unitId}:${sessionType}`;
+      const lessonOrder = activeLessonOrderRef.current;
+      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  
+      await lessonCompletionChain({
+        categoryId: categoryId as string,
+        unitId: unitId as string,
+        userId,
+        sessionKey,
+        performanceSessionKey,
+        lessonId: lesson?.id ?? lesson?._id,
+        lessonOrder: lessonOrder,
+        sessionType,
+        lessonType: sessionType,
+        score: score,
+        duration_ms,
+        isFinalLesson
+      });
+      console.log("onLessonComplete ran!")
+    }
+    catch(error) {
+      console.error("onLessonComplete error:", error)
+    }
+  }, [userId, slug, lessonData?.length, stop]);
+  
   const lessonCompletionHandler = React.useCallback( async () => {
+    console.log("lessonCompletionHandler triggered");
+    console.log("result:", result);
+    console.log("currentLessonRef:", currentLessonRef.current);
+
     try {
       const score = result!.similarity ? result!.similarity*100 : 0;
       await onLessonComplete(currentLessonRef.current!, score);
@@ -140,6 +146,13 @@ const ListeningLessons = () => {
   React.useEffect(() => {
     if(!isRunning) start();
   }, [isRunning]);
+  // React.useEffect(() => {
+  //   start();
+
+  //   return () => {
+  //     stop();
+  //   }
+  // }, []);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 

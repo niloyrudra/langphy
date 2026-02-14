@@ -34,12 +34,12 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                     console.log("decode:", decode);
                     
                     setUser( { id: decode.id, email: decode.email, created_at: decode.created_at } );
-                    
+                    console.log("setUser is set.")
                     authSnapshot.set(
                         decode.id,
                         token
                     );
-                    console.log("setUser and authSnapshot are set.")
+                    console.log("authSnapshot is set.")
                     
                     // Bootstrap user data
                     await bootstrap( decode );

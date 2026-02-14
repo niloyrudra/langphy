@@ -12,8 +12,6 @@ const UnitLayout = () => {
   const {colors} = useTheme();
   const userId = authSnapshot.getUserId() ?? "";
   const { showStreakModal, streak, dismiss } = useStreakCelebration( userId );
-  console.log(streak?.current_streak, showStreakModal)
-
   return (
     <>
       {/* Streak Celebration */}
@@ -22,6 +20,7 @@ const UnitLayout = () => {
         streak={streak}
         onClose={dismiss}
       />
+
       {/* Unit Stack */}
       <Stack>
         <Stack.Screen

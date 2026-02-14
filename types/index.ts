@@ -676,6 +676,8 @@ type ProgressPayload = {
 };
 
 type DBProgress = {
+  category_id: string;
+  unit_id: string,
   content_type: string;
   content_id: string;
   completed: number;
