@@ -12,6 +12,7 @@ const UnitLayout = () => {
   const {colors} = useTheme();
   const userId = authSnapshot.getUserId() ?? "";
   const { showStreakModal, streak, dismiss } = useStreakCelebration( userId );
+  console.log(streak?.current_streak, showStreakModal)
 
   return (
     <>

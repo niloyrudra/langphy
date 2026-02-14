@@ -38,6 +38,15 @@ export const lessonCompletionChain = async (
   });
 
   // 2️⃣ Emit lesson.completed event
+  // const progressPayload = {
+  //   userId: input.userId,
+  //   sessionKey: input.sessionKey,
+  //   lessonId: input.lessonId,
+  //   lessonType: input.lessonType,
+  //   score: input.score,
+  //   duration_ms: input.duration_ms,
+  //   occurredAt: now,
+  // };
   await enqueueEvent<LessonCompletedEvent>(
     "lesson.completed.v1",
     input.userId,

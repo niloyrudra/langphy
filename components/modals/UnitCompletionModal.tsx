@@ -1,12 +1,22 @@
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ModalLayout from './_partials/ModalLayout';
-import { DolphinCongratulationsIcon, TargetIcon, WatchIcon } from '@/utils/SVGImages';
+import { TargetIcon, WatchIcon } from '@/utils/SVGImages';
 import StatsCard from './_partials/StatsCard';
 import { useTheme } from '@/theme/ThemeContext';
 import ActionButton from '../form-components/ActionButton';
 import { usePerformance } from '@/hooks/usePerformance';
 import { formatDuration } from '@/utils';
+import LottieView from "lottie-react-native";
+
+const feedback = ( score: number ) => {
+    if( score >= 90 ) return "Excellent"
+    if( score >= 80 ) return "Impressive"
+    if( score >= 70 ) return "Nice"
+    if( score >= 60 ) return "Good"
+    if( score >= 50 ) return "Not Bad"
+    else return "Be positive"
+}
 
 type UnitCompletionModalProps = {
     isVisible: boolean;
@@ -18,6 +28,15 @@ type UnitCompletionModalProps = {
 const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}: UnitCompletionModalProps) => {
     const {colors} = useTheme();
     const { data: performance, isLoading, isFetching } = usePerformance( sessionKey );
+    // const animationRef = React.useRef<LottieView>(null);
+
+    // React.useEffect(() => {
+    //     if(isVisible) {
+    //         animationRef.current?.reset();
+    //         animationRef.current?.play();
+    //     }
+    // }, [isVisible]);
+
     return (
         <ModalLayout
             isVisible={isVisible}
@@ -31,9 +50,19 @@ const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}
 
                     {/* Top Greetings */}
                     <View style={styles.greetingSection}>
+
                         <View style={styles.greetingContent}>
-                            <DolphinCongratulationsIcon width={152} height={156} />
+                            <LottieView
+                                // ref={animationRef}
+                                source={require(`../../assets/lotties/celebration-illustration.json`)}
+                                autoPlay
+                                loop={false}
+                                speed={1}
+                                resizeMode='contain'
+                                style={{ width: 320, height: 300 }}
+                            />
                         </View>
+
                         <Text style={styles.resultHeader}>Lesson Complete</Text>
                         <Text style={styles.resultSubHeader}>Great job! Keep learning and improve your skills!</Text>
                     </View>
@@ -49,7 +78,7 @@ const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}
                                 ? `${Math.round(performance.avg_score)}%`
                                 : "--"
                             }
-                            feedbackText="Impressive"
+                            feedbackText={feedback(performance?.avg_score ?? 0)}
                         />
 
                         <StatsCard
@@ -101,15 +130,15 @@ const styles = StyleSheet.create({
     },
     flex: {flex: 1},
     space: {
-        height: "20%"
+        height: "3%"
     },
     greetingSection: {
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20
+        padding: 10
     },
     greetingContent: {
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -130,6 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         paddingHorizontal: 20,
         gap: 10,
+        marginTop: 15
         // width: "80%"
     },
     buttonContainer: {
