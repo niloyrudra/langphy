@@ -1,24 +1,8 @@
+import { DBSettings } from "@/types";
 import { db } from "./index";
 
-export type DBSettings = {
-  id: string;           // UUID, local key
-  user_id: string;
-  theme: string;
-  sound_effect: boolean;
-  speaking_service: boolean;
-  reading_service: boolean;
-  listening_service: boolean;
-  writing_service: boolean;
-  practice_service: boolean;
-  quiz_service: boolean;
-  notifications: boolean;
-  language: string;
-  dirty: number;         // 0 | 1
-  updated_at: number;
-};
-
 const SETTINGS_FIELDS = [
-  "toggle_theme",
+  "theme",
   "sound_effect",
   "speaking_service",
   "reading_service",

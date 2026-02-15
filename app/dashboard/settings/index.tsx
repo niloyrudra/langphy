@@ -12,17 +12,14 @@ import ActionButton from '@/components/form-components/ActionButton';
 import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
 import api from '@/lib/api';
 import { useSettings } from '@/hooks/useSettings';
-import { useAuth } from '@/context/AuthContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-// import { useProfile } from '@/hooks/useProfile';
-// import { refresh } from '@react-native-community/netinfo';
+import { authSnapshot } from '@/snapshots/authSnapshot';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
-  const {user} = useAuth();
-  const { data: settings, isLoading, isFetching, refetch } = useSettings(user?.id as string);
-  // const { clear } = useProfile();
-  const [showModal, setShowModal] = React.useState<boolean>(false);
+  const userId = authSnapshot.getUserId() ?? "";
+  const { data: settings, isLoading, isFetching, refetch } = useSettings(userId as string);
+  const [ showModal, setShowModal ] = React.useState<boolean>(false);
 
   // Handlers
   const handleSignout = useCallback(async () => {
@@ -30,7 +27,7 @@ const SettingsScreen = () => {
       const axiosRes = await api.post("/users/signout");
       if( axiosRes.status === 200 && axiosRes.data ) {  
         await SecureStore.deleteItemAsync("accessToken");
-        // clear();
+        authSnapshot.clear();
         Alert.alert("Successfully signed out!");
         
         router.replace("/auth/login");
@@ -46,23 +43,24 @@ const SettingsScreen = () => {
   }, [router])
 
   const isServiceEnabled = useCallback(( serviceType: string ): boolean => {
+    if(!settings) return false;
     switch (serviceType) {
       case 'sound_effect':
-        return settings?.sound_effect ?? false;
-      case 'theme_toggle':
-        return settings?.theme === 'dark' ? true : false;
+        return settings.sound_effect ?? false;
+      case 'theme':
+        return settings.theme === 'dark' ? true : false;
       case 'practice':
-        return settings?.practice_service ?? false;
+        return settings.practice_service ?? false;
       case 'quiz':
-        return settings?.quiz_service ?? false;
+        return settings.quiz_service ?? false;
       case 'speaking':
         return settings?.speaking_service ?? false;
       case 'listening':
-        return settings?.listening_service ?? false;
+        return settings.listening_service ?? false;
       case 'reading':
-        return settings?.reading_service ?? false;
+        return settings.reading_service ?? false;
       case 'writing':
-        return settings?.writing_service ?? false;
+        return settings.writing_service ?? false;
       default:
         return false;
     }
@@ -127,7 +125,6 @@ const SettingsScreen = () => {
                     borderWidth: 1,
                   }}
                   textStyle={{
-                    // color: theme === 'light' ? "#142C57" : "#142C57"
                     color: "#142C57"
                   }}
                 />

@@ -1,8 +1,9 @@
 import { getLocalSettings } from "@/db/settings.repo";
+import { DBSettings } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
 export const useSettings = (userId: string) => {
-    return useQuery({
+    return useQuery<DBSettings | null>({
         queryKey: ["lp_settings", userId],
         enabled: !!userId,
         queryFn: async () => {

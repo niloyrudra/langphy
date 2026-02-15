@@ -554,7 +554,7 @@ export const SETTINGS_DATA: SettingsData[] = [
         ImgComponentLight: ThemeLightIcon,
         ImgComponentDark: ThemeDarkIcon,
         actionType: "switcher",
-        settingType: "toggle_theme",
+        settingType: "theme",
         route: "/settings"
       }
     ]

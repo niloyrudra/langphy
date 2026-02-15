@@ -1,13 +1,13 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useAuth } from "./AuthContext";
-import { ContentType } from "@/types";
+import { SessionType } from "@/types";
 import api from "@/lib/api";
 
 type Progress = {
     category_id: string;
     unit_id: string;
     user_id?: string;
-    content_type: ContentType;
+    content_type: SessionType;
     content_id: string;
     completed: boolean;
     score: number;
@@ -15,7 +15,7 @@ type Progress = {
 }
 
 type UpdateProgressPayload = {
-    content_type: ContentType;
+    content_type: SessionType;
     content_id: string;
     score?: number;
     progressPercent?: number;
@@ -28,7 +28,7 @@ type ProgressContextType = {
     refreshProgress: () => Promise<void>;
     updateProgress: ( payload: UpdateProgressPayload ) => Promise<void>;
     getProgress: (
-        contentType: ContentType,
+        contentType: SessionType,
         contentId: string
     ) => Progress | undefined;
 }
@@ -83,7 +83,7 @@ export const ProgressProvider = ({children}: {children: ReactNode}) => {
         }
     }, [user?.id, refreshProgress]);
 
-    const getProgress = useCallback( ( contentType: ContentType, contentId: string ) => {
+    const getProgress = useCallback( ( contentType: SessionType, contentId: string ) => {
         return progress.find( data => data.content_type === contentType && data.content_id === contentId )
     }, [progress]);
 

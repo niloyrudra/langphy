@@ -1,8 +1,8 @@
-import { DBSettings, updateSettingField } from "@/db/settings.repo";
+import { updateSettingField } from "@/db/settings.repo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type SettingsField =
-  | "toggle_theme"
+  | "theme"
   | "sound_effect"
   | "speaking_service"
   | "reading_service"

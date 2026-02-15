@@ -690,6 +690,23 @@ type DBProgress = {
   dirty: number;
 };
 
+type DBSettings = {
+  id: string;
+  user_id: string;
+  theme: string;
+  sound_effect: boolean;
+  speaking_service: boolean;
+  reading_service: boolean;
+  listening_service: boolean;
+  writing_service: boolean;
+  practice_service: boolean;
+  quiz_service: boolean;
+  notifications: boolean;
+  language: string;
+  dirty: number;
+  updated_at: number;
+};
+
 type DBStreak = {
     id: string;
     user_id: string;
@@ -713,6 +730,7 @@ type SessionPerformance = {
 
 export {
   DBProgress,
+  DBSettings,
   DBStreak,
   SessionPerformance,
   

@@ -23,7 +23,7 @@ const SettingsElementAction = ({actionType, enabled, settingType, route}: Settin
                 actionType == "router" && (
                     <TouchableOpacity
                         onPress={() => router.push(route as any)}
-                        style={{ marginVertical: "auto" }}
+                        style={styles.arrowButton}
                     >
                         <Ionicons name="chevron-forward" size={24} color={colors.text} />
                     </TouchableOpacity>
@@ -39,5 +39,8 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         height: "100%"
+    },
+    arrowButton: {
+        marginVertical: "auto"
     }
 });

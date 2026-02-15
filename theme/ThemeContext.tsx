@@ -1,9 +1,9 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { darkColors, lightColors } from "@/constants/colors";
-import { useAuth } from "@/context/AuthContext";
 import { useSettings } from "@/hooks/useSettings";
 import { useUpdateSettings } from "@/hooks/useUpdateSettings";
+import { useAuth } from "@/context/AuthContext";
 
 type Theme = 'light' | 'dark' | null;
 
@@ -18,27 +18,30 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 const ThemeProvider = ( { children }: { children: ReactNode  } ) => {
     const systemColorScheme = useColorScheme();
     const [ theme, setTheme ] = useState<Theme>( systemColorScheme === 'dark' ? 'dark' : 'light' );
-    
-    const { user } = useAuth();
-    const { data: settings } = useSettings( ( user?.id as string ) );
-    const { mutate: updateSettings } = useUpdateSettings( ( user?.id as string ) );
+    const {user} = useAuth();
+    const { data: settings, isLoading } = useSettings( user?.id as string );
+    const { mutate: updateSettings } = useUpdateSettings( user?.id as string );
 
     useEffect(() => {
-        const loadTheme = async () => {
-            const storedTheme = settings?.theme ?? 'light';
-            if( storedTheme ) setTheme( storedTheme as Theme );
+        if( !isLoading ) {
+            const resolvedTheme = settings?.theme ?? (systemColorScheme === 'dark' ? 'dark' : 'light');
+            setTheme( resolvedTheme as Theme );
         }
-        loadTheme();
-    }, []);
-
+    }, [settings?.theme, isLoading, systemColorScheme]);
+    
     const toggleTheme = async () => {
+        if(!theme) return;
         const newTheme = (theme === 'light') ? 'dark' : 'light';
         setTheme( prevTheme => prevTheme = newTheme );
-        updateSettings({ field: 'toggle_theme', value: newTheme });
+        updateSettings({ field: 'theme', value: newTheme });
+    }
+
+    if (!theme) {
+        return null; // ⛔ block render until theme resolved
     }
 
     const colors = theme === 'light' ? lightColors : darkColors;
-    
+
     return (
         <ThemeContext.Provider value={{ theme, colors, toggleTheme }}>
             {children}

@@ -56,25 +56,23 @@ const RootLayout = () => {
   return (
     <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <AppProvider>
-
-          <ThemeProvider>
-            <Stack
-              screenOptions={{
-                headerShadowVisible: false
-              }}
-              initialRouteName="index"
-            >
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-              <Stack.Screen name="auth/login" options={{ headerShown: false }} />
-              <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
-              <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
-              <Stack.Screen name="lessons" options={{ headerShown: false }}/>
-              <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
-            </Stack>
-            <StatusBarComponent />
-          </ThemeProvider>
-
+        <ThemeProvider>
+          <Stack
+            screenOptions={{
+              headerShadowVisible: false
+            }}
+            initialRouteName="index"
+          >
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="auth/login" options={{ headerShown: false }} />
+            <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
+            <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
+            <Stack.Screen name="lessons" options={{ headerShown: false }}/>
+            <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
+          </Stack>
+          <StatusBarComponent />
+        </ThemeProvider>
       </AppProvider>
     </SafeAreaView>
   );

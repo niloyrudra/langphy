@@ -1,22 +1,23 @@
-import { View, Switch, StyleProp, ViewStyle } from 'react-native'
+import { View, Switch, StyleProp, ViewStyle, StyleSheet } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { useSettings } from '@/hooks/useSettings';
 import { useAuth } from '@/context/AuthContext';
 import { useUpdateSettings } from '@/hooks/useUpdateSettings';
+import { authSnapshot } from '@/snapshots/authSnapshot';
 
 const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: string, enabled: boolean, containerStyle?: StyleProp<ViewStyle>}) => {
     const { toggleTheme, theme } = useTheme()
     const [ isEnabled, setIsEnabled ] = React.useState<boolean>(enabled);
-    const{ user } = useAuth();
-    const { data: settings } = useSettings(user?.id as string)
-    const { mutate: updateSettings } = useUpdateSettings(user?.id as string);
+    const userId = authSnapshot.getUserId() ?? "";
+    const { data: settings } = useSettings(userId)
+    const { mutate: updateSettings } = useUpdateSettings(userId);
 
     // Handle
     const toggleSwitch = async (value: boolean) => {
         setIsEnabled(value);
         switch (settingType) {
-            case 'toggle_theme':
+            case 'theme':
                 toggleTheme();
                 break;
 
@@ -66,14 +67,12 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: s
 
     }
     
-    console.log(`SettingSwitcher - ${settingType}:`, isEnabled);
-
     // Sync ONLY when this switch represents the theme setting
     React.useEffect(() => {
         if (settingType === 'sound_effect') {
             setIsEnabled(isEnabled);
         }
-        if (settingType === 'toggle_theme') {
+        if (settingType === 'theme') {
             setIsEnabled(theme === 'dark');
         }
         if (settingType === 'speaking') {
@@ -97,19 +96,26 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: s
     }, [settingType, theme]);
 
     return (
-        <View style={[{height: "100%"}, (containerStyle && containerStyle)]}>
+        <View style={[styles.switchContainer, (containerStyle && containerStyle)]}>
             <Switch
                 trackColor={{false: '#999', true: '#8ED4FF'}}
                 thumbColor={'#FFF'}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
-                style={{
-                    marginVertical: "auto"
-                }}
+                style={styles.switch}
             />
         </View>
     );
 }
 
 export default SettingSwitcher;
+
+const styles = StyleSheet.create({
+    switchContainer: {
+        height: "100%"
+    },
+    switch: {
+        marginVertical: "auto"
+    }
+});
