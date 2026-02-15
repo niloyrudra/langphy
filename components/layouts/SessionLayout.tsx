@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useRef, useState, memo } from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef, useState, memo, JSX } from 'react';
 import {
   View,
   FlatList,

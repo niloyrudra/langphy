@@ -101,7 +101,6 @@ const ListeningLessons = () => {
         duration_ms,
         isFinalLesson
       });
-      console.log("onLessonComplete ran!")
     }
     catch(error) {
       console.error("onLessonComplete error:", error)
@@ -109,10 +108,6 @@ const ListeningLessons = () => {
   }, [userId, slug, lessonData?.length, stop]);
   
   const lessonCompletionHandler = React.useCallback( async () => {
-    console.log("lessonCompletionHandler triggered");
-    console.log("result:", result);
-    console.log("currentLessonRef:", currentLessonRef.current);
-
     try {
       const score = result!.similarity ? result!.similarity*100 : 0;
       await onLessonComplete(currentLessonRef.current!, score);

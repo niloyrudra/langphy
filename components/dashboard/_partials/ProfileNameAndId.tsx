@@ -3,30 +3,44 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth } from '@/context/AuthContext';
+import { authSnapshot } from '@/snapshots/authSnapshot';
 // import { useAuth } from '@/context/AuthContext';
 // import { useProfile } from '@/context/ProfileContext';
 
 const ProfileNameAndId = () => {
     const {colors} = useTheme();
-    const {user} = useAuth();
-    const {data: profile} = useProfile(user?.id as string);
+    const userId = authSnapshot.getUserId() ?? "";
+    const {data: profile, isLoading} = useProfile(userId as string);
+    const [displayName, setDisplayName] = React.useState<string>("Anonymous");
+    const [username, setUsername] = React.useState<string>("...");
 
-    const displayName = React.useCallback(() => {
-        if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
-        else if( profile?.first_name && !profile?.last_name ) return profile?.first_name
-        else if( !profile?.first_name && profile?.last_name ) return profile?.last_name
-        else if( profile.first_name && profile.last_name ) return profile.first_name + " " + profile.last_name
-        else return "Anonymous"
-    }, [profile?.first_name, profile?.last_name]);
+    // const displayName = React.useCallback(() => {
+    //   if(!isLoading) {
+    //     if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
+    //     else if( profile?.first_name && !profile?.last_name ) return profile?.first_name
+    //     else if( !profile?.first_name && profile?.last_name ) return profile?.last_name
+    //     else if( profile.first_name && profile.last_name ) return profile.first_name + " " + profile.last_name
+    //     else return "Anonymous"
+    //   } 
+    // }, [profile?.first_name, profile?.last_name, isLoading]);
 
-    // React.useEffect(() => {
-    //     console.log("ProfileNameAndId Profile Data:", profile);
-    // }, [profile]);
+    React.useEffect(() => {
+        // console.log("ProfileNameAndId Profile Data:", profile);
+      if(!isLoading) {
+        // if( !profile?.first_name && !profile?.last_name ) setDisplayName("Anonymous")
+        if( profile?.first_name && !profile?.last_name ) setDisplayName(profile?.first_name)
+        else if( !profile?.first_name && profile?.last_name ) setDisplayName(profile?.last_name)
+        else if( profile?.first_name && profile?.last_name ) setDisplayName(profile.first_name + " " + profile.last_name)
+        // else setDisplayName("Anonymous")
+        
+        if(profile?.username) setUsername(profile?.username)
+      } 
+    }, [profile?.first_name, profile?.last_name, profile?.username, isLoading]);
 
     return (
       <View style={[styles.container]}>
-        <Text style={[styles.userDisplayName, {color: colors.text}]}>{displayName()}</Text>
-        <Text style={[styles.userName, {color:colors.text}]}>User ID: {profile?.username ?? "..."}</Text>
+        <Text style={[styles.userDisplayName, {color: colors.text}]}>{displayName}</Text>
+        <Text style={[styles.userName, {color:colors.text}]}>User ID: {username}</Text>
       </View>
     )
 }

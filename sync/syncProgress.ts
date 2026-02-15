@@ -11,13 +11,17 @@ export const syncDirtyProgress = async ( userId: string ) => {
   try {
     await api.post(`/progress/bulk-sync/${userId}`, {
       items: dirty.map(p => ({
+        category_id: p.category_id,
+        unit_id: p.unit_id,
         content_type: p.content_type,
         content_id: p.content_id,
         session_key: p.session_key,
+        lesson_order: p.lesson_order,
         completed: p.completed,
         score: p.score,
+        duration_ms: p.duration_ms,
         progress_percent: p.progress_percent,
-        updated_at: p.updated_at,
+        // updated_at: p.updated_at,
       })),
     });
 

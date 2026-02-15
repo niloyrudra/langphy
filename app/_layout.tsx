@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
 import { AppProvider } from "@/context/AppContext";
 import { runMigrations } from "@/db/migrate";
+import { db } from "@/db";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,8 +44,9 @@ const RootLayout = () => {
     (async () => {
       // const columns = await db.getAllAsync("PRAGMA table_info(lp_session_performance)");
       // console.log(columns);
-      // const lessonColumns = await db.getAllAsync("PRAGMA table_info(lp_performance)");
-      // console.log(lessonColumns);
+      // const lessonColumns = await db.getAllAsync("PRAGMA table_info(lp_progress)");
+      // const dirtyRows = await db.getAllAsync(`SELECT * FROM lp_progress WHERE dirty = 1`);
+      // console.log("Dirty rows before sync:", dirtyRows);
     })()
     runMigrations().then(() => setReady(true)).then(() => console.log("Migration done!")).catch(console.warn);
   }, []);

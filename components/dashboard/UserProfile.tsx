@@ -8,11 +8,13 @@ import ProfileDOBAndEmail from './_partials/ProfileDOBAndEmail';
 import ProfileStats from './_partials/ProfileStats';
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth } from '@/context/AuthContext';
+import { authSnapshot } from '@/snapshots/authSnapshot';
 
 const UserProfile = () => {
     const { colors } = useTheme();
-    const { user } = useAuth()
-    const { isLoading, isFetching } = useProfile(user?.id as string);
+    // const { user } = useAuth()
+    const userId = authSnapshot.getUserId() ?? "";
+    const {data: profile, isLoading, isFetching } = useProfile(userId as string);
 
     if (isLoading || isFetching) {
         return (

@@ -41,7 +41,7 @@ const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}
         <ModalLayout
             isVisible={isVisible}
             onModalVisible={onModalVisible}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep, colors.gradiantDeep, '#1FCAD7', '#3FA1FF']}
+            gradianColor={[colors.gradiantDeep, colors.gradiantDeep, colors.gradiantDeep, colors.secondary_900, colors.primary_900]}
             containerStyle={styles.container}
         >
             <View style={styles.modalContainer}>
