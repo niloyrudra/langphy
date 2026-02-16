@@ -1,6 +1,5 @@
 import { markLessonCompleted } from "@/db/progress.repo";
 import { upsertSessionPerformance } from "@/db/performance.repo";
-// import { getStreaks, upsertStreak } from "@/db/streaks.repo";
 import { SessionType } from "@/types";
 import { avgScore, sumSessionDuration } from "./sessionRules";
 import { applyStreakIfEligible } from "./streakRules";
@@ -62,7 +61,7 @@ export const lessonCompletionChain = async (
   /* ----------------------------------
    * STOP if not final lesson
    * ---------------------------------- */
-  if (!input.isFinalLesson) return;
+  if (!input.isFinalLesson) return { sessionCompleted: false };
 
   const totalDuration = await sumSessionDuration(input.sessionKey);
   const avgLessonScore = await avgScore(input.sessionKey);
@@ -99,7 +98,6 @@ export const lessonCompletionChain = async (
     console.log("Streak Updated...");
   }
 
-
   // 5️⃣ Emit session.completed event
   await enqueueEvent<SessionCompletedEvent>(
     "session.completed.v1",
@@ -115,4 +113,10 @@ export const lessonCompletionChain = async (
   );
 
   console.log("Session Completion Updated...");
+  
+  return {
+    streakUpdated: !!streak?.updated,
+    streakPayload: streak?.payload ?? null,
+    sessionCompleted: true
+  };
 };

@@ -18,6 +18,7 @@ import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { analysisNLP } from '@/services/nlpAnalysis.service';
 import STYLES from '@/constants/styles';
+import { useCelebration } from '@/context/CelebrationContext';
 
 const attemptId = randomUUID();
 
@@ -27,12 +28,13 @@ const WritingSession = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+  const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<WritingSessionType | null>(null);
   
-  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
+  // const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
@@ -56,7 +58,7 @@ const WritingSession = () => {
       const lessonOrder = activeLessonOrderRef.current;
       const isFinalLesson = lessonOrder === lessonData.length - 1;
   
-      await lessonCompletionChain({
+      const result = await lessonCompletionChain({
         categoryId: categoryId as string,
         unitId: unitId as string,
         userId,
@@ -70,6 +72,14 @@ const WritingSession = () => {
         duration_ms,
         isFinalLesson
       });
+
+      if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
+      if( result?.streakUpdated && result?.streakPayload ) {
+        console.log("TRIGGERING STREAK MODAL");
+        // resolveCurrent();
+        triggerStreak( result.streakPayload );
+      }
+      
     }
     catch(error) {
       console.error("onLessonComplete error:", error)
@@ -114,15 +124,16 @@ const WritingSession = () => {
     goToNextRef?.current && goToNextRef.current?.();
   }, [reset, result, onLessonComplete]);
 
-  const onContinueHandler = React.useCallback(() => {
-    reset();
-    setShowCompletionModal(false);
+  // const onContinueHandler = React.useCallback(() => {
+    // reset();
+    // setShowCompletionModal(false);
     // navigation back to units page
-    router.back();
-  }, [reset, setShowCompletionModal, router]);
+    // router.back();
+  // }, [reset]);
   
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
-  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  // const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
+  // const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
 
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: WritingSessionType, index: number, goToNext: () => void}) => {
     activeLessonOrderRef.current = index;
@@ -143,7 +154,7 @@ const WritingSession = () => {
       <SessionLayout<WritingSessionType>
         keyboardAvoid={true}
         preFetchedData={lessonData}
-        onSessionComplete={modalVisibilityHandler}
+        onSessionComplete={sessionCompletionModalHandler}
         onActiveItemChange={activeItemChangeHandler}
       >
         {({ item }) => {
@@ -209,17 +220,6 @@ const WritingSession = () => {
         onModalVisible={reset}
         onRetry={reset}
       />)}
-
-      {
-        showCompletionModal && (
-          <UnitCompletionModal
-            isVisible={showCompletionModal}
-            sessionKey={performanceSessionKey}
-            onContinue={onContinueHandler}
-            onModalVisible={modalCloseHandler}
-          />
-        )
-      }
     </>
   );
 }

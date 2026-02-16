@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { getStreaks, upsertStreak } from "@/db/streaks.repo";
+import { DBStreak } from "@/types";
 
 const dayKey = (ts: number) => Math.floor(ts / 86400); // UTC day bucket
 
@@ -36,7 +37,14 @@ export const applyStreakIfEligible = async ({
             `,
             [userId, today, occurredAt]
         );
-        return {updated: true};
+        const inserted = await db.getFirstAsync<DBStreak>(
+            `SELECT * FROM lp_streaks WHERE user_id = ?`,
+            [userId]
+        );
+        return {
+            updated: true,
+            payload: inserted ?? null,
+        };
     }
 
     // Already counted today
@@ -60,7 +68,14 @@ export const applyStreakIfEligible = async ({
         `,
         [nextStreak, longest, today, occurredAt, userId]
     );
-     return {updated: true};
+    const updatedRow = await db.getFirstAsync<DBStreak>(
+        `SELECT * FROM lp_streaks WHERE user_id = ?`,
+        [userId]
+    );
+    return {
+        updated: true,
+        payload: updatedRow ?? null,
+    };
 };
 
 

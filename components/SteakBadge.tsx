@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 4,
     paddingHorizontal: 8,
-    gap: 4,
+    gap: 8,
     // height: 24,
   },
   steakCount: {

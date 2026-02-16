@@ -7,14 +7,22 @@ import ProfileNameAndId from './_partials/ProfileNameAndId';
 import ProfileDOBAndEmail from './_partials/ProfileDOBAndEmail';
 import ProfileStats from './_partials/ProfileStats';
 import { useProfile } from '@/hooks/useProfile';
-import { useAuth } from '@/context/AuthContext';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 
 const UserProfile = () => {
     const { colors } = useTheme();
-    // const { user } = useAuth()
     const userId = authSnapshot.getUserId() ?? "";
-    const {data: profile, isLoading, isFetching } = useProfile(userId as string);
+    const { data: profile, isLoading, isFetching } = useProfile(userId as string);
+
+    const displayName = React.useCallback(() => {
+        if(!isLoading) {
+            if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
+            else if( profile?.first_name && !profile?.last_name ) return profile?.first_name
+            else if( !profile?.first_name && profile?.last_name ) return profile?.last_name
+            else if( profile.first_name && profile.last_name ) return profile.first_name + " " + profile.last_name
+            else return "Anonymous"
+        } 
+    }, [profile?.first_name, profile?.last_name, isLoading]);
 
     if (isLoading || isFetching) {
         return (
@@ -36,10 +44,16 @@ const UserProfile = () => {
             <EditButton />
 
             {/* Name and ID */}
-            <ProfileNameAndId />
+            <ProfileNameAndId
+                displayName={displayName() ?? ""}
+                username={profile?.username ?? "..."}
+            />
 
             {/* Birth Date and Email Address */}
-            <ProfileDOBAndEmail />
+            <ProfileDOBAndEmail
+                email={profile?.email ?? "..."}
+                joinAt={profile?.created_at ?? ""}
+            />
 
             {/* Stats */}
             <ProfileStats />

@@ -31,6 +31,7 @@ export const lightColors = {
   lessonListDot: "#EDEDED",
 
   gradiantDeep: '#FFFFFF',
+  gradiantFlat: "#FFFFFF",
 
   activeLessonText: "blue",
 
@@ -118,6 +119,7 @@ export const darkColors = {
   lessonListDot: "#142C57",
 
   gradiantDeep: '#081A33',
+  gradiantFlat: "#081A33",
 
   activeLessonText: "green",
 

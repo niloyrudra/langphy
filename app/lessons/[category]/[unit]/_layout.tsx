@@ -1,26 +1,30 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import Settings from '@/components/header/Settings';
 import { useTheme } from '@/theme/ThemeContext';
 import { truncateString } from '@/utils';
 import HeaderTitle from '@/components/header/HeaderTitle';
 import DailyStreaksModal from '@/components/modals/DailyStreaksModal';
-import { useStreakCelebration } from '@/hooks/useStreakCelebration';
-import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useCelebration } from '@/context/CelebrationContext';
+import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
+import { useEffect, useRef, useState } from 'react';
 
 const UnitLayout = () => {
   const {colors} = useTheme();
-  const userId = authSnapshot.getUserId() ?? "";
-  const { showStreakModal, streak, dismiss } = useStreakCelebration( userId );
+  const { current, resolveCurrent } = useCelebration();
+  // const [shouldNavigate, setShouldNavigate] = useState<boolean>(false);
+  const shouldNavigateRef = useRef<boolean>(false);
+
+
+  useEffect(() => {
+    // if ( !current && shouldNavigate ) {
+    if ( !current && shouldNavigateRef.current ) {
+      router.replace("/lessons/[category]/[unit]");
+    }
+  }, [current]);
+
   return (
     <>
-      {/* Streak Celebration */}
-      <DailyStreaksModal
-        visible={showStreakModal}
-        streak={streak}
-        onClose={dismiss}
-      />
-
       {/* Unit Stack */}
       <Stack>
         <Stack.Screen
@@ -45,6 +49,39 @@ const UnitLayout = () => {
         <Stack.Screen name="speaking" options={{ headerShown: false }} />
         <Stack.Screen name="writing" options={{ headerShown: false }} />
       </Stack>
+
+      {
+        current?.type === "session_complete" && (
+          <UnitCompletionModal
+            isVisible
+            sessionKey={current.sessionKey}
+            onContinue={() => {
+              // setShouldNavigate(true);
+              shouldNavigateRef.current = true;
+              resolveCurrent();
+              // router.replace("/lessons/[category]/[unit]")
+            }}
+            onModalVisible={() => {}}
+          />
+        )
+      }
+
+      {/* Streak Celebration */}
+      {
+        current?.type === "streak" && (
+          <DailyStreaksModal
+            visible
+            streak={current.streak}
+            onClose={() => {
+              resolveCurrent();
+              if (shouldNavigateRef.current) {
+                shouldNavigateRef.current = false;
+                router.replace("/lessons/[category]/[unit]");
+              }
+            }}
+          />
+        )
+      }
     </>
   );
 }

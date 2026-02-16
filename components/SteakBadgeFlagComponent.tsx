@@ -19,7 +19,7 @@ export default SteakBadgeFlagComponent
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        gap: 7,
+        gap: 10,
         // borderWidth: 1,
         // borderColor: "#68F0F8",
         // paddingVertical: 4,

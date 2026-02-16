@@ -1,41 +1,31 @@
 import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
-import { useProfile } from '@/hooks/useProfile';
-import { useAuth } from '@/context/AuthContext';
-import { authSnapshot } from '@/snapshots/authSnapshot';
+// import { useProfile } from '@/hooks/useProfile';
+// import { useAuth } from '@/context/AuthContext';
+// import { authSnapshot } from '@/snapshots/authSnapshot';
 // import { useAuth } from '@/context/AuthContext';
 // import { useProfile } from '@/context/ProfileContext';
 
-const ProfileNameAndId = () => {
+const ProfileNameAndId = ({displayName, username}: {displayName: string, username: string}) => {
     const {colors} = useTheme();
-    const userId = authSnapshot.getUserId() ?? "";
-    const {data: profile, isLoading} = useProfile(userId as string);
-    const [displayName, setDisplayName] = React.useState<string>("Anonymous");
-    const [username, setUsername] = React.useState<string>("...");
+    // const userId = authSnapshot.getUserId() ?? "";
+    // const {data: profile, isLoading} = useProfile(userId as string);
+    // const [displayName, setDisplayName] = React.useState<string>("Anonymous");
+    // const [username, setUsername] = React.useState<string>("...");
 
-    // const displayName = React.useCallback(() => {
+    // React.useEffect(() => {
+    //     // console.log("ProfileNameAndId Profile Data:", profile);
     //   if(!isLoading) {
-    //     if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
-    //     else if( profile?.first_name && !profile?.last_name ) return profile?.first_name
-    //     else if( !profile?.first_name && profile?.last_name ) return profile?.last_name
-    //     else if( profile.first_name && profile.last_name ) return profile.first_name + " " + profile.last_name
-    //     else return "Anonymous"
-    //   } 
-    // }, [profile?.first_name, profile?.last_name, isLoading]);
-
-    React.useEffect(() => {
-        // console.log("ProfileNameAndId Profile Data:", profile);
-      if(!isLoading) {
-        // if( !profile?.first_name && !profile?.last_name ) setDisplayName("Anonymous")
-        if( profile?.first_name && !profile?.last_name ) setDisplayName(profile?.first_name)
-        else if( !profile?.first_name && profile?.last_name ) setDisplayName(profile?.last_name)
-        else if( profile?.first_name && profile?.last_name ) setDisplayName(profile.first_name + " " + profile.last_name)
-        // else setDisplayName("Anonymous")
+    //     // if( !profile?.first_name && !profile?.last_name ) setDisplayName("Anonymous")
+    //     if( profile?.first_name && !profile?.last_name ) setDisplayName(profile?.first_name)
+    //     else if( !profile?.first_name && profile?.last_name ) setDisplayName(profile?.last_name)
+    //     else if( profile?.first_name && profile?.last_name ) setDisplayName(profile.first_name + " " + profile.last_name)
+    //     // else setDisplayName("Anonymous")
         
-        if(profile?.username) setUsername(profile?.username)
-      } 
-    }, [profile?.first_name, profile?.last_name, profile?.username, isLoading]);
+    //     if(profile?.username) setUsername(profile?.username)
+    //   } 
+    // }, [profile?.first_name, profile?.last_name, profile?.username, isLoading]);
 
     return (
       <View style={[styles.container]}>

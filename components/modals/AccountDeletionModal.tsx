@@ -77,33 +77,16 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
             isVisible={isVisible}
             onModalVisible={onModalVisible}
             gradianColor={[colors.accountDeletionModalBg, colors.accountDeletionModalBg]} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
-            conainerStyle={{
-                width: '90%',
-                marginVertical: "auto",
-                borderTopWidth: 1,
-                borderBottomWidth: 1,
-                borderBottomColor: colors.modalBoderColor,
-                borderBottomStartRadius: 20,
-                borderBottomEndRadius: 20,
-            }}
+            containerStyle={[styles.container, {borderBottomColor: colors.modalBoderColor}]}
         >
 
             {/* Modal Content */}
-            <View style={{ gap: 15 }}>
+            <View style={styles.modalContentGap}>
                 {/* Model Header */}
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        // height: 60
-                    }}
-                >
-                    <Title title="Delete" contentStyle={{fontSize: 24}} />
+                <View style={styles.modalHeader}>
+                    <Title title="Delete" contentStyle={styles.headerTitle} />
 
-                    <TouchableOpacity
-                        onPress={onModalVisible}
-                    >
+                    <TouchableOpacity onPress={onModalVisible}>
                         <Ionicons name="close" color={colors.text} size={24} />
                     </TouchableOpacity>
                 </View>
@@ -117,7 +100,7 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
                     </Text>
                 </View>
                 
-                <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                <View style={styles.buttonWrapper}>
                     <ActionButton
                         buttonTitle='Yes'
                         onSubmit={handleAccountDeletion}
@@ -155,6 +138,23 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
 export default AccountDeletionModal;
 
 const styles = StyleSheet.create({
+    container: {
+        width: '90%',
+        marginVertical: "auto",
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderBottomStartRadius: 20,
+        borderBottomEndRadius: 20,
+    },
+    modalContentGap: { gap: 15 },
+    modalHeader: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        // height: 60
+    },
+    headerTitle: {fontSize: 24},
+    buttonWrapper: {flexDirection: "row", justifyContent: "space-between", alignItems: "center"},
     centeredView: {
         flex: 1,
         justifyContent: 'flex-end',

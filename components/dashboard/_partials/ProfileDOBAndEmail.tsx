@@ -3,14 +3,14 @@ import React from 'react'
 import ProfileDOBAndEmailDetail from './ProfileDOBAndEmailDetail'
 import SeparatorVerticalLine from './SeparatorVerticalLine'
 
-const ProfileDOBAndEmail = () => {
+const ProfileDOBAndEmail = ({email, joinAt}: {email: string, joinAt: string}) => {
     return (
         <View style={[styles.container]}>
-            <ProfileDOBAndEmailDetail iconName="calendar-outline" dob />
+            <ProfileDOBAndEmailDetail iconName="calendar-outline" dob data={joinAt} />
 
             <SeparatorVerticalLine />
 
-            <ProfileDOBAndEmailDetail iconName="mail-outline" email />
+            <ProfileDOBAndEmailDetail iconName="mail-outline" email data={email} />
         </View>
     );
 }

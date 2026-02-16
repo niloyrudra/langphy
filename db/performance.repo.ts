@@ -1,6 +1,6 @@
-import { PerformanceUpdateInput, SessionPerformance, SessionType } from "@/types";
+import { SessionPerformance, SessionType } from "@/types";
 import { db } from "./index";
-import { getSessionProgress } from "./progress.repo";
+// import { getSessionProgress } from "./progress.repo";
 
 type SessionPerformanceUpsertType = {
   sessionKey: string;
@@ -81,7 +81,7 @@ export const upsertSessionPerformance = async ({
         sessionKey
       ]
     );
-    console.error( "upsertSessionPerformance updated", newAvg, newAttempts, sessionKey );
+    console.log( "upsertSessionPerformance updated", newAvg, newAttempts, sessionKey );
   }
   catch(error) {
     console.error( "upsertSessionPerformance error:", error );
