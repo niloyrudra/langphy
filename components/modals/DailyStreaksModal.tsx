@@ -99,12 +99,12 @@ const DailyStreaksModal = ({
                         </View>
 
                         <Animated.View style={animatedStyle}>
-                            <Text style={styles.streakCount}>{streak?.current_streak}</Text>
+                            <Text style={[styles.streakCount, {color:colors.text}]}>{streak?.current_streak}</Text>
                         </Animated.View>
 
                         <View style={styles.details}>
-                            <Text style={styles.streakCountSuffix}>Day{(streak!.current_streak > 1 ? 's' : '')} Streak</Text>
-                            <Text style={styles.subText}>Consistency makes you fluent.</Text>
+                            <Text style={[styles.streakCountSuffix, {color:colors.text}]}>Day{(streak!.current_streak > 1 ? 's' : '')} Streak</Text>
+                            <Text style={[styles.subText, {color:colors.text}]}>Consistency makes you fluent.</Text>
                         </View>
 
                     </View>

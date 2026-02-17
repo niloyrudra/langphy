@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
         // alignItems: "center"
     },
     button: {
-        width: '33%',
+        width: '45%',
         borderRadius: 30,
         overflow: 'hidden'
     }

@@ -22,6 +22,7 @@ const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
   const speakerRef = React.useRef<LottieView>(null);
 
   const handlePress = React.useCallback( async () => {
+    speakerRef.current?.reset();
     speakerRef.current?.play();
     const handler = isSlowing ? speechSlowHandler : speechHandler;
     handler(speechContent, speechLang, setLoading);
@@ -48,7 +49,7 @@ export default React.memo(SpeakerComponent);
 
 const styles = StyleSheet.create({
   speaker: {
-      width: 40,
-      height: 40
+    width: 40,
+    height: 40
   }
 });

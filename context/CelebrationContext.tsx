@@ -1,14 +1,23 @@
 import { createContext, useContext, useState } from "react";
-import { DBStreak } from "@/types";
+import { DBStreak, SelectiveResultType, SessionResultType } from "@/types";
 import React from "react";
 
+interface LessonPayload {
+    actualQuery?: string;
+    result: SessionResultType | SelectiveResultType;
+    onRetry: () => void;
+    onContinue: () => void;
+};
+
 type Celebration =
+    | { type: 'lesson_complete'; payload: LessonPayload;}
     | { type: 'session_complete'; sessionKey: string }
     | { type: 'streak'; streak: DBStreak }
     | null;
 
 type CelebrationContextType = {
     current: Celebration;
+    triggerLessonResult: ( payload: LessonPayload ) => void;
     triggerSessionCompletion: ( sessionKey: string ) => void;
     triggerStreak: ( streak: DBStreak ) => void;
     resolveCurrent: () => void;
@@ -59,13 +68,15 @@ export const CelebrationProvider = ({ children }: {children: React.ReactNode}) =
             setCurrent(first);
             setQueue(rest);
         }
-    }, [queue.length, current]); // 👈 depend on length, not full queue object
+    }, [queue, current]); // 👈 queue.length can miss edge cases where length is same but content changes
+    // }, [queue.length, current]); // 👈 depend on length, not full queue object
 
 
     return (
         <CelebrationContext.Provider
             value={{
                 current,
+                triggerLessonResult: (payload) => enqueue({ type: "lesson_complete", payload }),
                 triggerSessionCompletion: (sessionKey) =>  enqueue({ type: "session_complete", sessionKey }),
                 triggerStreak: (streak) =>  enqueue({ type: "streak", streak }),
                 resolveCurrent,

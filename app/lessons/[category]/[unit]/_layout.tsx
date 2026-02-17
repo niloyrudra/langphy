@@ -8,6 +8,7 @@ import DailyStreaksModal from '@/components/modals/DailyStreaksModal';
 import { useCelebration } from '@/context/CelebrationContext';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useEffect, useRef } from 'react';
+import SessionResultModal from '@/components/modals/SessionResultModal';
 
 const UnitLayout = () => {
   const {colors} = useTheme();
@@ -16,7 +17,8 @@ const UnitLayout = () => {
 
   useEffect(() => {
     if ( !current && shouldNavigateRef.current ) {
-      router.replace("/lessons/[category]/[unit]");
+      // router.replace("/lessons/[category]/[unit]");
+      router.back();
     }
   }, [current]);
 
@@ -48,6 +50,20 @@ const UnitLayout = () => {
       </Stack>
 
       {
+        current?.type === "lesson_complete" && (
+          <SessionResultModal
+            isVisible
+            actualQuery={current.payload.actualQuery}
+            result={current.payload.result}
+            onContinue={current.payload.onContinue}
+            // onModalVisible={current.payload.onRetry}
+            onModalVisible={() => {}}
+            onRetry={current.payload.onRetry}
+          />
+        )
+      }
+
+      {
         current?.type === "session_complete" && (
           <UnitCompletionModal
             isVisible
@@ -71,7 +87,8 @@ const UnitLayout = () => {
               resolveCurrent();
               if (shouldNavigateRef.current) {
                 shouldNavigateRef.current = false;
-                router.replace("/lessons/[category]/[unit]");
+                // router.replace("/lessons/[category]/[unit]");
+                router.back();
               }
             }}
           />

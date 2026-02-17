@@ -9,7 +9,6 @@ import SessionLayout from '@/components/layouts/SessionLayout';
 import { SessionType, SessionResultType, WritingSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useLessons } from '@/hooks/useLessons';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
@@ -27,7 +26,7 @@ const WritingSession = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
-  const { triggerSessionCompletion, triggerStreak } = useCelebration();
+  const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
@@ -35,7 +34,6 @@ const WritingSession = () => {
   const currentLessonRef = React.useRef<WritingSessionType | null>(null);
   
   const [ textContent, setTextContent ] = React.useState<string>('')
-  const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
@@ -94,9 +92,16 @@ const WritingSession = () => {
 
     try {
       setLoading(true);
-      setActualDEQuery(expectedText);
       const data = await analysisNLP( expectedText, textContent );
-      if( data ) setResult(data);
+      if( data ) {
+        // setResult(data);
+        triggerLessonResult({
+          actualQuery: expectedText,
+          result: data,
+          onRetry: reset,
+          onContinue: async () => onContinue(data),
+        });
+      }
       console.log("data:", data);
     } catch (err: any) {
       console.error(err);
@@ -113,12 +118,14 @@ const WritingSession = () => {
     setLoading(false);
   }, []);
 
-  const onContinue = React.useCallback(async () => {
+  const onContinue = React.useCallback(async (result: any) => {
     const score = (result && result!.similarity) ? result!.similarity*100 : 0;
     await onLessonComplete(currentLessonRef.current!, score);
     reset();
     goToNextRef?.current && goToNextRef.current?.();
-  }, [reset, result, onLessonComplete]);
+    
+    resolveCurrent();
+  }, [reset, result, onLessonComplete, resolveCurrent]);
 
   const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
 
@@ -126,7 +133,6 @@ const WritingSession = () => {
     activeLessonOrderRef.current = index;
     currentLessonRef.current = item;
     goToNextRef.current = goToNext;
-    // reset();
   }, []);
 
   // Timer
@@ -137,71 +143,60 @@ const WritingSession = () => {
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
-    <>
-      <SessionLayout<WritingSessionType>
-        keyboardAvoid={true}
-        preFetchedData={lessonData}
-        onSessionComplete={sessionCompletionModalHandler}
-        onActiveItemChange={activeItemChangeHandler}
-      >
-        {({ item }) => {
-          const onCheckHandler = () => analyzeWritingHandler(item?.phrase);
-          
-          return (
+    <SessionLayout<WritingSessionType>
+      keyboardAvoid={true}
+      preFetchedData={lessonData}
+      onSessionComplete={sessionCompletionModalHandler}
+      onActiveItemChange={activeItemChangeHandler}
+    >
+      {({ item }) => {
+        const onCheckHandler = () => analyzeWritingHandler(item?.phrase);
+        
+        return (
+          <View style={styles.flex}>
+            {/* Content */}
+
             <View style={styles.flex}>
-              {/* Content */}
+              {/* Title Section */}
+              <ChallengeScreenTitle title="Listen And Write." />
 
-              <View style={styles.flex}>
-                {/* Title Section */}
-                <ChallengeScreenTitle title="Listen And Write." />
-
-                {/* Writing Section Starts */}
-                <ChallengeScreenQuerySection
-                  query={item.meaning}
-                  lang="en-US"
-                  style={styles.query}
-                />
-
-                <View style={styles.flex}/>
-
-              </View>
-
-              { error && (<Error text={error} />) }
-
-              {/* Writing Text Field/Input/Area Section */}
-              <TextInputComponent
-                maxLength={500}
-                placeholder='Write here...'
-                value={textContent}
-                onChange={setTextContent}
-                onBlur={() => {}}
-                placeholderTextColor={colors.placeholderColor}
-                inputMode="text"
-                contentContainerStyle={styles.textInput}
+              {/* Writing Section Starts */}
+              <ChallengeScreenQuerySection
+                query={item.meaning}
+                lang="en-US"
+                style={styles.query}
               />
 
-              {/* Action Buttons */}
-              <ActionPrimaryButton
-                buttonTitle='Check'
-                onSubmit={onCheckHandler}
-                isLoading={loading}
-                disabled={textContent.length === 0}
-              />
+              <View style={styles.flex}/>
 
             </View>
-          );
-        }}
-      </SessionLayout>
 
-      {result && (<SessionResultModal
-        isVisible={result ? true : false}
-        actualQuery={actualDEQuery}
-        result={result!}
-        onContinue={onContinue}
-        onModalVisible={reset}
-        onRetry={reset}
-      />)}
-    </>
+            { error && (<Error text={error} />) }
+
+            {/* Writing Text Field/Input/Area Section */}
+            <TextInputComponent
+              maxLength={500}
+              placeholder='Write here...'
+              value={textContent}
+              onChange={setTextContent}
+              onBlur={() => {}}
+              placeholderTextColor={colors.placeholderColor}
+              inputMode="text"
+              contentContainerStyle={styles.textInput}
+            />
+
+            {/* Action Buttons */}
+            <ActionPrimaryButton
+              buttonTitle='Check'
+              onSubmit={onCheckHandler}
+              isLoading={loading}
+              disabled={textContent.length === 0}
+            />
+
+          </View>
+        );
+      }}
+    </SessionLayout>
   );
 }
 

@@ -27,16 +27,7 @@ type UnitCompletionModalProps = {
 
 const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}: UnitCompletionModalProps) => {
     const {colors} = useTheme();
-    const { data: performance, isLoading, isFetching } = usePerformance( sessionKey );
-    // const animationRef = React.useRef<LottieView>(null);
-
-    // React.useEffect(() => {
-    //     if(isVisible) {
-    //         animationRef.current?.reset();
-    //         animationRef.current?.play();
-    //     }
-    // }, [isVisible]);
-
+    const { data: performance } = usePerformance( sessionKey );
     return (
         <ModalLayout
             isVisible={isVisible}
@@ -53,13 +44,12 @@ const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}
 
                         <View style={styles.greetingContent}>
                             <LottieView
-                                // ref={animationRef}
                                 source={require(`../../assets/lotties/celebration-illustration.json`)}
                                 autoPlay
                                 loop={false}
                                 speed={1}
                                 resizeMode='contain'
-                                style={{ width: 320, height: 300 }}
+                                style={styles.dimensions}
                             />
                         </View>
 
@@ -122,13 +112,13 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height,
     },
     modalContainer: {
-        // flex: 1,
         justifyContent: 'space-between',
         paddingVertical: 30,
         paddingHorizontal: 20,
         height: Dimensions.get('window').height,
     },
     flex: {flex: 1},
+    dimensions: { width: 320, height: 300 },
     space: {
         height: "3%"
     },

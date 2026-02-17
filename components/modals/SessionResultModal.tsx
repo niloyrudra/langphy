@@ -3,15 +3,11 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { SelectiveResultType, SessionResultType } from '@/types';
 import { feedbackComments } from '@/utils';
-// import HorizontalLine from '../HorizontalLine';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
-// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
-// import { authSnapshot } from '@/snapshots/authSnapshot';
-// import { useLessonTimer } from '@/hooks/useLessonTimer';
 
 interface SessionResultModalProps {
     isVisible: boolean;
@@ -32,7 +28,7 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
             isVisible={isVisible}
             onModalVisible={onModalVisible}
             feedback={feedback}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep]} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
+            gradianColor={[colors.gradiantDeep, colors.gradiantDeep]}
             containerStyle={styles.modalContainer}
         >
 
@@ -86,8 +82,15 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
                 )}
                 
                 <View style={styles.buttonWrapper}>
-                    <ActionPrimaryButton buttonTitle='Retry' onSubmit={onRetry} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
-                    <ActionPrimaryButton buttonTitle='Continue' onSubmit={onContinue ? () =>onContinue() : () => console.log("Continue")} buttonStyle={{width: '33%', borderRadius: 30, overflow: 'hidden'}} />
+                    <ActionPrimaryButton
+                        buttonTitle='Retry'
+                        onSubmit={onRetry}
+                        buttonStyle={styles.button}
+                    />
+                    <ActionPrimaryButton
+                        buttonTitle='Continue'
+                        onSubmit={onContinue}
+                        buttonStyle={styles.button} />
                 </View>
 
             </View>
@@ -142,5 +145,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         marginTop: 30
+    },
+    button: {
+        width: '45%',
+        borderRadius: 30,
+        overflow: 'hidden'
     }
 });
