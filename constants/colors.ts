@@ -33,6 +33,11 @@ export const lightColors = {
   gradiantDeep: '#FFFFFF',
   gradiantFlat: "#FFFFFF",
 
+  speaker: '#3FA1FF',
+  p_en_speaker: '#0A9AB0',
+  p_de_speaker: '#1B7CF5',
+  query: '#545454',
+
   activeLessonText: "blue",
 
   red: "#FF0000",
@@ -120,6 +125,11 @@ export const darkColors = {
 
   gradiantDeep: '#081A33',
   gradiantFlat: "#081A33",
+
+  speaker: '#EEF8FF',
+  p_en_speaker: '#FFFFFF',
+  p_de_speaker: '#FFFFFF',
+  query: '#EEF8FF',
 
   activeLessonText: "green",
 

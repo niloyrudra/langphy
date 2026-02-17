@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import STYLES from '@/constants/styles';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import { SessionType, SpeakingSessionType } from '@/types';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
@@ -14,11 +14,12 @@ import useSpeechRecorder from '@/hooks/useSpeechRecorder';
 import { RecorderReload } from '@/utils/SVGImages';
 import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx';
 import { useLessons } from '@/hooks/useLessons';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
+import { useCelebration } from '@/context/CelebrationContext';
+import Error from '@/components/Error';
 
 const attemptId = randomUUID();
 
@@ -27,13 +28,11 @@ const SpeakingLessons = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
-
+  const { triggerSessionCompletion, triggerStreak } = useCelebration();
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<SpeakingSessionType | null>(null);
-
-  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
 
   const lessonData = React.useMemo<SpeakingSessionType[]>(() => {
     if( !readingLessons ) return [];
@@ -67,7 +66,7 @@ const SpeakingLessons = () => {
       const lessonOrder = activeLessonOrderRef.current;
       const isFinalLesson = lessonOrder === lessonData.length - 1;
   
-      await lessonCompletionChain({
+      const result = await lessonCompletionChain({
         categoryId: categoryId as string,
         unitId: unitId as string,
         userId,
@@ -81,6 +80,8 @@ const SpeakingLessons = () => {
         duration_ms,
         isFinalLesson
       });
+      if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
+      if( result?.streakUpdated && result?.streakPayload ) triggerStreak( result.streakPayload );
     }
     catch(error) {
       console.error("onLessonComplete error:", error)
@@ -98,16 +99,8 @@ const SpeakingLessons = () => {
       console.error("Speaking lesson Completion error:", error);
     }
   }, [reset, result, onLessonComplete]);
-
-  const onContinueHandler = React.useCallback(() => {
-    reset();
-    setShowCompletionModal(false);
-    // navigation back to units page
-    router.back();
-  }, [reset, setShowCompletionModal, router]);
   
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
-  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const sessionCompletionModalHanlder = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
   
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: SpeakingSessionType, index: number, goToNext: () => void}) => {
     setExpectedText(prevValue => prevValue = item.phrase.trim())
@@ -127,7 +120,7 @@ const SpeakingLessons = () => {
     <>
       <SessionLayout<SpeakingSessionType>
         preFetchedData={lessonData}
-        onSessionComplete={modalVisibilityHandler}
+        onSessionComplete={sessionCompletionModalHanlder}
         onActiveItemChange={activeItemChangeHandler}
       >
         {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
@@ -175,7 +168,7 @@ const SpeakingLessons = () => {
                       onActionHandler={isRecordingDone ? play : (isRecording ? stopRecording : startRecording)}
                     />
 
-                    {error && <Text style={{ color: "red" }}>{error}</Text>}
+                    { error && (<Error text={error} />) }
 
                   </View>
                 </View>
@@ -214,16 +207,6 @@ const SpeakingLessons = () => {
         onModalVisible={reset}
         onRetry={reset}
       />)}
-      {
-        showCompletionModal && (
-          <UnitCompletionModal
-            isVisible={showCompletionModal}
-            sessionKey={performanceSessionKey}
-            onContinue={onContinueHandler}
-            onModalVisible={modalCloseHandler}
-          />
-        )
-      }
     </>
   );
 }
@@ -257,5 +240,6 @@ const styles = StyleSheet.create({
     gap: 10
   },
   nlpWidth: {width: '80%'},
-  button: {width: "70%", borderRadius: 30, overflow: "hidden"}
+  button: {width: "70%", borderRadius: 30, overflow: "hidden"},
+  error: {color: "red"}
 })

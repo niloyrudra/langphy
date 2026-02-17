@@ -4,11 +4,10 @@ import QuizOptionCardList from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { getCardContainerWidth } from '@/utils';
 import { SessionType, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useTheme } from '@/theme/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -17,6 +16,8 @@ import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
+import { useCelebration } from '@/context/CelebrationContext';
+import Error from '@/components/Error';
 
 const attemptId = randomUUID();
 
@@ -25,6 +26,7 @@ const QuizSession = () => {
   const userId = authSnapshot.getUserId() ?? "";
   const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+  const { triggerSessionCompletion, triggerStreak } = useCelebration();
   const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
 
@@ -38,12 +40,9 @@ const QuizSession = () => {
     return quizLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [quizLessons]);
   
-  const [showCompletionModal, setShowCompletionModal] = React.useState<boolean>(false);
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
-  // const [ activeIndex, setActiveIndex ] = React.useState<number>(0);
   const [ error, setError ] = React.useState<string>('')
-  // const [ loading, setLoading ] = React.useState<boolean>(false);
   const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
 
   const handleSelect = React.useCallback((option: string) => {
@@ -56,7 +55,6 @@ const QuizSession = () => {
     setIsSelectionHappened(false);
     setResult(null);
     setError("");
-    // setLoading(false);
   }, []);
 
   const onQuizQuestionCompletion = React.useCallback( async (quizQuestion: QuizSessionType, score: number) => {
@@ -68,7 +66,7 @@ const QuizSession = () => {
       const quizQuestionOrder = activeQuizQuestionOrderRef.current;
       const isFinalLesson = quizQuestionOrder === quizzes.length - 1;
 
-      await lessonCompletionChain({
+      const result = await lessonCompletionChain({
         categoryId: categoryId as string,
         unitId: unitId as string,
         userId,
@@ -82,6 +80,8 @@ const QuizSession = () => {
         duration_ms,
         isFinalLesson
       });
+      if(result?.sessionCompleted) triggerSessionCompletion(performanceSessionKey);
+      if(result?.streakUpdated && result?.streakPayload) triggerStreak(result.streakPayload);
     }
     catch(error) {
       console.error("onQuizQuestionCompletion error:", error);
@@ -100,16 +100,8 @@ const QuizSession = () => {
     }
   }, [reset, result, onQuizQuestionCompletion]);
 
-  const onContinueHandler = React.useCallback(() => {
-    reset();
-    setShowCompletionModal(false);
-    // navigation back to units page
-    router.back();
-  }, [reset, setShowCompletionModal, router]);
-    
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
-  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
-
+  const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
+  
   const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: QuizSessionType, index: number, goToNext: () => void}) => {
     activeQuizQuestionOrderRef.current = index;
     currentQuizQuestionRef.current = item;
@@ -129,7 +121,7 @@ const QuizSession = () => {
     <>
       <SessionLayout<QuizSessionType>
         preFetchedData={quizzes}
-        onSessionComplete={modalVisibilityHandler}
+        onSessionComplete={sessionCompletionModalHandler}
         onActiveItemChange={activeItemChangeHandler}
       >
         {({ item }) => {
@@ -169,10 +161,11 @@ const QuizSession = () => {
                     selectedOption={selectedOption || ""}
                     onSelect={handleSelect}
                     isSelectionHappened={isSelectionHappened} />
-                  {/* <QuizAnswerOptionGrid /> */}
                 </View>
                 {/* QUIZ Section Ens */}
               </View>
+
+              {error && (<Error text={error} />)}
 
               {/* Action Buttons */}
               <ActionPrimaryButton
@@ -194,17 +187,6 @@ const QuizSession = () => {
           onRetry={reset}
         />)
       }
-
-      {
-        showCompletionModal && (
-          <UnitCompletionModal
-            isVisible={showCompletionModal}
-            sessionKey={performanceSessionKey}
-            onContinue={onContinueHandler}
-            onModalVisible={modalCloseHandler}
-          />
-        )
-      }
     </>
   );
 }
@@ -215,7 +197,6 @@ const styles = StyleSheet.create({
   flex: {flex:1},
   questionWrapper: {
     flexDirection :"row",
-    // flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'flex-start',
     marginBottom: 20,

@@ -7,17 +7,14 @@ import HeaderTitle from '@/components/header/HeaderTitle';
 import DailyStreaksModal from '@/components/modals/DailyStreaksModal';
 import { useCelebration } from '@/context/CelebrationContext';
 import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const UnitLayout = () => {
   const {colors} = useTheme();
   const { current, resolveCurrent } = useCelebration();
-  // const [shouldNavigate, setShouldNavigate] = useState<boolean>(false);
   const shouldNavigateRef = useRef<boolean>(false);
 
-
   useEffect(() => {
-    // if ( !current && shouldNavigate ) {
     if ( !current && shouldNavigateRef.current ) {
       router.replace("/lessons/[category]/[unit]");
     }
@@ -56,10 +53,8 @@ const UnitLayout = () => {
             isVisible
             sessionKey={current.sessionKey}
             onContinue={() => {
-              // setShouldNavigate(true);
               shouldNavigateRef.current = true;
               resolveCurrent();
-              // router.replace("/lessons/[category]/[unit]")
             }}
             onModalVisible={() => {}}
           />

@@ -17,6 +17,8 @@ import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { analysisNLP } from '@/services/nlpAnalysis.service';
+import { useCelebration } from '@/context/CelebrationContext';
+import Error from '@/components/Error';
 
 const attemptId = randomUUID();
 
@@ -26,6 +28,7 @@ const ListeningLessons = () => {
   const { colors } = useTheme();
   const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+  const { triggerSessionCompletion, triggerStreak } = useCelebration();
 
   const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { resultHandler } = useListening();
@@ -78,7 +81,6 @@ const ListeningLessons = () => {
   }, [textContent, analysisNLP]);
 
   const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
-    console.log("onLessonCompleted userId:", userId);
     if(!userId) return;
     try {
       const duration_ms = stop();
@@ -87,7 +89,7 @@ const ListeningLessons = () => {
       const lessonOrder = activeLessonOrderRef.current;
       const isFinalLesson = lessonOrder === lessonData.length - 1;
   
-      await lessonCompletionChain({
+      const result = await lessonCompletionChain({
         categoryId: categoryId as string,
         unitId: unitId as string,
         userId,
@@ -101,6 +103,8 @@ const ListeningLessons = () => {
         duration_ms,
         isFinalLesson
       });
+      if(result?.sessionCompleted) triggerSessionCompletion(performanceSessionKey);
+      if(result?.streakUpdated && result?.streakPayload) triggerStreak(result.streakPayload);
     }
     catch(error) {
       console.error("onLessonComplete error:", error)
@@ -120,15 +124,8 @@ const ListeningLessons = () => {
     }
   }, [reset, result, onLessonComplete]);
 
-  const onContinueHandler = React.useCallback(() => {
-    reset();
-    setShowCompletionModal(false);
-    // navigation back to units page
-    router.back();
-  }, [reset, setShowCompletionModal, router]);
-
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
-  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
+  const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
+  
 
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: ListeningSessionType, index: number, goToNext: () => void}) => {
     activeLessonOrderRef.current = index;
@@ -141,13 +138,6 @@ const ListeningLessons = () => {
   React.useEffect(() => {
     if(!isRunning) start();
   }, [isRunning]);
-  // React.useEffect(() => {
-  //   start();
-
-  //   return () => {
-  //     stop();
-  //   }
-  // }, []);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
@@ -156,30 +146,21 @@ const ListeningLessons = () => {
       <SessionLayout<ListeningSessionType>
         keyboardAvoid={true}
         preFetchedData={lessonData}
-        onSessionComplete={modalVisibilityHandler}
+        onSessionComplete={sessionCompletionModalHandler}
         onActiveItemChange={activeItemChangeHandler}
       >
         {({ item }) => {
-
           const onCheckHandler = () => analyzeListeningHandler( item.phrase );
-
           return (
             <View style={styles.flex}>
               {/* Content */}
-
               <TaskAllocation
                 taskTitle={'Listen and Write afterwards.'}
                 taskPhrase={item.phrase}
                 rippleSize={150}
               />
 
-              {
-                error && (
-                  <View style={styles.errorContainer}>
-                    <Text style={{color: colors.redDanger}}>{error}</Text>
-                  </View>
-                )
-              }
+              {error && (<Error text={error} />)}
 
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
@@ -214,18 +195,6 @@ const ListeningLessons = () => {
         onModalVisible={reset}
         onRetry={reset}
       />)}
-
-      {
-        showCompletionModal && (
-          <UnitCompletionModal
-            isVisible={showCompletionModal}
-            sessionKey={performanceSessionKey}
-            onContinue={onContinueHandler}
-            onModalVisible={modalCloseHandler}
-          />
-        )
-      }
-      
     </>
   );
 }
@@ -234,12 +203,5 @@ export default ListeningLessons;
 
 const styles = StyleSheet.create({
   flex: {flex: 1},
-  textInput: {
-    marginBottom: 20
-  },
-  errorContainer: {
-    marginVertical: 20,
-    alignItems: "center",
-    justifyContent: "center"
-  }
+  textInput: {marginBottom: 20}
 });

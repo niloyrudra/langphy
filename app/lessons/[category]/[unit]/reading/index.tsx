@@ -20,6 +20,9 @@ import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { randomUUID } from 'expo-crypto';
+import { useCelebration } from '@/context/CelebrationContext';
+import Error from '@/components/Error';
+import LottieView from 'lottie-react-native';
 
 const attemptId = randomUUID();
 
@@ -29,6 +32,8 @@ const ReadingLessons = () => {
   const { colors } = useTheme();
   const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+  const { triggerSessionCompletion, triggerStreak } = useCelebration();
+  const speakerRef = React.useRef<LottieView>(null);
   const cardWidth = getCardContainerWidth();
 
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
@@ -36,13 +41,11 @@ const ReadingLessons = () => {
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<ReadingSessionType | null>(null);
 
-  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
   const [ error, setError ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
-
 
   const lessonData = React.useMemo<ReadingSessionType[]>(() => {
     if( !readingLessons ) return [];
@@ -73,7 +76,7 @@ const ReadingLessons = () => {
       const lessonOrder = activeLessonOrderRef.current;
       const isFinalLesson = lessonOrder === lessonData.length - 1;
   
-      await lessonCompletionChain({
+      const result = await lessonCompletionChain({
         categoryId: categoryId as string,
         unitId: unitId as string,
         userId,
@@ -87,6 +90,11 @@ const ReadingLessons = () => {
         duration_ms,
         isFinalLesson
       });
+      if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
+      if( result?.streakUpdated && result?.streakPayload ) {
+        console.log("TRIGGERING STREAK MODAL");
+        triggerStreak( result.streakPayload );
+      }
     }
     catch(error) {
       console.error("onLessonComplete error:", error)
@@ -105,16 +113,8 @@ const ReadingLessons = () => {
     }
   }, [reset, result, onLessonComplete]);
 
-  const onContinueHandler = React.useCallback(() => {
-    reset();
-    setShowCompletionModal(false);
-    // navigation back to units page
-    router.back();
-  }, [reset, setShowCompletionModal, router]);
+  const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
   
-  const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
-  const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
-
   const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: ReadingSessionType, index: number, goToNext: () => void}) => {
     activeLessonOrderRef.current = index;
     currentLessonRef.current = item;
@@ -134,7 +134,7 @@ const ReadingLessons = () => {
     <>
       <SessionLayout<ReadingSessionType>
         preFetchedData={lessonData}
-        onSessionComplete={modalVisibilityHandler}
+        onSessionComplete={sessionCompletionModalHandler}
         onActiveItemChange={activeItemChangeHandler}
       >
         {({ item, wordRefs, containerRef, screenRef, setTooltip }) => {
@@ -201,6 +201,8 @@ const ReadingLessons = () => {
                 </View>
               </View>
 
+              {error && (<Error text={error} />)}
+
               {/* Action Buttons */}
               <ActionPrimaryButton
                 buttonTitle='Check'
@@ -221,17 +223,6 @@ const ReadingLessons = () => {
           onModalVisible={reset}
           onRetry={reset}
         />)
-      }
-
-      {
-        showCompletionModal && (
-          <UnitCompletionModal
-            isVisible={showCompletionModal}
-            sessionKey={performanceSessionKey}
-            onContinue={onContinueHandler}
-            onModalVisible={modalCloseHandler}
-          />
-        )
       }
     </>
   );

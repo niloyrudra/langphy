@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
@@ -7,18 +7,17 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { SessionType, SessionResultType, WritingSessionType } from '@/types';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import SessionResultModal from '@/components/modals/SessionResultModal';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useLessons } from '@/hooks/useLessons';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { analysisNLP } from '@/services/nlpAnalysis.service';
-import STYLES from '@/constants/styles';
 import { useCelebration } from '@/context/CelebrationContext';
+import Error from '@/components/Error';
 
 const attemptId = randomUUID();
 
@@ -28,20 +27,19 @@ const WritingSession = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
-  const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
+  const { triggerSessionCompletion, triggerStreak } = useCelebration();
+  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<WritingSessionType | null>(null);
   
-  // const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
   const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
 
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const lessonData = React.useMemo<WritingSessionType[]>(() => {
     if( !readingLessons ) return [];
@@ -76,15 +74,13 @@ const WritingSession = () => {
       if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
       if( result?.streakUpdated && result?.streakPayload ) {
         console.log("TRIGGERING STREAK MODAL");
-        // resolveCurrent();
         triggerStreak( result.streakPayload );
       }
-      
     }
     catch(error) {
       console.error("onLessonComplete error:", error)
     }
-  }, [userId, slug, lessonData?.length, stop]);
+  }, [userId, slug, userId, lessonData?.length, stop]);
   
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent.trim()) {
@@ -124,15 +120,6 @@ const WritingSession = () => {
     goToNextRef?.current && goToNextRef.current?.();
   }, [reset, result, onLessonComplete]);
 
-  // const onContinueHandler = React.useCallback(() => {
-    // reset();
-    // setShowCompletionModal(false);
-    // navigation back to units page
-    // router.back();
-  // }, [reset]);
-  
-  // const modalVisibilityHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
-  // const modalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
   const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
 
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: WritingSessionType, index: number, goToNext: () => void}) => {
@@ -179,13 +166,7 @@ const WritingSession = () => {
 
               </View>
 
-              {
-                error && (
-                  <View style={styles.errorContainer}>
-                    <Text style={{color: colors.redDanger}}>{error}</Text>
-                  </View>
-                )
-              }
+              { error && (<Error text={error} />) }
 
               {/* Writing Text Field/Input/Area Section */}
               <TextInputComponent
@@ -228,13 +209,6 @@ export default WritingSession;
 
 const styles = StyleSheet.create({
   flex: {flex: 1},
-  query: { width: '80%'},
-  textInput: {
-    marginBottom: 20
-  },
-  errorContainer: {
-    marginVertical: 20,
-    alignItems: "center",
-    justifyContent: "center"
-  }
+  query: {width: '80%'},
+  textInput: {marginBottom: 20}
 });

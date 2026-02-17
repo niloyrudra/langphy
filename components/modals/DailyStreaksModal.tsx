@@ -75,12 +75,6 @@ const DailyStreaksModal = ({
         );
     }, [visible, streak?.current_streak]);
 
-    useEffect(() => {
-        console.log("DailyStreakModal mounted", streak);
-    }, []);
-
-    console.log("STREAK VISIBLE PROP:", visible);
-
     return (
         <ModalLayout
             isVisible={visible}
@@ -100,9 +94,8 @@ const DailyStreaksModal = ({
                                 autoPlay
                                 loop={false}
                                 resizeMode="contain"
-                                style={{width: 200, height: 200}}
+                                style={styles.lottie}
                             />
-                            {/* <SteakIcon width={100} height={100} /> */}
                         </View>
 
                         <Animated.View style={animatedStyle}>
@@ -120,8 +113,6 @@ const DailyStreaksModal = ({
                         <ActionPrimaryButton
                             buttonTitle="Continue Learning"
                             onSubmit={onClose}
-                            // buttonStyle={styles.button}
-                            // textStyle={styles.buttonText}
                         />
                     </View>
 
@@ -170,20 +161,11 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         textAlign: "center"
     },
+    lottie: {width: 200, height: 200},
     flex: {flex: 1},
     space: {
         height: "10%"
     },
-    buttonWrapper: {
-        marginTop: "auto"
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        bottom: 0
-    },
-    content: { gap: 5 },
     greetingSection: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -198,11 +180,4 @@ const styles = StyleSheet.create({
         marginTop: "auto",
         marginBottom: 20
     },
-    button: {
-        backgroundColor: "#FFFFFF",
-        borderColor: "#FFFFFF"
-    },
-    buttonText: {
-        color: "#142C57"
-    }
 });

@@ -1,8 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import { speechHandler, speechSlowHandler } from '@/utils';
-import { SpeakerDark, SpeakerLight, SpeakerTurtleDark, SpeakerTurtleLight } from '@/utils/SVGImages';
+import { SpeakerTurtleDark, SpeakerTurtleLight } from '@/utils/SVGImages';
+import LottieView from 'lottie-react-native';
+import AnimatedSpeaker from './AnimatedSpeaker';
 
 interface SpeakerComponentProps {
   speechContent: string;
@@ -17,18 +19,17 @@ const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
 }) => {
   const { colors, theme } = useTheme();
   const [isLoading, setLoading] = useState(false);
+  const speakerRef = React.useRef<LottieView>(null);
 
-  const handlePress = async () => {
+  const handlePress = React.useCallback( async () => {
+    speakerRef.current?.play();
     const handler = isSlowing ? speechSlowHandler : speechHandler;
     handler(speechContent, speechLang, setLoading);
-  };
+  }, [ speechSlowHandler, speechHandler, setLoading, isSlowing, speechLang, speechContent ]);
 
   const icon = useMemo(() => {
     const isDark = theme === 'dark';
-
-    if( !isSlowing ) {
-        return isDark ? <SpeakerDark /> : <SpeakerLight />
-    }
+    if( !isSlowing ) return (<AnimatedSpeaker speakerRef={speakerRef} lang={speechLang} />)
     return isDark ? <SpeakerTurtleDark /> : <SpeakerTurtleLight />
   }, [isSlowing, speechLang, theme]);
 
@@ -44,3 +45,10 @@ const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
 };
 
 export default React.memo(SpeakerComponent);
+
+const styles = StyleSheet.create({
+  speaker: {
+      width: 40,
+      height: 40
+  }
+});
