@@ -30,7 +30,6 @@ const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, ca
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         
         <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
-          {/* <ImgComponent width={49} height={49} /> */}
           <DolphinReading width={49} height={49} />
         </View>
 

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Alert, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Alert, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -9,6 +9,7 @@ import Title from '../Title';
 import { useAuth } from '@/context/AuthContext';
 import { router } from 'expo-router';
 import * as SecureStore from "expo-secure-store";
+import LangphyText from '../text-components/LangphyText';
 
 interface AccountDeletionModalProps {
     isVisible: boolean;
@@ -30,13 +31,13 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
             const res = await fetch(
                 `${process.env.EXPO_PUBLIC_API_BASE}/users/delete`,
                 {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    userId
-                })
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        userId
+                    })
                 }
             );
             
@@ -92,12 +93,12 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
                 </View>
 
                 <View>
-                    <Text style={{ color: colors.accountDeletionModalText}}>
+                    <LangphyText style={{ color: colors.accountDeletionModalText}}>
                         Are you sure you want to delete your account?
-                    </Text>
-                    <Text style={{ color: colors.accountDeletionModalText}}>
+                    </LangphyText>
+                    <LangphyText style={{ color: colors.accountDeletionModalText}}>
                         All your data, progress will permanently be deleted.
-                    </Text>
+                    </LangphyText>
                 </View>
                 
                 <View style={styles.buttonWrapper}>

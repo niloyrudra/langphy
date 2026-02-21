@@ -12,7 +12,6 @@ import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
 import { RecorderReload } from '@/utils/SVGImages';
-import SpeechResultModal from '@/components/modals/SpeechAnalyzedResultModal.tsx';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
@@ -28,7 +27,7 @@ const SpeakingLessons = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
-  const { triggerSessionCompletion, triggerStreak } = useCelebration();
+  const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
@@ -94,14 +93,14 @@ const SpeakingLessons = () => {
       await onLessonComplete(currentLessonRef.current!, score);
       reset();
       goToNextRef?.current && goToNextRef.current?.();
+
+      resolveCurrent();
     }
     catch(error) {
       console.error("Speaking lesson Completion error:", error);
     }
-  }, [reset, result, onLessonComplete]);
-  
-  const sessionCompletionModalHanlder = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
-  
+  }, [ reset, result, onLessonComplete, resolveCurrent ]);
+    
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: SpeakingSessionType, index: number, goToNext: () => void}) => {
     setExpectedText(prevValue => prevValue = item.phrase.trim())
     activeLessonOrderRef.current = index;
@@ -117,97 +116,86 @@ const SpeakingLessons = () => {
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
-    <>
-      <SessionLayout<SpeakingSessionType>
-        preFetchedData={lessonData}
-        onSessionComplete={sessionCompletionModalHanlder}
-        onActiveItemChange={activeItemChangeHandler}
-      >
-        {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
-          const handleTooltip = (value: any) => {
-            setTooltip(value);
-          };
-          return (
-            <>
-              <View style={styles.flex}>
-      
-                {/* Title Section */}
-                <ChallengeScreenTitle title="Speak This Sentence" />
-      
-                {/* Writing Section Starts */}
-                <View style={styles.taskContainer}>
-      
-                  <View style={[styles.container]}>
-                    {/* Query Listen with Query Text Section */}
-                    <SpeakerComponent
-                      speechContent={item?.phrase}
-                      speechLang='de-DE'
-                    />
-                            
-                    {/* Tappable Words with ToolTip */}
-                    <NLPAnalyzedPhase
-                      phrase={item.phrase}
-                      onHandler={handleTooltip}
-                      wordRefs={wordRefs}
-                      containerRef={containerRef}
-                      screenRef={screenRef}
-                      textContainerStyle={styles.nlpWidth}
-                    />
-                  </View>
+    <SessionLayout<SpeakingSessionType>
+      preFetchedData={lessonData}
+      onActiveItemChange={activeItemChangeHandler}
+    >
+      {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
+        const handleTooltip = (value: any) => {
+          setTooltip(value);
+        };
+        return (
+          <>
+            <View style={styles.flex}>
+    
+              {/* Title Section */}
+              <ChallengeScreenTitle title="Speak This Sentence" />
+    
+              {/* Writing Section Starts */}
+              <View style={styles.taskContainer}>
+    
+                <View style={[styles.container]}>
+                  {/* Query Listen with Query Text Section */}
+                  <SpeakerComponent
+                    speechContent={item?.phrase}
+                    speechLang='de-DE'
+                  />
+                          
+                  {/* Tappable Words with ToolTip */}
+                  <NLPAnalyzedPhase
+                    phrase={item.phrase}
+                    onHandler={handleTooltip}
+                    wordRefs={wordRefs}
+                    containerRef={containerRef}
+                    screenRef={screenRef}
+                    textContainerStyle={styles.nlpWidth}
+                  />
+                </View>
 
-                  <View style={styles.flex} />
-      
-                  {/* Writing Text Field/Input/Area Section */}
-                  <View style={STYLES.childContentCentered}>
-      
-                    <RecorderActionButton
-                      isActive={!isRecording}
-                      isRecorded={isRecordingDone}
-                      isPaused={isPaused}
-                      isPlaying={isPlaying}
-                      onActionHandler={isRecordingDone ? play : (isRecording ? stopRecording : startRecording)}
-                    />
+                <View style={styles.flex} />
+    
+                {/* Writing Text Field/Input/Area Section */}
+                <View style={STYLES.childContentCentered}>
+    
+                  <RecorderActionButton
+                    isActive={!isRecording}
+                    isRecorded={isRecordingDone}
+                    isPaused={isPaused}
+                    isPlaying={isPlaying}
+                    onActionHandler={isRecordingDone ? play : (isRecording ? stopRecording : startRecording)}
+                  />
 
-                    { error && (<Error text={error} />) }
+                  { error && (<Error text={error} />) }
 
-                  </View>
                 </View>
               </View>
-      
-              {/* Action Buttons */}
-              <View style={styles.recordingSection}>
-                <TouchableOpacity
-                  onPress={reset}
-                  disabled={!isRecordingDone || loading}
-                  style={{opacity: (!isRecordingDone || loading) ? 0.5 : 1}}
-                >
-                  <RecorderReload />
-                </TouchableOpacity>
+            </View>
+    
+            {/* Action Buttons */}
+            <View style={styles.recordingSection}>
+              <TouchableOpacity
+                onPress={reset}
+                disabled={!isRecordingDone || loading}
+                style={{opacity: (!isRecordingDone || loading) ? 0.5 : 1}}
+              >
+                <RecorderReload />
+              </TouchableOpacity>
 
-                <ActionPrimaryButton
-                  buttonTitle='Check'
-                  onSubmit={() => {
-                    setExpectedText((prevValue) => prevValue = item.phrase.trim());
-                    analyzeSpeech();
-                  }}
-                  isLoading={loading}
-                  disabled={!isRecordingDone || loading}
-                  buttonStyle={styles.button}
-                />
-              </View>
-            </>
-          )
-        }}
-      </SessionLayout>
-
-      {result && (<SpeechResultModal
-        isVisible={result ? true : false}
-        result={result}
-        onContinue={onContinue}
-        onModalVisible={reset}
-        onRetry={reset}
-      />)}
-    </>
+              <ActionPrimaryButton
+                buttonTitle='Check'
+                onSubmit={() => {
+                  setExpectedText((prevValue) => prevValue = item.phrase.trim());
+                  analyzeSpeech(onContinue);
+                }}
+                isLoading={loading}
+                disabled={!isRecordingDone || loading}
+                buttonStyle={styles.button}
+              />
+            </View>
+          </>
+        )
+      }}
+    </SessionLayout>
   );
 }
 

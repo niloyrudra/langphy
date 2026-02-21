@@ -1,10 +1,11 @@
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
+import LangphyText from '@/components/text-components/LangphyText';
 
 const TooltipContentLabel = ({label}: {label: string}) => {
     const {colors} = useTheme();
-    return (<Text style={[styles.mainText, {color: colors.textDark}]}>{label}:</Text>)
+    return (<LangphyText weight="bold" style={[styles.mainText, {color: colors.textDark}]}>{label}:</LangphyText>)
 }
 
 export default TooltipContentLabel

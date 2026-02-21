@@ -6,11 +6,12 @@ import { ProgressBarActivePng } from '@/utils/pngImages';
 
 const ProgressBar = ({completion}: {completion: number}) => {
     const {colors}  = useTheme();
+    const width = React.useMemo(() => ({width: (completion / 100)*52}), [completion]);
     return (
         <View style={[styles.container, {backgroundColor: colors.progressBarBackground}]}>
             <Image
                 source={ProgressBarActivePng}
-                style={[styles.image,{width: (completion / 100)*52}]}
+                style={[styles.image, width]}
             />
         </View>
     );

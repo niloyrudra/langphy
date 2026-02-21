@@ -6,6 +6,7 @@ import sizes from '@/constants/size';
 
 import { ButtonGradientPng } from '@/utils/pngImages';
 import { useTheme } from '@/theme/ThemeContext';
+import LangphyText from '../text-components/LangphyText';
 
 const ActionPrimaryButton = ( {
     buttonTitle="Submit",
@@ -42,19 +43,16 @@ const ActionPrimaryButton = ( {
                     />
                 )
             }
-            <Text
+            <LangphyText
+                weight="extrabold"
                 style={[
-                    {
-                        position:"absolute",
-                        fontSize: 16,
-                        color: (disabled ? colors.disabledButtonColor : "#ffffff"),
-                        fontWeight: "800"
-                    },
+                    styles.text,
+                    { color: (disabled ? colors.disabledButtonColor : "#ffffff")},
                     (buttonTextStyle && buttonTextStyle)
                 ]}
             >
                 {isLoading ? "Processing..." : buttonTitle}
-            </Text>
+            </LangphyText>
         </TouchableOpacity>
     );
 }
@@ -65,5 +63,9 @@ const styles = StyleSheet.create({
         // backgroundColor: "#EDEDED",
         borderRadius: 100,
         height: sizes.buttonHeight
+    },
+    text: {
+        position:"absolute",
+        fontSize: 16,
     }
 })

@@ -2,16 +2,15 @@ import { TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
-
 import { SettingDark, SettingLight } from '@/utils/SVGImages';
 import SIZES from '@/constants/size';
 
 const Settings = () => {
   const { theme } = useTheme();
 
-  const handlePress = () => {
+  const handlePress = React.useCallback(() => {
     router.push('/dashboard/settings');
-  };
+  }, [router]);
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.button}>

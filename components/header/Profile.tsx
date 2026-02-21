@@ -3,14 +3,14 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { router } from 'expo-router';
 import SIZES from '@/constants/size';
-import { ProfileDark, ProfileLight, SettingDark, SettingLight } from '@/utils/SVGImages';
+import { ProfileDark, ProfileLight } from '@/utils/SVGImages';
 
 const Profile = () => {
    const { theme } = useTheme();
 
-  const handlePress = () => {
-    router.push('/dashboard/');
-  };
+  const handlePress = React.useCallback(() => {
+    router.push("/dashboard");
+  }, [router]);
 
   return (
     <TouchableOpacity onPress={handlePress}>

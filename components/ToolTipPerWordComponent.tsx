@@ -2,7 +2,6 @@ import {
     findNodeHandle,
     StyleProp,
     StyleSheet,
-    Text,
     TextStyle,
     TouchableOpacity,
     View,
@@ -13,6 +12,7 @@ import React from "react";
 import { ToolTip, WordDataShape, WordRole } from "@/types";
 import { color_legend, speechHandler, stripPunctuationHandler } from "@/utils";
 import { useTheme } from "@/theme/ThemeContext";
+import LangphyText from "./text-components/LangphyText";
 
 interface ToolTipPerWordProps<T extends WordDataShape> {
     item: T;
@@ -154,7 +154,8 @@ function ToolTipPerWordComponent<T extends WordDataShape>({
                                         });
                                     }}
                                 >
-                                    <Text
+                                    <LangphyText
+                                        weight="bold"
                                         style={[
                                             styles.mainText,
                                             { color: colorForWord },
@@ -162,7 +163,7 @@ function ToolTipPerWordComponent<T extends WordDataShape>({
                                         ]}
                                     >
                                         {word}
-                                    </Text>
+                                    </LangphyText>
                                 </TouchableOpacity>
                             );
                         })}

@@ -1,10 +1,11 @@
-import { FlatList, ListRenderItem, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ListRenderItem, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext'
 import SIZES from '@/constants/size'
 import STYLES from '@/constants/styles'
 import { Lesson, LessonListProps } from '@/types'
 import { useSession } from '@/context/SessionContext'
 import React, { useCallback } from 'react'
+import LangphyText from '../text-components/LangphyText'
 
 const getTextStyle = (
     active: boolean,
@@ -28,14 +29,13 @@ const LessonList: React.FC<LessonListProps> = ({
     const renderItem: ListRenderItem<Lesson> = useCallback(({item, index}: {item: Lesson, index: number}) => {
         const onScrollHandler = () => scrollToLessonRef?.current?.(index);
         const isActive = index === currentPosition;
-        // const color = isActive ? colors.activeLessonText : colors.text;
         const color = isActive ? "green" : colors.text;
 
         return (
         <TouchableOpacity onPress={onScrollHandler}>
-            <Text style={getTextStyle(isActive, item.completed, color)}>
+            <LangphyText weight={isActive ? "bold" : "regular"} style={getTextStyle(isActive, item.completed, color)}>
                 {index + 1}. {item.title} {(item.completed) ? "*" : ""}
-            </Text>
+            </LangphyText>
         </TouchableOpacity>
     )}, [currentPosition, colors.text, colors.activeLessonText, scrollToLessonRef]);
 

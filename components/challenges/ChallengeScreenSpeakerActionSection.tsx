@@ -23,9 +23,6 @@ const ChallengeScreenSpeakerActionSection = ({query, style, waveStyle, onTap}: C
             style={styles.queryButton}
             onPress={onTap}
         >
-
-            {/* { (theme === 'dark') ? <SpeakerDarkIcon /> : <SpeakerIcon />} */}
-
             <SpeakerActionButtonIcon width={sizes.speakerNRecorderDimensions} height={sizes.speakerNRecorderDimensions} />
 
             <SoundWaveLightIcon width={185} height={40} />

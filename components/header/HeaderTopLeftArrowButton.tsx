@@ -9,19 +9,18 @@ import { LeftArrowDark, LeftArrowLight } from '@/utils/SVGImages';
 const HeaderTopLeftArrowButton = () => {
   const { theme } = useTheme();
 
-  const handlePress = () => {
+  const handlePress = React.useCallback(() => {
     router.back();
-  };
+  }, [router]);
 
   return (
     <TouchableOpacity
       onPress={handlePress}
-      // style={{backgroundColor: "black"}}
     >
       {
         theme === 'light'
-        ? (<LeftArrowLight width={sizes.headerIcon} height={sizes.headerIcon} />)
-        : (<LeftArrowDark width={sizes.headerIcon} height={sizes.headerIcon} />)
+          ? (<LeftArrowLight width={sizes.headerIcon} height={sizes.headerIcon} />)
+          : (<LeftArrowDark width={sizes.headerIcon} height={sizes.headerIcon} />)
       }
     </TouchableOpacity>
   );

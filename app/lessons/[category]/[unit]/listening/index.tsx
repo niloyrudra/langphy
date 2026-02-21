@@ -1,15 +1,13 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { SessionType, ListeningSessionType, SessionResultType } from '@/types';
-import { router, useLocalSearchParams } from 'expo-router';
+import { SessionType, ListeningSessionType } from '@/types';
+import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import SessionResultModal from '@/components/modals/SessionResultModal';
 import TaskAllocation from '@/components/listening-components/TaskAllocation';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { useListening } from '@/context/ListeningContext';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
@@ -28,7 +26,7 @@ const ListeningLessons = () => {
   const { colors } = useTheme();
   const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
-  const { triggerSessionCompletion, triggerStreak } = useCelebration();
+  const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
   const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { resultHandler } = useListening();
@@ -36,10 +34,7 @@ const ListeningLessons = () => {
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<ListeningSessionType | null>(null);
 
-  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
   const [ textContent, setTextContent ] = React.useState<string>('')
-  const [ actualDEQuery, setActualDEQuery ] = React.useState<string>('')
-  const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
 
@@ -49,9 +44,8 @@ const ListeningLessons = () => {
   }, [listeningLessons]);
 
   // Handlers
-    const reset = React.useCallback(() => {
+  const reset = React.useCallback(() => {
     setTextContent("");
-    setResult(null);
     setError("");
     setLoading(false);
   }, []);
@@ -68,9 +62,15 @@ const ListeningLessons = () => {
 
     try {
       setLoading(true);
-      setActualDEQuery(expectedText);
       const data = await analysisNLP( expectedText, textContent );
-      if( data ) setResult( data );
+      if( data ) {
+        triggerLessonResult({
+          actualQuery: expectedText,
+          result: data,
+          onRetry: reset,
+          onContinue: async () => lessonCompletionHandler(data)
+        });
+      }
 
     } catch (err: any) {
       console.error(err);
@@ -78,7 +78,7 @@ const ListeningLessons = () => {
     } finally {
       setLoading(false);
     }
-  }, [textContent, analysisNLP]);
+  }, [textContent, analysisNLP, triggerLessonResult, reset, setError, setLoading]);
 
   const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
     if(!userId) return;
@@ -111,27 +111,25 @@ const ListeningLessons = () => {
     }
   }, [userId, slug, lessonData?.length, stop]);
   
-  const lessonCompletionHandler = React.useCallback( async () => {
+  const lessonCompletionHandler = React.useCallback( async (result: any) => {
     try {
       const score = result!.similarity ? result!.similarity*100 : 0;
       await onLessonComplete(currentLessonRef.current!, score);
       resultHandler(result!);
       reset();
       goToNextRef?.current && goToNextRef.current?.();
+
+      resolveCurrent();
     }
     catch(error) {
       console.error("lessonCompletionHandler error:", error)
     }
-  }, [reset, result, onLessonComplete]);
-
-  const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
+  }, [ reset, onLessonComplete, resultHandler ]);
   
-
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: ListeningSessionType, index: number, goToNext: () => void}) => {
     activeLessonOrderRef.current = index;
     currentLessonRef.current = item;
     goToNextRef.current = goToNext;
-    // reset();
   }, []);
 
   // Timer
@@ -142,60 +140,48 @@ const ListeningLessons = () => {
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
-    <>
-      <SessionLayout<ListeningSessionType>
-        keyboardAvoid={true}
-        preFetchedData={lessonData}
-        onSessionComplete={sessionCompletionModalHandler}
-        onActiveItemChange={activeItemChangeHandler}
-      >
-        {({ item }) => {
-          const onCheckHandler = () => analyzeListeningHandler( item.phrase );
-          return (
-            <View style={styles.flex}>
-              {/* Content */}
-              <TaskAllocation
-                taskTitle={'Listen and Write afterwards.'}
-                taskPhrase={item.phrase}
-                rippleSize={150}
-              />
+    <SessionLayout<ListeningSessionType>
+      keyboardAvoid={true}
+      preFetchedData={lessonData}
+      onActiveItemChange={activeItemChangeHandler}
+    >
+      {({ item }) => {
+        const onCheckHandler = () => analyzeListeningHandler( item.phrase );
+        return (
+          <View style={styles.flex}>
+            {/* Content */}
+            <TaskAllocation
+              taskTitle={'Listen and Write afterwards.'}
+              taskPhrase={item.phrase}
+              rippleSize={150}
+            />
 
-              {error && (<Error text={error} />)}
+            {error && (<Error text={error} />)}
 
-              {/* Writing Text Field/Input/Area Section */}
-              <TextInputComponent
-                maxLength={500}
-                placeholder='Write here...'
-                value={textContent}
-                onChange={setTextContent}
-                placeholderTextColor={colors.placeholderColor}
-                inputMode="text"
-                onBlur={() => {}}
-                contentContainerStyle={styles.textInput}
-              />
+            {/* Writing Text Field/Input/Area Section */}
+            <TextInputComponent
+              maxLength={500}
+              placeholder='Write here...'
+              value={textContent}
+              onChange={setTextContent}
+              placeholderTextColor={colors.placeholderColor}
+              inputMode="text"
+              onBlur={() => {}}
+              contentContainerStyle={styles.textInput}
+            />
 
-              {/* Action Buttons */}
-              <ActionPrimaryButton
-                buttonTitle='Check'
-                onSubmit={onCheckHandler}
-                isLoading={loading}
-                disabled={textContent.length === 0}
-              />
+            {/* Action Buttons */}
+            <ActionPrimaryButton
+              buttonTitle='Check'
+              onSubmit={onCheckHandler}
+              isLoading={loading}
+              disabled={textContent.length === 0}
+            />
 
-            </View>
-          );
-        }}
-      </SessionLayout>
-
-      {result && (<SessionResultModal
-        isVisible={result ? true : false}
-        actualQuery={actualDEQuery}
-        result={result!}
-        onContinue={lessonCompletionHandler}
-        onModalVisible={reset}
-        onRetry={reset}
-      />)}
-    </>
+          </View>
+        );
+      }}
+    </SessionLayout>
   );
 }
 

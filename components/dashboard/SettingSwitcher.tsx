@@ -1,8 +1,6 @@
 import { View, Switch, StyleProp, ViewStyle, StyleSheet } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import { useSettings } from '@/hooks/useSettings';
-import { useAuth } from '@/context/AuthContext';
 import { useUpdateSettings } from '@/hooks/useUpdateSettings';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 
@@ -10,7 +8,6 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: s
     const { toggleTheme, theme } = useTheme()
     const [ isEnabled, setIsEnabled ] = React.useState<boolean>(enabled);
     const userId = authSnapshot.getUserId() ?? "";
-    const { data: settings } = useSettings(userId)
     const { mutate: updateSettings } = useUpdateSettings(userId);
 
     // Handle

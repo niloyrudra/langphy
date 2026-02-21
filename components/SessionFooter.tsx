@@ -20,7 +20,7 @@ interface SessionFooterProps {
 
 const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, currentIndex, contentId, dataSize }) => {
     const {colors} = useTheme();
-    const {unitId, slug} = useLocalSearchParams();
+    const {categoryId, unitId, slug} = useLocalSearchParams();
     const { stop } = useLessonTimer()
     const { mutateAsync: updateProgress } = useUpdateProgress();
     
@@ -32,6 +32,8 @@ const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, c
         const sessionkey = `${unitId}:${slug}:${attemptId}`;
 
         const payload: DBProgress = {
+            category_id: categoryId as string,
+            unit_id: unitId as string,
             content_type: "practice" as SessionType,
             session_key: sessionkey,
             content_id: contentId,
@@ -78,8 +80,7 @@ const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, c
         <View
             style={[
                 styles.navButtons,
-                {backgroundColor: colors.primary_950_50},
-                // STYLES.boxShadow
+                {backgroundColor: colors.primary_950_50}
             ]}
         >
                 <PaginationButton
@@ -91,11 +92,7 @@ const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, c
                 <ActionPrimaryButton
                     buttonTitle='Done'
                     onSubmit={submissionHandler}
-                    buttonStyle={{
-                        width: "67%",
-                        borderRadius: 30,
-                        overflow: "hidden"
-                    }}
+                    buttonStyle={styles.button}
                 />
 
                 <PaginationButton
@@ -119,5 +116,10 @@ const styles = StyleSheet.create({
         marginHorizontal: - SIZES.bodyPaddingHorizontal,
         marginBottom: - SIZES.bodyPaddingHorizontal,
         paddingVertical: 10
+    },
+    button: {
+        width: "67%",
+        borderRadius: 30,
+        overflow: "hidden"
     }
 });

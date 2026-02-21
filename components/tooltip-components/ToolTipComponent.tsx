@@ -33,10 +33,6 @@ const ToolTipComponent: React.FC<TooltipProps> = ({top, left, token}) => {
                 {top: top, left: left},
                 {
                     backgroundColor: colors.background,
-                    borderTopWidth: 4,
-                    borderRightWidth: 1,
-                    borderBottomWidth: 1,
-                    borderLeftWidth: 1,
                     borderColor: color ?? colors.textDark
                 }
             ]}
@@ -77,6 +73,11 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 50 // 5,
+        elevation: 50, // 5,
+
+        borderTopWidth: 4,
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderLeftWidth: 1,
     }
 })

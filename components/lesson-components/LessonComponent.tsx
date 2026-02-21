@@ -4,6 +4,7 @@ import { LessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext'
 import sizes from '@/constants/size';
 import SpeakerComponent from '../SpeakerComponent';
+import LangphyText from '../text-components/LangphyText';
 
 const LessonComponent: React.FC<LessonProps> = ({language, children, style, buttonStyle, speechContent, speechLang}) => {
   const { colors } = useTheme();
@@ -14,15 +15,10 @@ const LessonComponent: React.FC<LessonProps> = ({language, children, style, butt
       <View style={[styles.content]}>
 
         <View style={[styles.speakerButtonContainer, style, buttonStyle]}>
-          <Text style={[styles.languageText, {color: colors.text}]}>{language}</Text>
+          <LangphyText weight="bold" style={[styles.languageText, {color: colors.text}]}>{language}</LangphyText>
 
           {/* Speaker */}
-          <View
-            style={{
-              flexDirection:"row",
-              gap: 10
-            }}
-          >
+          <View style={styles.speakerContainer}>
 
             <SpeakerComponent
               speechContent={speechContent!}
@@ -62,6 +58,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderWidth: 1,
     borderRadius: 16
+  },
+  speakerContainer: {
+    flexDirection: "row",
+    gap: 10
   },
   content: {
     width: sizes.screenWidth - (sizes.bodyPaddingHorizontal*2),

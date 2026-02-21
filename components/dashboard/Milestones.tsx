@@ -49,7 +49,7 @@ const Milestones = ({title}: {title:string}) => {
     return (
         <View>
             <View style={styles.titleContainer}>
-              <Title title={title} contentStyle={{ fontSize: 20, fontWeight: "600" }} />
+              <Title title={title} contentStyle={styles.title} />
               <MilestoneScreenRouter title="View All" />
             </View>
             
@@ -79,6 +79,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: "600"
     },
     milestonesContainer: {
         flexDirection: "row",

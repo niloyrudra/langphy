@@ -9,6 +9,7 @@ import {
     setAudioModeAsync,
 } from "expo-audio";
 import { SpeechResult } from "@/types";
+import { useCelebration } from "@/context/CelebrationContext";
 
 const initialState = {
     expectedText: null as string | null,
@@ -21,6 +22,7 @@ const initialState = {
 
 const useSpeechRecorder = ( text: string | null ) => {
     const [ expectedText, setExpectedText ] = useState<string | null>(text);
+    const { triggerLessonResult } = useCelebration();
     const [ recordedUri, setRecordedUri ] = useState<string | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ isRecordingDone, setIsRecordingDone ] = useState<boolean>(false)
@@ -79,7 +81,7 @@ const useSpeechRecorder = ( text: string | null ) => {
     }, [player, recordedUri]);
 
     /* ☁️ Send to backend (Whisper → SpaCy) */
-    const analyzeSpeech = useCallback(async () => {
+    const analyzeSpeech = useCallback(async (callbackFn: () => void) => {
         if(!expectedText) {
             setError("No expected text found!");
             return;
@@ -117,6 +119,12 @@ const useSpeechRecorder = ( text: string | null ) => {
             const data = await res.json();
 
             setResult(data);
+            triggerLessonResult({
+                actualQuery: expectedText,
+                result: data,
+                onContinue: callbackFn,
+                onRetry: () => {}
+            })
 
             console.log("data:", data)
 

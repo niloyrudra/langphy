@@ -1,12 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/theme/ThemeContext';
-// import { useAuth } from '@/context/AuthContext';
 import { IoniconName } from '@/types';
-// import { useProfile } from '@/hooks/useProfile';
-// import { useAuth } from '@/context/AuthContext';
-// import { useProfile } from '@/context/ProfileContext';
+import LangphyText from '@/components/text-components/LangphyText';
 
 interface DetailProps {
     iconName: IoniconName;
@@ -18,16 +15,13 @@ interface DetailProps {
 
 const ProfileDOBAndEmailDetail = ({iconName, data, iconSize=16, dob=false, email=false}: DetailProps) => {
     const {colors} = useTheme();
-    // const {user} = useAuth();
-    // const { data: profile } = useProfile(user?.id as string);
-
     return (
         <View style={[styles.container]}>
             <Ionicons name={iconName} size={iconSize} color={colors.text} />
-            <Text style={[styles.userInfo, {color: colors.text}]}>
+            <LangphyText style={[styles.userInfo, {color: colors.text}]}>
                 {dob && (data ? new Date( data ).toLocaleDateString() : '__/__/__')}
                 {email && (data ?? "___")}
-            </Text>
+            </LangphyText>
         </View>
     );
 }

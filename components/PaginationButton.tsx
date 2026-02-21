@@ -3,12 +3,13 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { BackwardIconDark2, BackwardIconLight2, ForwardIconDark, ForwardIconLight } from '@/utils/SVGImages';
 
+const dimentions =  {
+    width: 50,
+    height: 50
+};
+
 const PaginationButton = ({modeLeft, actionHandler, isDisabled}: {modeLeft?: boolean | null, actionHandler: () => void, isDisabled: boolean}) => {
-    const { colors, theme } = useTheme();
-    const dimentions =  {
-        width: 50,
-        height: 50
-    }
+    const { theme } = useTheme();
   return (
     <TouchableOpacity onPress={actionHandler} disabled={isDisabled}>
         {theme === 'light'
@@ -21,28 +22,6 @@ const PaginationButton = ({modeLeft, actionHandler, isDisabled}: {modeLeft?: boo
                     : <ForwardIconDark {...dimentions} opacity={isDisabled ? 0.15 : 1} />
                 )
         }
-        
-        {/* {theme === 'light'
-            ?   (modeLeft
-                    ? <BackwardIconLight opacity={isDisabled ? 0.35 : 1} />
-                    : <ForwardIconLight opacity={isDisabled ? 0.35 : 1} />
-                )
-            :   (modeLeft
-                    ? <BackwardIconDark opacity={isDisabled ? 0.35 : 1} />
-                    : <ForwardIconDark opacity={isDisabled ? 0.35 : 1} />
-                )
-        } */}
-
-        {/* {theme === 'light'
-            ?   (modeLeft
-                    ? <PreviousBtnLight width={167} height={sizes.buttonHeight} opacity={isDisabled ? 0.5 : 1} />
-                    : <NextBtnLight width={167} height={sizes.buttonHeight} opacity={isDisabled ? 0.5 : 1} />
-                )
-            :   (modeLeft
-                    ? <PreviousBtnDark width={167} height={sizes.buttonHeight} opacity={isDisabled ? 0.5 : 1} />
-                    : <NextBtnDark width={167} height={sizes.buttonHeight} opacity={isDisabled ? 0.5 : 1} />
-                )
-        } */}
     </TouchableOpacity>
   )
 }

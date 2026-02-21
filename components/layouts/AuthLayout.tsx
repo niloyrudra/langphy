@@ -17,7 +17,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({screenTitle, children}) => {
         <SafeAreaLayout>
             <KeyboardAvoidingViewLayout>
                 <ScrollView
-                    // style={{ flex:1 }}
                     contentContainerStyle={{flex:1}}
                     showsVerticalScrollIndicator={false}
                     alwaysBounceVertical={true}

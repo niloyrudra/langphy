@@ -2,6 +2,7 @@ import { StyleProp, StyleSheet, Text, View, ViewProps, ViewStyle } from 'react-n
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 import SpeakerComponent from '../SpeakerComponent'
+import LangphyText from '../text-components/LangphyText'
 
 type ChallengeQueryProps = {
     query: string,
@@ -26,7 +27,7 @@ const ChallengeScreenQuerySection: React.FC<ChallengeQueryProps> = ({query, lang
                 speechLang={lang}
             />
             
-            <Text style={[styles.query, {color: colors.text}]}>{query}</Text>
+            <LangphyText weight="bold" style={[styles.query, {color: colors.text}]}>{query}</LangphyText>
             
         </View>
     )

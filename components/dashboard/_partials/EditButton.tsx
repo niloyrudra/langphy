@@ -6,10 +6,11 @@ import { EditIconDark, EditIconLight } from '@/utils/SVGImages'
 
 const EditButton = () => {
     const {theme} = useTheme();
+    const onTap = React.useCallback(() => router.push( "/dashboard/profile-edit" ), [router]);
     return (
         <TouchableOpacity
             style={styles.editButton}
-            onPress={() => router.push('/dashboard/profile-edit') }
+            onPress={onTap}
         >
             {theme === "light"
                 ? (<EditIconLight width={28} height={28} />)

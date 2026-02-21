@@ -4,6 +4,7 @@ import SIZES from '@/constants/size';
 import { getCardContainerWidth } from '@/utils';
 import { useTheme } from '@/theme/ThemeContext';
 import { MilestonesGrdCardBgLight } from '@/utils/SVGImages';
+import LangphyText from '@/components/text-components/LangphyText';
 
 interface MilestonesItemProps {
     title: string;
@@ -28,8 +29,8 @@ const MilestonesItem = ({title, isLocked, milestones, icon}: MilestonesItemProps
                     <MilestonesGrdCardBgLight />
                 </View>
 
-                <Text style={[styles.milestones, {color: colors.text}]}>{milestones}</Text>
-                <Text style={[styles.subTitle, {color: colors.text}]}>Streak</Text>
+                <LangphyText weight="extrabold" style={[styles.milestones, {color: colors.text}]}>{milestones}</LangphyText>
+                <LangphyText style={[styles.subTitle, {color: colors.text}]}>Streak</LangphyText>
             </View>
 
         </View>

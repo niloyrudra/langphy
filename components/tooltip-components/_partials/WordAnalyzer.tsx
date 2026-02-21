@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 import TooltipContentLabel from './TooltipContentLabel';
+import LangphyText from '@/components/text-components/LangphyText';
 
 const WordAnalyzer = ({topic, label}: {topic: string, label: string}) => {
     const {colors} = useTheme();
     return (
         <View style={styles.details}>
             <TooltipContentLabel label={label} />
-            <Text style={[styles.text, {color: colors.primary}]}>{topic}</Text>
+            <LangphyText weight="medium" style={[styles.text, {color: colors.primary}]}>{topic}</LangphyText>
         </View>
     )
 }

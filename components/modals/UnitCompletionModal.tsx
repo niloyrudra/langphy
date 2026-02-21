@@ -8,6 +8,7 @@ import ActionButton from '../form-components/ActionButton';
 import { usePerformance } from '@/hooks/usePerformance';
 import { formatDuration } from '@/utils';
 import LottieView from "lottie-react-native";
+import LangphyText from '../text-components/LangphyText';
 
 const feedback = ( score: number ) => {
     if( score >= 90 ) return "Excellent"
@@ -53,8 +54,8 @@ const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}
                             />
                         </View>
 
-                        <Text style={styles.resultHeader}>Lesson Complete</Text>
-                        <Text style={styles.resultSubHeader}>Great job! Keep learning and improve your skills!</Text>
+                        <LangphyText weight="extrabold" style={styles.resultHeader}>Lesson Complete</LangphyText>
+                        <LangphyText style={styles.resultSubHeader}>Great job! Keep learning and improve your skills!</LangphyText>
                     </View>
 
                     {/* Stats Section */}

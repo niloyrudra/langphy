@@ -5,6 +5,7 @@ import { InfoIndicatorDarkIcon, InfoIndicatorLightIcon, ModalCloseDarkIcon, Moda
 import HorizontalLine from '../HorizontalLine';
 import ModalColorIndicatorComponent from './_partials/ModalColorIndicatorComponent';
 import ModalSectionTitle from './_partials/ModalSectionTitle';
+import LangphyText from '../text-components/LangphyText';
 
 const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisible: () => void}) => {
     const {colors, theme} = useTheme();
@@ -37,7 +38,7 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                                 ? (<InfoIndicatorLightIcon />)
                                 : (<InfoIndicatorDarkIcon />)
                         }
-                        <Text style={[styles.modalText, {color: colors.text}]}>Indications</Text>
+                        <LangphyText weight="bold" style={[styles.modalText, {color: colors.text}]}>Indications</LangphyText>
                     </View>
                 
                     {/* Modal Content */}

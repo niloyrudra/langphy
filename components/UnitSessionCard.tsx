@@ -7,13 +7,11 @@ import { useTheme } from '@/theme/ThemeContext';
 import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
 import { getCardContainerWidth } from '@/utils';
-// import { SvgProps } from 'react-native-svg';
 import { UnitSessionType } from '@/types';
 
 const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug, ImgComponent, completion, goal, marginRight=0} ) => {
   const {colors} = useTheme();
   const {category, unit} = useLocalSearchParams();
-  // const { categoryId, unitId, completion, goal } = useLocalSearchParams();
   const cardWidth = getCardContainerWidth();
 
   return (
@@ -42,7 +40,7 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
         
         <TitleHeading title={title} />
         
-        <ProgressBar completion={completion} />
+        <ProgressBar completion={completion ?? 0} />
 
       </View>
     </TouchableOpacity>

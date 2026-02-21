@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import SIZES from '@/constants/size';
 
@@ -22,16 +22,15 @@ const GridLayout = <T,>({
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
       renderItem={renderItem}
-      ListFooterComponent={<View style={{ height: 20 }} />}
+      ListFooterComponent={<View style={styles.space} />}
     />
 );
-
+export default GridLayout;
 
 const styles = StyleSheet.create({
   contentContainer: {
     gap: SIZES.cardGap,
     alignItems: "center"
-  }
+  },
+  space: {height: 20}
 });
-
-export default GridLayout;

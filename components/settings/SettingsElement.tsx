@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { ReactNode } from 'react'
 import { useTheme } from '@/theme/ThemeContext';
+import LangphyText from '../text-components/LangphyText';
 
 const SettingsElement = ({title, Icon}: {title: string, Icon: ReactNode}) => {
     const {colors} = useTheme();
@@ -10,9 +11,9 @@ const SettingsElement = ({title, Icon}: {title: string, Icon: ReactNode}) => {
                 {Icon}
             </View>
 
-            <Text style={[styles.title, { color: colors.text }]}>
+            <LangphyText weight="semibold" style={[styles.title, { color: colors.text }]}>
                 {title}
-            </Text>
+            </LangphyText>
         </View>
     );
 }

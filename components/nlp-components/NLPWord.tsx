@@ -3,6 +3,7 @@ import React from 'react'
 import { measureInWindowSafe, speechHandler } from '@/utils'
 import { Token, ToolTip, WordLayout } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
+import LangphyText from '../text-components/LangphyText';
 
 interface WordProps {
     idx: string,
@@ -74,7 +75,8 @@ const NLPWord: React.FC<WordProps> = ({
             }}
             style={styles.wordWrapper}
         >
-            <Text
+            <LangphyText
+                weight="extrabold"
                 style={[
                     styles.mainText,
                     {
@@ -85,7 +87,7 @@ const NLPWord: React.FC<WordProps> = ({
                 ]}
             >
                 {token.text}
-            </Text>
+            </LangphyText>
 
         </TouchableOpacity>
     )

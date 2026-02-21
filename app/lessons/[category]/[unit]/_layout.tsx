@@ -17,7 +17,7 @@ const UnitLayout = () => {
 
   useEffect(() => {
     if ( !current && shouldNavigateRef.current ) {
-      // router.replace("/lessons/[category]/[unit]");
+      shouldNavigateRef.current = false
       router.back();
     }
   }, [current]);
@@ -55,10 +55,16 @@ const UnitLayout = () => {
             isVisible
             actualQuery={current.payload.actualQuery}
             result={current.payload.result}
-            onContinue={current.payload.onContinue}
+            onContinue={() => {
+              shouldNavigateRef.current = false;
+              current.payload.onContinue()
+            }}
             // onModalVisible={current.payload.onRetry}
             onModalVisible={() => {}}
-            onRetry={current.payload.onRetry}
+            onRetry={() => {
+              current.payload.onRetry()
+              resolveCurrent();
+            }}
           />
         )
       }

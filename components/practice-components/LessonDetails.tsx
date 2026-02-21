@@ -1,8 +1,9 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 import LessonDetailsItem from './LessonDetailsItem';
 import STYLES from '@/constants/styles';
+import LangphyText from '../text-components/LangphyText';
 
 type LessonExample = {
     example: string;
@@ -43,31 +44,20 @@ const PracticeLessonDetails: React.FC<PracticeLessonDetailsProps> = ({
 
             {
                 examples && examples?.length > 0 && examples?.every((item) => item.example !== "") && (
-                <View style={{flexDirection:"column", alignItems: "flex-start", marginTop: 10}}>
-                    <Text style={[styles.subText, { color: "#24DEEC" }]}>Examples:</Text>
+                <View style={styles.exampleContainer}>
+                    <LangphyText style={[styles.subText]}>Examples:</LangphyText>
                     {
                         examples.map( (item, idx) => (
                             <View
                                 key={idx.toString()}
-                                style={{
-                                    flex: 1,
-                                    width: "100%",
-                                    padding: 10,
-                                    borderStartStartRadius: 0,
-                                    borderStartEndRadius: 15,
-                                    borderEndEndRadius: 15,
-                                    borderEndStartRadius: 15,
-                                    backgroundColor: colors.LessonSourceCardBackgroundColor,
-                                    marginTop: 10,
-                                    gap: 6
-                                }}
+                                style={[styles.content, {backgroundColor: colors.LessonSourceCardBackgroundColor}]}
                             >
-                                <Text style={[styles.subText, STYLES.wordWrapStyle, { fontSize: 14, fontWeight: "900", color: colors.textSubColor }]}>
+                                <LangphyText weight="black" style={[styles.subText, STYLES.wordWrapStyle, { fontSize: 14, fontWeight: "900", color: colors.textSubColor }]}>
                                     {item.example}
-                                </Text>
-                                <Text style={[styles.subText, STYLES.wordWrapStyle, { fontSize: 13, fontWeight: "900", color: colors.textSubColor }]}>
+                                </LangphyText>
+                                <LangphyText weight="black" style={[styles.subText, STYLES.wordWrapStyle, { fontSize: 13, fontWeight: "900", color: colors.textSubColor }]}>
                                     [ {item.translation} ]
-                                </Text>
+                                </LangphyText>
                             </View>
                         ))
                     }
@@ -89,6 +79,22 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginTop: 'auto'
     },
+    exampleContainer: {
+        flexDirection:"column",
+        alignItems: "flex-start",
+        marginTop: 10
+    },
+    content: {
+        flex: 1,
+        width: "100%",
+        padding: 10,
+        borderStartStartRadius: 0,
+        borderStartEndRadius: 15,
+        borderEndEndRadius: 15,
+        borderEndStartRadius: 15,
+        marginTop: 10,
+        gap: 6
+    },
     text: {
         fontSize: 20,
         fontWeight: "600",
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     subText: {
         fontSize: 13,
         fontWeight: "400",
-        // flexWrap: "wrap"
+        color: "#24DEEC"
     },
     levelText: {
         fontSize: 14,

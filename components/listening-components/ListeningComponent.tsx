@@ -5,6 +5,7 @@ import SIZES from '@/constants/size';
 import Speaker from '../Speaker';
 import InfoButton from '../InfoButton';
 import InfoModal from '../modals/InfoModal';
+import LangphyText from '../text-components/LangphyText';
 
 const ListeningComponent: React.FC<ListeningProps> = ({language, children, color, style: customStyle, buttonStyle, speechContent, speechLang}) => {
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
@@ -14,7 +15,7 @@ const ListeningComponent: React.FC<ListeningProps> = ({language, children, color
 
         <View style={[styles.content, {backgroundColor: color}]}>
 
-          <Text style={[styles.languageText]}>{language}</Text>
+          <LangphyText weight="bold" style={[styles.languageText]}>{language}</LangphyText>
 
           {/* Speaker */}
           <View style={styles.speakerContainer}>
@@ -89,12 +90,10 @@ const styles = StyleSheet.create({
   speakerContainer: {
     flexDirection:"row",
     gap: 10,
-    // width: "50%"
   },
   languageText: {
     color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: "700",
     marginLeft: 10,
     textAlign: "center"
   }

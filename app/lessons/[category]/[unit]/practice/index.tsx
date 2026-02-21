@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   ScrollView
 } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
@@ -14,12 +13,11 @@ import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import PracticeLessonDetails from '@/components/practice-components/LessonDetails';
-import LessonList from '@/components/practice-components/LessonList';
 import { useLessons } from '@/hooks/useLessons';
 import { useProgress } from '@/hooks/useProgress';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
 import { randomUUID } from 'expo-crypto';
+import LangphyText from '@/components/text-components/LangphyText';
 
 const attemptId = randomUUID();
 
@@ -69,8 +67,6 @@ const PracticeLessons = () => {
     router.back();
   }, [router, setShowCompletionModal]);
 
-  const onModalOpenHandler = React.useCallback(() => setShowCompletionModal(true), [setShowCompletionModal]);
-  const onModalCloseHandler = React.useCallback(() => setShowCompletionModal(false), [setShowCompletionModal]);
   const onPositionChangeHandler = React.useCallback((index: number) => setCurrentPosition(index), [setCurrentPosition]);
   const onScrollerHandler = React.useCallback((scrollFn: ((index: number) => void)) => {scrollToLessonRef.current = scrollFn}, []);
 
@@ -81,108 +77,83 @@ const PracticeLessons = () => {
   if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
-    <>
-      <SessionLayout<PracticeSessionType>
-        preFetchedData={practiceData}
-        showFooter={true}
-        onSessionComplete={onModalOpenHandler}
-        onPositionChange={onPositionChangeHandler}
-        onRegisterScroller={onScrollerHandler} // {(scrollFn) => {scrollToLessonRef.current = scrollFn}}
-      >
-        {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, screenRef, setTooltip }) => {
-          const handleTooltip = (value: any) => setTooltip(value);
-          return (
-            <ScrollView
-              ref={scrollToRef}
-              nestedScrollEnabled
-              showsVerticalScrollIndicator={false}
-              onScrollBeginDrag={disableHorizontalScroll}
-              onScrollEndDrag={enableHorizontalScroll}
-              scrollEventThrottle={16}
+    <SessionLayout<PracticeSessionType>
+      preFetchedData={practiceData}
+      showFooter={true}
+      onPositionChange={onPositionChangeHandler}
+      onRegisterScroller={onScrollerHandler} // {(scrollFn) => {scrollToLessonRef.current = scrollFn}}
+    >
+      {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, screenRef, setTooltip }) => {
+        const handleTooltip = (value: any) => setTooltip(value);
+        return (
+          <ScrollView
+            ref={scrollToRef}
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+            onScrollBeginDrag={disableHorizontalScroll}
+            onScrollEndDrag={enableHorizontalScroll}
+            scrollEventThrottle={16}
+          >
+            <View
+              ref={screenRef}
+              style={styles.container}
             >
-              <View
-                ref={screenRef}
-                style={styles.container}
+              {/* English Section */}
+              <ListeningComponent
+                language="English"
+                color="#0A9AB0"
+                style={{backgroundColor: colors.listeningCardBackgroundColor}}
+                buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
+                speechContent={item.meaning}
+                speechLang="en-US"
               >
-                {/* English Section */}
-                <ListeningComponent
-                  language="English"
-                  color="#0A9AB0"
-                  style={{backgroundColor: colors.listeningCardBackgroundColor}}
-                  buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
-                  speechContent={item.meaning}
-                  speechLang="en-US"
-                >
-                  <Text style={[styles.text, { color: colors.text }]}>{item.meaning}</Text>
-                </ListeningComponent>
+                <LangphyText weight='semibold' style={[styles.text, { color: colors.text }]}>{item.meaning}</LangphyText>
+              </ListeningComponent>
 
-                <View style={styles.space} />
+              <View style={styles.space} />
 
-                {/* German Section */}
-                <ListeningComponent
-                  language="German"
-                  color="#1B7CF5"
-                  style={{backgroundColor: colors.listeningCardBackgroundColor}}
-                  buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
-                  speechContent={item.phrase}
-                  speechLang="de-DE"
-                >
+              {/* German Section */}
+              <ListeningComponent
+                language="German"
+                color="#1B7CF5"
+                style={{backgroundColor: colors.listeningCardBackgroundColor}}
+                buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
+                speechContent={item.phrase}
+                speechLang="de-DE"
+              >
 
-                  {/* Tappable Words with ToolTip */}
-                  <NLPAnalyzedPhase
-                    phrase={item.phrase}
-                    onHandler={handleTooltip}
-                    containerRef={containerRef}
-                    screenRef={screenRef}
-                    wordRefs={wordRefs}
-                    textContainerStyle={styles.nlp}
-                  />
+                {/* Tappable Words with ToolTip */}
+                <NLPAnalyzedPhase
+                  phrase={item.phrase}
+                  onHandler={handleTooltip}
+                  containerRef={containerRef}
+                  screenRef={screenRef}
+                  wordRefs={wordRefs}
+                  textContainerStyle={styles.nlp}
+                />
 
-                  {/* Sentence Footer */}
-                  {
-                    item?.usage_context && (
-                      <PracticeLessonDetails
-                        usage_context={item?.usage_context || ""}
-                        german_level={item?.german_level || ""}
-                        formality={item?.formality || ""}
-                        discussion={item?.discussion || ""}
-                        region={item?.region || ""}
-                        grammar_note={item?.grammar_note || ""}
-                        examples={item?.examples || []}
-                      />
-                    )
-                  }
+                {/* Sentence Footer */}
+                {
+                  item?.usage_context && (
+                    <PracticeLessonDetails
+                      usage_context={item?.usage_context || ""}
+                      german_level={item?.german_level || ""}
+                      formality={item?.formality || ""}
+                      discussion={item?.discussion || ""}
+                      region={item?.region || ""}
+                      grammar_note={item?.grammar_note || ""}
+                      examples={item?.examples || []}
+                    />
+                  )
+                }
 
-                </ListeningComponent>
+              </ListeningComponent>
 
-              </View>
-            </ScrollView>
-          )
-        }}
-      </SessionLayout>
-    
-      {/* Overlay lesson inspector */}
-      {
-        showLessonList && (
-          <LessonList
-            lessons={lessonListData}
-            scrollToLessonRef={scrollToLessonRef}
-            currentPosition={currentPosition}
-          />
+            </View>
+          </ScrollView>
         )
-      }
-
-      {
-        showCompletionModal && (
-          <UnitCompletionModal
-            isVisible={showCompletionModal}
-            sessionKey={sessionKey}
-            onContinue={onContinueHandler}
-            onModalVisible={onModalCloseHandler}
-          />
-        )
-      }
-    </>
+      }}
+    </SessionLayout>
   );
 };
 

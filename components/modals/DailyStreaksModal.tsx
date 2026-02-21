@@ -6,6 +6,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withSequence, withTiming } 
 import { useEffect } from "react";
 import LottieView from "lottie-react-native";
 import ActionPrimaryButton from "../form-components/ActionPrimaryButton";
+import LangphyText from "../text-components/LangphyText";
 
 type StreakTier =
     | "warm"
@@ -99,12 +100,12 @@ const DailyStreaksModal = ({
                         </View>
 
                         <Animated.View style={animatedStyle}>
-                            <Text style={[styles.streakCount, {color:colors.text}]}>{streak?.current_streak}</Text>
+                            <LangphyText weight="extrabold" style={[styles.streakCount, {color:colors.text}]}>{streak?.current_streak}</LangphyText>
                         </Animated.View>
 
                         <View style={styles.details}>
-                            <Text style={[styles.streakCountSuffix, {color:colors.text}]}>Day{(streak!.current_streak > 1 ? 's' : '')} Streak</Text>
-                            <Text style={[styles.subText, {color:colors.text}]}>Consistency makes you fluent.</Text>
+                            <LangphyText weight="bold" style={[styles.streakCountSuffix, {color:colors.text}]}>Day{(streak!.current_streak > 1 ? 's' : '')} Streak</LangphyText>
+                            <LangphyText style={[styles.subText, {color:colors.text}]}>Consistency makes you fluent.</LangphyText>
                         </View>
 
                     </View>

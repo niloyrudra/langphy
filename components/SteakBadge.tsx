@@ -5,6 +5,7 @@ import STYLES from '@/constants/styles';
 import { SteakIcon } from '@/utils/SVGImages';
 import { useStreak } from '@/hooks/useStreaks';
 import { authSnapshot } from '@/snapshots/authSnapshot';
+import LangphyText from './text-components/LangphyText';
 
 const SteakBadge = () => {
   const {colors,theme} = useTheme();
@@ -13,7 +14,8 @@ const SteakBadge = () => {
   return (
     <View style={[STYLES.childContentCentered, styles.container, {backgroundColor: colors.steakBadgeBackgroundColor}]}>
       <SteakIcon width={12} height={18} />
-      <Text
+      <LangphyText
+        weight="bold"
         style={[
           styles.steakCount,
           {color: colors.text},
@@ -21,7 +23,7 @@ const SteakBadge = () => {
         ]}
       >
         {streaks?.current_streak ?? '0'}
-      </Text>
+      </LangphyText>
     </View>
   )
 }

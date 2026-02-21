@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { memo, ReactNode } from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
+import LangphyText from '@/components/text-components/LangphyText';
 
 interface ResultDetailProps {
     label?: string;
@@ -20,12 +21,12 @@ const ResultDetail = ({label, detail, iconComponent}: ResultDetailProps) => {
             )}
 
             <View style={styles.content}>
-                {label && (<Text style={[ {color:colors.text}]}>{label}</Text>)}
+                {label && (<LangphyText weight="bold" style={[ {color:colors.text}]}>{label}</LangphyText>)}
                 {
                     typeof detail === 'string'
-                        ? (<Text style={[styles.detail, STYLES.wordWrapStyle, {color:colors.text}]}>
+                        ? (<LangphyText weight="extrabold" style={[styles.detail, STYLES.wordWrapStyle, {color:colors.text}]}>
                             {detail}
-                            </Text>)
+                            </LangphyText>)
                         : detail
                 }
             </View>
@@ -53,7 +54,6 @@ const styles = StyleSheet.create({
         gap: 5
     },
     detail: {
-        fontWeight: "800",
         fontSize: 16
     }
 })

@@ -154,7 +154,7 @@ function SessionLayout<T>({
   return (
     <SafeAreaLayout>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         enabled={keyboardAvoid}
         keyboardVerticalOffset={keyboardVerticalOffset}
@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative'
   },
+  flex: {flex: 1},
   content: {
     flex: 1,
     width: SIZES.screenWidth - SIZES.bodyPaddingHorizontal * 2,

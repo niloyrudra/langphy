@@ -3,6 +3,7 @@ import React from 'react'
 import { ProfileLearningProgressCardBg } from '@/utils/SVGImages';
 import { useTheme } from '@/theme/ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
+import LangphyText from '@/components/text-components/LangphyText';
 
 interface LearningProgressItemProps {
     icon: React.ReactNode;
@@ -24,14 +25,14 @@ const LearningProgressItem = ({icon, title, score}: LearningProgressItemProps) =
                     <View style={[styles.icon, {backgroundColor: colors.profileCardImgBgClr}]}>
                         {icon}
                     </View>
-                    <Text style={[styles.title, {color: colors.text }]}>{title}</Text>
+                    <LangphyText weight="medium" style={[styles.title, {color: colors.text }]}>{title}</LangphyText>
                 </View>
 
                 <LinearGradient
                     colors={[colors.profileCardStatsGradientLight, colors.profileCardStatsGradientDark]}
                     style={styles.scoreContainer}
                 >
-                    <Text style={[styles.score, {color: colors.text }]}>{score}</Text>
+                    <LangphyText weight="semibold" style={[styles.score, {color: colors.text }]}>{score}</LangphyText>
 
                 </LinearGradient>
 

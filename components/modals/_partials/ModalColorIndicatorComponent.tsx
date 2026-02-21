@@ -1,22 +1,29 @@
-import { View, Text, ColorValue } from 'react-native'
+import { View, ColorValue, StyleSheet } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons'
+import LangphyText from '@/components/text-components/LangphyText'
 
 const ModalColorIndicatorComponent = ({name, color}: {name: string, color: ColorValue}) => {
   return (
-    <View style={{flexDirection: "row", gap: 10, alignItems: "center"}}>
+    <View style={styles.container}>
         <AntDesign name="pinterest" size={20} color={color} />
-        <Text
-            style={{
-                color: color,
-                fontSize: 14,
-                fontWeight: "700"
-            }}
+        <LangphyText
+            weight="bold"
+            style={[styles.text, {color: color}]}
         >
             {name}
-        </Text>
+        </LangphyText>
     </View>
   )
 }
 
-export default ModalColorIndicatorComponent
+export default ModalColorIndicatorComponent;
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        gap: 10,
+        alignItems: "center"
+    },
+    text: {fontSize: 14}
+});

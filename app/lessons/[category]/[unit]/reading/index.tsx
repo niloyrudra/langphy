@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
 import { SelectiveResultType, ReadingSessionType, SessionType } from '@/types';
-// Components
 import HorizontalLine from '@/components/HorizontalLine';
 import QuizOptions from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
@@ -11,10 +10,8 @@ import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import SessionResultModal from '@/components/modals/SessionResultModal';
 import { useLessons } from '@/hooks/useLessons';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { authSnapshot } from '@/snapshots/authSnapshot';
@@ -22,7 +19,7 @@ import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
-import LottieView from 'lottie-react-native';
+import LangphyText from '@/components/text-components/LangphyText';
 
 const attemptId = randomUUID();
 
@@ -32,8 +29,7 @@ const ReadingLessons = () => {
   const { colors } = useTheme();
   const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
-  const { triggerSessionCompletion, triggerStreak } = useCelebration();
-  const speakerRef = React.useRef<LottieView>(null);
+  const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const cardWidth = getCardContainerWidth();
 
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
@@ -45,7 +41,6 @@ const ReadingLessons = () => {
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
   const [ error, setError ] = React.useState<string>('')
-  const [ result, setResult ] = React.useState<SelectiveResultType | null>(null)
 
   const lessonData = React.useMemo<ReadingSessionType[]>(() => {
     if( !readingLessons ) return [];
@@ -54,17 +49,15 @@ const ReadingLessons = () => {
 
   // Handlers
   const handleSelect = (option: string) => {
-    setSelectedOption( prevValue => prevValue = option);
-    setIsSelectionHappened( prevValue => prevValue = true);
+    setSelectedOption(option);
+    setIsSelectionHappened(true);
   };
 
   const reset = React.useCallback(() => {
-    setSelectedOption("");
+    setSelectedOption(null);
     setIsSelectionHappened(false);
     setIsCorrect(false);
-    setResult(null);
     setError("");
-    // setLoading(false);
   }, []);
 
   const onLessonComplete = React.useCallback(async (lesson: ReadingSessionType, score: number) => {
@@ -101,20 +94,35 @@ const ReadingLessons = () => {
     }
   }, [userId, slug, lessonData?.length, stop]);
 
-  const onContinue = React.useCallback( async () => {
-    try {
-      const score = result?.isCorrect ? 100 : 0;
-      await onLessonComplete( currentLessonRef.current!, score );
-      reset();
-      goToNextRef?.current && goToNextRef.current?.();
-    }
-    catch(error) {
-      console.error("Reading Question Completion error:", error);
-    }
-  }, [reset, result, onLessonComplete]);
+  const checkAnswerHandler = React.useCallback((answer: string) => {
+    const isCorrect: boolean = selectedOption === answer;
+    const resultPayload = {
+      isCorrect: isCorrect,
+      answered: selectedOption || "",
+      feedback: {
+        label: isCorrect ? "Correct" : "Incorrect",
+        color: isCorrect ? "green" : "red"
+      }
+    } as SelectiveResultType;
 
-  const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
-  
+    triggerLessonResult({
+      result: resultPayload,
+      onContinue: async () => {
+        try {
+          const score = resultPayload.isCorrect ? 100 : 0;
+          await onLessonComplete(currentLessonRef.current!, score);
+          reset();
+          goToNextRef.current?.();
+          resolveCurrent();
+        }
+        catch(error) {
+          console.error("Reading Question Completion error:", error);
+        }
+      },
+      onRetry: reset
+    });
+  }, [ selectedOption, triggerLessonResult, reset, onLessonComplete, resolveCurrent ]);
+ 
   const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: ReadingSessionType, index: number, goToNext: () => void}) => {
     activeLessonOrderRef.current = index;
     currentLessonRef.current = item;
@@ -131,100 +139,74 @@ const ReadingLessons = () => {
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
-    <>
-      <SessionLayout<ReadingSessionType>
-        preFetchedData={lessonData}
-        onSessionComplete={sessionCompletionModalHandler}
-        onActiveItemChange={activeItemChangeHandler}
-      >
-        {({ item, wordRefs, containerRef, screenRef, setTooltip }) => {
-          const handleTooltip = (value: any) => {
-            setTooltip(value);
-          };
-          const onCheckHandler = () => {
-            const result: boolean = selectedOption === item?.answer;
-            setIsCorrect( result )
-            setResult({
-              isCorrect: result,
-              answered: selectedOption || "",
-              feedback: {
-                label: result ? "Correct" : "Incorrect",
-                color: result ? "green" : "red"
-              }
-            });
-          };
-          
-          return (
+    <SessionLayout<ReadingSessionType>
+      preFetchedData={lessonData}
+      onActiveItemChange={activeItemChangeHandler}
+    >
+      {({ item, wordRefs, containerRef, screenRef, setTooltip }) => {
+        const handleTooltip = (value: any) => {
+          setTooltip(value);
+        };          
+        return (
+          <View style={styles.flex}>
+
             <View style={styles.flex}>
+              {/* Title Section */}
+              <ChallengeScreenTitle title="Read The Comprehension." />
 
-              <View style={styles.flex}>
-                {/* Title Section */}
-                <ChallengeScreenTitle title="Read The Comprehension." />
-
-                  <View style={[styles.container]}>
-                    {/* Query Listen with Query Text Section */}
-                    <SpeakerComponent
-                      speechContent={item?.phrase}
-                      speechLang='de-DE'
-                    />
-                            
-                    {/* Tappable Words with ToolTip */}
-                    <NLPAnalyzedPhase
-                      phrase={item.phrase}
-                      onHandler={handleTooltip}
-                      wordRefs={wordRefs}
-                      containerRef={containerRef}
-                      screenRef={screenRef}
-                      textStyle={styles.text}
-                      textContainerStyle={styles.textContainer}
-                    />
-                  </View>
-
-                <HorizontalLine />
-
-                <View style={styles.questionSection}>
-                  <View style={styles.questionWrapper}>
-                    <Text style={[styles.question, {color: colors.text}]}>{item?.question_en}</Text>
-                  </View>
-
-                  {/* QUIZ Answer Options */}
-                  <QuizOptions 
-                    height={cardWidth / 2} 
-                    options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
-                    answer={item?.answer || ""}
-                    isCorrect={ isCorrect }
-                    selectedOption={selectedOption || ""}
-                    onSelect={handleSelect}
-                    isSelectionHappened={isSelectionHappened}
+                <View style={[styles.container]}>
+                  {/* Query Listen with Query Text Section */}
+                  <SpeakerComponent
+                    speechContent={item?.phrase}
+                    speechLang='de-DE'
                   />
-
+                          
+                  {/* Tappable Words with ToolTip */}
+                  <NLPAnalyzedPhase
+                    phrase={item.phrase}
+                    onHandler={handleTooltip}
+                    wordRefs={wordRefs}
+                    containerRef={containerRef}
+                    screenRef={screenRef}
+                    textStyle={styles.text}
+                    textContainerStyle={styles.textContainer}
+                  />
                 </View>
+
+              <HorizontalLine />
+
+              <View style={styles.questionSection}>
+                <View style={styles.questionWrapper}>
+                  <LangphyText weight="bold" style={[styles.question, {color: colors.text}]}>{item?.question_en}</LangphyText>
+                </View>
+
+                {/* QUIZ Answer Options */}
+                <QuizOptions 
+                  height={cardWidth / 2} 
+                  options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
+                  answer={item?.answer || ""}
+                  isCorrect={ isCorrect }
+                  selectedOption={selectedOption || ""}
+                  onSelect={handleSelect}
+                  isSelectionHappened={isSelectionHappened}
+                />
+
               </View>
-
-              {error && (<Error text={error} />)}
-
-              {/* Action Buttons */}
-              <ActionPrimaryButton
-                buttonTitle='Check'
-                onSubmit={onCheckHandler}
-                disabled={!selectedOption ? true : false }
-              />
-
             </View>
-          );
-        }}
-      </SessionLayout>              
-    
-      {
-        result && (<SessionResultModal
-          isVisible={result ? true : false}
-          result={result!}
-          onContinue={onContinue}
-          onModalVisible={reset}
-          onRetry={reset}
-        />)
-      }
-    </>
+
+            {error && (<Error text={error} />)}
+
+            {/* Action Buttons */}
+            <ActionPrimaryButton
+              buttonTitle='Check'
+              onSubmit={() => checkAnswerHandler(item?.answer)}
+              disabled={!selectedOption ? true : false }
+            />
+
+          </View>
+        );
+      }}
+    </SessionLayout>
   );
 }
 
@@ -243,7 +225,7 @@ const styles = StyleSheet.create({
   },
   questionSection: {flex:1},
   questionWrapper: {marginBottom:10},
-  question: {fontSize: 16, fontWeight:"700"},
+  question: {fontSize: 16},
   text: {
     fontSize: 14,
     flexWrap: 'wrap'

@@ -548,7 +548,7 @@ type SpeechResultWordS = {
   confidence: string | number
 }
 
-type SpeechResult = {
+type SpeechResultType = {
     analysis: {
         feedback: string;
         issues: string[];
@@ -558,7 +558,7 @@ type SpeechResult = {
     };
     sagments: Segments[];
     transcription: string;
-    words?: WordConfidence[]; // SpeechResultWordS[];
+    words: WordConfidence[]; // SpeechResultWordS[];
 }
 
 type SessionResultType = {
@@ -800,7 +800,8 @@ export {
   NlpData,
   WordLayout,
 
-  SpeechResult,
+  SpeechResultType,
+  // SpeechResultWordS,
   SessionResultType,
 
   Feedback,

@@ -1,19 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Confidence } from '@/types'
 import ProgressBar from '@/components/ProgressBar'
 import { useTheme } from '@/theme/ThemeContext'
+import LangphyText from '@/components/text-components/LangphyText'
 
 const WordConfidenceComponent = ({text, confidence}: {text: string, confidence: Confidence}) => {
     const {colors} = useTheme();
     return (
         <View style={[styles.container, {backgroundColor: colors.background}]}>
-            <Text style={[styles.word,{ color: confidence.color }]}>
+            <LangphyText weight="extrabold" style={[styles.word,{ color: confidence.color }]}>
                 {text}
-            </Text>
-            <Text style={[styles.feedback,{ color: confidence.color }]}>
+            </LangphyText>
+            <LangphyText weight="semibold" style={[styles.feedback,{ color: confidence.color }]}>
                 ({confidence.label})
-            </Text>
+            </LangphyText>
             <ProgressBar completion={parseFloat(confidence.score)} />
         </View>
     )
@@ -31,10 +32,8 @@ const styles = StyleSheet.create({
     },
     word: {
         fontSize: 16,
-        fontWeight: "800"
     },
     feedback: {
         fontSize: 10,
-        fontWeight: "600"
     }
 })

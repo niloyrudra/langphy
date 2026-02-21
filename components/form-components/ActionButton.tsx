@@ -5,6 +5,7 @@ import STYLES from '@/constants/styles';
 import SIZES from '@/constants/size';
 
 import { useTheme } from '@/theme/ThemeContext';
+import LangphyText from '../text-components/LangphyText';
 
 const ActionButton = ( {
     buttonTitle="Submit",
@@ -31,7 +32,8 @@ const ActionButton = ( {
             onPress={onSubmit}
             disabled={disabled || isLoading}
         >
-            <Text
+            <LangphyText
+                weight="extrabold"
                 style={[
                     styles.button,
                     {
@@ -41,7 +43,7 @@ const ActionButton = ( {
                 ]}
             >
                 {isLoading ? "Processing..." : buttonTitle}
-            </Text>
+            </LangphyText>
         </TouchableOpacity>
     );
 }
@@ -56,6 +58,5 @@ const styles = StyleSheet.create({
     },
     button: {
         fontSize: 16,
-        fontWeight: "800"
     }
 })

@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Modal, Dimensions } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import { SpeechResult } from '@/types';
+import { SpeechResultType } from '@/types';
 import { feedbackComments } from '@/utils';
 import HorizontalLine from '../HorizontalLine';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
@@ -14,7 +14,7 @@ import WordConfidenceComponent from './_partials/WordConfidenceComponent';
 interface SpeechResultModalProps {
     isVisible: boolean;
     onModalVisible: () => void;
-    result: SpeechResult;
+    result: SpeechResultType;
     onRetry: () => void;
     onContinue: () => void;
 }

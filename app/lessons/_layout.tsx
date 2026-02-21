@@ -13,9 +13,6 @@ const LessonCategoryLayout = () => {
         options={{
           headerStyle: {backgroundColor: colors.background},
           headerShadowVisible: false,
-          headerTitleStyle: {
-            // padding: 0
-          },
           headerTitle: "",
           headerLeft: () => (<HeaderLogo />),
           headerRight: () => (<HeaderRightComponent />)

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import LearningProgressItem from '@/components/dashboard/_partials/LearningProgressItem';
 import { ProfileLessonIcon, ProfilePhraseIcon, ProfileUnitIcon, ProfileWordsIcon } from '@/utils/SVGImages';
 import Title from '@/components/Title';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 type LearningProress = {
     id: number,
@@ -41,7 +41,7 @@ const learningProgressData: LearningProress[] = [
 const LearningProgress = ({title}: {title:string}) => {
     return (
         <View style={{gap: 10}}>
-            <Title title={title} contentStyle={{ fontSize: 20, fontWeight: "600" }} />
+            <Title title={title} contentStyle={styles.title} />
             {
                 learningProgressData.map((item, idx) => (
                     <LearningProgressItem
@@ -57,3 +57,10 @@ const LearningProgress = ({title}: {title:string}) => {
 }
 
 export default LearningProgress;
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 20,
+        fontWeight: "600"
+    }
+});

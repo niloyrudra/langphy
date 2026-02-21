@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
+import LangphyText from '@/components/text-components/LangphyText';
 
 interface StatsDetailProps {
     title: string;
@@ -14,9 +15,9 @@ const StatsDetail = ({title, stats, icon}: StatsDetailProps) => {
         <View style={styles.content}>
             <View style={styles.item}>
                 {icon}
-                <Text style={[styles.stats, {color: colors.text}]}>{stats}</Text>
+                <LangphyText weight="extrabold" style={[styles.stats, {color: colors.text}]}>{stats}</LangphyText>
             </View>
-            <Text style={[styles.title, {color: colors.text}]}>{title}</Text>
+            <LangphyText weight="semibold" style={[styles.title, {color: colors.text}]}>{title}</LangphyText>
         </View>
     );
 }

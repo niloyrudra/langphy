@@ -3,6 +3,7 @@ import React from 'react'
 // import * as STYLES from "@/constants/styles"; 
 import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
+import LangphyText from './text-components/LangphyText';
 
 const OnBoardingStudyDurationCard = ({label, duration}: {label: string, duration: string}) => {
     const { colors } = useTheme();
@@ -11,7 +12,7 @@ const OnBoardingStudyDurationCard = ({label, duration}: {label: string, duration
       style={[styles.container, {backgroundColor: colors.textFieldBackgroundColor, borderColor: colors.textFieldBorderColor}]}
       onPress={() => console.log("....")}
     >
-      <Text style={{fontSize: 14, color: colors.text}}>{label}</Text>
+      <LangphyText style={{fontSize: 14, color: colors.text}}>{label}</LangphyText>
     </TouchableOpacity>
   )
 }

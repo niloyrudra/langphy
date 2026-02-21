@@ -7,6 +7,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
 import { AppProvider } from "@/context/AppContext";
 import { runMigrations } from "@/db/migrate";
+import {
+  Poppins_100Thin,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+  Poppins_800ExtraBold,
+  Poppins_900Black
+} from '@expo-google-fonts/poppins';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -14,17 +24,17 @@ const RootLayout = () => {
   const [ready, setReady] = React.useState<boolean>(false);
   // Fonts Loading
   const [ loaded, error ] = useFonts({
-    'PlusJakartaSans-Regular':    require( '../assets/fonts/PlusJakartaSans-Regular.ttf' ),
-    'PlusJakartaSans-Bold':       require( '../assets/fonts/PlusJakartaSans-Bold.ttf' ),
-    'PlusJakartaSans-Medium':     require( '../assets/fonts/PlusJakartaSans-Medium.ttf' ),
-    'PlusJakartaSans-Light':      require( '../assets/fonts/PlusJakartaSans-Light.ttf' ),
-    'PlusJakartaSans-ExtraLight': require( '../assets/fonts/PlusJakartaSans-ExtraLight.ttf' ),
-    'PlusJakartaSans-SemiBold':   require( '../assets/fonts/PlusJakartaSans-SemiBold.ttf' ),
-    'PlusJakartaSans-ExtraBold':  require( '../assets/fonts/PlusJakartaSans-ExtraBold.ttf' ),
-    'Inter-Black':                require( '@expo-google-fonts/inter/Inter_900Black.ttf' ),
-    'Inter-Bold':                 require( '@expo-google-fonts/inter/Inter_700Bold.ttf' ),
-    'Inter-Regular':              require( '@expo-google-fonts/inter/Inter_400Regular.ttf' ),
-    'Inter-Light':                require( '@expo-google-fonts/inter/Inter_300Light.ttf' ),
+    // ✅ Poppins
+    Poppins_100Thin,
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+    Poppins_800ExtraBold,
+    Poppins_900Black
+    // 'PlusJakartaSans-Regular':    require( '../assets/fonts/PlusJakartaSans-Regular.ttf' ),
+    // 'Inter-Black':                require( '@expo-google-fonts/inter/Inter_900Black.ttf' ),
   });
 
   React.useEffect(() => {

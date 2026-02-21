@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import UnitRectangleCard from '../UnitRectangleCard'
 import SIZES from '@/constants/size'
 import { useLocalSearchParams } from 'expo-router'
@@ -9,10 +9,9 @@ import { LocalUnitType } from '@/types'
 
 const UnitList = () => {
   const { categoryId } = useLocalSearchParams();
-  const { data: units, isLoading, isFetching, isSuccess, isError } = useUnits( categoryId as string );
+  const { data: units, isLoading, isFetching } = useUnits( categoryId as string );
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
-  // console.log("units length:", units?.length)
   return (
     <>
       <FlatList
@@ -20,7 +19,7 @@ const UnitList = () => {
         keyExtractor={({id}:LocalUnitType) => id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: SIZES.cardGap }}
-        ListHeaderComponent={(<View style={{height:0}}/>)}
+        ListHeaderComponent={(<View style={styles.noSpace}/>)}
         renderItem={({item: {title, category_id, id, slug}}: {item: LocalUnitType}) => {
           return (
             <UnitRectangleCard
@@ -33,10 +32,15 @@ const UnitList = () => {
             />
           )
         }}
-        ListFooterComponent={(<View style={{height:30}} />)}
+        ListFooterComponent={(<View style={styles.space} />)}
       />
     </>
   );
 }
 
 export default UnitList;
+
+const styles = StyleSheet.create({
+  noSpace: {height:0},
+  space: {height: 30}
+});

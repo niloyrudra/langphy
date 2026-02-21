@@ -1,15 +1,16 @@
-import { StyleSheet, View, Text, Modal, Dimensions, ColorValue, ViewStyle, StyleProp } from 'react-native'
+import { StyleSheet, View, Modal, Dimensions, ColorValue, ViewStyle, StyleProp } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@/theme/ThemeContext';
 import { Feedback } from '@/types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LangphyText from '@/components/text-components/LangphyText';
 
 type ModalLayoutProps = {
     isVisible: boolean;
     onModalVisible: () => void;
     children: React.ReactNode;
-    feedback?: Feedback;
+    feedback?: Feedback | string;
     gradianColor: readonly [ColorValue, ColorValue, ...ColorValue[]];
     containerStyle?: StyleProp<ViewStyle>;
 }
@@ -26,11 +27,7 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
             visible={isVisible}
             onRequestClose={onModalVisible}
             backdropColor={colors.modalBackDropColor}
-            style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').height,
-                bottom: 0
-            }}
+            style={styles.container}
             
         >
             <View style={[styles.centeredView]}>
@@ -42,8 +39,6 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
                             borderTopColor: colors.modalBoderColor, // cardBorderColor
                             borderLeftColor: colors.modalBoderColor,
                             borderRightColor: colors.modalBoderColor,
-                            width: '98%',
-                            overflow: 'hidden'
                         },
                         (containerStyle && containerStyle)
                     ]}
@@ -51,13 +46,18 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
                     {/* Modal Content */}
                     <LinearGradient
                         colors={gradianColor}
-                        style={[{padding: 20}]}
+                        style={styles.modalContainer}
                     >
 
                         {/* Modal Header */}
                         {feedback && (
-                            <View style={{marginBottom: 15}}>
-                                <Text style={[styles.modalText, {color: feedback.color}]}>{feedback.label}</Text>
+                            <View style={styles.modalHeader}>
+                                {
+                                    typeof feedback === 'string'
+                                        ? (<LangphyText weight="bold" style={[styles.modalText, {color: colors.text}]}>{feedback}</LangphyText>)
+                                        : (<LangphyText weight="bold" style={[styles.modalText, {color: feedback.color}]}>{feedback.label}</LangphyText>)
+                                }
+                                
                             </View>
                         )}
 
@@ -74,6 +74,11 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
 export default ModalLayout;
 
 const styles = StyleSheet.create({
+    container: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        bottom: 0
+    },
     centeredView: {
         flex: 1,
         justifyContent: 'flex-end',
@@ -81,7 +86,8 @@ const styles = StyleSheet.create({
         bottom: 0
     },
     modalView: {
-        // position: "relative",
+        width: '98%',
+        overflow: 'hidden',
         borderStartStartRadius: 20,
         borderEndStartRadius: 20,
         borderTopWidth: 6,
@@ -96,6 +102,8 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
+    modalContainer: {padding: 20},
+    modalHeader: {marginBottom: 15},
     textStyle: {
         color: 'white',
         fontWeight: 'bold',
@@ -103,7 +111,6 @@ const styles = StyleSheet.create({
     },
     modalText: {
         fontSize: 20,
-        fontWeight: "700"
     },
     contentWrapper: {
         marginTop: 10,

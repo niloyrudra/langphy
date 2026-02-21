@@ -1,8 +1,9 @@
-import { View, Text, StyleProp, ViewStyle, TextStyle } from 'react-native'
+import { View, StyleProp, ViewStyle, TextStyle, StyleSheet } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { NlpData, Token, ToolTip } from '@/types';
 import NLPWord from './NLPWord';
+import LangphyText from '../text-components/LangphyText';
 
 interface ToolTipProps {
     phrase: string;
@@ -59,27 +60,15 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
     }, [phrase]);
 
     if( loading ) return (
-        <View style={{marginBottom: 20}}>
-            <Text style={{color: colors.text, fontSize: 20}} >... ...</Text>
+        <View style={styles.loader}>
+            <LangphyText style={[styles.loaderContent, {color: colors.text}]}>... ...</LangphyText>
         </View>
     );
 
     return (
         <View
-            style={[
-                {
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    alignItems: "flex-end",
-                    justifyContent: "flex-start",
-                    gap: 2
-                },
-                (textContainerStyle && textContainerStyle)
-            ]}
-        >
+            style={[styles.container, (textContainerStyle && textContainerStyle)]}>
             {
-                // Array.isArray(nlpTokens) &&
-                // nlpTokens.length > 0 &&
                 nlpTokens?.map( (token: Token, idx: number) => (
                     <NLPWord
                         key={idx?.toString()}
@@ -98,3 +87,15 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
 }
 
 export default NLPAnalyzedPhase;
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "flex-end",
+        justifyContent: "flex-start",
+        gap: 2
+    },
+    loader: {marginBottom: 20},
+    loaderContent: {fontSize: 20}
+});

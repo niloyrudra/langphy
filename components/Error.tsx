@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
+import LangphyText from './text-components/LangphyText';
 
 const Error = ({text}: {text: string}) => {
     const {colors} = useTheme();
     return (
         <View style={styles.container}>
-            <Text style={{color: colors.redDanger}}>{text}</Text>
+            <LangphyText style={{color: colors.redDanger}}>{text}</LangphyText>
         </View>
     );
 }

@@ -6,7 +6,7 @@ import TextInputComponent from '@/components/form-components/TextInputComponent'
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import { SessionType, SessionResultType, WritingSessionType } from '@/types';
+import { SessionType, WritingSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { useLessons } from '@/hooks/useLessons';
@@ -34,10 +34,8 @@ const WritingSession = () => {
   const currentLessonRef = React.useRef<WritingSessionType | null>(null);
   
   const [ textContent, setTextContent ] = React.useState<string>('')
-  const [ result, setResult ] = React.useState<SessionResultType | null>(null)
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
-
 
   const lessonData = React.useMemo<WritingSessionType[]>(() => {
     if( !readingLessons ) return [];
@@ -45,6 +43,12 @@ const WritingSession = () => {
   }, [readingLessons]);
 
   // Handlers
+  const reset = React.useCallback(() => {
+    setTextContent("");
+    setError("");
+    setLoading(false);
+  }, []);
+
   const onLessonComplete = React.useCallback(async (lesson: WritingSessionType, score: number) => {
     if(!userId) return;
     try {
@@ -94,7 +98,6 @@ const WritingSession = () => {
       setLoading(true);
       const data = await analysisNLP( expectedText, textContent );
       if( data ) {
-        // setResult(data);
         triggerLessonResult({
           actualQuery: expectedText,
           result: data,
@@ -109,14 +112,7 @@ const WritingSession = () => {
     } finally {
       setLoading(false);
     }
-  }, [textContent, analysisNLP]);
-
-  const reset = React.useCallback(() => {
-    setTextContent("");
-    setResult(null);
-    setError("");
-    setLoading(false);
-  }, []);
+  }, [textContent, analysisNLP, triggerLessonResult, reset]);
 
   const onContinue = React.useCallback(async (result: any) => {
     const score = (result && result!.similarity) ? result!.similarity*100 : 0;
@@ -125,9 +121,7 @@ const WritingSession = () => {
     goToNextRef?.current && goToNextRef.current?.();
     
     resolveCurrent();
-  }, [reset, result, onLessonComplete, resolveCurrent]);
-
-  const sessionCompletionModalHandler = React.useCallback(() => triggerSessionCompletion(performanceSessionKey), [triggerSessionCompletion]);
+  }, [reset, onLessonComplete, resolveCurrent]);
 
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: WritingSessionType, index: number, goToNext: () => void}) => {
     activeLessonOrderRef.current = index;
@@ -146,7 +140,6 @@ const WritingSession = () => {
     <SessionLayout<WritingSessionType>
       keyboardAvoid={true}
       preFetchedData={lessonData}
-      onSessionComplete={sessionCompletionModalHandler}
       onActiveItemChange={activeItemChangeHandler}
     >
       {({ item }) => {
