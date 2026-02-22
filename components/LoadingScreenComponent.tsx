@@ -14,6 +14,12 @@ const LoadingScreenComponent = () => {
                 speed={1}
                 resizeMode='contain'
                 style={styles.lottie}
+                colorFilters={[
+                    {
+                        keypath: "Loading Text",
+                        color: colors.text, 
+                    },
+                ]}
             />
         </View>
     )

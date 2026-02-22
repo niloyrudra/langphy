@@ -2,7 +2,7 @@ import { getLocalProfile } from "@/db/profile.repo";
 import { QueryClient, useQuery } from "@tanstack/react-query"
 
 export const useProfile = (userId: string) => useQuery({
-    queryKey: ["lp_profiles", userId],
+    queryKey: ["lp_profiles"],
     enabled: !!userId,
     queryFn: async () => await getLocalProfile(userId),
     staleTime: Infinity,

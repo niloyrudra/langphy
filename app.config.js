@@ -35,6 +35,7 @@ export default {
       "expo-web-browser",
       "expo-secure-store",
       "expo-asset",
+      "expo-notifications",
       [
         "expo-splash-screen",
         {

@@ -17,6 +17,9 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black
 } from '@expo-google-fonts/poppins';
+import api from "@/lib/api";
+import { Platform } from "react-native";
+import { registerForPushNotifications } from "@/domain/notificationRules";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -58,6 +61,21 @@ const RootLayout = () => {
       // console.log("Dirty rows before sync:", dirtyRows);
     })()
     runMigrations().then(() => setReady(true)).then(() => console.log("Migration done!")).catch(console.warn);
+  }, []);
+
+  React.useEffect(() => {
+    const setupPush = async () => {
+      const token = await registerForPushNotifications();
+
+      if (!token) return;
+
+      await api.post("/notification/devices/register", {
+        token,
+        platform: Platform.OS,
+      });
+    };
+
+    setupPush();
   }, []);
 
   if (!loaded && !error) {

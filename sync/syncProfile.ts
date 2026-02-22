@@ -7,7 +7,7 @@ export const syncDirtyProfile = async (userId: string) => {
 
     // If no local profile → fetch and store
     if (!localProfile) {
-      const res = await api.get(`/profile/${userId}`);
+      const res = await api.get(`/profile`);
       const profile = res.data.profile; // adjust if needed
 
       if (!profile) throw new Error("No profile found");
@@ -38,7 +38,7 @@ export const syncDirtyProfile = async (userId: string) => {
       return true;
     }
 
-    const res = await api.put(`/profile/update/${localProfile.id}`, payload);
+    const res = await api.put(`/profile/update`, payload);
 
     // Only sync when dirty
     // const res = await api.put(`/profile/update/${localProfile.id}`, {
