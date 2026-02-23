@@ -19,14 +19,14 @@ const feedback = ( score: number ) => {
     else return "Be positive"
 }
 
-type UnitCompletionModalProps = {
+type SessionCompletionModalProps = {
     isVisible: boolean;
     sessionKey: string;
     onModalVisible: () => void;
     onContinue: () => void;
 };
 
-const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}: UnitCompletionModalProps) => {
+const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}: SessionCompletionModalProps) => {
     const {colors} = useTheme();
     const { data: performance } = usePerformance( sessionKey );
     return (
@@ -100,7 +100,7 @@ const UnitCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}
     );
 }
 
-export default UnitCompletionModal;
+export default SessionCompletionModal;
 
 const styles = StyleSheet.create({
     container: {

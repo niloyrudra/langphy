@@ -1,14 +1,14 @@
+import { useEffect, useRef } from 'react';
 import { router, Stack } from 'expo-router';
+import { useTheme } from '@/theme/ThemeContext';
+import { useCelebration } from '@/context/CelebrationContext';
+import { truncateString } from '@/utils';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import Settings from '@/components/header/Settings';
-import { useTheme } from '@/theme/ThemeContext';
-import { truncateString } from '@/utils';
 import HeaderTitle from '@/components/header/HeaderTitle';
 import DailyStreaksModal from '@/components/modals/DailyStreaksModal';
-import { useCelebration } from '@/context/CelebrationContext';
-import UnitCompletionModal from '@/components/modals/UnitCompletionModal';
-import { useEffect, useRef } from 'react';
-import SessionResultModal from '@/components/modals/SessionResultModal';
+import SessionCompletionModal from '@/components/modals/SessionCompletionModal';
+import LessonCompletionModal from '@/components/modals/LessonCompletionModal';
 
 const UnitLayout = () => {
   const {colors} = useTheme();
@@ -51,7 +51,7 @@ const UnitLayout = () => {
 
       {
         current?.type === "lesson_complete" && (
-          <SessionResultModal
+          <LessonCompletionModal
             isVisible
             actualQuery={current.payload.actualQuery}
             result={current.payload.result}
@@ -71,7 +71,7 @@ const UnitLayout = () => {
 
       {
         current?.type === "session_complete" && (
-          <UnitCompletionModal
+          <SessionCompletionModal
             isVisible
             sessionKey={current.sessionKey}
             onContinue={() => {

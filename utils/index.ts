@@ -390,12 +390,6 @@ export const feedbackComments = (similarity: number): Feedback => {
   };
 };
 
-
-const getProfile = async () => {
-  const { data } = await api.get("/profile");
-  return data;
-};
-
 // universal normalize function for all collections
 export const normalizeId = <T extends { _id: string }>(item: T) => ({ id: item._id, ...item });
 export const normalizeIds = <T extends { _id: string }>(items: T[]) => items.map(normalizeId);

@@ -11,7 +11,7 @@ import ModalLayout from './_partials/ModalLayout';
 import WordConfidenceComponent from './_partials/WordConfidenceComponent';
 // import HorizontalLine from '../HorizontalLine';
 
-interface SessionResultModalProps {
+interface LessonCompletionModalProps {
     isVisible: boolean;
     actualQuery?: string;
     onModalVisible: () => void;
@@ -20,7 +20,7 @@ interface SessionResultModalProps {
     onContinue: () => void;
 }
 
-const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRetry, onContinue}: SessionResultModalProps) => {
+const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, onRetry, onContinue}: LessonCompletionModalProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
     const isSelective = 'answered' in result;
@@ -46,8 +46,8 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
 
     const feedback = React.useMemo(() => {
         if (isSelective) return result.feedback ?? "";
-        if (isSimilarity) return feedbackComments(result.similarity) ?? "";
-        if (isSpeech) return feedbackComments(result.analysis.similarity) ?? "";
+        if (isSimilarity) return feedbackComments( result.similarity ?? "" );
+        if (isSpeech) return feedbackComments( result.analysis.similarity ?? 0 );
         return "Your Result!";
     }, [result, isSelective, isSimilarity, isSpeech]);
 
@@ -169,7 +169,7 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
     );
 }
 
-export default SessionResultModal;
+export default LessonCompletionModal;
 
 const styles = StyleSheet.create({
     modalContainer: {
