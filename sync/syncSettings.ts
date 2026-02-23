@@ -7,7 +7,7 @@ export const syncDirtySettings = async (userId: string) => {
 
     // 🟢 If no local settings → fetch and store
     if (!localSettings) {
-      const res = await api.get(`/settings/${userId}`);
+      const res = await api.get(`/settings`);
       const settings = res.data.settings;
 
       if (!settings) {
@@ -24,7 +24,7 @@ export const syncDirtySettings = async (userId: string) => {
     }
 
     // 🔵 Only sync when dirty
-    const res = await api.put(`/settings/${userId}`, {
+    const res = await api.put(`/settings`, {
       theme: localSettings.theme,
       language: localSettings.language,
       notifications: Boolean(localSettings.notifications),

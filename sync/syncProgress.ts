@@ -9,7 +9,7 @@ export const syncDirtyProgress = async ( userId: string ) => {
   if (!dirty.length) return;
 
   try {
-    await api.post(`/progress/bulk-sync/${userId}`, {
+    await api.post(`/progress/bulk-sync`, {
       items: dirty.map(p => ({
         category_id: p.category_id,
         unit_id: p.unit_id,

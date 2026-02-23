@@ -6,7 +6,7 @@ export const syncDirtyStreaks = async (userId: string) => {
     if (!Array.isArray(dirtyStreaks) || dirtyStreaks.length === 0) return;
 
     try {
-        const response = await api.post("/streaks/bulk-sync", { items: dirtyStreaks });
+        const response = await api.post("/streaks", { items: dirtyStreaks });
         if (response.status !== 200) return;
         await markStreaksClean(dirtyStreaks);
 

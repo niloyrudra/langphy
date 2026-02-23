@@ -47,7 +47,7 @@ const SessionResultModal = ({isVisible, actualQuery,onModalVisible, result, onRe
     const feedback = React.useMemo(() => {
         if (isSelective) return result.feedback ?? "";
         if (isSimilarity) return feedbackComments(result.similarity) ?? "";
-        if (isSpeech) return result.analysis.feedback ?? "";
+        if (isSpeech) return feedbackComments(result.analysis.similarity) ?? "";
         return "Your Result!";
     }, [result, isSelective, isSimilarity, isSpeech]);
 
