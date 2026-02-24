@@ -8,7 +8,7 @@ import {
     AudioModule,
     setAudioModeAsync,
 } from "expo-audio";
-import { SpeechResult } from "@/types";
+import { SpeechResultType } from "@/types";
 import { useCelebration } from "@/context/CelebrationContext";
 
 const initialState = {
@@ -16,7 +16,7 @@ const initialState = {
     recordedUri: null as string | null,
     loading: false,
     isRecordingDone: false,
-    result: null as SpeechResult | null,
+    result: null as SpeechResultType | null,
     error: null as string | null,
 };
 
@@ -26,7 +26,7 @@ const useSpeechRecorder = ( text: string | null ) => {
     const [ recordedUri, setRecordedUri ] = useState<string | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ isRecordingDone, setIsRecordingDone ] = useState<boolean>(false)
-    const [ result, setResult ] = useState<SpeechResult | null>(null);
+    const [ result, setResult ] = useState<SpeechResultType | null>(null);
     const [ error, setError ] = useState<string | null>(null);
 
     const audioRecorder = useAudioRecorder(
@@ -82,10 +82,11 @@ const useSpeechRecorder = ( text: string | null ) => {
 
     /* ☁️ Send to backend (Whisper → SpaCy) */
     const analyzeSpeech = useCallback(async (callbackFn: () => void) => {
-        if(!expectedText) {
+        if (!expectedText) {
             setError("No expected text found!");
             return;
         }
+
         if (!recordedUri) {
             setError("No recording found!");
             return;
@@ -93,17 +94,21 @@ const useSpeechRecorder = ( text: string | null ) => {
 
         try {
             setLoading(true);
-            console.log( "Action triggered..." )
+
             const formData = new FormData();
             formData.append("audio", {
-                uri: recordedUri.startsWith("file://") ? recordedUri : `file://${recordedUri}`,
+                uri: recordedUri.startsWith("file://")
+                    ? recordedUri
+                    : `file://${recordedUri}`,
                 name: "speech.m4a",
                 type: "audio/m4a",
             } as any);
 
             formData.append("expected_text", expectedText);
 
-            const res = await fetch(
+            console.log("Starting Job...");
+
+            const startRes = await fetch(
                 `${process.env.EXPO_PUBLIC_API_BASE}/speech/evaluate`,
                 {
                     method: "POST",
@@ -111,29 +116,60 @@ const useSpeechRecorder = ( text: string | null ) => {
                 }
             );
 
-            if (!res.ok) {
-                const text = await res.text();
-                throw new Error(text);
+            if (!startRes.ok) {
+                throw new Error(await startRes.text());
             }
-            console.log("No error during fetching....")
-            const data = await res.json();
 
-            setResult(data);
-            triggerLessonResult({
-                actualQuery: expectedText,
-                result: data,
-                onContinue: callbackFn,
-                onRetry: () => {}
-            })
+            const { job_id } = await startRes.json();
 
-            console.log("data:", data)
+            // 🔥 Proper async polling loop
+            let attempts = 0;
+            const MAX_ATTEMPTS = 60;
 
-        } catch (err: any) {
+            while (attempts < MAX_ATTEMPTS) {
+                attempts++;
+
+                console.log("Polling attempt:", attempts);
+
+                const res = await fetch(
+                    `${process.env.EXPO_PUBLIC_API_BASE}/speech/result/${job_id}`
+                );
+
+                if (!res.ok) {
+                    throw new Error("Polling failed");
+                }
+
+                const response = await res.json();
+                console.log("Res", response)
+
+                if (response.status === "done") {
+                    setResult(response.data);
+
+                    triggerLessonResult({
+                        actualQuery: expectedText,
+                        result: response.data,
+                        onContinue: callbackFn,
+                        onRetry: () => {},
+                    });
+
+                    setLoading(false);
+                    return;
+                }
+
+                // wait 2 seconds before next attempt
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            }
+
+            // timeout case
+            setError("Speech analysis timeout");
+            setLoading(false);
+
+        } catch (err) {
             console.error(err);
             setError("Speech analysis failed");
-        } finally {
             setLoading(false);
         }
+
     }, [recordedUri, expectedText]);
 
     const reset = useCallback(async () => {

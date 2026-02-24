@@ -162,7 +162,11 @@ const SpeakingLessons = () => {
                     isRecorded={isRecordingDone}
                     isPaused={isPaused}
                     isPlaying={isPlaying}
-                    onActionHandler={isRecordingDone ? play : (isRecording ? stopRecording : startRecording)}
+                    onActionHandler={() => {
+                      if (isRecordingDone) play();
+                      else if (isRecording) stopRecording();
+                      else startRecording();
+                    }}
                   />
 
                   { error && (<Error text={error} />) }
@@ -174,7 +178,10 @@ const SpeakingLessons = () => {
             {/* Action Buttons */}
             <View style={styles.recordingSection}>
               <TouchableOpacity
-                onPress={reset}
+                onPress={() => {
+                  reset();
+                  resolveCurrent();
+                }}
                 disabled={!isRecordingDone || loading}
                 style={{opacity: (!isRecordingDone || loading) ? 0.5 : 1}}
               >
