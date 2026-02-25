@@ -116,6 +116,16 @@ export const updateSettingField = async ( payload: {
   return result!;
 };
 
+export const clearSettings = async () => {
+  try{
+    await db.runAsync(`DELETE FROM lp_settings`);
+    console.log("Cleared all data from lp_settings table.");
+  }
+  catch(error) {
+    console.error("clearSettings error:", error);
+  }
+}
+
 export const markSettingsClean = async (settings: DBSettings) => {
   await db.runAsync(
     `UPDATE lp_settings SET dirty = 0 WHERE id = ?`,

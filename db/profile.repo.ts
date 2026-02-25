@@ -69,6 +69,16 @@ export const upsertProfile = async (p: {
   return result!;
 };
 
+export const clearProfile = async () => {
+  try{
+    await db.runAsync(`DELETE FROM lp_profiles`);
+    console.log("Cleared all data from lp_profiles table.");
+  }
+  catch(error) {
+    console.error("clearProfile error:", error);
+  }
+}
+
 export const markProfileClean = async (profile: DBProfile) => {
   await db.runAsync(
     `UPDATE lp_profiles SET dirty = 0 WHERE id = ?`,

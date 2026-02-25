@@ -1,17 +1,26 @@
-// import api from "@/lib/api";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import Constants from "expo-constants";
 
-Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-        shouldPlaySound: true,
-        shouldSetBadge: true,
-        shouldShowBanner: true,
-        shouldShowList: true,
-    })
-});
+let NotificationsSafe: typeof import("expo-notifications") | null = null;
+
+if ( Constants.appOwnership !== "expo" || __DEV__ ) {
+    NotificationsSafe = require("expo-notifications");
+}
+
+export const setupNotificationHandler = () => {
+    if (!NotificationsSafe) return;
+
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+            shouldPlaySound: true,
+            shouldSetBadge: true,
+            shouldShowBanner: true,
+            shouldShowList: true,
+        }),
+    });
+};
 
 const handleRegistrationError = ( errorMessage: string ) => {
     console.error(errorMessage);
@@ -19,6 +28,7 @@ const handleRegistrationError = ( errorMessage: string ) => {
 };
 
 export const registerForPushNotifications = async () => {
+    if (!NotificationsSafe) return;
     try {
         if( Platform.OS === "android" ) {
             await Notifications.setNotificationChannelAsync(
@@ -73,20 +83,20 @@ export const registerForPushNotifications = async () => {
     }
 }
 
-export const registerPush = async (userId: string) => {
-    try {
-        const { status } = await Notifications.requestPermissionsAsync();
+// export const registerPush = async (userId: string) => {
+//     try {
+//         const { status } = await Notifications.requestPermissionsAsync();
 
-        if( status !== "granted" ) return;
+//         if( status !== "granted" ) return;
 
-        const token = ( await Notifications.getExpoPushTokenAsync() ).data;
+//         const token = ( await Notifications.getExpoPushTokenAsync() ).data;
 
-        console.log("Push Notification Token:", token);
+//         console.log("Push Notification Token:", token);
 
-        // const res = await api.post( "/users/push-token", { userId, token } );
-        // if( res.status === 200 ) console.log( "Push Notification Token is sent to users->push-token" );
-    }
-    catch(error) {
-        console.error("registerPush Error:", error);
-    }
-}
+//         // const res = await api.post( "/users/push-token", { userId, token } );
+//         // if( res.status === 200 ) console.log( "Push Notification Token is sent to users->push-token" );
+//     }
+//     catch(error) {
+//         console.error("registerPush Error:", error);
+//     }
+// }

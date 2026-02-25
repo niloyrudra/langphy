@@ -1,10 +1,14 @@
 import React from "react";
+import * as SplashScreen from "expo-splash-screen";
 import { AuthProvider } from "./AuthContext";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { runMigrations } from "@/db/migrate";
 import { registerBackgroundSync } from "@/sync/backgroundSync";
 import { queryClient } from "@/queryClient";
 import { registerLocalProjections } from "@/events/localProjections";
+// import LoadingScreenComponent from "@/components/LoadingScreenComponent";
+
+SplashScreen.preventAutoHideAsync();
 
 interface Props {
   children: React.ReactNode;
@@ -23,22 +27,34 @@ export const AppProvider = ({ children }: Props) => {
 
   React.useEffect(() => {
     const bootstrap = async () => {
-      // Run DB migrations
-      await runMigrations();
-      console.log("Database migrations complete.");
+      try {
+        await runMigrations();
+        console.log("Database migrations complete.");
 
-      // Register background sync for offline-safe sync
-      await registerBackgroundSync();
-      console.log("Background sync registered.");
+        await registerBackgroundSync();
+        console.log("Background sync registered.");
 
-      registerLocalProjections();
-
-      // Mark provider as ready
-      setReady(true);
-    }
+        registerLocalProjections();
+      } catch (e) {
+        console.error("App bootstrap failed:", e);
+      } finally {
+        setReady(true);
+        await SplashScreen.hideAsync(); // ⬅️ hide when ready
+      }
+    };
 
     bootstrap();
   }, []);
+
+  if (!ready) {
+    return null; // Splash screen still visible
+  }
+
+  // if (!ready) {
+    // return null; // or splash screen
+    // return (<LoadingScreenComponent />) // can't use it here as it contains 'useTheme' that can't be used in this context
+    // return (<SplashScreen />);
+  // }
 
   return (
     <AuthProvider>

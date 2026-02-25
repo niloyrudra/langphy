@@ -68,6 +68,49 @@ export const countCompletedLessons = async ( sessionKey: string ) => {
   }
 }
 
+export const getCompletedLessons = async () => {
+    try {
+        const result = await db.getFirstAsync<{count: number}>(`
+            SELECT count(*) as count
+            FROM lp_progress
+            WHERE completed = 1
+        `);
+        console.log("DB ready check");
+        return result?.count ?? 0;
+    }
+    catch(error) {
+        console.error("Get Completed Lessons Error:", error)
+        throw error;
+    }
+}
+
+export const getLessonProgress = async () => {
+  try {
+    const result = await db.getFirstAsync<{
+      completed: number;
+      total: number;
+    }>(`
+      SELECT
+        (SELECT COUNT(*) FROM lp_lesson_progress WHERE completed = 1) as completed,
+        (SELECT COUNT(*) FROM lp_lessons) as total
+    `);
+
+    const completed = result?.completed ?? 0;
+    const total = result?.total ?? 0;
+
+    return {
+      completed,
+      total,
+      percentage: total === 0
+        ? 0
+        : Math.round((completed / total) * 100),
+    };
+  } catch (error) {
+    console.error("Get Lesson Progress Error:", error);
+    throw error;
+  }
+};
+
 interface MarkLessonCompleted {
   category_id: string,
   unit_id: string,
@@ -147,3 +190,13 @@ export const markProgressClean = async (items: DBProgress[]) => {
     params
   );
 };
+
+export const clearProgress = async () => {
+  try{
+    await db.runAsync(`DELETE FROM lp_progress`);
+    console.log("Cleared all data from lp_progress table.");
+  }
+  catch(error) {
+    console.error("clearProgress error:", error);
+  }
+}

@@ -5,17 +5,19 @@ import { ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import StatsDetail from './StatsDetail';
 import { useStreak } from '@/hooks/useStreaks';
 import { useAuth } from '@/context/AuthContext';
+// import { useLessons } from '@/hooks/useLessons';
+// import { getCompletedLessons } from '@/db/lessons.repo';
 
-const ProfileStats = () => {
+const ProfileStats = ({progressPercent}: {progressPercent: number}) => {
     const {colors} = useTheme();
     const { user } = useAuth();
     const { data: streaks } = useStreak(user?.id as string);
-
+    
     return (
         <View style={[styles.container, {backgroundColor: colors.profileGradientBox}]}>
             <StatsDetail
                 title="Progress"
-                stats="50%"
+                stats={`${progressPercent}%`}
                 icon={<ProgressIcon width={24} height={24} />}
             />
             

@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
-import { DBStreak, SelectiveResultType, SessionResultType } from "@/types";
+import { DBStreak, SelectiveResultType, SessionResultType, SpeechResultType } from "@/types";
 import React from "react";
 
 interface LessonPayload {
     actualQuery?: string;
-    result: SessionResultType | SelectiveResultType;
+    result: SessionResultType | SelectiveResultType | SpeechResultType;
     onRetry: () => void;
     onContinue: () => void;
 };
@@ -30,26 +30,10 @@ export const CelebrationProvider = ({ children }: {children: React.ReactNode}) =
   const [current, setCurrent] = useState<Celebration>(null);
 
     const enqueue = (item: Celebration) => {
-        // setQueue(prev => {
-        //     if (!current) {
-        //         setCurrent(item);
-        //         return prev;
-        //     }
-        //     return [...prev, item];
-        // });
         setQueue(prev => [...prev, item]);
     };
 
     const resolveCurrent = () => {
-        // setQueue(prev => {
-        //     if (prev.length > 0) {
-        //         const [next, ...rest] = prev;
-        //         setCurrent(next);
-        //         return rest;
-        //     }
-        //     setCurrent(null);
-        //     return [];
-        // });
         setQueue(prev => {
             if (prev.length === 0) {
                 setCurrent(null);

@@ -24,7 +24,7 @@ const Dashboard = () => {
 
         <View style={styles.container}>
           {/* User's Information */}
-          <UserProfile />
+          <UserProfile profile={profile!} isLoading={isLoading} isFetching={isFetching} />
           
           {/* Learning Progress */}
           <LearningProgress title="Learning Progress" />

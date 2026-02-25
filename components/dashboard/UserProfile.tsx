@@ -1,19 +1,16 @@
 import { ActivityIndicator, StyleSheet } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
-import EditButton from './_partials/EditButton';
 import { useTheme } from '@/theme/ThemeContext';
 import ProfileNameAndId from './_partials/ProfileNameAndId';
 import ProfileDOBAndEmail from './_partials/ProfileDOBAndEmail';
 import ProfileStats from './_partials/ProfileStats';
-import { useProfile } from '@/hooks/useProfile';
-import { authSnapshot } from '@/snapshots/authSnapshot';
+import EditButton from './_partials/EditButton';
+import { DBProfile } from '@/db/profile.repo';
+import { getCompletedLessons } from '@/db/progress.repo';
 
-const UserProfile = () => {
+const UserProfile = ({profile, isLoading, isFetching}: {profile: DBProfile | null, isLoading: boolean, isFetching: boolean}) => {
     const { colors } = useTheme();
-    const userId = authSnapshot.getUserId() ?? "";
-    const { data: profile, isLoading, isFetching } = useProfile(userId as string);
-
     const displayName = React.useCallback(() => {
         if(!isLoading) {
             if( !profile?.first_name && !profile?.last_name ) return "Anonymous"
@@ -23,6 +20,24 @@ const UserProfile = () => {
             else return "Anonymous"
         } 
     }, [profile?.first_name, profile?.last_name, isLoading]);
+
+    const [progressPercent, setProgressPercent] = React.useState<number>(0)
+
+    React.useEffect(() => {
+        const loadLessonData = async () => {
+            try {
+                const completedLessonCount = await getCompletedLessons();
+                const progressPercentage = completedLessonCount > 0 ? Math.round( (completedLessonCount/7630)*100 ) : 0;
+                setProgressPercent(progressPercentage);
+            }
+            catch(error) {
+                console.error("Profile Stats loadLessonData error:", error);
+            }
+        }
+        loadLessonData();
+    }, []);
+
+    console.log(progressPercent)
 
     if (isLoading || isFetching) {
         return (
@@ -56,7 +71,7 @@ const UserProfile = () => {
             />
 
             {/* Stats */}
-            <ProfileStats />
+            <ProfileStats progressPercent={progressPercent} />
         </LinearGradient>
     );
 }

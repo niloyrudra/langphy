@@ -29,5 +29,11 @@ export const saveUnits = async ( units: LocalUnitType[] ) => {
 }
 
 export const clearUnits = async () => {
-    await db.runAsync(`DELETE FROM lp_units`);
+    try {
+        await db.runAsync(`DELETE FROM lp_units`);
+        console.log("Cleared all data from lp_units table.");
+    }
+    catch(error) {
+        console.log("clearUnits error:", error);
+    }
 }

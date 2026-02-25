@@ -2,24 +2,12 @@ import { Alert, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
-
-// import SIZES from '@/constants/size'
-
-// import FacebookIcon from '@/assets/images/social/facebook.svg'
-// import GoogleIcon from '@/assets/images/social/google.svg'
-
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
-// import FormHeaderTitle from '@/components/form-components/auth/FormHeaderTitle'
-// import AuthTopBannerImage from '@/components/form-components/auth/AuthTopBannerImage'
-// import SocialButton from '@/components/form-components/auth/SocialButton'
-// import HorizontalSeparator from '@/components/form-components/auth/HorizontalSeparator'
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton'
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useAuth } from '@/context/AuthContext';
 import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
-// import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),

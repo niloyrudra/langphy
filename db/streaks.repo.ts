@@ -66,3 +66,13 @@ export const markStreaksClean = async (items: DBStreak[]) => {
         params
     );
 };
+
+export const clearStreak = async () => {
+  try{
+    await db.runAsync(`DELETE FROM lp_streaks`);
+    console.log("Cleared all data from lp_streaks table.");
+  }
+  catch(error) {
+    console.error("clearStreak error:", error);
+  }
+}

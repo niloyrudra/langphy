@@ -89,7 +89,8 @@ const SpeakingLessons = () => {
 
   const onContinue = React.useCallback( async () => {
     try {
-      const score = (result && result!.analysis.similarity) ? result!.analysis.similarity*100 : 0;
+      const score = (result && result.analysis.similarity) ? result.analysis.similarity*100 : 0;
+      console.log("Speaking Score:", score, result?.analysis.similarity)
       await onLessonComplete(currentLessonRef.current!, score);
       reset();
       goToNextRef?.current && goToNextRef.current?.();

@@ -6,7 +6,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
 import { AppProvider } from "@/context/AppContext";
-import { runMigrations } from "@/db/migrate";
 import {
   Poppins_100Thin,
   Poppins_300Light,
@@ -17,17 +16,12 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black
 } from '@expo-google-fonts/poppins';
-import api from "@/lib/api";
-import { Platform } from "react-native";
-import { registerForPushNotifications } from "@/domain/notificationRules";
 
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
-  const [ready, setReady] = React.useState<boolean>(false);
   // Fonts Loading
   const [ loaded, error ] = useFonts({
-    // ✅ Poppins
     Poppins_100Thin,
     Poppins_300Light,
     Poppins_400Regular,
@@ -36,8 +30,6 @@ const RootLayout = () => {
     Poppins_700Bold,
     Poppins_800ExtraBold,
     Poppins_900Black
-    // 'PlusJakartaSans-Regular':    require( '../assets/fonts/PlusJakartaSans-Regular.ttf' ),
-    // 'Inter-Black':                require( '@expo-google-fonts/inter/Inter_900Black.ttf' ),
   });
 
   React.useEffect(() => {
@@ -51,32 +43,6 @@ const RootLayout = () => {
       await SplashScreen.hideAsync();
     }
   }, [loaded, error]);
-
-  React.useEffect(() => {
-    (async () => {
-      // const columns = await db.getAllAsync("PRAGMA table_info(lp_session_performance)");
-      // console.log(columns);
-      // const lessonColumns = await db.getAllAsync("PRAGMA table_info(lp_progress)");
-      // const dirtyRows = await db.getAllAsync(`SELECT * FROM lp_progress WHERE dirty = 1`);
-      // console.log("Dirty rows before sync:", dirtyRows);
-    })()
-    runMigrations().then(() => setReady(true)).then(() => console.log("Migration done!")).catch(console.warn);
-  }, []);
-
-  React.useEffect(() => {
-    const setupPush = async () => {
-      const token = await registerForPushNotifications();
-
-      if (!token) return;
-
-      await api.post("/notification/devices/register", {
-        token,
-        platform: Platform.OS,
-      });
-    };
-
-    setupPush();
-  }, []);
 
   if (!loaded && !error) {
     return null;

@@ -12,6 +12,31 @@ type LocalLesson = {
     updated_at?: number;
 }
 
+export const getLessonProgress = async () => {
+    try {
+        const result = await db.getFirstAsync<{
+            completed: number;
+            total: number;
+        }>(`
+            SELECT 
+                SUM(CASE WHEN completed = 1 THEN 1 ELSE 0 END) as completed,
+                COUNT(*) as total
+            FROM lp_lessons
+        `);
+
+        const completed = result?.completed ?? 0;
+        const total = result?.total ?? 0;
+
+        const percentage =
+        total === 0 ? 0 : Math.round((completed / total) * 100);
+
+        return { completed, total, percentage };
+    } catch (error) {
+        console.error("Get Lesson Progress Error:", error);
+        throw error;
+    }
+};
+
 export const getLessonsByUnit = async (unitId: string, type: SessionType): Promise<LocalLesson[]> => {
     try {
         const lessons = await db.getAllAsync<LocalLesson>(`
