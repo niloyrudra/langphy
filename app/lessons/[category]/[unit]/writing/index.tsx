@@ -17,6 +17,8 @@ import { randomUUID } from 'expo-crypto';
 import { analysisNLP } from '@/services/nlpAnalysis.service';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
+import { shouldShowLessonAd } from '@/monetization/ads.frequency';
+import { interstitialController } from '@/monetization/ads.service';
 
 const attemptId = randomUUID();
 
@@ -118,7 +120,16 @@ const WritingSession = () => {
     const score = (result && result!.similarity) ? result!.similarity*100 : 0;
     await onLessonComplete(currentLessonRef.current!, score);
     reset();
-    goToNextRef?.current && goToNextRef.current?.();
+    // goToNextRef?.current && goToNextRef.current?.();
+    // Use After 3 Lessons Completed
+    if( await shouldShowLessonAd() ) {
+      interstitialController.show(() => {
+        goToNextRef.current?.();
+      });
+    }
+    else {
+      goToNextRef.current?.();
+    }
     
     resolveCurrent();
   }, [reset, onLessonComplete, resolveCurrent]);

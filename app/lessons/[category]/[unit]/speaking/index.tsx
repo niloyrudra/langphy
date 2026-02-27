@@ -19,6 +19,8 @@ import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
+import { shouldShowLessonAd } from '@/monetization/ads.frequency';
+import { interstitialController } from '@/monetization/ads.service';
 
 const attemptId = randomUUID();
 
@@ -93,14 +95,23 @@ const SpeakingLessons = () => {
       console.log("Speaking Score:", score, result?.analysis.similarity)
       await onLessonComplete(currentLessonRef.current!, score);
       reset();
-      goToNextRef?.current && goToNextRef.current?.();
+      // goToNextRef?.current && goToNextRef.current?.();
+      // Use After 3 Lessons Completed
+      if( await shouldShowLessonAd() ) {
+        interstitialController.show(() => {
+          goToNextRef.current?.();
+        });
+      }
+      else {
+        goToNextRef.current?.();
+      }
 
       resolveCurrent();
     }
     catch(error) {
       console.error("Speaking lesson Completion error:", error);
     }
-  }, [ reset, result, onLessonComplete, resolveCurrent ]);
+  }, [ reset, result, onLessonComplete, resolveCurrent, shouldShowLessonAd, interstitialController ]);
     
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: SpeakingSessionType, index: number, goToNext: () => void}) => {
     setExpectedText(prevValue => prevValue = item.phrase.trim())

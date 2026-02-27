@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Stack } from "expo-router"; // 'Slot' for one-paged apps
 import { useFonts } from 'expo-font';
 import { ThemeProvider } from "@/theme/ThemeContext";
@@ -16,6 +16,7 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black
 } from '@expo-google-fonts/poppins';
+import { bootstrapAds } from "@/monetization/ads.bootstrap";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,6 +44,11 @@ const RootLayout = () => {
       await SplashScreen.hideAsync();
     }
   }, [loaded, error]);
+
+  // Ads
+  useEffect(() => {
+    bootstrapAds();
+  }, []);
 
   if (!loaded && !error) {
     return null;

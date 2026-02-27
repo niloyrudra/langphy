@@ -27,15 +27,16 @@ export default {
       favicon: "./assets/images/favicon/Dolphin.png"
     },
     plugins: [
+      "expo-audio",
+      "expo-asset",
       "expo-router",
       "expo-sqlite",
-      "expo-background-task",
-      "expo-audio",
-      "expo-speech-recognition",
       "expo-web-browser",
       "expo-secure-store",
-      "expo-asset",
       "expo-notifications",
+      "expo-background-task",
+      "expo-speech-recognition",
+      "react-native-google-mobile-ads",
       [
         "expo-splash-screen",
         {

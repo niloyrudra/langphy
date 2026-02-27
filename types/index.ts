@@ -4,6 +4,12 @@ import { FC, ReactNode, SVGProps } from "react"
 import { ColorValue, ImageBackgroundProps, ImageSourcePropType, InputModeOptions, StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native"
 import { SvgProps } from "react-native-svg"
 
+type UserEntitlement = {
+  isPremium: boolean;
+  premiumSource: "google_play" | null;
+  premiumExpiresAt?: string;
+}
+
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
 type UserData = {
@@ -729,6 +735,8 @@ type SessionPerformance = {
 };
 
 export {
+  UserEntitlement,
+
   DBProgress,
   DBSettings,
   DBStreak,

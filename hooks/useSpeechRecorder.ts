@@ -54,23 +54,41 @@ const useSpeechRecorder = ( text: string | null ) => {
 
     /* ▶️ Recording controls */
     const startRecording = useCallback(async () => {
-        setError(null);
-        setResult(null);
-        await audioRecorder.prepareToRecordAsync();
-        audioRecorder.record();
+        try {    
+            setError(null);
+            setResult(null);
+
+            if (!recorderState.isRecording) {
+                await audioRecorder.prepareToRecordAsync();
+                audioRecorder.record();
+            }
+        } catch(e) {
+            setError("Recorder failed. Please try again.");
+        }
     }, [audioRecorder]);
 
     const stopRecording = useCallback(async () => {
-        await audioRecorder.stop();
-        setRecordedUri(audioRecorder.uri ?? null);
-        setIsRecordingDone(true)
+        try {
+            await audioRecorder.stop();
+            setRecordedUri(audioRecorder.uri ?? null);
+            setIsRecordingDone(true);
+
+            // 🔥 Immediately prepare for next recording
+            await audioRecorder.prepareToRecordAsync();
+        } catch(e) {
+           setError("Recorder stopping failed. Please try again.");
+        }
     }, [audioRecorder]);
 
     /* 🔊 Playback */
     const play = useCallback(async () => {
-        if (!recordedUri) return;
-        await player.seekTo(0);
-        player.play();
+        try {
+            if (!recordedUri) return;
+            await player.seekTo(0);
+            player.play();
+        } catch(e) {
+           setError("Recorder playing failed. Please try again.");
+        }
     }, [player, recordedUri]);
 
     /* 🔊 Pause */
@@ -177,6 +195,9 @@ const useSpeechRecorder = ( text: string | null ) => {
             if (recorderState.isRecording) {
                 await audioRecorder.stop();
             }
+
+            // 🔥 THIS IS CRITICAL
+            await audioRecorder.prepareToRecordAsync();
 
             setRecordedUri(null);
             setIsRecordingDone(false);

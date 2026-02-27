@@ -20,6 +20,8 @@ import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import LangphyText from '@/components/text-components/LangphyText';
+import { interstitialController } from '@/monetization/ads.service';
+import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
 const attemptId = randomUUID();
 
@@ -112,7 +114,18 @@ const ReadingLessons = () => {
           const score = resultPayload.isCorrect ? 100 : 0;
           await onLessonComplete(currentLessonRef.current!, score);
           reset();
-          goToNextRef.current?.();
+          // goToNextRef.current?.();
+
+          // Use After 3 Lessons Completed
+          if( await shouldShowLessonAd() ) {
+            interstitialController.show(() => {
+              goToNextRef.current?.();
+            });
+          }
+          else {
+            goToNextRef.current?.();
+          }
+
           resolveCurrent();
         }
         catch(error) {
