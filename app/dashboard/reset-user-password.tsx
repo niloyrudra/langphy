@@ -5,10 +5,11 @@ import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingVie
 import { Formik } from 'formik';
 import * as Yup from "yup";
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import { router } from 'expo-router';
-import { useTheme } from '@/theme/ThemeContext';
-import { useAuth } from '@/context/AuthContext';
+// import { router } from 'expo-router';
+// import { useTheme } from '@/theme/ThemeContext';
+// import { useAuth } from '@/context/AuthContext';
 import AuthInput from '@/components/form-components/auth/AuthInput';
+import api from '@/lib/api';
 
 const ResetUserPaswordSchema = Yup.object().shape({
     newPassword: Yup.string().min(4, "Password must be at least 4 characters").required("New Password is required"),
@@ -16,11 +17,7 @@ const ResetUserPaswordSchema = Yup.object().shape({
 });
 
 const ResetUserPaswordScreen = () => {
-    const {colors} = useTheme();
-    const { user, setUser } = useAuth()
     const [loading, setLoading] = React.useState<boolean>(false);
-
-    console.log(user?.id)
 
     // Handler
     const handleResetUserPasword = async (
@@ -30,40 +27,30 @@ const ResetUserPaswordScreen = () => {
         if( newPassword != confirmedPassword ) return Alert.alert("Passwords must match each other!");
         try {
             setLoading(true)
-            const res = await fetch(
-            `${process.env.EXPO_PUBLIC_API_BASE}/users/profile/reset-password`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    user_id: user?.id,
+
+            const res = await api.put(
+                "/users/profile/reset-password",
+                {
                     password: newPassword
-                })
-            }
+                }
             );
-            const data = await res.json();
     
-            console.log(res.status, data)
-    
-            if( res.status === 200 && data! ) {  
-                const { profile, message } = data;
-                setUser({...user, ...profile});
+            if( res.status === 200 && res.data! ) {  
+                const { profile, message } = res.data;
+
                 if(message) Alert.alert( message )
                 else Alert.alert("Successfully updated profile!");
                 
                 // router.replace("/auth/login");
             }
             else {
-                Alert.alert( "Profile update failed!" )
-                // await SecureStore.deleteItemAsync("accessToken");
+                Alert.alert( "Password update failed!" )
             }
     
         }
         catch(err) {
-            console.error("Profile update Error:", err)
-            Alert.alert("Profile update failed!")
+            console.error("Password update Error:", err)
+            Alert.alert("Password update failed!")
         }
         finally {
             setLoading(false)

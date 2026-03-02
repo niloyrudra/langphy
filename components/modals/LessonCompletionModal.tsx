@@ -47,7 +47,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
     const feedback = React.useMemo(() => {
         if (isSelective) return result.feedback ?? "";
         if (isSimilarity) return feedbackComments( result.similarity ?? "" );
-        if (isSpeech) return feedbackComments( result.analysis.similarity ?? 0 );
+        if (isSpeech) return "Analized Result!" // feedbackComments( result.analysis.similarity ?? 0 );
         return "Your Result!";
     }, [result, isSelective, isSimilarity, isSpeech]);
 

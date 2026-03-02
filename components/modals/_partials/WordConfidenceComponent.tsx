@@ -15,7 +15,8 @@ const WordConfidenceComponent = ({text, confidence}: {text: string, confidence: 
             <LangphyText weight="semibold" style={[styles.feedback,{ color: confidence.color }]}>
                 ({confidence.label})
             </LangphyText>
-            <ProgressBar completion={parseFloat(confidence.score)} />
+            {/* <ProgressBar completion={parseFloat(confidence.score)} /> */}
+            <LangphyText style={{ color: confidence.color }}>{parseFloat(confidence.score)}%</LangphyText>
         </View>
     )
 }
@@ -24,7 +25,7 @@ export default WordConfidenceComponent
 
 const styles = StyleSheet.create({
     container: {
-        gap: 2,
+        gap: 1,
         alignItems: "center",
         paddingHorizontal: 4,
         paddingVertical: 6,

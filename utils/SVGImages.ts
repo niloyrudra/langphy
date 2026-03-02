@@ -39,7 +39,7 @@
 // import EntertainmentIconV2 from '@/assets/images/categories/v2/entertainment.svg';
 
 // // Units
-// import DolphinReading from '@/assets/images/unit/v2/dolphin-reading.svg';
+import DolphinReading from '@/assets/images/unit/v3/dolphin-reading.svg';
 
 // // Dic
 // import DictionaryIcon from '@/assets/images/screen-icons/dictionary-icon.svg';
@@ -328,7 +328,7 @@ export {
     WritingIconV3,
     WorkIconV3,
 
-    // DolphinReading,
+    DolphinReading,
 
     // BookIcon,
     // BookOpenIcon,

@@ -51,9 +51,11 @@ const styles = StyleSheet.create({
     content: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 5
+        gap: 5,
+        // flexWrap: "wrap"
     },
     detail: {
-        fontSize: 16
+        fontSize: 16,
+        flexWrap: "wrap"
     }
 })
