@@ -1,7 +1,10 @@
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewProps, ViewStyle } from 'react-native'
 import React from 'react'
 import sizes from '@/constants/size'
-import { SoundWaveLightIcon, SpeakerActionButtonIcon } from '@/utils/SVGImages'
+import {
+    // SoundWaveLightIcon,
+    SpeakerActionButtonIcon
+} from '@/utils/SVGImages'
 
 interface ChallengeListeningProps {
     query?: string,
@@ -25,7 +28,7 @@ const ChallengeScreenSpeakerActionSection = ({query, style, waveStyle, onTap}: C
         >
             <SpeakerActionButtonIcon width={sizes.speakerNRecorderDimensions} height={sizes.speakerNRecorderDimensions} />
 
-            <SoundWaveLightIcon width={185} height={40} />
+            {/* <SoundWaveLightIcon width={185} height={40} /> */}
 
         </TouchableOpacity>
     </View>

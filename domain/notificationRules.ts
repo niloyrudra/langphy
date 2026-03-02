@@ -1,18 +1,19 @@
-import * as Notifications from "expo-notifications";
+// import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import Constants from "expo-constants";
 
+const isExpoGo = Constants.appOwnership === "expo";
 let NotificationsSafe: typeof import("expo-notifications") | null = null;
 
-if ( Constants.appOwnership !== "expo" || __DEV__ ) {
+if ( !isExpoGo ) {
     NotificationsSafe = require("expo-notifications");
 }
 
 export const setupNotificationHandler = () => {
     if (!NotificationsSafe) return;
 
-    Notifications.setNotificationHandler({
+    NotificationsSafe?.setNotificationHandler({
         handleNotification: async () => ({
             shouldPlaySound: true,
             shouldSetBadge: true,
@@ -31,11 +32,11 @@ export const registerForPushNotifications = async () => {
     if (!NotificationsSafe) return;
     try {
         if( Platform.OS === "android" ) {
-            await Notifications.setNotificationChannelAsync(
+            await NotificationsSafe.setNotificationChannelAsync(
                 "default",
                 {
                     name: "default",
-                    importance: Notifications.AndroidImportance.MAX,
+                    importance: NotificationsSafe.AndroidImportance.MAX,
                     vibrationPattern: [0, 250, 250, 250],
                     lightColor: '#FF231F7C'
                 }
@@ -43,12 +44,12 @@ export const registerForPushNotifications = async () => {
         }
 
         if( Device.isDevice ) {
-            const { status: existingStatus }  = await Notifications.getPermissionsAsync();
+            const { status: existingStatus }  = await NotificationsSafe.getPermissionsAsync();
 
             let finalStatus = existingStatus;
 
             if( existingStatus !== 'granted' ) {
-                const { status } = await Notifications.requestPermissionsAsync();
+                const { status } = await NotificationsSafe.requestPermissionsAsync();
                 finalStatus = status;
             }
 
@@ -63,7 +64,7 @@ export const registerForPushNotifications = async () => {
 
             try {
                 const pushTokenString = (
-                    await Notifications.getExpoPushTokenAsync({ projectId })
+                    await NotificationsSafe.getExpoPushTokenAsync({ projectId })
                 ).data;
 
                 console.log( pushTokenString );

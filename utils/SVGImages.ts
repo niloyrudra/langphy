@@ -1,48 +1,48 @@
 // Exemplary
-import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
-import BookOpenIcon from '@/assets/images/categories/unit/book-open.svg';
-import StudyingDolphinIcon from '@/assets/images/categories/unit/studying-dolphin.svg';
-import StudyingDolphinSmallIcon from '@/assets/images/categories/unit/studying-dolphin-icon.svg';
+// import DolphinIcon from '@/assets/images/auth/dolphin-icon.svg';
+// import BookOpenIcon from '@/assets/images/categories/unit/book-open.svg';
+// import StudyingDolphinIcon from '@/assets/images/categories/unit/studying-dolphin.svg';
+// import StudyingDolphinSmallIcon from '@/assets/images/categories/unit/studying-dolphin-icon.svg';
 
 // Category Icons
-import GreetingsIcon from '@/assets/images/categories/svg/greetings.svg';
-import IntroIcon from '@/assets/images/categories/svg/intro.svg';
-import NumbersIcon from '@/assets/images/categories/svg/numbers.svg';
-import TimeIcon from '@/assets/images/categories/svg/time.svg';
-import ChatIcon from '@/assets/images/categories/svg/chat.svg';
-import FamilyIcon from '@/assets/images/categories/svg/family.svg';
-import FoodsIcon from '@/assets/images/categories/svg/foods.svg';
-import LocationIcon from '@/assets/images/categories/svg/location.svg';
+// import GreetingsIcon from '@/assets/images/categories/svg/greetings.svg';
+// import IntroIcon from '@/assets/images/categories/svg/intro.svg';
+// import NumbersIcon from '@/assets/images/categories/svg/numbers.svg';
+// import TimeIcon from '@/assets/images/categories/svg/time.svg';
+// import ChatIcon from '@/assets/images/categories/svg/chat.svg';
+// import FamilyIcon from '@/assets/images/categories/svg/family.svg';
+// import FoodsIcon from '@/assets/images/categories/svg/foods.svg';
+// import LocationIcon from '@/assets/images/categories/svg/location.svg';
 
 // Category Icons V2
-import GreetingsIconV2 from '@/assets/images/categories/v2/greetings.svg';
-import IntroIconV2 from '@/assets/images/categories/v2/introductions.svg';
-import NumberIconV2 from '@/assets/images/categories/v2/numbers.svg';
-import ColorsIconV2 from '@/assets/images/categories/v2/colors.svg';
-import TimeIconV2 from '@/assets/images/categories/v2/time.svg';
-import CalendarIconV2 from '@/assets/images/categories/v2/calendar.svg';
-import SeasonsIconV2 from '@/assets/images/categories/v2/seasons.svg';
-import ActivitiesIconV2 from '@/assets/images/categories/v2/activity.svg';
-import FamilyIconV2 from '@/assets/images/categories/v2/family.svg';
-import FoodIconV2 from '@/assets/images/categories/v2/food.svg';
-import DirectionIconV2 from '@/assets/images/categories/v2/directions.svg';
-import TravelIconV2 from '@/assets/images/categories/v2/travel.svg';
-import ShoppingIconV2 from '@/assets/images/categories/v2/shopping-cart.svg';
-import WorkIconV2 from '@/assets/images/categories/v2/work.svg';
-import HealthIconV2 from '@/assets/images/categories/v2/health.svg';
-import PreferenceIconV2 from '@/assets/images/categories/v2/preference.svg';
-import InvitationsIconV2 from '@/assets/images/categories/v2/invitation.svg';
-import TechnologyIconV2 from '@/assets/images/categories/v2/technology.svg';
-import EducationIconV2 from '@/assets/images/categories/v2/education.svg';
-import CultureIconV2 from '@/assets/images/categories/v2/culture.svg';
-import OpinionsIconV2 from '@/assets/images/categories/v2/opinions.svg';
-import EntertainmentIconV2 from '@/assets/images/categories/v2/entertainment.svg';
+// import GreetingsIconV2 from '@/assets/images/categories/v2/greetings.svg';
+// import IntroIconV2 from '@/assets/images/categories/v2/introductions.svg';
+// import NumberIconV2 from '@/assets/images/categories/v2/numbers.svg';
+// import ColorsIconV2 from '@/assets/images/categories/v2/colors.svg';
+// import TimeIconV2 from '@/assets/images/categories/v2/time.svg';
+// import CalendarIconV2 from '@/assets/images/categories/v2/calendar.svg';
+// import SeasonsIconV2 from '@/assets/images/categories/v2/seasons.svg';
+// import ActivitiesIconV2 from '@/assets/images/categories/v2/activity.svg';
+// import FamilyIconV2 from '@/assets/images/categories/v2/family.svg';
+// import FoodIconV2 from '@/assets/images/categories/v2/food.svg';
+// import DirectionIconV2 from '@/assets/images/categories/v2/directions.svg';
+// import TravelIconV2 from '@/assets/images/categories/v2/travel.svg';
+// import ShoppingIconV2 from '@/assets/images/categories/v2/shopping-cart.svg';
+// import WorkIconV2 from '@/assets/images/categories/v2/work.svg';
+// import HealthIconV2 from '@/assets/images/categories/v2/health.svg';
+// import PreferenceIconV2 from '@/assets/images/categories/v2/preference.svg';
+// import InvitationsIconV2 from '@/assets/images/categories/v2/invitation.svg';
+// import TechnologyIconV2 from '@/assets/images/categories/v2/technology.svg';
+// import EducationIconV2 from '@/assets/images/categories/v2/education.svg';
+// import CultureIconV2 from '@/assets/images/categories/v2/culture.svg';
+// import OpinionsIconV2 from '@/assets/images/categories/v2/opinions.svg';
+// import EntertainmentIconV2 from '@/assets/images/categories/v2/entertainment.svg';
 
-// Units
-import DolphinReading from '@/assets/images/unit/v2/dolphin-reading.svg';
+// // Units
+// import DolphinReading from '@/assets/images/unit/v2/dolphin-reading.svg';
 
-// Dic
-import DictionaryIcon from '@/assets/images/screen-icons/dictionary-icon.svg';
+// // Dic
+// import DictionaryIcon from '@/assets/images/screen-icons/dictionary-icon.svg';
 
 // Profile
 import ProfileLight from "@/assets/images/header/profile-light.svg";
@@ -63,18 +63,18 @@ import ListIconDark from '@/assets/images/header/list-icon-dark.svg';
 import SteakIcon from '@/assets/images/header/water-drop-icon.svg';
 
 // Speaker Light Icons
-import SpeakerAltIcon from "@/assets/images/screen-icons/speaker-alt-icon-light.svg";
-import SpeakerIcon from "@/assets/images/screen-icons/speaker-icon-light.svg";
+// import SpeakerAltIcon from "@/assets/images/screen-icons/speaker-alt-icon-light.svg";
+// import SpeakerIcon from "@/assets/images/screen-icons/speaker-icon-light.svg";
 // Speaker Dark Icons
-import SpeakerDarkIcon from "@/assets/images/screen-icons/speaker-icon-dark.svg";
-import SpeakerAltDarkIcon from "@/assets/images/screen-icons/speaker-icon-alt-dark.svg";
+// import SpeakerDarkIcon from "@/assets/images/screen-icons/speaker-icon-dark.svg";
+// import SpeakerAltDarkIcon from "@/assets/images/screen-icons/speaker-icon-alt-dark.svg";
 
 // Speaker Light Icons
-import SpeakerTurtleLightEnIcon from "@/assets/images/screen-icons/SpeakerTurtleLightEN.svg";
-import SpeakerTurtleLightDeIcon from "@/assets/images/screen-icons/SpeakerTurtleLightDE.svg";
+// import SpeakerTurtleLightEnIcon from "@/assets/images/screen-icons/SpeakerTurtleLightEN.svg";
+// import SpeakerTurtleLightDeIcon from "@/assets/images/screen-icons/SpeakerTurtleLightDE.svg";
 // Speaker Dark Icons
-import SpeakerTurtleDarkEnIcon from "@/assets/images/screen-icons/SpeakerTurtleDarkEN.svg";
-import SpeakerTurtleDarkDeIcon from "@/assets/images/screen-icons/SpeakerTurtleDarkDE.svg";
+// import SpeakerTurtleDarkEnIcon from "@/assets/images/screen-icons/SpeakerTurtleDarkEN.svg";
+// import SpeakerTurtleDarkDeIcon from "@/assets/images/screen-icons/SpeakerTurtleDarkDE.svg";
 
 // Light Theme Icons
 import EyeLightIcon from '@/assets/images/auth/toggled-eyes/light-theme/eye.svg'
@@ -87,8 +87,8 @@ import LightLogo from '@/assets/images/svg-images/top-nav-logo-light-mode.svg';
 import DarkLogo from '@/assets/images/svg-images/top-nav-logo-dark-mode.svg';
 
 // Left Arrow
-import ArrowLeftIcon from '@/assets/images/header/arrow-left-circle.svg';
-import ArrowLeftDarkIcon from '@/assets/images/header/arrow-left-circle-dark.svg';
+// import ArrowLeftIcon from '@/assets/images/header/arrow-left-circle.svg';
+// import ArrowLeftDarkIcon from '@/assets/images/header/arrow-left-circle-dark.svg';
 /** NEW */
 import LeftArrowLight from '@/assets/images/header/left-arrow-light.svg';
 import LeftArrowDark from '@/assets/images/header/left-arrow-dark.svg';
@@ -106,7 +106,7 @@ import RecorderDarkInactiveIcon from '@/assets/images/recorder/dark/recorder-ico
 
 import SpeakerActionButtonIcon from "@/assets/images/button/speaker-button-gradient-icon.svg";
 
-import SoundWaveLightIcon from "@/assets/images/sound-waves/sound-wave-light.svg";
+// import SoundWaveLightIcon from "@/assets/images/sound-waves/sound-wave-light.svg";
 
 /**
  * V3 - Category Icons
@@ -328,60 +328,60 @@ export {
     WritingIconV3,
     WorkIconV3,
 
-    DolphinReading,
+    // DolphinReading,
 
     // BookIcon,
-    BookOpenIcon,
-    DolphinIcon,
-    StudyingDolphinIcon,
-    StudyingDolphinSmallIcon,
+    // BookOpenIcon,
+    // DolphinIcon,
+    // StudyingDolphinIcon,
+    // StudyingDolphinSmallIcon,
 
-    GreetingsIcon,
-    IntroIcon,
-    NumbersIcon,
-    TimeIcon,
-    ChatIcon,
-    FamilyIcon,
-    FoodsIcon,
-    LocationIcon,
+    // GreetingsIcon,
+    // IntroIcon,
+    // NumbersIcon,
+    // TimeIcon,
+    // ChatIcon,
+    // FamilyIcon,
+    // FoodsIcon,
+    // LocationIcon,
 
-    GreetingsIconV2,
-    IntroIconV2,
-    NumberIconV2,
-    ColorsIconV2,
-    TimeIconV2,
-    CalendarIconV2,
-    SeasonsIconV2,
-    ActivitiesIconV2,
-    FamilyIconV2,
-    FoodIconV2,
-    DirectionIconV2,
-    TravelIconV2,
-    ShoppingIconV2,
-    WorkIconV2,
-    HealthIconV2,
-    PreferenceIconV2,
-    InvitationsIconV2,
-    TechnologyIconV2,
-    EducationIconV2,
-    CultureIconV2,
-    OpinionsIconV2,
-    EntertainmentIconV2,
+    // GreetingsIconV2,
+    // IntroIconV2,
+    // NumberIconV2,
+    // ColorsIconV2,
+    // TimeIconV2,
+    // CalendarIconV2,
+    // SeasonsIconV2,
+    // ActivitiesIconV2,
+    // FamilyIconV2,
+    // FoodIconV2,
+    // DirectionIconV2,
+    // TravelIconV2,
+    // ShoppingIconV2,
+    // WorkIconV2,
+    // HealthIconV2,
+    // PreferenceIconV2,
+    // InvitationsIconV2,
+    // TechnologyIconV2,
+    // EducationIconV2,
+    // CultureIconV2,
+    // OpinionsIconV2,
+    // EntertainmentIconV2,
 
-    DictionaryIcon,
+    // DictionaryIcon,
     GermanyCircleFlagIcon,
     GermanySquareFlagIcon,
 
     SteakIcon,
-    SpeakerIcon,
-    SpeakerAltIcon,
-    SpeakerDarkIcon,
-    SpeakerAltDarkIcon,
+    // SpeakerIcon,
+    // SpeakerAltIcon,
+    // SpeakerDarkIcon,
+    // SpeakerAltDarkIcon,
 
-    SpeakerTurtleDarkDeIcon,
-    SpeakerTurtleDarkEnIcon,
-    SpeakerTurtleLightDeIcon,
-    SpeakerTurtleLightEnIcon,
+    // SpeakerTurtleDarkDeIcon,
+    // SpeakerTurtleDarkEnIcon,
+    // SpeakerTurtleLightDeIcon,
+    // SpeakerTurtleLightEnIcon,
 
     EyeLightIcon,
     EyeOffLightIcon,
@@ -389,8 +389,8 @@ export {
     EyeOffDarkIcon,
     LightLogo,
     DarkLogo,
-    ArrowLeftIcon,
-    ArrowLeftDarkIcon,
+    // ArrowLeftIcon,
+    // ArrowLeftDarkIcon,
     NextBtnLight,
     PreviousBtnLight,
     NextBtnDark,
@@ -398,7 +398,7 @@ export {
     RecorderLightActiveIcon,
     RecorderDarkInactiveIcon,
     SpeakerActionButtonIcon,
-    SoundWaveLightIcon,
+    // SoundWaveLightIcon,
 
     SettingLight,
     SettingDark,

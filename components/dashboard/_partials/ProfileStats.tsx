@@ -5,8 +5,6 @@ import { ProgressIcon, SteakIcon } from '@/utils/SVGImages';
 import StatsDetail from './StatsDetail';
 import { useStreak } from '@/hooks/useStreaks';
 import { useAuth } from '@/context/AuthContext';
-// import { useLessons } from '@/hooks/useLessons';
-// import { getCompletedLessons } from '@/db/lessons.repo';
 
 const ProfileStats = ({progressPercent}: {progressPercent: number}) => {
     const {colors} = useTheme();

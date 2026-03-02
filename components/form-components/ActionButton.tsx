@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SubmitButtonProps } from '@/types';
 import STYLES from '@/constants/styles';
 import SIZES from '@/constants/size';

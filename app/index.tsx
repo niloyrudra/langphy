@@ -10,6 +10,9 @@ import { useLessonTimer } from "@/hooks/useLessonTimer";
 import LoadingScreenComponent from "@/components/LoadingScreenComponent";
 import { registerForPushNotifications, setupNotificationHandler } from "@/domain/notificationRules";
 import api from "@/lib/api";
+import Constants from "expo-constants";
+
+const isExpoGo = Constants.appOwnership === "expo";
 
 const App = () => {
   const { user, loading } = useAuth();
@@ -37,6 +40,10 @@ const App = () => {
       try {
         const token = await registerForPushNotifications();
         if (!token) return;
+        if (isExpoGo) {
+            console.log("Skipping ads in Expo Go");
+            return;
+        }
 
         await api.post("/notification/devices/register", {
           token,

@@ -16,7 +16,7 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black
 } from '@expo-google-fonts/poppins';
-import { bootstrapAds } from "@/monetization/ads.bootstrap";
+// import { bootstrapAds } from "@/bootstraps/ads.bootstrap";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -46,9 +46,11 @@ const RootLayout = () => {
   }, [loaded, error]);
 
   // Ads
-  useEffect(() => {
-    bootstrapAds();
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     bootstrapAds();
+  //   }, 1000);
+  // }, []);
 
   if (!loaded && !error) {
     return null;

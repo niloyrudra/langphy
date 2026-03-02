@@ -17,8 +17,8 @@ import { randomUUID } from 'expo-crypto';
 import { analysisNLP } from '@/services/nlpAnalysis.service';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
-import { shouldShowLessonAd } from '@/monetization/ads.frequency';
-import { interstitialController } from '@/monetization/ads.service';
+// import { shouldShowLessonAd } from '@/monetization/ads.frequency';
+// import { interstitialController } from '@/monetization/ads.service';
 
 const attemptId = randomUUID();
 
@@ -120,15 +120,16 @@ const ListeningLessons = () => {
       resultHandler(result!);
       reset();
 
-      // Use After 3 Lessons Completed
-      if( await shouldShowLessonAd() ) {
-        interstitialController.show(() => {
-          goToNextRef.current?.();
-        });
-      }
-      else {
-        goToNextRef.current?.();
-      }
+      // // Use After 3 Lessons Completed
+      // if( await shouldShowLessonAd() ) {
+      //   interstitialController.show(() => {
+      //     goToNextRef.current?.();
+      //   });
+      // }
+      // else {
+      //   goToNextRef.current?.();
+      // }
+      goToNextRef.current?.();
 
       resolveCurrent();
     }

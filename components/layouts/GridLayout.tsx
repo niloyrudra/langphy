@@ -19,6 +19,7 @@ const GridLayout = <T,>({
       data={data}
       keyExtractor={keyExtractor}
       numColumns={numColumns}
+      // columnWrapperStyle={{}}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
       renderItem={renderItem}

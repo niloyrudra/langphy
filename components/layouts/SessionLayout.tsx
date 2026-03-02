@@ -158,6 +158,7 @@ function SessionLayout<T>({
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         enabled={keyboardAvoid}
         keyboardVerticalOffset={keyboardVerticalOffset}
+        
       >
         <LessonNavDots data={preFetchedData.map((_, idx) => idx)} currentIndex={currentIndex} />
         <View ref={containerRef} style={styles.container}>
@@ -171,7 +172,7 @@ function SessionLayout<T>({
             nestedScrollEnabled
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={handleScroll}
-
+            
             onViewableItemsChanged={onVirewableItemsChanged}
             viewabilityConfig={viewabilityConfig}
 

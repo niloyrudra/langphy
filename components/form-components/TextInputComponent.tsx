@@ -57,7 +57,7 @@ const TextInputComponent = ({
             secureTextEntry={ isSecureTextEntry ?? isPassword}
 
             onChangeText={onChange}
-            onFocus={() => setIsFocused(prevValue => prevValue = ! prevValue)}
+            // onFocus={() => setIsFocused(prevValue => prevValue = ! prevValue)}
             onBlur={onBlur} // {() => setIsFocused(prevValue => prevValue = ! prevValue)}
         />
 

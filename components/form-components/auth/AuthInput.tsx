@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, TextInputProps } from 'react-native'
+import { StyleSheet, View, TextInputProps } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
 import TextInputComponent from '../TextInputComponent';
+import LangphyText from '@/components/text-components/LangphyText';
 
 interface AuthInputProps {
   placeholderText?: string;
@@ -40,7 +41,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
       />
       {error && touched && (
         <View style={styles.errorContainer}>
-          <Text style={[styles.errorContent, STYLES.wordWrapStyle, {color: colors.redDanger}]}>{error}</Text>
+          <LangphyText weight="bold" style={[styles.errorContent, STYLES.wordWrapStyle, {color: colors.redDanger}]}>{error}</LangphyText>
         </View>
       )}
     </>

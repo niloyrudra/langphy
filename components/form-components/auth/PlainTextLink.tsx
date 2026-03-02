@@ -3,23 +3,17 @@ import { useTheme } from '@/theme/ThemeContext';
 import { Link } from 'expo-router';
 
 import { LinkProps } from '@/types';
-import { View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import LangphyText from '@/components/text-components/LangphyText';
 
 const PlainTextLink = ({text, linkText, route}: LinkProps) => {
     const { colors } = useTheme();
     return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems:"center",
-          flexDirection: "row",
-          gap: 4
-        }}
-      >
-        <Text style={{color: colors.primary}}>{text}</Text>
+      <View style={styles.container}>
+        <LangphyText style={{color: colors.primary}}>{text}</LangphyText>
         <Link
           href={route}
-          style={{color: colors.text, fontWeight: "800"}}
+          style={[styles.link, {color: colors.text}]}
         >
           {linkText}
         </Link>
@@ -27,4 +21,14 @@ const PlainTextLink = ({text, linkText, route}: LinkProps) => {
     );
 }
 export default PlainTextLink;
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems:"center",
+    flexDirection: "row",
+    gap: 4
+  },
+  link: {fontWeight: "800"}
+});
 

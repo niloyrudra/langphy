@@ -1,9 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import React, { ReactNode } from 'react'
 
 import STYLES from '@/constants/styles';
 import sizes from '@/constants/size'
 import { useTheme } from '@/theme/ThemeContext'
+import LangphyText from '@/components/text-components/LangphyText';
 
 interface SocialButtonProps {
     iconComponent: ReactNode,
@@ -26,7 +27,7 @@ const SocialButton = ({iconComponent, socialMediaName, onTap}: SocialButtonProps
             onPress={onTap}
         >
             {iconComponent}
-            <Text style={{color: colors.text, fontWeight:"800"}}>{socialMediaName}</Text>
+            <LangphyText weight="extrabold" style={{color: colors.text, fontWeight:"800"}}>{socialMediaName}</LangphyText>
         </TouchableOpacity>
     );
 }

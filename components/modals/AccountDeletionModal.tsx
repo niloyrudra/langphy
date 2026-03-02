@@ -10,6 +10,16 @@ import { useAuth } from '@/context/AuthContext';
 import { router } from 'expo-router';
 import * as SecureStore from "expo-secure-store";
 import LangphyText from '../text-components/LangphyText';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { clearProfile } from '@/db/profile.repo';
+import { clearSettings } from '@/db/settings.repo';
+import { clearStreak } from '@/db/streaks.repo';
+import { clearProgress } from '@/db/progress.repo';
+import { clearSessionPerformance } from '@/db/performance.repo';
+import { clearLessons } from '@/db/lessons.repo';
+import { clearCategories } from '@/db/category.repo';
+import { clearUnits } from '@/db/unit.repo';
+import api from '@/lib/api';
 
 interface AccountDeletionModalProps {
     isVisible: boolean;
@@ -18,41 +28,30 @@ interface AccountDeletionModalProps {
 
 const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalProps) => {
     const insets = useSafeAreaInsets();
-    const {user, setUser } = useAuth();
+    const { setUser } = useAuth();
     const {colors, theme} = useTheme();
     const [loading, setLoading] = React.useState<boolean>(false);
 
     const handleAccountDeletion = async () => {
         try {
             setLoading(true);
-            const userId = user?.id;
-            if(!userId) return Alert.alert( "User id is missing!" );
-
-            const res = await fetch(
-                `${process.env.EXPO_PUBLIC_API_BASE}/users/delete`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        userId
-                    })
-                }
-            );
+            const res = await api.post( '/users/delete' );
             
-            const data = await res.json();
-            
-            console.log(res.status, data)
-
-            if( res.status === 200 && data! ) {  
-                const { message } = data;
-
-                // await SecureStore.setItemAsync("accessToken", token);
-                await SecureStore.deleteItemAsync("accessToken");
+            if( res.status === 200 && res.data! ) {  
+                const { message } = res.data;
+                await Promise.all([
+                    clearProfile(),
+                    clearSettings(),
+                    clearStreak(),
+                    clearProgress(),
+                    clearSessionPerformance(),
+                    clearLessons(),
+                    clearCategories(),
+                    clearUnits(),
+                    SecureStore.deleteItemAsync("accessToken"),
+                ]);
+                authSnapshot.clear();
                 setUser(null);
-
-                // await SecureStore.setItemAsync("accessToken", token);
 
                 if(message) Alert.alert( message )
                 else Alert.alert("Successfully account deleted!");
@@ -106,15 +105,8 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
                         buttonTitle='Yes'
                         onSubmit={handleAccountDeletion}
                         isLoading={loading}
-                        buttonStyle={{
-                            width: '45%',
-                            backgroundColor: "transparent",
-                            borderWidth: 1,
-                            borderColor: "#EF1313" // colors.redDanger
-                        }}
-                        textStyle={{
-                            color: "#EF1313" // colors.redDanger
-                        }}
+                        buttonStyle={styles.button}
+                        textStyle={styles.buttonText}
                     />
                     
                     <ActionButton
@@ -192,5 +184,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "column",
         gap: 5
-    }
+    },
+    button: {
+        width: '45%',
+        backgroundColor: "transparent",
+        borderWidth: 1,
+        borderColor: "#EF1313" // colors.redDanger
+    },
+    buttonText: { color: "#EF1313" }
 });

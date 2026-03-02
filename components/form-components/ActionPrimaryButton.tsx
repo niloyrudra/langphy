@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SubmitButtonProps } from '@/types';
 import STYLES from '@/constants/styles';
 import sizes from '@/constants/size';
@@ -17,9 +17,6 @@ const ActionPrimaryButton = ( {
     isLoading
 }: SubmitButtonProps ) => {
     const {colors} = useTheme();
-
-    // if(  )
-
     return (
         <TouchableOpacity
             style={[

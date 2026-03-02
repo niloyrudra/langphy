@@ -34,17 +34,17 @@ const SettingsScreen = () => {
     try {
       const axiosRes = await api.post("/users/signout");
       if( axiosRes.status === 200 && axiosRes.data ) {
-        await Promise.all([
-          clearProfile(),
-          clearSettings(),
-          clearStreak(),
-          clearProgress(),
-          clearSessionPerformance(),
-          clearLessons(),
-          clearCategories(),
-          clearUnits(),
-          SecureStore.deleteItemAsync("accessToken"),
-        ]);
+        // await Promise.all([
+        //   clearProfile(),
+        //   clearSettings(),
+        //   clearStreak(),
+        //   clearProgress(),
+        //   clearSessionPerformance(),
+        //   clearLessons(),
+        //   clearCategories(),
+        //   clearUnits(),
+        // ]);
+        SecureStore.deleteItemAsync("accessToken"),
         authSnapshot.clear();
         Alert.alert("Successfully signed out!");
         
@@ -58,7 +58,7 @@ const SettingsScreen = () => {
       console.error("Signout Error:", err)
       Alert.alert("Signout failed!")
     }
-  }, [router])
+  }, [router, api]);
 
   const isServiceEnabled = useCallback(( serviceType: string ): boolean => {
     if(!settings) return false;
@@ -93,7 +93,6 @@ const SettingsScreen = () => {
     <>
       <SafeAreaLayout>
         <View style={styles.container}>
-
           <SectionList
             sections={SETTINGS_DATA}
             keyExtractor={(item, index) => item.elementTitle+index}
@@ -180,7 +179,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 30
+    // marginBottom: 30
   },
   settingItemContainer: {
     flex: 1,

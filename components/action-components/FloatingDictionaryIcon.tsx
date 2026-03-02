@@ -3,13 +3,13 @@ import React from 'react'
 import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
 
-import { DictionaryIcon } from '@/utils/SVGImages';
+// import { DictionaryIcon } from '@/utils/SVGImages';
 
 
 const FloatingDictionaryIcon = () => {
   return (
     <TouchableOpacity style={[STYLES.childContentCentered, styles.container, STYLES.boxShadow]}>
-      <DictionaryIcon width={40} height={40} />
+      {/* <DictionaryIcon width={40} height={40} /> */}
     </TouchableOpacity>
   )
 }

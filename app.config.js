@@ -19,7 +19,8 @@ export default {
         foregroundImage: "./assets/images/splash-screen/logo-light-mode.png",
         backgroundColor: "#F9FAFB"
       },
-      package: "com.niloyrudra.langphy"
+      package: "com.niloyrudra.langphy",
+      softwareKeyboardLayoutMode: "pan"
     },
     web: {
       bundler: "metro",
@@ -36,7 +37,12 @@ export default {
       "expo-notifications",
       "expo-background-task",
       "expo-speech-recognition",
-      "react-native-google-mobile-ads",
+      // [
+      //   "react-native-google-mobile-ads",
+      //   {
+      //     androidAppId: "ca-app-pub-xxxxxxxx~xxxxxxxx"
+      //   }
+      // ]
       [
         "expo-splash-screen",
         {
