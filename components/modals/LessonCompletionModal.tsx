@@ -9,6 +9,7 @@ import { Entypo, FontAwesome, FontAwesome6, MaterialIcons } from '@expo/vector-i
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 import WordConfidenceComponent from './_partials/WordConfidenceComponent';
+// import { useCelebration } from '@/context/CelebrationContext';
 // import HorizontalLine from '../HorizontalLine';
 
 interface LessonCompletionModalProps {
@@ -23,6 +24,7 @@ interface LessonCompletionModalProps {
 const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, onRetry, onContinue}: LessonCompletionModalProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
+    // const { resolveCurrent } = useCelebration();
     const isSelective = 'answered' in result;
     const isSpeech = 'analysis' in result && 'transcription' in result;
     const speechResult = isSpeech ? (result as SpeechResultType) : null;
@@ -51,7 +53,11 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
         return "Your Result!";
     }, [result, isSelective, isSimilarity, isSpeech]);
 
-    
+    // const handleRetry = React.useCallback( () => {
+    //     onRetry();
+    //     resolveCurrent();
+    // }, [onRetry, resolveCurrent]);
+
     const handleContinue = React.useCallback( () => onContinue(), [onContinue]);
 
     return (
@@ -155,6 +161,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                 <View style={styles.buttonWrapper}>
                     <ActionPrimaryButton
                         buttonTitle='Retry'
+                        // onSubmit={isSpeech ? handleRetry : onRetry}
                         onSubmit={onRetry}
                         buttonStyle={styles.button}
                     />

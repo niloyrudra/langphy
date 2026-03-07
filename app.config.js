@@ -9,7 +9,8 @@ export default {
     icon: "./assets/images/splash-screen/logo-light-mode.png",
     scheme: "langphy",
     userInterfaceStyle: "automatic",
-    newArchEnabled: true,
+    // enableHermes: true,
+    newArchEnabled: true, // ***
     ios: {
       supportsTablet: true
     },

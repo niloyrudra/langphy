@@ -20,9 +20,6 @@ const styles = StyleSheet.create({
     pointer: {
         width: 0,
         height: 0,
-        // transform: {
-        //     ro
-        // }
         // borderWidth: 12,
         // borderTopWidth: 6,
         borderLeftWidth: 8,

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Confidence } from '@/types'
-import ProgressBar from '@/components/ProgressBar'
+// import ProgressBar from '@/components/ProgressBar'
 import { useTheme } from '@/theme/ThemeContext'
 import LangphyText from '@/components/text-components/LangphyText'
 

@@ -2,17 +2,17 @@ import { updateSettingField } from "@/db/settings.repo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type SettingsField =
-  | "theme"
-  | "sound_effect"
-  | "speaking_service"
-  | "reading_service"
-  | "listening_service"
-  | "writing_service"
-  | "practice_service"
-  | "quiz_service"
-  | "push_notification"
-  | "notifications"
-  | "language";
+    | "theme"
+    | "sound_effect"
+    | "speaking_service"
+    | "reading_service"
+    | "listening_service"
+    | "writing_service"
+    | "practice_service"
+    | "quiz_service"
+    | "push_notification"
+    | "notifications"
+    | "language";
 
 export const useUpdateSettings = (userId: string) => {
     const queryClient = useQueryClient();

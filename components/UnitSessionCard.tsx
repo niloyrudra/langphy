@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router';
 import STYLES from '@/constants/styles';
-import ProgressBar from './ProgressBar';
+// import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
 import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
@@ -40,7 +40,7 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
         
         <TitleHeading title={title} />
         
-        <ProgressBar completion={completion ?? 0} />
+        {/* <ProgressBar completion={completion ?? 0} /> */}
 
       </View>
     </TouchableOpacity>

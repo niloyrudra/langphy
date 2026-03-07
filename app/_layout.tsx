@@ -39,9 +39,14 @@ const RootLayout = () => {
     }
   }, [error]);
 
-  const onLayoutRootView = React.useCallback( async () => {
-    if ( loaded || error ) {
-      await SplashScreen.hideAsync();
+  // const onLayoutRootView = React.useCallback( async () => {
+  //   if ( loaded || error ) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [loaded, error]);
+  React.useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
     }
   }, [loaded, error]);
 
@@ -52,12 +57,14 @@ const RootLayout = () => {
   //   }, 1000);
   // }, []);
 
-  if (!loaded && !error) {
+  if (!loaded ) {
+  // if (!loaded && !error) {
     return null;
   }
   
   return (
-    <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+    {/* <SafeAreaView onLayout={onLayoutRootView} style={{ flex: 1 }}> */}
       <AppProvider>
         <ThemeProvider>
             <Stack

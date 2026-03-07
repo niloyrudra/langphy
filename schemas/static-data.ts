@@ -90,8 +90,7 @@ import {
   FeedbackLightIcon,
   FeedbackDarkIcon,
   ListeningDarkIcon,
-  ListeningLightIcon,
-
+  ListeningLightIcon
 } from '@/utils/SVGImages'
 
 export const CATEGORY_DATA_V3 = [

@@ -1,5 +1,5 @@
 import api from "@/lib/api";
-import { BackendLesson, Lesson, PracticeSessionType } from "@/types";
+import { BackendLesson, PracticeSessionType } from "@/types";
 
 export const fetchPracticeData = async (categoryId: string, unitId: string) => {
     try {

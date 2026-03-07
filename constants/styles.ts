@@ -70,15 +70,15 @@ const titleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
     // fontSize: 16,
     fontSize: 12,
     fontWeight: "900",
-    lineHeight: 12,
+    lineHeight: 16,
     // textTransform: "uppercase",
-    fontFamily: 'PlusJakartaSans-ExtraBold',
+    // fontFamily: 'PlusJakartaSans-ExtraBold',
 };
 const subTitleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
     fontSize: 14,
     fontWeight: "700",
-    lineHeight: 14,
-    fontFamily: 'PlusJakartaSans-Bold',
+    lineHeight: 16,
+    // fontFamily: 'PlusJakartaSans-Bold',
 };
 
 const wordWrapStyle: StyleProp<TextStyle> = <TextStyle> {

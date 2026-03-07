@@ -1,17 +1,12 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Link } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
 
 const ForgotPasswordLink = () => {
     const {colors} = useTheme();
     return (
-        <View
-            style={{
-                justifyContent: "center",
-                alignItems: "flex-end"              
-            }}
-        >
+        <View style={styles.container}>
             <Link
                 href="/auth/forgot-password"
                 style={{
@@ -23,3 +18,10 @@ const ForgotPasswordLink = () => {
     );
 }
 export default ForgotPasswordLink;
+
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: "center",
+        alignItems: "flex-end"
+    }
+});

@@ -77,7 +77,7 @@ import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
 import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
 import { makeMutable, SharedValue } from 'react-native-reanimated';
 import { findNodeHandle, UIManager } from "react-native";
-import api from "@/lib/api";
+// import api from "@/lib/api";
 
 export const createEqualizerBars = (count: number): SharedValue<number>[] => {
   return Array.from({ length: count }, () => makeMutable(0));

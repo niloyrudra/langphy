@@ -14,14 +14,6 @@ import api from '@/lib/api';
 import { useSettings } from '@/hooks/useSettings';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { clearLessons } from '@/db/lessons.repo';
-import { clearProfile } from '@/db/profile.repo';
-import { clearSessionPerformance } from '@/db/performance.repo';
-import { clearSettings } from '@/db/settings.repo';
-import { clearStreak } from '@/db/streaks.repo';
-import { clearCategories } from '@/db/category.repo';
-import { clearUnits } from '@/db/unit.repo';
-import { clearProgress } from '@/db/progress.repo';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
@@ -34,20 +26,9 @@ const SettingsScreen = () => {
     try {
       const axiosRes = await api.post("/users/signout");
       if( axiosRes.status === 200 && axiosRes.data ) {
-        // await Promise.all([
-        //   clearProfile(),
-        //   clearSettings(),
-        //   clearStreak(),
-        //   clearProgress(),
-        //   clearSessionPerformance(),
-        //   clearLessons(),
-        //   clearCategories(),
-        //   clearUnits(),
-        // ]);
         SecureStore.deleteItemAsync("accessToken"),
         authSnapshot.clear();
         Alert.alert("Successfully signed out!");
-        
         router.replace("/auth/login");
       }
       else {

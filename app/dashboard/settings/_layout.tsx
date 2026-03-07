@@ -1,6 +1,6 @@
 import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
-import Title from "@/components/Title";
+// import Title from "@/components/Title";
 import { useTheme } from "@/theme/ThemeContext";
 import { Stack } from "expo-router";
 import { View } from "react-native";

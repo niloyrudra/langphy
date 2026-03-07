@@ -57,7 +57,6 @@ const App = () => {
     runForegroundSync(); // app launch
     setupPush();
 
-
     return () => sub.remove();
   }, [user]);
 

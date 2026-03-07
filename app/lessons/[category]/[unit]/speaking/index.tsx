@@ -22,16 +22,17 @@ import Error from '@/components/Error';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
-const attemptId = randomUUID();
-
 const SpeakingLessons = () => {
+  const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  
   const goToNextRef = React.useRef<(() => void) | null>(null);
+
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<SpeakingSessionType | null>(null);
 
@@ -44,18 +45,16 @@ const SpeakingLessons = () => {
     isRecording,
     isPaused,
     isPlaying,
-    setExpectedText,
     startRecording,
     stopRecording,
     play,
-    pause,
     reset,
     analyzeSpeech,
     isRecordingDone,
     loading,
     result,
     error,
-  } = useSpeechRecorder(null);
+  } = useSpeechRecorder();
 
   // Handlers
   const onLessonComplete = React.useCallback(async (lesson: SpeakingSessionType, score: number) => {
@@ -114,11 +113,12 @@ const SpeakingLessons = () => {
   }, [ reset, result, onLessonComplete, resolveCurrent ]);
     
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: SpeakingSessionType, index: number, goToNext: () => void}) => {
-    setExpectedText(prevValue => prevValue = item.phrase.trim())
     activeLessonOrderRef.current = index;
     currentLessonRef.current = item;
     goToNextRef.current = goToNext;
-  }, [setExpectedText]);
+
+    console.log("activeItemChangeHandler")
+  }, []);
 
   // Timer
   React.useEffect(() => {
@@ -203,8 +203,7 @@ const SpeakingLessons = () => {
               <ActionPrimaryButton
                 buttonTitle='Check'
                 onSubmit={() => {
-                  setExpectedText((prevValue) => prevValue = item.phrase.trim());
-                  analyzeSpeech(onContinue);
+                  analyzeSpeech(item.phrase.trim(), onContinue);
                 }}
                 isLoading={loading}
                 disabled={!isRecordingDone || loading}

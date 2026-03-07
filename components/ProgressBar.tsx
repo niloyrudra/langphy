@@ -1,17 +1,22 @@
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { useTheme } from '@/theme/ThemeContext';
 
-import { ProgressBarActivePng } from '@/utils/pngImages';
+// import { ProgressBarActivePng } from '@/utils/pngImages';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const ProgressBar = ({completion}: {completion: number}) => {
     const {colors}  = useTheme();
     const width = React.useMemo(() => ({width: (completion / 100)*52}), [completion]);
     return (
         <View style={[styles.container, {backgroundColor: colors.progressBarBackground}]}>
-            <Image
+            {/* <Image
                 source={ProgressBarActivePng}
                 style={[styles.image, width]}
+            /> */}
+            <LinearGradient
+                style={[styles.image, width]}
+                colors={["#48E4EF", "#1B7CF5"]}
             />
         </View>
     );
@@ -29,6 +34,8 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 8,
-        objectFit: "fill"
+        objectFit: "fill",
+        borderRadius: 30,
+        overflow: "hidden"
     }
 });

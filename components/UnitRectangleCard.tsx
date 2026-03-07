@@ -4,7 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import Title from './Title';
 import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
-import ProgressBar from './ProgressBar';
+// import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
 import { DolphinReading } from '@/utils/SVGImages';
 
@@ -20,7 +20,7 @@ type unitItemType = {
 
 const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, categoryId, completion, goal, customStyle }) => {
   const { colors } = useTheme();
-  const completionMatrix = (completion/goal)*100;
+  // const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
 
   return (
@@ -36,7 +36,7 @@ const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, ca
         <Title title={title} />
 
         <View style={[STYLES.childContentCentered, styles.progressBarWrapper]}>
-          <ProgressBar completion={completionMatrix} />
+          {/* <ProgressBar completion={completionMatrix} /> */}
         </View>
 
       </View>

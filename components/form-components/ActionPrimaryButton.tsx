@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SubmitButtonProps } from '@/types';
 import STYLES from '@/constants/styles';
 import sizes from '@/constants/size';
 
-import { ButtonGradientPng } from '@/utils/pngImages';
 import { useTheme } from '@/theme/ThemeContext';
 import LangphyText from '../text-components/LangphyText';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const ActionPrimaryButton = ( {
     buttonTitle="Submit",
@@ -21,35 +21,32 @@ const ActionPrimaryButton = ( {
         <TouchableOpacity
             style={[
                 STYLES.childContentCentered,
-                {position: "relative"},
+                // {position: "relative"},
                 (disabled && [styles.content, {backgroundColor: colors.disabledButtonBackgroundColor}]),
                 (buttonStyle && buttonStyle)
             ]}
             onPress={onSubmit}
             disabled={disabled || isLoading}
         >
-            {
-                !disabled && (
-                    <Image
-                        source={ButtonGradientPng}
-                        style={{
-                            width: "100%",
-                            height: sizes.buttonHeight,
-                            objectFit: "fill"
-                        }}
-                    />
-                )
-            }
-            <LangphyText
-                weight="extrabold"
-                style={[
-                    styles.text,
-                    { color: (disabled ? colors.disabledButtonColor : "#ffffff")},
-                    (buttonTextStyle && buttonTextStyle)
-                ]}
+            <LinearGradient
+                colors={!disabled ? [ "#48E4EF", "#1B7CF5" ] : ['transparent', 'transparent']}
+                style={styles.button}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                locations={[0, 1]}
             >
-                {isLoading ? "Processing..." : buttonTitle}
-            </LangphyText>
+
+                <LangphyText
+                    weight="extrabold"
+                    style={[
+                        styles.text,
+                        { color: (disabled ? colors.disabledButtonColor : "#ffffff")},
+                        (buttonTextStyle && buttonTextStyle)
+                    ]}
+                >
+                    {isLoading ? "Processing..." : buttonTitle}
+                </LangphyText>
+            </LinearGradient>
         </TouchableOpacity>
     );
 }
@@ -61,8 +58,16 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         height: sizes.buttonHeight
     },
+    button: {
+        width: "100%",
+        height: sizes.buttonHeight,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 30
+        // objectFit: "fill"
+    },
     text: {
-        position:"absolute",
+        // position:"absolute",
         fontSize: 16,
     }
 })

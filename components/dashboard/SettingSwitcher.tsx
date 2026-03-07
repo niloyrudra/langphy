@@ -61,7 +61,6 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: s
             default:
                 console.log('Unhandled settingType:', settingType);
         }
-
     }
     
     // Sync ONLY when this switch represents the theme setting

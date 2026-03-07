@@ -1,10 +1,23 @@
 import React from 'react';
 import UnitSessionList from '@/components/list-loops/UnitSessionList';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
+import { AppState } from 'react-native';
+import { useLessonTimer } from '@/hooks/useLessonTimer';
 
-const UnitSessions = () => (
-  <SafeAreaLayout>
-    <UnitSessionList />
-  </SafeAreaLayout>
-);
+const UnitSessions = () => {
+  const timer = useLessonTimer();
+  React.useEffect(() => {
+    const sub = AppState.addEventListener("change", state => {
+      if (state === "active") {
+        timer.reset();
+      }
+    });
+    return () => sub.remove();
+  }, [])
+  return (
+    <SafeAreaLayout>
+      <UnitSessionList />
+    </SafeAreaLayout>
+  );
+}
 export default UnitSessions;

@@ -1,4 +1,4 @@
-import { authSnapshot } from "@/snapshots/authSnapshot";
+// import { authSnapshot } from "@/snapshots/authSnapshot";
 import { db } from "./index";
 import {
     CREATE_CATEGORIES_TABLE,
@@ -11,7 +11,7 @@ import {
     CREATE_STREAKS_TABLE,
     CREATE_UNITS_TABLE
 } from "./schema";
-import * as SecureStore from "expo-secure-store";
+// import * as SecureStore from "expo-secure-store";
 
 export const runMigrations = async () => {
     // await db.runAsync(`DELETE FROM lp_profiles`);

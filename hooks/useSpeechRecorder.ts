@@ -20,9 +20,8 @@ const initialState = {
     error: null as string | null,
 };
 
-const useSpeechRecorder = ( text: string | null ) => {
-    const [ expectedText, setExpectedText ] = useState<string | null>(text);
-    const { triggerLessonResult } = useCelebration();
+const useSpeechRecorder = () => {
+    const { triggerLessonResult, resolveCurrent } = useCelebration();
     const [ recordedUri, setRecordedUri ] = useState<string | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ isRecordingDone, setIsRecordingDone ] = useState<boolean>(false)
@@ -99,8 +98,8 @@ const useSpeechRecorder = ( text: string | null ) => {
     }, [player, recordedUri]);
 
     /* ☁️ Send to backend (Whisper → SpaCy) */
-    const analyzeSpeech = useCallback(async (callbackFn: () => void) => {
-        if (!expectedText) {
+    const analyzeSpeech = useCallback(async ( expectedText: string, callbackFn: () => void) => {
+        if (!expectedText?.trim()) {
             setError("No expected text found!");
             return;
         }
@@ -167,7 +166,7 @@ const useSpeechRecorder = ( text: string | null ) => {
                         actualQuery: expectedText,
                         result: response.data,
                         onContinue: callbackFn,
-                        onRetry: () => {},
+                        onRetry: reset,
                     });
 
                     setLoading(false);
@@ -188,13 +187,18 @@ const useSpeechRecorder = ( text: string | null ) => {
             setLoading(false);
         }
 
-    }, [recordedUri, expectedText]);
+    }, [recordedUri]);
 
     const reset = useCallback(async () => {
         try {
-            if (recorderState.isRecording) {
+            try {
                 await audioRecorder.stop();
+            } catch (e) {
+            // ignore if already stopped
             }
+            // if (recorderState.isRecording) {
+            //     await audioRecorder.stop();
+            // }
 
             // 🔥 THIS IS CRITICAL
             await audioRecorder.prepareToRecordAsync();
@@ -205,18 +209,18 @@ const useSpeechRecorder = ( text: string | null ) => {
             setError(null);
             setLoading(false);
 
-            // optional: reset expected text
-            setExpectedText(text ?? null);
-
             // reset player position
             if (player) {
                 await player.pause(); // No .stop() method in AudioPlayer
                 // await player.seekTo(0);
             }
+
+            resolveCurrent();
+
         } catch (e) {
             console.warn("Reset failed", e);
         }
-    }, [audioRecorder, recorderState.isRecording, player, text]);
+    }, [audioRecorder, player, resolveCurrent]);
 
     return {
         /* state */
@@ -230,7 +234,6 @@ const useSpeechRecorder = ( text: string | null ) => {
         error,
 
         /* actions */
-        setExpectedText,
         startRecording,
         stopRecording,
         play,
