@@ -12,7 +12,6 @@ const QuizOptionCard = ( {
     isSelectionHappened,
     onSelect,
     isCorrect=false,
-    marginRight=0,
     containerWidth,
     customStyle
   }: QuizProps ) => {
@@ -49,7 +48,6 @@ const QuizOptionCard = ( {
             borderColor,
             width: containerWidth,
             height: containerWidth,
-            marginRight: marginRight
           },
           (customStyle && customStyle)
         ]}

@@ -62,7 +62,7 @@ type UnitLesson = {
   slug: string,
   completion: number,
   goal: number,
-  ImgComponent: React.FC<SvgProps>
+  // ImgComponent: React.FC<SvgProps>
 }
 
 type UnitLessonProps = {
@@ -73,7 +73,7 @@ type UnitLessonProps = {
   unitLessonCategory: string,
   completion: number,
   goal: number,
-  ImgComponent: React.FC<SvgProps>,
+  // ImgComponent: React.FC<SvgProps>,
   containerWidth?: number,
   marginRight?: number
 }
@@ -125,7 +125,7 @@ type UnitSessionType = {
   goal?: number,
   completion?: number,
   marginRight?: number,
-  ImgComponent: React.FC<SvgProps>,
+  // ImgComponent: React.FC<SvgProps>,
   slug: string
 }
 
@@ -258,6 +258,16 @@ type SubmitButtonProps = {
     buttonStyle?: StyleProp<ViewStyle>,
     buttonTextStyle?: StyleProp<ViewProps>,
     textStyle?: StyleProp<TextStyle>,
+    disabled?: boolean,
+    isLoading?: boolean
+}
+type SubmitSecondaryButtonProps = {
+    buttonTitle?: string,
+    onSubmit: () => void,
+    buttonStyle?: StyleProp<ViewStyle>,
+    buttonTextStyle?: StyleProp<ViewProps>,
+    textStyle?: StyleProp<TextStyle>,
+    background?: ColorValue;
     disabled?: boolean,
     isLoading?: boolean
 }
@@ -734,6 +744,14 @@ type SessionPerformance = {
   dirty: number;
 };
 
+type MilestonesType = {
+  id: number;
+  milestonesTitle: string;
+  isFeatured: boolean;
+  milestones: number;
+  icon: ImageSourcePropType;
+}
+
 export {
   UserEntitlement,
 
@@ -791,6 +809,7 @@ export {
   BannerProps,
   TitleProps,
   SubmitButtonProps,
+  SubmitSecondaryButtonProps,
   InputProps,
   EyeProps,
   LessonProps,
@@ -821,5 +840,7 @@ export {
   PerformanceUpdateInput,
   CompleteLessonInput,
   CompleteLessonChainInput,
-  SessionCompletedInput
+  SessionCompletedInput,
+
+  MilestonesType
 };

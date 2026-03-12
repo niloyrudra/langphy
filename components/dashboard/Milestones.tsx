@@ -1,51 +1,17 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import { ProfileStreaks_3_Icon } from '@/utils/SVGImages';
 import Title from '../Title';
-import SIZES from '@/constants/size';
 import MilestoneScreenRouter from './_partials/MilestoneScreenRouter';
 import MilestonesItem from './_partials/MilestonesItem';
-
-type Milestones = {
-    id: number,
-    milestonesTitle: string,
-    isLocked: boolean;
-    milestones: number,
-    ImgComponent?: React.ReactNode
-}
-
-const milestonesData: Milestones[] = [
-    {
-        id: 1,
-        milestonesTitle: "3 Day",
-        isLocked: false,
-        milestones: 3,
-        ImgComponent: <ProfileStreaks_3_Icon />
-    },
-    {
-        id: 2,
-        milestonesTitle: "7 Day",
-        isLocked: true,
-        milestones: 7,
-        ImgComponent: <ProfileStreaks_3_Icon />
-    },
-    {
-        id: 3,
-        milestonesTitle: "14 Day",
-        isLocked: true,
-        milestones: 14,
-        ImgComponent: <ProfileStreaks_3_Icon />
-    },
-    {
-        id: 4,
-        milestonesTitle: "30 Day",
-        isLocked: true,
-        milestones: 30,
-        ImgComponent: <ProfileStreaks_3_Icon />
-    }
-];
+import { MilestonesType } from '@/types';
+import SIZES from '@/constants/size';
+import { useStreak } from '@/hooks/useStreaks';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { milestonesData } from '@/schemas/static-data';
 
 const Milestones = ({title}: {title:string}) => {
+    const userId = authSnapshot.getUserId() ?? null;
+    const {data: streak} = useStreak( userId as string );
     return (
         <View>
             <View style={styles.titleContainer}>
@@ -56,13 +22,13 @@ const Milestones = ({title}: {title:string}) => {
             {/* Milestones Items */}
             <View style={styles.milestonesContainer}>
               {
-                milestonesData.map( (item: Milestones) => (
+                milestonesData.filter( item => item.isFeatured ).map( (item: MilestonesType) => (
                     <MilestonesItem
                         key={item.id.toString()}
                         title={item.milestonesTitle}
                         milestones={item.milestones}
-                        isLocked={item.isLocked}
-                        icon={item.ImgComponent}
+                        isLocked={streak ?? 0 >= item.milestones ? true : false}
+                        icon={item.icon}
                     />
                 ))
               }

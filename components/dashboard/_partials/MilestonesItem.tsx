@@ -1,16 +1,17 @@
-import { StyleSheet, View } from 'react-native'
+import { ImageSourcePropType, StyleSheet, View } from 'react-native'
 import React from 'react'
 import SIZES from '@/constants/size';
 import { getCardContainerWidth } from '@/utils';
 import { useTheme } from '@/theme/ThemeContext';
 import { MilestonesGrdCardBgLight } from '@/utils/SVGImages';
 import LangphyText from '@/components/text-components/LangphyText';
+import AppImage from '@/components/AppImage';
 
 interface MilestonesItemProps {
     title: string;
     isLocked: boolean;
     milestones: number;
-    icon: React.ReactNode;
+    icon: ImageSourcePropType // React.ReactNode;
 }
 
 const MilestonesItem = ({title, isLocked, milestones, icon}: MilestonesItemProps) => {
@@ -19,7 +20,9 @@ const MilestonesItem = ({title, isLocked, milestones, icon}: MilestonesItemProps
         <View style={[styles.container, {opacity: isLocked ? 0.35 : 1}]}>
                 
             <View style={[styles.icon, {backgroundColor: colors.profileCardImgBgClr}]}>
-                {icon}
+                {
+                    icon && (<AppImage source={icon} size={64} />)
+                }
             </View>
 
             <View style={[styles.content, {backgroundColor: colors.profileCardBg}]}>

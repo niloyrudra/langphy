@@ -10,17 +10,33 @@ import { getCardContainerWidth } from '@/utils';
 import GridCardIcon from './GridCardIcon';
 
 
-const CategoryCard = ( { cat_id, title, slug, marginRight=0}: CategoryProps ) => {
+const CategoryCard = ( { cat_id, title, slug}: CategoryProps ) => {
   const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
 
+  const routeHandler = React.useCallback(() => {
+    router.push({
+      pathname: `/lessons/${slug}`,
+      params: { title, slug, categoryId: cat_id }
+    })
+  }, [router, slug, title, cat_id]);
+
   return (
-    <TouchableOpacity
-      onPress={() =>  router.push({ pathname: `/lessons/${slug}`, params: { title: title, slug: slug, categoryId: cat_id } })}
-    >
-      <View style={[STYLES.contentCentered, styles.container, {backgroundColor: colors.cardBackgroundColor, borderColor: colors.cardBorderColor, width: cardWidth, height: cardWidth, marginRight: marginRight} ]}>
+    <TouchableOpacity onPress={routeHandler}>
+      <View
+        style={[
+          STYLES.contentCentered,
+          styles.container,
+          {
+            backgroundColor: colors.cardBackgroundColor,
+            borderColor: colors.cardBorderColor,
+            width: cardWidth,
+            height: cardWidth
+          }
+        ]}
+      >
         
-        <GridCardIcon slug={slug} />
+        <GridCardIcon slug={slug} type="category" />
         
         <TitleHeading title={title} />
         

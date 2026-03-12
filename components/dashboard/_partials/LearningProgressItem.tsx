@@ -1,12 +1,13 @@
-import { StyleSheet, View } from 'react-native'
+import { ImageSourcePropType, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { ProfileLearningProgressCardBg } from '@/utils/SVGImages';
 import { useTheme } from '@/theme/ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import LangphyText from '@/components/text-components/LangphyText';
+import AppImage from '@/components/AppImage';
 
 interface LearningProgressItemProps {
-    icon: React.ReactNode;
+    icon: ImageSourcePropType; // React.ReactNode;
     title: string;
     score: string;
 }
@@ -23,7 +24,9 @@ const LearningProgressItem = ({icon, title, score}: LearningProgressItemProps) =
             <View style={styles.content}>
                 <View style={styles.progressDetail}>
                     <View style={[styles.icon, {backgroundColor: colors.profileCardImgBgClr}]}>
-                        {icon}
+                        {
+                            icon && (<AppImage source={icon} size={24} />)
+                        }
                     </View>
                     <LangphyText weight="medium" style={[styles.title, {color: colors.text }]}>{title}</LangphyText>
                 </View>
@@ -33,7 +36,6 @@ const LearningProgressItem = ({icon, title, score}: LearningProgressItemProps) =
                     style={styles.scoreContainer}
                 >
                     <LangphyText weight="semibold" style={[styles.score, {color: colors.text }]}>{score}</LangphyText>
-
                 </LinearGradient>
 
             </View>

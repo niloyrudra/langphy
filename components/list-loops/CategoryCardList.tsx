@@ -19,7 +19,6 @@ const CategoryCardList = () => {
           cat_id={item.id}
           title={item.title}
           slug={item.slug}
-          marginRight={( parseInt(item?.position_at) % 2 !== 0) ? SIZES.cardGap : 0}
         />
       )}
     />

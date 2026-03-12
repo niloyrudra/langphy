@@ -1,14 +1,16 @@
 import React, { ReactNode } from 'react'
 import LearningProgressItem from '@/components/dashboard/_partials/LearningProgressItem';
-import { ProfileLessonIcon, ProfilePhraseIcon, ProfileUnitIcon, ProfileWordsIcon } from '@/utils/SVGImages';
+// import { ProfileLessonIcon, ProfilePhraseIcon, ProfileUnitIcon, ProfileWordsIcon } from '@/utils/SVGImages';
 import Title from '@/components/Title';
-import { StyleSheet, View } from 'react-native';
+import { ImageSourcePropType, StyleSheet, View } from 'react-native';
+import { Images } from '@/constants/images';
 
 type LearningProress = {
-    id: number,
-    learningCategoryTitle: string,
-    score: number,
-    ImgComponent: ReactNode
+    id: number;
+    learningCategoryTitle: string;
+    score: number;
+    icon: ImageSourcePropType;
+    // ImgComponent: ReactNode
 };
 
 const learningProgressData: LearningProress[] = [
@@ -16,25 +18,29 @@ const learningProgressData: LearningProress[] = [
         id: 1,
         learningCategoryTitle: "Total Words",
         score: 1000,
-        ImgComponent: <ProfileWordsIcon />
+        icon: Images.dashboard.progress_word,
+        // ImgComponent: <ProfileWordsIcon />
     },
     {
         id: 2,
         learningCategoryTitle: "Total Phrases",
         score: 500,
-        ImgComponent: <ProfilePhraseIcon />
+        icon: Images.dashboard.progress_paragraph,
+        // ImgComponent: <ProfilePhraseIcon />
     },
     {
         id: 3,
         learningCategoryTitle: "Total Units",
         score: 100,
-        ImgComponent: <ProfileUnitIcon />
+        icon: Images.dashboard.progress_unit,
+        // ImgComponent: <ProfileUnitIcon />
     },
     {
         id: 4,
         learningCategoryTitle: "Total Lessons",
         score: 40,
-        ImgComponent: <ProfileLessonIcon />
+        icon: Images.dashboard.progress_lesson,
+        // ImgComponent: <ProfileLessonIcon />
     }
 ];
 
@@ -46,7 +52,7 @@ const LearningProgress = ({title}: {title:string}) => {
                 learningProgressData.map((item, idx) => (
                     <LearningProgressItem
                         key={idx.toString()}
-                        icon={item.ImgComponent}
+                        icon={item.icon}
                         title={item.learningCategoryTitle}
                         score={item.score?.toString()}
                     />

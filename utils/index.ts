@@ -14,67 +14,67 @@ import * as Speech from 'expo-speech';
 /**
  * V3 - Category Icons
  */
-import AccessoriesIconV3 from '@/assets/images/categories/v3/Accessesories.svg';
-import ActivitiesIconV3 from '@/assets/images/categories/v3/Activities.svg';
-import AirportIconV3 from '@/assets/images/categories/v3/Airport.svg';
-import AlphabetIconV3 from '@/assets/images/categories/v3/Alphabates.svg';
-import AnimalIconV3 from '@/assets/images/categories/v3/Animals.svg';
-import BodyPartsIconV3 from '@/assets/images/categories/v3/Body-Parts.svg';
-import BusinessIconV3 from '@/assets/images/categories/v3/Business.svg';
-import CalendeIconV3 from '@/assets/images/categories/v3/Calender.svg';
-import ColorsIconV3 from '@/assets/images/categories/v3/Colors.svg';
-import ConstructionIconV3 from '@/assets/images/categories/v3/Construction.svg';
-import CountryIconV3 from '@/assets/images/categories/v3/Country.svg';
-import CultureIconV3 from '@/assets/images/categories/v3/Culture.svg';
-import CountingMathMeasureIconV3 from '@/assets/images/categories/v3/Counting.svg';
-import DeviceIconV3 from '@/assets/images/categories/v3/Device.svg';
-import DirectionIconV3 from '@/assets/images/categories/v3/Direction.svg';
-import DiseaseIconV3 from '@/assets/images/categories/v3/Disease.svg';
-import DressIconV3 from '@/assets/images/categories/v3/Dress.svg';
-import EducationIconV3 from '@/assets/images/categories/v3/Education.svg';
-import EntertainmentIconV3 from '@/assets/images/categories/v3/Entertainment.svg';
-import FamilyIconV3 from '@/assets/images/categories/v3/Family.svg';
-import FlowerIconV3 from '@/assets/images/categories/v3/Flowers.svg';
-import FoodIconV3 from '@/assets/images/categories/v3/Food.svg';
-import GeographyIconV3 from '@/assets/images/categories/v3/Geography.svg';
-import GovernmentIconV3 from '@/assets/images/categories/v3/Goverment.svg';
-import GreetingsIconV3 from '@/assets/images/categories/v3/Greetings.svg';
-import HistoryIconV3 from '@/assets/images/categories/v3/History.svg';
-import HobbyIconV3 from '@/assets/images/categories/v3/Hobby.svg';
-import HotelIconV3 from '@/assets/images/categories/v3/Hotel.svg';
-import HouseIconV3 from '@/assets/images/categories/v3/House.svg';
-import IntroIconV3 from '@/assets/images/categories/v3/Introduction.svg';
-import InvitationIconV3 from '@/assets/images/categories/v3/Invitation.svg';
-import LandscapesIconV3 from '@/assets/images/categories/v3/Landscape.svg';
-import MaterialsIconV3 from '@/assets/images/categories/v3/Materials.svg';
-import MedicalIconV3 from '@/assets/images/categories/v3/Medical.svg';
-import MusicIconV3 from '@/assets/images/categories/v3/Music.svg';
-import NaturalDisastersIconV3 from '@/assets/images/categories/v3/Natural-Disaster.svg';
-import NatureIconV3 from '@/assets/images/categories/v3/Nature.svg';
-import NewspaperIconV3 from '@/assets/images/categories/v3/News.svg';
-import NumberIconV3 from '@/assets/images/categories/v3/Numbers.svg';
-import OfficeIconV3 from '@/assets/images/categories/v3/Office.svg';
-import OpinionIconV3 from '@/assets/images/categories/v3/Opinion.svg';
-import PassportIconV3 from '@/assets/images/categories/v3/Passport.svg';
-import PersonalitiesIconV3 from '@/assets/images/categories/v3/Personalities.svg';
-import PoliticsIconV3 from '@/assets/images/categories/v3/Politics.svg';
-import PreferencesIconV3 from '@/assets/images/categories/v3/Preference.svg';
-import RestaurantIconV3 from '@/assets/images/categories/v3/Restaurant.svg';
-import ScienceIconV3 from '@/assets/images/categories/v3/science.svg';
-import SeasonsIconV3 from '@/assets/images/categories/v3/Season.svg';
-import ShoppingIconV3 from '@/assets/images/categories/v3/Shopping.svg';
-import SpaceIconV3 from '@/assets/images/categories/v3/Space.svg';
-import SportsIconV3 from '@/assets/images/categories/v3/Sports.svg';
-import TechnologyIconV3 from '@/assets/images/categories/v3/Technology.svg';
-import TeleCommunicationIconV3 from '@/assets/images/categories/v3/Telephone-conversation.svg';
-import TimeIconV3 from '@/assets/images/categories/v3/Time.svg';
-import ToolsIconV3 from '@/assets/images/categories/v3/Tools.svg';
-import TransportationIconV3 from '@/assets/images/categories/v3/Transportation.svg';
-import TravelIconV3 from '@/assets/images/categories/v3/Travel.svg';
-import VehicleIconV3 from '@/assets/images/categories/v3/Vehicles.svg';
-import WarfareIconV3 from '@/assets/images/categories/v3/Warfare.svg';
-import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
-import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
+// import AccessoriesIconV3 from '@/assets/images/categories/v3/Accessesories.svg';
+// import ActivitiesIconV3 from '@/assets/images/categories/v3/Activities.svg';
+// import AirportIconV3 from '@/assets/images/categories/v3/Airport.svg';
+// import AlphabetIconV3 from '@/assets/images/categories/v3/Alphabates.svg';
+// import AnimalIconV3 from '@/assets/images/categories/v3/Animals.svg';
+// import BodyPartsIconV3 from '@/assets/images/categories/v3/Body-Parts.svg';
+// import BusinessIconV3 from '@/assets/images/categories/v3/Business.svg';
+// import CalendeIconV3 from '@/assets/images/categories/v3/Calender.svg';
+// import ColorsIconV3 from '@/assets/images/categories/v3/Colors.svg';
+// import ConstructionIconV3 from '@/assets/images/categories/v3/Construction.svg';
+// import CountryIconV3 from '@/assets/images/categories/v3/Country.svg';
+// import CultureIconV3 from '@/assets/images/categories/v3/Culture.svg';
+// import CountingMathMeasureIconV3 from '@/assets/images/categories/v3/Counting.svg';
+// import DeviceIconV3 from '@/assets/images/categories/v3/Device.svg';
+// import DirectionIconV3 from '@/assets/images/categories/v3/Direction.svg';
+// import DiseaseIconV3 from '@/assets/images/categories/v3/Disease.svg';
+// import DressIconV3 from '@/assets/images/categories/v3/Dress.svg';
+// import EducationIconV3 from '@/assets/images/categories/v3/Education.svg';
+// import EntertainmentIconV3 from '@/assets/images/categories/v3/Entertainment.svg';
+// import FamilyIconV3 from '@/assets/images/categories/v3/Family.svg';
+// import FlowerIconV3 from '@/assets/images/categories/v3/Flowers.svg';
+// import FoodIconV3 from '@/assets/images/categories/v3/Food.svg';
+// import GeographyIconV3 from '@/assets/images/categories/v3/Geography.svg';
+// import GovernmentIconV3 from '@/assets/images/categories/v3/Goverment.svg';
+// import GreetingsIconV3 from '@/assets/images/categories/v3/Greetings.svg';
+// import HistoryIconV3 from '@/assets/images/categories/v3/History.svg';
+// import HobbyIconV3 from '@/assets/images/categories/v3/Hobby.svg';
+// import HotelIconV3 from '@/assets/images/categories/v3/Hotel.svg';
+// import HouseIconV3 from '@/assets/images/categories/v3/House.svg';
+// import IntroIconV3 from '@/assets/images/categories/v3/Introduction.svg';
+// import InvitationIconV3 from '@/assets/images/categories/v3/Invitation.svg';
+// import LandscapesIconV3 from '@/assets/images/categories/v3/Landscape.svg';
+// import MaterialsIconV3 from '@/assets/images/categories/v3/Materials.svg';
+// import MedicalIconV3 from '@/assets/images/categories/v3/Medical.svg';
+// import MusicIconV3 from '@/assets/images/categories/v3/Music.svg';
+// import NaturalDisastersIconV3 from '@/assets/images/categories/v3/Natural-Disaster.svg';
+// import NatureIconV3 from '@/assets/images/categories/v3/Nature.svg';
+// import NewspaperIconV3 from '@/assets/images/categories/v3/News.svg';
+// import NumberIconV3 from '@/assets/images/categories/v3/Numbers.svg';
+// import OfficeIconV3 from '@/assets/images/categories/v3/Office.svg';
+// import OpinionIconV3 from '@/assets/images/categories/v3/Opinion.svg';
+// import PassportIconV3 from '@/assets/images/categories/v3/Passport.svg';
+// import PersonalitiesIconV3 from '@/assets/images/categories/v3/Personalities.svg';
+// import PoliticsIconV3 from '@/assets/images/categories/v3/Politics.svg';
+// import PreferencesIconV3 from '@/assets/images/categories/v3/Preference.svg';
+// import RestaurantIconV3 from '@/assets/images/categories/v3/Restaurant.svg';
+// import ScienceIconV3 from '@/assets/images/categories/v3/science.svg';
+// import SeasonsIconV3 from '@/assets/images/categories/v3/Season.svg';
+// import ShoppingIconV3 from '@/assets/images/categories/v3/Shopping.svg';
+// import SpaceIconV3 from '@/assets/images/categories/v3/Space.svg';
+// import SportsIconV3 from '@/assets/images/categories/v3/Sports.svg';
+// import TechnologyIconV3 from '@/assets/images/categories/v3/Technology.svg';
+// import TeleCommunicationIconV3 from '@/assets/images/categories/v3/Telephone-conversation.svg';
+// import TimeIconV3 from '@/assets/images/categories/v3/Time.svg';
+// import ToolsIconV3 from '@/assets/images/categories/v3/Tools.svg';
+// import TransportationIconV3 from '@/assets/images/categories/v3/Transportation.svg';
+// import TravelIconV3 from '@/assets/images/categories/v3/Travel.svg';
+// import VehicleIconV3 from '@/assets/images/categories/v3/Vehicles.svg';
+// import WarfareIconV3 from '@/assets/images/categories/v3/Warfare.svg';
+// import WeatherIconV3 from '@/assets/images/categories/v3/weather.svg';
+// import WorkIconV3 from '@/assets/images/categories/v3/Work.svg';
 import { makeMutable, SharedValue } from 'react-native-reanimated';
 import { findNodeHandle, UIManager } from "react-native";
 // import api from "@/lib/api";
@@ -212,73 +212,73 @@ export const color_legend: ColorLegend = {
   adjective: "#ffa640ff",
 }
 
-export const categoryIcon = {
-  accessories: AccessoriesIconV3,
-  activities: ActivitiesIconV3,
-  airport: AirportIconV3,
-  alphabets: AlphabetIconV3,
-  animals: AnimalIconV3,
-  body_parts: BodyPartsIconV3,
-  business_and_services: BusinessIconV3,
-  calendar: CalendeIconV3,
-  colors: ColorsIconV3,
-  countries: CountryIconV3,
-  count_measurement: CountingMathMeasureIconV3,
-  construction: ConstructionIconV3,
-  culture: CultureIconV3,
-  devices: DeviceIconV3,
-  diseases: DiseaseIconV3,
-  dresses: DressIconV3,
-  education: EducationIconV3,
-  embbacy_passport: PassportIconV3,
-  entertainment: EntertainmentIconV3,
-  family: FamilyIconV3,
-  flowers: FlowerIconV3,
-  foods: FoodIconV3,
-  geography: GeographyIconV3,
-  government_diplomacy: GovernmentIconV3,
-  // grammar: BookIcon,
-  greetings: GreetingsIconV3,
-  hobbies: HobbyIconV3,
-  history: HistoryIconV3,
-  hotel: HotelIconV3,
-  house: HouseIconV3,
-  introduction: IntroIconV3,
-  invitations: InvitationIconV3,
-  landscape: LandscapesIconV3,
-  locations: DirectionIconV3,
-  materials: MaterialsIconV3,
-  math: CountingMathMeasureIconV3,
-  medical_emergency: MedicalIconV3,
-  music: MusicIconV3,
-  nature: NatureIconV3,
-  natural_disasters: NaturalDisastersIconV3,
-  news: NewspaperIconV3,
-  numbers: NumberIconV3,
-  office_corporates: OfficeIconV3,
-  opinions: OpinionIconV3,
-  personalities: PersonalitiesIconV3,
-  politics: PoliticsIconV3,
-  preference: PreferencesIconV3,
-  professions: WorkIconV3,
-  restaurant: RestaurantIconV3,
-  shopping: ShoppingIconV3,
-  seasons: SeasonsIconV3,
-  science: ScienceIconV3,
-  space: SpaceIconV3,
-  sports: SportsIconV3,
-  technology: TechnologyIconV3,
-  time: TimeIconV3,
-  tools: ToolsIconV3,
-  transportation: TransportationIconV3,
-  travels: TravelIconV3,
-  tele_conversation: TeleCommunicationIconV3,
-  vehicles: VehicleIconV3,
-  // vocabulary: BookIcon,
-  warfare: WarfareIconV3,
-  weather: WeatherIconV3,
-  work: WorkIconV3,
-}
+// export const categoryIcon = {
+//   accessories: AccessoriesIconV3,
+//   activities: ActivitiesIconV3,
+//   airport: AirportIconV3,
+//   alphabets: AlphabetIconV3,
+//   animals: AnimalIconV3,
+//   body_parts: BodyPartsIconV3,
+//   business_and_services: BusinessIconV3,
+//   calendar: CalendeIconV3,
+//   colors: ColorsIconV3,
+//   countries: CountryIconV3,
+//   count_measurement: CountingMathMeasureIconV3,
+//   construction: ConstructionIconV3,
+//   culture: CultureIconV3,
+//   devices: DeviceIconV3,
+//   diseases: DiseaseIconV3,
+//   dresses: DressIconV3,
+//   education: EducationIconV3,
+//   embbacy_passport: PassportIconV3,
+//   entertainment: EntertainmentIconV3,
+//   family: FamilyIconV3,
+//   flowers: FlowerIconV3,
+//   foods: FoodIconV3,
+//   geography: GeographyIconV3,
+//   government_diplomacy: GovernmentIconV3,
+//   // grammar: BookIcon,
+//   greetings: GreetingsIconV3,
+//   hobbies: HobbyIconV3,
+//   history: HistoryIconV3,
+//   hotel: HotelIconV3,
+//   house: HouseIconV3,
+//   introduction: IntroIconV3,
+//   invitations: InvitationIconV3,
+//   landscape: LandscapesIconV3,
+//   locations: DirectionIconV3,
+//   materials: MaterialsIconV3,
+//   math: CountingMathMeasureIconV3,
+//   medical_emergency: MedicalIconV3,
+//   music: MusicIconV3,
+//   nature: NatureIconV3,
+//   natural_disasters: NaturalDisastersIconV3,
+//   news: NewspaperIconV3,
+//   numbers: NumberIconV3,
+//   office_corporates: OfficeIconV3,
+//   opinions: OpinionIconV3,
+//   personalities: PersonalitiesIconV3,
+//   politics: PoliticsIconV3,
+//   preference: PreferencesIconV3,
+//   professions: WorkIconV3,
+//   restaurant: RestaurantIconV3,
+//   shopping: ShoppingIconV3,
+//   seasons: SeasonsIconV3,
+//   science: ScienceIconV3,
+//   space: SpaceIconV3,
+//   sports: SportsIconV3,
+//   technology: TechnologyIconV3,
+//   time: TimeIconV3,
+//   tools: ToolsIconV3,
+//   transportation: TransportationIconV3,
+//   travels: TravelIconV3,
+//   tele_conversation: TeleCommunicationIconV3,
+//   vehicles: VehicleIconV3,
+//   // vocabulary: BookIcon,
+//   warfare: WarfareIconV3,
+//   weather: WeatherIconV3,
+//   work: WorkIconV3,
+// }
 
 export const isToday = (unixSeconds: number) => {
   const date = new Date(unixSeconds * 1000);

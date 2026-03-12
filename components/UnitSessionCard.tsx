@@ -9,20 +9,20 @@ import TitleHeading from './TitleHeading';
 import { getCardContainerWidth } from '@/utils';
 import { UnitSessionType } from '@/types';
 
-const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug, ImgComponent, completion, goal, marginRight=0} ) => {
+const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug} ) => {
   const {colors} = useTheme();
   const {category, unit} = useLocalSearchParams();
   const cardWidth = getCardContainerWidth();
 
+  const routeHandler = React.useCallback(() => {
+    router.push({
+      pathname: `/lessons/${category}/${unit}/${slug}`,
+      params: { title, slug, categoryId, unitId }
+    })
+  }, [router, category, unit, slug]);
+
   return (
-    <TouchableOpacity
-      onPress={
-        () => router.push({
-            pathname: `/lessons/${category}/${unit}/${slug}`,
-            params: { title, slug, categoryId, unitId }
-          })
-        }
-      >
+    <TouchableOpacity  onPress={routeHandler}>
       <View 
         style={[
           STYLES.contentCentered,
@@ -31,12 +31,11 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
             backgroundColor: colors.cardBackgroundColor,
             borderColor: colors.cardBorderColor,
             width: cardWidth,
-            marginRight: marginRight
           }
         ]}
       >
         
-        <GridCardIcon ImgComponent={ImgComponent} />
+        <GridCardIcon slug={slug} type="unit" />
         
         <TitleHeading title={title} />
         

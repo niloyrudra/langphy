@@ -19,7 +19,7 @@ const GridLayout = <T,>({
       data={data}
       keyExtractor={keyExtractor}
       numColumns={numColumns}
-      // columnWrapperStyle={{}}
+      columnWrapperStyle={styles.columnWrapper}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
       renderItem={renderItem}
@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
   contentContainer: {
     gap: SIZES.cardGap,
     alignItems: "center"
+  },
+  columnWrapper: {
+    gap: SIZES.cardGap
   },
   space: {height: 20}
 });

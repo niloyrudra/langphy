@@ -9,6 +9,7 @@ import { Entypo, FontAwesome, FontAwesome6, MaterialIcons } from '@expo/vector-i
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 import WordConfidenceComponent from './_partials/WordConfidenceComponent';
+import SecondaryActionButton from '../form-components/SecondaryActionButton';
 // import { useCelebration } from '@/context/CelebrationContext';
 // import HorizontalLine from '../HorizontalLine';
 
@@ -86,7 +87,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                     isSpeech && speechResult && (
                         <>
                             <ResultDetail
-                                detail={speechResult.transcription}
+                                detail={speechResult?.transcription}
                                 iconComponent={<FontAwesome name="microphone" size={22} color={colors.text} />}
                             />
 
@@ -97,20 +98,20 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
 
                             <ResultDetail
                                 label="Similarity:"
-                                detail={`${Math.round(speechResult.analysis.similarity * 100)}%`}
+                                detail={`${Math.round(speechResult.analysis?.similarity * 100)}%`}
                                 iconComponent={<FontAwesome name="trophy" size={20} color={colors.text} />}
                             />
 
                             <ResultDetail
                                 label="Pronunciation:"
-                                detail={String(speechResult.analysis.pronunciation_score)}
+                                detail={String(speechResult.analysis?.pronunciation_score)}
                                 iconComponent={<FontAwesome6 name="crown" size={16} color={colors.text} />}
                             />
 
                             <ResultDetail
                                 label="Issues:"
                                 detail={
-                                    speechResult.analysis.issues?.length > 0
+                                    speechResult.analysis?.issues?.length > 0
                                         ? speechResult.analysis.issues.join(', ')
                                         : 'No issues found'
                                 }
@@ -118,7 +119,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                             />
 
                             <ResultDetail
-                                detail={speechResult.analysis.feedback}
+                                detail={speechResult.analysis?.feedback}
                                 iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
                             />
 
@@ -159,11 +160,11 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                 }
                 
                 <View style={styles.buttonWrapper}>
-                    <ActionPrimaryButton
+                    <SecondaryActionButton
                         buttonTitle='Retry'
-                        // onSubmit={isSpeech ? handleRetry : onRetry}
                         onSubmit={onRetry}
                         buttonStyle={styles.button}
+                        background={colors.gradiantDeep}
                     />
                     <ActionPrimaryButton
                         buttonTitle='Continue'

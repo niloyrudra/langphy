@@ -160,6 +160,12 @@ const useSpeechRecorder = () => {
                 console.log("Res", response)
 
                 if (response.status === "done") {
+                    if ( response.data.error) {
+                        // Show "No speech detected" message to user instead of crashing
+                        // return <NoSpeechDetected message={response.data.error} />
+                        return Alert.alert(response.data.error);
+                    }
+
                     setResult(response.data);
 
                     triggerLessonResult({

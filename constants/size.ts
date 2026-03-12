@@ -29,7 +29,8 @@ const SIZES = {
     // gridCardIconWrapDimension: 80,
     // gridCardIconDimension: 56
     gridCardIconWrapDimension: 90,
-    gridCardIconDimension: 76
+    // gridCardIconDimension: 76
+    gridCardIconDimension: 65
 }
 
 export default SIZES;

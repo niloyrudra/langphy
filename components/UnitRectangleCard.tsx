@@ -6,7 +6,9 @@ import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
 // import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
-import { DolphinReading } from '@/utils/SVGImages';
+// import { DolphinReading } from '@/utils/SVGImages';
+import AppImage from './AppImage';
+import { Images } from '@/constants/images';
 
 type unitItemType = {
   unitId: string,
@@ -30,7 +32,8 @@ const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, ca
       <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
         
         <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
-          <DolphinReading width={49} height={49} />
+          {/* <DolphinReading width={49} height={49} /> */}
+          <AppImage source={Images.unit.dolphin_reading} size={49} />
         </View>
 
         <Title title={title} />

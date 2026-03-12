@@ -7,6 +7,7 @@ import { useTheme } from '@/theme/ThemeContext'
 import OnBoardingStudyDurationCard from '@/components/OnBoardingStudyDurationCard';
 import { router } from 'expo-router';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
+import LangphyText from '@/components/text-components/LangphyText';
 
 type DurationDataProps = {
   id: string,
@@ -43,43 +44,35 @@ const OnBoarding = () => {
   return (
     <View style={[STYLES.defaultContainer, {backgroundColor: colors.background}]}>
 
-      <Text style={[styles.welcomeText, {color: colors.text}]}>What is your daily learning goal?</Text>
+      <LangphyText weight="semibold" style={[styles.welcomeText, {color: colors.text}]}>What is your daily learning goal?</LangphyText>
 
-      <View style={{ flex: 1 }}>
+      <View style={styles.flex}>
 
         <FlatList
           data={DAILY_LESSON_DURATION_OPTIONS}
           keyExtractor={({id}:DurationDataProps) => id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            gap:16,
-          }}
-          ListHeaderComponent={(<View style={{height:20}}/>)}
+          contentContainerStyle={styles.listContainer}
+          ListHeaderComponent={(<View style={styles.space}/>)}
           renderItem={({item}: {item: DurationDataProps}) => (
             <OnBoardingStudyDurationCard label={item.label} duration={item.duration} />
           )}
-          ListFooterComponent={(<View style={{height:20}} />)}
+          ListFooterComponent={(<View style={styles.space} />)}
         />
       </View>
 
 
-      <View
-        style={{
-          flex: 1,
-          justifyContent:"flex-end",
-          gap: 10
-        }}
-      >
+      <View style={styles.buttonContainer}>
         <ActionPrimaryButton
           buttonTitle='Continue'
           onSubmit={() => router.replace("/lessons")}
         />
         
         <TouchableOpacity
-          style={[STYLES.childContentCentered, {padding:16}]}
+          style={[STYLES.childContentCentered, styles.skipBtton]}
           onPress={() => router.replace("/lessons")}
         >
-          <Text style={{ fontSize: 16, lineHeight: 22, fontWeight: "800", color: colors.skipTextColor }}>Skip for Now</Text>
+          <LangphyText weight="extrabold" style={[styles.skipText, { color: colors.skipTextColor }]}>Skip for Now</LangphyText>
         </TouchableOpacity>
       </View>
 
@@ -90,9 +83,29 @@ const OnBoarding = () => {
 export default OnBoarding
 
 const styles = StyleSheet.create({
+  flex: {flex:1},
+  space: {
+    height: 20
+  },
+  listContainer: {
+    gap:16,
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent:"flex-end",
+    gap: 10
+  },
   welcomeText: {
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600"
+  },
+  skipBtton: {
+    padding: 16
+  },
+  skipText: {
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: "800"
   }
 });

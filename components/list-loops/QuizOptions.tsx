@@ -1,5 +1,4 @@
 import React from 'react'
-import SIZES from '@/constants/size'
 import QuizOptionCard from '../QuizOptionCard'
 import GridLayout from '../layouts/GridLayout'
 import { getCardContainerWidth } from '@/utils'
@@ -23,7 +22,6 @@ const QuizOptions: React.FC<QuizOptionProps> = ({ options, answer, isCorrect, se
             onSelect(selected, isCorrect);
           }}
           containerWidth={cardWidth}
-          marginRight={ options?.indexOf( option ) == 0 || options?.indexOf( option ) == 2 ? SIZES.cardGap : 0 }
           customStyle={[...(height && [{height: height}] || [])]}
         />
       )}

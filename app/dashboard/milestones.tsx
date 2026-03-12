@@ -1,24 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import SIZES from '@/constants/size';
+import { milestonesData } from '@/schemas/static-data';
+import { MilestonesType } from '@/types';
+import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
+import MilestonesItemRectangle from '@/components/dashboard/_partials/MilestonesItemRectangle';
 
-const Dashboard = () => {
-  const { colors, theme } = useTheme();
+const MilestonesScreen = () => {
+  const { colors } = useTheme();
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.background,
-        paddingHorizontal: SIZES.bodyPaddingHorizontal,
-        paddingVertical: SIZES.bodyPaddingVertical
-      }}
-    >
-      <Text>Milestones</Text>
-    </View>
+    <SafeAreaLayout>
+      <ScrollView style={styles.flex} showsVerticalScrollIndicator={false}>
+        <View style={[styles.container, {backgroundColor: colors.background}]}>
+          {
+            milestonesData.map( (item: MilestonesType) => (
+              <MilestonesItemRectangle
+                key={item.id.toString()}
+                title={item.milestonesTitle}
+                milestones={item.milestones}
+                icon={item.icon}
+              />
+            ))
+          }
+        </View>
+      </ScrollView>
+    </SafeAreaLayout>
   )
 }
 
-export default Dashboard
+export default MilestonesScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    gap: 15
+  }
+})

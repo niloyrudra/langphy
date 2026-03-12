@@ -48,7 +48,7 @@ export default {
         "expo-splash-screen",
         {
           image: "./assets/images/splash-screen/logo-light-mode.png",
-          imageWidth: 286,
+          imageWidth: 200,
           resizeMode: "contain",
           backgroundColor: "#F9FAFB",
           dark: {

@@ -9,32 +9,40 @@
       "distribution": "internal", // https://docs.expo.dev/tutorial/eas/internal-distribution-builds/
       "channel": "development",
       "env": {
-        "EXPO_PUBLIC_API_BASE": "http://192.168.1.5/api",
+        "EXPO_PUBLIC_API_BASE": "http://192.168.1.3/api",
         "NODE_ENV": "development"
       }
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview"
+      "channel": "preview",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_BASE": "https://api.langphy.com/api",
+        "NODE_ENV": "production"
+      }
     },
     "production": {
       "autoIncrement": true,
-      "distribution": "internal",
+      "distribution": "store",
+      "channel": "production",
+      "android": {
+        "buildType": "app-bundle"
+      },
       "env": {
-        "EXPO_PUBLIC_API_BASE": "http://192.168.1.5/api",
+        "EXPO_PUBLIC_API_BASE": "https://api.langphy.com/api",
         "NODE_ENV": "production"
       }
     }
   },
   "submit": {
     "production": {
-      // "channel": "production",
       "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
         "track": "internal" // https://docs.expo.dev/tutorial/eas/android-production-build/
       }
     }
-    // "env": {
-    //   "EXPO_PUBLIC_API_BASE": "http://192.168.1.5/api"
-    // }
   }
 }

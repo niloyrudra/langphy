@@ -18,10 +18,8 @@ const UnitSessionList = () => {
           categoryId={categoryId as string}
           unitId={unitId as string}
           slug={item.slug}
-          ImgComponent={item.ImgComponent}
           completion={item.completion}
           goal={item.goal}
-          marginRight={(parseInt(item?.id) % 2 !== 0) ? SIZES.cardGap : 0}
         />
       )}
     />
