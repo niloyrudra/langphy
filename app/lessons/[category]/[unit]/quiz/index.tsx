@@ -21,10 +21,9 @@ import LangphyText from '@/components/text-components/LangphyText';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
-const attemptId = randomUUID();
-
 const QuizSession = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
+  const attemptId = React.useMemo(() => randomUUID(), []);
   const userId = authSnapshot.getUserId() ?? "";
   const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
@@ -46,6 +45,7 @@ const QuizSession = () => {
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ error, setError ] = React.useState<string>('')
 
+  // Handlers
   const handleSelect = React.useCallback((option: string) => {
     setSelectedOption(option);
     setIsSelectionHappened(true);
@@ -166,13 +166,13 @@ const QuizSession = () => {
               <QuizOptionCardList
                 height={cardWidth / 2} 
                 options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
-                answer={item?.answer || ""}
-                selectedOption={selectedOption || ""}
+                answer={item?.answer ?? ""}
+                selectedOption={selectedOption ?? ""}
                 onSelect={handleSelect}
                 isSelectionHappened={isSelectionHappened}
               />
             </View>
-            {/* QUIZ Section Ens */}
+            {/* QUIZ Section Ends */}
           </View>
 
           {error && (<Error text={error} />)}

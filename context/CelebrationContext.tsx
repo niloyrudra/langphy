@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
-import { DBStreak, SelectiveResultType, SessionResultType, SpeechResultType } from "@/types";
+import { DBStreak, PracticeResultType, SelectiveResultType, SessionResultType, SpeechResultType } from "@/types";
 import React from "react";
 
 interface LessonPayload {
     actualQuery?: string;
-    result: SessionResultType | SelectiveResultType | SpeechResultType;
+    result: SessionResultType | SelectiveResultType | SpeechResultType | PracticeResultType;
     onRetry: () => void;
     onContinue: () => void;
 };

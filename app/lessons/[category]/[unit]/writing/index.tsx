@@ -20,10 +20,9 @@ import Error from '@/components/Error';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
-const attemptId = randomUUID();
-
 const WritingSession = () => {
   const { colors } = useTheme();
+  const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const { start, stop, isRunning } = useLessonTimer();
@@ -159,11 +158,9 @@ const WritingSession = () => {
         return (
           <View style={styles.flex}>
             {/* Content */}
-
             <View style={styles.flex}>
               {/* Title Section */}
               <ChallengeScreenTitle title="Listen And Write." />
-
               {/* Writing Section Starts */}
               <ChallengeScreenQuerySection
                 query={item.meaning}

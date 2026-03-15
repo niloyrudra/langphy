@@ -5,10 +5,11 @@ import { useCelebration } from '@/context/CelebrationContext';
 import { truncateString } from '@/utils';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import Settings from '@/components/header/Settings';
-import HeaderTitle from '@/components/header/HeaderTitle';
 import DailyStreaksModal from '@/components/modals/DailyStreaksModal';
 import SessionCompletionModal from '@/components/modals/SessionCompletionModal';
 import LessonCompletionModal from '@/components/modals/LessonCompletionModal';
+import Title from '@/components/Title';
+import STYLES from '@/constants/styles';
 
 const UnitLayout = () => {
   const {colors} = useTheme();
@@ -33,14 +34,15 @@ const UnitLayout = () => {
             headerShadowVisible: false,
             headerLeft: () => (<HeaderTopLeftArrowButton />),
             headerTitle: () => (
-              <HeaderTitle
+              <Title
                 title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Sessions"}
+                contentStyle={STYLES.headerTitle}
+                alignCenter
               />
             ),
             headerRight: () => (<Settings />)
           })}
         />
-
         <Stack.Screen name="practice" options={{ headerShown: false }} />
         <Stack.Screen name="quiz" options={{ headerShown: false }} />
         <Stack.Screen name="listening" options={{ headerShown: false }} />
@@ -59,7 +61,6 @@ const UnitLayout = () => {
               shouldNavigateRef.current = false;
               current.payload.onContinue()
             }}
-            // onModalVisible={current.payload.onRetry}
             onModalVisible={() => {}}
             onRetry={() => {
               current.payload.onRetry()
@@ -93,7 +94,6 @@ const UnitLayout = () => {
               resolveCurrent();
               if (shouldNavigateRef.current) {
                 shouldNavigateRef.current = false;
-                // router.replace("/lessons/[category]/[unit]");
                 router.back();
               }
             }}

@@ -45,7 +45,6 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
     React.useEffect(() => {
         const nlpHandler = async ( phrase: string ) => {
             const data: NlpData = { text: phrase ?? "" };
-            console.log(data)
             setLoading(true);
             try {
                 const res = await fetch(
@@ -103,7 +102,6 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
                         wordRefs={wordRefs}
                         containerRef={containerRef}
                         measureNlpContainer={measureNlpContainer}
-                        // nlpContainerRef={nlpContainerRef}
                         textStyle={textStyle}
                     />
                 ))

@@ -1,21 +1,14 @@
-// app/lessons/[category]/[unit]/quiz/_layout.tsx
 import { Stack } from 'expo-router';
-import CustomLessonHeader from '@/components/CustomLessonHeader';
 import Title from '@/components/Title';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
-import ShowListButton from '@/components/header/ShowListButton';
 import { truncateString } from '@/utils';
 import { useTheme } from '@/theme/ThemeContext';
-import HeaderTitle from '@/components/header/HeaderTitle';
+import STYLES from '@/constants/styles';
 
 const QuizSessionLayout = () => {
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
   return (
-    <Stack
-      screenOptions={{
-        // statusBarStyle: theme === 'light' ? 'light' : 'dark'
-      }}
-    >
+    <Stack>
       <Stack.Screen
         name="index"
         options={(props) => ({
@@ -23,13 +16,12 @@ const QuizSessionLayout = () => {
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
-            <HeaderTitle
-              title={ props.route.params?.title ? truncateString( props.route.params?.title, 25 ) : "Unit Session" }
-              // contentStyle={{fontWeight:"900", fontSize:24}}
-              // containerStyle={{justifyContent:"center", alignItems:"center"}}
+            <Title
+              title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
+              contentStyle={STYLES.headerTitle}
+              alignCenter
             />
           ),
-          // headerRight: () => (<ShowListButton />)
         })}
       />
     </Stack>

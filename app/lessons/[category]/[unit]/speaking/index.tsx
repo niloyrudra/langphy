@@ -19,14 +19,11 @@ import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
-import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '@/theme/ThemeContext';
 import RefreshPlayer from '@/components/RefreshPlayer';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
 const SpeakingLessons = () => {
-  const {colors} = useTheme();
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
@@ -129,6 +126,12 @@ const SpeakingLessons = () => {
     resolveCurrent();
   }, [reset, resolveCurrent]);
 
+  const recorderHandler = React.useCallback(() => {
+    if (isRecordingDone) play();
+    else if (isRecording) stopRecording();
+    else startRecording();
+  }, [isRecordingDone, isRecording, play, stopRecording, startRecording]);
+
   // Timer
   React.useEffect(() => {
     if(!isRunning) start();
@@ -174,19 +177,15 @@ const SpeakingLessons = () => {
 
                   <View style={styles.actionButtonContainer}>
                     {isRecordingDone && (<RefreshPlayer onPress={onRefresh} />)}
-
                     <RecorderActionButton
                       isActive={!isRecording}
+                      isRecording={isRecording}
                       isRecorded={isRecordingDone}
                       isPaused={isPaused}
                       isPlaying={isPlaying}
-                      onActionHandler={() => {
-                        if (isRecordingDone) play();
-                        else if (isRecording) stopRecording();
-                        else startRecording();
-                      }}
+                      rippleSize={140}
+                      onActionHandler={recorderHandler}
                     />
-
                   </View>
 
                   { error && (<Error text={error} />) }
@@ -225,10 +224,15 @@ const styles = StyleSheet.create({
     gap: 20
   },
   actionButtonContainer: {
+    width: "100%",
+    height: 200,
     flexDirection: "row",
     gap: 20,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+
+    // borderWidth: 1,
+    // borderColor: "#FFF"
   },
   taskContainer: {
     flex:1,

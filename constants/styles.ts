@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle, ViewProps } from "react-native";
+import { StyleProp, TextProps, TextStyle, ViewProps } from "react-native";
 import SIZES from "./size";
 
 const headerContainer: StyleProp<ViewProps> = <ViewProps> {
@@ -37,6 +37,12 @@ const boxShadow: StyleProp<ViewProps> = <ViewProps> {
     shadowOpacity: 0.2,
     shadowRadius: 5
 };
+
+const headerTitle: StyleProp<TextProps> = <TextProps> {
+    fontSize: 24,
+    fontWeight: "900"
+}
+
 
 const textShadow: StyleProp<ViewProps> = <ViewProps> {
     textShadowColor: "#444",
@@ -92,6 +98,9 @@ const STYLES = {
     boxShadow,
     boxShadowLight,
     textShadow,
+
+    headerTitle,
+
     textHeader,
     textSubHeader,
     contentCentered,

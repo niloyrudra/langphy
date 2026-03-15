@@ -2,7 +2,8 @@ import { Stack } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import { truncateString } from '@/utils';
-import HeaderTitle from '@/components/header/HeaderTitle';
+import Title from '@/components/Title';
+import STYLES from '@/constants/styles';
 
 const WritingSessionLayout = () => {
   const { colors } = useTheme();
@@ -15,8 +16,10 @@ const WritingSessionLayout = () => {
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
-            <HeaderTitle
+            <Title
               title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
+              contentStyle={STYLES.headerTitle}
+              alignCenter
             />
           ),
         })}

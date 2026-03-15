@@ -7,34 +7,24 @@ import ShowListButton from '@/components/header/ShowListButton';
 import { SessionProvider } from '@/context/SessionContext';
 import Settings from '@/components/header/Settings';
 import { View } from 'react-native';
+import STYLES from '@/constants/styles';
 
 const PracticeSessionLayout = () => {
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
   return (
     <SessionProvider>
-
-      <Stack
-        screenOptions={{
-          // statusBarStyle: theme === 'light' ? 'light' : 'dark'
-        }}
-      >
+      <Stack>
         <Stack.Screen
           name="index"
           options={(props) => ({
             headerStyle: {backgroundColor: colors.background},
             headerShadowVisible: false,
-            // headerTitleAlign: "center",
-            // sheetCornerRadius: 20,
             headerLeft: () => (<HeaderTopLeftArrowButton />),
             headerTitle: () => (
               <Title
-                title={ props.route.params?.title ? truncateString( props.route.params?.title, 25 ) : "Unit Session" }
-                contentStyle={{fontWeight:"900", fontSize:24}}
-                containerStyle={{
-                  // backgroundColor: "green",
-                  justifyContent:"center",
-                  alignItems:"center"
-                }}
+                title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
+                contentStyle={STYLES.headerTitle}
+                alignCenter
               />
             ),
             headerRight: () => (
@@ -46,7 +36,6 @@ const PracticeSessionLayout = () => {
           })}
         />
       </Stack>
-      
     </SessionProvider>
   );
 }

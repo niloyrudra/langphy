@@ -510,6 +510,14 @@ export const SETTINGS_DATA: SettingsData[] = [
         route: "/settings"
       },
       {
+        elementTitle: "Writing Exercise",
+        ImgComponentLight: ReadingLightIcon,
+        ImgComponentDark: ReadingDarkIcon,
+        actionType: "switcher",
+        settingType: "writing",
+        route: "/settings"
+      },
+      {
         elementTitle: "Listening Exercise",
         ImgComponentLight: ListeningLightIcon,
         ImgComponentDark: ListeningDarkIcon,
@@ -575,14 +583,14 @@ export const SETTINGS_DATA: SettingsData[] = [
         settingType: "*",
         route: "/dashboard/settings/others/acknowledgment",
       },
-      {
-        elementTitle: "Feedback",
-        ImgComponentLight: FeedbackLightIcon,
-        ImgComponentDark: FeedbackDarkIcon,
-        actionType: "router",
-        settingType: "*",
-        route: "/dashboard/settings/others/feedback",
-      }
+      // {
+      //   elementTitle: "Feedback",
+      //   ImgComponentLight: FeedbackLightIcon,
+      //   ImgComponentDark: FeedbackDarkIcon,
+      //   actionType: "router",
+      //   settingType: "*",
+      //   route: "/dashboard/settings/others/feedback",
+      // }
     ]
   },
 ];

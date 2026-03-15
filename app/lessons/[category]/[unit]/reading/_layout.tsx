@@ -1,22 +1,15 @@
-// app/lessons/[category]/[unit]/reading/_layout.tsx
 import { Stack } from 'expo-router';
-import CustomLessonHeader from '@/components/CustomLessonHeader';
 import Title from '@/components/Title';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import { truncateString } from '@/utils';
-import ShowListButton from '@/components/header/ShowListButton';
 import { useTheme } from '@/theme/ThemeContext';
-import HeaderTitle from '@/components/header/HeaderTitle';
 import Settings from '@/components/header/Settings';
+import STYLES from '@/constants/styles';
 
 const ReadingSessionLayout = () => {
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
   return (
-    <Stack
-      screenOptions={{
-        // statusBarStyle: theme === 'light' ? 'light' : 'dark'
-      }}
-    >
+    <Stack>
       <Stack.Screen
         name="index"
         options={(props) => ({
@@ -25,9 +18,9 @@ const ReadingSessionLayout = () => {
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
             <Title
-              title={ props.route.params?.title ? truncateString( props.route.params?.title, 25 ) : "Unit Session" }
-              contentStyle={{fontWeight:"900", fontSize:24}}
-              containerStyle={{justifyContent:"center", alignItems:"center"}}
+              title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
+              contentStyle={STYLES.headerTitle}
+              alignCenter
             />
           ),
           headerRight: () => (<Settings />)

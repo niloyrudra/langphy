@@ -5,8 +5,8 @@ const SessionContext = createContext<SessionContextType | null>(null);
 
 export const SessionProvider = ({ children }: SessionProviderProps) => {
     const [ lessons, setLessons ] = useState<Lesson[]>([]);
-    const [currentPosition, setCurrentPosition] = useState<number>(0);
-    const [showLessonList, setShowLessonList] = useState<boolean>(false);
+    const [ currentPosition, setCurrentPosition ] = useState<number>(0);
+    const [ showLessonList, setShowLessonList ] = useState<boolean>(false);
 
     const markLessonCompleted = useCallback(( lessonId: string ) => {
         setLessons( prevValue => prevValue.map( lesson => lesson.id === lessonId ? { ...lesson, completed: true } : lesson ));

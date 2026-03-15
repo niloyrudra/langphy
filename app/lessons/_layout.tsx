@@ -1,11 +1,10 @@
-// import CustomHeader from '@/components/CustomHeader';
 import HeaderLogo from '@/components/header/HeaderLogo';
 import HeaderRightComponent from '@/components/header/HeaderRightComponent';
 import { useTheme } from '@/theme/ThemeContext';
 import { Stack } from 'expo-router';
 
 const LessonCategoryLayout = () => {
-  const {colors, theme} = useTheme();
+  const { colors } = useTheme();
   return (
     <Stack>
       <Stack.Screen

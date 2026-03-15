@@ -131,6 +131,8 @@ type UnitSessionType = {
 
 // Define full item structure
 type PracticeSessionType = {
+  id: string;
+  _id?: string;
   phrase: string;
   name?: string;
   response: string;
@@ -564,6 +566,12 @@ type SpeechResultWordS = {
   confidence: string | number
 }
 
+type PracticeResultType = {
+  paragraph: string[];
+  unit: number[];
+  lessons: number[];
+  words: string[];
+}
 type SpeechResultType = {
   analysis: {
     feedback: string;
@@ -826,6 +834,7 @@ export {
   NlpData,
   WordLayout,
 
+  PracticeResultType,
   SpeechResultType,
   // SpeechResultWordS,
   SessionResultType,

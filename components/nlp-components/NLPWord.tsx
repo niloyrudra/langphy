@@ -50,9 +50,6 @@ const NLPWord: React.FC<WordProps> = ({
 
         measureNlpContainer((nlpX, nlpY) => {
             containerRef.current!.measureInWindow((contX, contY, contW) => {
-                // const relativeLeft = (nlpX - contX) + layoutData.x;
-                // const relativeTop  = (nlpY - contY) + layoutData.y + layoutData.height + gap;
-
                 // How far NLPAnalyzedPhase is from containerRef left edge
                 const nlpOffsetX = nlpX - contX;
 
@@ -74,7 +71,7 @@ const NLPWord: React.FC<WordProps> = ({
                 const relativeTop = (nlpY - contY) + layoutData.y + layoutData.height + gap;
 
 
-                console.log("📍 position:", { clampedLeft, relativeTop, nlpX, nlpY, contX, contY, layoutData });
+                // console.log("📍 position:", { clampedLeft, relativeTop, nlpX, nlpY, contX, contY, layoutData });
 
                 onHandler({
                     visible: true,
