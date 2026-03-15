@@ -20,9 +20,8 @@ import Error from '@/components/Error';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
-const attemptId = randomUUID();
-
 const ListeningLessons = () => {
+  const attemptId = React.useMemo(() => randomUUID(), []);
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const userId: string = authSnapshot.getUserId() ?? "";
   const { colors } = useTheme();

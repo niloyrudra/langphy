@@ -20,18 +20,14 @@ const UnitList = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: SIZES.cardGap }}
         ListHeaderComponent={(<View style={styles.noSpace}/>)}
-        renderItem={({item: {title, category_id, id, slug}}: {item: LocalUnitType}) => {
-          return (
-            <UnitRectangleCard
-              title={title}
-              categoryId={category_id}
-              unitSlug={slug}
-              unitId={id}
-              completion={0}
-              goal={100}
-            />
-          )
-        }}
+        renderItem={({item: {title, category_id, id, slug}}: {item: LocalUnitType}) => (
+          <UnitRectangleCard
+            title={title}
+            categoryId={category_id}
+            unitSlug={slug}
+            unitId={id}
+          />
+        )}
         ListFooterComponent={(<View style={styles.space} />)}
       />
     </>

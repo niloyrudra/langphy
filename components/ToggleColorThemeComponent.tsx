@@ -1,7 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
-// import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import sizes from '@/constants/size';
 

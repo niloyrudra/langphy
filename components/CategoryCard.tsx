@@ -3,7 +3,6 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import { CategoryProps } from '@/types';
-
 import STYLES from '@/constants/styles';
 import TitleHeading from './TitleHeading';
 import { getCardContainerWidth } from '@/utils';
@@ -35,11 +34,8 @@ const CategoryCard = ( { cat_id, title, slug}: CategoryProps ) => {
           }
         ]}
       >
-        
         <GridCardIcon slug={slug} type="category" />
-        
         <TitleHeading title={title} />
-        
       </View>
     </TouchableOpacity>
   );

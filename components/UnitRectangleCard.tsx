@@ -4,9 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import Title from './Title';
 import sizes from '@/constants/size';
 import STYLES from '@/constants/styles';
-// import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
-// import { DolphinReading } from '@/utils/SVGImages';
 import AppImage from './AppImage';
 import { Images } from '@/constants/images';
 
@@ -15,24 +13,37 @@ type unitItemType = {
   categoryId: string,
   title: string,
   unitSlug: string,
-  goal: number,
-  completion: number,
   customStyle?: StyleProp<ViewStyle>
 }
 
-const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, categoryId, completion, goal, customStyle }) => {
+const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, categoryId, customStyle }) => {
   const { colors } = useTheme();
   // const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
 
+  const routeHandler = React.useCallback(() => {
+    router.push({
+      pathname: `/lessons/${String(category).toLowerCase()}/${String(unitSlug).toLowerCase()}`,
+      params: { title, categoryId, unitId }
+    });
+  }, [router, category, unitSlug, title, categoryId, unitId]);
+
   return (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: `/lessons/${String(category).toLowerCase()}/${String(unitSlug).toLowerCase()}`, params: { title, categoryId, unitId, completion, goal } } )}
+      onPress={routeHandler}
     >
-      <View style={[styles.container, {backgroundColor: colors.unitCardBackgroundColor, borderColor: colors.unitCardBorderColor}, (customStyle && customStyle ) ]}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: colors.unitCardBackgroundColor,
+            borderColor: colors.unitCardBorderColor
+          },
+          (customStyle && customStyle )
+        ]}
+      >
         
         <View style={[STYLES.childContentCentered, styles.imageWrapper, {backgroundColor: colors.unitIconBackgroundColor}]}>
-          {/* <DolphinReading width={49} height={49} /> */}
           <AppImage source={Images.unit.dolphin_reading} size={49} />
         </View>
 

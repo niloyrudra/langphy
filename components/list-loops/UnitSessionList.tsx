@@ -1,6 +1,5 @@
 import React from 'react';
 import { UnitLesson } from '@/types';
-import SIZES from '@/constants/size';
 import GridLayout from '../layouts/GridLayout';
 import { LESSON_UNIT_DATA } from '@/schemas/static-data'
 import { useLocalSearchParams } from 'expo-router';
@@ -18,8 +17,8 @@ const UnitSessionList = () => {
           categoryId={categoryId as string}
           unitId={unitId as string}
           slug={item.slug}
-          completion={item.completion}
-          goal={item.goal}
+          // completion={item.completion}
+          // goal={item.goal}
         />
       )}
     />

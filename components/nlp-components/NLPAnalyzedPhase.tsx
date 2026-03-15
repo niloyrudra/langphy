@@ -5,24 +5,47 @@ import { NlpData, Token, ToolTip } from '@/types';
 import NLPWord from './NLPWord';
 import LangphyText from '../text-components/LangphyText';
 
+// interface ToolTipProps {
+//     phrase: string;
+//     onHandler: (value: ToolTip | ((prev: ToolTip) => ToolTip)) => void;
+//     wordRefs: React.RefObject<Map<string, any>>;
+//     containerRef: React.RefObject<View | null>;
+//     screenRef?: React.RefObject<View | null>;
+//     textContainerStyle?: StyleProp<ViewStyle>;
+//     textStyle?: StyleProp<TextStyle>;
+// }
+
 interface ToolTipProps {
     phrase: string;
     onHandler: (value: ToolTip | ((prev: ToolTip) => ToolTip)) => void;
     wordRefs: React.RefObject<Map<string, any>>;
     containerRef: React.RefObject<View | null>;
-    screenRef: React.RefObject<View | null>;
+    screenRef?: React.RefObject<View | null>;
+    nlpContainerRef?: React.RefObject<View | null>; // ← add this
     textContainerStyle?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;
 }
 
-const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, containerRef, screenRef, textStyle, textContainerStyle}) => {
+const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, containerRef, textStyle, textContainerStyle}) => {
     const { colors } = useTheme();
     const [ nlpTokens, setNlpTokens ] = React.useState<Token[]>([]);
     const [ loading, setLoading ] = React.useState<boolean>(false);
     
+    // ✅ owned here — guaranteed to attach
+    const nlpContainerRef = React.useRef<View | null>(null);
+
+    // ✅ stable callback passed to each NLPWord
+    const measureNlpContainer = React.useCallback(
+        (callback: (x: number, y: number) => void) => {
+            nlpContainerRef.current?.measureInWindow((x, y) => callback(x, y));
+        },
+        []
+    );
+
     React.useEffect(() => {
         const nlpHandler = async ( phrase: string ) => {
             const data: NlpData = { text: phrase ?? "" };
+            console.log(data)
             setLoading(true);
             try {
                 const res = await fetch(
@@ -50,7 +73,7 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
                 setLoading(false);
             }
             catch(err) {
-                console.error(err)
+                console.error("NLPAnalyzedPhase error:", err)
                 setLoading(false);
             }
         }
@@ -67,7 +90,9 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
 
     return (
         <View
-            style={[styles.container, (textContainerStyle && textContainerStyle)]}>
+            ref={nlpContainerRef}
+            style={[styles.container, (textContainerStyle && textContainerStyle)]}
+        >
             {
                 nlpTokens?.map( (token: Token, idx: number) => (
                     <NLPWord
@@ -77,7 +102,8 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
                         onHandler={onHandler}
                         wordRefs={wordRefs}
                         containerRef={containerRef}
-                        screenRef={screenRef}
+                        measureNlpContainer={measureNlpContainer}
+                        // nlpContainerRef={nlpContainerRef}
                         textStyle={textStyle}
                     />
                 ))

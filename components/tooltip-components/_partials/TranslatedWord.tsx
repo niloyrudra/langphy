@@ -3,16 +3,21 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import LangphyText from '@/components/text-components/LangphyText';
 
-const TranslatedWord = ({word, color}: {word: string, color: ColorValue | string}) => {
+interface TranslatedWordProps {
+    word: string;
+    color: ColorValue | string;
+}
+
+const TranslatedWord = ( {word, color}: TranslatedWordProps ) => {
     const {colors} = useTheme();
-  return (
+    return (
         <View style={[styles.container, {borderBottomColor: colors.hLineColor}]}>
             <LangphyText
                 style={[
                     styles.translation,
                     { color: color ?? colors.textDark }
                 ]}
-                >
+            >
                 {word.trim()}
             </LangphyText>
         </View>

@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router';
 import STYLES from '@/constants/styles';
-// import ProgressBar from './ProgressBar';
 import { useTheme } from '@/theme/ThemeContext';
 import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
@@ -10,8 +9,8 @@ import { getCardContainerWidth } from '@/utils';
 import { UnitSessionType } from '@/types';
 
 const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug} ) => {
-  const {colors} = useTheme();
-  const {category, unit} = useLocalSearchParams();
+  const { colors } = useTheme();
+  const { category, unit } = useLocalSearchParams();
   const cardWidth = getCardContainerWidth();
 
   const routeHandler = React.useCallback(() => {
@@ -19,7 +18,7 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
       pathname: `/lessons/${category}/${unit}/${slug}`,
       params: { title, slug, categoryId, unitId }
     })
-  }, [router, category, unit, slug]);
+  }, [router, category, unit, slug, categoryId, unitId, title]);
 
   return (
     <TouchableOpacity  onPress={routeHandler}>

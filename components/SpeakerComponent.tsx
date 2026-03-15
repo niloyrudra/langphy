@@ -22,7 +22,6 @@ const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
 
   const handlePress = React.useCallback(async () => {
     speakerRef.current?.play();
-    // const handler = isSlowing ? speechSlowHandler : speechHandler;
     speechHandler(speechContent, speechLang, setLoading);
   }, [speechHandler, speechContent, speechLang, setLoading]);
 

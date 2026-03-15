@@ -19,10 +19,14 @@ import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '@/theme/ThemeContext';
+import RefreshPlayer from '@/components/RefreshPlayer';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
 const SpeakingLessons = () => {
+  const {colors} = useTheme();
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
@@ -120,6 +124,11 @@ const SpeakingLessons = () => {
     console.log("activeItemChangeHandler")
   }, []);
 
+  const onRefresh = React.useCallback(() => {
+    reset();
+    resolveCurrent();
+  }, [reset, resolveCurrent]);
+
   // Timer
   React.useEffect(() => {
     if(!isRunning) start();
@@ -132,34 +141,28 @@ const SpeakingLessons = () => {
       preFetchedData={lessonData}
       onActiveItemChange={activeItemChangeHandler}
     >
-      {({ item, wordRefs, screenRef, containerRef, setTooltip }) => {
-        const handleTooltip = (value: any) => {
-          setTooltip(value);
-        };
+      {({ item, wordRefs, containerRef, setTooltip }) => {
+        const handleTooltip = (value: any) => setTooltip(value);
         return (
           <>
             <View style={styles.flex}>
-    
               {/* Title Section */}
               <ChallengeScreenTitle title="Speak This Sentence" />
-    
               {/* Writing Section Starts */}
               <View style={styles.taskContainer}>
-    
                 <View style={[styles.container]}>
                   {/* Query Listen with Query Text Section */}
                   <SpeakerComponent
-                    speechContent={item?.phrase}
+                    speechContent={item.phrase}
                     speechLang='de-DE'
                   />
-                          
+                                           
                   {/* Tappable Words with ToolTip */}
                   <NLPAnalyzedPhase
                     phrase={item.phrase}
                     onHandler={handleTooltip}
                     wordRefs={wordRefs}
                     containerRef={containerRef}
-                    screenRef={screenRef}
                     textContainerStyle={styles.nlpWidth}
                   />
                 </View>
@@ -168,18 +171,23 @@ const SpeakingLessons = () => {
     
                 {/* Writing Text Field/Input/Area Section */}
                 <View style={STYLES.childContentCentered}>
-    
-                  <RecorderActionButton
-                    isActive={!isRecording}
-                    isRecorded={isRecordingDone}
-                    isPaused={isPaused}
-                    isPlaying={isPlaying}
-                    onActionHandler={() => {
-                      if (isRecordingDone) play();
-                      else if (isRecording) stopRecording();
-                      else startRecording();
-                    }}
-                  />
+
+                  <View style={styles.actionButtonContainer}>
+                    {isRecordingDone && (<RefreshPlayer onPress={onRefresh} />)}
+
+                    <RecorderActionButton
+                      isActive={!isRecording}
+                      isRecorded={isRecordingDone}
+                      isPaused={isPaused}
+                      isPlaying={isPlaying}
+                      onActionHandler={() => {
+                        if (isRecordingDone) play();
+                        else if (isRecording) stopRecording();
+                        else startRecording();
+                      }}
+                    />
+
+                  </View>
 
                   { error && (<Error text={error} />) }
 
@@ -188,28 +196,14 @@ const SpeakingLessons = () => {
             </View>
     
             {/* Action Buttons */}
-            <View style={styles.recordingSection}>
-              <TouchableOpacity
-                onPress={() => {
-                  reset();
-                  resolveCurrent();
-                }}
-                disabled={!isRecordingDone || loading}
-                style={{opacity: (!isRecordingDone || loading) ? 0.5 : 1}}
-              >
-                <RecorderReload />
-              </TouchableOpacity>
-
-              <ActionPrimaryButton
-                buttonTitle='Check'
-                onSubmit={() => {
-                  analyzeSpeech(item.phrase.trim(), onContinue);
-                }}
-                isLoading={loading}
-                disabled={!isRecordingDone || loading}
-                buttonStyle={styles.button}
-              />
-            </View>
+            <ActionPrimaryButton
+              buttonTitle='Check'
+              onSubmit={() => {
+                analyzeSpeech(item.phrase.trim(), onContinue);
+              }}
+              isLoading={loading}
+              disabled={!isRecordingDone || loading}
+            />
           </>
         )
       }}
@@ -230,6 +224,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20
   },
+  actionButtonContainer: {
+    flexDirection: "row",
+    gap: 20,
+    alignItems: "center",
+    justifyContent: "center"
+  },
   taskContainer: {
     flex:1,
     marginBottom: 80
@@ -240,12 +240,12 @@ const styles = StyleSheet.create({
   },
   recordingSection: {
     width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: 10
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
+    // gap: 10
   },
   nlpWidth: {width: '80%'},
-  button: {width: "70%", borderRadius: 30, overflow: "hidden"},
+  // button: {borderRadius: 30, overflow: "hidden"},
   error: {color: "red"}
 })

@@ -3,7 +3,13 @@ import React from 'react'
 import LottieView from 'lottie-react-native'
 import { useTheme } from '@/theme/ThemeContext';
 
-const AnimatedSpeaker = ({speakerRef, lang, speed}: {speakerRef: React.RefObject<LottieView | null>, lang?: string | "de-DE" | "en-US", speed?: number}) => {
+interface AnimatedSpeakerProps {
+    speakerRef: React.RefObject<LottieView | null>,
+    lang?: string | "de-DE" | "en-US",
+    speed?: number
+};
+
+const AnimatedSpeaker = ( { speakerRef, lang, speed }: AnimatedSpeakerProps ) => {
     const {colors} = useTheme();
     return (
         <LottieView
@@ -17,18 +23,18 @@ const AnimatedSpeaker = ({speakerRef, lang, speed}: {speakerRef: React.RefObject
             colorFilters={[
                 {
                     keypath: "volume-high",
-                    color: lang && lang === "en-US" ? colors.p_en_speaker : colors.p_de_speaker, // #3FA1FF <-> #19468F
+                    color: lang && lang === "en-US" ? colors.p_en_speaker : colors.p_de_speaker,
                 },
                 {
                     keypath: "Vector",
-                    color: lang && lang === "en-US" ? colors.p_en_speaker : colors.p_de_speaker, // #1B7CF5 <-> #1B7CF5
+                    color: lang && lang === "en-US" ? colors.p_en_speaker : colors.p_de_speaker,
                 },
                 {
                     keypath: "1 Bg",
-                    color: colors.primary_950_50 // #FFFFFF <-> #142C57
+                    color: colors.primary_950_50
                 },
             ]}
-            />
+        />
     );
 }
 

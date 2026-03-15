@@ -22,7 +22,7 @@ const SettingsElementAction = ({actionType, enabled, settingType, route}: Settin
             {
                 actionType == "router" && (
                     <TouchableOpacity
-                        onPress={() => router.push(route as any)}
+                        onPress={() => router.push(route as Route)}
                         style={styles.arrowButton}
                     >
                         <Ionicons name="chevron-forward" size={24} color={colors.text} />

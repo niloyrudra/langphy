@@ -40,7 +40,6 @@ const ToolTipComponent: React.FC<TooltipProps> = ({top, left, token}) => {
             <View style={{ position: "relative" }}>
                 {/* Pointer */}
                 <TooltipPointer color={color} />
-                
                 {/* Translations */}
                 <TooltipContentLabel label="Meaning" />
                 <Translation translation={translationEn} color={color} />

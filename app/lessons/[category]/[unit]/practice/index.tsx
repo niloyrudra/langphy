@@ -19,9 +19,8 @@ import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { randomUUID } from 'expo-crypto';
 import LangphyText from '@/components/text-components/LangphyText';
 
-const attemptId = randomUUID();
-
 const PracticeLessons = () => {
+  const attemptId = React.useMemo(() => randomUUID(), []);
   const { colors } = useTheme();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const {start, stop, isRunning} = useLessonTimer();
@@ -107,7 +106,9 @@ const PracticeLessons = () => {
                 speechContent={item.meaning}
                 speechLang="en-US"
               >
-                <LangphyText weight='semibold' style={[styles.text, { color: colors.text }]}>{item.meaning}</LangphyText>
+                <LangphyText weight='semibold' style={[styles.text, { color: colors.text }]}>
+                  {item.meaning}
+                </LangphyText>
               </ListeningComponent>
 
               <View style={styles.space} />
@@ -148,7 +149,6 @@ const PracticeLessons = () => {
                 }
 
               </ListeningComponent>
-
             </View>
           </ScrollView>
         )

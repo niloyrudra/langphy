@@ -28,10 +28,14 @@ export const lightColors = {
   accountDeletionModalBg: "#FFFFFF",
   accountDeletionModalText: "#676767",
 
-  lessonListDot: "#EDEDED",
-
+  
   gradiantDeep: '#FFFFFF',
   gradiantFlat: "#FFFFFF",
+  
+  gradiantActiveNavDot: "#48E4EF", // "#0A9AB0",
+  gradiantActiveNavDotDark: "#1B7CF5",
+
+  gradiantInactiveNavDot: "#EDEDED",
 
   speaker: '#3FA1FF',
   p_en_speaker: '#0A9AB0',
@@ -121,10 +125,13 @@ export const darkColors = {
   accountDeletionModalBg: "#142C57",
   accountDeletionModalText: "#DFDFDF",
 
-  lessonListDot: "#142C57",
-
+  
   gradiantDeep: '#081A33',
   gradiantFlat: "#081A33",
+  
+  gradiantActiveNavDot: "#48E4EF", // "#0A9AB0",
+  gradiantActiveNavDotDark: "#1B7CF5",
+  gradiantInactiveNavDot: "#142C57",
 
   speaker: '#EEF8FF',
   p_en_speaker: '#FFFFFF',

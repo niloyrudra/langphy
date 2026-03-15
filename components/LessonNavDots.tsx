@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import { AntDesign } from '@expo/vector-icons'
 import { useTheme } from '@/theme/ThemeContext';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface LessonNav {
     data: number[];
@@ -14,7 +14,17 @@ const LessonNavDots = ({data, currentIndex}: LessonNav) => {
         <View style={styles.dotContainer}>
             {
                 data?.map( (_, idx) => (
-                    <AntDesign key={idx.toString()} name="pinterest" size={15} color={currentIndex >= idx ? '#0A9AB0' : colors.lessonListDot} />
+                    <LinearGradient
+                        key={idx.toString()}
+                        colors={currentIndex >= idx
+                            ? [colors.gradiantActiveNavDot, colors.gradiantActiveNavDotDark]
+                            : [colors.gradiantInactiveNavDot, colors.gradiantInactiveNavDot]
+                        }
+                        style={styles.dot}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        locations={[0, 1]}
+                    />
                 ))
             }
         </View>
@@ -28,5 +38,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         gap: 5
+    },
+    dot: {
+        width: 15,
+        height: 15,
+        borderRadius: 15,
     }
 })

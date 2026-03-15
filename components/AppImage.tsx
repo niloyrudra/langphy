@@ -9,7 +9,6 @@ interface AppImageProps extends ImageProps {
 const AppImage = ({ size, style, ...props }: AppImageProps) => {
     return (
         <Image
-            // source={""}
             transition={200}
             cachePolicy="memory-disk"
             contentFit="contain"

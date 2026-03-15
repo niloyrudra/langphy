@@ -1,6 +1,5 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-// import * as STYLES from "@/constants/styles"; 
 import { useTheme } from '@/theme/ThemeContext';
 import sizes from '@/constants/size';
 import LangphyText from './text-components/LangphyText';

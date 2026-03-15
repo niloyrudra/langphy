@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
 import { SelectiveResultType, ReadingSessionType, SessionType } from '@/types';
@@ -20,12 +20,12 @@ import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import LangphyText from '@/components/text-components/LangphyText';
+import SIZES from '@/constants/size';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
-const attemptId = randomUUID();
-
 const ReadingLessons = () => {
+  const attemptId = React.useMemo(() => randomUUID(), []);
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const userId = authSnapshot.getUserId() ?? "";
   const { colors } = useTheme();
@@ -156,13 +156,10 @@ const ReadingLessons = () => {
       preFetchedData={lessonData}
       onActiveItemChange={activeItemChangeHandler}
     >
-      {({ item, wordRefs, containerRef, screenRef, setTooltip }) => {
-        const handleTooltip = (value: any) => {
-          setTooltip(value);
-        };          
+      {({ item, wordRefs, containerRef, setTooltip }) => {
+        const handleTooltip = (value: any) => setTooltip(value);        
         return (
           <View style={styles.flex}>
-
             <View style={styles.flex}>
               {/* Title Section */}
               <ChallengeScreenTitle title="Read The Comprehension." />
@@ -175,15 +172,15 @@ const ReadingLessons = () => {
                   />
                           
                   {/* Tappable Words with ToolTip */}
-                  <NLPAnalyzedPhase
-                    phrase={item.phrase}
-                    onHandler={handleTooltip}
-                    wordRefs={wordRefs}
-                    containerRef={containerRef}
-                    screenRef={screenRef}
-                    textStyle={styles.text}
-                    textContainerStyle={styles.textContainer}
-                  />
+                  <View style={styles.textContainer}>
+                    <NLPAnalyzedPhase
+                      phrase={item.phrase}
+                      onHandler={handleTooltip}
+                      wordRefs={wordRefs}
+                      containerRef={containerRef}
+                      textStyle={styles.text}
+                    />
+                  </View>
                 </View>
 
               <HorizontalLine />
@@ -240,10 +237,10 @@ const styles = StyleSheet.create({
   questionWrapper: {marginBottom:10},
   question: {fontSize: 16},
   text: {
-    fontSize: 14,
-    flexWrap: 'wrap'
+    // fontSize: 16,
+    // flexWrap: 'wrap'
   },
   textContainer: {
-    width: "80%"
+    width: SIZES.screenWidth - 80,
   }
 });

@@ -9,7 +9,9 @@ const WordAnalyzer = ({topic, label}: {topic: string, label: string}) => {
     return (
         <View style={styles.details}>
             <TooltipContentLabel label={label} />
-            <LangphyText weight="medium" style={[styles.text, {color: colors.primary}]}>{topic}</LangphyText>
+            <LangphyText weight="medium" style={[styles.text, {color: colors.primary}]}>
+                {topic}
+            </LangphyText>
         </View>
     )
 }

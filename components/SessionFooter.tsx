@@ -57,19 +57,8 @@ const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, c
                 {
                     text: 'Continue',
                     onPress: async () => {
-                        // lessonCompletionHandler();
-                        // await markLessonCompleted({
-                        //     content_type: slug as SessionType,
-                        //     lessonId: payload.content_id,
-                        //     sessionKey: payload.session_key,
-                        //     score: payload.score,
-                        //     duration_ms: payload.duration_ms,
-                        //     lesson_order: payload.lesson_order,
-                        // })
-                        
-                        await updateProgress(payload)
-                        
-                        goToNext()
+                        await updateProgress(payload);                        
+                        goToNext();
                     }
                 }
             ]
