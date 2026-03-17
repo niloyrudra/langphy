@@ -37,7 +37,7 @@ const UserProfile = ({profile, isLoading, isFetching}: {profile: DBProfile | nul
         loadLessonData();
     }, []);
 
-    console.log(progressPercent)
+    // console.log(progressPercent)
 
     if (isLoading || isFetching) {
         return (

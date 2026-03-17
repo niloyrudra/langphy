@@ -4,6 +4,7 @@ import { useTheme } from '@/theme/ThemeContext';
 import { NlpData, Token, ToolTip } from '@/types';
 import NLPWord from './NLPWord';
 import LangphyText from '../text-components/LangphyText';
+import api from '@/lib/api';
 
 // interface ToolTipProps {
 //     phrase: string;
@@ -18,6 +19,7 @@ import LangphyText from '../text-components/LangphyText';
 interface ToolTipProps {
     phrase: string;
     onHandler: (value: ToolTip | ((prev: ToolTip) => ToolTip)) => void;
+    getTokens?: (e: any) => void;
     wordRefs: React.RefObject<Map<string, any>>;
     containerRef: React.RefObject<View | null>;
     screenRef?: React.RefObject<View | null>;
@@ -26,7 +28,7 @@ interface ToolTipProps {
     textStyle?: StyleProp<TextStyle>;
 }
 
-const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, containerRef, textStyle, textContainerStyle}) => {
+const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, getTokens, wordRefs, containerRef, textStyle, textContainerStyle}) => {
     const { colors } = useTheme();
     const [ nlpTokens, setNlpTokens ] = React.useState<Token[]>([]);
     const [ loading, setLoading ] = React.useState<boolean>(false);
@@ -43,41 +45,64 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, wordRefs, 
     );
 
     React.useEffect(() => {
+        const controller = new AbortController();
         const nlpHandler = async ( phrase: string ) => {
             const data: NlpData = { text: phrase ?? "" };
             setLoading(true);
             try {
-                const res = await fetch(
-                    `${process.env.EXPO_PUBLIC_API_BASE}/nlp/analyze/lesson`,
-                    {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    }
-                );
-                
-                if (!res.ok) {
-                    const errText = await res.text();
+                // const res = await fetch(
+                //     `${process.env.EXPO_PUBLIC_API_BASE}/nlp/analyze/lesson`,
+                //     {
+                //         method: "POST",
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: JSON.stringify(data)
+                //     }
+                // );
+
+                // if (!res.ok) {
+                //     const errText = await res.text();
+                //     console.error("NLP request failed:", errText);
+                //     return;
+                // }
+                // const nlpPhrase = await res.json();
+
+                const res = await api.post("/nlp/analyze/lesson", data, {
+                    signal: controller.signal,  // ← cancel if component unmounts or phrase changes
+                });
+
+                if( res.status !== 200 ) {
+                    const errText = res.statusText;
                     console.error("NLP request failed:", errText);
                     return;
                 }
                 
-                const nlpPhrase = await res.json();
+                const nlpPhrase = res.data;
 
-                if( nlpPhrase?.tokens.length ) setNlpTokens( prv => prv = nlpPhrase.tokens )
-                else setNlpTokens([])
+                if( nlpPhrase?.tokens.length ) {
+                    setNlpTokens( prv => prv = nlpPhrase.tokens );
+                    if(getTokens) getTokens(nlpPhrase.tokens);
+                }
+                else {
+                    setNlpTokens([])
+                }
                 
-                setLoading(false);
+                // setLoading(false);
             }
-            catch(err) {
+            catch(err: any) {
+                if (err.name === "CanceledError") return; // ignore aborted requests
                 console.error("NLPAnalyzedPhase error:", err)
+                // setLoading(false);
+            }
+            finally {
                 setLoading(false);
             }
         }
 
         if( phrase ) nlpHandler(phrase);
+
+        return () => controller.abort(); // cleanup on unmount or phrase change
 
     }, [phrase]);
 

@@ -3,22 +3,27 @@ import React, { useCallback } from 'react'
 import SIZES from '@/constants/size';
 import { useTheme } from '@/theme/ThemeContext';
 import PaginationButton from './PaginationButton';
-import { SessionType, DBProgress } from '@/types';
+import { SessionType, DBProgress, Token } from '@/types';
 import ActionPrimaryButton from './form-components/ActionPrimaryButton';
 import { useUpdateProgress } from '@/hooks/useUpdateProgess';
 import { useLocalSearchParams } from 'expo-router';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { markLessonCompleted } from '@/db/progress.repo';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useSaveVocabulary } from '@/hooks/useVocabulary';
+import { useCelebration } from '@/context/CelebrationContext';
 
 interface SessionFooterProps {
+    storeVocabulary: () => void,
     goToNext: () => void,
     goToPrevious: () => void,
     currentIndex: number,
     contentId: string;
-    dataSize: number
+    dataSize: number;
+    tokens: Token;
 }
 
-const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, currentIndex, contentId, dataSize }) => {
+const SessionFooter: React.FC<SessionFooterProps> = ({ storeVocabulary, goToNext, goToPrevious, currentIndex, contentId, dataSize }) => {
     const {colors} = useTheme();
     const {categoryId, unitId, slug} = useLocalSearchParams();
     const { stop } = useLessonTimer()
@@ -57,7 +62,8 @@ const SessionFooter: React.FC<SessionFooterProps> = ({ goToNext, goToPrevious, c
                 {
                     text: 'Continue',
                     onPress: async () => {
-                        await updateProgress(payload);                        
+                        await updateProgress(payload);
+                        await storeVocabulary();
                         goToNext();
                     }
                 }
@@ -97,6 +103,8 @@ export default SessionFooter;
 
 const styles = StyleSheet.create({
     navButtons: {
+        // position: "absolute",
+        // bottom: -SIZES.bodyPaddingVertical,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -104,7 +112,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: SIZES.bodyPaddingHorizontal,
         marginHorizontal: - SIZES.bodyPaddingHorizontal,
         marginBottom: - SIZES.bodyPaddingHorizontal,
-        paddingVertical: 10
+        paddingVertical: 10,
+        // zIndex: 3
     },
     button: {
         width: "67%",

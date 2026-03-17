@@ -6,6 +6,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { syncDirtyProfile } from "./syncProfile";
 import { syncDirtySettings } from "./syncSettings";
 import { authSnapshot } from "@/snapshots/authSnapshot";
+import { syncDirtyVocabulary } from "./syncVocabulary";
 
 const BACKGROUND_SYNC_TASK = "BACKGROUND_SYNC_TASK";
 
@@ -33,6 +34,7 @@ export const runSync = async () => {
     didWork ||= !!(await syncDirtyProgress(userId));
     // didWork ||= await syncPerformance(userId);
     didWork ||= !!(await syncDirtyStreaks(userId));
+    didWork ||= !!(await syncDirtyVocabulary(userId));
 
     return didWork
       ? BackgroundTask.BackgroundTaskResult.Success // NewData

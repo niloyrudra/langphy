@@ -561,15 +561,15 @@ type Segments = {
   token: number[]
 }
 
-type SpeechResultWordS = {
-  text: string;
-  confidence: string | number
-}
+// type SpeechResultWordS = {
+//   text: string;
+//   confidence: string | number
+// }
 
 type PracticeResultType = {
-  paragraph: string[];
-  unit: number[];
-  lessons: number[];
+  paragraph?: string[];
+  unit?: number[];
+  lessons?: number[];
   words: string[];
 }
 type SpeechResultType = {

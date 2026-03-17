@@ -71,6 +71,12 @@ const defaultContainer: StyleProp<ViewProps> = <ViewProps> {
     paddingTop: 0,// SIZES.bodyPaddingVertical,
     paddingBottom: SIZES.bodyPaddingVertical,
 };
+const defaultContainerZeroPadding: StyleProp<ViewProps> = <ViewProps> {
+    flex: 1,
+    // paddingHorizontal: SIZES.bodyPaddingHorizontal,
+    padding: 0,
+    // paddingBottom: SIZES.bodyPaddingVertical,
+};
 
 const titleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
     // fontSize: 16,
@@ -95,6 +101,7 @@ const wordWrapStyle: StyleProp<TextStyle> = <TextStyle> {
 const STYLES = {
     headerContainer,
     defaultContainer,
+    defaultContainerZeroPadding,
     boxShadow,
     boxShadowLight,
     textShadow,

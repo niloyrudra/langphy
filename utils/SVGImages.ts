@@ -84,7 +84,6 @@ import InfoIndicatorDarkIcon from '@/assets/images/modals/info-indicator-dark.sv
 import ModalCloseLightIcon from '@/assets/images/modals/modal-close-light.svg';
 import ModalCloseDarkIcon from '@/assets/images/modals/modal-close-dark.svg';
 
-import DolphinCongratulationsIcon from '@/assets/images/modals/dolphin-congratulation.svg';
 import TargetIcon from '@/assets/images/modals/target.svg';
 import WatchIcon from '@/assets/images/modals/watch.svg';
 
@@ -171,7 +170,7 @@ export {
     InfoIndicatorDarkIcon,
     ModalCloseLightIcon,
     ModalCloseDarkIcon,
-    DolphinCongratulationsIcon,
+
     TargetIcon,
     WatchIcon,
 

@@ -1,5 +1,5 @@
-import { ImageSourcePropType, StyleSheet, View } from 'react-native'
-import React from 'react'
+import { ImageSourcePropType, StyleSheet, View } from 'react-native';
+import React from 'react';
 import { ProfileLearningProgressCardBg } from '@/utils/SVGImages';
 import { useTheme } from '@/theme/ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,42 +7,40 @@ import LangphyText from '@/components/text-components/LangphyText';
 import AppImage from '@/components/AppImage';
 
 interface LearningProgressItemProps {
-    icon: ImageSourcePropType; // React.ReactNode;
+    icon: ImageSourcePropType;
     title: string;
     score: string;
 }
 
-const LearningProgressItem = ({icon, title, score}: LearningProgressItemProps) => {
-    const {colors} = useTheme();
+const LearningProgressItem = React.memo(({ icon, title, score }: LearningProgressItemProps) => {
+    const { colors } = useTheme();
+
     return (
-        <View style={[styles.container, {backgroundColor: colors.profileCardBg}]}>
-            {/* Background Image */}
+        <View style={[styles.container, { backgroundColor: colors.profileCardBg }]}>
             <View style={styles.bgImage}>
                 <ProfileLearningProgressCardBg />
             </View>
-
             <View style={styles.content}>
                 <View style={styles.progressDetail}>
-                    <View style={[styles.icon, {backgroundColor: colors.profileCardImgBgClr}]}>
-                        {
-                            icon && (<AppImage source={icon} size={24} />)
-                        }
+                    <View style={[styles.icon, { backgroundColor: colors.profileCardImgBgClr }]}>
+                        {icon && <AppImage source={icon} size={24} />}
                     </View>
-                    <LangphyText weight="medium" style={[styles.title, {color: colors.text }]}>{title}</LangphyText>
+                    <LangphyText weight="medium" style={[styles.title, { color: colors.text }]}>
+                        {title}
+                    </LangphyText>
                 </View>
-
                 <LinearGradient
                     colors={[colors.profileCardStatsGradientLight, colors.profileCardStatsGradientDark]}
                     style={styles.scoreContainer}
                 >
-                    <LangphyText weight="semibold" style={[styles.score, {color: colors.text }]}>{score}</LangphyText>
+                    <LangphyText weight="semibold" style={[styles.score, { color: colors.text }]}>
+                        {score}
+                    </LangphyText>
                 </LinearGradient>
-
             </View>
-
         </View>
     );
-}
+});
 
 export default LearningProgressItem;
 
@@ -54,12 +52,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flex: 1,
         overflow: "hidden",
-        position: "relative"
+        position: "relative",
     },
     bgImage: {
         position: "absolute",
         top: 0,
-        right: 0
+        right: 0,
     },
     content: {
         flex: 1,
@@ -76,7 +74,7 @@ const styles = StyleSheet.create({
         height: 32,
         borderRadius: 32,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     progressDetail: {
         flex: 1,
@@ -87,19 +85,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 10,
     },
-    title: {
-        fontSize: 14,
-        fontWeight: "500"
-    },
+    title: { fontSize: 14, fontWeight: "500" },
     scoreContainer: {
         width: 100,
         height: 35,
         borderRadius: 12,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
-    score: {
-        fontSize: 16,
-        fontWeight: "600"
-    }
+    score: { fontSize: 16, fontWeight: "600" },
 });

@@ -12,6 +12,24 @@ CREATE TABLE IF NOT EXISTS lp_profiles (
 );
 `;
 
+// Add this to your existing schema.ts
+
+export const CREATE_USER_VOCABULARY_TABLE = `
+CREATE TABLE IF NOT EXISTS lp_vocabulary (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  word TEXT NOT NULL,
+  lemma TEXT NOT NULL,
+  pos TEXT NOT NULL,
+  meaning_en TEXT,
+  unit_id TEXT,
+  category_id TEXT,
+  learned_at INTEGER NOT NULL,
+  dirty INTEGER NOT NULL DEFAULT 1,
+  UNIQUE(user_id, lemma)
+);
+`;
+
 export const CREATE_SETTINGS_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_settings (
   id TEXT PRIMARY KEY,

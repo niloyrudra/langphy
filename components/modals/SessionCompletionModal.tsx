@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import React from 'react'
 import ModalLayout from './_partials/ModalLayout';
 import { TargetIcon, WatchIcon } from '@/utils/SVGImages';

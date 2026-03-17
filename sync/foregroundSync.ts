@@ -4,6 +4,7 @@ import { syncDirtySettings } from "./syncSettings";
 import { syncDirtyStreaks } from "./syncStreaks";
 import { syncDirtyProgress } from "./syncProgress";
 import { authSnapshot } from "@/snapshots/authSnapshot";
+import { syncDirtyVocabulary } from "./syncVocabulary";
 
 export const runForegroundSync = async () => {
     try {
@@ -21,7 +22,8 @@ export const runForegroundSync = async () => {
             syncDirtyProfile( userId ), // Meed user ID
             syncDirtySettings( userId ), // Meed user ID
             syncDirtyStreaks( userId ),
-            syncDirtyProgress( userId )
+            syncDirtyProgress( userId ),
+            syncDirtyVocabulary( userId )
         ]);
 
     }

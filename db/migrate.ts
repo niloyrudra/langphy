@@ -9,7 +9,8 @@ import {
     CREATE_PROGRESS_TABLE,
     CREATE_SETTINGS_TABLE,
     CREATE_STREAKS_TABLE,
-    CREATE_UNITS_TABLE
+    CREATE_UNITS_TABLE,
+    CREATE_USER_VOCABULARY_TABLE
 } from "./schema";
 // import * as SecureStore from "expo-secure-store";
 
@@ -42,5 +43,6 @@ export const runMigrations = async () => {
         db.execAsync(CREATE_LESSONS_TABLE),
         db.execAsync(CREATE_PERFORMANCE_TABLE),
         db.execAsync(CREATE_KAFKA_EVENTS_TABLE),
+        db.execAsync(CREATE_USER_VOCABULARY_TABLE),
     ]);
 };

@@ -7,7 +7,7 @@ import {
 import { useTheme } from '@/theme/ThemeContext';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { router, useLocalSearchParams } from 'expo-router';
-import { SessionType, PracticeSessionType, PracticeResultType } from '@/types';
+import { SessionType, PracticeSessionType, Token } from '@/types';
 import ListeningComponent from '@/components/listening-components/ListeningComponent';
 import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
@@ -22,31 +22,38 @@ import LessonList from '@/components/practice-components/LessonList';
 import { useCelebration } from '@/context/CelebrationContext';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+import { useSaveVocabulary } from '@/hooks/useVocabulary';
 
 const PracticeLessons = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
   const { colors } = useTheme();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const {start, stop, isRunning} = useLessonTimer();
+  const { mutate: saveVocabulary } = useSaveVocabulary();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+  const sessionKey = `${unitId}:${slug}`;
   const userId: string = authSnapshot.getUserId() ?? "";
-  const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
+  const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<PracticeSessionType | null>(null);
-  
-  const [ textContent, setTextContent ] = React.useState<string>('')
-  const [ error, setError ] = React.useState<string>('')
-  const [ loading, setLoading ] = React.useState<boolean>(false)
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
   const scrollToRef = React.useRef<ScrollView>(null);
-  const [ showCompletionModal, setShowCompletionModal ] = React.useState<boolean>(false);
-
-  const sessionKey = `${unitId}:${slug}`;
+  
+  // ── KEY CHANGE ────────────────────────────────────────────────────────────
+  // Store tokens in a REF, not state. This means:
+  // 1. handleVocabulary always reads the latest tokens (no stale closure)
+  // 2. Updating tokens never triggers a re-render of the practice screen
+  // 3. No dependency array issues in useCallback
+  // NLPAnalyzedPhase calls getTokens(tokens) when NLP resolves — we store
+  // them here immediately so they're ready when the user taps Done.
+  const tokensRef = React.useRef<Token[]>([]);
+  // ─────────────────────────────────────────────────────────────────────────
+ 
+  const { currentPosition, showLessonList, setCurrentPosition } = useSession();
 
   // Essential Custom hooks
-  const { currentPosition, showLessonList, setCurrentPosition } = useSession();
   const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { data: progress } = useProgress( sessionKey );
 
@@ -73,11 +80,6 @@ const PracticeLessons = () => {
     });
   }, [practiceLessons, progress]);
 
-  // const onContinueHandler = React.useCallback(() => {
-  //   setShowCompletionModal(false);
-  //   // navigation back to units page
-  //   router.back();
-  // }, [router, setShowCompletionModal]);
   const onLessonComplete = React.useCallback(async (lesson: PracticeSessionType, score: number) => {
     if(!userId) return;
     try {
@@ -113,65 +115,52 @@ const PracticeLessons = () => {
     }
   }, [userId, slug, userId, practiceData?.length, stop]);
   
-  const analyzeLessonHandler = React.useCallback(async (lessonText: string) => {
-    // if(!textContent.trim()) {
-    //   setError("Please write your answer first!");
-    //   return;
-    // }
-    if (!lessonText) {
-      setError("No expected text found!");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      // const data = await analysisNLP( lessonText, textContent );
-      const data = {
-        paragraph: [],
-        unit: [],
-        words: [],
-        lessons: []
-      }
-      if( data ) {
-        triggerLessonResult({
-          actualQuery: lessonText,
-          result: data,
-          onRetry: () => {},
-          onContinue: async () => onContinue(data),
+    // Called by SessionFooter's Done button via storeVocabulary prop.
+  // Reads tokensRef.current — always the latest tokens, no stale closure.
+  const handleVocabulary = React.useCallback(async () => {
+    const lesson = currentLessonRef.current;
+    const tokens = tokensRef.current; // ← always fresh, no dependency needed
+ 
+    if (tokens.length > 0 && userId) {
+      try {
+        saveVocabulary({
+          userId,
+          tokens,
+          unitId: unitId as string,
+          categoryId: categoryId as string,
         });
+        // console.log("Words stored", tokens);
+      } catch (err) {
+        console.warn("Vocabulary save failed (non-blocking):", err);
       }
-      console.log("data:", data);
-    } catch (err: any) {
-      console.error(err);
-      setError("Speech analysis failed");
-    } finally {
-      setLoading(false);
     }
-  }, [textContent, triggerLessonResult]);
-
-  const onContinue = React.useCallback(async (result: any) => {
-    const score = (result && result!.similarity) ? result!.similarity*100 : 0;
-    await onLessonComplete(currentLessonRef.current!, score);
-    // reset();
-    goToNextRef?.current && goToNextRef.current?.();
-    // Use After 3 Lessons Completed
-    // if( await shouldShowLessonAd() ) {
-    //   interstitialController.show(() => {
-    //     goToNextRef.current?.();
-    //   });
-    // }
-    // else {
-    //   goToNextRef.current?.();
-    // }
-    
+ 
+    if (lesson) {
+      await onLessonComplete(lesson, 100);
+    }
+ 
     resolveCurrent();
-  }, [onLessonComplete, resolveCurrent]);
-
-  const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: PracticeSessionType, index: number, goToNext: () => void}) => {
-    activeLessonOrderRef.current = index;
-    currentLessonRef.current = item;
-    goToNextRef.current = goToNext;
+  }, [userId, unitId, categoryId, onLessonComplete, saveVocabulary, resolveCurrent]);
+  // Note: no `tokens` in deps — intentional, we read the ref directly
+ 
+  // Called by NLPAnalyzedPhase when NLP resolves.
+  // Stores tokens in the ref — no re-render, always current.
+  const handleGetTokens = React.useCallback((incoming: Token[]) => {
+    tokensRef.current = incoming;
   }, []);
+
+  const activeItemChangeHandler = React.useCallback(
+    ({ item, index, goToNext }: { item: PracticeSessionType; index: number; goToNext: () => void }) => {
+      activeLessonOrderRef.current = index;
+      currentLessonRef.current = item;
+      setCurrentPosition(index);
+      goToNextRef.current = goToNext;
+      // Clear tokens when lesson changes so stale tokens from
+      // previous lesson are never saved against the new lesson
+      tokensRef.current = [];
+    },
+    [setCurrentPosition]
+  );
 
   const onPositionChangeHandler = React.useCallback((index: number) => setCurrentPosition(index), [setCurrentPosition]);
   const onScrollerHandler = React.useCallback((scrollFn: ((index: number) => void)) => {scrollToLessonRef.current = scrollFn}, []);
@@ -188,75 +177,91 @@ const PracticeLessons = () => {
         preFetchedData={practiceData}
         showFooter={true}
         onPositionChange={onPositionChangeHandler}
-        onRegisterScroller={onScrollerHandler} // {(scrollFn) => {scrollToLessonRef.current = scrollFn}}
+        onRegisterScroller={onScrollerHandler}
+        onActiveItemChange={activeItemChangeHandler}
+        storeVocabulary={handleVocabulary}
       >
         {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, setTooltip }) => {
           const handleTooltip = (value: any) => setTooltip(value);
           return (
-            <ScrollView
-              ref={scrollToRef}
-              nestedScrollEnabled
-              showsVerticalScrollIndicator={false}
-              onScrollBeginDrag={disableHorizontalScroll}
-              onScrollEndDrag={enableHorizontalScroll}
-              scrollEventThrottle={16}
-            >
-              <View style={styles.container}>
-                {/* English Section */}
-                <ListeningComponent
-                  language="English"
-                  color="#0A9AB0"
-                  style={{backgroundColor: colors.listeningCardBackgroundColor}}
-                  buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
-                  speechContent={item.meaning}
-                  speechLang="en-US"
-                >
-                  <LangphyText weight='semibold' style={[styles.text, { color: colors.text }]}>
-                    {item.meaning}
-                  </LangphyText>
-                </ListeningComponent>
+            <>
+              <ScrollView
+                ref={scrollToRef}
+                nestedScrollEnabled
+                showsVerticalScrollIndicator={false}
+                onScrollBeginDrag={disableHorizontalScroll}
+                onScrollEndDrag={enableHorizontalScroll}
+                scrollEventThrottle={16}
+              >
+                <View style={styles.container}>
+                  {/* English Section */}
+                  <ListeningComponent
+                    language="English"
+                    color="#0A9AB0"
+                    style={{backgroundColor: colors.listeningCardBackgroundColor}}
+                    buttonStyle={{ backgroundColor: colors.lessonSourceCardSpeakerBackgroundColor }}
+                    speechContent={item.meaning}
+                    speechLang="en-US"
+                  >
+                    <LangphyText weight='semibold' style={[styles.text, { color: colors.text }]}>
+                      {item.meaning}
+                    </LangphyText>
+                  </ListeningComponent>
 
-                <View style={styles.space} />
+                  <View style={styles.space} />
 
-                {/* German Section */}
-                <ListeningComponent
-                  language="German"
-                  color="#1B7CF5"
-                  style={{backgroundColor: colors.listeningCardBackgroundColor}}
-                  buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
-                  speechContent={item.phrase}
-                  speechLang="de-DE"
-                >
+                  {/* German Section */}
+                  <ListeningComponent
+                    language="German"
+                    color="#1B7CF5"
+                    style={{backgroundColor: colors.listeningCardBackgroundColor}}
+                    buttonStyle={{ backgroundColor: colors.lessonActionCardSpeakerBackgroundColor }}
+                    speechContent={item.phrase}
+                    speechLang="de-DE"
+                  >
 
-                  {/* Tappable Words with ToolTip */}
-                  <NLPAnalyzedPhase
-                    phrase={item.phrase}
-                    onHandler={handleTooltip}
-                    wordRefs={wordRefs}
-                    containerRef={containerRef}
-                    textContainerStyle={styles.nlp}
-                  />
+                    {/* Tappable Words with ToolTip */}
+                    <NLPAnalyzedPhase
+                      phrase={item.phrase}
+                      onHandler={handleTooltip}
+                      getTokens={handleGetTokens}
+                      wordRefs={wordRefs}
+                      containerRef={containerRef}
+                      textContainerStyle={styles.nlp}
+                    />
 
-                  {/* Sentence Footer */}
-                  {
-                    item?.usage_context && (
-                      <PracticeLessonDetails
-                        usage_context={item?.usage_context || ""}
-                        german_level={item?.german_level || ""}
-                        formality={item?.formality || ""}
-                        discussion={item?.discussion || ""}
-                        region={item?.region || ""}
-                        grammar_note={item?.grammar_note || ""}
-                        examples={item?.examples || []}
-                      />
-                    )
-                  }
+                    {/* Sentence Footer */}
+                    {
+                      item?.usage_context && (
+                        <PracticeLessonDetails
+                          usage_context={item?.usage_context || ""}
+                          german_level={item?.german_level || ""}
+                          formality={item?.formality || ""}
+                          discussion={item?.discussion || ""}
+                          region={item?.region || ""}
+                          grammar_note={item?.grammar_note || ""}
+                          examples={item?.examples || []}
+                        />
+                      )
+                    }
 
-                </ListeningComponent>
-              </View>
-            </ScrollView>
+                  </ListeningComponent>
+                </View>
+              </ScrollView>
+
+              {/* <SessionFooter
+                storeVocabulary={handleVocabulary}
+                goToNext={goToNext!}
+                goToPrevious={goToPrevious!}
+                currentIndex={currentPosition}
+                contentId={(practiceData[currentPosition] as any)?._id ?? ''}
+                dataSize={practiceData.length}
+              /> */}
+            
+            </>
           )
         }}
+        
       </SessionLayout>
 
       {

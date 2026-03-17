@@ -1,14 +1,59 @@
 import { DBStreak, StreaksType } from "@/types";
 import { db } from "./index";
 
-export const getStreaks = async ( userId: string ): Promise<DBStreak | null> => {
+const SECONDS_IN_A_DAY = 86400;
+
+ 
+export const getStreaks = async (userId: string): Promise<DBStreak | null> => {
     try {
-        return await db.getFirstAsync<DBStreak>(
+        const streak = await db.getFirstAsync<DBStreak>(
             "SELECT * FROM lp_streaks WHERE user_id = ?",
             [userId]
         );
+ 
+        if (!streak) return null;
+ 
+        // ── Local expiry check ────────────────────────────────────────────
+        // If the user hasn't been active for more than 1 day, reset the
+        // streak locally so the UI shows 0 immediately without waiting for
+        // a backend sync or lesson completion.
+        const now = Math.floor(Date.now() / 1000);
+        const nowInDays = Math.floor(now / SECONDS_IN_A_DAY); // days since epoch
+
+        // last_activity_date could be days-since-epoch (from PostgreSQL DATE)
+        // or a Unix timestamp in seconds — detect which one it is
+        const lastActivityInDays = streak.last_activity_date > 100_000
+            ? Math.floor(streak.last_activity_date / SECONDS_IN_A_DAY) // it's a Unix timestamp
+            : streak.last_activity_date; // it's already days since epoch
+
+        const daysSinceLastActivity = nowInDays - lastActivityInDays;
+
+        // const daysSinceLastActivity = streak.last_activity_date
+        //     ? Math.floor((now - streak.last_activity_date) / SECONDS_IN_A_DAY)
+        //     : 0;
+ 
+        // console.log("streak debug:", {
+        //     last_activity_date: streak.last_activity_date,
+        //     now,
+        //     diff: now - streak.last_activity_date,
+        //     daysSince: daysSinceLastActivity,
+        //     current_streak: streak.current_streak,
+        // });
+
+        if (daysSinceLastActivity > 1 && streak.current_streak > 0) {
+            const reset = await db.getFirstAsync<DBStreak>(
+                `UPDATE lp_streaks
+                 SET current_streak = 0, dirty = 1, updated_at = ?
+                 WHERE user_id = ?
+                 RETURNING *`,
+                [now, userId]
+            );
+            return reset ?? streak;
+        }
+ 
+        return streak;
     }
-    catch(error) {
+    catch (error) {
         console.error("getStreaks error:", error);
         return null;
     }

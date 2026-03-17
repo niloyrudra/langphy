@@ -24,11 +24,13 @@ interface SessionLayoutProps<T> {
   sessionType?: string;
   keyboardAvoid?: boolean;
   preFetchedData?: T[];
+  keepDefaultPadding?: boolean;
   showFooter?: boolean;
   onPositionChange?: (index: number) => void;
   onRegisterScroller?: (scrollTo: (index: number) => void) => void;
   onActiveItemChange?: (args: { item: T; index: number; goToNext: () => void }) => void;
   onSessionComplete?: () => void;
+  storeVocabulary?: () => void;
   keyboardVerticalOffset?: number;
   children: (props: {
     item: T;
@@ -53,10 +55,12 @@ function SessionLayout<T>({
   children,
   preFetchedData=[],
   showFooter = false,
+  keepDefaultPadding=true,
   onPositionChange,
   onRegisterScroller,
   onActiveItemChange,
   onSessionComplete,
+  storeVocabulary = () => {},
   keyboardAvoid = false,
   keyboardVerticalOffset = 90,
 }: SessionLayoutProps<T>) {
@@ -187,11 +191,13 @@ function SessionLayout<T>({
 
           {showFooter && (
             <SessionFooter
+              storeVocabulary={storeVocabulary}
               goToNext={goToNext}
               goToPrevious={goToPrevious}
               currentIndex={currentIndex}
               contentId={(preFetchedData[currentIndex] as any)?._id ?? ''}
               dataSize={preFetchedData.length}
+              tokens={tooltip.token!}
             />
           )}
 
@@ -222,7 +228,7 @@ export default memo(SessionLayout) as <T>(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative'
+    position: 'relative',
   },
   flex: {flex: 1},
   content: {
