@@ -1,6 +1,5 @@
 import React from 'react';
 import { LocalCategory } from '@/types';
-import SIZES from '@/constants/size';
 import CategoryCard from '../CategoryCard';
 import GridLayout from '../layouts/GridLayout';
 import { useCategories } from '@/hooks/useCategories';
@@ -8,11 +7,10 @@ import LoadingScreenComponent from '../LoadingScreenComponent';
 
 const CategoryCardList = () => {
   const { data: categories, isLoading, isFetching } = useCategories();
-  
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
   return (
     <GridLayout<LocalCategory>
-      data={categories || []}
+      data={categories?.filter(category => category.position_at !== '63' && category.position_at !== '64') || []}
       keyExtractor={({id}) => id}
       renderItem={({item}: {item: LocalCategory}) => (
         <CategoryCard

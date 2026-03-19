@@ -17,7 +17,7 @@ export const useSettings = (userId: string) => {
                 throw error;
             }
         },
-        staleTime: Infinity,
+        // staleTime: Infinity,
         gcTime: Infinity
     });
 }

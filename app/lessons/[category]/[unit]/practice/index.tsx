@@ -33,7 +33,7 @@ const PracticeLessons = () => {
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const sessionKey = `${unitId}:${slug}`;
   const userId: string = authSnapshot.getUserId() ?? "";
-  const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
+  const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
   const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
@@ -115,12 +115,28 @@ const PracticeLessons = () => {
     }
   }, [userId, slug, userId, practiceData?.length, stop]);
   
+  const onContinue = React.useCallback(async () => {
+    await onLessonComplete(currentLessonRef.current!, 100);
+    goToNextRef?.current && goToNextRef.current?.();
+    // Use After 3 Lessons Completed
+    // if( await shouldShowLessonAd() ) {
+    //   interstitialController.show(() => {
+    //     goToNextRef.current?.();
+    //   });
+    // }
+    // else {
+    //   goToNextRef.current?.();
+    // }
+    
+    resolveCurrent();
+  }, [onLessonComplete, resolveCurrent]);
+
     // Called by SessionFooter's Done button via storeVocabulary prop.
   // Reads tokensRef.current — always the latest tokens, no stale closure.
   const handleVocabulary = React.useCallback(async () => {
-    const lesson = currentLessonRef.current;
-    const tokens = tokensRef.current; // ← always fresh, no dependency needed
- 
+    // ✅ Snapshot immediately — before anything can overwrite the ref
+    const tokens = [...tokensRef.current];
+
     if (tokens.length > 0 && userId) {
       try {
         saveVocabulary({
@@ -129,22 +145,61 @@ const PracticeLessons = () => {
           unitId: unitId as string,
           categoryId: categoryId as string,
         });
-        // console.log("Words stored", tokens);
       } catch (err) {
         console.warn("Vocabulary save failed (non-blocking):", err);
       }
     }
+
+    triggerLessonResult({
+      result: {
+        words: tokens,       // ✅ uses the snapshot, not the live ref
+        practiceScore: 100
+      },
+      onRetry: resolveCurrent,
+      onContinue: onContinue,
+    });
+  }, [userId, unitId, categoryId, saveVocabulary, resolveCurrent, onContinue]);
+
+  // const handleVocabulary = React.useCallback(async () => {
+  //   // const lesson = currentLessonRef.current;
+  //   const tokens = tokensRef.current; // ← always fresh, no dependency needed
  
-    if (lesson) {
-      await onLessonComplete(lesson, 100);
-    }
+  //   console.log("tokens:", tokens)
+
+  //   if (tokens.length > 0 && userId) {
+  //     try {
+  //       saveVocabulary({
+  //         userId,
+  //         tokens,
+  //         unitId: unitId as string,
+  //         categoryId: categoryId as string,
+  //       });
+  //       // console.log("Words stored", tokens);
+  //     } catch (err) {
+  //       console.warn("Vocabulary save failed (non-blocking):", err);
+  //     }
+  //   }
  
-    resolveCurrent();
-  }, [userId, unitId, categoryId, onLessonComplete, saveVocabulary, resolveCurrent]);
+  //   // if (lesson) {
+  //   //   await onLessonComplete(lesson, 100);
+  //     triggerLessonResult({
+  //       // actualQuery: expectedText,
+  //       result: {
+  //         words: tokens,
+  //         practiceScore: 100
+  //       },
+  //       onRetry: resolveCurrent,
+  //       onContinue: onContinue,
+  //     });
+  //   // }
+ 
+  //   // resolveCurrent();
+  // }, [userId, unitId, categoryId, onLessonComplete, saveVocabulary, resolveCurrent]);
   // Note: no `tokens` in deps — intentional, we read the ref directly
  
   // Called by NLPAnalyzedPhase when NLP resolves.
   // Stores tokens in the ref — no re-render, always current.
+  
   const handleGetTokens = React.useCallback((incoming: Token[]) => {
     tokensRef.current = incoming;
   }, []);
@@ -155,12 +210,23 @@ const PracticeLessons = () => {
       currentLessonRef.current = item;
       setCurrentPosition(index);
       goToNextRef.current = goToNext;
-      // Clear tokens when lesson changes so stale tokens from
-      // previous lesson are never saved against the new lesson
-      tokensRef.current = [];
+      tokensRef.current = []; // ← this is fine, handleVocabulary already snapshotted before goToNext ran
     },
     [setCurrentPosition]
   );
+
+  // const activeItemChangeHandler = React.useCallback(
+  //   ({ item, index, goToNext }: { item: PracticeSessionType; index: number; goToNext: () => void }) => {
+  //     activeLessonOrderRef.current = index;
+  //     currentLessonRef.current = item;
+  //     setCurrentPosition(index);
+  //     goToNextRef.current = goToNext;
+  //     // Clear tokens when lesson changes so stale tokens from
+  //     // previous lesson are never saved against the new lesson
+  //     tokensRef.current = [];
+  //   },
+  //   [setCurrentPosition]
+  // );
 
   const onPositionChangeHandler = React.useCallback((index: number) => setCurrentPosition(index), [setCurrentPosition]);
   const onScrollerHandler = React.useCallback((scrollFn: ((index: number) => void)) => {scrollToLessonRef.current = scrollFn}, []);
@@ -247,17 +313,7 @@ const PracticeLessons = () => {
 
                   </ListeningComponent>
                 </View>
-              </ScrollView>
-
-              {/* <SessionFooter
-                storeVocabulary={handleVocabulary}
-                goToNext={goToNext!}
-                goToPrevious={goToPrevious!}
-                currentIndex={currentPosition}
-                contentId={(practiceData[currentPosition] as any)?._id ?? ''}
-                dataSize={practiceData.length}
-              /> */}
-            
+              </ScrollView>            
             </>
           )
         }}

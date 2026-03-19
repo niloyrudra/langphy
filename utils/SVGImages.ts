@@ -94,6 +94,8 @@ import ReadingLightIcon from '@/assets/images/dashboard/settings/book-light.svg'
 import ReadingDarkIcon from '@/assets/images/dashboard/settings/book-dark.svg';
 import SpeakingDarkIcon from '@/assets/images/dashboard/settings/mic-dark.svg';
 import SpeakingLightIcon from '@/assets/images/dashboard/settings/mic-light.svg';
+import WritingLightIcon from '@/assets/images/dashboard/settings/writing-light.svg';
+import WritingDarkIcon from '@/assets/images/dashboard/settings/writing-dark.svg';
 import ListeningDarkIcon from '@/assets/images/dashboard/settings/headphones-dark.svg';
 import ListeningLightIcon from '@/assets/images/dashboard/settings/headphones-light.svg';
 import ThemeLightIcon from '@/assets/images/dashboard/settings/moon-light.svg';
@@ -182,6 +184,8 @@ export {
     ReadingDarkIcon,
     SpeakingDarkIcon,
     SpeakingLightIcon,
+    WritingLightIcon,
+    WritingDarkIcon,
     ListeningDarkIcon,
     ListeningLightIcon,
     ThemeLightIcon,

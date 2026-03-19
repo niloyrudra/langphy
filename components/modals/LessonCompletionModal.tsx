@@ -1,11 +1,11 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import { SelectiveResultType, SessionResultType, SpeechResultType, WordConfidence } from '@/types';
+import { PracticeResultType, SelectiveResultType, SessionResultType, SpeechResultType, Token, WordConfidence } from '@/types';
 import { feedbackComments } from '@/utils';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Entypo, FontAwesome, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, FontAwesome, FontAwesome6, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 import WordConfidenceComponent from './_partials/WordConfidenceComponent';
@@ -17,7 +17,7 @@ interface LessonCompletionModalProps {
     isVisible: boolean;
     actualQuery?: string;
     onModalVisible: () => void;
-    result: SessionResultType | SelectiveResultType | SpeechResultType;
+    result: SessionResultType | SelectiveResultType | SpeechResultType | PracticeResultType;
     onRetry: () => void;
     onContinue: () => void;
 }
@@ -27,6 +27,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
     const {colors} = useTheme();
     // const { resolveCurrent } = useCelebration();
     const isSelective = 'answered' in result;
+    const isPractice = 'practiceScore' in result;
     const isSpeech = 'analysis' in result && 'transcription' in result;
     const speechResult = isSpeech ? (result as SpeechResultType) : null;
     const isSimilarity = !isSelective && !isSpeech && 'similarity' in result;
@@ -51,13 +52,9 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
         if (isSelective) return result.feedback ?? "";
         if (isSimilarity) return feedbackComments( result.similarity ?? "" );
         if (isSpeech) return "Analized Result!" // feedbackComments( result.analysis.similarity ?? 0 );
+        if (isPractice) return "Lesson Review!" // feedbackComments( result.analysis.similarity ?? 0 );
         return "Your Result!";
-    }, [result, isSelective, isSimilarity, isSpeech]);
-
-    // const handleRetry = React.useCallback( () => {
-    //     onRetry();
-    //     resolveCurrent();
-    // }, [onRetry, resolveCurrent]);
+    }, [result, isSelective, isSimilarity, isSpeech, isPractice]);
 
     const handleContinue = React.useCallback( () => onContinue(), [onContinue]);
 
@@ -122,8 +119,6 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                                 detail={speechResult.analysis?.feedback}
                                 iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
                             />
-
-                            {/* <HorizontalLine style={styles.divider} /> */}
                         </>
                     )
                 }
@@ -138,6 +133,19 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                                 result.feedback.label === "Correct" 
                                 ? (<FontAwesome name="check-circle" size={20} color={colors.text} />) 
                                 : (<Entypo name="circle-with-cross" size={20} color={colors.text} />)
+                            }
+                        />
+                    )
+                }
+
+                {/* PRACTICE */}
+                {
+                    isPractice && (
+                        <ResultDetail
+                            label="Words:"
+                            detail={result.words.map((word: Token) => word.lemma).join(",")}
+                            iconComponent={
+                                <MaterialCommunityIcons name="head-lightbulb-outline" size={20} color={colors.text} />
                             }
                         />
                     )

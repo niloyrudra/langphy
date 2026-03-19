@@ -17,7 +17,7 @@ export default HeaderRightComponent
 const styles = StyleSheet.create({
     container: {
       flexDirection:"row",
-      gap: 10,
+      gap: 20, // 10,
       alignItems: "center"
     }
 })

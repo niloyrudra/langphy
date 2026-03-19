@@ -2,6 +2,7 @@
 export const lightColors = {
   background: '#F9FAFB',
   text: '#142C57',
+  secondaryText: '#142C57',
   primary_950_50: '#FFFFFF',
   textDark: '#000000',
   textWhite: '#F9FAFB',
@@ -21,8 +22,8 @@ export const lightColors = {
   profileGradientDark: "#8ED4FF",
   profileGradientBox: "#F9FAFB",
   profileCardBg: "#FFFFFF",
-  profileCardStatsGradientLight: "#48E4EF10",
-  profileCardStatsGradientDark: "#1B7CF510",
+  profileCardStatsGradientLight: "#48E4EF15",
+  profileCardStatsGradientDark: "#1B7CF515",
   profileCardImgBgClr: "#D9EFFF",
 
   accountDeletionModalBg: "#FFFFFF",
@@ -99,6 +100,7 @@ export const lightColors = {
 export const darkColors = {
   background: '#061825',
   text: '#ECFFFF',
+  secondaryText: '#FFFFFF',
   primary_950_50: '#142C57',
   textDark: '#ECFFFF',
   textWhite: '#061825',
@@ -118,8 +120,8 @@ export const darkColors = {
   profileGradientDark: "#1465E1",
   profileGradientBox: "#142C57",
   profileCardBg: "#142C57",
-  profileCardStatsGradientLight: "#48E4EF10",
-  profileCardStatsGradientDark: "#1B7CF510",
+  profileCardStatsGradientLight: "#48E4EF35",
+  profileCardStatsGradientDark: "#1B7CF535",
   profileCardImgBgClr: "#061E3E",
 
   accountDeletionModalBg: "#142C57",

@@ -117,7 +117,7 @@ export const getPerformance = async (sessionKey: string): Promise<SessionPerform
   }
 }
 
-export const getTotalCompletedSession = async () => {
+export const getTotalCompletedSessions = async () => {
   try {
     const result = await db.getFirstAsync<{count: number}>(
       'SELECT COUNT(*) as count FROM lp_session_performance WHERE completed = 1',
@@ -129,6 +129,24 @@ export const getTotalCompletedSession = async () => {
     return 0;
   }
 }
+
+export const getTotalCompletedUnits = async () => {
+  try {
+    const result = await db.getFirstAsync<{ count: number }>(
+      `SELECT COUNT(*) as count FROM (
+        SELECT SUBSTR(session_key, 1, INSTR(session_key, ':') - 1) as unit_id
+        FROM lp_session_performance
+        WHERE completed = 1
+        GROUP BY unit_id
+        HAVING COUNT(DISTINCT session_type) = 6
+      )`,
+    );
+    return result?.count ?? 0;
+  } catch (error) {
+    console.error("getTotalCompletedUnits error:", error);
+    return 0;
+  }
+};
 
 export const clearSessionPerformance = async () => {
   try{

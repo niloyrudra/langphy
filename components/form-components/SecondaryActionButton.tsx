@@ -3,7 +3,6 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SubmitSecondaryButtonProps } from '@/types';
 import STYLES from '@/constants/styles';
 import sizes from '@/constants/size';
-
 import { useTheme } from '@/theme/ThemeContext';
 import LangphyText from '../text-components/LangphyText';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -22,7 +21,6 @@ const SecondaryActionButton = ( {
         <TouchableOpacity
             style={[
                 STYLES.childContentCentered,
-                // {position: "relative"},
                 (disabled && [styles.content, {backgroundColor: colors.disabledButtonBackgroundColor}]),
                 (buttonStyle && buttonStyle)
             ]}
@@ -41,7 +39,7 @@ const SecondaryActionButton = ( {
                     weight="extrabold"
                     style={[
                         styles.text,
-                        { color: (disabled ? colors.disabledButtonColor : "#ffffff")},
+                        { color: (disabled ? colors.disabledButtonColor : colors.secondaryText )},
                         (buttonTextStyle && buttonTextStyle)
                     ]}
                 >

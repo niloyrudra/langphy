@@ -561,16 +561,9 @@ type Segments = {
   token: number[]
 }
 
-// type SpeechResultWordS = {
-//   text: string;
-//   confidence: string | number
-// }
-
 type PracticeResultType = {
-  paragraph?: string[];
-  unit?: number[];
-  lessons?: number[];
-  words: string[];
+  words: Token[];
+  practiceScore: number;
 }
 type SpeechResultType = {
   analysis: {
@@ -582,7 +575,7 @@ type SpeechResultType = {
   };
   sagments: Segments[];
   transcription: string;
-  words: WordConfidence[]; // SpeechResultWordS[];
+  words: WordConfidence[];
 }
 
 type SessionResultType = {

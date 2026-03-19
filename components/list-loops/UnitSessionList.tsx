@@ -17,8 +17,6 @@ const UnitSessionList = () => {
           categoryId={categoryId as string}
           unitId={unitId as string}
           slug={item.slug}
-          // completion={item.completion}
-          // goal={item.goal}
         />
       )}
     />

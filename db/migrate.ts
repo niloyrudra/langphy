@@ -1,4 +1,3 @@
-// import { authSnapshot } from "@/snapshots/authSnapshot";
 import { db } from "./index";
 import {
     CREATE_CATEGORIES_TABLE,
@@ -12,17 +11,14 @@ import {
     CREATE_UNITS_TABLE,
     CREATE_USER_VOCABULARY_TABLE
 } from "./schema";
-// import * as SecureStore from "expo-secure-store";
 
 export const runMigrations = async () => {
+    // await db.runAsync(`DELETE FROM lp_categories`);
     // await db.runAsync(`DELETE FROM lp_profiles`);
     // await db.runAsync(`DELETE FROM lp_streaks`);
     // await db.runAsync(`DELETE FROM lp_settngs`);
     // await db.runAsync(`DELETE FROM lp_lesson`);
     // await db.runAsync(`DELETE FROM lp_session_performance`);
-
-    // await SecureStore.deleteItemAsync("accessToken");
-    // authSnapshot.clear();
 
     // await db.runAsync(`DROP TABLE IF EXISTS lp_profiles`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_settings`);

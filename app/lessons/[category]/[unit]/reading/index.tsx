@@ -241,6 +241,6 @@ const styles = StyleSheet.create({
     // flexWrap: 'wrap'
   },
   textContainer: {
-    width: SIZES.screenWidth - 90,
+    width: SIZES.screenWidth - 100,
   }
 });

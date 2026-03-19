@@ -5,9 +5,13 @@ import { milestonesData } from '@/schemas/static-data';
 import { MilestonesType } from '@/types';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import MilestonesItemRectangle from '@/components/dashboard/_partials/MilestonesItemRectangle';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useStreak } from '@/hooks/useStreaks';
 
 const MilestonesScreen = () => {
   const { colors } = useTheme();
+  const userId = authSnapshot.getUserId() ?? "";
+  const { data: streak } = useStreak(userId);
   return (
     <SafeAreaLayout>
       <ScrollView style={styles.flex} showsVerticalScrollIndicator={false}>
@@ -18,6 +22,7 @@ const MilestonesScreen = () => {
                 key={item.id.toString()}
                 title={item.milestonesTitle}
                 milestones={item.milestones}
+                isLocked={streak ?? 0 >= item.milestones ? true : false}
                 icon={item.icon}
               />
             ))

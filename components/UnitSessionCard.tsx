@@ -7,11 +7,16 @@ import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
 import { getCardContainerWidth } from '@/utils';
 import { UnitSessionType } from '@/types';
+import { useSettings } from '@/hooks/useSettings';
+import { authSnapshot } from '@/snapshots/authSnapshot';
 
 const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug} ) => {
   const { colors } = useTheme();
-  const { category, unit } = useLocalSearchParams();
+  const userId = authSnapshot.getUserId() ?? "";
   const cardWidth = getCardContainerWidth();
+  const { category, unit } = useLocalSearchParams();
+  const { data: settings } = useSettings(userId);
+  const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 
   const routeHandler = React.useCallback(() => {
     router.push({
@@ -20,8 +25,31 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
     })
   }, [router, category, unit, slug, categoryId, unitId, title]);
 
+  React.useEffect(() => {
+    let active = true;
+    switch( slug ) {
+      case 'speaking' :
+        active = settings?.speaking_service ? true : false;
+        break;
+      case 'reading' :
+        active = settings?.reading_service ? true : false;
+        break;
+      case 'writing' :
+        active = settings?.writing_service ? true : false;
+        break;
+      case 'listening' :
+        active = settings?.listening_service ? true : false;
+        break;
+    }
+    setIsDisabled(!active);
+  }, [slug, settings]);
+
   return (
-    <TouchableOpacity  onPress={routeHandler}>
+    <TouchableOpacity
+      disabled={isDisabled}
+      style={isDisabled ? styles.disabled : {}}
+      onPress={routeHandler}
+    >
       <View 
         style={[
           STYLES.contentCentered,
@@ -55,5 +83,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingVertical: 16,
     margin:0,
+  },
+  disabled: {
+    opacity: 0.35,
+    pointerEvents: "none"
   }
 });

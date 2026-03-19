@@ -9,14 +9,15 @@ import AppImage from '@/components/AppImage';
 
 interface MilestonesItemRectangleProps {
     title: string;
+    isLocked: boolean;
     milestones: number;
     icon: ImageSourcePropType;
 }
 
-const MilestonesItemRectangle = ({title, milestones, icon}: MilestonesItemRectangleProps) => {
+const MilestonesItemRectangle = ({title, isLocked, milestones, icon}: MilestonesItemRectangleProps) => {
     const {colors} = useTheme();
     return (
-        <View style={[styles.container]}>
+        <View style={[styles.container, {opacity: isLocked ? 0.35 : 1}]}>
                 
             <View style={[styles.icon, {backgroundColor: colors.profileCardImgBgClr}]}>
                 {

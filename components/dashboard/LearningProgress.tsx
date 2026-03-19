@@ -7,6 +7,7 @@ import { useVocabularyCount } from '@/hooks/useVocabulary';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useQuery } from '@tanstack/react-query';
 import { getCompletedLessons } from '@/db/progress.repo';
+import { getTotalCompletedSessions, getTotalCompletedUnits } from '@/db/performance.repo';
 
 const LearningProgress = ({ title }: { title: string }) => {
     const userId = authSnapshot.getUserId() ?? "";
@@ -22,6 +23,18 @@ const LearningProgress = ({ title }: { title: string }) => {
         staleTime: 30_000,
     });
 
+    const { data: completedSessionCount = 0 } = useQuery({
+        queryKey: ["completedSessions"],
+        queryFn: getTotalCompletedSessions,
+        staleTime: 30_000
+    });
+
+    const { data: completedUnitCount = 0 } = useQuery({
+        queryKey: ["completedUnits"],
+        queryFn: getTotalCompletedUnits,
+        staleTime: 30_000
+    });
+
     // useMemo so the array is only rebuilt when the two scores actually change
     const items = React.useMemo(() => ([
         {
@@ -32,23 +45,23 @@ const LearningProgress = ({ title }: { title: string }) => {
         },
         {
             id: 2,
-            learningCategoryTitle: "Total Phrases",
-            score: 500,
-            icon: Images.dashboard.progress_paragraph,
-        },
-        {
-            id: 3,
-            learningCategoryTitle: "Total Units",
-            score: 100,
-            icon: Images.dashboard.progress_unit,
-        },
-        {
-            id: 4,
             learningCategoryTitle: "Total Lessons",
             score: completedLessonCount,
             icon: Images.dashboard.progress_lesson,
         },
-    ]), [wordCount, completedLessonCount]);
+        {
+            id: 3,
+            learningCategoryTitle: "Total Sessions",
+            score: completedSessionCount,
+            icon: Images.dashboard.progress_session,
+        },
+        {
+            id: 4,
+            learningCategoryTitle: "Total Units",
+            score: completedUnitCount,
+            icon: Images.dashboard.progress_unit,
+        },
+    ]), [wordCount, completedLessonCount, completedSessionCount, completedUnitCount]);
 
     return (
         <View style={styles.container}>

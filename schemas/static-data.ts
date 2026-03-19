@@ -22,7 +22,9 @@ import {
   FeedbackLightIcon,
   FeedbackDarkIcon,
   ListeningDarkIcon,
-  ListeningLightIcon
+  ListeningLightIcon,
+  WritingLightIcon,
+  WritingDarkIcon
 } from '@/utils/SVGImages'
 
 export const CATEGORY_DATA_V3 = [
@@ -421,48 +423,48 @@ export const LESSON_UNIT_DATA = [
   {
     id: '1',
     title: 'Practice',
-    completion: 80,
-    goal: 100,
+    // completion: 80,
+    // goal: 100,
     slug: "practice",
     // ImgComponent: PracticeIconV3
   },
   {
     id: '2',
     title: 'Quiz',
-    completion: 60,
-    goal: 100,
+    // completion: 60,
+    // goal: 100,
     slug: "quiz",
     // ImgComponent: QuizIconV3
   },
   {
     id: '3',
     title: 'Listening',
-    completion: 40,
-    goal: 100,
+    // completion: 40,
+    // goal: 100,
     slug: "listening",
     // ImgComponent: ListeningIconV3
   },
   {
     id: '4',
     title: 'Reading',
-    completion: 90,
-    goal: 100,
+    // completion: 90,
+    // goal: 100,
     slug: "reading",
     // ImgComponent: ReadingIconV3
   },
   {
     id: '5',
     title: 'Speaking',
-    completion: 75,
-    goal: 100,
+    // completion: 75,
+    // goal: 100,
     slug: "speaking",
     // ImgComponent: SpeakingIconV3
   },
   {
     id: '6',
     title: 'Writing',
-    completion: 45,
-    goal: 100,
+    // completion: 45,
+    // goal: 100,
     slug: "writing",
     // ImgComponent: WritingIconV3
   }
@@ -511,8 +513,8 @@ export const SETTINGS_DATA: SettingsData[] = [
       },
       {
         elementTitle: "Writing Exercise",
-        ImgComponentLight: ReadingLightIcon,
-        ImgComponentDark: ReadingDarkIcon,
+        ImgComponentLight: WritingLightIcon,
+        ImgComponentDark: WritingDarkIcon,
         actionType: "switcher",
         settingType: "writing",
         route: "/settings"
@@ -524,15 +526,7 @@ export const SETTINGS_DATA: SettingsData[] = [
         actionType: "switcher",
         settingType: "listening",
         route: "/settings"
-      },
-      // {
-      //   elementTitle: "Writing Exercise",
-      //   ImgComponentLight: null,
-      //   ImgComponentDark: null,
-      //   actionType: "switcher",
-      //   settingType: "writing",
-      //   route: "/settings"
-      // }
+      }
     ]
   },
   {
