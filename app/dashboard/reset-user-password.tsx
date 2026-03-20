@@ -69,7 +69,7 @@ const ResetUserPaswordScreen = () => {
                     }}
                     validationSchema={ResetUserPaswordSchema}
                     onSubmit={(values, {resetForm}) => {
-                        console.log( values )
+                        // console.log( values )
                         handleResetUserPasword(
                             values.newPassword,
                             values.confirmedPassword

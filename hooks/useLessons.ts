@@ -42,7 +42,7 @@ export const useLessons = ( categoryId: string, unitId: string, type: SessionTyp
                 return [];
             }
         },
-        staleTime: Infinity,
+        // staleTime: Infinity,
         gcTime: Infinity
     });
 };

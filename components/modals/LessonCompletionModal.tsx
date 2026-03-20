@@ -10,8 +10,8 @@ import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 import WordConfidenceComponent from './_partials/WordConfidenceComponent';
 import SecondaryActionButton from '../form-components/SecondaryActionButton';
-// import { useCelebration } from '@/context/CelebrationContext';
-// import HorizontalLine from '../HorizontalLine';
+import LangphyText from '../text-components/LangphyText';
+import WordListItem from './_partials/WordListItem';
 
 interface LessonCompletionModalProps {
     isVisible: boolean;
@@ -25,7 +25,6 @@ interface LessonCompletionModalProps {
 const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, onRetry, onContinue}: LessonCompletionModalProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
-    // const { resolveCurrent } = useCelebration();
     const isSelective = 'answered' in result;
     const isPractice = 'practiceScore' in result;
     const isSpeech = 'analysis' in result && 'transcription' in result;
@@ -48,6 +47,12 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
         [ isSpeech, speechResult ]
     );
 
+    const wordList = React.useMemo(() => {
+        if( !isPractice ) return null;
+        if( !result?.words || !result.words?.length) return null;
+        return result.words.map( (word: Token, index: number) => (<WordListItem key={index.toString()} word={word.lemma ?? ""} pos={word.pos ?? ""} />));
+    }, [isPractice, result]);
+
     const feedback = React.useMemo(() => {
         if (isSelective) return result.feedback ?? "";
         if (isSimilarity) return feedbackComments( result.similarity ?? "" );
@@ -69,6 +74,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
 
             {/* Modal Content */}
             <View style={styles.content}>
+                {/* Expected Query */}
                 {
                     actualQuery && (
                         <ResultDetail
@@ -142,8 +148,8 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                 {
                     isPractice && (
                         <ResultDetail
-                            label="Words:"
-                            detail={result.words.map((word: Token) => word.lemma).join(",")}
+                            // label="Words:"
+                            detail={wordList}
                             iconComponent={
                                 <MaterialCommunityIcons name="head-lightbulb-outline" size={20} color={colors.text} />
                             }

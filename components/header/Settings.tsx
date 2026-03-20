@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import { SettingDark, SettingLight } from '@/utils/SVGImages';
 import SIZES from '@/constants/size';
+import STYLES from '@/constants/styles';
 
 const Settings = () => {
   const { theme } = useTheme();
@@ -13,7 +14,7 @@ const Settings = () => {
   }, [router]);
 
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.button}>
+    <TouchableOpacity onPress={handlePress} style={[styles.button, STYLES.iconShadow]}>
       {
         theme === 'light'
         ? (<SettingLight width={SIZES.headerIcon} height={SIZES.headerIcon} />)
@@ -29,13 +30,6 @@ const styles = StyleSheet.create({
   button: {
     width: SIZES.headerIcon,
     height: SIZES.headerIcon,
-    elevation: 5,
-    shadowColor: "#55565626",
-    shadowOffset: {
-        width: 0,
-        height: 2
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 5
+    borderRadius: SIZES.headerIcon
   }
 });

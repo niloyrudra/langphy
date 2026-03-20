@@ -47,7 +47,7 @@ import SpeakerActionButtonIcon from "@/assets/images/button/speaker-button-gradi
 import SpeakerLight from '@/assets/images/sessions/speaker-dark.svg';
 import SpeakerDark from '@/assets/images/sessions/speaker-dark.svg';
 
-import SpeakerTurtleLight from '@/assets/images/sessions/speaker-turtle-dark.svg';
+import SpeakerTurtleLight from '@/assets/images/sessions/speaker-turtle-light.svg';
 import SpeakerTurtleDark from '@/assets/images/sessions/speaker-turtle-dark.svg';
 
 /** Action Buttons (Recorder)) */

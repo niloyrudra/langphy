@@ -27,6 +27,17 @@ const boxShadowLight: StyleProp<ViewProps> = <ViewProps> {
     shadowRadius: 3
 };
 
+const iconShadow: StyleProp<ViewProps> = <ViewProps> {
+    elevation: 1,
+    shadowColor: "#EEEEEE15",
+    shadowOffset: {
+        width: 1,
+        height: 1
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 1
+};
+
 const boxShadow: StyleProp<ViewProps> = <ViewProps> {
     elevation: 5,
     shadowColor: "#55565626",
@@ -39,7 +50,7 @@ const boxShadow: StyleProp<ViewProps> = <ViewProps> {
 };
 
 const headerTitle: StyleProp<TextProps> = <TextProps> {
-    fontSize: 24,
+    fontSize: 20, // 24
     fontWeight: "900"
 }
 
@@ -73,24 +84,18 @@ const defaultContainer: StyleProp<ViewProps> = <ViewProps> {
 };
 const defaultContainerZeroPadding: StyleProp<ViewProps> = <ViewProps> {
     flex: 1,
-    // paddingHorizontal: SIZES.bodyPaddingHorizontal,
     padding: 0,
-    // paddingBottom: SIZES.bodyPaddingVertical,
 };
 
 const titleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
-    // fontSize: 16,
     fontSize: 12,
     fontWeight: "900",
     lineHeight: 16,
-    // textTransform: "uppercase",
-    // fontFamily: 'PlusJakartaSans-ExtraBold',
 };
 const subTitleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
     fontSize: 14,
     fontWeight: "700",
     lineHeight: 16,
-    // fontFamily: 'PlusJakartaSans-Bold',
 };
 
 const wordWrapStyle: StyleProp<TextStyle> = <TextStyle> {
@@ -103,6 +108,7 @@ const STYLES = {
     defaultContainer,
     defaultContainerZeroPadding,
     boxShadow,
+    iconShadow,
     boxShadowLight,
     textShadow,
 

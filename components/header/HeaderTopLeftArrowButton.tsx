@@ -1,9 +1,9 @@
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
-import sizes from '@/constants/size';
-
+import STYLES from '@/constants/styles';
+import SIZES from '@/constants/size';
 import { LeftArrowDark, LeftArrowLight } from '@/utils/SVGImages';
 
 const HeaderTopLeftArrowButton = () => {
@@ -16,14 +16,23 @@ const HeaderTopLeftArrowButton = () => {
   return (
     <TouchableOpacity
       onPress={handlePress}
+      style={[styles.button, STYLES.iconShadow]}
     >
       {
         theme === 'light'
-          ? (<LeftArrowLight width={sizes.headerIcon} height={sizes.headerIcon} />)
-          : (<LeftArrowDark width={sizes.headerIcon} height={sizes.headerIcon} />)
+          ? (<LeftArrowLight width={SIZES.headerIcon} height={SIZES.headerIcon} />)
+          : (<LeftArrowDark width={SIZES.headerIcon} height={SIZES.headerIcon} />)
       }
     </TouchableOpacity>
   );
 };
 
 export default HeaderTopLeftArrowButton;
+
+const styles = StyleSheet.create({
+  button: {
+    width: SIZES.headerIcon,
+    height: SIZES.headerIcon,
+    borderRadius: SIZES.headerIcon
+  }
+});
