@@ -48,7 +48,7 @@ const PracticeLessons = () => {
   // 3. No dependency array issues in useCallback
   // NLPAnalyzedPhase calls getTokens(tokens) when NLP resolves — we store
   // them here immediately so they're ready when the user taps Done.
-  const tokensRef = React.useRef<Token[]>([]);
+  // const tokensRef = React.useRef<Token[]>([]);
   // ─────────────────────────────────────────────────────────────────────────
  
   const { currentPosition, showLessonList, setCurrentPosition } = useSession();
@@ -131,11 +131,18 @@ const PracticeLessons = () => {
     resolveCurrent();
   }, [onLessonComplete, resolveCurrent]);
 
-    // Called by SessionFooter's Done button via storeVocabulary prop.
-  // Reads tokensRef.current — always the latest tokens, no stale closure.
+  // Replace tokensRef with a Map
+  const tokensMapRef = React.useRef<Map<string, Token[]>>(new Map());
+
+  // Store tokens keyed by phrase — no guard needed, all lessons can write freely
+  const handleGetTokens = React.useCallback((incoming: Token[], phrase: string) => {
+    tokensMapRef.current.set(phrase, incoming);
+  }, []);
+
+  // Snapshot by reading the current lesson's phrase at tap time
   const handleVocabulary = React.useCallback(async () => {
-    // ✅ Snapshot immediately — before anything can overwrite the ref
-    const tokens = [...tokensRef.current];
+    const currentPhrase = currentLessonRef.current?.phrase ?? "";
+    const tokens = [...(tokensMapRef.current.get(currentPhrase) ?? [])];
 
     if (tokens.length > 0 && userId) {
       try {
@@ -152,13 +159,42 @@ const PracticeLessons = () => {
 
     triggerLessonResult({
       result: {
-        words: tokens,       // ✅ uses the snapshot, not the live ref
+        words: tokens,
         practiceScore: 100
       },
       onRetry: resolveCurrent,
       onContinue: onContinue,
     });
   }, [userId, unitId, categoryId, saveVocabulary, resolveCurrent, onContinue]);
+
+    // Called by SessionFooter's Done button via storeVocabulary prop.
+  // Reads tokensRef.current — always the latest tokens, no stale closure.
+  // const handleVocabulary = React.useCallback(async () => {
+  //   // ✅ Snapshot immediately — before anything can overwrite the ref
+  //   const tokens = [...tokensRef.current];
+
+  //   if (tokens.length > 0 && userId) {
+  //     try {
+  //       saveVocabulary({
+  //         userId,
+  //         tokens,
+  //         unitId: unitId as string,
+  //         categoryId: categoryId as string,
+  //       });
+  //     } catch (err) {
+  //       console.warn("Vocabulary save failed (non-blocking):", err);
+  //     }
+  //   }
+
+  //   triggerLessonResult({
+  //     result: {
+  //       words: tokens,       // ✅ uses the snapshot, not the live ref
+  //       practiceScore: 100
+  //     },
+  //     onRetry: resolveCurrent,
+  //     onContinue: onContinue,
+  //   });
+  // }, [userId, unitId, categoryId, saveVocabulary, resolveCurrent, onContinue]);
 
   // const handleVocabulary = React.useCallback(async () => {
   //   // const lesson = currentLessonRef.current;
@@ -200,9 +236,12 @@ const PracticeLessons = () => {
   // Called by NLPAnalyzedPhase when NLP resolves.
   // Stores tokens in the ref — no re-render, always current.
   
-  const handleGetTokens = React.useCallback((incoming: Token[]) => {
-    tokensRef.current = incoming;
-  }, []);
+  // const handleGetTokens = React.useCallback((incoming: Token[], phrase: string) => {
+  //   // Only store tokens if this NLP response is for the currently active lesson
+  //   if (phrase === currentLessonRef.current?.phrase) {
+  //     tokensRef.current = incoming;
+  //   }
+  // }, []);
 
   const activeItemChangeHandler = React.useCallback(
     ({ item, index, goToNext }: { item: PracticeSessionType; index: number; goToNext: () => void }) => {
@@ -210,7 +249,7 @@ const PracticeLessons = () => {
       currentLessonRef.current = item;
       setCurrentPosition(index);
       goToNextRef.current = goToNext;
-      tokensRef.current = []; // ← this is fine, handleVocabulary already snapshotted before goToNext ran
+      // tokensRef.current = []; // ← this is fine, handleVocabulary already snapshotted before goToNext ran
     },
     [setCurrentPosition]
   );

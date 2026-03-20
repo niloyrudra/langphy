@@ -19,7 +19,7 @@ import api from '@/lib/api';
 interface ToolTipProps {
     phrase: string;
     onHandler: (value: ToolTip | ((prev: ToolTip) => ToolTip)) => void;
-    getTokens?: (e: any) => void;
+    getTokens?: ( tokens: Token[], phrase: string) => void;
     wordRefs: React.RefObject<Map<string, any>>;
     containerRef: React.RefObject<View | null>;
     screenRef?: React.RefObject<View | null>;
@@ -50,24 +50,6 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, getTokens,
             const data: NlpData = { text: phrase ?? "" };
             setLoading(true);
             try {
-                // const res = await fetch(
-                //     `${process.env.EXPO_PUBLIC_API_BASE}/nlp/analyze/lesson`,
-                //     {
-                //         method: "POST",
-                //         headers: {
-                //             'Content-Type': 'application/json'
-                //         },
-                //         body: JSON.stringify(data)
-                //     }
-                // );
-
-                // if (!res.ok) {
-                //     const errText = await res.text();
-                //     console.error("NLP request failed:", errText);
-                //     return;
-                // }
-                // const nlpPhrase = await res.json();
-
                 const res = await api.post("/nlp/analyze/lesson", data, {
                     signal: controller.signal,  // ← cancel if component unmounts or phrase changes
                 });
@@ -80,15 +62,15 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, getTokens,
                 
                 const nlpPhrase = res.data;
 
-                if( nlpPhrase?.tokens.length ) {
-                    setNlpTokens( prv => prv = nlpPhrase.tokens );
-                    if(getTokens) getTokens(nlpPhrase.tokens);
+                // In NLPAnalyzedPhase, change the getTokens call:
+                if (nlpPhrase?.tokens.length) {
+                    setNlpTokens(nlpPhrase.tokens);
+                    if (getTokens) getTokens(nlpPhrase.tokens, phrase);
                 }
                 else {
                     setNlpTokens([])
                 }
                 
-                // setLoading(false);
             }
             catch(err: any) {
                 if (err.name === "CanceledError") return; // ignore aborted requests

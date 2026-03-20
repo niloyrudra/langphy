@@ -24,7 +24,7 @@ interface SessionLayoutProps<T> {
   sessionType?: string;
   keyboardAvoid?: boolean;
   preFetchedData?: T[];
-  keepDefaultPadding?: boolean;
+  // keepDefaultPadding?: boolean;
   showFooter?: boolean;
   onPositionChange?: (index: number) => void;
   onRegisterScroller?: (scrollTo: (index: number) => void) => void;
@@ -55,7 +55,7 @@ function SessionLayout<T>({
   children,
   preFetchedData=[],
   showFooter = false,
-  keepDefaultPadding=true,
+  // keepDefaultPadding=true,
   onPositionChange,
   onRegisterScroller,
   onActiveItemChange,
@@ -117,10 +117,25 @@ function SessionLayout<T>({
   }, [onRegisterScroller, scrollToIndex]);
 
   // Active item callback
+  // useEffect(() => {
+  //   if (!preFetchedData.length) return;
+  //   onActiveItemChange?.({ item: preFetchedData[currentIndex], index: currentIndex, goToNext });
+  // }, [currentIndex, preFetchedData, goToNext, onActiveItemChange]);
+
+  // In SessionLayout — wrap goToNext in a ref so it's stable
+  const goToNextRef = useRef(goToNext);
+  useEffect(() => { goToNextRef.current = goToNext; }, [goToNext]);
+
+  // Active item callback — only re-fire when currentIndex actually changes
   useEffect(() => {
     if (!preFetchedData.length) return;
-    onActiveItemChange?.({ item: preFetchedData[currentIndex], index: currentIndex, goToNext });
-  }, [currentIndex, preFetchedData, goToNext, onActiveItemChange]);
+    onActiveItemChange?.({ 
+      item: preFetchedData[currentIndex], 
+      index: currentIndex, 
+      goToNext: goToNextRef.current  // stable ref, won't cause re-fires
+    });
+  }, [currentIndex, preFetchedData]); // ← removed goToNext and onActiveItemChange
+
 
   // Memoized renderItem for FlatList
   const renderItem: ListRenderItem<T> = useCallback(
