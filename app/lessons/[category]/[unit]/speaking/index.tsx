@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import STYLES from '@/constants/styles';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
@@ -11,7 +11,7 @@ import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
-import { RecorderReload } from '@/utils/SVGImages';
+// import { RecorderReload } from '@/utils/SVGImages';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
@@ -118,7 +118,7 @@ const SpeakingLessons = () => {
     currentLessonRef.current = item;
     goToNextRef.current = goToNext;
 
-    console.log("activeItemChangeHandler")
+    // console.log("activeItemChangeHandler")
   }, []);
 
   const onRefresh = React.useCallback(() => {

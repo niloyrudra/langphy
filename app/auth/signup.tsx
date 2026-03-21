@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
@@ -8,6 +8,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
+import api from '@/lib/api'
+import { toast } from '@backpackapp-io/react-native-toast'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -23,36 +25,28 @@ const SignUp = () => {
   const handleSignup = async ( email: string, password: string ) => {
     try {
       setLoading(true)
-      const res = await fetch(
-        `${process.env.EXPO_PUBLIC_API_BASE}/users/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({email, password})
-        }
-      );
-      const data = await res.json();
 
-      console.log(res.status, data)
+      const res = await api.post( "/users/signup", {email, password} )
 
-      if( res.status === 201 && data! ) {  
-        const { user, message } = data;
+      console.log(res.status)
+
+      if( res.status === 201 && res.data ) {  
+        const { message } = res.data;
         
-        if(message) Alert.alert( message )
-        else Alert.alert("Successfully signed up!");
+        // Toaster
+        if(message) toast.success( message );
+        else toast.success("Successfully signed up!");
         
         router.replace("/auth/login");
       }
       else {
-        Alert.alert( "Signup failed!" )
+        toast.error( "Signup failed!" )
       }
 
     }
     catch(err) {
       console.error("Signup Error:", err)
-      Alert.alert("Signup failed!")
+      toast.error("Signup failed!")
     }
     finally {
       setLoading(false)

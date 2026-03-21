@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: 5,
-        // flexWrap: "wrap"
+        flexWrap: "wrap"
     },
     detail: {
         fontSize: 16,

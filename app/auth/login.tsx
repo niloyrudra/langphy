@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 import ForgotPasswordLink from '@/components/form-components/auth/ForgotPasswordLink'
@@ -18,6 +18,8 @@ import { bootstrapProfileFromToken } from '@/bootstraps/profile.bootstrap'
 import { bootstrapSettingsFromToken } from '@/bootstraps/settings.bootstrap'
 import { bootstrapStreaks } from '@/bootstraps/streaks.bootstrap'
 import { authSnapshot } from '@/snapshots/authSnapshot'
+import { toast } from '@backpackapp-io/react-native-toast'
+import LangphyText from '@/components/text-components/LangphyText'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required."),
@@ -39,7 +41,6 @@ const Login = () => {
           email,
           password
         }
-        
       );
 
       if( res.status === 200 && res.data ) {  
@@ -62,13 +63,14 @@ const Login = () => {
         await bootstrapStreaks({ user_id: decode.id });
         console.log("Bootstrapped data from Login");
 
-        if(message) Alert.alert( message )
-        else Alert.alert("Successfully signed in!");
-        
+        // Toaster
+        if(message) toast.success( message );
+        else toast.success("Successfully signed in!");
+                
         router.replace("/lessons");
       }
       else {
-        Alert.alert( "Login failed!" )
+        toast.error('Login Failed!');
         await SecureStore.deleteItemAsync("accessToken");
       }
 
@@ -76,7 +78,7 @@ const Login = () => {
     catch(err) {
       setLoading(false)
       console.error("Login Error:", err)
-      Alert.alert("Login failed!")
+      toast.error('Login Failed!');
     }
     finally {
       setLoading(false)
@@ -138,8 +140,8 @@ const Login = () => {
       {/* <SocialLoginSection /> */}
 
       {/* Route to Signup */}
-      <View style={[styles.footer, {marginTop: 30}]}>
-        <Text style={{color: colors.textSubColor}}>Don't have an account?</Text>
+      <View style={[styles.footer]}>
+        <LangphyText style={{color: colors.textSubColor}}>Don't have an account?</LangphyText>
         <PlainTextLink
           route="/auth/signup"
           linkText='Create Account.'
@@ -150,19 +152,19 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
 
 const styles = StyleSheet.create({
-  headerWrapper: {
-    marginVertical: 20,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  header: {
-    fontSize: 32,
-    color: "#142C57",
-    fontWeight: "600"
-  },
+  // headerWrapper: {
+  //   marginVertical: 20,
+  //   justifyContent: "center",
+  //   alignItems: "center"
+  // },
+  // header: {
+  //   fontSize: 32,
+  //   color: "#142C57",
+  //   fontWeight: "600"
+  // },
   form: {
     flexDirection: 'column',
     gap: 16
@@ -171,6 +173,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 4,
     justifyContent: "center",
-    marginBottom: 20
+    marginTop: 30,
+    marginBottom: 20,
   }
 })

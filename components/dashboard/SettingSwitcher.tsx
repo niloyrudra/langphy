@@ -3,6 +3,7 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { useUpdateSettings } from '@/hooks/useUpdateSettings';
 import { authSnapshot } from '@/snapshots/authSnapshot';
+import { toast } from '@backpackapp-io/react-native-toast';
 
 const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: string, enabled: boolean, containerStyle?: StyleProp<ViewStyle>}) => {
     const { toggleTheme, theme } = useTheme()
@@ -17,45 +18,53 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: s
             case 'theme':
                 toggleTheme();
                 break;
-
-            case 'sound_effect' :
+                
+                case 'sound_effect' :
                 console.log("Sound Effect:", value);
                 updateSettings({ field: 'sound_effect', value: value });
+                toast.success(`Sound effect is updated to ${value}!`);
                 break;
 
             case 'push_notification' :
                 console.log("Push Notification:", value);
                 updateSettings({ field: 'notifications', value: value });
+                toast.success(`Notification is updated to ${value}!`);
                 break;
             
             case 'practice' :
                 console.log("Practice:", value);
                 updateSettings({ field: 'practice_service', value: value });
+                toast.success(`Practice is updated to ${value}!`);
                 break;
             
             case 'quiz' :
                 console.log("Quiz:", value);
                 updateSettings({ field: 'quiz_service', value: value });
+                toast.success(`Quiz is updated to ${value}!`);
                 break;
             
             case 'speaking' :
                 console.log("Speaking:", value);
                 updateSettings({ field: 'speaking_service', value: value });
+                toast.success(`Speaking exercise is updated to ${value}!`);
                 break;
             
             case 'listening' :
                 console.log("Listening:", value);
                 updateSettings({ field: 'listening_service', value: value });
+                toast.success(`Listening exercise is updated to ${value}!`);
                 break;
             
             case 'reading' :
                 console.log("Reading:", value);
                 updateSettings({ field: 'reading_service', value: value });
+                toast.success(`Reading exercise is updated to ${value}!`);
                 break;
             
             case 'writing' :
                 console.log("Writing:", value);
                 updateSettings({ field: 'writing_service', value: value });
+                toast.success(`Writing exercise is updated to ${value}!`);
                 break;
 
             default:

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Alert, StyleSheet, View, SectionList } from 'react-native'
+import { StyleSheet, View, SectionList } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import Title from '@/components/Title';
@@ -14,6 +14,7 @@ import api from '@/lib/api';
 import { useSettings } from '@/hooks/useSettings';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { authSnapshot } from '@/snapshots/authSnapshot';
+import { toast } from '@backpackapp-io/react-native-toast';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
@@ -28,16 +29,16 @@ const SettingsScreen = () => {
       if( axiosRes.status === 200 && axiosRes.data ) {
         SecureStore.deleteItemAsync("accessToken"),
         authSnapshot.clear();
-        Alert.alert("Successfully signed out!");
+        toast.success("Successfully signed out!");
         router.replace("/auth/login");
       }
       else {
-        Alert.alert( "Signout failed!" )
+        toast.error( "Signout failed!" )
       }
     }
     catch(err) {
       console.error("Signout Error:", err)
-      Alert.alert("Signout failed!")
+      toast.error("Signout failed!")
     }
   }, [router, api]);
 
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     height: 64
   },
   buttonContainer: {
-    marginTop: 10,
+    marginTop: 40,
     gap: 10
   }
 });

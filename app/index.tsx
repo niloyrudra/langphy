@@ -11,20 +11,13 @@ import LoadingScreenComponent from "@/components/LoadingScreenComponent";
 import { registerForPushNotifications, setupNotificationHandler } from "@/domain/notificationRules";
 import api from "@/lib/api";
 import Constants from "expo-constants";
+import { toast } from "@backpackapp-io/react-native-toast";
 
 const isExpoGo = Constants.appOwnership === "expo";
 
 const App = () => {
   const { user, loading } = useAuth();
   const timer = useLessonTimer();
-
-  React.useEffect(() => {
-    (async () => {
-      await registerBackgroundSync();
-    })();
-
-    warmUpSpeech();
-  }, []);
 
   React.useEffect(() => {
     if(!user) return;
@@ -60,7 +53,15 @@ const App = () => {
     return () => sub.remove();
   }, [user]);
 
+  React.useEffect(() => {
+    (async () => {
+      await registerBackgroundSync();
+    })();
 
+    warmUpSpeech();
+    toast.success('Welcome to Langphy!');
+    
+  }, []);
 
   // ✅ Now conditionals come AFTER hooks
   if (loading) {

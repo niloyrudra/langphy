@@ -10,7 +10,7 @@ import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 import WordConfidenceComponent from './_partials/WordConfidenceComponent';
 import SecondaryActionButton from '../form-components/SecondaryActionButton';
-import LangphyText from '../text-components/LangphyText';
+// import LangphyText from '../text-components/LangphyText';
 import WordListItem from './_partials/WordListItem';
 
 interface LessonCompletionModalProps {

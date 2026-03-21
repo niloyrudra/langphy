@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import AuthLayout from '@/components/layouts/AuthLayout';
 import { Formik } from 'formik';
@@ -8,6 +8,7 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 import AuthInput from '@/components/form-components/auth/AuthInput';
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink';
 import api from '@/lib/api';
+import { toast } from '@backpackapp-io/react-native-toast';
 
 const ResetPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is rewuired!"),
@@ -20,26 +21,26 @@ const ForgotPasswordScreen = () => {
   const {user} = useAuth();
 
   const handleResetPassword = async ( email: string, password: string, confirmedPassword: string ) => {
-    if( user?.email == email.trim() ) return Alert.alert("Your email is incorrect.");
-    if( password !== confirmedPassword ) return Alert.alert("Passwords must match each other!");
+    if( user?.email == email.trim() ) return toast.error("Your email is incorrect.");
+    if( password !== confirmedPassword ) return toast.error("Passwords must match each other!");
     try {
       setLoading(true)
       const res = await api.put(
         `/users/reset-password`,
         {
           email,
-          password: password
+          password
         }
       );
-      if( res.status !== 200 ) return Alert.alert(res.statusText)
-      // const data = await res.json();
+      if( res.status !== 200 ) return toast.error(res.statusText)
+
       const {data} = res
       console.log(data);
-      if( data.message ) Alert.alert(data.message);
+      if( data.message ) toast.success(data.message);
     }
     catch(err) {
       setLoading(false)
-      Alert.alert( 'Password reset failed!' );
+      toast.error( 'Password reset failed!' );
     }
     finally {
       setLoading(false);
@@ -106,11 +107,11 @@ const ForgotPasswordScreen = () => {
         )}
       </Formik>
 
-      <View style={{marginTop: 20}}>
+      <View style={styles.footer}>
         <PlainTextLink route="/auth/login" text='Do you want to go back?' linkText='Log in' />
       </View>
 
-      <View style={{flex:1}} />
+      {/* <View style={{flex:1}} /> */}
     
     </AuthLayout>
   )
@@ -122,5 +123,8 @@ const styles = StyleSheet.create({
   form: {
     flexDirection: 'column',
     gap: 16
+  },
+  footer: {
+    marginTop: 30
   }
 })

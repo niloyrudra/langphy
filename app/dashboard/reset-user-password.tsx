@@ -1,4 +1,4 @@
-import { View, Alert } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
@@ -10,6 +10,7 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 // import { useAuth } from '@/context/AuthContext';
 import AuthInput from '@/components/form-components/auth/AuthInput';
 import api from '@/lib/api';
+import { toast } from '@backpackapp-io/react-native-toast';
 
 const ResetUserPaswordSchema = Yup.object().shape({
     newPassword: Yup.string().min(4, "Password must be at least 4 characters").required("New Password is required"),
@@ -24,7 +25,7 @@ const ResetUserPaswordScreen = () => {
         newPassword: string,
         confirmedPassword: string
     ) => {
-        if( newPassword != confirmedPassword ) return Alert.alert("Passwords must match each other!");
+        if( newPassword != confirmedPassword ) return toast.error("Passwords must match each other!");
         try {
             setLoading(true)
 
@@ -36,21 +37,21 @@ const ResetUserPaswordScreen = () => {
             );
     
             if( res.status === 200 && res.data! ) {  
-                const { profile, message } = res.data;
+                const { message } = res.data;
 
-                if(message) Alert.alert( message )
-                else Alert.alert("Successfully updated profile!");
+                if(message) toast.success( message )
+                else toast.success("Successfully updated profile!");
                 
                 // router.replace("/auth/login");
             }
             else {
-                Alert.alert( "Password update failed!" )
+                toast.error( "Password update failed!" )
             }
     
         }
         catch(err) {
             console.error("Password update Error:", err)
-            Alert.alert("Password update failed!")
+            toast.error("Password update failed!")
         }
         finally {
             setLoading(false)

@@ -10,6 +10,7 @@ import {
 } from "expo-audio";
 import { SpeechResultType } from "@/types";
 import { useCelebration } from "@/context/CelebrationContext";
+import { toast } from "@backpackapp-io/react-native-toast";
 
 const initialState = {
     expectedText: null as string | null,
@@ -41,7 +42,8 @@ const useSpeechRecorder = () => {
         ( async () => {
             const status = await AudioModule.requestRecordingPermissionsAsync();
             if( !status.granted ) {
-                Alert.alert("Permission to access microphone was denied!");
+                // Alert.alert("Permission to access microphone was denied!");
+                toast.error("Permission to access microphone was denied!");
             }
 
             setAudioModeAsync({
@@ -53,6 +55,7 @@ const useSpeechRecorder = () => {
 
     /* ▶️ Recording controls */
     const startRecording = useCallback(async () => {
+        toast.success("Start recording..");
         try {    
             setError(null);
             setResult(null);
@@ -63,6 +66,7 @@ const useSpeechRecorder = () => {
             }
         } catch(e) {
             setError("Recorder failed. Please try again.");
+            toast.error("Recorder failed. Please try again.");
         }
     }, [audioRecorder]);
 
@@ -74,8 +78,11 @@ const useSpeechRecorder = () => {
 
             // 🔥 Immediately prepare for next recording
             await audioRecorder.prepareToRecordAsync();
+
+            toast.success("Stop recording..");
         } catch(e) {
            setError("Recorder stopping failed. Please try again.");
+           toast.error("Recorder stopping failed. Please try again.");
         }
     }, [audioRecorder]);
 
@@ -101,13 +108,17 @@ const useSpeechRecorder = () => {
     const analyzeSpeech = useCallback(async ( expectedText: string, callbackFn: () => void) => {
         if (!expectedText?.trim()) {
             setError("No expected text found!");
+            toast.error("No text found!");
             return;
         }
 
         if (!recordedUri) {
             setError("No recording found!");
+            toast.error("No recording found!");
             return;
         }
+
+        const toastId = toast.loading("Analizing Speech...");
 
         try {
             setLoading(true);
@@ -163,10 +174,13 @@ const useSpeechRecorder = () => {
                     if ( response.data.error) {
                         // Show "No speech detected" message to user instead of crashing
                         // return <NoSpeechDetected message={response.data.error} />
+                        toast.error( response.data.error, { id: toastId });
                         return Alert.alert(response.data.error);
                     }
 
                     setResult(response.data);
+
+                    toast.success("Speech analysis successful!", {id: toastId});
 
                     triggerLessonResult({
                         actualQuery: expectedText,
@@ -185,11 +199,13 @@ const useSpeechRecorder = () => {
 
             // timeout case
             setError("Speech analysis timeout");
+            toast.error("Speech analysis timeout!", {id: toastId})
             setLoading(false);
 
         } catch (err) {
             console.error(err);
             setError("Speech analysis failed");
+            toast.error("Speech analysis failed", {id: toastId});
             setLoading(false);
         }
 
@@ -223,8 +239,11 @@ const useSpeechRecorder = () => {
 
             resolveCurrent();
 
+            toast.success("Reset successfully!");
+
         } catch (e) {
             console.warn("Reset failed", e);
+            toast.error(`Reset failed!`)
         }
     }, [audioRecorder, player, resolveCurrent]);
 

@@ -3,6 +3,7 @@ import { getLessonsByUnit, saveLessons } from "@/db/lessons.repo";
 import { SessionType } from "@/types";
 import { normalizeLessons } from "@/utils";
 import { fetchLessonsFromAPI } from "@/services/lessons.service";
+import { toast } from "@backpackapp-io/react-native-toast";
 
 export const useLessons = ( categoryId: string, unitId: string, type: SessionType ) => {
     return useQuery({
@@ -35,10 +36,13 @@ export const useLessons = ( categoryId: string, unitId: string, type: SessionTyp
                     .then(saveLessons)
                     .catch(console.warn);
 
+                toast.success(`${type.toUpperCase()} Lessons fetched successfully!`)
+
                 return local;
             }
             catch(error) {
-                console.error("Use Lessons Error:", error)
+                console.error("Use Lessons Error:", error);
+                toast.error(`${type.toUpperCase()} Lessons fetching failed!`)
                 return [];
             }
         },
