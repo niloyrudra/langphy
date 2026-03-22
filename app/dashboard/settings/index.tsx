@@ -118,25 +118,20 @@ const SettingsScreen = () => {
                 <ActionButton
                   buttonTitle='Logout'
                   onSubmit={handleSignout}
-                  buttonStyle={{
-                    backgroundColor: "#FFFFFF",
-                    borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
-                    borderWidth: 1,
-                  }}
-                  textStyle={{
-                    color: "#142C57"
-                  }}
+                  buttonStyle={[
+                    styles.logoutButton,
+                    {
+                      borderColor: theme === 'light' ? "#142C57" : "#FFFFFF",
+                    }
+                  ]}
+                  textStyle={styles.textLogout}
                 />
                 
                 <ActionButton
                   buttonTitle='Delete Account'
                   onSubmit={modalHandler}
-                  buttonStyle={{
-                    borderWidth: 0
-                  }}
-                  textStyle={{
-                    color: "#EF1313"
-                  }}
+                  buttonStyle={styles.deleteButton}
+                  textStyle={styles.textDanger}
                 />
               </View>
             )}
@@ -161,7 +156,6 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginBottom: 30
   },
   settingItemContainer: {
     flex: 1,
@@ -185,5 +179,18 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 40,
     gap: 10
+  },
+  logoutButton: {
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+  },
+  deleteButton: {
+    borderWidth: 0
+  },
+  textLogout: {
+    color: "#142C57"
+  },
+  textDanger: {
+    color: "#EF1313"
   }
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Alert, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,6 +20,7 @@ import { clearLessons } from '@/db/lessons.repo';
 import { clearCategories } from '@/db/category.repo';
 import { clearUnits } from '@/db/unit.repo';
 import api from '@/lib/api';
+import { toast } from '@backpackapp-io/react-native-toast';
 
 interface AccountDeletionModalProps {
     isVisible: boolean;
@@ -53,19 +54,19 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
                 authSnapshot.clear();
                 setUser(null);
 
-                if(message) Alert.alert( message )
-                else Alert.alert("Successfully account deleted!");
+                if(message) toast.success( message )
+                else toast.success("Successfully account deleted!");
                 
                 router.replace("/auth/login");
             }
             else {
-                Alert.alert( "Account deletion failed!" )
+                toast.error( "Account deletion failed!" )
             }
         }
         catch(err: any) {
             console.error("Delete Account action error:", err);
             setLoading(false);
-            Alert.alert( "Account deletion failed!" )
+            toast.error( "Account deletion failed!" )
         }
         finally {
             setLoading(false);

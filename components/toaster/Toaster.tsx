@@ -17,5 +17,20 @@ export const Toaster = () => (
         }}
         defaultPosition={ToastPosition.TOP}
         defaultDuration={3000}
+        defaultStyle={{
+            view: {
+                backgroundColor: "#EAFFE5",// 'rgba(0, 0, 0, 0.8)',
+                borderRadius: 8,
+                // padding: 16,
+                // margin: 16,
+            },
+            text: {
+                color: "#061E3E",// 'white',
+            },
+            indicator: {
+                marginRight: 12 // 16,
+            },
+        }}
+        
     />
 );
