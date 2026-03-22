@@ -7,6 +7,7 @@ import STYLES from '@/constants/styles';
 import { useTheme } from '@/theme/ThemeContext';
 import AppImage from './AppImage';
 import { Images } from '@/constants/images';
+import { useFeedback } from '@/utils/feedback';
 
 type unitItemType = {
   unitId: string,
@@ -20,8 +21,10 @@ const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, ca
   const { colors } = useTheme();
   // const completionMatrix = (completion/goal)*100;
   const {category} = useLocalSearchParams();
+  const {triggerFeedback} = useFeedback();
 
   const routeHandler = React.useCallback(() => {
+    triggerFeedback("tap");
     router.push({
       pathname: `/lessons/${String(category).toLowerCase()}/${String(unitSlug).toLowerCase()}`,
       params: { title, categoryId, unitId }

@@ -24,7 +24,6 @@ interface SessionLayoutProps<T> {
   sessionType?: string;
   keyboardAvoid?: boolean;
   preFetchedData?: T[];
-  // keepDefaultPadding?: boolean;
   showFooter?: boolean;
   onPositionChange?: (index: number) => void;
   onRegisterScroller?: (scrollTo: (index: number) => void) => void;
@@ -38,8 +37,8 @@ interface SessionLayoutProps<T> {
     data?: T[];
     currentIndex: number;
     setCurrentIndex?: (e: number) => void;
-    disableHorizontalScroll: () => void;
-    enableHorizontalScroll: () => void;
+    // disableHorizontalScroll: () => void;
+    // enableHorizontalScroll: () => void;
     goToNext?: () => void;
     goToPrevious?: () => void;
     wordRefs: React.MutableRefObject<Map<string, any>>;
@@ -55,7 +54,6 @@ function SessionLayout<T>({
   children,
   preFetchedData=[],
   showFooter = false,
-  // keepDefaultPadding=true,
   onPositionChange,
   onRegisterScroller,
   onActiveItemChange,
@@ -65,14 +63,25 @@ function SessionLayout<T>({
   keyboardVerticalOffset = 90,
 }: SessionLayoutProps<T>) {
   const timer = useLessonTimer();
-  const [ horizontalEnabled, setHorizontalEnabled ] = useState<boolean>(true)
+  // Swipe between lessons is intentionally disabled — navigation is
+  // programmatic only (goToNext / goToPrevious). horizontalEnabled is kept
+  // so child components can still lock/unlock their own inner scroll views
+  // via disableHorizontalScroll / enableHorizontalScroll if needed.
+  // const [ horizontalEnabled, setHorizontalEnabled ] = useState<boolean>(true)
   const { tooltip, showTooltip, hideTooltip } = useFloatingTooltip();
   const wordRefs = useRef<Map<string, any>>(new Map());
   const containerRef = useRef<View | null>(null);
   const screenRef = useRef<View | null>(null);
   const activeLessonIdRef = useRef<string | null>(null)
 
-  const { flatListRef, currentIndex, setCurrentIndex, scrollToIndex, goToNext, goToPrevious } = useSessionPager<T>( preFetchedData.length, onPositionChange, onSessionComplete );
+  const {
+    flatListRef,
+    currentIndex,
+    setCurrentIndex,
+    scrollToIndex,
+    goToNext,
+    goToPrevious
+  } = useSessionPager<T>( preFetchedData.length, onPositionChange, onSessionComplete );
 
   // On Viewable Item Changed
   const viewabilityConfig = {
@@ -83,12 +92,9 @@ function SessionLayout<T>({
     ({ viewableItems }: { viewableItems: any[] }) => {
       const visible = viewableItems[0]
       if( !visible ) return;
-
       const lessonId = visible.item.id;
-
       // same lesson -> do nothing
       if( activeLessonIdRef.current === lessonId ) return;
-
       // New Lesson appeared
       activeLessonIdRef.current = lessonId;
       timer.reset();
@@ -108,8 +114,8 @@ function SessionLayout<T>({
     [onPositionChange]
   );
 
-  const disableHorizontalScroll = useCallback(() => setHorizontalEnabled(false), []);
-  const enableHorizontalScroll = useCallback(() => setHorizontalEnabled(true), []);
+  // const disableHorizontalScroll = useCallback(() => setHorizontalEnabled(false), []);
+  // const enableHorizontalScroll = useCallback(() => setHorizontalEnabled(true), []);
 
   // Register scroller callback
   useEffect(() => {
@@ -117,11 +123,6 @@ function SessionLayout<T>({
   }, [onRegisterScroller, scrollToIndex]);
 
   // Active item callback
-  // useEffect(() => {
-  //   if (!preFetchedData.length) return;
-  //   onActiveItemChange?.({ item: preFetchedData[currentIndex], index: currentIndex, goToNext });
-  // }, [currentIndex, preFetchedData, goToNext, onActiveItemChange]);
-
   // In SessionLayout — wrap goToNext in a ref so it's stable
   const goToNextRef = useRef(goToNext);
   useEffect(() => { goToNextRef.current = goToNext; }, [goToNext]);
@@ -136,28 +137,43 @@ function SessionLayout<T>({
     });
   }, [currentIndex, preFetchedData]); // ← removed goToNext and onActiveItemChange
 
+  // Stable refs for callbacks that change on every navigation tick.
+  // Keeps renderItem's dep array stable so FlatList doesn't invalidate
+  // every rendered cell when currentIndex advances.
+  const currentIndexRef    = useRef(currentIndex);
+  const goToNextStableRef  = useRef(goToNext);
+  const goToPrevStableRef  = useRef(goToPrevious);
+  const showTooltipRef     = useRef(showTooltip);
+  const setCurrentIdxRef   = useRef(setCurrentIndex);
+  useEffect(() => { currentIndexRef.current    = currentIndex;   }, [currentIndex]);
+  useEffect(() => { goToNextStableRef.current  = goToNext;       }, [goToNext]);
+  useEffect(() => { goToPrevStableRef.current  = goToPrevious;   }, [goToPrevious]);
+  useEffect(() => { showTooltipRef.current     = showTooltip;    }, [showTooltip]);
+  useEffect(() => { setCurrentIdxRef.current   = setCurrentIndex;}, [setCurrentIndex]);
 
-  // Memoized renderItem for FlatList
+  // renderItem is now fully stable — only re-creates when children or the
+  // scroll-lock toggles change, not on every page turn.
   const renderItem: ListRenderItem<T> = useCallback(
     ({ item, index }: { item: T; index: number }) => (
       <View style={styles.content}>
         {children({
           item,
           index,
-          currentIndex,
-          setCurrentIndex,
-          disableHorizontalScroll,
-          enableHorizontalScroll,
-          goToNext,
-          goToPrevious,
+          currentIndex:          currentIndexRef.current,
+          setCurrentIndex:       setCurrentIdxRef.current,
+          // disableHorizontalScroll,
+          // enableHorizontalScroll,
+          goToNext:              goToNextStableRef.current,
+          goToPrevious:          goToPrevStableRef.current,
           wordRefs,
           containerRef,
           screenRef,
-          setTooltip: showTooltip,
+          setTooltip:            showTooltipRef.current,
         })}
       </View>
     ),
-    [children, currentIndex, goToNext, goToPrevious, showTooltip]
+    [children]
+    // [children, disableHorizontalScroll, enableHorizontalScroll]
   );
 
   // Fixed layout optimization for FlatList
@@ -187,7 +203,10 @@ function SessionLayout<T>({
             keyExtractor={(_, index) => index.toString()}
             horizontal
             pagingEnabled
-            scrollEnabled={ horizontalEnabled }
+
+            // scrollEnabled={ horizontalEnabled }
+            scrollEnabled={false } // swipe disabled — use goToNext/goToPrevious
+            
             nestedScrollEnabled
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={handleScroll}
@@ -197,9 +216,11 @@ function SessionLayout<T>({
 
             keyboardShouldPersistTaps="handled"
             removeClippedSubviews={false}
-            initialNumToRender={3}
-            maxToRenderPerBatch={3}
-            windowSize={5}
+
+            initialNumToRender={2}
+            maxToRenderPerBatch={2}
+            windowSize={3}
+
             getItemLayout={getItemLayout}
             renderItem={renderItem}
           />

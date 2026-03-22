@@ -12,6 +12,7 @@ import { registerForPushNotifications, setupNotificationHandler } from "@/domain
 import api from "@/lib/api";
 import Constants from "expo-constants";
 import { toast } from "@backpackapp-io/react-native-toast";
+import { preloadFeedbackSounds } from "@/utils/feedback";
 
 const isExpoGo = Constants.appOwnership === "expo";
 
@@ -56,6 +57,7 @@ const App = () => {
   React.useEffect(() => {
     (async () => {
       await registerBackgroundSync();
+      await preloadFeedbackSounds();
     })();
 
     warmUpSpeech();

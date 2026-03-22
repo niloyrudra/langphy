@@ -10,6 +10,7 @@ import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
 import api from '@/lib/api'
 import { toast } from '@backpackapp-io/react-native-toast'
+import { useFeedback } from '@/utils/feedback'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -19,6 +20,7 @@ const SignupSchema = Yup.object().shape({
 const SignUp = () => {
   const { colors } = useTheme();
   const router = useRouter();
+  const {triggerFeedback} = useFeedback();
 
   const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -61,6 +63,7 @@ const SignUp = () => {
         initialValues={{ email: "", password: "" }}
         validationSchema={SignupSchema}
         onSubmit={ async (values, {resetForm}) => {
+          triggerFeedback("tap");
           await handleSignup(values.email, values.password);
           resetForm();
         }}

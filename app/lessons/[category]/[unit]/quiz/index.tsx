@@ -9,7 +9,7 @@ import { getCardContainerWidth } from '@/utils';
 import { SessionType, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { useTheme } from '@/theme/ThemeContext';
-import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
@@ -156,8 +156,17 @@ const QuizSession = () => {
             {/* QUIZ Section Starts */}
             <View>
               <View style={styles.questionWrapper}>
-                <MaterialIcons name="quiz" size={32} color={colors.primary} />
-                <LangphyText weight="bold" style={[styles.question, {color: colors.primary}]}>
+                <View style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: colors.cardIconBackgroundColor
+                }}>
+                  <AntDesign name="question" size={20} color={colors.text} />
+                </View>
+                <LangphyText weight="semibold" style={[styles.question, {color: colors.text}]}>
                   {item?.question}
                 </LangphyText> 
               </View>
@@ -199,10 +208,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginBottom: 20,
     marginTop: 10,
-    gap: 20
+    gap: 10
   },
   question: {
-    fontSize: 24,
+    fontSize: 20,
     wordWrap: 'break-word',
     flexShrink: 1,
   }

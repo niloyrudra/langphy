@@ -12,6 +12,7 @@ import WordConfidenceComponent from './_partials/WordConfidenceComponent';
 import SecondaryActionButton from '../form-components/SecondaryActionButton';
 // import LangphyText from '../text-components/LangphyText';
 import WordListItem from './_partials/WordListItem';
+import { FeedbackEvent, useFeedback } from '@/utils/feedback';
 
 interface LessonCompletionModalProps {
     isVisible: boolean;
@@ -25,6 +26,7 @@ interface LessonCompletionModalProps {
 const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, onRetry, onContinue}: LessonCompletionModalProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
+    const { triggerFeedback } = useFeedback();
     const isSelective = 'answered' in result;
     const isPractice = 'practiceScore' in result;
     const isSpeech = 'analysis' in result && 'transcription' in result;
@@ -56,12 +58,27 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
     const feedback = React.useMemo(() => {
         if (isSelective) return result.feedback ?? "";
         if (isSimilarity) return feedbackComments( result.similarity ?? "" );
-        if (isSpeech) return "Analized Result!" // feedbackComments( result.analysis.similarity ?? 0 );
-        if (isPractice) return "Lesson Review!" // feedbackComments( result.analysis.similarity ?? 0 );
+        if (isSpeech) return "Analized Result!";
+        if (isPractice) return "Lesson Review!";
         return "Your Result!";
     }, [result, isSelective, isSimilarity, isSpeech, isPractice]);
 
-    const handleContinue = React.useCallback( () => onContinue(), [onContinue]);
+    const handleContinue = React.useCallback( () => {
+        triggerFeedback("tap");
+        onContinue()
+    }, [onContinue, triggerFeedback]);
+
+    React.useEffect(() => {
+        let event: FeedbackEvent = "correct";
+        if( isSelective ) event = result?.feedback.label ? result?.feedback.label.toLowerCase() as FeedbackEvent : "correct";
+        else if( isSimilarity ) event = result.similarity > 50 ? "correct" : "incorrect";
+        // else if( isSpeech ) event = speechResult?.analysis?.similarity && speechResult?.analysis?.similarity > 50 ? "correct" : "incorrect";
+        // else if( isPractice ) event = "correct";
+        
+        
+        if( isPractice || isSpeech ) triggerFeedback("lessonComplete");
+        else triggerFeedback(event);
+    }, [ speechResult, result ]);
 
     return (
         <ModalLayout
@@ -71,7 +88,6 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
             gradianColor={[colors.gradiantDeep, colors.gradiantDeep]}
             containerStyle={styles.modalContainer}
         >
-
             {/* Modal Content */}
             <View style={styles.content}>
                 {/* Expected Query */}

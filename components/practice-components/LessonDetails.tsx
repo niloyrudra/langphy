@@ -4,6 +4,7 @@ import { useTheme } from '@/theme/ThemeContext'
 import LessonDetailsItem from './LessonDetailsItem';
 import STYLES from '@/constants/styles';
 import LangphyText from '../text-components/LangphyText';
+import { GermanLevel } from '@/types';
 
 type LessonExample = {
     example: string;
@@ -12,7 +13,7 @@ type LessonExample = {
 
 type PracticeLessonDetailsProps = {
     usage_context: string | null;
-    german_level: string | null;
+    german_level: GermanLevel;
     region: string | null;
     formality: string | null;
     discussion: string | null;
@@ -32,13 +33,10 @@ const PracticeLessonDetails: React.FC<PracticeLessonDetailsProps> = ({
     const {colors} = useTheme();
     return (
         <View style={[styles.container, {backgroundColor: colors.listeningInfoBgColor}]}>
-
             <LessonDetailsItem label={'Context'} content={usage_context ?? ""} />
             <LessonDetailsItem label={'Info'} content={discussion ?? ""} />
             <LessonDetailsItem label={'Notes'} content={grammar_note ?? ""} />
-            {
-                formality && (<LessonDetailsItem label={'Formality'} content={formality} />)
-            }
+            <LessonDetailsItem label={'Formality'} content={formality ?? ""} />
             <LessonDetailsItem label={'Regions'} content={region ?? ""} />
             <LessonDetailsItem label={'Level'} content={german_level ?? "A1"} />
 

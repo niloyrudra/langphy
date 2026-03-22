@@ -129,6 +129,8 @@ type UnitSessionType = {
   slug: string
 }
 
+type GermanLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | null;
+
 // Define full item structure
 type PracticeSessionType = {
   id: string;
@@ -140,7 +142,7 @@ type PracticeSessionType = {
   meaning_response: string;
   usage_context: string;
   formality: "formal" | "informal" | "neutral" | "both";
-  german_level: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | null;
+  german_level: GermanLevel;
   grammar_note: string;
   example_sentences?: string[];
   audio_file?: string;
@@ -753,6 +755,8 @@ type MilestonesType = {
 }
 
 export {
+  GermanLevel,
+
   UserEntitlement,
 
   DBProgress,

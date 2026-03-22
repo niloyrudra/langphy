@@ -9,6 +9,7 @@ import AuthInput from '@/components/form-components/auth/AuthInput';
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink';
 import api from '@/lib/api';
 import { toast } from '@backpackapp-io/react-native-toast';
+import { useFeedback } from '@/utils/feedback';
 
 const ResetPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is rewuired!"),
@@ -19,6 +20,7 @@ const ResetPasswordSchema = Yup.object().shape({
 const ForgotPasswordScreen = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const {user} = useAuth();
+  const {triggerFeedback} = useFeedback();
 
   const handleResetPassword = async ( email: string, password: string, confirmedPassword: string ) => {
     if( user?.email == email.trim() ) return toast.error("Your email is incorrect.");
@@ -55,6 +57,7 @@ const ForgotPasswordScreen = () => {
         initialValues={{ email: "", newPassword: "", confirmedPassword: "" }}
         validationSchema={ResetPasswordSchema}
         onSubmit={(values, {resetForm}) => {
+          triggerFeedback("tap");
           handleResetPassword( values.email, values.newPassword, values.confirmedPassword);
           resetForm();
         }}

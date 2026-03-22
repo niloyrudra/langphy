@@ -197,7 +197,8 @@ const PracticeLessons = () => {
         onActiveItemChange={activeItemChangeHandler}
         storeVocabulary={handleVocabulary}
       >
-        {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, setTooltip }) => {
+        {/* {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, setTooltip }) => { */}
+        {({ item, wordRefs, containerRef, setTooltip }) => {
           const handleTooltip = (value: any) => setTooltip(value);
           return (
             <>
@@ -205,8 +206,8 @@ const PracticeLessons = () => {
                 ref={scrollToRef}
                 nestedScrollEnabled
                 showsVerticalScrollIndicator={false}
-                onScrollBeginDrag={disableHorizontalScroll}
-                onScrollEndDrag={enableHorizontalScroll}
+                // onScrollBeginDrag={disableHorizontalScroll}
+                // onScrollEndDrag={enableHorizontalScroll}
                 scrollEventThrottle={16}
               >
                 <View style={styles.container}>
@@ -251,7 +252,7 @@ const PracticeLessons = () => {
                       item?.usage_context && (
                         <PracticeLessonDetails
                           usage_context={item?.usage_context || ""}
-                          german_level={item?.german_level || ""}
+                          german_level={item?.german_level || null}
                           formality={item?.formality || ""}
                           discussion={item?.discussion || ""}
                           region={item?.region || ""}

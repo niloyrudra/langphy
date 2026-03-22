@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import LottieView from "lottie-react-native";
 import ActionPrimaryButton from "../form-components/ActionPrimaryButton";
 import LangphyText from "../text-components/LangphyText";
+import { useFeedback } from "@/utils/feedback";
 
 type StreakTier =
     | "warm"
@@ -58,6 +59,7 @@ const DailyStreaksModal = ({
     onClose
 }: DailyStreaksModalProps) => {
     const {colors} = useTheme();
+    const { triggerFeedback } = useFeedback();
     const scale = useSharedValue(0.8);
     const animatedStyle = useAnimatedStyle(() => ({
         transform: [{ scale: scale.value }],
@@ -75,6 +77,10 @@ const DailyStreaksModal = ({
             )
         );
     }, [visible, streak?.current_streak]);
+
+    useEffect(() => {        
+        triggerFeedback("streak");
+    }, []);
 
     return (
         <ModalLayout

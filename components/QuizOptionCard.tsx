@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import { QuizProps } from '@/types';
 import STYLES from '@/constants/styles';
 import TitleHeading from './TitleHeading';
+import { useFeedback } from '@/utils/feedback';
 
 const QuizOptionCard = ( {
     option,
@@ -16,6 +17,7 @@ const QuizOptionCard = ( {
     customStyle
   }: QuizProps ) => {
   const {colors} = useTheme();
+  const {triggerFeedback} = useFeedback();
 
   let backgroundColor = colors.cardBackgroundColor;
   let borderColor = colors.cardBorderColor;
@@ -25,7 +27,10 @@ const QuizOptionCard = ( {
     borderColor = '#3CE811';
   }
 
-  const selectionhandler = () => onSelect(option);
+  const selectionhandler = useCallback(() => {
+    triggerFeedback("tap");
+    onSelect(option);
+  }, [onSelect, option, triggerFeedback]);
 
   React.useEffect(() => {
     if (isCorrect) {
@@ -63,6 +68,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 24,
     borderWidth: 1,
-    margin:0
+    margin:0,
+    paddingHorizontal: 15
   }
 });

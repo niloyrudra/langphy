@@ -20,6 +20,7 @@ import { bootstrapStreaks } from '@/bootstraps/streaks.bootstrap'
 import { authSnapshot } from '@/snapshots/authSnapshot'
 import { toast } from '@backpackapp-io/react-native-toast'
 import LangphyText from '@/components/text-components/LangphyText'
+import { useFeedback } from '@/utils/feedback'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required."),
@@ -29,6 +30,7 @@ const SignInSchema = Yup.object().shape({
 const Login = () => {
   const {colors} = useTheme();
   const { setUser } = useAuth();
+  const {triggerFeedback} = useFeedback()
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const onSignInHandler = async ( email: string, password: string ) => {
@@ -92,6 +94,7 @@ const Login = () => {
         initialValues={{email:"", password: ""}}
         validationSchema={SignInSchema}
         onSubmit={( values, {resetForm} ) => {
+          triggerFeedback("tap");
           onSignInHandler( values.email, values.password );
           resetForm();
         }}

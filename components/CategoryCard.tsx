@@ -7,13 +7,16 @@ import STYLES from '@/constants/styles';
 import TitleHeading from './TitleHeading';
 import { getCardContainerWidth } from '@/utils';
 import GridCardIcon from './GridCardIcon';
+import { useFeedback } from '@/utils/feedback';
 
 
 const CategoryCard = ( { cat_id, title, slug}: CategoryProps ) => {
   const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
+  const {triggerFeedback} = useFeedback();
 
   const routeHandler = React.useCallback(() => {
+    triggerFeedback("tap");
     router.push({
       pathname: `/lessons/${slug}`,
       params: { title, slug, categoryId: cat_id }

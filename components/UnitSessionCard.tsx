@@ -9,10 +9,12 @@ import { getCardContainerWidth } from '@/utils';
 import { SessionType, UnitSessionType } from '@/types';
 import { useSettings } from '@/hooks/useSettings';
 import { authSnapshot } from '@/snapshots/authSnapshot';
+import { useFeedback } from '@/utils/feedback';
 // import { useLessons } from '@/hooks/useLessons';
 
 const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug} ) => {
   const { colors } = useTheme();
+  const {triggerFeedback} = useFeedback();
   const userId = authSnapshot.getUserId() ?? "";
   const cardWidth = getCardContainerWidth();
   const { category, unit } = useLocalSearchParams();
@@ -23,6 +25,7 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 
   const routeHandler = React.useCallback(() => {
+    triggerFeedback("tap");
     router.push({
       pathname: `/lessons/${category}/${unit}/${slug}`,
       params: { title, slug, categoryId, unitId }

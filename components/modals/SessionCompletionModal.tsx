@@ -9,6 +9,7 @@ import { usePerformance } from '@/hooks/usePerformance';
 import { formatDuration } from '@/utils';
 import LottieView from "lottie-react-native";
 import LangphyText from '../text-components/LangphyText';
+import { useFeedback } from '@/utils/feedback';
 
 const feedback = ( score: number ) => {
     if( score >= 90 ) return "Excellent"
@@ -29,6 +30,11 @@ type SessionCompletionModalProps = {
 const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContinue}: SessionCompletionModalProps) => {
     const {colors} = useTheme();
     const { data: performance } = usePerformance( sessionKey );
+    const {triggerFeedback} = useFeedback();
+
+    React.useEffect(() => {        
+        triggerFeedback("sessionComplete");
+    }, []);
     return (
         <ModalLayout
             isVisible={isVisible}
