@@ -74,6 +74,7 @@ export const lessonCompletionChain = async (
    * 3️⃣ SESSION PERFORMANCE (once)
    * ---------------------------------- */
   await upsertSessionPerformance({
+    user_id: input.userId,
     sessionKey: input.performanceSessionKey,
     sessionType: input.sessionType,
     avgScore: avgLessonScore ?? 0,

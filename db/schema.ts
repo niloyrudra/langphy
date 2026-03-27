@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS lp_streaks (
 
 export const CREATE_PERFORMANCE_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_session_performance (
+  user_id TEXT NOT NULL,
   session_key TEXT NOT NULL,
   session_type TEXT NOT NULL,
   avg_score REAL,

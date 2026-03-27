@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
@@ -12,8 +12,8 @@ import ActionButton from '@/components/form-components/ActionButton';
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth } from '@/context/AuthContext';
 import { useUpdateProfile } from '@/hooks/useUpdateProfile';
-import { toast } from '@backpackapp-io/react-native-toast';
 import ConfirmationModal from '@/components/modals/ConfirmationModal';
+import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
 
 const ProfileEditSchema = Yup.object().shape({
     first_name: Yup.string().min( 2, "Name must be at least 2 characters." ),
@@ -36,7 +36,9 @@ const ProfileEditScreen = () => {
         username: string,
         profile_image: string,
     ) => {
+        const toastId = toastLoading("Profile updating...");
         try {
+
             updateProfile({
                 id: user?.id,
                 email: user?.email,
@@ -65,12 +67,13 @@ const ProfileEditScreen = () => {
             //         }
             //     ]
             // );
+            toastSuccess("Profile updated successfully!", {id: toastId!});
         }
         catch(err) {
             console.error("Profile update Error:", err)
-            toast.error("Profile update failed!")
+            toastError("Profile update failed!", {id: toastId!})
         }
-    }, [user])
+    }, [user, toastSuccess, toastError]);
 
     return (
         <>
@@ -96,7 +99,7 @@ const ProfileEditScreen = () => {
                         }}
                     >
                         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                            <View style={{ flex:1, gap: 20 }}>
+                            <View style={styles.container}>
 
                                 <AuthInput
                                     placeholderText='Your First Name'
@@ -139,7 +142,7 @@ const ProfileEditScreen = () => {
                                 />
 
                                 {/* Submit Button */}
-                                <View style={{marginTop: "auto", gap: 20}}>
+                                <View style={styles.buttonContainer}>
                                     <ActionPrimaryButton
                                         buttonTitle="Save"
                                         onSubmit={handleSubmit}
@@ -179,3 +182,11 @@ const ProfileEditScreen = () => {
 }
 
 export default ProfileEditScreen;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        gap: 20
+    },
+    buttonContainer: {marginTop: "auto", gap: 20}
+});

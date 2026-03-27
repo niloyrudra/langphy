@@ -8,7 +8,7 @@ import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButto
 import AuthInput from '@/components/form-components/auth/AuthInput';
 import { toast } from '@backpackapp-io/react-native-toast';
 import { resetPassword } from '@/services/profie.service';
-import { toastError, toastSuccess } from '@/services/toast.service';
+import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
 
 const ResetUserPaswordSchema = Yup.object().shape({
     newPassword: Yup.string().min(4, "Password must be at least 4 characters").required("New Password is required"),
@@ -23,7 +23,8 @@ const ResetUserPaswordScreen = () => {
         newPassword: string,
         confirmedPassword: string
     ) => {
-        if( newPassword != confirmedPassword ) return toast.error("Passwords must match each other!");
+        if( newPassword != confirmedPassword ) return toastError("Passwords must match each other!");
+        const toastId = toastLoading("Password updating...");
         try {
             setLoading(true);
 
@@ -32,19 +33,19 @@ const ResetUserPaswordScreen = () => {
             if( res.status === 200 && res.data! ) {  
                 const { message } = res.data;
 
-                if(message) toastSuccess( message );
-                else toastSuccess("Successfully updated password!");
+                if(message) toastSuccess( message, {id: toastId!} );
+                else toastSuccess("Successfully updated password!", {id: toastId!});
                 
                 // router.replace("/auth/login");
             }
             else {
-                toastError( "Password update failed!" );
+                toastError( "Password update failed!", {id: toastId!} );
             }
     
         }
         catch(err) {
             console.error("Password update Error:", err);
-            toastError("Password update failed!");
+            toastError("Password update failed!", {id: toastId!});
         }
         finally {
             setLoading(false)

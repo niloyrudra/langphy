@@ -1,8 +1,10 @@
 import { SessionPerformance, SessionType } from "@/types";
 import { db } from "./index";
+import { authSnapshot } from "@/snapshots/authSnapshot";
 // import { getSessionProgress } from "./progress.repo";
 
 type SessionPerformanceUpsertType = {
+  user_id: string;
   sessionKey: string;
   sessionType: SessionType;
   avgScore: number
@@ -20,6 +22,7 @@ const rollingAverage = (
 }
 
 export const upsertSessionPerformance = async ({
+  user_id,
   sessionKey,
   sessionType,
   avgScore,
@@ -38,11 +41,11 @@ export const upsertSessionPerformance = async ({
       await db.runAsync(
         `
         INSERT INTO lp_session_performance
-          (session_key, session_type, avg_score, total_duration_ms, attempts, completed, updated_at, dirty)
-        VALUES (?, ?, ?, ?, ?, ?, ?, 1)
-        RETURNING *
+          (user_id, session_key, session_type, avg_score, total_duration_ms, attempts, completed, updated_at, dirty)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
         `,
         [
+          user_id,
           sessionKey,
           sessionType,
           avgScore,
@@ -72,13 +75,14 @@ export const upsertSessionPerformance = async ({
         attempts = ?,
         updated_at = ?,
         dirty = 1
-      WHERE session_key = ?
+      WHERE session_key = ? AND user_id = ?
       `,
       [
         newAvg,
         newAttempts,
         now,
-        sessionKey
+        sessionKey,
+        user_id
       ]
     );
     console.log( "upsertSessionPerformance updated", newAvg, newAttempts, sessionKey );
@@ -89,10 +93,11 @@ export const upsertSessionPerformance = async ({
 }
 
 export const getAvgScoreBySessionType = async (sessionType: SessionType) => {
+  const userId = authSnapshot.getUserId() ?? "";
   try {
     const avgScore = await db.getFirstAsync(
-      'SELECT AVG(avg_score) FROM lp_session_performance WHERE session_type = ?',
-      [sessionType]
+      'SELECT AVG(avg_score) FROM lp_session_performance WHERE session_type = ? AND user_id = ?',
+      [sessionType, userId]
     );
     return avgScore
   }
@@ -103,10 +108,11 @@ export const getAvgScoreBySessionType = async (sessionType: SessionType) => {
 }
 
 export const getPerformance = async (sessionKey: string): Promise<SessionPerformance | null> => {
+  const userId = authSnapshot.getUserId() ?? "";
   try {
     const result = await db.getFirstAsync<SessionPerformance>(
-      'SELECT * FROM lp_session_performance WHERE session_key = ?',
-      [sessionKey]
+      'SELECT * FROM lp_session_performance WHERE session_key = ? AND user_id = ?',
+      [sessionKey, userId]
     );
     // console.log("getPerformance result:", result, sessionKey)
     return result ?? null;
@@ -118,9 +124,11 @@ export const getPerformance = async (sessionKey: string): Promise<SessionPerform
 }
 
 export const getTotalCompletedSessions = async () => {
+  const userId = authSnapshot.getUserId() ?? "";
   try {
     const result = await db.getFirstAsync<{count: number}>(
-      'SELECT COUNT(*) as count FROM lp_session_performance WHERE completed = 1',
+      'SELECT COUNT(*) as count FROM lp_session_performance WHERE completed = 1 AND user_id = ?',
+      [userId]
     );
     return result?.count ?? 0;
   }
@@ -131,15 +139,17 @@ export const getTotalCompletedSessions = async () => {
 }
 
 export const getTotalCompletedUnits = async () => {
+  const userId = authSnapshot.getUserId() ?? "";
   try {
     const result = await db.getFirstAsync<{ count: number }>(
       `SELECT COUNT(*) as count FROM (
         SELECT SUBSTR(session_key, 1, INSTR(session_key, ':') - 1) as unit_id
         FROM lp_session_performance
-        WHERE completed = 1
+        WHERE completed = 1 AND user_id = ?
         GROUP BY unit_id
         HAVING COUNT(DISTINCT session_type) = 6
       )`,
+      [userId]
     );
     return result?.count ?? 0;
   } catch (error) {

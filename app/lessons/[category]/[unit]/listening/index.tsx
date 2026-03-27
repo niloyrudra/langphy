@@ -17,6 +17,7 @@ import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
+import { toastSuccess } from '@/services/toast.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -49,6 +50,7 @@ const ListeningLessons = () => {
     setTextContent("");
     setError("");
     setLoading(false);
+    toastSuccess("Lesson Reset")
   }, []);
 
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
