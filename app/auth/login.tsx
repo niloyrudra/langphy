@@ -12,15 +12,15 @@ import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
 // import SocialLoginSection from '@/components/form-components/auth/SocialLoginSection'
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink'
-import api from '@/lib/api'
 import { jwtDecode } from 'jwt-decode'
 import { bootstrapProfileFromToken } from '@/bootstraps/profile.bootstrap'
 import { bootstrapSettingsFromToken } from '@/bootstraps/settings.bootstrap'
 import { bootstrapStreaks } from '@/bootstraps/streaks.bootstrap'
 import { authSnapshot } from '@/snapshots/authSnapshot'
-import { toast } from '@backpackapp-io/react-native-toast'
 import LangphyText from '@/components/text-components/LangphyText'
 import { useFeedback } from '@/utils/feedback'
+import { signIn } from '@/services/auth.service'
+import { toastError, toastLoading, toastSuccess } from '@/services/toast.service'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required."),
@@ -34,16 +34,10 @@ const Login = () => {
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const onSignInHandler = async ( email: string, password: string ) => {
+    const toastId = toastLoading("Signing in...");
     try {
       setLoading(true)
-      // const res = await signIn( email, password );
-      const res = await api.post(
-        `/users/signin`,
-        {
-          email,
-          password
-        }
-      );
+      const res = await signIn( email, password );
 
       if( res.status === 200 && res.data ) {  
         const { token, message } = res.data;
@@ -52,8 +46,8 @@ const Login = () => {
         const decode: any = jwtDecode(token);
         setUser( { id: decode.id, email: decode.email, created_at: decode.created_at } );
         authSnapshot.set(
-            decode.id,
-            token
+          decode.id,
+          token
         );
         // Storing profile locally
         await bootstrapProfileFromToken({
@@ -66,13 +60,13 @@ const Login = () => {
         console.log("Bootstrapped data from Login");
 
         // Toaster
-        if(message) toast.success( message );
-        else toast.success("Successfully signed in!");
+        if(message) toastSuccess( message, { id: toastId! } );
+        else toastSuccess("Successfully signed in!", { id: toastId! });
                 
         router.replace("/lessons");
       }
       else {
-        toast.error('Login Failed!');
+        toastError('Login Failed!', { id: toastId! });
         await SecureStore.deleteItemAsync("accessToken");
       }
 
@@ -80,7 +74,7 @@ const Login = () => {
     catch(err) {
       setLoading(false)
       console.error("Login Error:", err)
-      toast.error('Login Failed!');
+      toastError('Login Failed!');
     }
     finally {
       setLoading(false)

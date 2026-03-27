@@ -192,7 +192,7 @@ function SessionLayout<T>({
         style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         enabled={keyboardAvoid}
-        keyboardVerticalOffset={keyboardVerticalOffset}
+        // keyboardVerticalOffset={keyboardVerticalOffset}
       >
         <LessonNavDots data={preFetchedData.map((_, idx) => idx)} currentIndex={currentIndex} />
         

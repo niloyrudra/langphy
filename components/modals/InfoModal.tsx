@@ -44,8 +44,8 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                     {/* Modal Content */}
                     <View style={styles.sectionContainer}>
                         <ModalSectionTitle
-                            title='Four German Cases (Fälle)'
-                            color="#68F0F8"
+                            title='German Cases (Fälle)'
+                            // color="#68F0F8"
                         />
 
                         <View style={styles.contentWrapper}>
@@ -57,12 +57,12 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
 
                     </View>
 
-                    <HorizontalLine style={styles.horizontal}/>
+                    {/* <HorizontalLine style={styles.horizontal}/> */}
 
                     <View style={styles.sectionContainer}>
                         <ModalSectionTitle
-                            title='Four German Genders (Geschlechter)'
-                            color="#68F0F8"
+                            title='German Genders (Geschlechter)'
+                            // color="#68F0F8"
                         />
 
                         <View style={styles.contentWrapper}>
@@ -74,12 +74,12 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
 
                     </View>
 
-                    <HorizontalLine style={styles.horizontal}/>
+                    {/* <HorizontalLine style={styles.horizontal}/> */}
 
                     <View style={styles.sectionContainer}>
                         <ModalSectionTitle
                             title='German Parts-of-speech'
-                            color="#68F0F8"
+                            // color="#68F0F8"
                         />
 
                         <View style={styles.contentWrapper}>
@@ -135,11 +135,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
-        gap: 10,
+        gap: 8,
         marginBottom: 4
     },
     sectionContainer: {
-        marginVertical: 10
+        marginVertical: 6
     },
     buttonClose: {
         position: "absolute",
@@ -156,13 +156,13 @@ const styles = StyleSheet.create({
         fontWeight: "700"
     },
     contentWrapper: {
-        marginTop: 10,
+        marginTop: 6,
         flexDirection: "column",
-        gap: 5
+        gap: 3
     },
     horizontal: {
         backgroundColor: "#676767",
-        marginVertical: 4,
+        marginVertical: 3,
         width: "100%"
     }
 });

@@ -53,6 +53,7 @@ export const CREATE_PROGRESS_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_progress (
   category_id TEXT NOT NULL,
   unit_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
   content_type TEXT NOT NULL,
   content_id TEXT NOT NULL,
   session_key TEXT NOT NULL,

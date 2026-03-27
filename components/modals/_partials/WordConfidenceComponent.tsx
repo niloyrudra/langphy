@@ -9,14 +9,14 @@ const WordConfidenceComponent = ({text, confidence}: {text: string, confidence: 
     const {colors} = useTheme();
     return (
         <View style={[styles.container, {backgroundColor: colors.background}]}>
-            <LangphyText weight="extrabold" style={[styles.word,{ color: confidence.color }]}>
+            <LangphyText weight="bold" style={[styles.word,{ color: confidence.color }]}>
                 {text}
             </LangphyText>
             <LangphyText weight="semibold" style={[styles.feedback,{ color: confidence.color }]}>
                 ({confidence.label})
             </LangphyText>
             {/* <ProgressBar completion={parseFloat(confidence.score)} /> */}
-            <LangphyText style={{ color: confidence.color }}>{parseFloat(confidence.score)}%</LangphyText>
+            <LangphyText weight="semibold" style={{ color: confidence.color }}>{parseFloat(confidence.score)}%</LangphyText>
         </View>
     )
 }
@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     word: {
-        fontSize: 16,
+        fontSize: 12,
     },
     feedback: {
-        fontSize: 10,
+        fontSize: 8,
     }
 })

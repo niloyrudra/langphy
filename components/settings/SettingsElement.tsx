@@ -11,7 +11,7 @@ const SettingsElement = ({title, Icon}: {title: string, Icon: ReactNode}) => {
                 {Icon}
             </View>
 
-            <LangphyText weight="semibold" style={[styles.title, { color: colors.text }]}>
+            <LangphyText weight="medium" style={[styles.title, { color: colors.text }]}>
                 {title}
             </LangphyText>
         </View>

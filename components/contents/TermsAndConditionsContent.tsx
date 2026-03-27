@@ -4,6 +4,7 @@ import SafeAreaLayout from '../layouts/SafeAreaLayout'
 import LangphyText from '../text-components/LangphyText'
 import { useTheme } from '@/theme/ThemeContext'
 import { Link } from 'expo-router'
+import ContactDetail from './ContactDetail'
 
 const TermsAndConditionsContent = () => {
     const {colors} = useTheme();
@@ -82,11 +83,7 @@ const TermsAndConditionsContent = () => {
                 </LangphyText>
 
                 <LangphyText weight="bold" style={[styles.section, {color: colors.primary}]}>Contact</LangphyText>
-                <LangphyText style={[styles.text, {color: colors.text}]}>
-                    Developer: Niloy Rudra{"\n"}
-                    Email: privacy@langphy.com{"\n"}
-                    Website: <Link href={'https://langphy.com'}>https://langphy.com</Link>
-                </LangphyText>
+                <ContactDetail />
 
                 <View style={{height: 30}} />
 

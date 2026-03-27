@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router'
 import { useTheme } from '@/theme/ThemeContext'
@@ -8,9 +8,10 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
-import api from '@/lib/api'
-import { toast } from '@backpackapp-io/react-native-toast'
 import { useFeedback } from '@/utils/feedback'
+import LangphyText from '@/components/text-components/LangphyText'
+import { signUp } from '@/services/auth.service'
+import { toastError, toastLoading, toastSuccess } from '@/services/toast.service'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -25,33 +26,32 @@ const SignUp = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const handleSignup = async ( email: string, password: string ) => {
+    const toastId = toastLoading("Signing up...");
     try {
-      setLoading(true)
+      setLoading(true);
 
-      const res = await api.post( "/users/signup", {email, password} )
-
-      console.log(res.status)
+      const res = await signUp( email, password );
 
       if( res.status === 201 && res.data ) {  
         const { message } = res.data;
         
         // Toaster
-        if(message) toast.success( message );
-        else toast.success("Successfully signed up!");
+        if(message) toastSuccess( message, { id: toastId! } );
+        else toastSuccess("Successfully signed up!", { id: toastId! });
         
         router.replace("/auth/login");
       }
       else {
-        toast.error( "Signup failed!" )
+        toastError( "Signup failed!", { id: toastId! } );
       }
 
     }
     catch(err) {
-      console.error("Signup Error:", err)
-      toast.error("Signup failed!")
+      console.error("Signup Error:", err);
+      toastError("Signup failed!");
     }
     finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -108,15 +108,15 @@ const SignUp = () => {
       {/* <SocialLoginSection /> */}
 
       <View style={[styles.footer]}>
-        <Text style={{color: colors.textSubColor}}>By signing in to Langphy, you agree to our </Text>
+        <LangphyText style={{color: colors.textSubColor}}>By signing in to Langphy, you agree to our </LangphyText>
 
         <PlainTextLink route="/terms" linkText='Terms' />
 
-        <Text style={{color: colors.textSubColor}}> and </Text>
+        <LangphyText style={{color: colors.textSubColor}}> and </LangphyText>
 
         <PlainTextLink route="/privacy" linkText='Privacy Policy' />
 
-        <Text style={{color: colors.textSubColor}}>.</Text>
+        <LangphyText style={{color: colors.textSubColor}}>.</LangphyText>
 
       </View>
 
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: 20
+    marginVertical: 20,
+    flexWrap: "wrap"
   }
 })

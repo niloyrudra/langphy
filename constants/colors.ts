@@ -61,6 +61,7 @@ export const lightColors = {
 
   listeningCardBackgroundColor: "#FFFFFF", // "#E5E5E5",
   listeningInfoBgColor: "#FFFFFF",
+  listeningInfoBorderColor: "#EDEDED",
 
   hLineColor: "#EDEDED",
 
@@ -158,6 +159,7 @@ export const darkColors = {
 
   listeningCardBackgroundColor: "#061E3E",
   listeningInfoBgColor: "#142957",
+  listeningInfoBorderColor: "#102144",
 
   hLineColor: "#0B3C5F",
 

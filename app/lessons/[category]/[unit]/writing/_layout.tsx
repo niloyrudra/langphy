@@ -4,6 +4,9 @@ import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButt
 import { truncateString } from '@/utils';
 import Title from '@/components/Title';
 import STYLES from '@/constants/styles';
+// import { View } from 'react-native';
+// import SIZES from '@/constants/size';
+import Settings from '@/components/header/Settings';
 
 const WritingSessionLayout = () => {
   const { colors } = useTheme();
@@ -22,6 +25,7 @@ const WritingSessionLayout = () => {
               alignCenter
             />
           ),
+          headerRight: () => (<Settings />)
         })}
       />
     </Stack>

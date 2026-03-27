@@ -37,7 +37,7 @@ const ActionPrimaryButton = ( {
             >
 
                 <LangphyText
-                    weight="extrabold"
+                    weight="semibold"
                     style={[
                         styles.text,
                         { color: (disabled ? colors.disabledButtonColor : "#ffffff")},

@@ -4,6 +4,7 @@ import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButt
 import { truncateString } from '@/utils';
 import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
+import Settings from '@/components/header/Settings';
 
 const QuizSessionLayout = () => {
   const { colors } = useTheme();
@@ -22,6 +23,7 @@ const QuizSessionLayout = () => {
               alignCenter
             />
           ),
+          headerRight: () => (<Settings />)
         })}
       />
     </Stack>

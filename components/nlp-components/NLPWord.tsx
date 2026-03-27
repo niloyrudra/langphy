@@ -3,17 +3,6 @@ import React from 'react'
 import { measureInWindowSafe, speechHandler } from '@/utils'
 import { Token, ToolTip, WordLayout } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
-// import LangphyText from '../text-components/LangphyText';
-
-// interface WordProps {
-//     idx: string,
-//     token: Token,
-//     onHandler: (value: ToolTip | ((prev: ToolTip) => ToolTip)) => void;
-//     wordRefs: React.RefObject<Map<string, any>>;
-//     containerRef?: React.RefObject<View | null>;
-//     screenRef?: React.RefObject<View | null>;
-//     textStyle?: StyleProp<TextStyle>
-// }
 
 interface WordProps {
     idx: string;

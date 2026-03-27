@@ -4,17 +4,18 @@ import { useTheme } from '@/theme/ThemeContext';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import Title from '@/components/Title';
 import { router } from 'expo-router';
-import { SETTINGS_DATA } from '@/schemas/static-data';
+import { SETTINGS_DATA } from '@/static-data/static-data';
 import * as SecureStore from "expo-secure-store";
 import SettingsElement from '@/components/settings/SettingsElement';
 import SettingsElementAction from '@/components/settings/SettingsElementAction';
 import ActionButton from '@/components/form-components/ActionButton';
 import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
-import api from '@/lib/api';
 import { useSettings } from '@/hooks/useSettings';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { toast } from '@backpackapp-io/react-native-toast';
+// import { toast } from '@backpackapp-io/react-native-toast';
+import { signOut } from '@/services/auth.service';
+import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
@@ -24,23 +25,27 @@ const SettingsScreen = () => {
 
   // Handlers
   const handleSignout = useCallback(async () => {
+    const toastId = toastLoading("Signing out...");
     try {
-      const axiosRes = await api.post("/users/signout");
+      const axiosRes = await signOut();
+
       if( axiosRes.status === 200 && axiosRes.data ) {
         SecureStore.deleteItemAsync("accessToken"),
         authSnapshot.clear();
-        toast.success("Successfully signed out!");
+
+        toastSuccess("Successfully signed out!", { id: toastId! });
+
         router.replace("/auth/login");
       }
       else {
-        toast.error( "Signout failed!" )
+        toastError( "Signout failed!", { id: toastId! } )
       }
     }
     catch(err) {
       console.error("Signout Error:", err)
-      toast.error("Signout failed!")
+      toastError("Signout failed!", { id: toastId! })
     }
-  }, [router, api]);
+  }, [router, authSnapshot, SecureStore, toastError, toastSuccess]);
 
   const isServiceEnabled = useCallback(( serviceType: string ): boolean => {
     if(!settings) return false;

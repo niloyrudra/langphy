@@ -1,26 +1,50 @@
 import api from "@/lib/api";
-import * as SecureStore from "expo-secure-store";
+import { AxiosPromise } from "axios";
+// import * as SecureStore from "expo-secure-store";
 
-export const signIn = async (email: string, password: string) => {
-  const { data } = await api.post("/users/signin", {
-    email,
-    password,
-  });
-
-  await SecureStore.setItemAsync("accessToken", data.accessToken);
-  return data.user;
+export const signIn = async (email: string, password: string) : Promise<AxiosPromise> => {
+  const res = await api.post(
+    "/users/signin",
+    {
+      email,
+      password,
+    }
+  );
+  return res;
 };
 
-export const signUp = async (email: string, password: string) => {
-  const { data } = await api.post("/users/signup", {
-    email,
-    password,
-  });
-
-  await SecureStore.setItemAsync("accessToken", data.accessToken);
-  return data.user;
+export const signUp = async (email: string, password: string) : Promise<AxiosPromise> => {
+  const res = await api.post(
+    "/users/signup",
+    {
+      email,
+      password,
+    }
+  );
+  return res;
 };
 
-export const signOut = async () => {
-  await SecureStore.deleteItemAsync("accessToken");
+export const resetPasswordByEmail = async (email: string, password: string) : Promise<AxiosPromise> => {
+  // try {
+    const res = await api.put(
+      `/users/reset-password`,
+      {
+        email,
+        password
+      }
+    );
+    return res;
+  // }
+  // catch(error) {
+  //   console.error("resetPasswordByEmail error:", error);
+  //   return null;
+  // }
 };
+
+export const signOut = async () : Promise<AxiosPromise> => {
+  const res = await api.post("/users/signout");
+  return res;
+};
+// export const signOut = async () => {
+//   await SecureStore.deleteItemAsync("accessToken");
+// };

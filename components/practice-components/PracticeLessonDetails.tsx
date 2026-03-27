@@ -32,7 +32,13 @@ const PracticeLessonDetails: React.FC<PracticeLessonDetailsProps> = ({
 }) => {
     const {colors} = useTheme();
     return (
-        <View style={[styles.container, {backgroundColor: colors.listeningInfoBgColor}]}>
+        <View style={[
+            styles.container,
+            {
+                backgroundColor: colors.listeningInfoBgColor,
+                borderColor: colors.listeningInfoBorderColor
+            }
+        ]}>
             <LessonDetailsItem label={'Context'} content={usage_context ?? ""} />
             <LessonDetailsItem label={'Info'} content={discussion ?? ""} />
             <LessonDetailsItem label={'Notes'} content={grammar_note ?? ""} />
@@ -75,7 +81,8 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 16,
-        marginTop: 'auto'
+        marginTop: 'auto',
+        borderWidth: 1
     },
     exampleContainer: {
         flexDirection:"column",

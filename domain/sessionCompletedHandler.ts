@@ -1,7 +1,7 @@
 import { emitSessionCompletedEvent } from "@/events/localEvents";
 import { SessionCompletedInput } from "@/types";
 import { updateStreaksIfNeeded } from "./streakRules";
-import { updatePerformance } from "./performanceRules";
+// import { updatePerformance } from "./performanceRules";
 
 export const handleSessionCompleted = async ( payload: SessionCompletedInput ) => {
     try {
@@ -9,12 +9,12 @@ export const handleSessionCompleted = async ( payload: SessionCompletedInput ) =
         await updateStreaksIfNeeded( payload.userId );
 
         // 2️⃣ Performance (always)
-        await updatePerformance({
-            userId: payload.userId,
-            type: payload.type,
-            score: payload.score,
-            maxScore: payload.maxScore
-        });
+        // await updatePerformance({
+        //     userId: payload.userId,
+        //     type: payload.type,
+        //     score: payload.score,
+        //     maxScore: payload.maxScore
+        // });
 
         // 3️⃣ Emit local event (Kafka-friendly)
         await emitSessionCompletedEvent( payload );

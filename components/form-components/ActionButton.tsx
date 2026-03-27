@@ -3,7 +3,6 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SubmitButtonProps } from '@/types';
 import STYLES from '@/constants/styles';
 import SIZES from '@/constants/size';
-
 import { useTheme } from '@/theme/ThemeContext';
 import LangphyText from '../text-components/LangphyText';
 // import { useFeedback } from '@/utils/feedback';

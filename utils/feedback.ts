@@ -9,6 +9,7 @@
  */
 
 // import { useAudioPlayer } from 'expo-audio';
+import { toastError, toastSuccess } from '@/services/toast.service';
 import { toast } from '@backpackapp-io/react-native-toast';
 import { createAudioPlayer, setAudioModeAsync } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
@@ -168,8 +169,9 @@ export async function preloadFeedbackSounds(): Promise<void> {
         await setAudioModeAsync({
             playsInSilentMode: true, // Play even when iOS silent switch is on
         });
-        toast.success("Audio is Prepared!");
+        toastSuccess("Sound effect is on!");
     } catch (err) {
         console.warn('[feedback] Could not configure audio mode:', err);
+        toastError("Sound effect is not ready!");
     }
 }

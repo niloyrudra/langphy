@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import { milestonesData } from '@/schemas/static-data';
+import { milestonesData } from '@/static-data/static-data';
 import { MilestonesType } from '@/types';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import MilestonesItemRectangle from '@/components/dashboard/_partials/MilestonesItemRectangle';

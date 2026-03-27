@@ -4,7 +4,7 @@ import { Stack } from "expo-router"; // 'Slot' for one-paged apps
 import { useFonts } from 'expo-font';
 import { ThemeProvider } from "@/theme/ThemeContext";
 import * as SplashScreen from 'expo-splash-screen';
-import { SafeAreaView } from "react-native-safe-area-context";
+// import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
 import { AppProvider } from "@/context/AppContext";
 import {
@@ -18,7 +18,7 @@ import {
   Poppins_900Black
 } from '@expo-google-fonts/poppins';
 import { Toaster } from "@/components/toaster/Toaster";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 // import { bootstrapAds } from "@/bootstraps/ads.bootstrap";
 
 SplashScreen.preventAutoHideAsync();
@@ -66,7 +66,7 @@ const RootLayout = () => {
   }
   
   return (
-    <SafeAreaView style={styles.flex}>
+    <View style={styles.flex}>
     {/* <SafeAreaView onLayout={onLayoutRootView} style={styles.flex}> */}
       <GestureHandlerRootView style={styles.flex}>
         <AppProvider>
@@ -92,7 +92,7 @@ const RootLayout = () => {
         <Toaster />
 
       </GestureHandlerRootView>
-    </SafeAreaView>
+    </View>
   );
 }
 export default RootLayout;

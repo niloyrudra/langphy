@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleProp, StyleSheet, TextStyle, View } from 'react-native'
 import { memo, ReactNode } from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import STYLES from '@/constants/styles';
@@ -6,11 +6,14 @@ import LangphyText from '@/components/text-components/LangphyText';
 
 interface ResultDetailProps {
     label?: string;
+    isRegular?: boolean;
+    labelStyle?: StyleProp<TextStyle>;
+    contentStyle?: StyleProp<TextStyle>;
     detail: string | ReactNode;
     iconComponent?: ReactNode;
 }
 
-const ResultDetail = ({label, detail, iconComponent}: ResultDetailProps) => {
+const ResultDetail = ({label, isRegular=false, labelStyle, contentStyle, detail, iconComponent}: ResultDetailProps) => {
     const {colors} = useTheme();
     return (
         <View style={[styles.container]}>
@@ -21,13 +24,27 @@ const ResultDetail = ({label, detail, iconComponent}: ResultDetailProps) => {
             )}
 
             <View style={styles.content}>
-                {label && (<LangphyText weight="bold" style={[ {color:colors.text}]}>{label}</LangphyText>)}
                 {
-                    typeof detail === 'string'
-                        ? (<LangphyText weight="extrabold" style={[styles.detail, STYLES.wordWrapStyle, {color:colors.text}]}>
-                            {detail}
+                    typeof detail !== 'string'
+                        ? (detail)
+                        : (<LangphyText>
+                                {label && (<LangphyText weight="medium" style={[styles.label, {color:colors.text}]}>{label+" "}</LangphyText>)}
+                                {
+                                    typeof detail === 'string'
+                                        && (<LangphyText
+                                                weight={isRegular ? "medium" : "bold"}
+                                                style={[
+                                                    styles.detail,
+                                                    STYLES.wordWrapStyle,
+                                                    {color:colors.text},
+                                                    (contentStyle && contentStyle)
+                                                ]}
+                                            >
+                                                {detail}
+                                            </LangphyText>)
+                                        
+                                }
                             </LangphyText>)
-                        : detail
                 }
             </View>
         </View>
@@ -49,13 +66,17 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start"
     },
     content: {
+        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         gap: 5,
         flexWrap: "wrap"
     },
+    label: {
+        fontSize: 12
+    },
     detail: {
-        fontSize: 16,
+        fontSize: 12,
         flexWrap: "wrap"
     }
 })

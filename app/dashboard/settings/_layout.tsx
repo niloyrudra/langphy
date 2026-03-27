@@ -1,5 +1,7 @@
 import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
+import Title from "@/components/Title";
+import STYLES from "@/constants/styles";
 // import Title from "@/components/Title";
 import { useTheme } from "@/theme/ThemeContext";
 import { Stack } from "expo-router";
@@ -14,7 +16,8 @@ const SettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<HeaderTitle title="Settings" />),
+                    headerTitle: () => (<Title title="Settings" contentStyle={STYLES.headerTitle}
+                alignCenter />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
                     headerRight: () => (<View style={{width:24, height: 24}}/>)
                 }}

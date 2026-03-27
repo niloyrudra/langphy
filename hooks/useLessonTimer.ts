@@ -1,3 +1,4 @@
+import { toastSuccess } from "@/services/toast.service";
 import { useCallback, useRef } from "react"
 
 export const useLessonTimer = () => {
@@ -8,6 +9,7 @@ export const useLessonTimer = () => {
 
         startRef.current = Date.now();
         console.log("***TIMER*** Started...", startRef.current);
+        // toastSuccess("Lesson timer started!")
     }, []);
 
     const stop = useCallback(() => {
@@ -21,7 +23,7 @@ export const useLessonTimer = () => {
         console.log("***TIMER*** Stopped...", Date.now() - startRef.current);
 
         startRef.current = null;
-        
+        // toastSuccess("Lesson timer stopped!")
         return duration;
     }, []);
     

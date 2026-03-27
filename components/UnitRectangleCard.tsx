@@ -8,6 +8,7 @@ import { useTheme } from '@/theme/ThemeContext';
 import AppImage from './AppImage';
 import { Images } from '@/constants/images';
 import { useFeedback } from '@/utils/feedback';
+import TitleHeading from './TitleHeading';
 
 type unitItemType = {
   unitId: string,
@@ -50,12 +51,14 @@ const UnitRectangleCard: React.FC<unitItemType> = ({ title, unitId, unitSlug, ca
           <AppImage source={Images.unit.dolphin_reading} size={49} />
         </View>
 
-        <Title title={title} />
-
-        <View style={[STYLES.childContentCentered, styles.progressBarWrapper]}>
-          {/* <ProgressBar completion={completionMatrix} /> */}
+        <View style={styles.titleWrapper}>
+          <TitleHeading title={title} />
         </View>
 
+        {/* <View style={[STYLES.childContentCentered, styles.progressBarWrapper]}> */}
+          {/* <ProgressBar completion={completionMatrix} /> */}
+        {/* </View> */}
+        {/* <View style={{width: 16}} /> */}
       </View>
     </TouchableOpacity>
   );
@@ -67,17 +70,19 @@ const styles = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     flexDirection: "row",
-    gap: 16,
-    justifyContent: "space-between",
+    // gap: 16,
+    // justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "center",
 
     borderRadius: 16,
     borderWidth: 1,
 
     padding: 0,
+    // paddingRight: 16,
     // paddingHorizontal: 0, // 24
 
-    width: sizes.screenWidth - (sizes.bodyPaddingHorizontal*2),
+    // width: sizes.screenWidth - (sizes.bodyPaddingHorizontal*2),
     height: 78,
   },
   imageWrapper: {
@@ -86,13 +91,14 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
     borderBottomLeftRadius: 16,
   },
-  progressBarWrapper: {
-    width: 75,
-    height: 75,
-    borderTopRightRadius: 16,
-    borderBottomRightRadius: 16,
-  },
-  progressBar: {
-    width: 52
-  }
+  titleWrapper: {flex:1, paddingHorizontal: 16}
+  // progressBarWrapper: {
+  //   width: 75,
+  //   height: 75,
+  //   borderTopRightRadius: 16,
+  //   borderBottomRightRadius: 16,
+  // },
+  // progressBar: {
+  //   width: 52
+  // }
 });

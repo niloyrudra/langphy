@@ -38,7 +38,7 @@ const CategoryCard = ( { cat_id, title, slug}: CategoryProps ) => {
         ]}
       >
         <GridCardIcon slug={slug} type="category" />
-        <TitleHeading title={title} />
+        <TitleHeading title={title} customStyle={{textAlign: "center"}} />
       </View>
     </TouchableOpacity>
   );
@@ -48,10 +48,11 @@ export default CategoryCard;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    gap: 16, // 20
+    gap: 10, // 20
     borderRadius: 24,
     borderWidth: 1,
     paddingVertical: 16,
+    paddingHorizontal: 16,
     margin:0,
   },
 });

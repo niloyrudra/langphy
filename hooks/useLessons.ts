@@ -4,6 +4,7 @@ import { SessionType } from "@/types";
 import { normalizeLessons } from "@/utils";
 import { fetchLessonsFromAPI } from "@/services/lessons.service";
 import { toast } from "@backpackapp-io/react-native-toast";
+import { toastError, toastSuccess } from "@/services/toast.service";
 
 export const useLessons = ( categoryId: string, unitId: string, type: SessionType ) => {
     return useQuery({
@@ -36,13 +37,13 @@ export const useLessons = ( categoryId: string, unitId: string, type: SessionTyp
                     .then(saveLessons)
                     .catch(console.warn);
 
-                toast.success(`${type.toUpperCase()} Lessons fetched successfully!`)
+                toastSuccess(`${type.toUpperCase()} Session On!`)
 
                 return local;
             }
             catch(error) {
                 console.error("Use Lessons Error:", error);
-                toast.error(`${type.toUpperCase()} Lessons fetching failed!`)
+                toastError(`${type.toUpperCase()} Session failed to load!`)
                 return [];
             }
         },

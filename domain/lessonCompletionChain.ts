@@ -5,6 +5,7 @@ import { avgScore, sumSessionDuration } from "./sessionRules";
 import { applyStreakIfEligible } from "./streakRules";
 import { enqueueEvent } from "@/events/localEvents";
 import { LessonCompletedEvent, SessionCompletedEvent, StreakUpdateEvent } from "@/events/kafkaContracts";
+import { toastSuccess } from "@/services/toast.service";
 
 type LessonCompletionChainInput = {
   categoryId: string;
@@ -32,6 +33,7 @@ export const lessonCompletionChain = async (
   await markLessonCompleted({
     category_id: input.categoryId,
     unit_id: input.unitId,
+    user_id: input.userId, // ***
     content_type: input.lessonType,
     lessonId: input.lessonId,
     sessionKey: input.sessionKey,
@@ -57,6 +59,8 @@ export const lessonCompletionChain = async (
       occurredAt: now,
     }
   );
+
+  toastSuccess("Lesson Completed!");
 
   /* ----------------------------------
    * STOP if not final lesson
@@ -96,6 +100,7 @@ export const lessonCompletionChain = async (
       }
     );
     console.log("Streak Updated...");
+    toastSuccess(`Streak undated!`);
   }
 
   // 5️⃣ Emit session.completed event
@@ -113,6 +118,7 @@ export const lessonCompletionChain = async (
   );
 
   console.log("Session Completion Updated...");
+  toastSuccess(`Session Completion!`);
   
   return {
     streakUpdated: !!streak?.updated,

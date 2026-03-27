@@ -11,12 +11,14 @@ const LessonDetailsItem = ( {label, content}: {label: string, content: string | 
     const {colors} = useTheme();
     return (
         <View style={styles.container}>
-            <LangphyText style={styles.subText}>{label}:</LangphyText>
-            {
-                (typeof content !== 'string')
-                    ? (<LangphyText style={[styles.subText, STYLES.wordWrapStyle, { color: colors.textSubColor }]}>{content}</LangphyText>)
-                    : (<LangphyText style={[styles.germanLevel, STYLES.wordWrapStyle, { color: colors.textSubColor }]}>{content}</LangphyText>)
-            }
+            <LangphyText>
+                <LangphyText style={styles.label}>{label}:{" "}</LangphyText>
+                {
+                    (typeof content !== 'string')
+                        ? (<LangphyText style={[styles.germanLevel, STYLES.wordWrapStyle, { color: colors.text }]}>{content}</LangphyText>)
+                        : (<LangphyText style={[styles.content, STYLES.wordWrapStyle, { color: colors.text }]}>{content}</LangphyText>)
+                }
+            </LangphyText>
         </View>
     )
 }
@@ -29,8 +31,13 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         marginBottom: 5
     },
-    subText: {
-        fontSize: 13,
+    label: {
+        fontSize: 12,
+        fontWeight: "400",
+        color: "#24DEEC"
+    },
+    content: {
+        fontSize: 12,
         fontWeight: "400",
         color: "#24DEEC"
     },

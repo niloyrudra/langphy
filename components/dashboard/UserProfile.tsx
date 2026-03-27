@@ -9,6 +9,8 @@ import EditButton from './_partials/EditButton';
 import { DBProfile } from '@/db/profile.repo';
 import { getCompletedLessons } from '@/db/progress.repo';
 
+const TOTAL_LESSON_COUNT: number = 7728+7711+7711+7711+2385+2385;
+
 const UserProfile = ({profile, isLoading, isFetching}: {profile: DBProfile | null, isLoading: boolean, isFetching: boolean}) => {
     const { colors } = useTheme();
     const displayName = React.useCallback(() => {
@@ -27,7 +29,7 @@ const UserProfile = ({profile, isLoading, isFetching}: {profile: DBProfile | nul
         const loadLessonData = async () => {
             try {
                 const completedLessonCount = await getCompletedLessons();
-                const progressPercentage = completedLessonCount > 0 ? Math.round( (completedLessonCount/7630)*100 ) : 0;
+                const progressPercentage = completedLessonCount > 0 ? Math.round( (completedLessonCount/TOTAL_LESSON_COUNT)*100 ) : 0;
                 setProgressPercent(progressPercentage);
             }
             catch(error) {

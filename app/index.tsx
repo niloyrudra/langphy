@@ -1,4 +1,3 @@
-// import 'react-native-get-random-values';
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
 import { warmUpSpeech } from "@/helpers/speechController";
@@ -9,10 +8,11 @@ import { registerBackgroundSync } from "@/sync/backgroundSync";
 import { useLessonTimer } from "@/hooks/useLessonTimer";
 import LoadingScreenComponent from "@/components/LoadingScreenComponent";
 import { registerForPushNotifications, setupNotificationHandler } from "@/domain/notificationRules";
-import api from "@/lib/api";
 import Constants from "expo-constants";
-import { toast } from "@backpackapp-io/react-native-toast";
+// import { toast } from "@backpackapp-io/react-native-toast";
 import { preloadFeedbackSounds } from "@/utils/feedback";
+import { registerDevicesForNotification } from "@/services/notification.service";
+import { toastSuccess } from "@/services/toast.service";
 
 const isExpoGo = Constants.appOwnership === "expo";
 
@@ -35,14 +35,12 @@ const App = () => {
         const token = await registerForPushNotifications();
         if (!token) return;
         if (isExpoGo) {
-            console.log("Skipping ads in Expo Go");
-            return;
+          console.log("Skipping ads in Expo Go");
+          return;
         }
 
-        await api.post("/notification/devices/register", {
-          token,
-          platform: Platform.OS,
-        });
+        await registerDevicesForNotification(token);
+        
       } catch (error) {
         console.warn("Device registration failed", error);
       }
@@ -61,7 +59,7 @@ const App = () => {
     })();
 
     warmUpSpeech();
-    toast.success('Welcome to Langphy!');
+    toastSuccess('Welcome to Langphy!');
     
   }, []);
 

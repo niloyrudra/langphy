@@ -14,9 +14,9 @@ import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
-import { analysisNLP } from '@/services/nlpAnalysis.service';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
+import { analysisNLP } from '@/services/nlp.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 

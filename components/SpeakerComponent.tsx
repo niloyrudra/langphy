@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import { speechHandler } from '@/utils';
 import AnimatedSpeaker from './AnimatedSpeaker';
@@ -9,12 +9,14 @@ interface SpeakerComponentProps {
   speechContent: string;
   speechLang: 'en-US' | 'de-DE' | string;
   isSlowing?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
   speechContent,
   speechLang,
   isSlowing = false,
+  style
 }) => {
   const { colors } = useTheme();
   const [isLoading, setLoading] = React.useState<boolean>(false);
@@ -26,7 +28,7 @@ const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
   }, [speechHandler, speechContent, speechLang, setLoading]);
 
   return (
-    <TouchableOpacity disabled={isLoading} onPress={handlePress}>
+    <TouchableOpacity disabled={isLoading} onPress={handlePress} style={[(style && style)]}>
       {isLoading
         ? (<ActivityIndicator size={33} color={colors.primary} />)
         : (<AnimatedSpeaker speakerRef={speakerRef} lang={speechLang} />)

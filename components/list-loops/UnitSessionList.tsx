@@ -1,7 +1,7 @@
 import React from 'react';
 import { UnitLesson } from '@/types';
 import GridLayout from '../layouts/GridLayout';
-import { LESSON_UNIT_DATA } from '@/schemas/static-data'
+import { LESSON_UNIT_DATA } from '@/static-data/static-data'
 import { useLocalSearchParams } from 'expo-router';
 import UnitSessionCard from '../UnitSessionCard';
 

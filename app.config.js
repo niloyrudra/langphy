@@ -6,19 +6,20 @@ export default {
     slug: "langphy",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/images/splash-screen/logo-light-mode.png",
+    icon: "./assets/images/app-icon-1024x1024.png",
     scheme: "langphy",
     userInterfaceStyle: "automatic",
     // enableHermes: true,
     newArchEnabled: true, // ***
     ios: {
-      supportsTablet: true
+      supportsTablet: true,
+      icon: "./assets/images/app-icon-1024x1024.png",
     },
     android: {
       usesCleartextTraffic: true,
       adaptiveIcon: {
-        foregroundImage: "./assets/images/splash-screen/logo-light-mode.png",
-        backgroundColor: "#F9FAFB"
+        foregroundImage: "./assets/images/app-icon-1024x1024.png",
+        backgroundColor: "#061E3E" // "#F9FAFB"
       },
       package: "com.niloyrudra.langphy",
       softwareKeyboardLayoutMode: "pan"
@@ -26,7 +27,7 @@ export default {
     web: {
       bundler: "metro",
       output: "static",
-      favicon: "./assets/images/favicon/Dolphin.png"
+      favicon: "./assets/images/app-icon-1024x1024.png"
     },
     plugins: [
       "expo-audio",
@@ -47,12 +48,12 @@ export default {
       [
         "expo-splash-screen",
         {
-          image: "./assets/images/splash-screen/logo-light-mode.png",
+          image: "./assets/images/app-splash-light.png",
           imageWidth: 200,
           resizeMode: "contain",
           backgroundColor: "#F9FAFB",
           dark: {
-            image: "./assets/images/splash-screen/logo-dark-mode.png",
+            image: "./assets/images/app-splash-dark.png",
             backgroundColor: "#012C4A"
           }
         }

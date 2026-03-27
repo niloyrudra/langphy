@@ -6,9 +6,9 @@ import LangphyText from '@/components/text-components/LangphyText'
 const ModalColorIndicatorComponent = ({name, color}: {name: string, color: ColorValue}) => {
   return (
     <View style={styles.container}>
-        <AntDesign name="pinterest" size={20} color={color} />
+        <AntDesign name="pinterest" size={14} color={color} />
         <LangphyText
-            weight="bold"
+            weight="medium"
             style={[styles.text, {color: color}]}
         >
             {name}
@@ -25,5 +25,5 @@ const styles = StyleSheet.create({
         gap: 10,
         alignItems: "center"
     },
-    text: {fontSize: 14}
+    text: {fontSize: 12}
 });

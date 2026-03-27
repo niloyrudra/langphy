@@ -156,14 +156,7 @@ const QuizSession = () => {
             {/* QUIZ Section Starts */}
             <View>
               <View style={styles.questionWrapper}>
-                <View style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 15,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: colors.cardIconBackgroundColor
-                }}>
+                <View style={[styles.queryIcon, {backgroundColor: colors.cardIconBackgroundColor}]}>
                   <AntDesign name="question" size={20} color={colors.text} />
                 </View>
                 <LangphyText weight="semibold" style={[styles.question, {color: colors.text}]}>
@@ -209,6 +202,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 10,
     gap: 10
+  },
+  queryIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
   },
   question: {
     fontSize: 20,

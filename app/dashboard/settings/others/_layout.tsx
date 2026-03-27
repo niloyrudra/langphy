@@ -3,6 +3,7 @@ import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButt
 // import Title from "@/components/Title";
 import { useTheme } from "@/theme/ThemeContext";
 import { Stack } from "expo-router";
+import { View } from "react-native";
 
 const AdditionalSettingsLayout = () => {
     const {colors} = useTheme();
@@ -15,6 +16,7 @@ const AdditionalSettingsLayout = () => {
                     headerShadowVisible: false,
                     headerTitle: () => (<HeaderTitle title="Help Center" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
+                    headerRight: () => (<View style={{width: 40, height: 40}}/>)
                 }}
             />
             <Stack.Screen

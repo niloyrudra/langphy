@@ -7,7 +7,7 @@ import { MilestonesType } from '@/types';
 import SIZES from '@/constants/size';
 import { useStreak } from '@/hooks/useStreaks';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { milestonesData } from '@/schemas/static-data';
+import { milestonesData } from '@/static-data/static-data';
 
 const Milestones = ({title}: {title:string}) => {
     const userId = authSnapshot.getUserId() ?? null;

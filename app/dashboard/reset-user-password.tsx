@@ -5,12 +5,10 @@ import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingVie
 import { Formik } from 'formik';
 import * as Yup from "yup";
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-// import { router } from 'expo-router';
-// import { useTheme } from '@/theme/ThemeContext';
-// import { useAuth } from '@/context/AuthContext';
 import AuthInput from '@/components/form-components/auth/AuthInput';
-import api from '@/lib/api';
 import { toast } from '@backpackapp-io/react-native-toast';
+import { resetPassword } from '@/services/profie.service';
+import { toastError, toastSuccess } from '@/services/toast.service';
 
 const ResetUserPaswordSchema = Yup.object().shape({
     newPassword: Yup.string().min(4, "Password must be at least 4 characters").required("New Password is required"),
@@ -27,31 +25,26 @@ const ResetUserPaswordScreen = () => {
     ) => {
         if( newPassword != confirmedPassword ) return toast.error("Passwords must match each other!");
         try {
-            setLoading(true)
+            setLoading(true);
 
-            const res = await api.put(
-                "/users/profile/reset-password",
-                {
-                    password: newPassword
-                }
-            );
-    
+            const res = await resetPassword( newPassword );
+
             if( res.status === 200 && res.data! ) {  
                 const { message } = res.data;
 
-                if(message) toast.success( message )
-                else toast.success("Successfully updated profile!");
+                if(message) toastSuccess( message );
+                else toastSuccess("Successfully updated password!");
                 
                 // router.replace("/auth/login");
             }
             else {
-                toast.error( "Password update failed!" )
+                toastError( "Password update failed!" );
             }
     
         }
         catch(err) {
-            console.error("Password update Error:", err)
-            toast.error("Password update failed!")
+            console.error("Password update Error:", err);
+            toastError("Password update failed!");
         }
         finally {
             setLoading(false)

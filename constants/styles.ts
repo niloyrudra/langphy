@@ -51,7 +51,7 @@ const boxShadow: StyleProp<ViewProps> = <ViewProps> {
 
 const headerTitle: StyleProp<TextProps> = <TextProps> {
     fontSize: 20, // 24
-    fontWeight: "900"
+    fontWeight: "600"
 }
 
 
@@ -91,6 +91,8 @@ const titleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
     fontSize: 12,
     fontWeight: "900",
     lineHeight: 16,
+
+    wordWrap: "break-word"
 };
 const subTitleHeadingStyle: StyleProp<ViewProps> = <ViewProps> {
     fontSize: 14,

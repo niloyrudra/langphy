@@ -13,16 +13,16 @@ type UserEntitlement = {
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
 type UserData = {
-  email: string,
-  password: string,
-  emailVerified?: boolean
+  email: string;
+  password: string;
+  emailVerified?: boolean;
 }
 
 type Category = {
-  _id: string,
-  title: string,
-  slug: string,
-  position_at: string
+  _id: string;
+  title: string;
+  slug: string;
+  position_at: string;
 }
 
 type LocalCategory = {
@@ -33,12 +33,11 @@ type LocalCategory = {
 }
 
 type CategoryProps = {
-  cat_id: string,
-  title: string,
-  slug: string,
-  ImgComponent?: React.FC<SvgProps>,
-  containerWidth?: number
-  // marginRight?: number
+  cat_id: string;
+  title: string;
+  slug: string;
+  ImgComponent?: React.FC<SvgProps>;
+  containerWidth?: number;
 }
 
 // UNIT LESSON
@@ -50,71 +49,54 @@ type LocalUnitType = {
 }
 
 type APIUnitType = {
-  _id: string,
-  categoryId: string,
-  title: string,
-  slug: string
+  _id: string;
+  categoryId: string;
+  title: string;
+  slug: string;
 }
 
 type UnitLesson = {
-  id: string,
-  title: string,
-  slug: string,
-  // completion: number,
-  // goal: number,
-  // ImgComponent: React.FC<SvgProps>
+  id: string;
+  title: string;
+  slug: string;
 }
 
 type UnitLessonProps = {
-  id: string,
-  title: string,
-  slug: string,
-  rootCategory: string,
-  unitLessonCategory: string,
-  // completion: number,
-  // goal: number,
-  // ImgComponent: React.FC<SvgProps>,
-  containerWidth?: number,
-  marginRight?: number
+  id: string;
+  title: string;
+  slug: string;
+  rootCategory: string;
+  unitLessonCategory: string;
+  containerWidth?: number;
+  marginRight?: number;
 }
 // UNIT Props
 type UnitProps = {
-  title: string,
-  completion: number,
-  goal: number,
-  ImgComponent: React.FC<SvgProps>,
-  // imgSource: ImageSourcePropType | undefined,
-  customStyle?: StyleProp<ViewStyle>
+  title: string;
+  ImgComponent: React.FC<SvgProps>;
+  customStyle?: StyleProp<ViewStyle>;
 }
 type UnitCategoryItemProps = {
   title: string,
   unitLessonCategory: string,
   rootCategory: string,
-  // completion: number,
-  // goal: number,
   ImgComponent?: React.FC<SvgProps>,
   // imgSource: ImageSourcePropType | undefined,
   customStyle?: StyleProp<ViewStyle>,
-    // items: any[]
 }
 type UnitLessonItemProps = {
   id: string,
   title: string,
   slug: string,
-  // completion: number,
-  // goal: number,
   ImgComponent: React.FC<SvgProps>,
   containerWidth?: number,
   marginRight?: number,
-  // items: any[]
 }
 
 // UNIT DATA Props
 type UnitDataProps = {
   id: string,
   title: string,
-  // completion?: number,
-  // goal?: number,
   ImgComponent: React.FC<SvgProps>
 }
 
@@ -122,10 +104,6 @@ type UnitSessionType = {
   title: string,
   categoryId: string,
   unitId: string,
-  // goal?: number,
-  // completion?: number,
-  // marginRight?: number,
-  // ImgComponent: React.FC<SvgProps>,
   slug: string
 }
 
@@ -136,7 +114,7 @@ type PracticeSessionType = {
   id: string;
   _id?: string;
   phrase: string;
-  name?: string;
+  // name?: string;
   response: string;
   meaning: string;
   meaning_response: string;
@@ -144,12 +122,12 @@ type PracticeSessionType = {
   formality: "formal" | "informal" | "neutral" | "both";
   german_level: GermanLevel;
   grammar_note: string;
-  example_sentences?: string[];
-  audio_file?: string;
+  // example_sentences?: string[];
+  // audio_file?: string;
   region: string;
   discussion?: string;
-  ipa: string;
-  sound?: string;
+  // ipa: string;
+  // sound?: string;
   examples: Example[];
   analysis?: Analysis;
 };
@@ -170,154 +148,148 @@ type SpeakingSessionType = {
 
 // Reading
 type ReadingSessionType = {
-  _id?: string,
-  id: string,
-  categoryId: string,
-  unitId: string,
-  question_en: string,
-  options: [string, string, string, string], // Array<string>,
-  answer: string,
-  explanation: string,
-  phrase: string
+  _id?: string;
+  id: string;
+  categoryId: string;
+  unitId: string;
+  question_en: string;
+  options: [string, string, string, string];
+  answer: string;
+  explanation: string;
+  phrase: string;
 }
 
 type WritingSessionType = {
-  _id?: string,
-  id: string,
-  categoryId: string,
-  unitId: string,
-  phrase: string,
-  meaning: string,
-  german_level?: string,
+  _id?: string;
+  id: string;
+  categoryId: string;
+  unitId: string;
+  phrase: string;
+  meaning: string;
+  german_level?: string;
 }
 
 type ListeningSessionType = {
-  _id?: string,
-  id: string,
-  categoryId: string,
-  unitId: string,
-  phrase: string,
-  meaning: string,
-  german_level?: string,
+  _id?: string;
+  id: string;
+  categoryId: string;
+  unitId: string;
+  phrase: string;
+  meaning: string;
+  german_level?: string;
 }
 
 type QuizSessionType = {
-  _id?: string,
-  id: string,
-  categoryId: string,
-  unitId: string,
-  german_level: string,
-  question: string,
-  options: [string, string, string, string], // Array<string>,
-  answer: string,
-  explanation?: string
+  _id?: string;
+  id: string;
+  categoryId: string;
+  unitId: string;
+  german_level: string;
+  question: string;
+  options: [string, string, string, string]; // Array<string>,
+  answer: string;
+  explanation?: string;
 }
 
 type QuizProps = {
-  option: string,
-  // ref: React.Ref<any>,
-  selectedOption: string,
-  answer: string,
-  isCorrect?: boolean,
-  onSelect: (option: string ) => void,
-  // onSelect: (title: string, isCorrect: boolean ) => void,
-  isSelectionHappened?: boolean,
-  containerWidth: number
-  marginRight?: number
-  customStyle?: StyleProp<ViewStyle>
+  option: string;
+  selectedOption: string;
+  answer: string;
+  isCorrect?: boolean;
+  onSelect: (option: string ) => void;
+  isSelectionHappened?: boolean;
+  containerWidth: number;
+  marginRight?: number;
+  customStyle?: StyleProp<ViewStyle>;
 }
 
 type QuizOptionProps = {
-  options: [string, string, string, string],
-  answer: string,
-  isCorrect?: boolean,
-  selectedOption?: string,
-  height?: number,
-  isSelectionHappened: boolean,
-  onSelect: (title: string, isCorrect: boolean ) => void
+  options: [string, string, string, string];
+  answer: string;
+  isCorrect?: boolean;
+  selectedOption?: string;
+  height?: number;
+  isSelectionHappened: boolean;
+  onSelect: (title: string, isCorrect: boolean ) => void;
 }
 
 // LINK Props
 type LinkProps = {
-  text?: string,
-  linkText: string,
-  route: Href
+  text?: string;
+  linkText: string;
+  route: Href;
 }
 
 // BANNER Props
 type BannerProps = {
-  width?: number,
-  height?: number
+  width?: number;
+  height?: number;
 }
 // TITLE Props
 type TitleProps = {
-  title: string,
-  wrapperStyle?: StyleProp<ViewStyle>
-  titleStyle?: StyleProp<ViewProps>
+  title: string;
+  wrapperStyle?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<ViewProps>;
 }
 // ACTION BUTTON Props
 type SubmitButtonProps = {
-  buttonTitle?: string,
-  onSubmit: () => void,
-  buttonStyle?: StyleProp<ViewStyle>,
-  buttonTextStyle?: StyleProp<ViewProps>,
-  textStyle?: StyleProp<TextStyle>,
-  disabled?: boolean,
-  isLoading?: boolean
+  buttonTitle?: string;
+  onSubmit: () => void;
+  buttonStyle?: StyleProp<ViewStyle>;
+  buttonTextStyle?: StyleProp<ViewProps>;
+  textStyle?: StyleProp<TextStyle>;
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 type SubmitSecondaryButtonProps = {
-  buttonTitle?: string,
-  onSubmit: () => void,
-  buttonStyle?: StyleProp<ViewStyle>,
-  buttonTextStyle?: StyleProp<ViewProps>,
-  textStyle?: StyleProp<TextStyle>,
+  buttonTitle?: string;
+  onSubmit: () => void;
+  buttonStyle?: StyleProp<ViewStyle>;
+  buttonTextStyle?: StyleProp<ViewProps>;
+  textStyle?: StyleProp<TextStyle>;
   background?: ColorValue;
-  disabled?: boolean,
-  isLoading?: boolean
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 // TEXT_INPUT Props
-type InputProps = { // extends TextInputProps -> better approach
-  value: string,
-  placeholder?: string,
-  onChange: (text: string) => void,
-  onBlur: (e: any) => void,
-  // onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void,
-  multiline?: boolean,
-  numberOfLines?: number,
-  maxLength?: number,
-  inputMode?: InputModeOptions | undefined,
-  placeholderTextColor?: ColorValue | undefined,
-  isPassword?: boolean,
-  contentContainerStyle?: StyleProp<ViewStyle>
+type InputProps = {
+  value: string;
+  placeholder?: string;
+  onChange: (text: string) => void;
+  onBlur: (e: any) => void;
+  // onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  multiline?: boolean;
+  numberOfLines?: number;
+  maxLength?: number;
+  inputMode?: InputModeOptions | undefined;
+  placeholderTextColor?: ColorValue | undefined;
+  isPassword?: boolean;
+  contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
 type EyeProps = {
-  onChange: () => void,
-  isSecureTextEntry: boolean,
-  style?: StyleProp<ViewStyle>
+  onChange: () => void;
+  isSecureTextEntry: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 type ListeningProps = {
-  language: string,
-  // iconComponent?: ReactNode,
-  // iconTurtleComponent?: ReactNode | undefined,
-  children?: ReactNode | undefined,
-  color?: ColorValue | undefined,
-  style?: StyleProp<ViewStyle>,
-  buttonStyle?: StyleProp<ViewStyle>,
-  speechContent?: string,
-  speechLang?: string
+  language: string;
+  children?: ReactNode | undefined;
+  color?: ColorValue | undefined;
+  style?: StyleProp<ViewStyle>;
+  buttonStyle?: StyleProp<ViewStyle>;
+  speechContent?: string;
+  speechLang?: string;
 }
 
 type LessonProps = {
-  language: string,
-  // iconComponent?: ReactNode,
-  // iconTurtleComponent?: ReactNode | undefined,
-  children?: ReactNode | undefined,
-  style?: StyleProp<ViewStyle>,
-  buttonStyle?: StyleProp<ViewStyle>,
-  speechContent?: string,
-  speechLang?: string
+  language: string;
+  children?: ReactNode | undefined;
+  style?: StyleProp<ViewStyle>;
+  buttonStyle?: StyleProp<ViewStyle>;
+  speechContent?: string;
+  speechLang?: string;
 }
 
 interface WordDataShape {
@@ -384,11 +356,8 @@ type Analysis = {
 type UnitIndividualCategory = {
   category: string;
   category_slug: string;
-  // goal: number;
-  // completion: number;
   notes?: string[];
   ImgComponent: React.FC<SvgProps>;
-  // items: UnitIndividualCategoryItem[];
 };
 
 type DB = {
@@ -471,26 +440,20 @@ type ToolTip = {
   x: number;
   y: number;
   token?: Token;
-  // translation: string;
-  // color: string;
 }
 
 type SettingsElement = {
-  elementTitle: string,
-  ImgComponentLight: FC<SVGProps<SVGSVGElement>>,
-  ImgComponentDark: FC<SVGProps<SVGSVGElement>>,
-  actionType: "switcher" | "router",
-  settingType: string,
-  route: string,
+  elementTitle: string;
+  ImgComponentLight: FC<SVGProps<SVGSVGElement>>;
+  ImgComponentDark: FC<SVGProps<SVGSVGElement>>;
+  actionType: "switcher" | "router";
+  settingType: string;
+  route: string;
 }
 
-// type SettingsData = {
-//   subSettingTitle: string,
-//   settingsElements: SettingsElement[]
-// }
 type SettingsData = {
-  title: string,
-  data: SettingsElement[]
+  title: string;
+  data: SettingsElement[];
 }
 
 /** Context Types */
@@ -548,7 +511,6 @@ type Token = {
   pronunciation: { difficulty: number, flags: string | string[] };
   display: string | null;
   color: string | null;
-    // color: ColorValue | string | null;
 }
 
 type Segments = {
@@ -696,6 +658,7 @@ type ProgressPayload = {
 type DBProgress = {
   category_id: string;
   unit_id: string,
+  user_id: string; // essential to fetch data based on user
   content_type: string;
   content_id: string;
   completed: number;
@@ -754,7 +717,18 @@ type MilestonesType = {
   icon: ImageSourcePropType;
 }
 
+type FontWeight =
+  | "thin"
+  | "light"
+  | "regular"
+  | "medium"
+  | "semibold"
+  | "bold"
+  | "extrabold"
+  | "black";
+
 export {
+  FontWeight,
   GermanLevel,
 
   UserEntitlement,

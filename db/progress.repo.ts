@@ -1,5 +1,6 @@
 import { DBProgress, SessionType } from "@/types";
 import { db } from "./index";
+import { authSnapshot } from "@/snapshots/authSnapshot";
 
 export const getAllProgress = async (): Promise<DBProgress[]> => {
   return await db.getAllAsync<DBProgress>(
@@ -14,10 +15,11 @@ export const getDirtyProgress = async (): Promise<DBProgress[]> => {
 };
 
 export const getSessionProgress = async ( sessionKey: string ): Promise<DBProgress[]> => {
+  const userId = authSnapshot.getUserId() ?? "";
   try {
     return await db.getAllAsync<DBProgress>(
-      "SELECT * FROM lp_progress WHERE session_key = ?",
-      [sessionKey]
+      "SELECT * FROM lp_progress WHERE session_key = ? AND user_id = ?",
+      [sessionKey, userId]
     );
   } catch (error) {
     console.error("getSessionProgress error:", error);
@@ -29,12 +31,27 @@ export const upsertProgress = async ( p: DBProgress ) => {
   try {
     const result = await db.runAsync(
       `INSERT OR REPLACE INTO lp_progress
-      (category_id, unit_id, content_type, content_id, session_key, lesson_order, completed, score, duration_ms, progress_percent, updated_at, dirty)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (
+        category_id,
+        unit_id,
+        user_id,
+        content_type,
+        content_id,
+        session_key,
+        lesson_order,
+        completed,
+        score,
+        duration_ms,
+        progress_percent,
+        updated_at,
+        dirty
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       RETURNING session_key`,
       [
         p.category_id,
         p.unit_id,
+        p.user_id,
         p.content_type,
         p.content_id,
         p.session_key,
@@ -55,10 +72,13 @@ export const upsertProgress = async ( p: DBProgress ) => {
 };
 
 export const countCompletedLessons = async ( sessionKey: string ) => {
+  const userId = authSnapshot.getUserId() ?? "";
   try {
     const result = await db.getFirstAsync<{ count: number }>(
-      `SELECT COUNT(*) as count FROM lp_progress WHERE session_key = ? AND completed = 1`,
-      [sessionKey]
+      `SELECT COUNT(*) as count
+      FROM lp_progress
+      WHERE session_key = ? AND completed = 1 AND user_id = ?`,
+      [sessionKey, userId]
     );
 
     return result?.count ?? 0;
@@ -69,31 +89,34 @@ export const countCompletedLessons = async ( sessionKey: string ) => {
 }
 
 export const getCompletedLessons = async () => {
-    try {
-        const result = await db.getFirstAsync<{count: number}>(`
-            SELECT count(*) as count
-            FROM lp_progress
-            WHERE completed = 1
-        `);
-        console.log("DB ready check");
-        return result?.count ?? 0;
-    }
-    catch(error) {
-        console.error("Get Completed Lessons Error:", error)
-        throw error;
-    }
+  const userId = authSnapshot.getUserId() ?? '';
+  try {
+    const result = await db.getFirstAsync<{count: number}>(`
+      SELECT count(*) as count
+      FROM lp_progress
+      WHERE completed = 1
+      AND user_id = ?
+    `, [userId]);
+    console.log("DB ready check");
+    return result?.count ?? 0;
+  }
+  catch(error) {
+    console.error("Get Completed Lessons Error:", error)
+    throw error;
+  }
 }
 
 export const getLessonProgress = async () => {
+  const userId = authSnapshot.getUserId() ?? '';
   try {
     const result = await db.getFirstAsync<{
       completed: number;
       total: number;
     }>(`
       SELECT
-        (SELECT COUNT(*) FROM lp_lesson_progress WHERE completed = 1) as completed,
+        (SELECT COUNT(*) FROM lp_progress WHERE completed = 1) as completed and user_id = ?,
         (SELECT COUNT(*) FROM lp_lessons) as total
-    `);
+    `, [userId]);
 
     const completed = result?.completed ?? 0;
     const total = result?.total ?? 0;
@@ -114,6 +137,7 @@ export const getLessonProgress = async () => {
 interface MarkLessonCompleted {
   category_id: string,
   unit_id: string,
+  user_id: string,
   content_type: SessionType;
   lessonId: string;
   sessionKey: string;
@@ -131,6 +155,7 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
       INSERT INTO lp_progress
         (category_id,
         unit_id,
+        user_id,
         content_type,
         content_id,
         completed,
@@ -142,7 +167,7 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
         updated_at,
         dirty)
       VALUES
-        (?, ?, ?, ?, 1, ?, ?, ?, 100, ?, ?, 1)
+        (?, ?, ?, ?, ?, 1, ?, ?, ?, 100, ?, ?, 1)
       ON CONFLICT(content_type, content_id)
       DO UPDATE SET
         completed = 1,
@@ -154,6 +179,7 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
       [
         payload.category_id,
         payload.unit_id,
+        payload.user_id,
         payload.content_type,
         payload.lessonId,
         payload.score ?? 0,

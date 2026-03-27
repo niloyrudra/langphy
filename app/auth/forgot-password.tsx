@@ -7,9 +7,9 @@ import { useAuth } from '@/context/AuthContext';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import AuthInput from '@/components/form-components/auth/AuthInput';
 import PlainTextLink from '@/components/form-components/auth/PlainTextLink';
-import api from '@/lib/api';
-import { toast } from '@backpackapp-io/react-native-toast';
 import { useFeedback } from '@/utils/feedback';
+import { resetPasswordByEmail } from '@/services/auth.service';
+import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
 
 const ResetPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is rewuired!"),
@@ -23,26 +23,23 @@ const ForgotPasswordScreen = () => {
   const {triggerFeedback} = useFeedback();
 
   const handleResetPassword = async ( email: string, password: string, confirmedPassword: string ) => {
-    if( user?.email == email.trim() ) return toast.error("Your email is incorrect.");
-    if( password !== confirmedPassword ) return toast.error("Passwords must match each other!");
+    if( user?.email == email.trim() ) return toastError("Your email is incorrect.");
+    if( password !== confirmedPassword ) return toastError("Passwords must match each other!");
+    const toastId = toastLoading("Password reset processing...");
     try {
       setLoading(true)
-      const res = await api.put(
-        `/users/reset-password`,
-        {
-          email,
-          password
-        }
-      );
-      if( res.status !== 200 ) return toast.error(res.statusText)
 
-      const {data} = res
+      const res = await resetPasswordByEmail( email, password );
+
+      if( res.status !== 200 ) return toastError(res.statusText, { id: toastId! });
+
+      const {data} = res;
       console.log(data);
-      if( data.message ) toast.success(data.message);
+      if( data.message ) toastSuccess(data.message, { id: toastId! });
     }
     catch(err) {
-      setLoading(false)
-      toast.error( 'Password reset failed!' );
+      setLoading(false);
+      toastError( 'Password reset failed!', { id: toastId! } );
     }
     finally {
       setLoading(false);

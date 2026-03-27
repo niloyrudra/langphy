@@ -3,9 +3,11 @@ import React from 'react';
 import { RecorderLightActiveIcon, RecorderPlay, RecorderStop } from '@/utils/SVGImages';
 import SIZES from '@/constants/size';
 import SoundRipple from '../animated-components/_helper-components/SoundRipple';
+import { SvgProps } from 'react-native-svg';
 
 type RecorderActionButtonProps = {
     isActive: boolean;
+    showRipple?: boolean;
     isRecording?: boolean;
     isRecorded?: boolean;
     isPlaying?: boolean;
@@ -21,6 +23,7 @@ const dimensions = {
 
 const RecorderActionButton: React.FC<RecorderActionButtonProps> = ({
     isActive,
+    showRipple = true,
     isRecording = false,
     isRecorded = false,
     isPlaying = false,
@@ -29,7 +32,7 @@ const RecorderActionButton: React.FC<RecorderActionButtonProps> = ({
     onActionHandler,
 }) => {
     // Determine which icon to render
-    let IconComponent;
+    let IconComponent: React.FC<SvgProps>;
 
     if (isPlaying) {
         IconComponent = RecorderStop;
@@ -43,7 +46,7 @@ const RecorderActionButton: React.FC<RecorderActionButtonProps> = ({
 
     return (
         <TouchableOpacity onPress={onActionHandler} style={styles.button}>
-            <SoundRipple isSpeaking={isRecording} size={rippleSize}/>
+            {showRipple && (<SoundRipple isSpeaking={isRecording} size={rippleSize}/>)}
             <IconComponent {...dimensions} style={styles.icon} />
         </TouchableOpacity>
     );

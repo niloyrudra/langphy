@@ -1,12 +1,14 @@
 import { ColorValue, StyleSheet } from 'react-native'
 import React from 'react'
 import LangphyText from '@/components/text-components/LangphyText';
+import { useTheme } from '@/theme/ThemeContext';
 
-const ModalSectionTitle = ({title, color="#68F0F8"}: {title: string, color: ColorValue}) => {
+const ModalSectionTitle = ({title, color}: {title: string, color?: ColorValue}) => {
+    const {colors} = useTheme();
     return (
         <LangphyText
-            weight="bold"
-            style={[styles.text, { color}]}
+            weight="semibold"
+            style={[styles.text, (color ? { color} : {color: colors.text})]}
         >
             {title}
         </LangphyText>
@@ -16,5 +18,5 @@ const ModalSectionTitle = ({title, color="#68F0F8"}: {title: string, color: Colo
 export default ModalSectionTitle;
 
 const styles = StyleSheet.create({
-    text: {fontSize: 16}
+    text: {fontSize: 14}
 });

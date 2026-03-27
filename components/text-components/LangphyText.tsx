@@ -1,14 +1,5 @@
+import { FontWeight } from "@/types";
 import { Text, TextProps } from "react-native";
-
-type FontWeight =
-    | "thin"
-    | "light"
-    | "regular"
-    | "medium"
-    | "semibold"
-    | "bold"
-    | "extrabold"
-    | "black";
 
 interface LangphyTextProps extends TextProps {
     weight?: FontWeight;

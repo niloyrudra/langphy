@@ -36,7 +36,7 @@ const SecondaryActionButton = ( {
             >
                 <View style={[styles.buttonBg, {backgroundColor: background ?? colors.background}]} />
                 <LangphyText
-                    weight="extrabold"
+                    weight="semibold"
                     style={[
                         styles.text,
                         { color: (disabled ? colors.disabledButtonColor : colors.secondaryText )},
@@ -53,7 +53,6 @@ export default SecondaryActionButton;
 
 const styles = StyleSheet.create({
     content: {
-        // backgroundColor: "#EDEDED",
         borderRadius: 100,
         height: sizes.buttonHeight
     },

@@ -4,17 +4,11 @@ import { useTheme } from '@/theme/ThemeContext';
 import { NlpData, Token, ToolTip } from '@/types';
 import NLPWord from './NLPWord';
 import LangphyText from '../text-components/LangphyText';
-import api from '@/lib/api';
-
-// interface ToolTipProps {
-//     phrase: string;
-//     onHandler: (value: ToolTip | ((prev: ToolTip) => ToolTip)) => void;
-//     wordRefs: React.RefObject<Map<string, any>>;
-//     containerRef: React.RefObject<View | null>;
-//     screenRef?: React.RefObject<View | null>;
-//     textContainerStyle?: StyleProp<ViewStyle>;
-//     textStyle?: StyleProp<TextStyle>;
-// }
+import NetInfo from "@react-native-community/netinfo";
+import { fetchNLPData } from '@/services/nlp.service';
+// import WordAnalyzer from '../tooltip-components/_partials/WordAnalyzer';
+// import { toast } from '@backpackapp-io/react-native-toast';
+import { toastError } from '@/services/toast.service';
 
 interface ToolTipProps {
     phrase: string;
@@ -30,9 +24,12 @@ interface ToolTipProps {
 
 const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, getTokens, wordRefs, containerRef, textStyle, textContainerStyle}) => {
     const { colors } = useTheme();
+    const [ isOnline, setIsOnline ] = React.useState<boolean>(true);
     const [ nlpTokens, setNlpTokens ] = React.useState<Token[]>([]);
     const [ loading, setLoading ] = React.useState<boolean>(false);
-    
+
+    const cacheRef = React.useRef<Map<string, Token[]>>(new Map());
+
     // ✅ owned here — guaranteed to attach
     const nlpContainerRef = React.useRef<View | null>(null);
 
@@ -45,17 +42,71 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, getTokens,
     );
 
     React.useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(state => {
+            setIsOnline(!!state.isConnected);
+        });
+
+        return unsubscribe;
+    }, []);
+
+    const fallbackTokenizer = (phrase: string): Token[] => {
+        return phrase.split(" ").map((word, idx) => ({
+            id: `${idx}`,
+            text: word,
+            lemma: word || null,
+            pos: "UNKNOWN",
+            tag: null,
+            dep: null,
+            is_stop: true,
+            case: null,
+            gender: null,
+            number: null,
+            meaning_en: null,
+            default_article: null,
+            pronunciation: {
+                difficulty: 0,
+                flags: "",
+            },
+            display: null,
+            color: null,
+        }));
+    };
+
+    React.useEffect(() => {
+
+        if(!isOnline) toastError( "Offline mode!" );
+
         const controller = new AbortController();
+
         const nlpHandler = async ( phrase: string ) => {
             const data: NlpData = { text: phrase ?? "" };
             setLoading(true);
+
+            // ✅ 1. OFFLINE MODE
+            if (!isOnline) {
+                const cached = cacheRef.current.get(phrase);
+
+                if (cached) {
+                    setNlpTokens(cached);
+                    getTokens?.(cached, phrase);
+                } else {
+                    const fallback = fallbackTokenizer(phrase);
+                    setNlpTokens(fallback);
+                    getTokens?.(fallback, phrase);
+                }
+
+                setLoading(false);
+                return;
+            }
+
+            // ✅ 2. ONLINE MODE
             try {
-                const res = await api.post("/nlp/analyze/lesson", data, {
-                    signal: controller.signal,  // ← cancel if component unmounts or phrase changes
+                const res = await fetchNLPData(data, {
+                    signal: controller.signal,
                 });
 
-                if( res.status !== 200 ) {
-                    const errText = res.statusText;
+                if( res?.status !== 200 ) {
+                    const errText = res?.statusText;
                     console.error("NLP request failed:", errText);
                     return;
                 }
@@ -88,7 +139,7 @@ const NLPAnalyzedPhase: React.FC<ToolTipProps> = ({phrase, onHandler, getTokens,
 
     }, [phrase]);
 
-    if( loading ) return (
+    if( loading && nlpTokens.length === 0 ) return (
         <View style={styles.loader}>
             <LangphyText style={[styles.loaderContent, {color: colors.text}]}>... ...</LangphyText>
         </View>

@@ -11,7 +11,6 @@ import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
-// import { RecorderReload } from '@/utils/SVGImages';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
@@ -153,11 +152,15 @@ const SpeakingLessons = () => {
               <ChallengeScreenTitle title="Speak This Sentence" />
               {/* Writing Section Starts */}
               <View style={styles.taskContainer}>
+                
                 <View style={[styles.container]}>
                   {/* Query Listen with Query Text Section */}
                   <SpeakerComponent
                     speechContent={item.phrase}
                     speechLang='de-DE'
+                    style={{
+                      alignItems: "flex-start"
+                    }}
                   />
                                            
                   {/* Tappable Words with ToolTip */}
@@ -179,11 +182,11 @@ const SpeakingLessons = () => {
                     {isRecordingDone && (<RefreshPlayer onPress={onRefresh} />)}
                     <RecorderActionButton
                       isActive={!isRecording}
+                      showRipple={false}
                       isRecording={isRecording}
                       isRecorded={isRecordingDone}
                       isPaused={isPaused}
                       isPlaying={isPlaying}
-                      rippleSize={140}
                       onActionHandler={recorderHandler}
                     />
                   </View>
@@ -229,10 +232,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 20,
     alignItems: "center",
-    justifyContent: "center",
-
-    // borderWidth: 1,
-    // borderColor: "#FFF"
+    justifyContent: "center"
   },
   taskContainer: {
     flex:1,
@@ -243,13 +243,8 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   recordingSection: {
-    width: "100%",
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // gap: 10
+    width: "100%"
   },
   nlpWidth: {width: '80%'},
-  // button: {borderRadius: 30, overflow: "hidden"},
   error: {color: "red"}
 })

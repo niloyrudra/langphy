@@ -12,13 +12,19 @@ import {
     CREATE_USER_VOCABULARY_TABLE
 } from "./schema";
 
+// import * as SecureStore from "expo-secure-store"; 
+
 export const runMigrations = async () => {
+    // await SecureStore.deleteItemAsync('accessToken');
     // await db.runAsync(`DELETE FROM lp_categories`);
+    // await db.runAsync(`DELETE FROM lp_units`);
     // await db.runAsync(`DELETE FROM lp_profiles`);
     // await db.runAsync(`DELETE FROM lp_streaks`);
-    // await db.runAsync(`DELETE FROM lp_settngs`);
-    // await db.runAsync(`DELETE FROM lp_lesson`);
+    // await db.runAsync(`DELETE FROM lp_settings`);
+    // await db.runAsync(`DELETE FROM lp_vocabulary`);
+    // await db.runAsync(`DELETE FROM lp_lessons`);
     // await db.runAsync(`DELETE FROM lp_session_performance`);
+    // await db.runAsync(`DELETE FROM lp_progress`);
 
     // await db.runAsync(`DROP TABLE IF EXISTS lp_profiles`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_settings`);

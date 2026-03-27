@@ -8,10 +8,10 @@ const WordListItem = ({word, pos}: {word: string, pos: string}) => {
     const {colors} = useTheme();
     return (
         <View style={[styles.container, {backgroundColor: colors.background}]}>
-            <LangphyText weight="extrabold" style={[styles.word,{ color: colors.primary }]}>
+            <LangphyText weight="bold" style={[styles.word,{ color: colors.text }]}>
                 {word}
             </LangphyText>
-            <LangphyText weight="bold" style={[styles.feedback,{ color: colors.primary_900 }]}>
+            <LangphyText weight="semibold" style={[styles.feedback,{ color: colors.primary_900 }]}>
                 {pos}
             </LangphyText>
         </View>
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     word: {
-        fontSize: 16,
+        fontSize: 12,
     },
     feedback: {
-        fontSize: 12,
+        fontSize: 8,
     }
 })

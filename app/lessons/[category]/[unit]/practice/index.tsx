@@ -12,7 +12,7 @@ import ListeningComponent from '@/components/listening-components/ListeningCompo
 import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
-import PracticeLessonDetails from '@/components/practice-components/LessonDetails';
+import PracticeLessonDetails from '@/components/practice-components/PracticeLessonDetails';
 import { useLessons } from '@/hooks/useLessons';
 import { useProgress } from '@/hooks/useProgress';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
@@ -197,7 +197,6 @@ const PracticeLessons = () => {
         onActiveItemChange={activeItemChangeHandler}
         storeVocabulary={handleVocabulary}
       >
-        {/* {({ item, wordRefs, containerRef, disableHorizontalScroll, enableHorizontalScroll, setTooltip }) => { */}
         {({ item, wordRefs, containerRef, setTooltip }) => {
           const handleTooltip = (value: any) => setTooltip(value);
           return (
@@ -206,8 +205,6 @@ const PracticeLessons = () => {
                 ref={scrollToRef}
                 nestedScrollEnabled
                 showsVerticalScrollIndicator={false}
-                // onScrollBeginDrag={disableHorizontalScroll}
-                // onScrollEndDrag={enableHorizontalScroll}
                 scrollEventThrottle={16}
               >
                 <View style={styles.container}>
@@ -220,7 +217,7 @@ const PracticeLessons = () => {
                     speechContent={item.meaning}
                     speechLang="en-US"
                   >
-                    <LangphyText weight='semibold' style={[styles.text, { color: colors.text }]}>
+                    <LangphyText weight='medium' style={[styles.text, { color: colors.text }]}>
                       {item.meaning}
                     </LangphyText>
                   </ListeningComponent>
@@ -296,7 +293,7 @@ const styles = StyleSheet.create({
     height: 80
   },
   text: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "600",
     textAlign: "center",
     alignItems: "center"

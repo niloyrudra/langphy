@@ -10,7 +10,6 @@ import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 import WordConfidenceComponent from './_partials/WordConfidenceComponent';
 import SecondaryActionButton from '../form-components/SecondaryActionButton';
-// import LangphyText from '../text-components/LangphyText';
 import WordListItem from './_partials/WordListItem';
 import { FeedbackEvent, useFeedback } from '@/utils/feedback';
 
@@ -71,10 +70,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
     React.useEffect(() => {
         let event: FeedbackEvent = "correct";
         if( isSelective ) event = result?.feedback.label ? result?.feedback.label.toLowerCase() as FeedbackEvent : "correct";
-        else if( isSimilarity ) event = result.similarity > 50 ? "correct" : "incorrect";
-        // else if( isSpeech ) event = speechResult?.analysis?.similarity && speechResult?.analysis?.similarity > 50 ? "correct" : "incorrect";
-        // else if( isPractice ) event = "correct";
-        
+        else if( isSimilarity ) event = result.similarity > 50 ? "correct" : "incorrect";        
         
         if( isPractice || isSpeech ) triggerFeedback("lessonComplete");
         else triggerFeedback(event);
@@ -94,7 +90,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                 {
                     actualQuery && (
                         <ResultDetail
-                            label="Expected Query:"
+                            label="Query:"
                             detail={actualQuery}
                             iconComponent={<FontAwesome name="question-circle" size={20} color={colors.text} />}
                         />
@@ -106,6 +102,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                     isSpeech && speechResult && (
                         <>
                             <ResultDetail
+                                label="Respond:"
                                 detail={speechResult?.transcription}
                                 iconComponent={<FontAwesome name="microphone" size={22} color={colors.text} />}
                             />
@@ -123,11 +120,11 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
 
                             <ResultDetail
                                 label="Pronunciation:"
-                                detail={String(speechResult.analysis?.pronunciation_score)}
+                                detail={`${String(speechResult.analysis?.pronunciation_score)}%`}
                                 iconComponent={<FontAwesome6 name="crown" size={16} color={colors.text} />}
                             />
 
-                            <ResultDetail
+                            {/* <ResultDetail
                                 label="Issues:"
                                 detail={
                                     speechResult.analysis?.issues?.length > 0
@@ -135,9 +132,14 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                                         : 'No issues found'
                                 }
                                 iconComponent={<MaterialIcons name="error" size={20} color={colors.text} />}
-                            />
+                            /> */}
 
                             <ResultDetail
+                                label='Feedback:'
+                                isRegular={true}
+                                contentStyle={{
+                                    color: "#08C1D2"
+                                }}
                                 detail={speechResult.analysis?.feedback}
                                 iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
                             />
@@ -256,10 +258,11 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 30
+        marginTop: 30,
+        marginBottom: 20
     },
     button: {
-        width: '45%',
+        width: '47%',
         borderRadius: 30,
         overflow: 'hidden'
     }
