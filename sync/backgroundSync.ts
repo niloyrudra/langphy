@@ -7,6 +7,8 @@ import { syncDirtyProfile } from "./syncProfile";
 import { syncDirtySettings } from "./syncSettings";
 import { authSnapshot } from "@/snapshots/authSnapshot";
 import { syncDirtyVocabulary } from "./syncVocabulary";
+import { syncEvents } from "./syncEvents";
+// import { syncDirtyPerformance } from "./syncPerformace";
 
 const BACKGROUND_SYNC_TASK = "BACKGROUND_SYNC_TASK";
 
@@ -32,9 +34,10 @@ export const runSync = async () => {
     didWork ||= !!(await syncDirtyProfile(userId));
     didWork ||= !!(await syncDirtySettings(userId));
     didWork ||= !!(await syncDirtyProgress(userId));
-    // didWork ||= await syncPerformance(userId);
+    // didWork ||= !!(await syncDirtyPerformance(userId));
     didWork ||= !!(await syncDirtyStreaks(userId));
     didWork ||= !!(await syncDirtyVocabulary(userId));
+    didWork ||= !!(await syncEvents());
 
     return didWork
       ? BackgroundTask.BackgroundTaskResult.Success // NewData

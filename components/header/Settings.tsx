@@ -7,14 +7,17 @@ import SIZES from '@/constants/size';
 import STYLES from '@/constants/styles';
 
 const Settings = () => {
-  const { theme } = useTheme();
+  const { colors, theme } = useTheme();
 
   const handlePress = React.useCallback(() => {
     router.push('/dashboard/settings');
   }, [router]);
 
   return (
-    <TouchableOpacity onPress={handlePress} style={[styles.button, STYLES.iconShadow]}>
+    <TouchableOpacity
+      onPress={handlePress}
+      style={[STYLES.headerIcon, {borderColor: colors.headerIconBorder}]}
+    >
       {
         theme === 'light'
         ? (<SettingLight width={SIZES.headerIcon} height={SIZES.headerIcon} />)

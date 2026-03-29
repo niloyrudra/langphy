@@ -5,6 +5,8 @@ import { syncDirtyStreaks } from "./syncStreaks";
 import { syncDirtyProgress } from "./syncProgress";
 import { authSnapshot } from "@/snapshots/authSnapshot";
 import { syncDirtyVocabulary } from "./syncVocabulary";
+import { syncEvents } from "./syncEvents";
+// import { syncDirtyPerformance } from "./syncPerformace";
 
 export const runForegroundSync = async () => {
     try {
@@ -17,14 +19,28 @@ export const runForegroundSync = async () => {
         }
 
         const userId = authSnapshot.getUserId()!;
+        console.log("Foreground sync task running...");
+        // prarallel version
+        // await Promise.all([
+        //     syncDirtyProfile( userId ), // Meed user ID
+        //     syncDirtySettings( userId ), // Meed user ID
+        //     syncDirtyStreaks( userId ),
+        //     syncDirtyProgress( userId ),
+        //     syncDirtyVocabulary( userId ),
+        //     syncEvents()
+        // ]);
 
-        await Promise.all([
-            syncDirtyProfile( userId ), // Meed user ID
-            syncDirtySettings( userId ), // Meed user ID
-            syncDirtyStreaks( userId ),
-            syncDirtyProgress( userId ),
-            syncDirtyVocabulary( userId )
-        ]);
+        let didWork = false;
+        // sequential version
+        didWork ||= !!(await syncDirtyProfile(userId));
+        didWork ||= !!(await syncDirtySettings(userId));
+        didWork ||= !!(await syncDirtyProgress(userId));
+        didWork ||= !!(await syncDirtyStreaks(userId));
+        didWork ||= !!(await syncDirtyVocabulary(userId));
+        didWork ||= !!(await syncEvents());
+    
+        console.log("Foreground sync done...");
+        return didWork ? 1 : 0;
 
     }
     catch(error) {

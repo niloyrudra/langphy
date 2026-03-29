@@ -3,11 +3,14 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { useUpdateSettings } from '@/hooks/useUpdateSettings';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-// import { toast } from '@backpackapp-io/react-native-toast';
 import { toastSuccess } from '@/services/toast.service';
+import { SettingsFieldType } from '@/types';
+import { useFeedback } from '@/utils/feedback';
+import { queryClient } from '@/queryClient';
 
-const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: string, enabled: boolean, containerStyle?: StyleProp<ViewStyle>}) => {
-    const { toggleTheme, theme } = useTheme()
+const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: SettingsFieldType, enabled: boolean, containerStyle?: StyleProp<ViewStyle>}) => {
+    const { toggleTheme, theme } = useTheme();
+    const { triggerFeedback } = useFeedback();
     const [ isEnabled, setIsEnabled ] = React.useState<boolean>(enabled);
     const userId = authSnapshot.getUserId() ?? "";
     const { mutate: updateSettings } = useUpdateSettings(userId);
@@ -15,57 +18,61 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: s
     // Handle
     const toggleSwitch = async (value: boolean) => {
         setIsEnabled(value);
+        await triggerFeedback("tap");
         switch (settingType) {
             case 'theme':
                 toggleTheme();
                 break;
                 
-                case 'sound_effect' :
+            case 'sound_effect' :
                 console.log("Sound Effect:", value);
                 updateSettings({ field: 'sound_effect', value: value });
-                toastSuccess(`Sound effect is updated to ${value}!`);
+                // ✅ Invalidate so cache reflects new value instantly
+                await queryClient.invalidateQueries({ queryKey: ["lp_settings", userId] });
+                
+                toastSuccess(`Sound effect is ${value ? "activated" : "deactivated"}!`);
                 break;
 
-            case 'push_notification' :
+            case 'notifications' :
                 console.log("Push Notification:", value);
                 updateSettings({ field: 'notifications', value: value });
-                toastSuccess(`Notification is updated to ${value}!`);
+                toastSuccess(`Notification is ${value ? "activated" : "deactivated"}!`);
                 break;
             
-            case 'practice' :
+            case 'practice_service' :
                 console.log("Practice:", value);
                 updateSettings({ field: 'practice_service', value: value });
-                toastSuccess(`Practice is updated to ${value}!`);
+                toastSuccess(`Practice is ${value ? "activated" : "deactivated"}!`);
                 break;
             
-            case 'quiz' :
+            case 'quiz_service' :
                 console.log("Quiz:", value);
                 updateSettings({ field: 'quiz_service', value: value });
-                toastSuccess(`Quiz is updated to ${value}!`);
+                toastSuccess(`Quiz is ${value ? "activated" : "deactivated"}!`);
                 break;
             
-            case 'speaking' :
+            case 'speaking_service' :
                 console.log("Speaking:", value);
                 updateSettings({ field: 'speaking_service', value: value });
-                toastSuccess(`Speaking exercise is updated to ${value}!`);
+                toastSuccess(`Speaking exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
             
-            case 'listening' :
+            case 'listening_service' :
                 console.log("Listening:", value);
                 updateSettings({ field: 'listening_service', value: value });
-                toastSuccess(`Listening exercise is updated to ${value}!`);
+                toastSuccess(`Listening exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
             
-            case 'reading' :
+            case 'reading_service' :
                 console.log("Reading:", value);
                 updateSettings({ field: 'reading_service', value: value });
-                toastSuccess(`Reading exercise is updated to ${value}!`);
+                toastSuccess(`Reading exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
             
-            case 'writing' :
+            case 'writing_service' :
                 console.log("Writing:", value);
                 updateSettings({ field: 'writing_service', value: value });
-                toastSuccess(`Writing exercise is updated to ${value}!`);
+                toastSuccess(`Writing exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
 
             default:
@@ -76,28 +83,28 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: s
     // Sync ONLY when this switch represents the theme setting
     React.useEffect(() => {
         if (settingType === 'sound_effect') {
-            setIsEnabled(isEnabled);
+            setIsEnabled(isEnabled ? true : false);
         }
         if (settingType === 'theme') {
             setIsEnabled(theme === 'dark');
         }
-        if (settingType === 'speaking') {
+        if (settingType === 'speaking_service') {
             setIsEnabled(isEnabled ? true : false);
         }
-        if (settingType === 'reading') {
+        if (settingType === 'reading_service') {
             setIsEnabled(isEnabled ? true : false);
         }
-        if (settingType === 'writing') {
+        if (settingType === 'writing_service') {
             setIsEnabled(isEnabled ? true : false);
         }
-        if (settingType === 'listening') {
+        if (settingType === 'listening_service') {
             setIsEnabled(isEnabled ? true : false);
         }
-        if (settingType === 'quiz') {
+        if (settingType === 'quiz_service') {
             setIsEnabled(isEnabled ? true : false);
         }
-        if (settingType === 'push_notification') {
-            setIsEnabled(isEnabled);
+        if (settingType === 'notifications') {
+            setIsEnabled(isEnabled ? true : false);
         }
     }, [settingType, theme]);
 

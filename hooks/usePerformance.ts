@@ -6,9 +6,9 @@ export const usePerformance = ( sessionKey: string ) => {
     return useQuery<SessionPerformance | null>({
         queryKey: ["lp_session_performance", sessionKey],
         enabled: !!sessionKey,
-        queryFn: () => {
+        queryFn: async () => {
             try {
-               return getPerformance(sessionKey)
+               return await getPerformance(sessionKey);
             }
             catch(error) {
                 console.error("usePerformance error:", error)

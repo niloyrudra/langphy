@@ -10,7 +10,7 @@ const SETTINGS_FIELDS = [
   "writing_service",
   "practice_service",
   "quiz_service",
-  "push_notification",
+  // "push_notification",
   "notifications",
   "language",
 ] as const;

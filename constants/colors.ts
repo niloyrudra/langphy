@@ -11,6 +11,9 @@ export const lightColors = {
   primary_900: '#3FA1FF',
   secondary: '#48E4EF',
   secondary_900: '#1FCAD7',
+
+  headerIconBorder: "#E8E8E8",
+
   steakBadgeBackgroundColor: "#DAFFFF",
   themeIconColor: "#061825",
   cardBackgroundColor: "#EEF8FF",
@@ -110,6 +113,9 @@ export const darkColors = {
   primary_900: '#19468F',
   secondary: '#48E4EF',
   secondary_900: '#175362',
+
+  headerIconBorder: "#021331",
+
   steakBadgeBackgroundColor: "#0B3C5F",
   themeIconColor: "#F9CB38",
   cardBackgroundColor: "#021331",

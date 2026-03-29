@@ -2,6 +2,18 @@ import { DBProgress, SessionType } from "@/types";
 import { db } from "./index";
 import { authSnapshot } from "@/snapshots/authSnapshot";
 
+interface MarkLessonCompleted {
+  category_id: string,
+  unit_id: string,
+  user_id: string,
+  content_type: SessionType;
+  lessonId: string;
+  sessionKey: string;
+  score?: number;
+  duration_ms?: number;
+  lesson_order?: number;
+}
+
 export const getAllProgress = async (): Promise<DBProgress[]> => {
   return await db.getAllAsync<DBProgress>(
     "SELECT * FROM lp_progress"
@@ -9,22 +21,19 @@ export const getAllProgress = async (): Promise<DBProgress[]> => {
 };
 
 export const getDirtyProgress = async (): Promise<DBProgress[]> => {
+  const userId = authSnapshot.getUserId() ?? "";
   return await db.getAllAsync<DBProgress>(
-    "SELECT * FROM lp_progress WHERE dirty = 1"
+    "SELECT * FROM lp_progress WHERE dirty = 1 AND user_id = ?",
+    [userId]
   );
 };
 
-export const getSessionProgress = async ( sessionKey: string ): Promise<DBProgress[]> => {
+export const getSessionProgress = async (sessionKey: string): Promise<DBProgress[]> => {
   const userId = authSnapshot.getUserId() ?? "";
-  try {
-    return await db.getAllAsync<DBProgress>(
-      "SELECT * FROM lp_progress WHERE session_key = ? AND user_id = ?",
-      [sessionKey, userId]
-    );
-  } catch (error) {
-    console.error("getSessionProgress error:", error);
-    return [];
-  }
+  return await db.getAllAsync<DBProgress>(
+    "SELECT * FROM lp_progress WHERE session_type = ? AND user_id = ?",
+    [sessionKey, userId]
+  );
 };
 
 export const upsertProgress = async ( p: DBProgress ) => {
@@ -94,8 +103,7 @@ export const getCompletedLessons = async () => {
     const result = await db.getFirstAsync<{count: number}>(`
       SELECT count(*) as count
       FROM lp_progress
-      WHERE completed = 1
-      AND user_id = ?
+      WHERE completed = 1 AND user_id = ?
     `, [userId]);
     console.log("DB ready check");
     return result?.count ?? 0;
@@ -114,7 +122,7 @@ export const getLessonProgress = async () => {
       total: number;
     }>(`
       SELECT
-        (SELECT COUNT(*) FROM lp_progress WHERE completed = 1) as completed and user_id = ?,
+        (SELECT COUNT(*) FROM lp_progress WHERE completed = 1 AND user_id = ?) as completed,
         (SELECT COUNT(*) FROM lp_lessons) as total
     `, [userId]);
 
@@ -133,18 +141,6 @@ export const getLessonProgress = async () => {
     throw error;
   }
 };
-
-interface MarkLessonCompleted {
-  category_id: string,
-  unit_id: string,
-  user_id: string,
-  content_type: SessionType;
-  lessonId: string;
-  sessionKey: string;
-  score?: number;
-  duration_ms?: number;
-  lesson_order?: number;
-}
 
 export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
   try {
@@ -168,7 +164,7 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
         dirty)
       VALUES
         (?, ?, ?, ?, ?, 1, ?, ?, ?, 100, ?, ?, 1)
-      ON CONFLICT(content_type, content_id)
+      ON CONFLICT(content_type, content_id, user_id)
       DO UPDATE SET
         completed = 1,
         score = excluded.score,
@@ -201,18 +197,19 @@ export const markProgressClean = async (items: DBProgress[]) => {
   if (!items.length) return;
 
   const ids = items.map(
-    () => "(?, ?)"
+    () => "(?, ?, ?)"
   ).join(",");
 
   const params = items.flatMap(p => [
     p.content_type,
     p.content_id,
+    p.user_id,
   ]);
 
   await db.runAsync(
     `UPDATE lp_progress
      SET dirty = 0
-     WHERE (content_type, content_id) IN (${ids})`,
+     WHERE (content_type, content_id, user_id) IN (${ids})`,
     params
   );
 };

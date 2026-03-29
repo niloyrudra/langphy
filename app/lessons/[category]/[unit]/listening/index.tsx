@@ -17,22 +17,26 @@ import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
-import { toastSuccess } from '@/services/toast.service';
+import { toastError } from '@/services/toast.service';
+// import { toastSuccess } from '@/services/toast.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
 const ListeningLessons = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
-  const { categoryId, slug, unitId } = useLocalSearchParams();
   const userId: string = authSnapshot.getUserId() ?? "";
+  const { categoryId, slug, unitId } = useLocalSearchParams();
   const { colors } = useTheme();
   const { start, stop, isRunning } = useLessonTimer();
+
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
   const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  
   const { resultHandler } = useListening();
   const goToNextRef = React.useRef<(() => void) | null>(null);
+
   const activeLessonOrderRef = React.useRef<number>(0);
   const currentLessonRef = React.useRef<ListeningSessionType | null>(null);
 
@@ -50,16 +54,18 @@ const ListeningLessons = () => {
     setTextContent("");
     setError("");
     setLoading(false);
-    toastSuccess("Lesson Reset")
+    // toastSuccess("Lesson Reset")
   }, []);
 
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent) {
       setError("No expected text found!");
+      toastError("No expected text found!");
       return;
     }
     if (!expectedText) {
       setError("No expected text found!");
+      toastError("No expected text found!");
       return;
     }
 

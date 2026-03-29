@@ -2,26 +2,6 @@ import { db } from "@/db";
 import { randomUUID } from 'expo-crypto';
 import { dispatchLocalEvent } from "./localBus";
 
-export const emitSessionCompletedEvent = async (payload: any) => {
-    try {
-        const now = Math.floor(Date.now() / 1000);
-        await db.runAsync(
-            `
-            INSERT INTO lp_events (type, payload, created_at, synced)
-            VALUES (?, ?, ?, 0)
-            `,
-            [
-                "session.completed.v1",
-                JSON.stringify(payload),
-                now,
-            ]
-        );
-    }
-    catch(error) {
-        console.error("emitSessionCompletedEvent error:", error)
-    }
-}
-
 export const enqueueEvent = async <T>(
     eventType: string,
     userId: string,
@@ -31,6 +11,16 @@ export const enqueueEvent = async <T>(
     try {
         const now = Math.floor( Date.now() / 1000 );
         const eventId = randomUUID();
+
+        // ✅ Build the full envelope that matches BaseEventSchema
+        const envelope = {
+            event_id: eventId,
+            event_type: eventType,
+            event_version: 1,
+            occurred_at: new Date().toISOString(), // ✅ Zod requires datetime string
+            user_id: userId,
+            payload,
+        };
 
         await db.runAsync(
             `INSERT OR IGNORE INTO lp_event_outbox
@@ -42,7 +32,7 @@ export const enqueueEvent = async <T>(
                 eventType,
                 userId,
                 idempotencyKey,
-                JSON.stringify(payload),
+                JSON.stringify(envelope),
                 now
             ]
         );

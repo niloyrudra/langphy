@@ -65,6 +65,8 @@ export const syncDirtyProfile = async (userId: string) => {
       dirty: 0
     });
 
+    console.log(`Profile synced!`);
+
     return true;
   }
   catch(error) {

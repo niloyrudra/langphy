@@ -10,6 +10,7 @@ import SessionCompletionModal from '@/components/modals/SessionCompletionModal';
 import LessonCompletionModal from '@/components/modals/LessonCompletionModal';
 import Title from '@/components/Title';
 import STYLES from '@/constants/styles';
+import MilestonesAchievementModal from '@/components/modals/MilestonesAchievementModal';
 
 const UnitLayout = () => {
   const {colors} = useTheme();
@@ -90,6 +91,21 @@ const UnitLayout = () => {
           <DailyStreaksModal
             visible
             streak={current.streak}
+            onClose={() => {
+              shouldNavigateRef.current = true;
+              resolveCurrent();
+            }}
+          />
+        )
+      }
+
+      {/* Milestone Celebration */}
+      {
+        current?.type === "streak_milestone" && (
+          <MilestonesAchievementModal
+            isVisible
+            streak={current.streak}
+            milestone={current.milestone}
             onClose={() => {
               resolveCurrent();
               if (shouldNavigateRef.current) {

@@ -66,11 +66,12 @@ const PracticeLessons = () => {
 
   // Update LessonList data
   const lessonListData = useMemo(() => {
-    if (!practiceLessons || !progress) return [];
+    // if (!practiceLessons || !progress) return []; // ✅ don't bail on missing progress — just treat as no completions yet
+    if (!practiceLessons ) return [];
 
     return practiceLessons.map(l => {
       const payload = JSON.parse(l.payload);
-      const p = progress.find(pr => pr.content_id === l.id);
+      const p = progress?.find(pr => pr.content_id === l.id);
 
       return {
         id: l.id,
@@ -185,7 +186,7 @@ const PracticeLessons = () => {
     if(!isRunning) start();
   }, [ isRunning ])
 
-  if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />)
+  if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />);
 
   return (
     <>

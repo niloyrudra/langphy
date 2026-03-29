@@ -20,7 +20,8 @@ const MilestonesScreen = () => {
             milestonesData.map( (item: MilestonesType) => (
               <MilestonesItemRectangle
                 key={item.id.toString()}
-                title={item.milestonesTitle}
+                title={item.title}
+                description={item.description}
                 milestones={item.milestones}
                 isLocked={streak ?? 0 >= item.milestones ? true : false}
                 icon={item.icon}

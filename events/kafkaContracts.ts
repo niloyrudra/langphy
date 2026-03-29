@@ -14,10 +14,13 @@ export interface LessonCompletedEvent {
 
 export interface SessionCompletedEvent {
   userId: string;
+  unitId: string;
   sessionKey: string;
   sessionType: string;
+  score?: number;
+  attempts: number;          // ✅ add — Zod requires it
   total_duration_ms?: number;
-  occurredAt: number;
+  completed_at: number;      // ✅ snake_case — matches Zod schema
 };
 
 export interface StreakUpdateEvent {

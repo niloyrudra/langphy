@@ -5,11 +5,12 @@ import { authSnapshot } from "@/snapshots/authSnapshot";
 
 type SessionPerformanceUpsertType = {
   user_id: string;
+  unit_id: string;
   sessionKey: string;
   sessionType: SessionType;
-  avgScore: number
-  totalDurationMs?: number
-  completed?: number
+  avgScore: number;
+  totalDurationMs?: number;
+  completed?: number;
 }
 
 const rollingAverage = (
@@ -23,6 +24,7 @@ const rollingAverage = (
 
 export const upsertSessionPerformance = async ({
   user_id,
+  unit_id,
   sessionKey,
   sessionType,
   avgScore,
@@ -41,11 +43,12 @@ export const upsertSessionPerformance = async ({
       await db.runAsync(
         `
         INSERT INTO lp_session_performance
-          (user_id, session_key, session_type, avg_score, total_duration_ms, attempts, completed, updated_at, dirty)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+          (user_id, unit_id, session_key, session_type, avg_score, total_duration_ms, attempts, completed, updated_at, dirty)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
         `,
         [
           user_id,
+          unit_id,
           sessionKey,
           sessionType,
           avgScore,
@@ -107,6 +110,14 @@ export const getAvgScoreBySessionType = async (sessionType: SessionType) => {
   }
 }
 
+export const getDirtyPerformance = async (): Promise<SessionPerformance[]> => {
+  const userId = authSnapshot.getUserId() ?? "";
+  return await db.getAllAsync<SessionPerformance>(
+    "SELECT * FROM lp_session_performance WHERE dirty = 1 AND user_id = ?",
+    [userId]
+  );
+};
+
 export const getPerformance = async (sessionKey: string): Promise<SessionPerformance | null> => {
   const userId = authSnapshot.getUserId() ?? "";
   try {
@@ -167,3 +178,23 @@ export const clearSessionPerformance = async () => {
     console.error("clearSessionPerformance error:", error);
   }
 }
+
+export const markPerformanceClean = async (items: SessionPerformance[]) => {
+  if (!items.length) return;
+
+  const placeholders = items.map(
+    () => "(?, ?)"
+  ).join(",");
+
+  const params = items.flatMap(p => [
+    p.session_key,
+    p.user_id,
+  ]);
+
+  await db.runAsync(
+    `UPDATE lp_session_performance
+     SET dirty = 0
+     WHERE (session_key, user_id) IN (${placeholders})`,
+    params
+  );
+};

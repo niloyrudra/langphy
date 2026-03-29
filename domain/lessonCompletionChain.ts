@@ -44,7 +44,7 @@ export const lessonCompletionChain = async (
 
   // 2️⃣ Emit lesson.completed event
   await enqueueEvent<LessonCompletedEvent>(
-    "lesson.completed.v1",
+    "lesson.completed",
     input.userId,
     `lesson:${input.lessonId}`,
     {
@@ -75,6 +75,7 @@ export const lessonCompletionChain = async (
    * ---------------------------------- */
   await upsertSessionPerformance({
     user_id: input.userId,
+    unit_id: input.unitId,
     sessionKey: input.performanceSessionKey,
     sessionType: input.sessionType,
     avgScore: avgLessonScore ?? 0,
@@ -92,7 +93,7 @@ export const lessonCompletionChain = async (
 
   if( streak.updated ) {
     await enqueueEvent<StreakUpdateEvent>(
-      "streak.updated.v1",
+      "streak.updated",
       input.userId,
       `streak:${input.userId}`,
       {
@@ -106,15 +107,18 @@ export const lessonCompletionChain = async (
 
   // 5️⃣ Emit session.completed event
   await enqueueEvent<SessionCompletedEvent>(
-    "session.completed.v1",
+    "session.completed",
     input.userId,
-    `session:${input.sessionKey}`,
+    `session:${input.performanceSessionKey}`,
     {
       userId: input.userId,
+      unitId: input.unitId,
       sessionKey: input.performanceSessionKey,
-      sessionType: input.lessonType,
+      sessionType: input.sessionType,
+      score: Math.round(avgLessonScore ?? 0),
+      attempts: 1,              // ✅ add — required by Zod schema
       total_duration_ms: totalDuration,
-      occurredAt: now,
+      completed_at: now,        // ✅ snake_case to match Zod
     }
   );
 

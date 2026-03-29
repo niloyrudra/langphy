@@ -4,11 +4,12 @@ import { useTheme } from '@/theme/ThemeContext';
 import SettingSwitcher from '../dashboard/SettingSwitcher';
 import { Route, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { SettingsFieldType } from '@/types';
 
 interface SettingsElementActionProps  {
     actionType: string;
     enabled: boolean;
-    settingType: string;
+    settingType: SettingsFieldType;
     route: Route | string;
 }
 

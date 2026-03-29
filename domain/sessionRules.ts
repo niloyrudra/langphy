@@ -1,17 +1,20 @@
 import { db } from "@/db";
 import { countCompletedLessons } from "@/db/progress.repo";
+import { authSnapshot } from "@/snapshots/authSnapshot";
 
-export const isSessionCompleted = async ( sessionKey: string, totalLessons: number ) => {
+export const isSessionCompleted = async ( sessionKey: string, totalLessons: number ) : Promise<boolean> => {
     try {
         const completedCount = await countCompletedLessons( sessionKey );
         return completedCount! >= totalLessons;
     }
     catch(error) {
         console.error("isSessionCompleted func error:", error);
+        return false;
     }
 };
 
 export const sumSessionDuration = async ( sessionKey: string ): Promise<number> => {
+    const userId = authSnapshot.getUserId() ?? "";
     try {
         const result = await db.getFirstAsync<{ total: number }>(
             `
@@ -19,8 +22,9 @@ export const sumSessionDuration = async ( sessionKey: string ): Promise<number> 
             FROM lp_progress
             WHERE session_key = ?
                 AND completed = 1
+                AND user_id = ?
             `,
-            [sessionKey]
+            [sessionKey, userId]
         );
 
         return result?.total ?? 0;
@@ -32,6 +36,7 @@ export const sumSessionDuration = async ( sessionKey: string ): Promise<number> 
 }
 
 export const avgScore = async ( sessionKey: string ): Promise<number> => {
+    const userId = authSnapshot.getUserId() ?? "";
     try {
         const result = await db.getFirstAsync<{ avg_score: number }>(
             `
@@ -40,8 +45,9 @@ export const avgScore = async ( sessionKey: string ): Promise<number> => {
             WHERE session_key = ?
                 AND completed = 1
                 AND score IS NOT NULL
+                AND user_id = ?
             `,
-            [sessionKey]
+            [sessionKey, userId]
         );
 
         return result?.avg_score ?? 0;

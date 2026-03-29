@@ -3,18 +3,19 @@ import React from 'react'
 import SIZES from '@/constants/size';
 import { getCardContainerWidth } from '@/utils';
 import { useTheme } from '@/theme/ThemeContext';
-import { MilestonesGrdCardBgLight } from '@/utils/SVGImages';
+import { MilestonesCardBg, MilestonesGrdCardBgLight } from '@/utils/SVGImages';
 import LangphyText from '@/components/text-components/LangphyText';
 import AppImage from '@/components/AppImage';
 
 interface MilestonesItemRectangleProps {
     title: string;
+    description: string;
     isLocked: boolean;
     milestones: number;
     icon: ImageSourcePropType;
 }
 
-const MilestonesItemRectangle = ({title, isLocked, milestones, icon}: MilestonesItemRectangleProps) => {
+const MilestonesItemRectangle = ({title, description, isLocked, milestones, icon}: MilestonesItemRectangleProps) => {
     const {colors} = useTheme();
     return (
         <View style={[styles.container, {opacity: isLocked ? 0.35 : 1}]}>
@@ -29,11 +30,11 @@ const MilestonesItemRectangle = ({title, isLocked, milestones, icon}: Milestones
 
                 {/* Background Image */}
                 <View style={styles.bgImg}>
-                    <MilestonesGrdCardBgLight />
+                    <MilestonesCardBg />
                 </View>
 
-                <LangphyText weight="extrabold" style={[styles.milestones, {color: colors.text}]}>{title}</LangphyText>
-                <LangphyText style={[styles.subTitle, {color: colors.text}]}>Streak</LangphyText>
+                <LangphyText weight="extrabold" style={[styles.milestones, {color: colors.text}]}>{title} Streak</LangphyText>
+                <LangphyText style={[styles.subTitle, {color: colors.text}]}>{description}</LangphyText>
             </View>
 
         </View>
@@ -59,10 +60,11 @@ const styles = StyleSheet.create({
         height: "100%",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "flex-start",
         gap: 5,
         position: "relative",
         overflow: 'hidden',
+        paddingHorizontal: 20,
         borderTopEndRadius: 12,
         borderBottomEndRadius: 12
     },
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
         fontWeight: "800"
     },
     subTitle: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: "400"
     },
 })

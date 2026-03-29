@@ -16,20 +16,17 @@ export const Toaster = () => (
             easing: Easing.elastic(1)
         }}
         defaultPosition={ToastPosition.TOP}
-        defaultDuration={5000}
+        defaultDuration={3000}
         defaultStyle={{
             view: {
                 backgroundColor: "#EAFFE5",
                 borderRadius: 8,
-                // padding: 16,
-                // margin: 16,
             },
             text: {
-                color: "#676767"// "#061E3E",
+                color: "#676767"
             },
             indicator: {
                 display: "none",
-                // marginRight: 12 // 16,
             },
         }}
         

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { DBStreak, PracticeResultType, SelectiveResultType, SessionResultType, SpeechResultType } from "@/types";
 import React from "react";
+import { getMilestone, MilestoneDay } from "@/utils/milestone-config";
 
 interface LessonPayload {
     actualQuery?: string;
@@ -13,6 +14,7 @@ type Celebration =
     | { type: 'lesson_complete'; payload: LessonPayload;}
     | { type: 'session_complete'; sessionKey: string }
     | { type: 'streak'; streak: DBStreak }
+    | { type: 'streak_milestone'; streak: DBStreak; milestone: MilestoneDay }
     | null;
 
 type CelebrationContextType = {
@@ -55,6 +57,16 @@ export const CelebrationProvider = ({ children }: {children: React.ReactNode}) =
     }, [queue, current]); // 👈 queue.length can miss edge cases where length is same but content changes
     // }, [queue.length, current]); // 👈 depend on length, not full queue object
 
+    // triggerStreak enqueues the regular streak modal first, then — if this
+    // streak count is a milestone — enqueues the milestone modal right after.
+    // The queue processes them in order so milestone always shows after streak.
+    const triggerStreak = React.useCallback((streak: DBStreak) => {
+        enqueue({ type: "streak", streak });
+        const milestone = getMilestone(streak.current_streak);
+        if (milestone) {
+            enqueue({ type: "streak_milestone", streak, milestone });
+        }
+    }, []);
 
     return (
         <CelebrationContext.Provider
@@ -62,7 +74,7 @@ export const CelebrationProvider = ({ children }: {children: React.ReactNode}) =
                 current,
                 triggerLessonResult: (payload) => enqueue({ type: "lesson_complete", payload }),
                 triggerSessionCompletion: (sessionKey) =>  enqueue({ type: "session_complete", sessionKey }),
-                triggerStreak: (streak) =>  enqueue({ type: "streak", streak }),
+                triggerStreak,
                 resolveCurrent,
             }}
         >

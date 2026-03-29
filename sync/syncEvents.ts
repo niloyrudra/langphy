@@ -8,7 +8,7 @@ import api from "@/lib/api";
 //     payload: T
 // }
 
-export const syncEvents = async () => {
+export const syncEvents = async () : Promise<boolean> => {
     try {
         const events = await db.getAllAsync<any>(
             `SELECT * FROM lp_event_outbox WHERE published = 0 ORDER BY occurred_at ASC`
@@ -23,9 +23,11 @@ export const syncEvents = async () => {
             );
         }
 
+        console.log(`syncEvents fired!`);
+        return true;
     }
     catch(error) {
         console.error("syncEvents error", error);
-        return; // stop on first failure (order preserved)
+        return false; // stop on first failure (order preserved)
     }
 }

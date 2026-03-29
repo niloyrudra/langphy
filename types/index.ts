@@ -108,6 +108,7 @@ type UnitSessionType = {
 }
 
 type GermanLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | null;
+type SettingsFieldType = "theme" | "sound_effect" | "notifications" | "speaking_service" | "reading_service" | "listening_service" | "writing_service" | "practice_service" | "quiz_service" | "language";
 
 // Define full item structure
 type PracticeSessionType = {
@@ -447,7 +448,7 @@ type SettingsElement = {
   ImgComponentLight: FC<SVGProps<SVGSVGElement>>;
   ImgComponentDark: FC<SVGProps<SVGSVGElement>>;
   actionType: "switcher" | "router";
-  settingType: string;
+  settingType?: SettingsFieldType;
   route: string;
 }
 
@@ -701,6 +702,7 @@ type DBStreak = {
 type SessionPerformance = {
   session_key: string;
   session_type: SessionType;
+  user_id: string;
   avg_score: number | null;
   total_duration_ms: number;
   attempts: number;
@@ -711,7 +713,8 @@ type SessionPerformance = {
 
 type MilestonesType = {
   id: number;
-  milestonesTitle: string;
+  title: string;
+  description: string;
   isFeatured: boolean;
   milestones: number;
   icon: ImageSourcePropType;
@@ -755,6 +758,8 @@ export {
   
   SettingsData,
   SettingsElement,
+  SettingsFieldType,
+
   UserData,
   WordDataShape,
   ToolTip,

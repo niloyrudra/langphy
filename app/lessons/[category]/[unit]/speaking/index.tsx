@@ -5,7 +5,7 @@ import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import SpeakerComponent from '@/components/SpeakerComponent';
-import { SessionType, SpeakingSessionType } from '@/types';
+import { SessionType, SpeakingSessionType, SpeechResultType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
@@ -27,9 +27,11 @@ const SpeakingLessons = () => {
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const {start, stop, isRunning} = useLessonTimer();
+
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+
+  const { data: speakingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const goToNextRef = React.useRef<(() => void) | null>(null);
 
@@ -37,9 +39,9 @@ const SpeakingLessons = () => {
   const currentLessonRef = React.useRef<SpeakingSessionType | null>(null);
 
   const lessonData = React.useMemo<SpeakingSessionType[]>(() => {
-    if( !readingLessons ) return [];
-    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
-  }, [readingLessons]);
+    if( !speakingLessons ) return [];
+    return speakingLessons.map( lesson => JSON.parse( lesson.payload ) );
+  }, [speakingLessons]);
 
   const {
     isRecording,
@@ -72,7 +74,7 @@ const SpeakingLessons = () => {
         userId,
         sessionKey,
         performanceSessionKey,
-        lessonId: lesson.id ?? lesson?._id,
+        lessonId: lesson?.id ?? lesson?._id,
         lessonOrder: lessonOrder,
         sessionType,
         lessonType: sessionType,
@@ -88,36 +90,45 @@ const SpeakingLessons = () => {
     }
   }, [userId, slug, lessonData?.length, stop]);
 
-  const onContinue = React.useCallback( async () => {
+  const onContinue = React.useCallback(async (speechResult: SpeechResultType) => {
     try {
-      const score = (result && result.analysis.similarity) ? result.analysis.similarity*100 : 0;
-      console.log("Speaking Score:", score, result?.analysis.similarity)
-      await onLessonComplete(currentLessonRef.current!, score);
-      reset();
-      goToNextRef?.current && goToNextRef.current?.();
-      // Use After 3 Lessons Completed
-      // if( await shouldShowLessonAd() ) {
-      //   interstitialController.show(() => {
-      //     goToNextRef.current?.();
-      //   });
-      // }
-      // else {
-      //   goToNextRef.current?.();
-      // }
+        // ✅ result comes in as param — no stale closure
+        const score = speechResult?.analysis?.similarity
+            ? Math.round(speechResult.analysis.similarity * 100)
+            : 0;
 
-      resolveCurrent();
+        console.log("Speaking Score:", score, speechResult?.analysis?.similarity);
+
+        // ✅ complete the lesson first (this may trigger session/streak modals)
+        await onLessonComplete(currentLessonRef.current!, score);
+
+        // Use After 3 Lessons Completed
+        // if( await shouldShowLessonAd() ) {
+        //   interstitialController.show(() => {
+        //     goToNextRef.current?.();
+        //   });
+        // }
+        // else {
+        //   goToNextRef.current?.();
+        // }
+
+        // ✅ advance to next lesson
+        goToNextRef?.current?.();
+
+        // ✅ reset AFTER everything — don't call resolveCurrent here,
+        //    lessonCompletionChain handles the modal queue via triggerSessionCompletion
+        reset();
+        resolveCurrent();
+
+    } catch (error) {
+        console.error("Speaking lesson Completion error:", error);
     }
-    catch(error) {
-      console.error("Speaking lesson Completion error:", error);
-    }
-  }, [ reset, result, onLessonComplete, resolveCurrent ]);
+  }, [onLessonComplete, reset, resolveCurrent]); // ✅ no result dependency needed anymore
     
   const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: SpeakingSessionType, index: number, goToNext: () => void}) => {
     activeLessonOrderRef.current = index;
     currentLessonRef.current = item;
     goToNextRef.current = goToNext;
-
-    // console.log("activeItemChangeHandler")
   }, []);
 
   const onRefresh = React.useCallback(() => {

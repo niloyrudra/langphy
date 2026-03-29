@@ -4,15 +4,16 @@ import api from "@/lib/api";
 /**
  * Sync all dirty progress rows to backend
  */
-export const syncDirtyProgress = async ( userId: string ) => {
+export const syncDirtyProgress = async ( userId: string ) : Promise<boolean> => {
   const dirty = await getDirtyProgress();
-  if (!dirty.length) return;
+  if (!dirty.length) return false;
 
   try {
     await api.post(`/progress/bulk-sync`, {
       items: dirty.map(p => ({
         category_id: p.category_id,
         unit_id: p.unit_id,
+        user_id: userId,
         content_type: p.content_type,
         content_id: p.content_id,
         session_key: p.session_key,
@@ -21,7 +22,6 @@ export const syncDirtyProgress = async ( userId: string ) => {
         score: p.score,
         duration_ms: p.duration_ms,
         progress_percent: p.progress_percent,
-        // updated_at: p.updated_at,
       })),
     });
 

@@ -1,21 +1,10 @@
-/**
- * syncVocabulary.ts
- *
- * Follows the same dirty-flag pattern as your other background syncs.
- * Call this from your existing registerBackgroundSync() alongside
- * syncProgress, syncStreaks, etc.
- */
 import api from "@/lib/api";
 import { getDirtyVocabulary, markVocabularyClean } from "@/db/vocabulary.repo";
-// import { authSnapshot } from "@/snapshots/authSnapshot";
 
-export const syncDirtyVocabulary = async ( userId: string ): Promise<boolean | undefined> => {
-    // const userId = authSnapshot.getUserId();
-    // if (!userId) return;
-
+export const syncDirtyVocabulary = async ( userId: string ): Promise<boolean> => {
     try {
         const dirty = await getDirtyVocabulary(userId);
-        if (!dirty.length) return;
+        if (!dirty.length) return false;
 
         const words = dirty.map(v => ({
             word:       v.word,

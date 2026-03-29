@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS lp_progress (
   progress_percent INTEGER DEFAULT 0,
   updated_at INTEGER NOT NULL,
   dirty INTEGER NOT NULL DEFAULT 0,
-  PRIMARY KEY (content_type, content_id)
+  PRIMARY KEY (content_type, content_id, user_id)
 );
 `;
 
@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS lp_streaks (
 export const CREATE_PERFORMANCE_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_session_performance (
   user_id TEXT NOT NULL,
+  unit_id TEXT NOT NULL,
   session_key TEXT NOT NULL,
   session_type TEXT NOT NULL,
   avg_score REAL,
@@ -90,7 +91,8 @@ CREATE TABLE IF NOT EXISTS lp_session_performance (
   attempts INTEGER NOT NULL DEFAULT 0,
   completed INTEGER NOT NULL DEFAULT 0,
   updated_at INTEGER NOT NULL,
-  dirty INTEGER NOT NULL DEFAULT 1
+  dirty INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (session_key, user_id)
 );
 `;
 

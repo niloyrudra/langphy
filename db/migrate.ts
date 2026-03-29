@@ -15,15 +15,6 @@ import {
 import * as SecureStore from "expo-secure-store"; 
 
 export const runMigrations = async () => {
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_profiles`);
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_settings`);
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_streaks`);
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_lessons`);
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_categories`);
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_units`);
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_progress`);
-    // await db.runAsync(`DROP TABLE IF EXISTS lp_session_performance`);
-
     // await SecureStore.deleteItemAsync('accessToken');
     // await db.runAsync(`DELETE FROM lp_categories`);
     // await db.runAsync(`DELETE FROM lp_units`);
@@ -34,6 +25,15 @@ export const runMigrations = async () => {
     // await db.runAsync(`DELETE FROM lp_lessons`);
     // await db.runAsync(`DELETE FROM lp_session_performance`);
     // await db.runAsync(`DELETE FROM lp_progress`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_profiles`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_settings`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_streaks`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_lessons`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_categories`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_units`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_progress`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_session_performance`);
+
 
     
     await Promise.all([

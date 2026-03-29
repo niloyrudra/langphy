@@ -25,7 +25,7 @@ const Milestones = ({title}: {title:string}) => {
                 milestonesData.filter( item => item.isFeatured ).map( (item: MilestonesType) => (
                     <MilestonesItem
                         key={item.id.toString()}
-                        title={item.milestonesTitle}
+                        title={item.title}
                         milestones={item.milestones}
                         isLocked={streak ?? 0 >= item.milestones ? true : false}
                         icon={item.icon}

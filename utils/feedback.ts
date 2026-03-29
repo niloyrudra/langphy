@@ -9,7 +9,10 @@
  */
 
 // import { useAudioPlayer } from 'expo-audio';
+import { queryClient } from '@/queryClient';
 import { toastError, toastSuccess } from '@/services/toast.service';
+import { authSnapshot } from '@/snapshots/authSnapshot';
+import { DBSettings } from '@/types';
 import { toast } from '@backpackapp-io/react-native-toast';
 import { createAudioPlayer, setAudioModeAsync } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
@@ -126,10 +129,20 @@ export function useFeedback() {
     ) => {
         const { sound = true, haptic = true } = options;
 
+        // ✅ Read from React Query cache — zero async cost, already in memory
+        let soundEnabled = sound;
+        if (sound) {
+            const userId = authSnapshot.getUserId() ?? "";
+            const settings = queryClient.getQueryData<DBSettings | null>(
+                ["lp_settings", userId]
+            );
+            soundEnabled = settings?.sound_effect ?? true;
+        }
+
         // Run haptic and sound in parallel for immediate feel
         await Promise.all([
-            haptic ? runHaptic(HAPTIC_MAP[event]) : Promise.resolve(),
-            sound  ? playFeedbackSound(event)     : Promise.resolve(),
+            haptic ? runHaptic(HAPTIC_MAP[event])       : Promise.resolve(),
+            soundEnabled  ? playFeedbackSound(event)    : Promise.resolve(),
         ]);
     };
 

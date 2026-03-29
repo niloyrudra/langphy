@@ -50,6 +50,8 @@ export const syncDirtySettings = async (userId: string) => {
       dirty: 0,
     });
 
+    console.log(`Settngs synced!`);
+
     return true;
 
   } catch (error) {

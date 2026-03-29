@@ -7,7 +7,7 @@ import SIZES from '@/constants/size';
 import { LeftArrowDark, LeftArrowLight } from '@/utils/SVGImages';
 
 const HeaderTopLeftArrowButton = () => {
-  const { theme } = useTheme();
+  const { colors, theme } = useTheme();
 
   const handlePress = React.useCallback(() => {
     router.back();
@@ -16,7 +16,7 @@ const HeaderTopLeftArrowButton = () => {
   return (
     <TouchableOpacity
       onPress={handlePress}
-      style={[styles.button, STYLES.iconShadow]}
+      style={[STYLES.headerIcon, {borderColor: colors.headerIconBorder}]}
     >
       {
         theme === 'light'
@@ -29,10 +29,10 @@ const HeaderTopLeftArrowButton = () => {
 
 export default HeaderTopLeftArrowButton;
 
-const styles = StyleSheet.create({
-  button: {
-    width: SIZES.headerIcon,
-    height: SIZES.headerIcon,
-    borderRadius: SIZES.headerIcon
-  }
-});
+// const styles = StyleSheet.create({
+//   button: {
+//     width: SIZES.headerIcon+2,
+//     height: SIZES.headerIcon+2,
+//     borderRadius: SIZES.headerIcon+1
+//   }
+// });

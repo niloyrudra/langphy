@@ -29,9 +29,11 @@ export const dispatchLocalEvent = async <T>(
     const handlers = listeners.get( eventType ) || [];
 
     for ( const handler of handlers ) {
-        await handler({
-            type: eventType,
-            payload
-        });
+        try {
+            await handler({ type: eventType, payload });
+        }
+        catch(error) {
+            console.error(`localBus handler error [${eventType}]:`, error);
+        }
     }
 }

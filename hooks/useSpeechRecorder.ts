@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-// import { Alert } from "react-native";
 import {
     useAudioRecorder,
     useAudioRecorderState,
@@ -43,7 +42,6 @@ const useSpeechRecorder = () => {
         ( async () => {
             const status = await AudioModule.requestRecordingPermissionsAsync();
             if( !status.granted ) {
-                // Alert.alert("Permission to access microphone was denied!");
                 toastError("Permission to access microphone was denied!");
             }
 
@@ -106,10 +104,10 @@ const useSpeechRecorder = () => {
     }, [player, recordedUri]);
 
     /* ☁️ Send to backend (Whisper → SpaCy) */
-    const analyzeSpeech = useCallback(async ( expectedText: string, callbackFn: () => void) => {
+    const analyzeSpeech = useCallback(async ( expectedText: string, callbackFn: (e: SpeechResultType) => void) => {
         if (!expectedText?.trim()) {
             setError("No expected text found!");
-            toastError("No text found!");
+            toastError("No lesson text found!");
             return;
         }
 
@@ -138,21 +136,10 @@ const useSpeechRecorder = () => {
             console.log("Starting Job...");
 
             const startRes = await speechEvaluate(formData);
-            
             if (!startRes.ok) {
                 throw new Error(await startRes.text());
             }
-
             const { job_id } = await startRes.json();
-
-            // const startRes = await api.post("/speech/evaluate", formData);
-
-
-            // if ( startRes.status !== 200 ) {
-            //     throw new Error(await startRes.statusText);
-            // }
-
-            // const { job_id } = await startRes.data;
 
             // 🔥 Proper async polling loop
             let attempts = 0;
@@ -165,9 +152,11 @@ const useSpeechRecorder = () => {
 
                 const res = await getSpeechResultByJobId(`${job_id}`);
 
-                console.log("Res", res)
-                const response = await res.json()
-                // if (response.status === 200) {
+                const response = await res.json();
+                
+                console.log("Speaking test response:", response)
+
+
                 if (response.status === "done") {
                     if ( response.data.error) {
                         // Show "No speech detected" message to user instead of crashing
@@ -177,15 +166,16 @@ const useSpeechRecorder = () => {
                         return;
                     }
 
-                    setResult(response.data);
+                    const speechResult: SpeechResultType = response.data;
+                    setResult(speechResult);
 
                     toastSuccess("Speech analysis successful!", { id: toastId! });
 
                     // Model initiate
                     triggerLessonResult({
                         actualQuery: expectedText,
-                        result: response.data,
-                        onContinue: callbackFn,
+                        result: speechResult,
+                        onContinue: async () => callbackFn(speechResult),
                         onRetry: reset,
                     });
 
@@ -237,7 +227,7 @@ const useSpeechRecorder = () => {
                 // await player.seekTo(0);
             }
 
-            resolveCurrent();
+            // resolveCurrent();
 
             toastSuccess("Lesson reset!");
 
@@ -245,7 +235,7 @@ const useSpeechRecorder = () => {
             console.warn("Reset failed", e);
             toastError(`Lesson reset failed!`)
         }
-    }, [audioRecorder, player, resolveCurrent]);
+    }, [audioRecorder, player]);
 
     return {
         /* state */

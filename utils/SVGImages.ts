@@ -65,6 +65,7 @@ import LearningProgressCardBgLight from '@/assets/images/dashboard/learning-prog
 import ProfileLearningProgressCardBg from '@/assets/images/dashboard/profile-learning-progress-card-bg.svg';
 
 import MilestonesGrdCardBgLight from '@/assets/images/dashboard/milestones-grid-card-bg-light.svg';
+import MilestonesCardBg from '@/assets/images/dashboard/milestones/ms_list_bg.svg';
 
 import ForwardIconLight from '@/assets/images/sessions/next-light.svg';
 import ForwardIconDark from '@/assets/images/sessions/next-dark.svg';
@@ -150,6 +151,7 @@ export {
     LearningProgressCardBgLight,
 
     MilestonesGrdCardBgLight,
+    MilestonesCardBg,
 
     SpeakerLight,
     SpeakerDark,

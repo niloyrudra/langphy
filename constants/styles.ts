@@ -38,6 +38,21 @@ const iconShadow: StyleProp<ViewProps> = <ViewProps> {
     shadowRadius: 1
 };
 
+const headerIcon: StyleProp<ViewProps> = <ViewProps> {
+    justifyContent: "center",
+    alignItems: "center",
+    width: SIZES.headerIcon,
+    height: SIZES.headerIcon,
+    borderRadius: SIZES.headerIcon/2,
+    borderWidth: 1,
+};
+
+const iconBorder: StyleProp<ViewProps> = <ViewProps> {
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    borderRadius: SIZES.headerIcon/2
+};
+
 const boxShadow: StyleProp<ViewProps> = <ViewProps> {
     elevation: 5,
     shadowColor: "#55565626",
@@ -110,7 +125,11 @@ const STYLES = {
     defaultContainer,
     defaultContainerZeroPadding,
     boxShadow,
+
+    headerIcon,
     iconShadow,
+    iconBorder,
+
     boxShadowLight,
     textShadow,
 

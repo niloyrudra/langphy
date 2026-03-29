@@ -13,9 +13,9 @@ import AccountDeletionModal from '@/components/modals/AccountDeletionModal';
 import { useSettings } from '@/hooks/useSettings';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-// import { toast } from '@backpackapp-io/react-native-toast';
 import { signOut } from '@/services/auth.service';
 import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
+import { SettingsFieldType } from '@/types';
 
 const SettingsScreen = () => {
   const { colors, theme } = useTheme();
@@ -47,25 +47,27 @@ const SettingsScreen = () => {
     }
   }, [router, authSnapshot, SecureStore, toastError, toastSuccess]);
 
-  const isServiceEnabled = useCallback(( serviceType: string ): boolean => {
+  const isServiceEnabled = useCallback(( serviceType: SettingsFieldType ): boolean => {
     if(!settings) return false;
     switch (serviceType) {
       case 'sound_effect':
         return settings.sound_effect ?? false;
       case 'theme':
         return settings.theme === 'dark' ? true : false;
-      case 'practice':
+      case 'practice_service':
         return settings.practice_service ?? false;
-      case 'quiz':
+      case 'quiz_service':
         return settings.quiz_service ?? false;
-      case 'speaking':
+      case 'speaking_service':
         return settings?.speaking_service ?? false;
-      case 'listening':
+      case 'listening_service':
         return settings.listening_service ?? false;
-      case 'reading':
+      case 'reading_service':
         return settings.reading_service ?? false;
-      case 'writing':
+      case 'writing_service':
         return settings.writing_service ?? false;
+      case 'notifications':
+        return settings.notifications ?? false;
       default:
         return false;
     }

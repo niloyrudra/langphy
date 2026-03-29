@@ -79,7 +79,6 @@ export const applyStreakIfEligible = async ({
 };
 
 
-
 export const updateStreaksIfNeeded = async ( userId: string ) => {
     try {
         const now = Math.floor( Date.now() / 1000 );
@@ -118,19 +117,41 @@ export const updateStreaksIfNeeded = async ( userId: string ) => {
     }
 }
 
-export const hasCompletedSessionToday = async (userId: string) => {
+export const hasCompletedSessionToday = async (userId: string) : Promise<boolean> => {
     const today = Math.floor(
         new Date().setHours(0, 0, 0, 0) / 1000
     );
+    try {
+        const res = await db.getFirstAsync(
+            `
+            SELECT 1 FROM lp_streaks
+            WHERE user_id = ?
+            AND last_activity_date >= ?
+            `,
+            [userId, today]
+        );
+    
+        return !!res;
+    }
+    catch(error) {
+        console.warn("hasCompletedSessionToday error:", error);
+        return false;
+    }
 
-    const res = await db.getFirstAsync(
-        `
-        SELECT 1 FROM lp_streaks
-        WHERE user_id = ?
-        AND last_activity_date >= ?
-        `,
-        [userId, today]
-    );
-
-    return !!res;
 };
+// export const hasCompletedSessionToday = async (userId: string) : Promise<DBStreak | null> => {
+//     const today = Math.floor(
+//         new Date().setHours(0, 0, 0, 0) / 1000
+//     );
+
+//     const res = await db.getFirstAsync<DBStreak>(
+//         `
+//         SELECT 1 FROM lp_streaks
+//         WHERE user_id = ?
+//         AND last_activity_date >= ?
+//         `,
+//         [userId, today]
+//     );
+
+//     return !!res;
+// };
