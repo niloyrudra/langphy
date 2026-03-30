@@ -5,7 +5,7 @@ import LangphyText from '@/components/text-components/LangphyText';
 
 const TooltipContentLabel = ({label}: {label: string}) => {
     const {colors} = useTheme();
-    return (<LangphyText weight="bold" style={[styles.mainText, {color: colors.textDark}]}>{label}:</LangphyText>)
+    return (<LangphyText weight="bold" style={[styles.mainText, {color: colors.textDark}]}>{label}:{' '}</LangphyText>)
 }
 
 export default TooltipContentLabel

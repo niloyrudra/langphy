@@ -1,5 +1,5 @@
-import { ColorValue, StyleSheet, View } from 'react-native'
-import React from 'react'
+import { ColorValue, FlatList, StyleSheet, View } from 'react-native'
+import React, { useMemo } from 'react'
 import TranslatedWord from './TranslatedWord';
 
 interface TranslationProps {
@@ -7,20 +7,40 @@ interface TranslationProps {
     color: ColorValue | string;
 }
 
-const Translation = ( {translation, color}: TranslationProps ) => (
-    <View style={styles.translation}>
-        {
-            translation
-                ? translation.split(",").map((word, idx) => (word.trim() !== "") && (<TranslatedWord key={idx.toString()} word={word.trim()} color={color} />))
-                : (<TranslatedWord word={'... ... ...'} color={color} />)
-        }
-    </View>
-);
+const Translation = ( {translation, color}: TranslationProps ) => {
+    const words = useMemo(() => {
+        if (!translation) return ['... ... ...'];
+
+        return translation
+            .split(',')
+            .map(word => word.trim())
+            .filter(Boolean);
+    }, [translation]);
+    return (
+        <FlatList
+            data={words}
+            keyExtractor={(item) => item}
+            renderItem={({ item }) => (
+                <TranslatedWord word={item} color={color} />
+            )}
+            style={styles.translation}
+        />
+    );
+    // return (
+    //     <View style={styles.translation}>
+    //         {
+    //             words.map((word) => (
+    //                 <TranslatedWord key={word} word={word} color={color} />
+    //             ))
+    //         }
+    //     </View>
+    // );
+};
 
 export default Translation;
 
 const styles = StyleSheet.create({
     translation: {
-        flexDirection: "column"
+        maxHeight: 120,
     }
 });

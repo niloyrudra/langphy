@@ -31,13 +31,12 @@ export const runSync = async () => {
 
     let didWork = false;
 
+    didWork ||= !!(await syncEvents());
     didWork ||= !!(await syncDirtyProfile(userId));
     didWork ||= !!(await syncDirtySettings(userId));
     didWork ||= !!(await syncDirtyProgress(userId));
-    // didWork ||= !!(await syncDirtyPerformance(userId));
     didWork ||= !!(await syncDirtyStreaks(userId));
     didWork ||= !!(await syncDirtyVocabulary(userId));
-    didWork ||= !!(await syncEvents());
 
     return didWork
       ? BackgroundTask.BackgroundTaskResult.Success // NewData

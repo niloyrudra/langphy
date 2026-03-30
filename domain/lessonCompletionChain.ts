@@ -11,12 +11,11 @@ type LessonCompletionChainInput = {
   categoryId: string;
   unitId: string;
   userId: string;
-  sessionKey: string;
+  session_key: string;
   performanceSessionKey: string;
-  sessionType: SessionType;
   lessonId: string;
   lessonOrder: number;
-  lessonType: SessionType;
+  session_type: SessionType;
   score?: number;
   duration_ms: number;
   isFinalLesson: boolean;
@@ -34,9 +33,9 @@ export const lessonCompletionChain = async (
     category_id: input.categoryId,
     unit_id: input.unitId,
     user_id: input.userId, // ***
-    content_type: input.lessonType,
+    content_type: input.session_type,
     lessonId: input.lessonId,
-    sessionKey: input.sessionKey,
+    session_key: input.session_key,
     score: input.score,
     duration_ms: input.duration_ms,
     lesson_order: input.lessonOrder,
@@ -44,16 +43,16 @@ export const lessonCompletionChain = async (
 
   // 2️⃣ Emit lesson.completed event
   await enqueueEvent<LessonCompletedEvent>(
-    "lesson.completed",
+    "lesson.completed.v1",
     input.userId,
     `lesson:${input.lessonId}`,
     {
       categoryId: input.categoryId,
       unitId: input.unitId,
       userId: input.userId,
-      sessionKey: input.sessionKey,
+      session_key: input.session_key,
       lessonId: input.lessonId,
-      lessonType: input.lessonType,
+      session_type: input.session_type,
       score: input.score,
       duration_ms: input.duration_ms,
       occurredAt: now,
@@ -67,8 +66,8 @@ export const lessonCompletionChain = async (
    * ---------------------------------- */
   if (!input.isFinalLesson) return { sessionCompleted: false };
 
-  const totalDuration = await sumSessionDuration(input.sessionKey);
-  const avgLessonScore = await avgScore(input.sessionKey);
+  const totalDuration = await sumSessionDuration(input.session_key);
+  const avgLessonScore = await avgScore(input.session_key);
 
   /* ----------------------------------
    * 3️⃣ SESSION PERFORMANCE (once)
@@ -76,8 +75,8 @@ export const lessonCompletionChain = async (
   await upsertSessionPerformance({
     user_id: input.userId,
     unit_id: input.unitId,
-    sessionKey: input.performanceSessionKey,
-    sessionType: input.sessionType,
+    session_key: input.performanceSessionKey,
+    session_type: input.session_type,
     avgScore: avgLessonScore ?? 0,
     totalDurationMs: totalDuration,
     completed: 1,
@@ -93,7 +92,7 @@ export const lessonCompletionChain = async (
 
   if( streak.updated ) {
     await enqueueEvent<StreakUpdateEvent>(
-      "streak.updated",
+      "streak.updated.v1",
       input.userId,
       `streak:${input.userId}`,
       {
@@ -107,14 +106,14 @@ export const lessonCompletionChain = async (
 
   // 5️⃣ Emit session.completed event
   await enqueueEvent<SessionCompletedEvent>(
-    "session.completed",
+    "session.completed.v1",
     input.userId,
     `session:${input.performanceSessionKey}`,
     {
       userId: input.userId,
       unitId: input.unitId,
-      sessionKey: input.performanceSessionKey,
-      sessionType: input.sessionType,
+      session_key: input.performanceSessionKey,
+      session_type: input.session_type,
       score: Math.round(avgLessonScore ?? 0),
       attempts: 1,              // ✅ add — required by Zod schema
       total_duration_ms: totalDuration,

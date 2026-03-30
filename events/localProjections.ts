@@ -17,21 +17,21 @@ export const registerLocalProjections = () => {
   });
 
   subscribe("lesson.completed.v1", async (event: any) => {
-    const { sessionKey } = event.payload;
-    const updated = await getSessionProgress(sessionKey);
+    const { session_key } = event.payload;
+    const updated = await getSessionProgress(session_key);
 
     queryClient.setQueryData(
-      ["lp_progress", sessionKey],
+      ["lp_progress", session_key],
       updated
     );
   });
 
   subscribe("session.completed.v1", async (event: any) => {
-    const { performanceSessionKey } = event.payload;
-    const updated = await getPerformance(performanceSessionKey);
+    const { session_key } = event.payload;
+    const updated = await getPerformance(session_key);
 
     queryClient.setQueryData(
-      ["lp_session_performance", performanceSessionKey],
+      ["lp_session_performance", session_key],
       updated
     );
   });

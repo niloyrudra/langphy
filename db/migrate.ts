@@ -23,8 +23,10 @@ export const runMigrations = async () => {
     // await db.runAsync(`DELETE FROM lp_settings`);
     // await db.runAsync(`DELETE FROM lp_vocabulary`);
     // await db.runAsync(`DELETE FROM lp_lessons`);
-    // await db.runAsync(`DELETE FROM lp_session_performance`);
     // await db.runAsync(`DELETE FROM lp_progress`);
+    // await db.runAsync(`DELETE FROM lp_session_performance`);
+    // await db.runAsync(`DELETE FROM lp_event_outbox`);
+
     // await db.runAsync(`DROP TABLE IF EXISTS lp_profiles`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_settings`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_streaks`);
@@ -33,6 +35,7 @@ export const runMigrations = async () => {
     // await db.runAsync(`DROP TABLE IF EXISTS lp_units`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_progress`);
     // await db.runAsync(`DROP TABLE IF EXISTS lp_session_performance`);
+    // await db.runAsync(`DROP TABLE IF EXISTS lp_event_outbox`);
 
 
     

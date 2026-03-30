@@ -730,7 +730,20 @@ type FontWeight =
   | "extrabold"
   | "black";
 
+
+type EventIndex = {
+  event_id: string;
+  event_type: string;
+  user_id: string;
+  idempotency_key: string;
+  payload: string;
+  occurred_at: number;
+  published: number;
+};
+
 export {
+  EventIndex,
+
   FontWeight,
   GermanLevel,
 

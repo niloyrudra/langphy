@@ -5,7 +5,6 @@ export type BaseEvent<T> = {
   event_type: string;        // e.g. session.completed.v1
   occurred_at: number;       // unix seconds
   user_id: string;
-
   idempotency_key: string;   // 🔥 CRITICAL
   payload: T;
 };
@@ -14,14 +13,14 @@ export type BaseEvent<T> = {
 export type LessonCompletedPayload = {
   lesson_id: string;
   session_key: string;
-  content_type: SessionType;
+  session_type: SessionType;
   score?: number;
 };
 
 // session.scored.v1
 export type SessionScoredPayload = {
   session_key: string;
-  content_type: SessionType;
+  session_type: SessionType;
   avg_score?: number;
   attempts: number;
 };

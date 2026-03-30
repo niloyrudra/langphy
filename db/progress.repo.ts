@@ -8,7 +8,7 @@ interface MarkLessonCompleted {
   user_id: string,
   content_type: SessionType;
   lessonId: string;
-  sessionKey: string;
+  session_key: string;
   score?: number;
   duration_ms?: number;
   lesson_order?: number;
@@ -31,7 +31,7 @@ export const getDirtyProgress = async (): Promise<DBProgress[]> => {
 export const getSessionProgress = async (sessionKey: string): Promise<DBProgress[]> => {
   const userId = authSnapshot.getUserId() ?? "";
   return await db.getAllAsync<DBProgress>(
-    "SELECT * FROM lp_progress WHERE session_type = ? AND user_id = ?",
+    "SELECT * FROM lp_progress WHERE session_key = ? AND user_id = ?",
     [sessionKey, userId]
   );
 };
@@ -181,7 +181,7 @@ export const markLessonCompleted  = async (payload: MarkLessonCompleted) => {
         payload.score ?? 0,
         payload.duration_ms ?? 0,
         payload.lesson_order ?? 0,
-        payload.sessionKey,
+        payload.session_key,
         now
       ]
     );

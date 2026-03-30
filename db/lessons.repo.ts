@@ -3,7 +3,6 @@ import { SessionType } from "@/types";
 
 type LocalLesson = {
     id: string;
-    // user_id: string;
     category_id: string;
     unit_id: string;
     type: SessionType;

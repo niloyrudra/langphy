@@ -5,8 +5,8 @@ export interface LessonCompletedEvent {
   unitId: string;
   userId: string;
   lessonId: string;
-  sessionKey: string;
-  lessonType: SessionType;
+  session_key: string;
+  session_type: SessionType;
   score?: number;
   duration_ms?: number;
   occurredAt: number
@@ -15,8 +15,8 @@ export interface LessonCompletedEvent {
 export interface SessionCompletedEvent {
   userId: string;
   unitId: string;
-  sessionKey: string;
-  sessionType: string;
+  session_key: string;
+  session_type: string;
   score?: number;
   attempts: number;          // ✅ add — Zod requires it
   total_duration_ms?: number;

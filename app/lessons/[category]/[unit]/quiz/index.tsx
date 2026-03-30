@@ -9,7 +9,7 @@ import { getCardContainerWidth } from '@/utils';
 import { SessionType, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { useTheme } from '@/theme/ThemeContext';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
@@ -70,12 +70,12 @@ const QuizSession = () => {
         categoryId: categoryId as string,
         unitId: unitId as string,
         userId,
-        sessionKey,
+        session_key: sessionKey,
         performanceSessionKey,
         lessonId: quizQuestion.id ?? quizQuestion?._id,
         lessonOrder: quizQuestionOrder,
-        sessionType,
-        lessonType: sessionType,
+        session_type: sessionType,
+        // lessonType: sessionType,
         score,
         duration_ms,
         isFinalLesson

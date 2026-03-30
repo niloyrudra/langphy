@@ -2,6 +2,7 @@ import { ColorValue, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import LangphyText from '@/components/text-components/LangphyText';
+import STYLES from '@/constants/styles';
 
 interface TranslatedWordProps {
     word: string;
@@ -15,6 +16,7 @@ const TranslatedWord = ( {word, color}: TranslatedWordProps ) => {
             <LangphyText
                 style={[
                     styles.translation,
+                    STYLES.wordWrapStyle,
                     { color: color ?? colors.textDark }
                 ]}
             >

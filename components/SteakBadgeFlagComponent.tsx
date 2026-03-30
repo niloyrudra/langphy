@@ -1,18 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-// import { useTheme } from '@/theme/ThemeContext';
 import SteakBadge from './SteakBadge';
 import FlagSquareComponent from './FlagSquareComponent';
 
 const SteakBadgeFlagComponent = () => {
-    // const { colors, theme } = useTheme();
   return (
-    <View
-        style={[
-            styles.container,
-            // (theme === "dark" && {backgroundColor: colors.cardBackgroundColor})
-        ]}
-    >
+    <View style={styles.container}>
         <SteakBadge />
         <FlagSquareComponent />
     </View>

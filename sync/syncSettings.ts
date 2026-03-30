@@ -35,8 +35,7 @@ export const syncDirtySettings = async (userId: string) => {
       writing_service: Boolean(localSettings.writing_service),
       practice_service: Boolean(localSettings.practice_service),
       quiz_service: Boolean(localSettings.quiz_service),
-      updated_at: localSettings.updated_at,
-      // dirty: localSettings.dirty,
+      updated_at: new Date(localSettings.updated_at * 1000).toISOString(), // ✅ convert Unix → ISO
     });
 
     if (res.status !== 200) {

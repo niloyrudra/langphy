@@ -127,6 +127,7 @@ export const CREATE_KAFKA_EVENTS_TABLE = `
 CREATE TABLE IF NOT EXISTS lp_event_outbox (
   event_id TEXT PRIMARY KEY,
   event_type TEXT NOT NULL,
+  event_version INTEGER NOT NULL DEFAULT 1,
   user_id TEXT NOT NULL,
   idempotency_key TEXT NOT NULL,
   payload TEXT NOT NULL,

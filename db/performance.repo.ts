@@ -6,8 +6,8 @@ import { authSnapshot } from "@/snapshots/authSnapshot";
 type SessionPerformanceUpsertType = {
   user_id: string;
   unit_id: string;
-  sessionKey: string;
-  sessionType: SessionType;
+  session_key: string;
+  session_type: SessionType;
   avgScore: number;
   totalDurationMs?: number;
   completed?: number;
@@ -25,8 +25,8 @@ const rollingAverage = (
 export const upsertSessionPerformance = async ({
   user_id,
   unit_id,
-  sessionKey,
-  sessionType,
+  session_key,
+  session_type,
   avgScore,
   totalDurationMs,
   completed
@@ -36,7 +36,7 @@ export const upsertSessionPerformance = async ({
 
     const existing = await db.getFirstAsync<any>(
       `SELECT * FROM lp_session_performance WHERE session_key = ?`,
-      [sessionKey]
+      [session_key]
     );
 
     if(!existing) {
@@ -49,8 +49,8 @@ export const upsertSessionPerformance = async ({
         [
           user_id,
           unit_id,
-          sessionKey,
-          sessionType,
+          session_key,
+          session_type,
           avgScore,
           totalDurationMs ?? 0,
           avgScore !== undefined ? 1 : 0,
@@ -58,7 +58,7 @@ export const upsertSessionPerformance = async ({
           now,
         ]
       );
-      console.log("Inserted new session performance - sessionKey", sessionKey);
+      console.log("Inserted new session performance - sessionKey", session_key);
       return;
     }
 
@@ -84,11 +84,11 @@ export const upsertSessionPerformance = async ({
         newAvg,
         newAttempts,
         now,
-        sessionKey,
+        session_key,
         user_id
       ]
     );
-    console.log( "upsertSessionPerformance updated", newAvg, newAttempts, sessionKey );
+    console.log( "upsertSessionPerformance updated", newAvg, newAttempts, session_key );
   }
   catch(error) {
     console.error( "upsertSessionPerformance error:", error );

@@ -3,14 +3,17 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
 import TooltipContentLabel from './TooltipContentLabel';
 import LangphyText from '@/components/text-components/LangphyText';
+import STYLES from '@/constants/styles';
 
 const WordAnalyzer = ({topic, label}: {topic: string, label: string}) => {
     const {colors} = useTheme();
     return (
         <View style={styles.details}>
-            <TooltipContentLabel label={label} />
-            <LangphyText weight="medium" style={[styles.text, {color: colors.primary}]}>
-                {topic}
+            <LangphyText>
+                <TooltipContentLabel label={label} />
+                <LangphyText weight="medium" style={[styles.text, STYLES.wordWrapStyle, {color: colors.primary}]}>
+                    {topic}
+                </LangphyText>
             </LangphyText>
         </View>
     )
