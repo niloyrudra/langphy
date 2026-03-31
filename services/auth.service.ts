@@ -24,6 +24,12 @@ export const signUp = async (email: string, password: string) : Promise<AxiosPro
   return res;
 };
 
+export const requestOtp = (email: string, password: string) =>
+    api.post("/users/signup/request-otp", { email, password });
+
+export const verifyOtp = (email: string, password: string, otp: string) =>
+    api.post("/users/signup/verify-otp", { email, password, otp });
+
 export const resetPasswordByEmail = async (email: string, password: string) : Promise<AxiosPromise> => {
   // try {
     const res = await api.put(
