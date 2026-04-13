@@ -1,10 +1,8 @@
 import { Stack } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
-import Title from '@/components/Title';
-import { truncateString } from '@/utils';
 import Settings from '@/components/header/Settings';
-import STYLES from '@/constants/styles';
+import LangphyHeaderTitle from '@/components/text-components/LangphyHeaderTitle';
 
 const SpeakingSessionLayout = () => {
   const { colors } = useTheme();
@@ -17,10 +15,8 @@ const SpeakingSessionLayout = () => {
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
-            <Title
-              title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
-              contentStyle={STYLES.headerTitle}
-              alignCenter
+            <LangphyHeaderTitle
+              title={ (props.route.params as any)?.title ?? "Unit Sessions"}
             />
           ),
           headerRight: () => (<Settings />)

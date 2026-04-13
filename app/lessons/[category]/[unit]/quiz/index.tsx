@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import QuizOptionCardList from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
@@ -12,12 +12,13 @@ import { useTheme } from '@/theme/ThemeContext';
 import { AntDesign } from '@expo/vector-icons';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { useLessonTimer } from '@/hooks/useLessonTimer';
-import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+// import { useLessonTimer } from '@/hooks/useLessonTimer';
+// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import LangphyText from '@/components/text-components/LangphyText';
+import { useSessionLesson } from '@/hooks/useSessionLesson';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
@@ -25,16 +26,16 @@ const QuizSession = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId = authSnapshot.getUserId() ?? "";
-  const {start, stop, isRunning} = useLessonTimer();
+  // const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
 
   const { data: quizLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  const goToNextRef = React.useRef<(() => void) | null>(null);
-  const activeQuizQuestionOrderRef = React.useRef<number>(0);
-  const currentQuizQuestionRef = React.useRef<QuizSessionType | null>(null);
+  // const goToNextRef = React.useRef<(() => void) | null>(null);
+  // const activeQuizQuestionOrderRef = React.useRef<number>(0);
+  // const currentQuizQuestionRef = React.useRef<QuizSessionType | null>(null);
 
   const quizzes = React.useMemo<QuizSessionType[]>(() => {
     if( !quizLessons ) return [];
@@ -44,6 +45,23 @@ const QuizSession = () => {
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ error, setError ] = React.useState<string>('')
+
+  const getOptions = React.useCallback((item: QuizSessionType): [string, string, string, string] => {
+    const options = Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""];
+    return [options[0] || "", options[1] || "", options[2] || "", options[3] || ""] as [string, string, string, string];
+  }, []);
+
+  // ── Shared session logic ──────────────────────────────────────────────────
+  const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<QuizSessionType>({
+    userId,
+    categoryId: categoryId as string,
+    unitId: unitId as string,
+    slug: slug as SessionType,
+    lessonCount: quizzes.length,
+    performanceSessionKey,
+    onSessionComplete: triggerSessionCompletion,
+    onStreakUpdate: triggerStreak,
+  });
 
   // Handlers
   const handleSelect = React.useCallback((option: string) => {
@@ -56,37 +74,6 @@ const QuizSession = () => {
     setIsSelectionHappened(false);
     setError("");
   }, []);
-
-  const onQuizQuestionCompletion = React.useCallback( async (quizQuestion: QuizSessionType, score: number) => {
-    if( !userId ) return;
-    try {
-      const duration_ms = stop();
-      const sessionType = slug as SessionType;
-      const sessionKey = `${unitId}:${slug}`;
-      const quizQuestionOrder = activeQuizQuestionOrderRef.current;
-      const isFinalLesson = quizQuestionOrder === quizzes.length - 1;
-
-      const result = await lessonCompletionChain({
-        categoryId: categoryId as string,
-        unitId: unitId as string,
-        userId,
-        session_key: sessionKey,
-        performanceSessionKey,
-        lessonId: quizQuestion.id ?? quizQuestion?._id,
-        lessonOrder: quizQuestionOrder,
-        session_type: sessionType,
-        // lessonType: sessionType,
-        score,
-        duration_ms,
-        isFinalLesson
-      });
-      if(result?.sessionCompleted) triggerSessionCompletion(performanceSessionKey);
-      if(result?.streakUpdated && result?.streakPayload) triggerStreak(result.streakPayload);
-    }
-    catch(error) {
-      console.error("onQuizQuestionCompletion error:", error);
-    }
-  }, [userId, slug, unitId, quizzes?.length, stop]);
 
   const checkAnswerHandler = React.useCallback((answer: string) => {
     const isCorrect: boolean = selectedOption === answer;
@@ -104,7 +91,7 @@ const QuizSession = () => {
       onContinue: async () => {
         try {
           const score = resultPayload.isCorrect ? 100 : 0;
-          await onQuizQuestionCompletion(currentQuizQuestionRef.current!, score);
+          await onLessonComplete(currentLessonRef.current!, score);
           reset();
           goToNextRef.current?.();
 
@@ -126,21 +113,8 @@ const QuizSession = () => {
       },
       onRetry: reset
     });
-  }, [ selectedOption, triggerLessonResult, reset, onQuizQuestionCompletion, resolveCurrent ]);
+  }, [ selectedOption, triggerLessonResult, reset, onLessonComplete, resolveCurrent ]);
   
-  const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: QuizSessionType, index: number, goToNext: () => void}) => {
-    activeQuizQuestionOrderRef.current = index;
-    currentQuizQuestionRef.current = item;
-    reset();
-    // You can use goToNextRef.current() to navigate to the next item from outside
-    goToNextRef.current = goToNext;
-  }, [ reset ])
-
-  // Timer
-  React.useEffect(() => {
-    if(!isRunning) start();
-  }, [isRunning]);
-
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
@@ -167,7 +141,7 @@ const QuizSession = () => {
               {/* QUIZ Answer Options */}
               <QuizOptionCardList
                 height={cardWidth / 2} 
-                options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
+                options={getOptions(item)}
                 answer={item?.answer ?? ""}
                 selectedOption={selectedOption ?? ""}
                 onSelect={handleSelect}

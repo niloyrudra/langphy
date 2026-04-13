@@ -1,13 +1,11 @@
 import { Stack } from 'expo-router';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
-import Title from '@/components/Title';
 import { useTheme } from '@/theme/ThemeContext';
-import { truncateString } from '@/utils';
 import ShowListButton from '@/components/header/ShowListButton';
 import { SessionProvider } from '@/context/SessionContext';
 import Settings from '@/components/header/Settings';
 import { StyleSheet, View } from 'react-native';
-import STYLES from '@/constants/styles';
+import LangphyHeaderTitle from '@/components/text-components/LangphyHeaderTitle';
 
 const PracticeSessionLayout = () => {
   const { colors } = useTheme();
@@ -21,10 +19,8 @@ const PracticeSessionLayout = () => {
             headerShadowVisible: false,
             headerLeft: () => (<HeaderTopLeftArrowButton />),
             headerTitle: () => (
-              <Title
-                title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
-                contentStyle={STYLES.headerTitle}
-                alignCenter
+              <LangphyHeaderTitle
+                title={ (props.route.params as any)?.title ?? "Unit Sessions"}
               />
             ),
             headerRight: () => (

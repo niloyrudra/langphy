@@ -88,7 +88,7 @@ function SessionLayout<T>({
     itemVisiblePercentThreshold: 90,
   };
 
-  const onVirewableItemsChanged = useRef(
+  const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: any[] }) => {
       const visible = viewableItems[0]
       if( !visible ) return;
@@ -113,9 +113,6 @@ function SessionLayout<T>({
     },
     [onPositionChange]
   );
-
-  // const disableHorizontalScroll = useCallback(() => setHorizontalEnabled(false), []);
-  // const enableHorizontalScroll = useCallback(() => setHorizontalEnabled(true), []);
 
   // Register scroller callback
   useEffect(() => {
@@ -161,8 +158,6 @@ function SessionLayout<T>({
           index,
           currentIndex:          currentIndexRef.current,
           setCurrentIndex:       setCurrentIdxRef.current,
-          // disableHorizontalScroll,
-          // enableHorizontalScroll,
           goToNext:              goToNextStableRef.current,
           goToPrevious:          goToPrevStableRef.current,
           wordRefs,
@@ -173,7 +168,6 @@ function SessionLayout<T>({
       </View>
     ),
     [children]
-    // [children, disableHorizontalScroll, enableHorizontalScroll]
   );
 
   // Fixed layout optimization for FlatList
@@ -188,9 +182,22 @@ function SessionLayout<T>({
 
   return (
     <SafeAreaLayout>
+      {/*
+       * KeyboardAvoidingView must sit INSIDE SafeAreaLayout so it only
+       * adjusts the content area — not the safe area insets themselves.
+       *
+       * On Android: behavior="padding" adds bottom padding equal to the
+       * keyboard height, keeping the header/nav dots anchored at the top.
+       * behavior="height" shrinks the whole container including insets,
+       * which pushes the header under the status bar (the bug in Image 3/4).
+       *
+       * keyboardVerticalOffset is only relevant on iOS.
+       * enabled={keyboardAvoid} lets screens without text input skip this entirely.
+       */}
       <KeyboardAvoidingView
         style={styles.flex}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
         enabled={keyboardAvoid}
         // keyboardVerticalOffset={keyboardVerticalOffset}
       >
@@ -211,7 +218,7 @@ function SessionLayout<T>({
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={handleScroll}
             
-            onViewableItemsChanged={onVirewableItemsChanged}
+            onViewableItemsChanged={onViewableItemsChanged}
             viewabilityConfig={viewabilityConfig}
 
             keyboardShouldPersistTaps="handled"

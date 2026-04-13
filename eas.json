@@ -9,7 +9,7 @@
       "distribution": "internal", // https://docs.expo.dev/tutorial/eas/internal-distribution-builds/
       "channel": "development",
       "env": {
-        "EXPO_PUBLIC_API_BASE": "http://192.168.1.2/api",
+        "EXPO_PUBLIC_API_BASE": "https://app.langphy.com/api",
         "NODE_ENV": "development"
       }
     },
@@ -20,7 +20,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_BASE": "https://api.langphy.com/api",
+        "EXPO_PUBLIC_API_BASE": "https://app.langphy.com/api",
         "NODE_ENV": "production"
       }
     },
@@ -32,7 +32,7 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "EXPO_PUBLIC_API_BASE": "https://api.langphy.com/api",
+        "EXPO_PUBLIC_API_BASE": "https://app.langphy.com/api",
         "NODE_ENV": "production"
       }
     }

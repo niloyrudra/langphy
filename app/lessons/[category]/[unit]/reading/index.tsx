@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
 import { SelectiveResultType, ReadingSessionType, SessionType } from '@/types';
@@ -21,6 +21,7 @@ import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import LangphyText from '@/components/text-components/LangphyText';
 import SIZES from '@/constants/size';
+import { useSessionLesson } from '@/hooks/useSessionLesson';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
@@ -35,9 +36,9 @@ const ReadingLessons = () => {
   const cardWidth = getCardContainerWidth();
 
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  const goToNextRef = React.useRef<(() => void) | null>(null);
+  // const goToNextRef = React.useRef<(() => void) | null>(null);
   const activeLessonOrderRef = React.useRef<number>(0);
-  const currentLessonRef = React.useRef<ReadingSessionType | null>(null);
+  // const currentLessonRef = React.useRef<ReadingSessionType | null>(null);
 
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
@@ -48,6 +49,23 @@ const ReadingLessons = () => {
     if( !readingLessons ) return [];
     return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [readingLessons]);
+
+  const getOptions = React.useCallback((item: ReadingSessionType): [string, string, string, string] => {
+    const options = Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""];
+    return [options[0] || "", options[1] || "", options[2] || "", options[3] || ""] as [string, string, string, string];
+  }, []);
+
+  // ── Shared session logic ──────────────────────────────────────────────────
+  const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<ReadingSessionType>({
+    userId,
+    categoryId: categoryId as string,
+    unitId: unitId as string,
+    slug: slug as SessionType,
+    lessonCount: lessonData.length,
+    performanceSessionKey,
+    onSessionComplete: triggerSessionCompletion,
+    onStreakUpdate: triggerStreak,
+  });
 
   // Handlers
   const handleSelect = (option: string) => {
@@ -62,39 +80,38 @@ const ReadingLessons = () => {
     setError("");
   }, []);
 
-  const onLessonComplete = React.useCallback(async (lesson: ReadingSessionType, score: number) => {
-    if(!userId) return;
-    try {
-      const duration_ms = stop();
-      const sessionType = slug as SessionType;
-      const sessionKey = `${unitId}:${sessionType}`;
-      const lessonOrder = activeLessonOrderRef.current;
-      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  // const onLessonComplete = React.useCallback(async (lesson: ReadingSessionType, score: number) => {
+  //   if(!userId) return;
+  //   try {
+  //     const duration_ms = stop();
+  //     const sessionType = slug as SessionType;
+  //     const sessionKey = `${unitId}:${sessionType}`;
+  //     const lessonOrder = activeLessonOrderRef.current;
+  //     const isFinalLesson = lessonOrder === lessonData.length - 1;
   
-      const result = await lessonCompletionChain({
-        categoryId: categoryId as string,
-        unitId: unitId as string,
-        userId,
-        session_key: sessionKey,
-        performanceSessionKey,
-        lessonId: lesson.id ?? lesson?._id,
-        lessonOrder: lessonOrder,
-        session_type:sessionType,
-        // lessonType: sessionType,
-        score,
-        duration_ms,
-        isFinalLesson
-      });
-      if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
-      if( result?.streakUpdated && result?.streakPayload ) {
-        console.log("TRIGGERING STREAK MODAL");
-        triggerStreak( result.streakPayload );
-      }
-    }
-    catch(error) {
-      console.error("onLessonComplete error:", error)
-    }
-  }, [userId, slug, lessonData?.length, stop]);
+  //     const result = await lessonCompletionChain({
+  //       categoryId: categoryId as string,
+  //       unitId: unitId as string,
+  //       userId,
+  //       session_key: sessionKey,
+  //       performanceSessionKey,
+  //       lessonId: lesson.id ?? lesson?._id,
+  //       lessonOrder: lessonOrder,
+  //       session_type:sessionType,
+  //       score,
+  //       duration_ms,
+  //       isFinalLesson
+  //     });
+  //     if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
+  //     if( result?.streakUpdated && result?.streakPayload ) {
+  //       console.log("TRIGGERING STREAK MODAL");
+  //       triggerStreak( result.streakPayload );
+  //     }
+  //   }
+  //   catch(error) {
+  //     console.error("onLessonComplete error:", error)
+  //   }
+  // }, [userId, slug, lessonData?.length, stop]);
 
   const checkAnswerHandler = React.useCallback((answer: string) => {
     const isCorrect: boolean = selectedOption === answer;
@@ -136,18 +153,18 @@ const ReadingLessons = () => {
     });
   }, [ selectedOption, triggerLessonResult, reset, onLessonComplete, resolveCurrent ]);
  
-  const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: ReadingSessionType, index: number, goToNext: () => void}) => {
-    activeLessonOrderRef.current = index;
-    currentLessonRef.current = item;
-    reset();
-    // You can use goToNextRef.current() to navigate to the next item from outside
-    goToNextRef.current = goToNext;
-  }, [reset])
+  // const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: ReadingSessionType, index: number, goToNext: () => void}) => {
+  //   activeLessonOrderRef.current = index;
+  //   currentLessonRef.current = item;
+  //   reset();
+  //   // You can use goToNextRef.current() to navigate to the next item from outside
+  //   goToNextRef.current = goToNext;
+  // }, [reset])
 
   // Timer
-  React.useEffect(() => {
-    if(!isRunning) start();
-  }, [isRunning]);
+  // React.useEffect(() => {
+  //   if(!isRunning) start();
+  // }, [isRunning]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
@@ -159,7 +176,11 @@ const ReadingLessons = () => {
       {({ item, wordRefs, containerRef, setTooltip }) => {
         const handleTooltip = (value: any) => setTooltip(value);        
         return (
-          <View style={styles.flex}>
+          <ScrollView
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+            scrollEventThrottle={16}
+          >
             <View style={styles.flex}>
               {/* Title Section */}
               <ChallengeScreenTitle title="Read The Comprehension." />
@@ -193,7 +214,7 @@ const ReadingLessons = () => {
                 {/* QUIZ Answer Options */}
                 <QuizOptions 
                   height={cardWidth / 2} 
-                  options={Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""]}
+                  options={getOptions(item)}
                   answer={item?.answer || ""}
                   isCorrect={ isCorrect }
                   selectedOption={selectedOption || ""}
@@ -213,7 +234,7 @@ const ReadingLessons = () => {
               disabled={!selectedOption ? true : false }
             />
 
-          </View>
+          </ScrollView>
         );
       }}
     </SessionLayout>

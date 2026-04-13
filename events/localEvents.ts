@@ -1,9 +1,10 @@
 import { db } from "@/db";
 import { randomUUID } from 'expo-crypto';
 import { dispatchLocalEvent } from "./localBus";
+import { EventType } from "@/types";
 
 export const enqueueEvent = async <T>(
-    eventType: string,
+    eventType: EventType,
     userId: string,
     idempotencyKey: string,
     payload: T

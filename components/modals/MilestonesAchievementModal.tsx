@@ -1,9 +1,8 @@
-import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import React from 'react'
 import ModalLayout from './_partials/ModalLayout';
 import { useTheme } from '@/theme/ThemeContext';
 import ActionButton from '../form-components/ActionButton';
-import LottieView from "lottie-react-native";
 import LangphyText from '../text-components/LangphyText';
 import { useFeedback } from '@/utils/feedback';
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withSpring, withTiming } from 'react-native-reanimated';
@@ -77,21 +76,6 @@ const MilestonesAchievementModal = ({isVisible, streak, milestone, onClose}: Mil
 
                     {/* Top Greetings */}
                     <View style={styles.greetingSection}>
-
-                        <View style={styles.greetingContent}>
-                            <LottieView
-                                source={require(`../../assets/lotties/celebration-illustration.json`)}
-                                autoPlay
-                                loop={false}
-                                speed={0.8}
-                                resizeMode='cover'
-                                style={styles.dimensions}
-                            />
-                        </View>
-
-                        {/* <LangphyText weight="extrabold" style={styles.resultHeader}>Lesson Complete</LangphyText> */}
-                        {/* <LangphyText style={styles.resultSubHeader}>Great job! Keep learning and improve your skills!</LangphyText> */}
-                        
                         <View style={styles.contentSection}>
     
                             {/* Milestone badge emoji */}
@@ -171,11 +155,11 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height,
     },
     flex: {flex: 1},
-    dimensions: { width: 320, height: 300 },
+    // dimensions: { width: 320, height: 300 },
     // space: {
     //     height: "3%"
     // },
-    space: { height: "8%" },
+    space: { height: "6%" },
  
     // Lottie sits behind content
     lottieWrapper: {

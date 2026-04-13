@@ -54,13 +54,15 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
                                 source={require(`../../assets/lotties/celebration-illustration.json`)}
                                 autoPlay
                                 loop={false}
-                                speed={1}
-                                resizeMode='contain'
+                                speed={0.85}
+                                // resizeMode='contain'
+                                resizeMode='cover'
                                 style={styles.dimensions}
                             />
                         </View>
 
-                        <LangphyText weight="extrabold" style={styles.resultHeader}>Lesson Complete</LangphyText>
+                        {/* <LangphyText weight="extrabold" style={styles.resultHeader}>Lesson Complete</LangphyText> */}
+                        <LangphyText weight="bold" style={styles.resultHeader}>Lesson Complete</LangphyText>
                         <LangphyText style={styles.resultSubHeader}>Great job! Keep learning and improve your skills!</LangphyText>
                     </View>
 
@@ -127,22 +129,23 @@ const styles = StyleSheet.create({
     flex: {flex: 1},
     dimensions: { width: 320, height: 300 },
     space: {
-        height: "3%"
+        height: "2%"
     },
     greetingSection: {
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 10
+        // padding: 10
     },
     greetingContent: {
-        marginBottom: 10,
+        // marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },
     resultHeader: {
         fontSize: 32,
+        textAlign: "center",
         fontWeight: '800',
-        marginBottom: 5,
+        marginBottom: 4,
         color: '#68F0F8'
     },
     resultSubHeader: {
@@ -153,11 +156,11 @@ const styles = StyleSheet.create({
     stats: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         paddingHorizontal: 20,
-        gap: 10,
-        marginTop: 15
-        // width: "80%"
+        gap: 12, // 10,
+        marginTop: 12,
+        // width: "100%"
     },
     buttonContainer: {
         marginTop: "auto",

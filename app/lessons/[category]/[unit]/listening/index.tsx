@@ -11,13 +11,14 @@ import TaskAllocation from '@/components/listening-components/TaskAllocation';
 import { useListening } from '@/context/ListeningContext';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { useLessonTimer } from '@/hooks/useLessonTimer';
-import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+// import { useLessonTimer } from '@/hooks/useLessonTimer';
+// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
 import { toastError } from '@/services/toast.service';
+import { useSessionLesson } from '@/hooks/useSessionLesson';
 // import { toastSuccess } from '@/services/toast.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
@@ -27,7 +28,7 @@ const ListeningLessons = () => {
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const { colors } = useTheme();
-  const { start, stop, isRunning } = useLessonTimer();
+  // const { start, stop, isRunning } = useLessonTimer();
 
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
@@ -35,10 +36,10 @@ const ListeningLessons = () => {
   const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const { resultHandler } = useListening();
-  const goToNextRef = React.useRef<(() => void) | null>(null);
+  // const goToNextRef = React.useRef<(() => void) | null>(null);
 
-  const activeLessonOrderRef = React.useRef<number>(0);
-  const currentLessonRef = React.useRef<ListeningSessionType | null>(null);
+  // const activeLessonOrderRef = React.useRef<number>(0);
+  // const currentLessonRef = React.useRef<ListeningSessionType | null>(null);
 
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ error, setError ] = React.useState<string>('')
@@ -48,6 +49,18 @@ const ListeningLessons = () => {
     if( !listeningLessons ) return [];
     return listeningLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [listeningLessons]);
+
+  // ── Shared session logic ──────────────────────────────────────────────────
+  const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<ListeningSessionType>({
+    userId,
+    categoryId: categoryId as string,
+    unitId: unitId as string,
+    slug: slug as SessionType,
+    lessonCount: lessonData.length,
+    performanceSessionKey,
+    onSessionComplete: triggerSessionCompletion,
+    onStreakUpdate: triggerStreak,
+  });
 
   // Handlers
   const reset = React.useCallback(() => {
@@ -89,36 +102,36 @@ const ListeningLessons = () => {
     }
   }, [textContent, analysisNLP, triggerLessonResult, reset, setError, setLoading]);
 
-  const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
-    if(!userId) return;
-    try {
-      const duration_ms = stop();
-      const sessionType = slug as SessionType;
-      const sessionKey = `${unitId}:${sessionType}`;
-      const lessonOrder = activeLessonOrderRef.current;
-      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  // const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
+  //   if(!userId) return;
+  //   try {
+  //     const duration_ms = stop();
+  //     const sessionType = slug as SessionType;
+  //     const sessionKey = `${unitId}:${sessionType}`;
+  //     const lessonOrder = activeLessonOrderRef.current;
+  //     const isFinalLesson = lessonOrder === lessonData.length - 1;
   
-      const result = await lessonCompletionChain({
-        categoryId: categoryId as string,
-        unitId: unitId as string,
-        userId,
-        session_key: sessionKey,
-        performanceSessionKey,
-        lessonId: lesson?.id ?? lesson?._id,
-        lessonOrder: lessonOrder,
-        session_type: sessionType,
-        // lessonType: sessionType,
-        score: score,
-        duration_ms,
-        isFinalLesson
-      });
-      if(result?.sessionCompleted) triggerSessionCompletion(performanceSessionKey);
-      if(result?.streakUpdated && result?.streakPayload) triggerStreak(result.streakPayload);
-    }
-    catch(error) {
-      console.error("onLessonComplete error:", error)
-    }
-  }, [userId, slug, lessonData?.length, stop]);
+  //     const result = await lessonCompletionChain({
+  //       categoryId: categoryId as string,
+  //       unitId: unitId as string,
+  //       userId,
+  //       session_key: sessionKey,
+  //       performanceSessionKey,
+  //       lessonId: lesson?.id ?? lesson?._id,
+  //       lessonOrder: lessonOrder,
+  //       session_type: sessionType,
+  //       // lessonType: sessionType,
+  //       score: score,
+  //       duration_ms,
+  //       isFinalLesson
+  //     });
+  //     if(result?.sessionCompleted) triggerSessionCompletion(performanceSessionKey);
+  //     if(result?.streakUpdated && result?.streakPayload) triggerStreak(result.streakPayload);
+  //   }
+  //   catch(error) {
+  //     console.error("onLessonComplete error:", error)
+  //   }
+  // }, [userId, slug, lessonData?.length, stop]);
   
   const lessonCompletionHandler = React.useCallback( async (result: any) => {
     try {
@@ -145,16 +158,16 @@ const ListeningLessons = () => {
     }
   }, [ reset, onLessonComplete, resultHandler ]);
   
-  const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: ListeningSessionType, index: number, goToNext: () => void}) => {
-    activeLessonOrderRef.current = index;
-    currentLessonRef.current = item;
-    goToNextRef.current = goToNext;
-  }, []);
+  // const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: ListeningSessionType, index: number, goToNext: () => void}) => {
+  //   activeLessonOrderRef.current = index;
+  //   currentLessonRef.current = item;
+  //   goToNextRef.current = goToNext;
+  // }, []);
 
   // Timer
-  React.useEffect(() => {
-    if(!isRunning) start();
-  }, [isRunning]);
+  // React.useEffect(() => {
+  //   if(!isRunning) start();
+  // }, [isRunning]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 

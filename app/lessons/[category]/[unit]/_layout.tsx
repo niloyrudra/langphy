@@ -2,15 +2,13 @@ import { useEffect, useRef } from 'react';
 import { router, Stack } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import { useCelebration } from '@/context/CelebrationContext';
-import { truncateString } from '@/utils';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
 import Settings from '@/components/header/Settings';
 import DailyStreaksModal from '@/components/modals/DailyStreaksModal';
 import SessionCompletionModal from '@/components/modals/SessionCompletionModal';
 import LessonCompletionModal from '@/components/modals/LessonCompletionModal';
-import Title from '@/components/Title';
-import STYLES from '@/constants/styles';
 import MilestonesAchievementModal from '@/components/modals/MilestonesAchievementModal';
+import LangphyHeaderTitle from '@/components/text-components/LangphyHeaderTitle';
 
 const UnitLayout = () => {
   const {colors} = useTheme();
@@ -35,10 +33,8 @@ const UnitLayout = () => {
             headerShadowVisible: false,
             headerLeft: () => (<HeaderTopLeftArrowButton />),
             headerTitle: () => (
-              <Title
-                title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Sessions"}
-                contentStyle={STYLES.headerTitle}
-                alignCenter
+              <LangphyHeaderTitle
+                title={ (props.route.params as any)?.title ?? "Unit Sessions"}
               />
             ),
             headerRight: () => (<Settings />)

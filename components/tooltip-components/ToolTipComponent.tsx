@@ -46,13 +46,13 @@ const ToolTipComponent: React.FC<TooltipProps> = ({top, left, token}) => {
                 {/* Case */}
                 { ca && (<WordAnalyzer topic={ca} label="Case" />) }
                 {/* Gender */}
-                { gender && (<WordAnalyzer topic={gender} label="Gender" />) }
+                { gender && (<WordAnalyzer topic={gender} label="Gen" />) }
                 {/* Number */}
-                { number && (<WordAnalyzer topic={number} label="Number" />) }
+                { number && (<WordAnalyzer topic={number} label="Num" />) }
                 {/* Article */}
-                { article && (<WordAnalyzer topic={article} label="Article" />) }
+                { article && (<WordAnalyzer topic={article} label="Art" />) }
                 {/* Display */}
-                { display && (<WordAnalyzer topic={display} label="Usage" />) }
+                { display && (<WordAnalyzer topic={display} label="Use" />) }
             </View>
         </View>
     )
@@ -64,10 +64,10 @@ const styles = StyleSheet.create({
     toolTip: {
         position: "absolute",
         paddingVertical: 6,
-        paddingHorizontal: 10,
+        paddingHorizontal: 8,
         borderRadius: 8,
         // maxWidth: 250,
-        maxWidth: 100,
+        maxWidth: 90,
         zIndex: 10000, // 9999,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },

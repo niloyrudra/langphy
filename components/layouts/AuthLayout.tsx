@@ -16,8 +16,18 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({screenTitle, children}) => {
     return (
         <SafeAreaLayout>
             <KeyboardAvoidingViewLayout>
+                {/*
+                  * contentContainerStyle must NOT have flex:1
+                  * flex:1 prevents ScrollView from scrolling — the content
+                  * fills exactly the container height and never overflows.
+                  * Remove it so the ScrollView can actually scroll when the
+                  * keyboard pushes content below the visible area.
+                  *
+                  * flexGrow:1 + justifyContent:center centres short content
+                  * while still allowing taller content (keyboard open) to scroll.
+                  */}
                 <ScrollView
-                    contentContainerStyle={{flex:1}}
+                    contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                     alwaysBounceVertical={true}
                 >
@@ -44,6 +54,9 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({screenTitle, children}) => {
 export default AuthLayout
 
 const styles = StyleSheet.create({
+    scrollContent: {
+        flexGrow: 1,        // allows scroll when content overflows
+    },
     container: {
         flex: 1,
         justifyContent: "center"

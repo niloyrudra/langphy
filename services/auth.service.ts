@@ -1,10 +1,9 @@
 import api from "@/lib/api";
 import { AxiosPromise } from "axios";
-// import * as SecureStore from "expo-secure-store";
 
 export const signIn = async (email: string, password: string) : Promise<AxiosPromise> => {
   const res = await api.post(
-    "/users/signin",
+    "/users/signin/",
     {
       email,
       password,
@@ -13,16 +12,16 @@ export const signIn = async (email: string, password: string) : Promise<AxiosPro
   return res;
 };
 
-export const signUp = async (email: string, password: string) : Promise<AxiosPromise> => {
-  const res = await api.post(
-    "/users/signup",
-    {
-      email,
-      password,
-    }
-  );
-  return res;
-};
+// export const signUp = async (email: string, password: string) : Promise<AxiosPromise> => {
+//   const res = await api.post(
+//     "/users/signup",
+//     {
+//       email,
+//       password,
+//     }
+//   );
+//   return res;
+// };
 
 export const requestOtp = (email: string, password: string) =>
     api.post("/users/signup/request-otp", { email, password });
@@ -48,9 +47,6 @@ export const resetPasswordByEmail = async (email: string, password: string) : Pr
 };
 
 export const signOut = async () : Promise<AxiosPromise> => {
-  const res = await api.post("/users/signout");
+  const res = await api.post("/users/signout/");
   return res;
 };
-// export const signOut = async () => {
-//   await SecureStore.deleteItemAsync("accessToken");
-// };

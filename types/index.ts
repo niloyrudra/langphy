@@ -730,10 +730,18 @@ type FontWeight =
   | "extrabold"
   | "black";
 
+type EventType =
+  | "user.registered.v1"
+  | "user.deleted.v1"
+  | "lesson.completed.v1"
+  | "session.completed.v1"
+  | "streak.updated.v1"
+  | "settings.updated.v1"
+  | "profile.updated.v1";
 
 type EventIndex = {
   event_id: string;
-  event_type: string;
+  event_type: EventType;
   user_id: string;
   idempotency_key: string;
   payload: string;
@@ -743,6 +751,7 @@ type EventIndex = {
 
 export {
   EventIndex,
+  EventType,
 
   FontWeight,
   GermanLevel,

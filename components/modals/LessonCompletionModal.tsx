@@ -57,7 +57,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
     const feedback = React.useMemo(() => {
         if (isSelective) return result.feedback ?? "";
         if (isSimilarity) return feedbackComments( result.similarity ?? "" );
-        if (isSpeech) return "Analized Result!";
+        if (isSpeech) return "Analyzed Result!";
         if (isPractice) return "Lesson Review!";
         return "Your Result!";
     }, [result, isSelective, isSimilarity, isSpeech, isPractice]);
@@ -114,13 +114,13 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
 
                             <ResultDetail
                                 label="Similarity:"
-                                detail={`${Math.round(speechResult.analysis?.similarity * 100)}%`}
+                                detail={speechResult.analysis?.similarity ? `${Math.round(speechResult.analysis?.similarity * 100)}%` : '--'}
                                 iconComponent={<FontAwesome name="trophy" size={20} color={colors.text} />}
                             />
 
                             <ResultDetail
                                 label="Pronunciation:"
-                                detail={`${String(speechResult.analysis?.pronunciation_score)}%`}
+                                detail={speechResult.analysis?.pronunciation_score ? `${String(speechResult.analysis?.pronunciation_score)}%` : "--"}
                                 iconComponent={<FontAwesome6 name="crown" size={16} color={colors.text} />}
                             />
 
@@ -140,7 +140,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                                 contentStyle={{
                                     color: "#08C1D2"
                                 }}
-                                detail={speechResult.analysis?.feedback}
+                                detail={speechResult.analysis?.feedback ?? "..."}
                                 iconComponent={<FontAwesome name="comment" size={17} color={colors.text} />}
                             />
                         </>

@@ -19,7 +19,7 @@ export const fetchLessonsFromAPI = async (
                 lessonType = type
         }
         console.log(lessonType)
-        const lessons = await api.get(`/${lessonType}/${categoryId}/${unitId}`);
+        const lessons = await api.get(`/${lessonType}/${categoryId}/${unitId}/`);
         if (lessons.status !== 200) return [];
         return lessons.data || [];
     }

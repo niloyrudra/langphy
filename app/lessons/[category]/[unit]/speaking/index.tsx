@@ -9,16 +9,17 @@ import { SessionType, SpeakingSessionType, SpeechResultType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
-import RecorderActionButton from '@/components/recoder-components/RecorderActionButton';
+import RecorderActionButton from '@/components/recorder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
 import { useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { useLessonTimer } from '@/hooks/useLessonTimer';
-import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+// import { useLessonTimer } from '@/hooks/useLessonTimer';
+// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import RefreshPlayer from '@/components/RefreshPlayer';
+import { useSessionLesson } from '@/hooks/useSessionLesson';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -26,23 +27,30 @@ const SpeakingLessons = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
-  const {start, stop, isRunning} = useLessonTimer();
+  const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
-  const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
   const { data: speakingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
-  const goToNextRef = React.useRef<(() => void) | null>(null);
-
-  const activeLessonOrderRef = React.useRef<number>(0);
-  const currentLessonRef = React.useRef<SpeakingSessionType | null>(null);
-
   const lessonData = React.useMemo<SpeakingSessionType[]>(() => {
     if( !speakingLessons ) return [];
     return speakingLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [speakingLessons]);
 
+  // ── Shared session logic ──────────────────────────────────────────────────
+  const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<SpeakingSessionType>({
+    userId,
+    categoryId: categoryId as string,
+    unitId: unitId as string,
+    slug: slug as SessionType,
+    lessonCount: lessonData.length,
+    performanceSessionKey,
+    onSessionComplete: triggerSessionCompletion,
+    onStreakUpdate: triggerStreak,
+  });
+
+  // ── Recorder ──────────────────────────────────────────────────────────────
   const {
     isRecording,
     isPaused,
@@ -54,82 +62,54 @@ const SpeakingLessons = () => {
     analyzeSpeech,
     isRecordingDone,
     loading,
-    result,
     error,
   } = useSpeechRecorder();
 
   // Handlers
-  const onLessonComplete = React.useCallback(async (lesson: SpeakingSessionType, score: number) => {
-    if(!userId) return;
-    try {
-      const duration_ms = stop();
-      const sessionType = slug as SessionType;
-      const sessionKey = `${unitId}:${sessionType}`;
-      const lessonOrder = activeLessonOrderRef.current;
-      const isFinalLesson = lessonOrder === lessonData.length - 1;
-  
-      const result = await lessonCompletionChain({
-        categoryId: categoryId as string,
-        unitId: unitId as string,
-        userId,
-        session_key: sessionKey,
-        performanceSessionKey,
-        lessonId: lesson?.id ?? lesson?._id,
-        lessonOrder: lessonOrder,
-        session_type: sessionType,
-        // lessonType: sessionType,
-        score,
-        duration_ms,
-        isFinalLesson
-      });
-      if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
-      if( result?.streakUpdated && result?.streakPayload ) triggerStreak( result.streakPayload );
-    }
-    catch(error) {
-      console.error("onLessonComplete error:", error)
-    }
-  }, [userId, slug, lessonData?.length, stop]);
+  // Guard against double-submission (rapid taps on Check)
+  const isCompletingRef = React.useRef<boolean>(false);
 
   const onContinue = React.useCallback(async (speechResult: SpeechResultType) => {
     try {
-        // ✅ result comes in as param — no stale closure
-        const score = speechResult?.analysis?.similarity
-            ? Math.round(speechResult.analysis.similarity * 100)
-            : 0;
+      if ( isCompletingRef.current ) return;
+      isCompletingRef.current = true;
 
-        console.log("Speaking Score:", score, speechResult?.analysis?.similarity);
+      // ✅ result comes in as param — no stale closure
+      const score = speechResult?.analysis?.similarity
+        ? Math.round(speechResult.analysis.similarity * 100)
+        : 0;
 
-        // ✅ complete the lesson first (this may trigger session/streak modals)
-        await onLessonComplete(currentLessonRef.current!, score);
+      console.log("Speaking Score:", score, speechResult?.analysis?.similarity);
 
-        // Use After 3 Lessons Completed
-        // if( await shouldShowLessonAd() ) {
-        //   interstitialController.show(() => {
-        //     goToNextRef.current?.();
-        //   });
-        // }
-        // else {
-        //   goToNextRef.current?.();
-        // }
+      // ✅ complete the lesson first (this may trigger session/streak modals)
+      await onLessonComplete(currentLessonRef.current!, score);
 
-        // ✅ advance to next lesson
-        goToNextRef?.current?.();
+      // Use After 3 Lessons Completed
+      // if( await shouldShowLessonAd() ) {
+      //   interstitialController.show(() => {
+      //     goToNextRef.current?.();
+      //   });
+      // }
+      // else {
+      //   goToNextRef.current?.();
+      // }
 
-        // ✅ reset AFTER everything — don't call resolveCurrent here,
-        //    lessonCompletionChain handles the modal queue via triggerSessionCompletion
-        reset();
-        resolveCurrent();
+      // ✅ advance to next lesson
+      goToNextRef?.current?.();
 
-    } catch (error) {
-        console.error("Speaking lesson Completion error:", error);
+      // ✅ reset AFTER everything — don't call resolveCurrent here,
+      // lessonCompletionChain handles the modal queue via triggerSessionCompletion
+      reset();
+      resolveCurrent();
+
+    }
+    catch (error) {
+      console.error("Speaking lesson Completion error:", error);
+    }
+    finally {
+      isCompletingRef.current = false;
     }
   }, [onLessonComplete, reset, resolveCurrent]); // ✅ no result dependency needed anymore
-    
-  const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: SpeakingSessionType, index: number, goToNext: () => void}) => {
-    activeLessonOrderRef.current = index;
-    currentLessonRef.current = item;
-    goToNextRef.current = goToNext;
-  }, []);
 
   const onRefresh = React.useCallback(() => {
     reset();
@@ -142,11 +122,6 @@ const SpeakingLessons = () => {
     else startRecording();
   }, [isRecordingDone, isRecording, play, stopRecording, startRecording]);
 
-  // Timer
-  React.useEffect(() => {
-    if(!isRunning) start();
-  }, [isRunning]);
-
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 
   return (
@@ -154,72 +129,67 @@ const SpeakingLessons = () => {
       preFetchedData={lessonData}
       onActiveItemChange={activeItemChangeHandler}
     >
-      {({ item, wordRefs, containerRef, setTooltip }) => {
-        const handleTooltip = (value: any) => setTooltip(value);
-        return (
-          <>
-            <View style={styles.flex}>
-              {/* Title Section */}
-              <ChallengeScreenTitle title="Speak This Sentence" />
-              {/* Writing Section Starts */}
-              <View style={styles.taskContainer}>
-                
-                <View style={[styles.container]}>
-                  {/* Query Listen with Query Text Section */}
-                  <SpeakerComponent
-                    speechContent={item.phrase}
-                    speechLang='de-DE'
-                    style={{
-                      alignItems: "flex-start"
-                    }}
-                  />
-                                           
-                  {/* Tappable Words with ToolTip */}
-                  <NLPAnalyzedPhase
-                    phrase={item.phrase}
-                    onHandler={handleTooltip}
-                    wordRefs={wordRefs}
-                    containerRef={containerRef}
-                    textContainerStyle={styles.nlpWidth}
+      {({ item, wordRefs, containerRef, setTooltip }) => (
+        <>
+          <View style={styles.flex}>
+            {/* Title Section */}
+            <ChallengeScreenTitle title="Speak This Sentence" />
+            {/* Writing Section Starts */}
+            <View style={styles.taskContainer}>
+              
+              <View style={[styles.container]}>
+                {/* Query Listen with Query Text Section */}
+                <SpeakerComponent
+                  speechContent={item.phrase}
+                  speechLang='de-DE'
+                  style={styles.phrase}
+                />
+                                          
+                {/* Tappable Words with ToolTip */}
+                <NLPAnalyzedPhase
+                  phrase={item.phrase}
+                  onHandler={(tooltip: any) => setTooltip(tooltip)}
+                  wordRefs={wordRefs}
+                  containerRef={containerRef}
+                  textContainerStyle={styles.nlpWidth}
+                />
+              </View>
+
+              <View style={styles.flex} />
+  
+              {/* Writing Text Field/Input/Area Section */}
+              <View style={STYLES.childContentCentered}>
+
+                <View style={styles.actionButtonContainer}>
+                  {isRecordingDone && (<RefreshPlayer onPress={onRefresh} />)}
+                  <RecorderActionButton
+                    isActive={!isRecording}
+                    showRipple={false}
+                    isRecording={isRecording}
+                    isRecorded={isRecordingDone}
+                    isPaused={isPaused}
+                    isPlaying={isPlaying}
+                    onActionHandler={recorderHandler}
                   />
                 </View>
 
-                <View style={styles.flex} />
-    
-                {/* Writing Text Field/Input/Area Section */}
-                <View style={STYLES.childContentCentered}>
+                { error && (<Error text={error} />) }
 
-                  <View style={styles.actionButtonContainer}>
-                    {isRecordingDone && (<RefreshPlayer onPress={onRefresh} />)}
-                    <RecorderActionButton
-                      isActive={!isRecording}
-                      showRipple={false}
-                      isRecording={isRecording}
-                      isRecorded={isRecordingDone}
-                      isPaused={isPaused}
-                      isPlaying={isPlaying}
-                      onActionHandler={recorderHandler}
-                    />
-                  </View>
-
-                  { error && (<Error text={error} />) }
-
-                </View>
               </View>
             </View>
-    
-            {/* Action Buttons */}
-            <ActionPrimaryButton
-              buttonTitle='Check'
-              onSubmit={() => {
-                analyzeSpeech(item.phrase.trim(), onContinue);
-              }}
-              isLoading={loading}
-              disabled={!isRecordingDone || loading}
-            />
-          </>
-        )
-      }}
+          </View>
+  
+          {/* Action Buttons */}
+          <ActionPrimaryButton
+            buttonTitle='Check'
+            onSubmit={() => {
+              analyzeSpeech(item.phrase.trim(), onContinue);
+            }}
+            isLoading={loading}
+            disabled={!isRecordingDone || loading}
+          />
+        </>
+      )}
     </SessionLayout>
   );
 }
@@ -245,17 +215,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  phrase: {
+    alignItems: "flex-start"
+  },
   taskContainer: {
     flex:1,
     marginBottom: 80
   },
-  query: {
-    fontSize: 24,
-    fontWeight: "700"
-  },
-  recordingSection: {
-    width: "100%"
-  },
-  nlpWidth: {width: '80%'},
-  error: {color: "red"}
+  nlpWidth: {width: '80%'}
 })

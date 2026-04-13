@@ -1,12 +1,8 @@
 import { Stack } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
-import { truncateString } from '@/utils';
-import Title from '@/components/Title';
-import STYLES from '@/constants/styles';
-// import { View } from 'react-native';
-// import SIZES from '@/constants/size';
 import Settings from '@/components/header/Settings';
+import LangphyHeaderTitle from '@/components/text-components/LangphyHeaderTitle';
 
 const WritingSessionLayout = () => {
   const { colors } = useTheme();
@@ -19,10 +15,8 @@ const WritingSessionLayout = () => {
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
-            <Title
-              title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
-              contentStyle={STYLES.headerTitle}
-              alignCenter
+            <LangphyHeaderTitle
+              title={ (props.route.params as any)?.title ?? "Unit Sessions"}
             />
           ),
           headerRight: () => (<Settings />)

@@ -14,6 +14,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useUpdateProfile } from '@/hooks/useUpdateProfile';
 import ConfirmationModal from '@/components/modals/ConfirmationModal';
 import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
+// import SIZES from '@/constants/size';
 
 const ProfileEditSchema = Yup.object().shape({
     first_name: Yup.string().min( 2, "Name must be at least 2 characters." ),
@@ -51,22 +52,6 @@ const ProfileEditScreen = () => {
 
             setVisibled(true);
 
-            // Alert.alert(
-            //     "Congratualations!",
-            //     "Profile updated successfully.",
-            //     [
-            //         {
-            //             text: "Edit",
-            //             onPress: () => {},
-            //             style: 'cancel'
-            //         },
-            //         {
-            //             text: "Go Back",
-            //             onPress: () => router.push("/dashboard"),
-            //             style: 'default'
-            //         }
-            //     ]
-            // );
             toastSuccess("Profile updated successfully!", {id: toastId!});
         }
         catch(err) {
@@ -75,32 +60,33 @@ const ProfileEditScreen = () => {
         }
     }, [user, toastSuccess, toastError]);
 
-    return (
-        <>
-            <SafeAreaLayout>
-                <KeyboardAvoidingViewLayout>
-                    {/* FORM */}
-                    <Formik
-                        initialValues={{
-                            first_name: profile?.first_name ?? "",
-                            last_name: profile?.last_name ?? "",
-                            username: profile?.username ?? "",
-                            profile_image: profile?.profile_image ?? ""
-                        }}
-                        validationSchema={ProfileEditSchema}
-                        onSubmit={ (values, {resetForm}) => {
-                            handleProfileEdit(
-                                values.first_name,
-                                values.last_name,
-                                values.username,
-                                values.profile_image
-                            );
-                            resetForm();
-                        }}
-                    >
-                        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                            <View style={styles.container}>
+    const onClose = React.useCallback(() => setVisibled(false), []);
 
+    return (
+        <SafeAreaLayout>
+            <KeyboardAvoidingViewLayout>
+                {/* FORM */}
+                <Formik
+                    initialValues={{
+                        first_name: profile?.first_name ?? "",
+                        last_name: profile?.last_name ?? "",
+                        username: profile?.username ?? "",
+                        profile_image: profile?.profile_image ?? ""
+                    }}
+                    validationSchema={ProfileEditSchema}
+                    onSubmit={ (values, {resetForm}) => {
+                        handleProfileEdit(
+                            values.first_name,
+                            values.last_name,
+                            values.username,
+                            values.profile_image
+                        );
+                        resetForm();
+                    }}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                        <View style={styles.container}>
+                            <View style={styles.inputContainer}>
                                 <AuthInput
                                     placeholderText='Your First Name'
                                     inputMode='text'
@@ -140,44 +126,45 @@ const ProfileEditScreen = () => {
                                     error={errors.profile_image || null}
                                     touched={touched.profile_image ? "true" : null}
                                 />
-
-                                {/* Submit Button */}
-                                <View style={styles.buttonContainer}>
-                                    <ActionPrimaryButton
-                                        buttonTitle="Save"
-                                        onSubmit={handleSubmit}
-                                        isLoading={isPending}
-                                    />
-
-                                    <ActionButton
-                                        buttonTitle='Reset Password'
-                                        onSubmit={() => router.push('/dashboard/reset-user-password') }
-                                        buttonStyle={{
-                                            borderColor: theme == 'light' ? colors.primary : "#FFFFFF"
-                                        }}
-                                    />
-                                </View>
-                            
                             </View>
-                        )}
-                    </Formik>
-                </KeyboardAvoidingViewLayout>
-            </SafeAreaLayout>
 
-            {
-                visibled && (
-                    <ConfirmationModal
-                        isVisible={visibled}
-                        title="Congratulations!"
-                        message="Profile updated successfully."
-                        status="success"
-                        onContinue={() => router.back()}
-                        onModalVisible={() => setVisibled(false)}
-                        onRetry={() => {}}
-                    />
-                )
-            }
-        </>
+                            {/* <View style={{flex:1}} /> */}
+
+                            {/* Submit Button */}
+                            <View style={styles.buttonContainer}>
+                                <ActionPrimaryButton
+                                    buttonTitle="Save"
+                                    onSubmit={handleSubmit}
+                                    isLoading={isPending}
+                                />
+
+                                <ActionButton
+                                    buttonTitle='Reset Password'
+                                    onSubmit={() => router.push('/dashboard/reset-user-password') }
+                                    buttonStyle={{
+                                        borderColor: theme == 'light' ? colors.primary : "#FFFFFF"
+                                    }}
+                                />
+                            </View>
+                        
+                        </View>
+                    )}
+                </Formik>
+            </KeyboardAvoidingViewLayout>
+        {
+            visibled && (
+                <ConfirmationModal
+                    isVisible={visibled}
+                    title="Congratulations!"
+                    message="Profile updated successfully."
+                    status="success"
+                    onContinue={() => router.back()}
+                    onModalVisible={onClose}
+                    onRetry={onClose}
+                />
+            )
+        }
+        </SafeAreaLayout>
     );
 }
 
@@ -186,7 +173,17 @@ export default ProfileEditScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        gap: 20
+        flexDirection: "column",
+        justifyContent: "space-between",
+        // gap: 30,
     },
-    buttonContainer: {marginTop: "auto", gap: 20}
+    inputContainer: {
+        gap: 20,
+        // justifyContent: "flex-start",
+    },
+    buttonContainer: {
+        gap: 20,
+        // justifyContent: "flex-end",
+        // marginTop: "auto"
+    }
 });

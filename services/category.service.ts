@@ -2,7 +2,8 @@ import api from "@/lib/api";
 
 export const fetchCategoryFromAPI = async () => {
     try {
-        const res = await api.get('/category');
+        const res = await api.get('/category/');
+        // console.log("Category res:", res);
         if(res.status !== 200) return [];
         
         const data = res.data;

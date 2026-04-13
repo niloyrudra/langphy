@@ -2,7 +2,7 @@ import api from "@/lib/api";
 
 export const fetchUnitsFromAPI = async (categoryId: string) => {
   try {
-    const res = await api.get(`/unit/${categoryId}`);
+    const res = await api.get(`/unit/${categoryId}/`);
     if(res.status !== 200) return [];
     return res.data ?? [];
   } catch (err: any) {

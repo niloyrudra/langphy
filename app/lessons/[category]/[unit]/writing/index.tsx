@@ -10,13 +10,14 @@ import { SessionType, WritingSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { useLessons } from '@/hooks/useLessons';
-import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
-import { useLessonTimer } from '@/hooks/useLessonTimer';
+// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
+// import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
+import { useSessionLesson } from '@/hooks/useSessionLesson';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -25,14 +26,14 @@ const WritingSession = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
-  const { start, stop, isRunning } = useLessonTimer();
+  // const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
-  const goToNextRef = React.useRef<(() => void) | null>(null);
-  const activeLessonOrderRef = React.useRef<number>(0);
-  const currentLessonRef = React.useRef<WritingSessionType | null>(null);
+  // const goToNextRef = React.useRef<(() => void) | null>(null);
+  // const activeLessonOrderRef = React.useRef<number>(0);
+  // const currentLessonRef = React.useRef<WritingSessionType | null>(null);
   
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ error, setError ] = React.useState<string>('')
@@ -43,6 +44,18 @@ const WritingSession = () => {
     return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
   }, [readingLessons]);
 
+  // ── Shared session logic ──────────────────────────────────────────────────
+  const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<WritingSessionType>({
+    userId,
+    categoryId: categoryId as string,
+    unitId: unitId as string,
+    slug: slug as SessionType,
+    lessonCount: lessonData.length,
+    performanceSessionKey,
+    onSessionComplete: triggerSessionCompletion,
+    onStreakUpdate: triggerStreak,
+  });
+
   // Handlers
   const reset = React.useCallback(() => {
     setTextContent("");
@@ -50,40 +63,40 @@ const WritingSession = () => {
     setLoading(false);
   }, []);
 
-  const onLessonComplete = React.useCallback(async (lesson: WritingSessionType, score: number) => {
-    if(!userId) return;
-    try {
-      const duration_ms = stop();
-      const sessionType = slug as SessionType;
-      const sessionKey = `${unitId}:${sessionType}`;
-      const lessonOrder = activeLessonOrderRef.current;
-      const isFinalLesson = lessonOrder === lessonData.length - 1;
+  // const onLessonComplete = React.useCallback(async (lesson: WritingSessionType, score: number) => {
+  //   if(!userId) return;
+  //   try {
+  //     const duration_ms = stop();
+  //     const sessionType = slug as SessionType;
+  //     const sessionKey = `${unitId}:${sessionType}`;
+  //     const lessonOrder = activeLessonOrderRef.current;
+  //     const isFinalLesson = lessonOrder === lessonData.length - 1;
   
-      const result = await lessonCompletionChain({
-        categoryId: categoryId as string,
-        unitId: unitId as string,
-        userId,
-        session_key: sessionKey,
-        performanceSessionKey,
-        lessonId: lesson.id ?? lesson?._id,
-        lessonOrder: lessonOrder,
-        session_type: sessionType,
-        // lessonType: sessionType,
-        score: score,
-        duration_ms,
-        isFinalLesson
-      });
+  //     const result = await lessonCompletionChain({
+  //       categoryId: categoryId as string,
+  //       unitId: unitId as string,
+  //       userId,
+  //       session_key: sessionKey,
+  //       performanceSessionKey,
+  //       lessonId: lesson.id ?? lesson?._id,
+  //       lessonOrder: lessonOrder,
+  //       session_type: sessionType,
+  //       // lessonType: sessionType,
+  //       score: score,
+  //       duration_ms,
+  //       isFinalLesson
+  //     });
 
-      if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
-      if( result?.streakUpdated && result?.streakPayload ) {
-        console.log("TRIGGERING STREAK MODAL");
-        triggerStreak( result.streakPayload );
-      }
-    }
-    catch(error) {
-      console.error("onLessonComplete error:", error)
-    }
-  }, [userId, slug, userId, lessonData?.length, stop]);
+  //     if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
+  //     if( result?.streakUpdated && result?.streakPayload ) {
+  //       console.log("TRIGGERING STREAK MODAL");
+  //       triggerStreak( result.streakPayload );
+  //     }
+  //   }
+  //   catch(error) {
+  //     console.error("onLessonComplete error:", error)
+  //   }
+  // }, [userId, slug, userId, lessonData?.length, stop]);
   
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if(!textContent.trim()) {
@@ -133,16 +146,16 @@ const WritingSession = () => {
     resolveCurrent();
   }, [reset, onLessonComplete, resolveCurrent]);
 
-  const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: WritingSessionType, index: number, goToNext: () => void}) => {
-    activeLessonOrderRef.current = index;
-    currentLessonRef.current = item;
-    goToNextRef.current = goToNext;
-  }, []);
+  // const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: WritingSessionType, index: number, goToNext: () => void}) => {
+  //   activeLessonOrderRef.current = index;
+  //   currentLessonRef.current = item;
+  //   goToNextRef.current = goToNext;
+  // }, []);
 
   // Timer
-  React.useEffect(() => {
-    if(!isRunning) start();
-  }, [isRunning]);
+  // React.useEffect(() => {
+  //   if(!isRunning) start();
+  // }, [isRunning]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
 

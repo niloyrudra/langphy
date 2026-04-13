@@ -3,7 +3,7 @@ import { AxiosPromise } from "axios";
 
 export const resetPassword = async ( password: string ) : Promise<AxiosPromise> => {
     const res = await api.put(
-        "/users/profile/reset-password",
+        "/users/profile/reset-password/",
         {
             password
         }

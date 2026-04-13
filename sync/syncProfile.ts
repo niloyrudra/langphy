@@ -40,14 +40,6 @@ export const syncDirtyProfile = async (userId: string) => {
 
     const res = await api.put(`/profile/update`, payload);
 
-    // Only sync when dirty
-    // const res = await api.put(`/profile/update/${localProfile.id}`, {
-    //   username: localProfile.username ?? "",
-    //   first_name: localProfile.first_name ?? "",
-    //   last_name: localProfile.last_name ?? "",
-    //   profile_image: localProfile.profile_image ?? "",
-    // });
-
     if (res.status !== 200) {
       throw new Error("Failed to sync profile");
     }

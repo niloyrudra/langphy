@@ -1,10 +1,8 @@
 import { Stack } from 'expo-router';
-import Title from '@/components/Title';
 import HeaderTopLeftArrowButton from '@/components/header/HeaderTopLeftArrowButton';
-import { truncateString } from '@/utils';
 import { useTheme } from '@/theme/ThemeContext';
-import STYLES from '@/constants/styles';
 import Settings from '@/components/header/Settings';
+import LangphyHeaderTitle from '@/components/text-components/LangphyHeaderTitle';
 
 const QuizSessionLayout = () => {
   const { colors } = useTheme();
@@ -17,10 +15,8 @@ const QuizSessionLayout = () => {
           headerShadowVisible: false,
           headerLeft: () => (<HeaderTopLeftArrowButton />),
           headerTitle: () => (
-            <Title
-              title={ (props.route.params as any)?.title ? truncateString( (props.route.params as any)?.title, 25 ) : "Unit Session" }
-              contentStyle={STYLES.headerTitle}
-              alignCenter
+            <LangphyHeaderTitle
+              title={ (props.route.params as any)?.title ?? "Unit Sessions"}
             />
           ),
           headerRight: () => (<Settings />)

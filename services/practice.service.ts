@@ -3,7 +3,7 @@ import { BackendLesson, PracticeSessionType } from "@/types";
 
 export const fetchPracticeData = async (categoryId: string, unitId: string) => {
     try {
-        const res = await api.get(`/practices/${categoryId}/${unitId}`);
+        const res = await api.get(`/practices/${categoryId}/${unitId}/`);
         if(res.status !== 200) return [];
         
         const data: (PracticeSessionType & BackendLesson)[] = res.data;  

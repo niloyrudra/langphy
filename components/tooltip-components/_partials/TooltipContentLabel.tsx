@@ -5,14 +5,16 @@ import LangphyText from '@/components/text-components/LangphyText';
 
 const TooltipContentLabel = ({label}: {label: string}) => {
     const {colors} = useTheme();
-    return (<LangphyText weight="bold" style={[styles.mainText, {color: colors.textDark}]}>{label}:{' '}</LangphyText>)
+    return (<LangphyText weight="semibold" style={[styles.mainText, {color: colors.textDark}]}>{label}:{' '}</LangphyText>)
 }
 
 export default TooltipContentLabel
 
 const styles = StyleSheet.create({
     mainText: {
-        fontSize: 12, // 20
-        fontWeight: "700",
+        fontSize: 8, // 20
+        lineHeight: 14,
+        fontWeight: "600",
+        textTransform: "uppercase"
     }
 })

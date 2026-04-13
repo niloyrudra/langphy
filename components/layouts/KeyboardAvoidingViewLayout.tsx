@@ -4,7 +4,8 @@ import React, { ReactNode } from 'react'
 const KeyboardAvoidingViewLayout = ({children}: {children: ReactNode | undefined}) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={styles.container}
     >
       {children && children}

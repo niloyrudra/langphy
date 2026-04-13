@@ -11,6 +11,7 @@ export const applyStreakIfEligible = async ({
     userId: string;
     occurredAt: number;
 }) => {
+    // const occurredAt = Math.floor( Date.now() / 1000 );
     const today = dayKey(occurredAt);
 
     const streak = await db.getFirstAsync<{
@@ -82,7 +83,7 @@ export const applyStreakIfEligible = async ({
 export const updateStreaksIfNeeded = async ( userId: string ) => {
     try {
         const now = Math.floor( Date.now() / 1000 );
-        const today = Math.floor( now / 86400 );
+        const today = dayKey( now );
 
         const streak = await getStreaks( userId );
 

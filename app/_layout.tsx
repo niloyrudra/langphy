@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from "expo-router"; // 'Slot' for one-paged apps
 import { useFonts } from 'expo-font';
 import { ThemeProvider } from "@/theme/ThemeContext";
 import * as SplashScreen from 'expo-splash-screen';
-// import { SafeAreaView } from "react-native-safe-area-context";
 import StatusBarComponent from "@/components/StatusBarComponent";
 import { AppProvider } from "@/context/AppContext";
 import {
