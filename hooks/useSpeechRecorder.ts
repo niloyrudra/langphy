@@ -80,7 +80,7 @@ const useSpeechRecorder = () => {
     // ── Playback ───────────────────────────────────────────────────────────────
     const play = useCallback(async () => {
         try {
-            if (!recordedUriRef.current) return;
+            if(!recordedUriRef.current) return;
             await player.seekTo(0);
             player.play();
         } catch (e) {
@@ -150,7 +150,7 @@ const useSpeechRecorder = () => {
             return;
         }
 
-        const toastId = toastLoading("Analysing Speech...");
+        const toastId = toastLoading("Analyzing Speech...");
 
         try {
             setLoading(true);

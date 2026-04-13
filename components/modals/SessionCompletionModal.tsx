@@ -55,8 +55,8 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
                                 autoPlay
                                 loop={false}
                                 speed={0.85}
-                                // resizeMode='contain'
-                                resizeMode='cover'
+                                resizeMode='contain'
+                                // resizeMode='cover'
                                 style={styles.dimensions}
                             />
                         </View>
@@ -71,7 +71,7 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
     
                         <StatsCard
                             title="Accuracy"
-                            IconComponent={<TargetIcon width={56} height={56} />}
+                            IconComponent={<TargetIcon width={50} height={50} />} // 56
                             statsValue={
                                 typeof performance?.avg_score === "number"
                                 ? `${Math.round(performance.avg_score)}%`
@@ -82,7 +82,7 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
 
                         <StatsCard
                             title="Time"
-                            IconComponent={<WatchIcon width={56} height={56} />}
+                            IconComponent={<WatchIcon width={50} height={50} />} // 56
                             statsValue={
                                 typeof performance?.total_duration_ms === "number"
                                 ? formatDuration(performance.total_duration_ms)
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     resultHeader: {
-        fontSize: 32,
+        fontSize: 28, // 32,
         textAlign: "center",
         fontWeight: '800',
         marginBottom: 4,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
         gap: 12, // 10,
         marginTop: 12,
         // width: "100%"

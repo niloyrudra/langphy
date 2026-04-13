@@ -23,14 +23,15 @@ const UserProfile = ({profile, isLoading, isFetching}: {profile: DBProfile | nul
         } 
     }, [profile?.first_name, profile?.last_name, isLoading]);
 
-    const [progressPercent, setProgressPercent] = React.useState<number>(0)
+    const [progressPercent, setProgressPercent] = React.useState<number>(0.0)
 
     React.useEffect(() => {
         const loadLessonData = async () => {
             try {
                 const completedLessonCount = await getCompletedLessons();
-                const progressPercentage = completedLessonCount > 0 ? Math.round( (completedLessonCount/TOTAL_LESSON_COUNT)*100 ) : 0;
-                setProgressPercent(progressPercentage);
+                const progressPercentage = completedLessonCount > 0 ? ( (completedLessonCount/TOTAL_LESSON_COUNT)*100 ).toFixed(1) : 0;
+                // const progressPercentage = completedLessonCount > 0 ? Math.round( (completedLessonCount/TOTAL_LESSON_COUNT)*100 )/100 : 0;
+                setProgressPercent(progressPercentage as number);
             }
             catch(error) {
                 console.error("Profile Stats loadLessonData error:", error);

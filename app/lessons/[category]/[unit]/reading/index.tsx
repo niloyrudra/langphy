@@ -13,9 +13,7 @@ import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { useLessons } from '@/hooks/useLessons';
-import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
@@ -27,18 +25,14 @@ import { useSessionLesson } from '@/hooks/useSessionLesson';
 
 const ReadingLessons = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
-  const {categoryId, slug, unitId} = useLocalSearchParams();
+  const { categoryId, slug, unitId } = useLocalSearchParams();
   const userId = authSnapshot.getUserId() ?? "";
   const { colors } = useTheme();
-  const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const cardWidth = getCardContainerWidth();
 
   const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  // const goToNextRef = React.useRef<(() => void) | null>(null);
-  const activeLessonOrderRef = React.useRef<number>(0);
-  // const currentLessonRef = React.useRef<ReadingSessionType | null>(null);
 
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)

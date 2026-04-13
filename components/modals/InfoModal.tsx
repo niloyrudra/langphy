@@ -6,122 +6,113 @@ import HorizontalLine from '../HorizontalLine';
 import ModalColorIndicatorComponent from './_partials/ModalColorIndicatorComponent';
 import ModalSectionTitle from './_partials/ModalSectionTitle';
 import LangphyText from '../text-components/LangphyText';
+import ModalLayout from './_partials/ModalLayout';
 
 const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisible: () => void}) => {
     const {colors, theme} = useTheme();
     return (
-        <Modal
-            animationType='slide'
-            transparent={false}
-            visible={isVisible}
-            onRequestClose={onModalVisible}
-            backdropColor="#072D3790"
+        <ModalLayout
+            isVisible={isVisible}
+            onModalVisible={onModalVisible}
+            gradianColor={[colors.gradiantDeep, colors.gradiantDeep]}
+            containerStyle={[styles.container, {borderBottomColor: colors.modalBoderColor, backgroundColor: colors.background}]}
         >
-            <View style={[styles.centeredView]}>
-                
-                <View style={[styles.modalView, {backgroundColor: colors.background}]}>
-                    <Pressable
-                        style={[styles.buttonClose]}
-                        onPress={onModalVisible}
-                    >
-                        {
-                            theme === 'light'
-                                ? (<ModalCloseLightIcon />)
-                                : (<ModalCloseDarkIcon />)
-                        }
-                    </Pressable>
+            <View style={[styles.modalView]}>
+                <Pressable
+                    style={[styles.buttonClose]}
+                    onPress={onModalVisible}
+                >
+                    {
+                        theme === 'light'
+                            ? (<ModalCloseLightIcon />)
+                            : (<ModalCloseDarkIcon />)
+                    }
+                </Pressable>
 
-                    {/* Modal Header */}
-                    <View style={styles.modalHeader}>
-                        {
-                            theme === 'light'
-                                ? (<InfoIndicatorLightIcon />)
-                                : (<InfoIndicatorDarkIcon />)
-                        }
-                        <LangphyText weight="bold" style={[styles.modalText, {color: colors.text}]}>Indications</LangphyText>
-                    </View>
-                
-                    {/* Modal Content */}
-                    <View style={styles.sectionContainer}>
-                        <ModalSectionTitle
-                            title='German Cases (Fälle)'
-                            // color="#68F0F8"
-                        />
+                {/* Modal Header */}
+                <View style={styles.modalHeader}>
+                    {
+                        theme === 'light'
+                            ? (<InfoIndicatorLightIcon />)
+                            : (<InfoIndicatorDarkIcon />)
+                    }
+                    <LangphyText weight="semibold" style={[styles.modalText, {color: colors.text}]}>Indications</LangphyText>
+                </View>
+            
+                {/* Modal Content */}
+                <View style={styles.sectionContainer}>
+                    <ModalSectionTitle
+                        title='German Cases (Fälle)'
+                        // color="#68F0F8"
+                    />
 
-                        <View style={styles.contentWrapper}>
-                            <ModalColorIndicatorComponent name="Nominative (Nominativ)" color="#E14415" />
-                            <ModalColorIndicatorComponent name="Accusative (Akkusativ)" color="#B423EE" />
-                            <ModalColorIndicatorComponent name="Dative (Dativ)" color="#40CC0E" />
-                            <ModalColorIndicatorComponent name="Genitive (Genitiv)" color="#EFC437" />
-                        </View>
-
-                    </View>
-
-                    {/* <HorizontalLine style={styles.horizontal}/> */}
-
-                    <View style={styles.sectionContainer}>
-                        <ModalSectionTitle
-                            title='German Genders (Geschlechter)'
-                            // color="#68F0F8"
-                        />
-
-                        <View style={styles.contentWrapper}>
-                            <ModalColorIndicatorComponent name="Maskulin (Nominativ)" color="#3098EE" />
-                            <ModalColorIndicatorComponent name="Feminine (Femini)" color="#FA44E7" />
-                            <ModalColorIndicatorComponent name="Neuter (Kastrieren)" color="#C29B6C" />
-                            <ModalColorIndicatorComponent name="Plural (Plural)" color="#EA831D" />
-                        </View>
-
-                    </View>
-
-                    {/* <HorizontalLine style={styles.horizontal}/> */}
-
-                    <View style={styles.sectionContainer}>
-                        <ModalSectionTitle
-                            title='German Parts-of-speech'
-                            // color="#68F0F8"
-                        />
-
-                        <View style={styles.contentWrapper}>
-                            <ModalColorIndicatorComponent name="Noun (Substantiv)" color="#FF9800" />
-                            {/* <ModalColorIndicatorComponent name="Proper Noun (Eigenname)" color="#FF9800" /> */}
-                            <ModalColorIndicatorComponent name="Pronoun (Pronomen)" color="#4CAF50" />
-                            <ModalColorIndicatorComponent name="Verb (Verb)" color="#2196F3" />
-                            <ModalColorIndicatorComponent name="Auxiliary Verb (Hilfsverb)" color="#64B5F6" />
-                            <ModalColorIndicatorComponent name="Adjective (Adjektiv)" color="#8BC34A" />
-                            <ModalColorIndicatorComponent name="Adverb (Adverb)" color="#AED581" />
-                            <ModalColorIndicatorComponent name="Determiner (Determinierer)" color="#F06292" />
-                            <ModalColorIndicatorComponent name="Adposition (Adposition)" color="#BA68C8" />
-                            <ModalColorIndicatorComponent name="Conjunction (Konjunction)" color="#90A4AE" />
-                            {/* <ModalColorIndicatorComponent name="Subordinating Conjunction (Unterordnende Konjunktion)" color="#90A4AE" /> */}
-                            {/* <ModalColorIndicatorComponent name="Coordinating Conjunction (Koordinierende Konjunktion)" color="#90A4AE" /> */}
-                            <ModalColorIndicatorComponent name="Numeral (Ziffer/Zahl)" color="#FFD54F" />
-                            <ModalColorIndicatorComponent name="Particle (Teilchen)" color="#B0BEC5" />
-                        </View>
-
+                    <View style={styles.contentWrapper}>
+                        <ModalColorIndicatorComponent name="Nominative (Nominativ)" color="#E14415" />
+                        <ModalColorIndicatorComponent name="Accusative (Akkusativ)" color="#B423EE" />
+                        <ModalColorIndicatorComponent name="Dative (Dativ)" color="#40CC0E" />
+                        <ModalColorIndicatorComponent name="Genitive (Genitiv)" color="#EFC437" />
                     </View>
 
                 </View>
+
+                {/* <HorizontalLine style={styles.horizontal}/> */}
+
+                <View style={styles.sectionContainer}>
+                    <ModalSectionTitle
+                        title='German Genders (Geschlechter)'
+                        // color="#68F0F8"
+                    />
+
+                    <View style={styles.contentWrapper}>
+                        <ModalColorIndicatorComponent name="Maskulin (Nominativ)" color="#3098EE" />
+                        <ModalColorIndicatorComponent name="Feminine (Femini)" color="#FA44E7" />
+                        <ModalColorIndicatorComponent name="Neuter (Kastrieren)" color="#C29B6C" />
+                        <ModalColorIndicatorComponent name="Plural (Plural)" color="#EA831D" />
+                    </View>
+
+                </View>
+
+                {/* <HorizontalLine style={styles.horizontal}/> */}
+
+                <View style={styles.sectionContainer}>
+                    <ModalSectionTitle
+                        title='German Parts-of-speech'
+                        // color="#68F0F8"
+                    />
+
+                    <View style={styles.contentWrapper}>
+                        <ModalColorIndicatorComponent name="Noun (Substantiv)" color="#FF9800" />
+                        {/* <ModalColorIndicatorComponent name="Proper Noun (Eigenname)" color="#FF9800" /> */}
+                        <ModalColorIndicatorComponent name="Pronoun (Pronomen)" color="#4CAF50" />
+                        <ModalColorIndicatorComponent name="Verb (Verb)" color="#2196F3" />
+                        <ModalColorIndicatorComponent name="Auxiliary Verb (Hilfsverb)" color="#64B5F6" />
+                        <ModalColorIndicatorComponent name="Adjective (Adjektiv)" color="#8BC34A" />
+                        <ModalColorIndicatorComponent name="Adverb (Adverb)" color="#AED581" />
+                        <ModalColorIndicatorComponent name="Determiner (Determinierer)" color="#F06292" />
+                        <ModalColorIndicatorComponent name="Adposition (Adposition)" color="#BA68C8" />
+                        <ModalColorIndicatorComponent name="Conjunction (Konjunction)" color="#90A4AE" />
+                        {/* <ModalColorIndicatorComponent name="Subordinating Conjunction (Unterordnende Konjunktion)" color="#90A4AE" /> */}
+                        {/* <ModalColorIndicatorComponent name="Coordinating Conjunction (Koordinierende Konjunktion)" color="#90A4AE" /> */}
+                        <ModalColorIndicatorComponent name="Numeral (Ziffer/Zahl)" color="#FFD54F" />
+                        <ModalColorIndicatorComponent name="Particle (Teilchen)" color="#B0BEC5" />
+                    </View>
+
+                </View>
+
             </View>
-        </Modal>
+        </ModalLayout>
     );
 }
-
 export default InfoModal;
 
 const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    modalView: {
-        position: "relative",
-        margin: 20,
-        width: "80%",
-        borderRadius: 20,
-        padding: 20,
-        alignItems: 'flex-start',
+    container: {
+        width: '90%',
+        marginVertical: "auto",
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderBottomStartRadius: 20,
+        borderBottomEndRadius: 20,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -129,7 +120,10 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 10,
+        elevation: 5,
+        position: "relative"
+    },
+    modalView: {
     },
     modalHeader: {
         flexDirection: "row",
@@ -139,12 +133,12 @@ const styles = StyleSheet.create({
         marginBottom: 4
     },
     sectionContainer: {
-        marginVertical: 6
+        marginVertical: 4
     },
     buttonClose: {
         position: "absolute",
-        top: 10,
-        right: 10
+        top: 0,
+        right: 0
     },
     textStyle: {
         color: 'white',
@@ -152,8 +146,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     modalText: {
-        fontSize: 20,
-        fontWeight: "700"
+        fontSize: 18, // 20
+        fontWeight: "600"
     },
     contentWrapper: {
         marginTop: 6,

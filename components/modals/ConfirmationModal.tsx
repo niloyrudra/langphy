@@ -36,13 +36,13 @@ const ConfirmationModal = ({isVisible, title, message, status, onModalVisible, o
             <View style={styles.content}>
 
                 {
-                        <ResultDetail
-                            // label="Words:"
-                            detail={message}
-                            iconComponent={
-                                <MaterialCommunityIcons name="head-lightbulb-outline" size={20} color={colors.text} />
-                            }
-                        />
+                    <ResultDetail
+                        // label="Words:"
+                        detail={message}
+                        iconComponent={
+                            <MaterialCommunityIcons name="head-lightbulb-outline" size={20} color={colors.text} />
+                        }
+                    />
                     
                 }
                 

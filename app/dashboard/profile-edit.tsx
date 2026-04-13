@@ -14,7 +14,6 @@ import { useAuth } from '@/context/AuthContext';
 import { useUpdateProfile } from '@/hooks/useUpdateProfile';
 import ConfirmationModal from '@/components/modals/ConfirmationModal';
 import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
-// import SIZES from '@/constants/size';
 
 const ProfileEditSchema = Yup.object().shape({
     first_name: Yup.string().min( 2, "Name must be at least 2 characters." ),
@@ -28,7 +27,7 @@ const ProfileEditScreen = () => {
     const {user} = useAuth();
     const { data: profile } = useProfile(user?.id as string);
     const { mutate: updateProfile, isPending } = useUpdateProfile(user?.id as string);
-    const [visibled, setVisibled] = React.useState<boolean>(false);
+    const [isVisible, setIsVisible] = React.useState<boolean>(false);
 
     // Handler
     const handleProfileEdit = React.useCallback( (
@@ -39,18 +38,18 @@ const ProfileEditScreen = () => {
     ) => {
         const toastId = toastLoading("Profile updating...");
         try {
-
+            const usernameInLowerCase = username ? username?.toLowerCase() : "";
             updateProfile({
                 id: user?.id,
                 email: user?.email,
                 created_at: user?.created_at,
                 first_name,
                 last_name,
-                username,
+                usernameInLowerCase,
                 profile_image
             });
 
-            setVisibled(true);
+            setIsVisible(true);
 
             toastSuccess("Profile updated successfully!", {id: toastId!});
         }
@@ -60,7 +59,7 @@ const ProfileEditScreen = () => {
         }
     }, [user, toastSuccess, toastError]);
 
-    const onClose = React.useCallback(() => setVisibled(false), []);
+    const onClose = React.useCallback(() => setIsVisible(false), []);
 
     return (
         <SafeAreaLayout>
@@ -115,6 +114,7 @@ const ProfileEditScreen = () => {
                                     handleChange={handleChange('username')}
                                     error={errors.username || null}
                                     touched={touched.username ? "true" : null}
+                                    isDisabled={values.username !== ""}
                                 />
 
                                 <AuthInput
@@ -125,6 +125,7 @@ const ProfileEditScreen = () => {
                                     handleChange={handleChange('profile_image')}
                                     error={errors.profile_image || null}
                                     touched={touched.profile_image ? "true" : null}
+                                    hidden={true}
                                 />
                             </View>
 
@@ -152,9 +153,9 @@ const ProfileEditScreen = () => {
                 </Formik>
             </KeyboardAvoidingViewLayout>
         {
-            visibled && (
+            isVisible && (
                 <ConfirmationModal
-                    isVisible={visibled}
+                    isVisible={isVisible}
                     title="Congratulations!"
                     message="Profile updated successfully."
                     status="success"

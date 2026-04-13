@@ -18,7 +18,7 @@ const ProfileDOBAndEmailDetail = ({iconName, data, iconSize=16, dob=false, email
     return (
         <View style={[styles.container]}>
             <Ionicons name={iconName} size={iconSize} color={colors.text} />
-            <LangphyText style={[styles.userInfo, {color: colors.text}]}>
+            <LangphyText style={[styles.userInfo, {color: colors.text}]} numberOfLines={1}>
                 {dob && (data ? new Date( data ).toLocaleDateString() : '__/__/__')}
                 {email && (data ?? "___")}
             </LangphyText>

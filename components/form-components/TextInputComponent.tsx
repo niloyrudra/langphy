@@ -20,6 +20,7 @@ const TextInputComponent = ({
     inputMode='text',
     placeholderTextColor,
     isPassword=false,
+    editable=true,
     contentContainerStyle={}
 }: InputProps) => {
     const { colors, theme } = useTheme();
@@ -32,7 +33,7 @@ const TextInputComponent = ({
             placeholder={placeholder}
             value={value}
             keyboardType={ inputMode == 'email' ? "email-address" : 'default'}
-
+            editable={editable}
             style={[
                 styles.input,
                 { color: colors.text, backgroundColor: colors.textFieldBackgroundColor, borderColor: colors.textFieldBorderColor },
@@ -42,7 +43,8 @@ const TextInputComponent = ({
                     height: SIZES.textFieldHeight * numberOfLines,
                     textAlignVertical: 'top'
                 }),
-                (inputMode == 'email' && { textTransform: "lowercase" })
+                (inputMode == 'email' && { textTransform: "lowercase" }),
+                (!editable && {opacity: 0.5, pointerEvents: 'none'})
             ]}
             // textContentType='none'
             // editable={editable}

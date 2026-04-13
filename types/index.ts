@@ -265,6 +265,7 @@ type InputProps = {
   inputMode?: InputModeOptions | undefined;
   placeholderTextColor?: ColorValue | undefined;
   isPassword?: boolean;
+  editable?: boolean;
   contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
