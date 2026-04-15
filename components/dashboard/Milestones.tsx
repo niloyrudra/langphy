@@ -27,7 +27,7 @@ const Milestones = ({title}: {title:string}) => {
                         key={item.id.toString()}
                         title={item.title}
                         milestones={item.milestones}
-                        isLocked={streak ?? 0 >= item.milestones ? true : false}
+                        isLocked={(streak?.current_streak ?? 0) < item.milestones ? true : false}
                         icon={item.icon}
                     />
                 ))
