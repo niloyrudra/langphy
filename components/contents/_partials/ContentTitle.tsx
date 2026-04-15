@@ -8,7 +8,7 @@ const ContentTitle = ({title}: {title: string}) => {
   return (
     <LangphyText
         weight="bold"
-        style={[styles.section, {color: colors.primary}]}
+        style={[styles.section, {color: colors.primary, textDecorationColor: colors.primary}]}
     >
         {title}
     </LangphyText>
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     section: {
         fontSize: 18,
         fontWeight: "600",
-        marginTop: 20,
-        marginBottom: 8
+        textDecorationLine: "underline",
+        textDecorationStyle: "solid"
+        // marginBottom: 4
     }
 })

@@ -6,6 +6,7 @@ import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { DarkLogo, LightLogo } from '@/utils/SVGImages';
 import Title from '@/components/Title';
 import ContactDetail from '@/components/contents/ContactDetail';
+import ContactSection from '@/components/contents/ContactSection';
 
 const HelpCenterScreen = () => {
   const { colors, theme } = useTheme();
@@ -28,7 +29,9 @@ const HelpCenterScreen = () => {
 
           <View style={[styles.separator, {backgroundColor: colors.hLineColor}]} />
 
-          <ContactDetail weight='semibold' style={styles.contactDetail} />
+          {/* <ContactDetail weight='semibold' style={styles.contactDetail} /> */}
+
+          <ContactSection />
 
           <View style={[styles.separator, {backgroundColor: colors.hLineColor}]} />
 

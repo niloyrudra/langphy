@@ -4,7 +4,7 @@ import ContentSubTitle from './ContentSubTitle'
 
 const SubSection = ({subTitle, children}: {subTitle: string, children: ReactNode}) => {
     return (
-        <View>
+        <View style={styles.container}>
             <ContentSubTitle title={subTitle} />
             {children}
         </View>
@@ -13,4 +13,10 @@ const SubSection = ({subTitle, children}: {subTitle: string, children: ReactNode
 
 export default SubSection;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "column",
+        gap: 10,
+        // marginVertical: 10
+    }
+})

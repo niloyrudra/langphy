@@ -1,23 +1,23 @@
 import { StyleSheet } from 'react-native'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import LangphyText from '@/components/text-components/LangphyText'
 import { useTheme } from '@/theme/ThemeContext'
 
-const LangphyListItem = ({content, indent}: {content: string, indent?: boolean}) => {
+const Paragraph = ({children}: {children: ReactNode}) => {
     const {colors} = useTheme();
     return (
         <LangphyText style={[styles.text, {color: colors.text}]}>
-            <LangphyText style={{}}>{indent ? '        ' : '  '}•{'  '}</LangphyText>
-            <LangphyText style={{}}>{content}</LangphyText>
+            {children}
         </LangphyText>
     )
 }
 
-export default LangphyListItem
+export default Paragraph
 
 const styles = StyleSheet.create({
     text: {
         fontSize: 14,
         lineHeight: 22,
-    }
+        textAlign: "justify"
+    },
 })

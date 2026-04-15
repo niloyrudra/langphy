@@ -4,7 +4,7 @@ import ContentTitle from './ContentTitle'
 
 const Section = ({title, children}: {title: string, children: ReactNode}) => {
     return (
-        <View>
+        <View style={styles.container}>
             <ContentTitle title={title} />
             {children}
         </View>
@@ -13,4 +13,10 @@ const Section = ({title, children}: {title: string, children: ReactNode}) => {
 
 export default Section
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "column",
+        gap: 10,
+        marginVertical: 10
+    }
+});

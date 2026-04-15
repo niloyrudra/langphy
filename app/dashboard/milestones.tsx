@@ -12,6 +12,7 @@ const MilestonesScreen = () => {
   const { colors } = useTheme();
   const userId = authSnapshot.getUserId() ?? "";
   const { data: streak } = useStreak(userId);
+  console.log(streak)
   return (
     <SafeAreaLayout>
       <ScrollView style={styles.flex} showsVerticalScrollIndicator={false}>
@@ -23,7 +24,7 @@ const MilestonesScreen = () => {
                 title={item.title}
                 description={item.description}
                 milestones={item.milestones}
-                isLocked={streak ?? 0 >= item.milestones ? true : false}
+                isLocked={(streak?.current_streak ?? 0) < item.milestones ? true : false}
                 icon={item.icon}
               />
             ))

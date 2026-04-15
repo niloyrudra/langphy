@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     subSection: {
         fontSize: 16,
         fontWeight: "600",
-        marginTop: 15,
-        marginBottom: 8
+        // marginTop: 15,
+        // marginBottom: 8
     },
 })

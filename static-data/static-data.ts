@@ -541,7 +541,7 @@ export const milestonesData: MilestonesType[] = [
     {
         id: 5,
         title: "30 Day",
-        description: "30 Day Streak",
+        description: "Confidence is growing.",
         isFeatured: false,
         milestones: 30,
         icon: Images.dashboard.milestone_30,
