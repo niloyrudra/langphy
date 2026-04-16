@@ -1,6 +1,5 @@
-import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
-// import Title from "@/components/Title";
+import LangphyHeaderTitle from "@/components/text-components/LangphyHeaderTitle";
 import { useTheme } from "@/theme/ThemeContext";
 import { Stack } from "expo-router";
 import { View } from "react-native";
@@ -14,8 +13,8 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<HeaderTitle title="Help Center" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Help Center" />),
                     headerRight: () => (<View style={{width: 40, height: 40}}/>)
                 }}
             />
@@ -24,8 +23,8 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<HeaderTitle title="Privacy Policy" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Privacy Policy" />),
                 }}
             />
             <Stack.Screen
@@ -33,8 +32,8 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<HeaderTitle title="Terms & Conditions" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Terms & Conditions" />),
                 }}
             />
             <Stack.Screen
@@ -42,8 +41,8 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<HeaderTitle title="Acknowledgment" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Acknowledgment" />),
                 }}
             />
             <Stack.Screen
@@ -51,8 +50,8 @@ const AdditionalSettingsLayout = () => {
                 options={{
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
-                    headerTitle: () => (<HeaderTitle title="Feedback" />),
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Feedback" />),
                 }}
             />
         </Stack>

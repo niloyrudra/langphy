@@ -12,7 +12,7 @@ import {
     CREATE_USER_VOCABULARY_TABLE
 } from "./schema";
 
-import * as SecureStore from "expo-secure-store"; 
+// import * as SecureStore from "expo-secure-store"; 
 
 export const runMigrations = async () => {
     // await SecureStore.deleteItemAsync('accessToken');

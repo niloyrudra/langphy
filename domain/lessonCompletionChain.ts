@@ -90,7 +90,7 @@ export const lessonCompletionChain = async (
       }
     );
 
-    toastSuccess("Lesson Completed!");
+    // toastSuccess("Lesson Completed!");
 
     if (!input.isFinalLesson) return { sessionCompleted: false };
 

@@ -46,7 +46,6 @@ const useSpeechRecorder = () => {
 
     // ── Recording ──────────────────────────────────────────────────────────────
     const startRecording = useCallback(async () => {
-        // toastSuccess("Start recording..");
         try {
             setError(null);
             setResult(null);
@@ -70,7 +69,6 @@ const useSpeechRecorder = () => {
             setIsRecordingDone(true);
             // Re-prepare immediately so the recorder is ready for the next lesson
             await audioRecorder.prepareToRecordAsync();
-            // toastSuccess("Stop recording");
         } catch (e) {
             setError("Recorder stopping failed. Please try again.");
             toastError("Recorder stopping failed. Please try again.");
@@ -123,11 +121,8 @@ const useSpeechRecorder = () => {
 
             // Pause playback (expo-audio has no stop())
             try { await player.pause(); } catch (_) {}
-
-            toastSuccess("Lesson reset!", {duration: 1000});
         } catch (e) {
             console.warn("Reset failed", e);
-            toastError("Lesson reset failed!", {duration: 1000});
         }
     }, [audioRecorder, player]);
 
@@ -175,14 +170,13 @@ const useSpeechRecorder = () => {
 
                 if (response.status === "done") {
                     if (response.data.error) {
-                        toastError(response.data.error, { id: toastId! });
                         setLoading(false);
                         return;
                     }
 
                     const speechResult: SpeechResultType = response.data;
                     setResult(speechResult);
-                    toastSuccess("Speech analysis successful!", { id: toastId! });
+                    toastSuccess("Speech analysis successful!", { id: toastId });
 
                     triggerLessonResult({
                         actualQuery: expectedText,
@@ -200,13 +194,13 @@ const useSpeechRecorder = () => {
 
             // Timed out
             setError("Speech analysis timeout");
-            toastError("Speech analysis timeout!", { id: toastId! });
+            toastError("Speech analysis timeout!", { id: toastId });
             setLoading(false);
 
         } catch (err) {
             console.error(err);
             setError("Speech analysis failed");
-            toastError("Speech analysis failed", { id: toastId! });
+            toastError("Speech analysis failed", { id: toastId });
             setLoading(false);
         }
     }, [reset, triggerLessonResult]);

@@ -9,7 +9,7 @@ import { SettingsFieldType } from '@/types';
 interface SettingsElementActionProps  {
     actionType: string;
     enabled: boolean;
-    settingType: SettingsFieldType;
+    settingType?: SettingsFieldType;
     route: Route | string;
 }
 
@@ -18,7 +18,7 @@ const SettingsElementAction = ({actionType, enabled, settingType, route}: Settin
     return (
         <View style={styles.container}>
             {
-                actionType == "switcher" && (<SettingSwitcher enabled={enabled} settingType={settingType} />)
+                actionType == "switcher" && (<SettingSwitcher enabled={enabled} settingType={settingType!} />)
             }
             {
                 actionType == "router" && (

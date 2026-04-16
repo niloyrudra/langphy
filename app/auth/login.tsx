@@ -21,6 +21,7 @@ import LangphyText from '@/components/text-components/LangphyText'
 import { useFeedback } from '@/utils/feedback'
 import { signIn } from '@/services/auth.service'
 import { toastError, toastLoading, toastSuccess } from '@/services/toast.service'
+import { useNetwork } from '@/context/NetworkContext'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required."),
@@ -29,11 +30,17 @@ const SignInSchema = Yup.object().shape({
 
 const Login = () => {
   const {colors} = useTheme();
+  const { isOnline } = useNetwork();
   const { setUser } = useAuth();
   const {triggerFeedback} = useFeedback()
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const onSignInHandler = async ( email: string, password: string ) => {
+    if (!isOnline) {
+      toastError("You're offline! Please reconnect and try again.");
+      return;
+    }
+
     const toastId = toastLoading("Signing in...");
     try {
       setLoading(true)
@@ -60,13 +67,13 @@ const Login = () => {
         console.log("Bootstrapped data from Login");
 
         // Toaster
-        if(message) toastSuccess( message, { id: toastId! } );
-        else toastSuccess("Successfully signed in!", { id: toastId! });
+        if(message) toastSuccess( message, { id: toastId } );
+        else toastSuccess("Successfully signed in!", { id: toastId });
                 
         router.replace("/lessons");
       }
       else {
-        toastError('Login Failed!', { id: toastId! });
+        toastError('Login Failed!', { id: toastId });
         await SecureStore.deleteItemAsync("accessToken");
       }
 
@@ -152,16 +159,6 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
-  // headerWrapper: {
-  //   marginVertical: 20,
-  //   justifyContent: "center",
-  //   alignItems: "center"
-  // },
-  // header: {
-  //   fontSize: 32,
-  //   color: "#142C57",
-  //   fontWeight: "600"
-  // },
   form: {
     flexDirection: 'column',
     gap: 16

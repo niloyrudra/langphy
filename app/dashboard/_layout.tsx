@@ -1,6 +1,7 @@
 import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
 import Settings from "@/components/header/Settings";
+import LangphyHeaderTitle from "@/components/text-components/LangphyHeaderTitle";
 import Title from "@/components/Title";
 import STYLES from "@/constants/styles";
 import { useTheme } from "@/theme/ThemeContext";
@@ -17,8 +18,7 @@ const DashboardLayout = () => {
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
-                    headerTitle: () => (<Title title="Profile" contentStyle={STYLES.headerTitle}
-                alignCenter />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Profile" />),
                     headerRight: () => (<Settings />)
                 }}
             />
@@ -28,7 +28,7 @@ const DashboardLayout = () => {
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
-                    headerTitle: () => (<HeaderTitle title="Profile Edit" />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Profile Edit" />),
                     headerRight: () => (<Settings />)
                 }}
             />
@@ -38,7 +38,7 @@ const DashboardLayout = () => {
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
-                    headerTitle: () => (<HeaderTitle title="Reset Password" />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Reset Password" />),
                     headerRight: () => (<Settings />)
                 }}
             />
@@ -51,7 +51,7 @@ const DashboardLayout = () => {
                     headerStyle: {backgroundColor: colors.background},
                     headerShadowVisible: false,
                     headerLeft: () => (<HeaderTopLeftArrowButton />),
-                    headerTitle: () => (<HeaderTitle title="Milestones" />),
+                    headerTitle: () => (<LangphyHeaderTitle title="Milestones" />),
                 }}
             />
         </Stack>

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import ModalLayout from "./_partials/ModalLayout";
 import { useTheme } from "@/theme/ThemeContext";
 import { DBStreak } from "@/types";
@@ -86,7 +86,7 @@ const DailyStreaksModal = ({
         <ModalLayout
             isVisible={visible}
             onModalVisible={onClose}
-            gradianColor={[colors.gradiantDeep, colors.gradiantFlat, colors.gradiantFlat]}
+            gradientColor={[colors.gradientDeep, colors.gradientFlat, colors.gradientFlat]}
             containerStyle={styles.container}
         >
             <View style={styles.modalContainer}>

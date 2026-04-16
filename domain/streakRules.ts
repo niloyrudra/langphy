@@ -1,5 +1,4 @@
 import { db } from "@/db";
-import { getStreaks, upsertStreak } from "@/db/streaks.repo";
 import { DBStreak } from "@/types";
 
 const dayKey = (ts: number) => Math.floor(ts / 86400); // UTC day bucket
@@ -78,81 +77,3 @@ export const applyStreakIfEligible = async ({
         payload: updatedRow ?? null,
     };
 };
-
-
-export const updateStreaksIfNeeded = async ( userId: string ) => {
-    try {
-        const now = Math.floor( Date.now() / 1000 );
-        const today = dayKey( now );
-
-        const streak = await getStreaks( userId );
-
-        if( !streak ) {
-            return await upsertStreak({
-                user_id: userId,
-                current_streak: 1,
-                longest_streak: 1,
-                last_activity_date: today,
-                updated_at: now
-            });
-        }
-
-        if( streak.last_activity_date === today ) return;
-
-        let current = 1;
-        if( streak.last_activity_date === today - 1 ) {
-            current = streak.current_streak + 1;
-        }
-
-        await upsertStreak({
-            user_id: userId,
-            current_streak: current,
-            longest_streak: Math.max(streak.longest_streak, current),
-            last_activity_date: today,
-            updated_at: now,
-        });
-
-    }
-    catch(error) {
-        console.log("updateStreaksIfNeeded error:", error)
-    }
-}
-
-export const hasCompletedSessionToday = async (userId: string) : Promise<boolean> => {
-    const today = Math.floor(
-        new Date().setHours(0, 0, 0, 0) / 1000
-    );
-    try {
-        const res = await db.getFirstAsync(
-            `
-            SELECT 1 FROM lp_streaks
-            WHERE user_id = ?
-            AND last_activity_date >= ?
-            `,
-            [userId, today]
-        );
-    
-        return !!res;
-    }
-    catch(error) {
-        console.warn("hasCompletedSessionToday error:", error);
-        return false;
-    }
-
-};
-// export const hasCompletedSessionToday = async (userId: string) : Promise<DBStreak | null> => {
-//     const today = Math.floor(
-//         new Date().setHours(0, 0, 0, 0) / 1000
-//     );
-
-//     const res = await db.getFirstAsync<DBStreak>(
-//         `
-//         SELECT 1 FROM lp_streaks
-//         WHERE user_id = ?
-//         AND last_activity_date >= ?
-//         `,
-//         [userId, today]
-//     );
-
-//     return !!res;
-// };

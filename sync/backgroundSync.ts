@@ -8,7 +8,6 @@ import { syncDirtySettings } from "./syncSettings";
 import { authSnapshot } from "@/snapshots/authSnapshot";
 import { syncDirtyVocabulary } from "./syncVocabulary";
 import { syncEvents } from "./syncEvents";
-// import { syncDirtyPerformance } from "./syncPerformace";
 
 const BACKGROUND_SYNC_TASK = "BACKGROUND_SYNC_TASK";
 

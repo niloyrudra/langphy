@@ -39,7 +39,7 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
         <ModalLayout
             isVisible={isVisible}
             onModalVisible={onModalVisible}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep, colors.gradiantDeep, colors.secondary_900, colors.primary_900]}
+            gradientColor={[colors.gradientDeep, colors.gradientDeep, colors.gradientDeep, colors.secondary_900, colors.primary_900]}
             containerStyle={styles.container}
         >
             <View style={styles.modalContainer}>
@@ -56,14 +56,12 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
                                 loop={false}
                                 speed={0.85}
                                 resizeMode='contain'
-                                // resizeMode='cover'
                                 style={styles.dimensions}
                             />
                         </View>
 
-                        {/* <LangphyText weight="extrabold" style={styles.resultHeader}>Lesson Complete</LangphyText> */}
                         <LangphyText weight="bold" style={styles.resultHeader}>Lesson Complete</LangphyText>
-                        <LangphyText style={styles.resultSubHeader}>Great job! Keep learning and improve your skills!</LangphyText>
+                        <LangphyText style={[styles.resultSubHeader, {color: colors.text}]}>Great job! Keep learning and improve your skills!</LangphyText>
                     </View>
 
                     {/* Stats Section */}
@@ -74,8 +72,8 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
                             IconComponent={<TargetIcon width={50} height={50} />} // 56
                             statsValue={
                                 typeof performance?.avg_score === "number"
-                                ? `${Math.round(performance.avg_score)}%`
-                                : "--"
+                                    ? `${Math.round(performance.avg_score)}%`
+                                    : "--"
                             }
                             feedbackText={feedback(performance?.avg_score ?? 0)}
                         />
@@ -85,8 +83,8 @@ const SessionCompletionModal = ({isVisible, sessionKey, onModalVisible, onContin
                             IconComponent={<WatchIcon width={50} height={50} />} // 56
                             statsValue={
                                 typeof performance?.total_duration_ms === "number"
-                                ? formatDuration(performance.total_duration_ms)
-                                : "--"
+                                    ? formatDuration(performance.total_duration_ms)
+                                    : "--"
                             }
                             statsUnit="min"
                         />
@@ -150,7 +148,7 @@ const styles = StyleSheet.create({
     },
     resultSubHeader: {
         fontSize: 12,
-        color: '#EEF8FF',
+        // color: '#EEF8FF',
         textAlign: 'center'
     },
     stats: {

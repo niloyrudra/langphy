@@ -1,5 +1,5 @@
-import { findNodeHandle, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { findNodeHandle, LayoutChangeEvent, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useMemo } from 'react'
 import { speechHandler } from '@/utils'
 import { Token, ToolTip, WordLayout } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
@@ -17,6 +17,7 @@ interface WordProps {
 const TOOLTIP_WIDTH = 80;
 const TOOLTIP_GAP   = 8; // 10;
 const MARGIN_BOTTOM = 8;
+const TOKEN_SPACE = 5;
 
 const NLPWord: React.FC<WordProps> = ({
     idx,
@@ -30,14 +31,47 @@ const NLPWord: React.FC<WordProps> = ({
     const {colors} = useTheme();
     const wordLayouts = React.useRef<Map<string, WordLayout>>(new Map());
 
-    const actionHandler = (e: any) => {
+    // ✅ memoized styles
+    const textColor = token.color ?? colors.text;
+
+    const textStyles = useMemo(
+        () => [
+            styles.mainText,
+            { color: textColor },
+            textStyle,
+        ],
+        [textColor, textStyle]
+    );
+
+    const wrapperStyle = useMemo(
+        () => [
+            styles.wordWrapper,
+            { borderColor: textColor },
+            token.pos !== "PUNCT" && { marginRight: TOKEN_SPACE },
+        ],
+        [textColor, token.pos]
+    );
+
+    const refHandler = useCallback((r: View | null) => {
+        const mapKey = idx;
+        if( r ) {
+            const handle = findNodeHandle(r);
+            wordRefs.current.set( mapKey, handle );
+        }
+        else wordRefs.current.delete( mapKey );
+    }, [findNodeHandle]);
+
+    const handleLayout = useCallback((e: LayoutChangeEvent) => {
+        const { x, y, width, height } = e.nativeEvent.layout
+        wordLayouts.current.set(idx, { x, y, width, height });
+    }, []);
+
+    const actionHandler = useCallback((e: any) => {
         e.stopPropagation?.();
         speechHandler(token.text, "de-DE");
 
         const layoutData = wordLayouts.current.get(idx);
         if (!layoutData || !containerRef?.current) return;
-
-        // const gap = 10;
 
         measureNlpContainer((nlpX, nlpY) => {
             containerRef.current!.measureInWindow((contX, contY, contW) => {
@@ -47,22 +81,12 @@ const NLPWord: React.FC<WordProps> = ({
                 // Word's x within NLPAnalyzedPhase
                 const rawLeft = nlpOffsetX + layoutData.x;
 
-                // Get tooltip width (approximate — adjust if you know the real value)
-                // const TOOLTIP_WIDTH = 80;
-
                 // Clamp so tooltip never goes beyond container right edge
-                const relativeLeft = Math.min(
-                    rawLeft,
-                    contW - TOOLTIP_WIDTH
-                );
+                const relativeLeft = Math.min( rawLeft, contW - TOOLTIP_WIDTH );
 
                 // Keep it from going off left edge too
-                const clampedLeft = Math.max(0, relativeLeft);
-
-                const relativeTop = (nlpY - contY) + layoutData.y + layoutData.height + TOOLTIP_GAP;
-
-
-                // console.log("📍 position:", { clampedLeft, relativeTop, nlpX, nlpY, contX, contY, layoutData });
+                const clampedLeft = Math.max(0, relativeLeft) - 20;
+                const relativeTop = ( nlpY - contY ) + layoutData.y + layoutData.height + TOOLTIP_GAP;
 
                 onHandler({
                     visible: true,
@@ -72,18 +96,20 @@ const NLPWord: React.FC<WordProps> = ({
                 });
             });
         });
-    };
+    }, [token, measureNlpContainer, onHandler]);
 
+    // ✅ punctuation fast path
     if(token.pos === "PUNCT") return (
         <Text
             style={[
                 styles.mainText,
                 {
-                    color: token.color ?? colors.text,
-                    marginLeft: -3,
+                    color: textColor,
+                    marginLeft: ( token.text === `'` || token.text === `"` ? 0 : -TOKEN_SPACE),
+                    marginRight: ([",", ":", ".", "!", "?"].includes(token.text) ? TOKEN_SPACE : 0),
                     marginBottom: MARGIN_BOTTOM,
                 },
-                (textStyle && textStyle)
+                textStyle
             ]}
         >
             {token.text}
@@ -91,38 +117,30 @@ const NLPWord: React.FC<WordProps> = ({
     );
 
     return (
-
         <TouchableOpacity
             key={idx}
-            ref={(r) => {
-                const mapKey = idx;
-                if( r ) {
-                    const handle = findNodeHandle(r);
-                    wordRefs.current.set( mapKey, handle );
-                }
-                else wordRefs.current.delete( mapKey );
-            }}
-            onLayout={(e) => {
-                const { x, y, width, height } = e.nativeEvent.layout
-                wordLayouts.current.set(idx, { x, y, width, height });
-            }}
+            ref={refHandler}
+            onLayout={handleLayout}
             onPress={actionHandler}
-            style={[styles.wordWrapper, {borderColor: token.color ?? colors.text}]}
+            style={wrapperStyle}
         >
-            <Text
-                style={[
-                    styles.mainText,
-                    {color: token.color ?? colors.text},
-                    (textStyle && textStyle)
-                ]}
-            >
-                {token.text}
-            </Text>
+            <Text style={textStyles}>{token.text}</Text>
         </TouchableOpacity>
     )
 }
 
-export default NLPWord;
+// export default NLPWord;
+// ✅ prevent unnecessary re-renders
+export default React.memo(NLPWord, (prev, next) => {
+  return (
+    prev.idx === next.idx &&
+    prev.token.text === next.token.text &&
+    prev.token.color === next.token.color &&
+    prev.token.pos === next.token.pos &&
+    prev.wordRefs === next.wordRefs &&
+    prev.containerRef === next.containerRef
+  );
+});
 
 const styles = StyleSheet.create({
     mainText: {
@@ -131,11 +149,8 @@ const styles = StyleSheet.create({
     },
     wordWrapper: {
         position: "relative",
-        marginRight: 6,
         borderBottomWidth: 1.5,
         borderStyle: "solid",
-        // borderStyle: "dashed",
-        // borderBottomColor: "#1B7CF5",
         marginBottom: MARGIN_BOTTOM,
     },
 });

@@ -34,16 +34,6 @@ const SteakBadge = () => {
           </LangphyText>
         )
       }
-      {/* <LangphyText
-        weight="bold"
-        style={[
-          styles.steakCount,
-          {color: colors.text},
-          // (theme === 'dark' && STYLES.textShadow)
-        ]}
-      >
-        {streaks?.current_streak ?? '0'}
-      </LangphyText> */}
     </View>
   )
 }

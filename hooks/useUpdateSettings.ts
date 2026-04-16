@@ -17,15 +17,7 @@ export const useUpdateSettings = (userId: string) => {
             });
 
             return result;
-
-            // const current = await getLocalSettings(userId);
-            // if (!current) throw new Error("Settings not initialized");
-
-            // const updated = { ...current, ...payload };
-            // await upsertSettings(updated);
-            // return updated;
         },
-        // onSuccess: (updates: DBSettings) => {
         onSuccess: (updates: any) => {
             queryClient.setQueryData( ["lp_settings", updates.user_id], updates );
         }

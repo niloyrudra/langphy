@@ -19,7 +19,7 @@ export const lightColors = {
   cardBackgroundColor: "#EEF8FF",
   cardBorderColor: "#BCE4FF",
   cardIconBackgroundColor: "#FFFFFF",
-  modalBoderColor: "#68F0F8",
+  modalBorderColor: "#68F0F8",
 
   profileGradientLight: "#CFFDFE",
   profileGradientDark: "#8ED4FF",
@@ -33,13 +33,13 @@ export const lightColors = {
   accountDeletionModalText: "#676767",
 
   
-  gradiantDeep: '#FFFFFF',
-  gradiantFlat: "#FFFFFF",
+  gradientDeep: '#FFFFFF',
+  gradientFlat: "#FFFFFF",
   
-  gradiantActiveNavDot: "#48E4EF", // "#0A9AB0",
-  gradiantActiveNavDotDark: "#1B7CF5",
+  gradientActiveNavDot: "#48E4EF", // "#0A9AB0",
+  gradientActiveNavDotDark: "#1B7CF5",
 
-  gradiantInactiveNavDot: "#EDEDED",
+  gradientInactiveNavDot: "#EDEDED",
 
   speaker: '#3FA1FF',
   p_en_speaker: '#0A9AB0',
@@ -121,7 +121,7 @@ export const darkColors = {
   cardBackgroundColor: "#021331",
   cardBorderColor: "#1751B6", // "#BCE4FF"
   cardIconBackgroundColor: "#142C57",
-  modalBoderColor: "#68F0F8",
+  modalBorderColor: "#68F0F8",
 
   profileGradientLight: "#08C1D2",
   profileGradientDark: "#1465E1",
@@ -135,12 +135,12 @@ export const darkColors = {
   accountDeletionModalText: "#DFDFDF",
 
   
-  gradiantDeep: '#081A33',
-  gradiantFlat: "#081A33",
+  gradientDeep: '#081A33',
+  gradientFlat: "#081A33",
   
-  gradiantActiveNavDot: "#48E4EF", // "#0A9AB0",
-  gradiantActiveNavDotDark: "#1B7CF5",
-  gradiantInactiveNavDot: "#142C57",
+  gradientActiveNavDot: "#48E4EF", // "#0A9AB0",
+  gradientActiveNavDotDark: "#1B7CF5",
+  gradientInactiveNavDot: "#142C57",
 
   speaker: '#EEF8FF',
   p_en_speaker: '#FFFFFF',

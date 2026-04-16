@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import LangphyText from '@/components/text-components/LangphyText'
 import { useTheme } from '@/theme/ThemeContext';
@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         textDecorationLine: "underline",
         textDecorationStyle: "solid"
-        // marginBottom: 4
     }
 })

@@ -1,11 +1,9 @@
-import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import SIZES from '@/constants/size';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import { DarkLogo, LightLogo } from '@/utils/SVGImages';
 import Title from '@/components/Title';
-import ContactDetail from '@/components/contents/ContactDetail';
 import ContactSection from '@/components/contents/ContactSection';
 
 const HelpCenterScreen = () => {
@@ -15,7 +13,7 @@ const HelpCenterScreen = () => {
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
 
         <View style={styles.container}>
-          <View style={styles.bannar}>
+          <View style={styles.banner}>
             {
               theme === "light"
                 ? (
@@ -31,7 +29,7 @@ const HelpCenterScreen = () => {
 
           {/* <ContactDetail weight='semibold' style={styles.contactDetail} /> */}
 
-          <ContactSection />
+          <ContactSection centered />
 
           <View style={[styles.separator, {backgroundColor: colors.hLineColor}]} />
 
@@ -51,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // height: Dimensions.get("window").height
   },
-  bannar: {
+  banner: {
     marginVertical: 30,
     justifyContent: "center",
     alignItems: "center"

@@ -48,7 +48,6 @@ const MilestonesAchievementModal = ({isVisible, streak, milestone, onClose}: Mil
  
     React.useEffect(() => {
         if (!isVisible) return;
- 
         // Badge springs in with a slight tilt-to-straight
         badgeScale.value = withSpring(1, { damping: 8, stiffness: 120 });
         badgeRotate.value = withSpring(0, { damping: 10, stiffness: 100 });
@@ -67,7 +66,7 @@ const MilestonesAchievementModal = ({isVisible, streak, milestone, onClose}: Mil
         <ModalLayout
             isVisible={isVisible}
             onModalVisible={onClose}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep, colors.gradiantDeep, colors.secondary_900, colors.primary_900]}
+            gradientColor={[colors.gradientDeep, colors.gradientDeep, colors.gradientDeep, colors.secondary_900, colors.primary_900]}
             containerStyle={styles.container}
         >
             <View style={styles.modalContainer}>

@@ -3,7 +3,6 @@ import React from 'react'
 import SafeAreaLayout from '../layouts/SafeAreaLayout'
 import LangphyText from '../text-components/LangphyText'
 import { useTheme } from '@/theme/ThemeContext'
-import ContactDetail from './ContactDetail'
 import LangphyListItem from './_partials/LangphyListItem'
 import Section from './_partials/Section'
 import SubSection from './_partials/SubSection'
@@ -60,7 +59,7 @@ const TermsAndConditionsContent = () => {
                 <Section title="3. Account Registration and Security">
                     <SubSection subTitle="3.1 Creating an Account">
                         <Paragraph>
-                            To access the full functionality of Langphy, you must create an account using a valid email address and a password of your choosing. As part of registration, your email address will be verified through a one-time passcode (OTP) sent to the address you provide. You must complete this verification step before your account is created. We implemented this verification process to ensure the integrity of our user base and to protect you from unauthorised use of your email address.
+                            To access the full functionality of Langphy, you must create an account using a valid email address and a password of your choosing. As part of registration, your email address will be verified through a one-time passcode (OTP) sent to the address you provide. You must complete this verification step before your account is created. We implemented this verification process to ensure the integrity of our user base and to protect you from unauthorized use of your email address.
                         </Paragraph>
                     </SubSection>
 
@@ -79,7 +78,7 @@ const TermsAndConditionsContent = () => {
                         <LangphyListItem content="Choose a strong, unique password not used for other services."/>
                         <LangphyListItem content="Not share your login credentials with any third party."/>
                         <LangphyListItem content="Log out of your account when using a shared or public device."/>
-                        <LangphyListItem content="Contact us immediately at support@langphy.com if you suspect unauthorised access to your account."/>
+                        <LangphyListItem content="Contact us immediately at support@langphy.com if you suspect unauthorized access to your account."/>
 
                         <Paragraph>
                             We will never ask for your password by email or through any channel other than the application's own secure password reset flow.

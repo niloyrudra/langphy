@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getLocalProfile, upsertProfile } from "@/db/profile.repo";
-// import { PROFILE_QUERY_KEY } from "../queries/useProfile";
 
 export const useUpdateProfile = (userId: string) => {
   const queryClient = useQueryClient();

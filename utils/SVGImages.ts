@@ -101,10 +101,10 @@ import ListeningDarkIcon from '@/assets/images/dashboard/settings/headphones-dar
 import ListeningLightIcon from '@/assets/images/dashboard/settings/headphones-light.svg';
 import ThemeLightIcon from '@/assets/images/dashboard/settings/moon-light.svg';
 import ThemeDarkIcon from '@/assets/images/dashboard/settings/moon-dark.svg';
-import AcknoledgementDarkIcon from '@/assets/images/dashboard/settings/safe-delivery-dark.svg';
+import AcknowledgementDarkIcon from '@/assets/images/dashboard/settings/safe-delivery-dark.svg';
 import AcknowledgementLightIcon from '@/assets/images/dashboard/settings/safe-delivery-light.svg';
 import PracticeLightIcon from '@/assets/images/dashboard/settings/dumbbell-light.svg';
-import PracticDarkIcon from '@/assets/images/dashboard/settings/dumbbell-dark.svg';
+import PracticeDarkIcon from '@/assets/images/dashboard/settings/dumbbell-dark.svg';
 import HelpDarkIcon from '@/assets/images/dashboard/settings/help-circle-dark.svg';
 import HelpLightIcon from '@/assets/images/dashboard/settings/help-circle-light.svg';
 import PrivacyLightIcon from '@/assets/images/dashboard/settings/security-check-light.svg';
@@ -192,10 +192,10 @@ export {
     ListeningLightIcon,
     ThemeLightIcon,
     ThemeDarkIcon,
-    AcknoledgementDarkIcon,
+    AcknowledgementDarkIcon,
     AcknowledgementLightIcon,
     PracticeLightIcon,
-    PracticDarkIcon,
+    PracticeDarkIcon,
     HelpDarkIcon,
     HelpLightIcon,
     PrivacyLightIcon,

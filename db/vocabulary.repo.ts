@@ -3,16 +3,16 @@ import { db } from "./index";
 import { randomUUID } from "expo-crypto";
 
 export type DBVocabulary = {
-    id: string;
-    user_id: string;
-    word: string;
-    lemma: string;
-    pos: string;
-    meaning_en: string | null;
-    unit_id: string | null;
-    category_id: string | null;
-    learned_at: number;
-    dirty: number;
+  id: string;
+  user_id: string;
+  word: string;
+  lemma: string;
+  pos: string;
+  meaning_en: string | null;
+  unit_id: string | null;
+  category_id: string | null;
+  learned_at: number;
+  dirty: number;
 };
 
 // export type VocabularyToken = {

@@ -18,6 +18,8 @@ import {
 } from '@expo-google-fonts/poppins';
 import { Toaster } from "@/components/toaster/Toaster";
 import { StyleSheet, View } from "react-native";
+import NetworkListener from "@/components/offline/NetworkListener";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 // import { bootstrapAds } from "@/bootstraps/ads.bootstrap";
 
 SplashScreen.preventAutoHideAsync();
@@ -36,20 +38,11 @@ const RootLayout = () => {
   });
 
   React.useEffect(() => {
-    if (error) {
-      console.error('Error loading fonts', error);
-    }
+    if (error) console.error('Error loading fonts', error);
   }, [error]);
 
-  // const onLayoutRootView = React.useCallback( async () => {
-  //   if ( loaded || error ) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [loaded, error]);
   React.useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
+    if (loaded || error) SplashScreen.hideAsync();
   }, [loaded, error]);
 
   // Ads
@@ -59,40 +52,61 @@ const RootLayout = () => {
   //   }, 1000);
   // }, []);
 
-  if (!loaded ) {
-  // if (!loaded && !error) {
-    return null;
-  }
-  
+  if (!loaded ) return null;
+    
   return (
-    <View style={styles.flex}>
-    {/* <SafeAreaView onLayout={onLayoutRootView} style={styles.flex}> */}
-      <GestureHandlerRootView style={styles.flex}>
-        <AppProvider>
-          <ThemeProvider>
-              <Stack
-                screenOptions={{
-                  headerShadowVisible: false
-                }}
-                initialRouteName="index"
-              >
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-                <Stack.Screen name="auth/login" options={{ headerShown: false }} />
-                <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
-                <Stack.Screen name="auth/verify-otp" options={{ headerShown: false }} />
-                <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
-                <Stack.Screen name="lessons" options={{ headerShown: false }}/>
-                <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
-              </Stack>
-              <StatusBarComponent />
-          </ThemeProvider>
-        </AppProvider>
+    <SafeAreaProvider>  {/* ✅ OUTERMOST — Toasts needs this to exist above it */}
+      <View style={styles.flex}>
+      {/* <SafeAreaView onLayout={onLayoutRootView} style={styles.flex}> */}
+        <GestureHandlerRootView style={styles.flex}>
+          {/*
+            * <Toaster /> must be the FIRST child of GestureHandlerRootView
+            * and must sit OUTSIDE <AppProvider> so it is never affected by
+            * NetworkProvider's null→children transition.
+            *
+            * NetworkProvider calls NetInfo.fetch() and returns null for one
+            * frame while waiting. If <Toaster /> were inside AppProvider,
+            * it would unmount and remount during that transition — and any
+            * toast fired during remount would crash with:
+            * "Text strings must be rendered within a <Text> component"
+            *
+            * Keeping <Toaster /> here means its portal is always attached,
+            * regardless of what happens inside AppProvider.
+            */}
+            {/*
+              * <Toaster /> must remain OUTSIDE <AppProvider> — do not move it.
+              * NetworkProvider briefly returns null on Android while NetInfo.fetch()
+              * resolves. If Toaster were inside AppProvider it would unmount/remount
+              * during that null frame and crash. It stays here, always mounted.
+              * SafeAreaProvider (above) ensures Toasts can resolve safe-area insets
+              * without rendering a raw string node on Android Fabric.
+              */}
+          <Toaster />   {/* ✅ MUST BE FIRST */}
 
-        <Toaster />
-
-      </GestureHandlerRootView>
-    </View>
+          <AppProvider>
+            <ThemeProvider>
+              <NetworkListener />
+                <Stack
+                  screenOptions={{
+                    headerShadowVisible: false
+                  }}
+                  initialRouteName="index"
+                >
+                  <Stack.Screen name="index" options={{ headerShown: false }} />
+                  <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+                  <Stack.Screen name="auth/login" options={{ headerShown: false }} />
+                  <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
+                  <Stack.Screen name="auth/verify-otp" options={{ headerShown: false }} />
+                  <Stack.Screen name="auth/forgot-password" options={{ headerShown: false }} />
+                  <Stack.Screen name="lessons" options={{ headerShown: false }}/>
+                  <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
+                </Stack>
+                <StatusBarComponent />
+            </ThemeProvider>
+          </AppProvider>
+        </GestureHandlerRootView>
+      </View>
+    </SafeAreaProvider>
   );
 }
 export default RootLayout;

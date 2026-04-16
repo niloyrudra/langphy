@@ -20,7 +20,6 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
                 showLessonList,
                 setLessons,
                 setCurrentPosition,
-                // lessonCompletionHandler,
                 toggleLessonList: () => setShowLessonList(v => !v),
                 markLessonCompleted
             }}

@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { ReactNode } from 'react'
-import ContentTitle from './ContentTitle'
+import { StyleSheet, View } from 'react-native';
+import React, { ReactNode } from 'react';
+import ContentTitle from './ContentTitle';
 
 const Section = ({title, children}: {title: string, children: ReactNode}) => {
     return (

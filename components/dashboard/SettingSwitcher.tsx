@@ -3,7 +3,6 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { useUpdateSettings } from '@/hooks/useUpdateSettings';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-import { toastSuccess } from '@/services/toast.service';
 import { SettingsFieldType } from '@/types';
 import { useFeedback } from '@/utils/feedback';
 import { queryClient } from '@/queryClient';
@@ -29,50 +28,41 @@ const SettingSwitcher = ({settingType, enabled, containerStyle}: {settingType: S
                 updateSettings({ field: 'sound_effect', value: value });
                 // ✅ Invalidate so cache reflects new value instantly
                 await queryClient.invalidateQueries({ queryKey: ["lp_settings", userId] });
-                
-                toastSuccess(`Sound effect is ${value ? "activated" : "deactivated"}!`);
                 break;
 
             case 'notifications' :
                 console.log("Push Notification:", value);
                 updateSettings({ field: 'notifications', value: value });
-                toastSuccess(`Notification is ${value ? "activated" : "deactivated"}!`);
                 break;
             
             case 'practice_service' :
                 console.log("Practice:", value);
                 updateSettings({ field: 'practice_service', value: value });
-                toastSuccess(`Practice is ${value ? "activated" : "deactivated"}!`);
                 break;
             
             case 'quiz_service' :
                 console.log("Quiz:", value);
                 updateSettings({ field: 'quiz_service', value: value });
-                toastSuccess(`Quiz is ${value ? "activated" : "deactivated"}!`);
                 break;
             
             case 'speaking_service' :
                 console.log("Speaking:", value);
                 updateSettings({ field: 'speaking_service', value: value });
-                toastSuccess(`Speaking exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
             
             case 'listening_service' :
                 console.log("Listening:", value);
                 updateSettings({ field: 'listening_service', value: value });
-                toastSuccess(`Listening exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
             
             case 'reading_service' :
                 console.log("Reading:", value);
                 updateSettings({ field: 'reading_service', value: value });
-                toastSuccess(`Reading exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
             
             case 'writing_service' :
                 console.log("Writing:", value);
                 updateSettings({ field: 'writing_service', value: value });
-                toastSuccess(`Writing exercise is ${value ? "activated" : "deactivated"}!`);
                 break;
 
             default:

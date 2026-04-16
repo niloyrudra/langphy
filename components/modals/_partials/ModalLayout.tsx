@@ -11,11 +11,11 @@ type ModalLayoutProps = {
     onModalVisible: () => void;
     children: React.ReactNode;
     feedback?: Feedback | string;
-    gradianColor: readonly [ColorValue, ColorValue, ...ColorValue[]];
+    gradientColor: readonly [ColorValue, ColorValue, ...ColorValue[]];
     containerStyle?: StyleProp<ViewStyle>;
 }
 
-const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColor, containerStyle}: ModalLayoutProps) => {
+const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradientColor, containerStyle}: ModalLayoutProps) => {
     const insets = useSafeAreaInsets();
     const {colors} = useTheme();
 
@@ -36,16 +36,16 @@ const ModalLayout = ({isVisible, onModalVisible, children, feedback, gradianColo
                     style={[
                         styles.modalView,
                         {
-                            borderTopColor: colors.modalBoderColor, // cardBorderColor
-                            borderLeftColor: colors.modalBoderColor,
-                            borderRightColor: colors.modalBoderColor,
+                            borderTopColor: colors.modalBorderColor, // cardBorderColor
+                            borderLeftColor: colors.modalBorderColor,
+                            borderRightColor: colors.modalBorderColor,
                         },
                         (containerStyle && containerStyle)
                     ]}
                 >
                     {/* Modal Content */}
                     <LinearGradient
-                        colors={gradianColor}
+                        colors={gradientColor}
                         style={styles.modalContainer}
                     >
 

@@ -27,7 +27,7 @@ const QuizOptionCard = ( {
     borderColor = '#3CE811';
   }
 
-  const selectionhandler = useCallback(() => {
+  const selectionHandler = useCallback(() => {
     triggerFeedback("tap");
     onSelect(option);
   }, [onSelect, option, triggerFeedback]);
@@ -43,7 +43,7 @@ const QuizOptionCard = ( {
   }, [isCorrect]);
 
   return (
-    <TouchableOpacity onPress={selectionhandler}>
+    <TouchableOpacity onPress={selectionHandler}>
       <View style={
         [
           STYLES.contentCentered,

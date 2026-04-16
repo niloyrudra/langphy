@@ -10,7 +10,7 @@ const FooterNote = ({children}: {children: ReactNode}) => {
         <LangphyText style={[styles.text, styles.note, {color: colors.text}]}>
             {children}
         </LangphyText>
-    )
+    );
 }
 
 export default FooterNote

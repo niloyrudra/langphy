@@ -33,19 +33,19 @@ export const getDirtySettings = async (userId: string): Promise<DBSettings[]> =>
 }
 
 export const upsertSettings = async (p: {
-    id: string;
-    user_id: string;
-    theme: string;
-    sound_effect: boolean;
-    speaking_service: boolean;
-    reading_service: boolean;
-    listening_service: boolean;
-    writing_service: boolean;
-    practice_service: boolean;
-    quiz_service: boolean;
-    notifications: boolean;
-    language: string;
-    dirty?: number;
+  id: string;
+  user_id: string;
+  theme: string;
+  sound_effect: boolean;
+  speaking_service: boolean;
+  reading_service: boolean;
+  listening_service: boolean;
+  writing_service: boolean;
+  practice_service: boolean;
+  quiz_service: boolean;
+  notifications: boolean;
+  language: string;
+  dirty?: number;
 }): Promise<DBSettings> => {
   const now = Math.floor(Date.now() / 1000);
   const result = await db.getFirstAsync<DBSettings>(

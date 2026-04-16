@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import KeyboardAvoidingViewLayout from '@/components/layouts/KeyboardAvoidingViewLayout';
@@ -6,20 +6,19 @@ import { Formik } from 'formik';
 import * as Yup from "yup";
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import AuthInput from '@/components/form-components/auth/AuthInput';
-import { toast } from '@backpackapp-io/react-native-toast';
-import { resetPassword } from '@/services/profie.service';
+import { resetPassword } from '@/services/profile.service';
 import { toastError, toastLoading, toastSuccess } from '@/services/toast.service';
 
-const ResetUserPaswordSchema = Yup.object().shape({
+const ResetUserPasswordSchema = Yup.object().shape({
     newPassword: Yup.string().min(4, "Password must be at least 4 characters").required("New Password is required"),
     confirmedPassword: Yup.string().required("Confirmed Password is required").oneOf([ Yup.ref('newPassword') ], "Passwords must match!"),
 });
 
-const ResetUserPaswordScreen = () => {
+const ResetUserPasswordScreen = () => {
     const [loading, setLoading] = React.useState<boolean>(false);
 
     // Handler
-    const handleResetUserPasword = async (
+    const handleResetUserPassword = async (
         newPassword: string,
         confirmedPassword: string
     ) => {
@@ -33,19 +32,19 @@ const ResetUserPaswordScreen = () => {
             if( res.status === 200 && res.data! ) {  
                 const { message } = res.data;
 
-                if(message) toastSuccess( message, {id: toastId!} );
-                else toastSuccess("Successfully updated password!", {id: toastId!});
+                if(message) toastSuccess( message, {id: toastId} );
+                else toastSuccess("Successfully updated password!", {id: toastId});
                 
                 // router.replace("/auth/login");
             }
             else {
-                toastError( "Password update failed!", {id: toastId!} );
+                toastError( "Password update failed!", {id: toastId} );
             }
     
         }
         catch(err) {
             console.error("Password update Error:", err);
-            toastError("Password update failed!", {id: toastId!});
+            toastError("Password update failed!", {id: toastId});
         }
         finally {
             setLoading(false)
@@ -62,10 +61,9 @@ const ResetUserPaswordScreen = () => {
                         confirmedPassword: "",
                         newPassword: ""
                     }}
-                    validationSchema={ResetUserPaswordSchema}
+                    validationSchema={ResetUserPasswordSchema}
                     onSubmit={(values, {resetForm}) => {
-                        // console.log( values )
-                        handleResetUserPasword(
+                        handleResetUserPassword(
                             values.newPassword,
                             values.confirmedPassword
                         );
@@ -73,7 +71,7 @@ const ResetUserPaswordScreen = () => {
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                        <View style={{ flex:1, gap: 20 }}>
+                        <View style={styles.container}>
 
                             <AuthInput
                                 value={values.newPassword}
@@ -100,12 +98,9 @@ const ResetUserPaswordScreen = () => {
                             {/* Submit Button */}
                             <ActionPrimaryButton
                                 buttonTitle="Reset Password"
-                                // onSubmit={() => console.log("OK")}
                                 onSubmit={handleSubmit}
                                 isLoading={loading}
-                                buttonStyle={{
-                                    marginTop: "auto"
-                                }}
+                                buttonStyle={styles.button}
                             />
                         
                         </View>
@@ -117,4 +112,11 @@ const ResetUserPaswordScreen = () => {
     );
 }
 
-export default ResetUserPaswordScreen;
+export default ResetUserPasswordScreen;
+
+const styles = StyleSheet.create({
+    container: { flex:1, gap: 20 },
+    button: {
+        marginTop: "auto"
+    }
+});

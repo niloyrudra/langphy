@@ -7,7 +7,7 @@ const ProfileNameAndId = ({displayName, username}: {displayName: string, usernam
   const {colors} = useTheme();
   return (
     <View style={[styles.container]}>
-      <LangphyText weight="extrabold" style={[styles.userDisplayName, {color: colors.text}]}>{displayName}</LangphyText>
+      <LangphyText weight="bold" style={[styles.userDisplayName, {color: colors.text}]}>{displayName}</LangphyText>
       <LangphyText style={[styles.userName, {color:colors.text}]}>User ID: {username}</LangphyText>
     </View>
   );

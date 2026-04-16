@@ -10,15 +10,14 @@ import { SessionType, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { useTheme } from '@/theme/ThemeContext';
 import { AntDesign } from '@expo/vector-icons';
-import { useLessons } from '@/hooks/useLessons';
+import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-// import { useLessonTimer } from '@/hooks/useLessonTimer';
-// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import LangphyText from '@/components/text-components/LangphyText';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
+import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
@@ -26,16 +25,12 @@ const QuizSession = () => {
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId = authSnapshot.getUserId() ?? "";
-  // const {start, stop, isRunning} = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
 
-  const { data: quizLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-  // const goToNextRef = React.useRef<(() => void) | null>(null);
-  // const activeQuizQuestionOrderRef = React.useRef<number>(0);
-  // const currentQuizQuestionRef = React.useRef<QuizSessionType | null>(null);
+  const { data: quizLessons, isLoading, isFetching, error: quizError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const quizzes = React.useMemo<QuizSessionType[]>(() => {
     if( !quizLessons ) return [];
@@ -116,6 +111,14 @@ const QuizSession = () => {
   }, [ selectedOption, triggerLessonResult, reset, onLessonComplete, resolveCurrent ]);
   
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
+  if (quizError || !quizLessons?.length) {
+    return (
+      <OfflineSessionGuard
+        sessionType={slug as SessionType}
+        reason={quizError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+      />
+    );
+  }
 
   return (
     <SessionLayout<QuizSessionType>
@@ -127,6 +130,7 @@ const QuizSession = () => {
           <View style={styles.flex}>
             {/* Title Section */}
             <ChallengeScreenTitle title="Choose The Correct Answer." />
+            
             {/* QUIZ Section Starts */}
             <View>
               <View style={styles.questionWrapper}>
@@ -170,13 +174,20 @@ export default QuizSession;
 const styles = StyleSheet.create({
   flex: {flex:1},
   questionWrapper: {
-    flexDirection :"row",
-    alignItems: 'center',
+    marginVertical: 30,
+    flexDirection: "row",
     justifyContent: 'flex-start',
-    marginBottom: 20,
-    marginTop: 10,
-    gap: 10
+    alignItems: "flex-start",
+    gap: 20
   },
+  // questionWrapper: {
+  //   flexDirection :"row",
+  //   alignItems: 'center',
+  //   justifyContent: 'flex-start',
+  //   marginBottom: 20,
+  //   marginTop: 10,
+  //   gap: 10
+  // },
   queryIcon: {
     width: 30,
     height: 30,

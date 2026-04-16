@@ -1,7 +1,6 @@
 import { SessionPerformance, SessionType } from "@/types";
 import { db } from "./index";
 import { authSnapshot } from "@/snapshots/authSnapshot";
-// import { getSessionProgress } from "./progress.repo";
 
 type SessionPerformanceUpsertType = {
   user_id: string;

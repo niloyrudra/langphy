@@ -9,17 +9,16 @@ import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import TaskAllocation from '@/components/listening-components/TaskAllocation';
 import { useListening } from '@/context/ListeningContext';
-import { useLessons } from '@/hooks/useLessons';
+import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-// import { useLessonTimer } from '@/hooks/useLessonTimer';
-// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
 import { toastError } from '@/services/toast.service';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
-// import { toastSuccess } from '@/services/toast.service';
+import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
+import { useNetwork } from '@/context/NetworkContext';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -28,18 +27,14 @@ const ListeningLessons = () => {
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const { colors } = useTheme();
-  // const { start, stop, isRunning } = useLessonTimer();
+  const { isOnline } = useNetwork();
 
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
-  const { data: listeningLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: listeningLessons, isLoading, isFetching, error: listeningError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const { resultHandler } = useListening();
-  // const goToNextRef = React.useRef<(() => void) | null>(null);
-
-  // const activeLessonOrderRef = React.useRef<number>(0);
-  // const currentLessonRef = React.useRef<ListeningSessionType | null>(null);
 
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ error, setError ] = React.useState<string>('')
@@ -71,6 +66,10 @@ const ListeningLessons = () => {
   }, []);
 
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
+    if (!isOnline) {
+      toastError("You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect.");
+      return;
+    }
     if(!textContent) {
       setError("No expected text found!");
       toastError("No expected text found!");
@@ -102,37 +101,6 @@ const ListeningLessons = () => {
     }
   }, [textContent, analysisNLP, triggerLessonResult, reset, setError, setLoading]);
 
-  // const onLessonComplete = React.useCallback(async (lesson: ListeningSessionType, score: number) => {
-  //   if(!userId) return;
-  //   try {
-  //     const duration_ms = stop();
-  //     const sessionType = slug as SessionType;
-  //     const sessionKey = `${unitId}:${sessionType}`;
-  //     const lessonOrder = activeLessonOrderRef.current;
-  //     const isFinalLesson = lessonOrder === lessonData.length - 1;
-  
-  //     const result = await lessonCompletionChain({
-  //       categoryId: categoryId as string,
-  //       unitId: unitId as string,
-  //       userId,
-  //       session_key: sessionKey,
-  //       performanceSessionKey,
-  //       lessonId: lesson?.id ?? lesson?._id,
-  //       lessonOrder: lessonOrder,
-  //       session_type: sessionType,
-  //       // lessonType: sessionType,
-  //       score: score,
-  //       duration_ms,
-  //       isFinalLesson
-  //     });
-  //     if(result?.sessionCompleted) triggerSessionCompletion(performanceSessionKey);
-  //     if(result?.streakUpdated && result?.streakPayload) triggerStreak(result.streakPayload);
-  //   }
-  //   catch(error) {
-  //     console.error("onLessonComplete error:", error)
-  //   }
-  // }, [userId, slug, lessonData?.length, stop]);
-  
   const lessonCompletionHandler = React.useCallback( async (result: any) => {
     try {
       const score = result!.similarity ? result!.similarity*100 : 0;
@@ -158,18 +126,15 @@ const ListeningLessons = () => {
     }
   }, [ reset, onLessonComplete, resultHandler ]);
   
-  // const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: ListeningSessionType, index: number, goToNext: () => void}) => {
-  //   activeLessonOrderRef.current = index;
-  //   currentLessonRef.current = item;
-  //   goToNextRef.current = goToNext;
-  // }, []);
-
-  // Timer
-  // React.useEffect(() => {
-  //   if(!isRunning) start();
-  // }, [isRunning]);
-
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />);
+  if (listeningError || !lessonData.length) {
+    return (
+      <OfflineSessionGuard
+        sessionType={slug as SessionType}
+        reason={listeningError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+      />
+    );
+  }
 
   return (
     <SessionLayout<ListeningSessionType>

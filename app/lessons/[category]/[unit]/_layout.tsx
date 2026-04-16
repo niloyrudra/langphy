@@ -17,7 +17,7 @@ const UnitLayout = () => {
 
   useEffect(() => {
     if ( !current && shouldNavigateRef.current ) {
-      shouldNavigateRef.current = false
+      shouldNavigateRef.current = false;
       router.back();
     }
   }, [current]);

@@ -1,8 +1,10 @@
+// toast.service.tsx
+
 import { toast, ToastOptions } from "@backpackapp-io/react-native-toast";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export const toastSuccess = (message: string, config?: ToastOptions) => {
-    toast.error(
+    toast.success(  // ✅ was toast.error
         message,
         {
             isSwipeable: true,
@@ -10,7 +12,7 @@ export const toastSuccess = (message: string, config?: ToastOptions) => {
             ...config
         }
     );
-}
+};
 
 export const toastError = (message: string, config?: ToastOptions) => {
     toast.error(
@@ -18,18 +20,16 @@ export const toastError = (message: string, config?: ToastOptions) => {
         {
             isSwipeable: true,
             styles: {
-                view: {
-                    backgroundColor: "#FFF2F1"
-                }
+                view: { backgroundColor: "#FFF2F1" }
             },
             icon: <MaterialIcons size={20} name="error" color="#ED2015" />,
             ...config
         }
     );
-}
+};
 
-export const toastLoading = (message: string, config?: ToastOptions) => {
-    toast.loading(message, {
+export const toastLoading = (message: string, config?: ToastOptions): string | undefined => {
+    return toast.loading(message, {  // ✅ now returns the ID
         isSwipeable: true,
         styles: {
             view: { backgroundColor: "#ECFFFF" }
@@ -37,4 +37,4 @@ export const toastLoading = (message: string, config?: ToastOptions) => {
         icon: <MaterialIcons size={20} name="hourglass-top" color="#08C1D2" />,
         ...config,
     });
-}
+};

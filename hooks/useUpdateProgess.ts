@@ -11,6 +11,7 @@ export const useUpdateProgress = () => {
         await upsertProgress({
           category_id: progress.category_id,
           unit_id: progress.unit_id,
+          user_id: progress.user_id,
           content_type: progress.content_id,
           content_id: progress.content_id,
           session_key: progress.session_key,

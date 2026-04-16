@@ -3,7 +3,7 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import ActionPrimaryButton from '../form-components/ActionPrimaryButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Entypo, FontAwesome, FontAwesome6, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ResultDetail from './_partials/ResultDetail';
 import ModalLayout from './_partials/ModalLayout';
 import SecondaryActionButton from '../form-components/SecondaryActionButton';
@@ -28,7 +28,7 @@ const ConfirmationModal = ({isVisible, title, message, status, onModalVisible, o
         <ModalLayout
             isVisible={isVisible}
             onModalVisible={onModalVisible}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep]}
+            gradientColor={[colors.gradientDeep, colors.gradientDeep]}
             containerStyle={styles.modalContainer}
         >
 
@@ -37,7 +37,6 @@ const ConfirmationModal = ({isVisible, title, message, status, onModalVisible, o
 
                 {
                     <ResultDetail
-                        // label="Words:"
                         detail={message}
                         iconComponent={
                             <MaterialCommunityIcons name="head-lightbulb-outline" size={20} color={colors.text} />
@@ -51,7 +50,7 @@ const ConfirmationModal = ({isVisible, title, message, status, onModalVisible, o
                         buttonTitle='Retry'
                         onSubmit={onRetry}
                         buttonStyle={styles.button}
-                        background={colors.gradiantDeep}
+                        background={colors.gradientDeep}
                     />
                     <ActionPrimaryButton
                         buttonTitle='Continue'

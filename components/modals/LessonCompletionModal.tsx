@@ -81,7 +81,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
             isVisible={isVisible}
             onModalVisible={onModalVisible}
             feedback={feedback}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep]}
+            gradientColor={[colors.gradientDeep, colors.gradientDeep]}
             containerStyle={styles.modalContainer}
         >
             {/* Modal Content */}
@@ -196,7 +196,7 @@ const LessonCompletionModal = ({isVisible, actualQuery,onModalVisible, result, o
                         buttonTitle='Retry'
                         onSubmit={onRetry}
                         buttonStyle={styles.button}
-                        background={colors.gradiantDeep}
+                        background={colors.gradientDeep}
                     />
                     <ActionPrimaryButton
                         buttonTitle='Continue'

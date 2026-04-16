@@ -9,7 +9,6 @@ type authContextType = {
     user: User | null;
     loading: boolean;
     setUser: (e: User | null) => void;
-    // signIn: ( email: string, password: string ) => Promise<void>;
     signOut: () => Promise<void>;
 }
 
@@ -71,7 +70,6 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                 user,
                 loading,
                 setUser,
-                // signIn: signInHandler,
                 signOut: signOutHandler
             }}
         >

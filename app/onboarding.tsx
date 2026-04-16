@@ -69,7 +69,7 @@ const OnBoarding = () => {
         />
         
         <TouchableOpacity
-          style={[STYLES.childContentCentered, styles.skipBtton]}
+          style={[STYLES.childContentCentered, styles.skipButton]}
           onPress={() => router.replace("/lessons")}
         >
           <LangphyText weight="extrabold" style={[styles.skipText, { color: colors.skipTextColor }]}>Skip for Now</LangphyText>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontWeight: "600"
   },
-  skipBtton: {
+  skipButton: {
     padding: 16
   },
   skipText: {

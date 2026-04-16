@@ -9,31 +9,28 @@ import SessionLayout from '@/components/layouts/SessionLayout';
 import { SessionType, WritingSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import { useLessons } from '@/hooks/useLessons';
-// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
-// import { useLessonTimer } from '@/hooks/useLessonTimer';
+import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
+import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
+import { toastError } from '@/services/toast.service';
+import { useNetwork } from '@/context/NetworkContext';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
 const WritingSession = () => {
   const { colors } = useTheme();
+  const { isOnline } = useNetwork();
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
-  // const { start, stop, isRunning } = useLessonTimer();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
-
-  // const goToNextRef = React.useRef<(() => void) | null>(null);
-  // const activeLessonOrderRef = React.useRef<number>(0);
-  // const currentLessonRef = React.useRef<WritingSessionType | null>(null);
+  const { data: readingLessons, isLoading, isFetching, error: writingError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ error, setError ] = React.useState<string>('')
@@ -63,42 +60,13 @@ const WritingSession = () => {
     setLoading(false);
   }, []);
 
-  // const onLessonComplete = React.useCallback(async (lesson: WritingSessionType, score: number) => {
-  //   if(!userId) return;
-  //   try {
-  //     const duration_ms = stop();
-  //     const sessionType = slug as SessionType;
-  //     const sessionKey = `${unitId}:${sessionType}`;
-  //     const lessonOrder = activeLessonOrderRef.current;
-  //     const isFinalLesson = lessonOrder === lessonData.length - 1;
-  
-  //     const result = await lessonCompletionChain({
-  //       categoryId: categoryId as string,
-  //       unitId: unitId as string,
-  //       userId,
-  //       session_key: sessionKey,
-  //       performanceSessionKey,
-  //       lessonId: lesson.id ?? lesson?._id,
-  //       lessonOrder: lessonOrder,
-  //       session_type: sessionType,
-  //       // lessonType: sessionType,
-  //       score: score,
-  //       duration_ms,
-  //       isFinalLesson
-  //     });
-
-  //     if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
-  //     if( result?.streakUpdated && result?.streakPayload ) {
-  //       console.log("TRIGGERING STREAK MODAL");
-  //       triggerStreak( result.streakPayload );
-  //     }
-  //   }
-  //   catch(error) {
-  //     console.error("onLessonComplete error:", error)
-  //   }
-  // }, [userId, slug, userId, lessonData?.length, stop]);
-  
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
+    if (!isOnline) {
+      toastError(
+        "You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect."
+      );
+      return;
+    }
     if(!textContent.trim()) {
       setError("Please write your answer first!");
       return;
@@ -146,18 +114,15 @@ const WritingSession = () => {
     resolveCurrent();
   }, [reset, onLessonComplete, resolveCurrent]);
 
-  // const activeItemChangeHandler = React.useCallback(({ item, index, goToNext }: {item: WritingSessionType, index: number, goToNext: () => void}) => {
-  //   activeLessonOrderRef.current = index;
-  //   currentLessonRef.current = item;
-  //   goToNextRef.current = goToNext;
-  // }, []);
-
-  // Timer
-  // React.useEffect(() => {
-  //   if(!isRunning) start();
-  // }, [isRunning]);
-
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
+  if( isLoading || isFetching ) return (<LoadingScreenComponent />);
+  if (writingError || !lessonData?.length) {
+    return (
+      <OfflineSessionGuard
+        sessionType={slug as SessionType}
+        reason={writingError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+      />
+    );
+  }
 
   return (
     <SessionLayout<WritingSessionType>

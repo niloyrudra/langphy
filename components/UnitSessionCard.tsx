@@ -6,11 +6,10 @@ import { useTheme } from '@/theme/ThemeContext';
 import GridCardIcon from './GridCardIcon';
 import TitleHeading from './TitleHeading';
 import { getCardContainerWidth } from '@/utils';
-import { SessionType, UnitSessionType } from '@/types';
+import { UnitSessionType } from '@/types';
 import { useSettings } from '@/hooks/useSettings';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useFeedback } from '@/utils/feedback';
-// import { useLessons } from '@/hooks/useLessons';
 
 const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId, slug} ) => {
   const { colors } = useTheme();
@@ -20,7 +19,6 @@ const UnitSessionCard: React.FC<UnitSessionType> = ( { title, categoryId, unitId
   const { category, unit } = useLocalSearchParams();
 
   const { data: settings } = useSettings(userId);
-  // const { data: lessons } = useLessons( categoryId, unitId, slug as SessionType );
 
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 

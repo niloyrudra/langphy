@@ -9,7 +9,7 @@ const Paragraph = ({children}: {children: ReactNode}) => {
         <LangphyText style={[styles.text, {color: colors.text}]}>
             {children}
         </LangphyText>
-    )
+    );
 }
 
 export default Paragraph

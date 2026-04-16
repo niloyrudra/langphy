@@ -1,6 +1,6 @@
-import { StyleSheet, View } from 'react-native'
-import React, { ReactNode } from 'react'
-import ContentSubTitle from './ContentSubTitle'
+import { StyleSheet, View } from 'react-native';
+import React, { ReactNode } from 'react';
+import ContentSubTitle from './ContentSubTitle';
 
 const SubSection = ({subTitle, children}: {subTitle: string, children: ReactNode}) => {
     return (
@@ -16,7 +16,6 @@ export default SubSection;
 const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
-        gap: 10,
-        // marginVertical: 10
+        gap: 10
     }
 })

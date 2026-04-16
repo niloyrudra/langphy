@@ -82,7 +82,7 @@ export const Images: ImageType = {
         milestone_7: require("@/assets/images/dashboard/milestones/7-days.webp"),
         milestone_14: require("@/assets/images/dashboard/milestones/14-days.webp"),
         milestone_21: require("@/assets/images/dashboard/milestones/21-days.webp"),
-        milestone_30: require("@/assets/images/dashboard/milestones/30-Days-Streaks-1.webp"),
+        milestone_30: require("@/assets/images/dashboard/milestones/30-days.webp"),
         milestone_50: require("@/assets/images/dashboard/milestones/50-days.webp"),
         milestone_100: require("@/assets/images/dashboard/milestones/100-days.webp"),
 

@@ -6,7 +6,7 @@ import { useCategories } from '@/hooks/useCategories';
 import LoadingScreenComponent from '../LoadingScreenComponent';
 
 const CategoryCardList = () => {
-  const { data: categories, isLoading, isFetching } = useCategories();
+  const { data: categories, isLoading, isFetching, error } = useCategories();
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
   return (
     <GridLayout<LocalCategory>

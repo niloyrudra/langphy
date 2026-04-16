@@ -10,9 +10,9 @@ import AuthInput from '@/components/form-components/auth/AuthInput'
 import AuthLayout from '@/components/layouts/AuthLayout'
 import { useFeedback } from '@/utils/feedback'
 import LangphyText from '@/components/text-components/LangphyText'
-// import { signUp } from '@/services/auth.service'
 import { toastError, toastLoading, toastSuccess } from '@/services/toast.service'
 import { requestOtp } from '@/services/auth.service'
+import { useNetwork } from '@/context/NetworkContext'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -21,48 +21,23 @@ const SignupSchema = Yup.object().shape({
 
 const SignUp = () => {
   const { colors } = useTheme();
+  const { isOnline } = useNetwork();
   const router = useRouter();
-  const {triggerFeedback} = useFeedback();
+  const { triggerFeedback } = useFeedback();
 
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  // const handleSignup = async ( email: string, password: string ) => {
-  //   const toastId = toastLoading("Signing up...");
-  //   try {
-  //     setLoading(true);
-
-  //     const res = await signUp( email, password );
-
-  //     if( res.status === 201 && res.data ) {  
-  //       const { message } = res.data;
-        
-  //       // Toaster
-  //       if(message) toastSuccess( message, { id: toastId! } );
-  //       else toastSuccess("Successfully signed up!", { id: toastId! });
-        
-  //       router.replace("/auth/login");
-  //     }
-  //     else {
-  //       toastError( "Signup failed!", { id: toastId! } );
-  //     }
-
-  //   }
-  //   catch(err) {
-  //     console.error("Signup Error:", err);
-  //     toastError("Signup failed!");
-  //   }
-  //   finally {
-  //     setLoading(false);
-  //   }
-  // }
-
   const handleSignup = async (email: string, password: string) => {
+    if (!isOnline) {
+      toastError("You're offline! Please reconnect and try again.");
+      return;
+    }
     const toastId = toastLoading("Sending verification code...");
     try {
       setLoading(true);
       const res = await requestOtp(email, password);
       if (res.status === 200) {
-        toastSuccess("Check your email for the code!", { id: toastId! });
+        toastSuccess("Check your email for the code!", { id: toastId });
         // Pass credentials to OTP screen — password stays client-side only
         router.push({
           pathname: "/auth/verify-otp",
@@ -71,7 +46,7 @@ const SignUp = () => {
       }
     } catch (err: any) {
       const msg = err?.response?.data?.errors?.[0]?.message ?? "Signup failed!";
-      toastError(msg, { id: toastId! });
+      toastError(msg, { id: toastId });
     } finally {
       setLoading(false);
     }

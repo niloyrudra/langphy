@@ -35,7 +35,7 @@ export default ProfileStats;
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
+        padding: 16, // 20,
         borderRadius: 12,
         flexDirection: "row",
         justifyContent:"space-evenly",
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     divider: {
         width: 1,
         height: 36,
-        backgroundColor: "#EDEDED"
+        backgroundColor: "#EDEDED",
+        // marginHorizontal: 30
     }
 });

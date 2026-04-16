@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import LangphyText from '@/components/text-components/LangphyText'
 import { useTheme } from '@/theme/ThemeContext';
@@ -20,8 +20,6 @@ export default ContentSubTitle
 const styles = StyleSheet.create({
     subSection: {
         fontSize: 16,
-        fontWeight: "600",
-        // marginTop: 15,
-        // marginBottom: 8
+        fontWeight: "600"
     },
 })

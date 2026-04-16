@@ -13,32 +13,29 @@ import { useSession } from '@/context/SessionContext';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import PracticeLessonDetails from '@/components/practice-components/PracticeLessonDetails';
-import { useLessons } from '@/hooks/useLessons';
+import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { useProgress } from '@/hooks/useProgress';
-// import { useLessonTimer } from '@/hooks/useLessonTimer';
 import { randomUUID } from 'expo-crypto';
 import LangphyText from '@/components/text-components/LangphyText';
 import LessonList from '@/components/practice-components/LessonList';
 import { useCelebration } from '@/context/CelebrationContext';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { useSaveVocabulary } from '@/hooks/useVocabulary';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
+import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
+// import { useNetwork } from '@/context/NetworkContext';
 
 const PracticeLessons = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
   const { colors } = useTheme();
+  // const { isOnline } = useNetwork();
   const {categoryId, slug, unitId} = useLocalSearchParams();
-  // const {start, stop, isRunning} = useLessonTimer();
   const { mutate: saveVocabulary } = useSaveVocabulary();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const sessionKey = `${unitId}:${slug}`;
   const userId: string = authSnapshot.getUserId() ?? "";
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
-  // const goToNextRef = React.useRef<(() => void) | null>(null);
-  // const activeLessonOrderRef = React.useRef<number>(0);
-  // const currentLessonRef = React.useRef<PracticeSessionType | null>(null);
   const scrollToLessonRef = React.useRef<((index: number) => void) | null>(null);
   const scrollToRef = React.useRef<ScrollView>(null);
   
@@ -51,11 +48,10 @@ const PracticeLessons = () => {
   // them here immediately so they're ready when the user taps Done.
   // const tokensRef = React.useRef<Token[]>([]);
   // ─────────────────────────────────────────────────────────────────────────
- 
   const { currentPosition, showLessonList, setCurrentPosition } = useSession();
 
   // Essential Custom hooks
-  const { data: practiceLessons, isLoading: lessonsLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: practiceLessons, isLoading: lessonsLoading, isFetching, error } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { data: progress } = useProgress( sessionKey );
 
   // Fetch Primary Lesson data
@@ -94,40 +90,6 @@ const PracticeLessons = () => {
     onStreakUpdate: triggerStreak,
   });
 
-  // const onLessonComplete = React.useCallback(async (lesson: PracticeSessionType, score: number) => {
-  //   if(!userId) return;
-  //   try {
-  //     const duration_ms = stop();
-  //     const sessionType = slug as SessionType;
-  //     const sessionKey = `${unitId}:${sessionType}`;
-  //     const lessonOrder = activeLessonOrderRef.current;
-  //     const isFinalLesson = lessonOrder === practiceData.length - 1;
-  
-  //     const result = await lessonCompletionChain({
-  //       categoryId: categoryId as string,
-  //       unitId: unitId as string,
-  //       userId,
-  //       session_key: sessionKey,
-  //       performanceSessionKey,
-  //       lessonId: lesson.id ?? lesson?._id,
-  //       lessonOrder: lessonOrder,
-  //       session_type: sessionType,
-  //       score: score,
-  //       duration_ms,
-  //       isFinalLesson
-  //     });
-
-  //     if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
-  //     if( result?.streakUpdated && result?.streakPayload ) {
-  //       console.log("TRIGGERING STREAK MODAL");
-  //       triggerStreak( result.streakPayload );
-  //     }
-  //   }
-  //   catch(error) {
-  //     console.error("onLessonComplete error:", error)
-  //   }
-  // }, [userId, slug, userId, practiceData?.length, stop]);
-  
   const onContinue = React.useCallback(async () => {
     await onLessonComplete(currentLessonRef.current!, 100);
     goToNextRef?.current && goToNextRef.current?.();
@@ -180,25 +142,18 @@ const PracticeLessons = () => {
     });
   }, [userId, unitId, categoryId, saveVocabulary, resolveCurrent, onContinue]);
 
-  // const activeItemChangeHandler = React.useCallback(
-  //   ({ item, index, goToNext }: { item: PracticeSessionType; index: number; goToNext: () => void }) => {
-  //     activeLessonOrderRef.current = index;
-  //     currentLessonRef.current = item;
-  //     setCurrentPosition(index);
-  //     goToNextRef.current = goToNext;
-  //     // tokensRef.current = []; // ← this is fine, handleVocabulary already snapshotted before goToNext ran
-  //   },
-  //   [setCurrentPosition]
-  // );
-
   const onPositionChangeHandler = React.useCallback((index: number) => setCurrentPosition(index), [setCurrentPosition]);
   const onScrollerHandler = React.useCallback((scrollFn: ((index: number) => void)) => {scrollToLessonRef.current = scrollFn}, []);
 
-  // React.useEffect(() => {
-  //   if(!isRunning) start();
-  // }, [ isRunning ])
-
   if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />);
+  if (error || !practiceData.length) {
+    return (
+      <OfflineSessionGuard
+        sessionType={slug as SessionType}
+        reason={error instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+      />
+    );
+  }
 
   return (
     <>

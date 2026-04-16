@@ -17,8 +17,8 @@ const LessonNavDots = ({data, currentIndex}: LessonNav) => {
                     <LinearGradient
                         key={idx.toString()}
                         colors={currentIndex >= idx
-                            ? [colors.gradiantActiveNavDot, colors.gradiantActiveNavDotDark]
-                            : [colors.gradiantInactiveNavDot, colors.gradiantInactiveNavDot]
+                            ? [colors.gradientActiveNavDot, colors.gradientActiveNavDotDark]
+                            : [colors.gradientInactiveNavDot, colors.gradientInactiveNavDot]
                         }
                         style={styles.dot}
                         start={{ x: 0, y: 0 }}

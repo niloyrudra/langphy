@@ -10,6 +10,7 @@ import { toastError, toastLoading, toastSuccess } from '@/services/toast.service
 import { requestOtp, verifyOtp } from '@/services/auth.service';
 import LangphyText from '@/components/text-components/LangphyText';
 import { useTheme } from '@/theme/ThemeContext';
+import { useNetwork } from '@/context/NetworkContext';
 
 const OtpSchema = Yup.object().shape({
     otp: Yup.string().length(6, "Code must be 6 digits").required("Code is required"),
@@ -18,42 +19,47 @@ const OtpSchema = Yup.object().shape({
 const OtpVerification = () => {
     const router = useRouter();
     const { colors } = useTheme();
+    const { isOnline } = useNetwork();
     const { email, password } = useLocalSearchParams<{ email: string; password: string }>();
     const [loading, setLoading] = React.useState(false);
-    const [resendCooldown, setResendCooldown] = React.useState(0);
+    const [resendCoolDown, setResendCoolDown] = React.useState(0);
 
     // Countdown timer for resend
     React.useEffect(() => {
-        if (resendCooldown <= 0) return;
-        const t = setTimeout(() => setResendCooldown(c => c - 1), 1000);
+        if (resendCoolDown <= 0) return;
+        const t = setTimeout(() => setResendCoolDown(c => c - 1), 1000);
         return () => clearTimeout(t);
-    }, [resendCooldown]);
+    }, [resendCoolDown]);
 
     const handleVerify = async (otp: string) => {
+        if (!isOnline) {
+            toastError("You're offline! Please reconnect and try again.");
+            return;
+        }
         const toastId = toastLoading("Verifying...");
         try {
             setLoading(true);
             const res = await verifyOtp(email, password, otp);
             if (res.status === 201) {
-                toastSuccess("Account created!", { id: toastId! });
+                toastSuccess("Account created!", { id: toastId });
                 router.replace("/auth/login");
             } else {
-                toastError("Verification failed.", { id: toastId! });
+                toastError("Verification failed.", { id: toastId });
             }
         } catch (err: any) {
             const msg = err?.response?.data?.errors?.[0]?.message ?? "Invalid code.";
-            toastError(msg, { id: toastId! });
+            toastError(msg, { id: toastId });
         } finally {
             setLoading(false);
         }
     };
 
     const handleResend = async () => {
-        if (resendCooldown > 0) return;
+        if (resendCoolDown > 0) return;
         try {
             await requestOtp(email, password); // reuse same service call
             toastSuccess("New code sent!");
-            setResendCooldown(60); // 60s cooldown
+            setResendCoolDown(60); // 60s coolDown
         } catch {
             toastError("Could not resend code.");
         }
@@ -94,10 +100,10 @@ const OtpVerification = () => {
             </Formik>
 
             <LangphyText
-                style={[styles.resend, { color: resendCooldown > 0 ? colors.textSubColor : colors.primary }]}
+                style={[styles.resend, { color: resendCoolDown > 0 ? colors.textSubColor : colors.primary }]}
                 onPress={handleResend}
             >
-                {resendCooldown > 0 ? `Resend code in ${resendCooldown}s` : "Resend code"}
+                {resendCoolDown > 0 ? `Resend code in ${resendCoolDown}s` : "Resend code"}
             </LangphyText>
         </AuthLayout>
     );

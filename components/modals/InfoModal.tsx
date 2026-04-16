@@ -1,8 +1,8 @@
-import { StyleSheet, View, Text, Modal, Pressable } from 'react-native'
+import { StyleSheet, View, Pressable } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { InfoIndicatorDarkIcon, InfoIndicatorLightIcon, ModalCloseDarkIcon, ModalCloseLightIcon } from '@/utils/SVGImages';
-import HorizontalLine from '../HorizontalLine';
+// import HorizontalLine from '../HorizontalLine';
 import ModalColorIndicatorComponent from './_partials/ModalColorIndicatorComponent';
 import ModalSectionTitle from './_partials/ModalSectionTitle';
 import LangphyText from '../text-components/LangphyText';
@@ -14,8 +14,8 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
         <ModalLayout
             isVisible={isVisible}
             onModalVisible={onModalVisible}
-            gradianColor={[colors.gradiantDeep, colors.gradiantDeep]}
-            containerStyle={[styles.container, {borderBottomColor: colors.modalBoderColor, backgroundColor: colors.background}]}
+            gradientColor={[colors.gradientDeep, colors.gradientDeep]}
+            containerStyle={[styles.container, {borderBottomColor: colors.modalBorderColor, backgroundColor: colors.background}]}
         >
             <View style={[styles.modalView]}>
                 <Pressable
@@ -43,7 +43,6 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                 <View style={styles.sectionContainer}>
                     <ModalSectionTitle
                         title='German Cases (Fälle)'
-                        // color="#68F0F8"
                     />
 
                     <View style={styles.contentWrapper}>
@@ -60,7 +59,6 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                 <View style={styles.sectionContainer}>
                     <ModalSectionTitle
                         title='German Genders (Geschlechter)'
-                        // color="#68F0F8"
                     />
 
                     <View style={styles.contentWrapper}>
@@ -77,7 +75,6 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                 <View style={styles.sectionContainer}>
                     <ModalSectionTitle
                         title='German Parts-of-speech'
-                        // color="#68F0F8"
                     />
 
                     <View style={styles.contentWrapper}>

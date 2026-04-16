@@ -1,7 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
-import SIZES from '@/constants/size';
 import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 
 const FeedbackScreen = () => {

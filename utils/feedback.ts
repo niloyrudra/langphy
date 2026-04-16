@@ -7,18 +7,13 @@
  *   import { triggerFeedback } from '@/utils/feedback';
  *   await triggerFeedback('correct');
  */
-
-// import { useAudioPlayer } from 'expo-audio';
 import { queryClient } from '@/queryClient';
-import { toastError, toastSuccess } from '@/services/toast.service';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { DBSettings } from '@/types';
-import { toast } from '@backpackapp-io/react-native-toast';
 import { createAudioPlayer, setAudioModeAsync } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
 
 // ─── Feedback Event Types ────────────────────────────────────────────────────
-
 export type FeedbackEvent =
     | 'correct'        // User answered correctly (ding / light tap)
     | 'incorrect'      // User answered wrong (dull thud / error buzz)
@@ -182,9 +177,9 @@ export async function preloadFeedbackSounds(): Promise<void> {
         await setAudioModeAsync({
             playsInSilentMode: true, // Play even when iOS silent switch is on
         });
-        toastSuccess("Sound effect is on!");
+        // toastSuccess("Sound effect is on!");
     } catch (err) {
         console.warn('[feedback] Could not configure audio mode:', err);
-        toastError("Sound effect is not ready!");
+        // toastError("Sound effect is not ready!");
     }
 }

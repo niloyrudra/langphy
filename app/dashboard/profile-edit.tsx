@@ -51,11 +51,11 @@ const ProfileEditScreen = () => {
 
             setIsVisible(true);
 
-            toastSuccess("Profile updated successfully!", {id: toastId!});
+            toastSuccess("Profile updated successfully!", {id: toastId});
         }
         catch(err) {
             console.error("Profile update Error:", err)
-            toastError("Profile update failed!", {id: toastId!})
+            toastError("Profile update failed!", {id: toastId})
         }
     }, [user, toastSuccess, toastError]);
 

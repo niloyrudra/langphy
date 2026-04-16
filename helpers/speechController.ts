@@ -13,13 +13,13 @@ export const preloadVoices = async () => {
   const voices = await Speech.getAvailableVoicesAsync();
   // console.log("Available voices:", voices);
   
-  // Optinal: pick a default voice to force-load
+  // Optional: pick a default voice to force-load
   const deVoice = voices.find( voice => voice.language === "de-DE" );
   
   if( deVoice ) {
     // Silent or ultra-short speech initializes the engine
     Speech.speak(
-      " ", // Willkommen
+      "", // Willkommen
       {
         voice: deVoice.identifier,
         volume: 0,

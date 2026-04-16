@@ -4,7 +4,7 @@ import { darkColors, lightColors } from "@/constants/colors";
 import { useSettings } from "@/hooks/useSettings";
 import { useUpdateSettings } from "@/hooks/useUpdateSettings";
 import { useAuth } from "@/context/AuthContext";
-import { toast } from "@backpackapp-io/react-native-toast";
+// import { toast } from "@backpackapp-io/react-native-toast";
 
 type Theme = 'light' | 'dark' | null;
 
@@ -31,13 +31,13 @@ const ThemeProvider = ( { children }: { children: ReactNode  } ) => {
     }, [settings?.theme, isLoading, systemColorScheme]);
     
     const toggleTheme = async () => {
-        const toastId = toast.loading(`Theme is updating...`);
+        // const toastId = toast.loading(`Theme is updating...`);
         if(!theme) return;
         const newTheme = (theme === 'light') ? 'dark' : 'light';
         setTheme( prevTheme => prevTheme = newTheme );
         updateSettings({ field: 'theme', value: newTheme });
 
-        toast.success(`Theme is updated to ${newTheme}!`, {id: toastId});
+        // toast.success(`Theme is updated to ${newTheme}!`, {id: toastId});
     }
 
     if (!theme) {

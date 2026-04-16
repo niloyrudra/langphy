@@ -7,8 +7,8 @@ const LangphyListItem = ({content, indent}: {content: string, indent?: boolean})
     const {colors} = useTheme();
     return (
         <LangphyText style={[styles.text, {color: colors.text}]}>
-            <LangphyText style={{}}>{indent ? '        ' : '  '}•{'  '}</LangphyText>
-            <LangphyText style={{}}>{content}</LangphyText>
+            <LangphyText>{indent ? '        ' : '  '}•  </LangphyText>
+            <LangphyText>{content}</LangphyText>
         </LangphyText>
     )
 }

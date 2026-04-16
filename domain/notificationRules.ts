@@ -1,4 +1,3 @@
-// import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import Constants from "expo-constants";
@@ -83,21 +82,3 @@ export const registerForPushNotifications = async () => {
         console.error("error:", error)
     }
 }
-
-// export const registerPush = async (userId: string) => {
-//     try {
-//         const { status } = await Notifications.requestPermissionsAsync();
-
-//         if( status !== "granted" ) return;
-
-//         const token = ( await Notifications.getExpoPushTokenAsync() ).data;
-
-//         console.log("Push Notification Token:", token);
-
-//         // const res = await api.post( "/users/push-token", { userId, token } );
-//         // if( res.status === 200 ) console.log( "Push Notification Token is sent to users->push-token" );
-//     }
-//     catch(error) {
-//         console.error("registerPush Error:", error);
-//     }
-// }

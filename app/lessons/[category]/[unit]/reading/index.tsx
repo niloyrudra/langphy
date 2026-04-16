@@ -7,12 +7,10 @@ import HorizontalLine from '@/components/HorizontalLine';
 import QuizOptions from '@/components/list-loops/QuizOptions';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import SpeakerComponent from '@/components/SpeakerComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
-import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import { useLessons } from '@/hooks/useLessons';
+import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
@@ -20,6 +18,8 @@ import Error from '@/components/Error';
 import LangphyText from '@/components/text-components/LangphyText';
 import SIZES from '@/constants/size';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
+import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
+import SpeakerWithQuestion from '@/components/lesson-components/SpeakerWithQuestion';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
@@ -32,7 +32,7 @@ const ReadingLessons = () => {
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const cardWidth = getCardContainerWidth();
 
-  const { data: readingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: readingLessons, isLoading, isFetching, error: readingError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
@@ -74,39 +74,6 @@ const ReadingLessons = () => {
     setError("");
   }, []);
 
-  // const onLessonComplete = React.useCallback(async (lesson: ReadingSessionType, score: number) => {
-  //   if(!userId) return;
-  //   try {
-  //     const duration_ms = stop();
-  //     const sessionType = slug as SessionType;
-  //     const sessionKey = `${unitId}:${sessionType}`;
-  //     const lessonOrder = activeLessonOrderRef.current;
-  //     const isFinalLesson = lessonOrder === lessonData.length - 1;
-  
-  //     const result = await lessonCompletionChain({
-  //       categoryId: categoryId as string,
-  //       unitId: unitId as string,
-  //       userId,
-  //       session_key: sessionKey,
-  //       performanceSessionKey,
-  //       lessonId: lesson.id ?? lesson?._id,
-  //       lessonOrder: lessonOrder,
-  //       session_type:sessionType,
-  //       score,
-  //       duration_ms,
-  //       isFinalLesson
-  //     });
-  //     if( result?.sessionCompleted ) triggerSessionCompletion( performanceSessionKey );
-  //     if( result?.streakUpdated && result?.streakPayload ) {
-  //       console.log("TRIGGERING STREAK MODAL");
-  //       triggerStreak( result.streakPayload );
-  //     }
-  //   }
-  //   catch(error) {
-  //     console.error("onLessonComplete error:", error)
-  //   }
-  // }, [userId, slug, lessonData?.length, stop]);
-
   const checkAnswerHandler = React.useCallback((answer: string) => {
     const isCorrect: boolean = selectedOption === answer;
     const resultPayload = {
@@ -147,20 +114,15 @@ const ReadingLessons = () => {
     });
   }, [ selectedOption, triggerLessonResult, reset, onLessonComplete, resolveCurrent ]);
  
-  // const activeItemChangeHandler = React.useCallback(({item, index, goToNext}: {item: ReadingSessionType, index: number, goToNext: () => void}) => {
-  //   activeLessonOrderRef.current = index;
-  //   currentLessonRef.current = item;
-  //   reset();
-  //   // You can use goToNextRef.current() to navigate to the next item from outside
-  //   goToNextRef.current = goToNext;
-  // }, [reset])
-
-  // Timer
-  // React.useEffect(() => {
-  //   if(!isRunning) start();
-  // }, [isRunning]);
-
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
+  if (readingError || !lessonData?.length) {
+    return (
+      <OfflineSessionGuard
+        sessionType={slug as SessionType}
+        reason={readingError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+      />
+    );
+  }
 
   return (
     <SessionLayout<ReadingSessionType>
@@ -170,7 +132,8 @@ const ReadingLessons = () => {
       {({ item, wordRefs, containerRef, setTooltip }) => {
         const handleTooltip = (value: any) => setTooltip(value);        
         return (
-          <ScrollView
+          <View style={{position:"relative"}}>
+            <ScrollView
             nestedScrollEnabled
             showsVerticalScrollIndicator={false}
             scrollEventThrottle={16}
@@ -179,24 +142,12 @@ const ReadingLessons = () => {
               {/* Title Section */}
               <ChallengeScreenTitle title="Read The Comprehension." />
 
-                <View style={[styles.container]}>
-                  {/* Query Listen with Query Text Section */}
-                  <SpeakerComponent
-                    speechContent={item?.phrase}
-                    speechLang='de-DE'
-                  />
-                          
-                  {/* Tappable Words with ToolTip */}
-                  <View style={styles.textContainer}>
-                    <NLPAnalyzedPhase
-                      phrase={item.phrase}
-                      onHandler={handleTooltip}
-                      wordRefs={wordRefs}
-                      containerRef={containerRef}
-                      textStyle={styles.text}
-                    />
-                  </View>
-                </View>
+              <SpeakerWithQuestion
+                phrase={item?.phrase}
+                handleTooltip={handleTooltip}
+                wordRefs={wordRefs}
+                containerRef={containerRef}
+              />
 
               <HorizontalLine />
 
@@ -215,20 +166,21 @@ const ReadingLessons = () => {
                   onSelect={handleSelect}
                   isSelectionHappened={isSelectionHappened}
                 />
-
               </View>
             </View>
 
-            {error && (<Error text={error} />)}
+            </ScrollView>
 
             {/* Action Buttons */}
-            <ActionPrimaryButton
-              buttonTitle='Check'
-              onSubmit={() => checkAnswerHandler(item?.answer)}
-              disabled={!selectedOption ? true : false }
-            />
-
-          </ScrollView>
+            <View style={[styles.buttonWrapper, {backgroundColor: colors.background, borderTopColor: colors.hLineColor}]}>
+              {error && (<Error text={error} />)}
+              <ActionPrimaryButton
+                buttonTitle='Check'
+                onSubmit={() => checkAnswerHandler(item?.answer)}
+                disabled={!selectedOption ? true : false }
+              />
+            </View>
+          </View>
         );
       }}
     </SessionLayout>
@@ -248,14 +200,21 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     gap: 20
   },
-  questionSection: {flex:1},
+  questionSection: {flex:1, marginBottom: 120},
   questionWrapper: {marginBottom:10},
   question: {fontSize: 16},
-  text: {
-    // fontSize: 16,
-    // flexWrap: 'wrap'
-  },
   textContainer: {
     width: SIZES.screenWidth - 100,
+  },
+  buttonWrapper: {
+    paddingTop: 20,
+    paddingBottom: SIZES.bodyPaddingVertical,
+    position: "absolute",
+    right: 0,
+    left: 0,
+    bottom: 0,
+    borderTopWidth: 1,
+    borderStyle: "solid",
+    // marginHorizontal: -SIZES.bodyPaddingHorizontal
   }
 });

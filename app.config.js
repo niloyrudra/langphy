@@ -6,19 +6,19 @@ export default {
     slug: "langphy",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/images/app-icon-1024x1024.png",
+    icon: "./assets/images/logo.png",
     scheme: "langphy",
     userInterfaceStyle: "automatic",
     // enableHermes: true,
     newArchEnabled: true, // ***
     ios: {
       supportsTablet: true,
-      icon: "./assets/images/app-icon-1024x1024.png",
+      icon: "./assets/images/logo.png",
     },
     android: {
       usesCleartextTraffic: true,
       adaptiveIcon: {
-        foregroundImage: "./assets/images/app-icon-1024x1024.png",
+        foregroundImage: "./assets/images/logo.png",
         backgroundColor: "#061E3E" // "#F9FAFB"
       },
       package: "com.niloyrudra.langphy",
@@ -27,7 +27,7 @@ export default {
     web: {
       bundler: "metro",
       output: "static",
-      favicon: "./assets/images/app-icon-1024x1024.png"
+      favicon: "./assets/images/logo.png"
     },
     plugins: [
       "expo-audio",
@@ -49,7 +49,7 @@ export default {
         "expo-splash-screen",
         {
           image: "./assets/images/app-splash-light.png",
-          imageWidth: 180, //200,
+          imageWidth: 200,
           resizeMode: "contain",
           backgroundColor: "#F9FAFB",
           dark: {

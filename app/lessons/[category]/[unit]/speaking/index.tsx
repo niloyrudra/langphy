@@ -11,15 +11,17 @@ import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recorder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
-import { useLessons } from '@/hooks/useLessons';
+import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
-// import { useLessonTimer } from '@/hooks/useLessonTimer';
-// import { lessonCompletionChain } from '@/domain/lessonCompletionChain';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
 import RefreshPlayer from '@/components/RefreshPlayer';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
+import { useNetwork } from '@/context/NetworkContext';
+import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
+import { toastError } from '@/services/toast.service';
+import SpeakerWithQuestion from '@/components/lesson-components/SpeakerWithQuestion';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -28,10 +30,11 @@ const SpeakingLessons = () => {
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const { triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
+  const { isOnline } = useNetwork();
 
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
 
-  const { data: speakingLessons, isLoading, isFetching } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: speakingLessons, isLoading, isFetching, error: speakingError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const lessonData = React.useMemo<SpeakingSessionType[]>(() => {
     if( !speakingLessons ) return [];
@@ -123,6 +126,14 @@ const SpeakingLessons = () => {
   }, [isRecordingDone, isRecording, play, stopRecording, startRecording]);
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />)
+  if (speakingError || !lessonData?.length) {
+    return (
+      <OfflineSessionGuard
+        sessionType={slug as SessionType}
+        reason={speakingError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+      />
+    );
+  }
 
   return (
     <SessionLayout<SpeakingSessionType>
@@ -137,23 +148,12 @@ const SpeakingLessons = () => {
             {/* Writing Section Starts */}
             <View style={styles.taskContainer}>
               
-              <View style={[styles.container]}>
-                {/* Query Listen with Query Text Section */}
-                <SpeakerComponent
-                  speechContent={item.phrase}
-                  speechLang='de-DE'
-                  style={styles.phrase}
-                />
-                                          
-                {/* Tappable Words with ToolTip */}
-                <NLPAnalyzedPhase
-                  phrase={item.phrase}
-                  onHandler={(tooltip: any) => setTooltip(tooltip)}
-                  wordRefs={wordRefs}
-                  containerRef={containerRef}
-                  textContainerStyle={styles.nlpWidth}
-                />
-              </View>
+              <SpeakerWithQuestion
+                phrase={item?.phrase}
+                wordRefs={wordRefs}
+                containerRef={containerRef}
+                handleTooltip={(tooltip: any) => setTooltip(tooltip)}
+              />
 
               <View style={styles.flex} />
   
@@ -183,6 +183,12 @@ const SpeakingLessons = () => {
           <ActionPrimaryButton
             buttonTitle='Check'
             onSubmit={() => {
+              if (!isOnline) {
+                toastError(
+                  "You're offline — speech analysis needs a connection. Please reconnect and try again."
+                );
+                return;
+              }
               analyzeSpeech(item.phrase.trim(), onContinue);
             }}
             isLoading={loading}

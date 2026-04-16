@@ -33,17 +33,17 @@ const SettingsScreen = () => {
         SecureStore.deleteItemAsync("accessToken"),
         authSnapshot.clear();
 
-        toastSuccess("Successfully signed out!", { id: toastId! });
+        toastSuccess("Successfully signed out!", { id: toastId });
 
         router.replace("/auth/login");
       }
       else {
-        toastError( "Signout failed!", { id: toastId! } )
+        toastError( "Signout failed!", { id: toastId } )
       }
     }
     catch(err) {
       console.error("Signout Error:", err)
-      toastError("Signout failed!", { id: toastId! })
+      toastError("Signout failed!", { id: toastId })
     }
   }, [router, authSnapshot, SecureStore, toastError, toastSuccess]);
 
@@ -105,7 +105,7 @@ const SettingsScreen = () => {
                   {/* Switch / Route */}
                   <SettingsElementAction
                     actionType={item.actionType}
-                    enabled={isServiceEnabled(item.settingType)}
+                    enabled={item.settingType ? isServiceEnabled(item.settingType) : false}
                     settingType={item.settingType}
                     route={item?.route}
                   />

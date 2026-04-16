@@ -11,7 +11,7 @@ import { registerForPushNotifications, setupNotificationHandler } from "@/domain
 import Constants from "expo-constants";
 import { preloadFeedbackSounds } from "@/utils/feedback";
 import { registerDevicesForNotification } from "@/services/notification.service";
-import { toastSuccess } from "@/services/toast.service";
+// import { toastSuccess } from "@/services/toast.service";
 
 const isExpoGo = Constants.appOwnership === "expo";
 
@@ -58,7 +58,7 @@ const App = () => {
     })();
 
     warmUpSpeech();
-    toastSuccess('Welcome to Langphy!');
+    // toastSuccess('Welcome to Langphy!');
     
   }, []);
 

@@ -30,7 +30,6 @@ const UserProfile = ({profile, isLoading, isFetching}: {profile: DBProfile | nul
             try {
                 const completedLessonCount = await getCompletedLessons();
                 const progressPercentage = completedLessonCount > 0 ? ( (completedLessonCount/TOTAL_LESSON_COUNT)*100 ).toFixed(1) : 0;
-                // const progressPercentage = completedLessonCount > 0 ? Math.round( (completedLessonCount/TOTAL_LESSON_COUNT)*100 )/100 : 0;
                 setProgressPercent(progressPercentage as number);
             }
             catch(error) {
@@ -86,5 +85,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
     position: "relative"
+    
   }
 })

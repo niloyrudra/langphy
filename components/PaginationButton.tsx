@@ -3,7 +3,7 @@ import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { BackwardIconDark2, BackwardIconLight2, ForwardIconDark, ForwardIconLight } from '@/utils/SVGImages';
 
-const dimentions =  {
+const dimensions =  {
     width: 50,
     height: 50
 };
@@ -14,12 +14,12 @@ const PaginationButton = ({modeLeft, actionHandler, isDisabled}: {modeLeft?: boo
     <TouchableOpacity onPress={actionHandler} disabled={isDisabled}>
         {theme === 'light'
             ?   (modeLeft
-                    ? <BackwardIconLight2 {...dimentions} opacity={isDisabled ? 0.15 : 1} />
-                    : <ForwardIconLight {...dimentions} opacity={isDisabled ? 0.15 : 1} />
+                    ? <BackwardIconLight2 {...dimensions} opacity={isDisabled ? 0.15 : 1} />
+                    : <ForwardIconLight {...dimensions} opacity={isDisabled ? 0.15 : 1} />
                 )
             :   (modeLeft
-                    ? <BackwardIconDark2 {...dimentions} opacity={isDisabled ? 0.15 : 1} />
-                    : <ForwardIconDark {...dimentions} opacity={isDisabled ? 0.15 : 1} />
+                    ? <BackwardIconDark2 {...dimensions} opacity={isDisabled ? 0.15 : 1} />
+                    : <ForwardIconDark {...dimensions} opacity={isDisabled ? 0.15 : 1} />
                 )
         }
     </TouchableOpacity>

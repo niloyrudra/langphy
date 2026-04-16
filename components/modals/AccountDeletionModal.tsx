@@ -20,7 +20,6 @@ import { clearLessons } from '@/db/lessons.repo';
 import { clearCategories } from '@/db/category.repo';
 import { clearUnits } from '@/db/unit.repo';
 import api from '@/lib/api';
-// import { toast } from '@backpackapp-io/react-native-toast';
 import { toastError, toastSuccess } from '@/services/toast.service';
 
 interface AccountDeletionModalProps {
@@ -78,8 +77,8 @@ const AccountDeletionModal = ({isVisible, onModalVisible}: AccountDeletionModalP
         <ModalLayout
             isVisible={isVisible}
             onModalVisible={onModalVisible}
-            gradianColor={[colors.accountDeletionModalBg, colors.accountDeletionModalBg]} // ['#081A33', '#081A33', '#1FCAD7', '#3FA1FF']
-            containerStyle={[styles.container, {borderBottomColor: colors.modalBoderColor}]}
+            gradientColor={[colors.accountDeletionModalBg, colors.accountDeletionModalBg]}
+            containerStyle={[styles.container, {borderBottomColor: colors.modalBorderColor}]}
         >
 
             {/* Modal Content */}

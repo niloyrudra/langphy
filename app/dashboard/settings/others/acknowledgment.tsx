@@ -7,7 +7,6 @@ import Section from '@/components/contents/_partials/Section';
 import Paragraph from '@/components/contents/_partials/Paragraph';
 import SubSection from '@/components/contents/_partials/SubSection';
 import LangphyListItem from '@/components/contents/_partials/LangphyListItem';
-import ContactDetail from '@/components/contents/ContactDetail';
 import FooterNote from '@/components/contents/_partials/FooterNote';
 import ContactSection from '@/components/contents/ContactSection';
 
