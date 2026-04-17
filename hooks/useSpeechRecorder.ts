@@ -25,6 +25,8 @@ const useSpeechRecorder = () => {
     // Keep a ref in sync with state so callbacks always see the latest URI
     // without needing it in their dependency arrays.
     const recordedUriRef = useRef<string | null>(null);
+    const resetRef = useRef<() => Promise<void>>(async () => {});
+
     useEffect(() => { recordedUriRef.current = recordedUri; }, [recordedUri]);
 
     // ── Audio hooks ────────────────────────────────────────────────────────────
@@ -109,7 +111,10 @@ const useSpeechRecorder = () => {
             try { await audioRecorder.stop(); } catch (_) {}
 
             // Re-prepare so startRecording() works immediately on next lesson
-            await audioRecorder.prepareToRecordAsync();
+            // await audioRecorder.prepareToRecordAsync();
+            // ❌ Remove: await audioRecorder.prepareToRecordAsync();
+            // Reason: startRecording() calls prepareToRecordAsync() before record().
+            // Calling it here + in startRecording() = double-prepare on Android = crash.
 
             // Clear all state
             setRecordedUri(null);
@@ -120,11 +125,15 @@ const useSpeechRecorder = () => {
             setLoading(false);
 
             // Pause playback (expo-audio has no stop())
-            try { await player.pause(); } catch (_) {}
+            try { player.pause(); } catch (_) {}
+            // ❌ Remove: await — player.pause() is sync in expo-audio
+
         } catch (e) {
             console.warn("Reset failed", e);
         }
     }, [audioRecorder, player]);
+
+    useEffect(() => { resetRef.current = reset; }, [reset]);
 
     // ── Speech analysis ────────────────────────────────────────────────────────
     const analyzeSpeech = useCallback(async (
@@ -182,7 +191,8 @@ const useSpeechRecorder = () => {
                         actualQuery: expectedText,
                         result: speechResult,
                         onContinue: async () => callbackFn(speechResult),
-                        onRetry: reset,
+                        // onRetry: reset,
+                        onRetry: () => resetRef.current(),  // ✅ always calls latest reset
                     });
 
                     setLoading(false);
@@ -203,7 +213,7 @@ const useSpeechRecorder = () => {
             toastError("Speech analysis failed", { id: toastId });
             setLoading(false);
         }
-    }, [reset, triggerLessonResult]);
+    }, [triggerLessonResult]);
     // Note: recordedUri intentionally NOT in dep array — we use recordedUriRef instead.
 
     // ── Return ─────────────────────────────────────────────────────────────────

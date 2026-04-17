@@ -4,11 +4,9 @@ import STYLES from '@/constants/styles';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
-import SpeakerComponent from '@/components/SpeakerComponent';
 import { SessionType, SpeakingSessionType, SpeechResultType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import NLPAnalyzedPhase from '@/components/nlp-components/NLPAnalyzedPhase';
 import RecorderActionButton from '@/components/recorder-components/RecorderActionButton';
 import useSpeechRecorder from '@/hooks/useSpeechRecorder';
 import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
@@ -73,10 +71,10 @@ const SpeakingLessons = () => {
   const isCompletingRef = React.useRef<boolean>(false);
 
   const onContinue = React.useCallback(async (speechResult: SpeechResultType) => {
-    try {
-      if ( isCompletingRef.current ) return;
-      isCompletingRef.current = true;
+    if ( isCompletingRef.current ) return;
+    isCompletingRef.current = true;
 
+    try {
       // ✅ result comes in as param — no stale closure
       const score = speechResult?.analysis?.similarity
         ? Math.round(speechResult.analysis.similarity * 100)
@@ -84,7 +82,7 @@ const SpeakingLessons = () => {
 
       console.log("Speaking Score:", score, speechResult?.analysis?.similarity);
 
-      // ✅ complete the lesson first (this may trigger session/streak modals)
+      // 1️⃣ Complete the lesson (may enqueue session/streak modals)
       await onLessonComplete(currentLessonRef.current!, score);
 
       // Use After 3 Lessons Completed
@@ -97,12 +95,19 @@ const SpeakingLessons = () => {
       //   goToNextRef.current?.();
       // }
 
-      // ✅ advance to next lesson
+      // 2️⃣ Advance to the next lesson immediately
       goToNextRef?.current?.();
 
       // ✅ reset AFTER everything — don't call resolveCurrent here,
       // lessonCompletionChain handles the modal queue via triggerSessionCompletion
-      reset();
+      // 3️⃣ Reset recorder state — do NOT await, let it run in background.
+      //    Awaiting reset() blocks the UI and causes the recorder to be
+      //    re-prepared before the next lesson's useEffect has settled.
+      reset().catch(console.warn);
+
+      // 4️⃣ Resolve the celebration modal LAST — this is what dismisses
+      //    the current modal and potentially shows the next one.
+      //    Must come after goToNext so the FlatList has already advanced.
       resolveCurrent();
 
     }

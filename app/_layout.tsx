@@ -19,7 +19,7 @@ import {
 import { Toaster } from "@/components/toaster/Toaster";
 import { StyleSheet, View } from "react-native";
 import NetworkListener from "@/components/offline/NetworkListener";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+// import { SafeAreaProvider } from "react-native-safe-area-context";
 // import { bootstrapAds } from "@/bootstraps/ads.bootstrap";
 
 SplashScreen.preventAutoHideAsync();
@@ -55,7 +55,7 @@ const RootLayout = () => {
   if (!loaded ) return null;
     
   return (
-    <SafeAreaProvider>  {/* ✅ OUTERMOST — Toasts needs this to exist above it */}
+    // <SafeAreaProvider>  {/* ✅ OUTERMOST — Toasts needs this to exist above it */}
       <View style={styles.flex}>
       {/* <SafeAreaView onLayout={onLayoutRootView} style={styles.flex}> */}
         <GestureHandlerRootView style={styles.flex}>
@@ -106,7 +106,7 @@ const RootLayout = () => {
           </AppProvider>
         </GestureHandlerRootView>
       </View>
-    </SafeAreaProvider>
+    // </SafeAreaProvider>
   );
 }
 export default RootLayout;

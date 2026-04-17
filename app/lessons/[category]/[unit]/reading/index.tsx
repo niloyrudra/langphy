@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
@@ -60,6 +60,14 @@ const ReadingLessons = () => {
     onSessionComplete: triggerSessionCompletion,
     onStreakUpdate: triggerStreak,
   });
+
+  const buttonWrapperStyles = useMemo(() => [
+    styles.buttonWrapper,
+    {
+      backgroundColor: colors.background,
+      borderTopColor: colors.hLineColor
+    }
+  ], []);
 
   // Handlers
   const handleSelect = (option: string) => {
@@ -132,7 +140,7 @@ const ReadingLessons = () => {
       {({ item, wordRefs, containerRef, setTooltip }) => {
         const handleTooltip = (value: any) => setTooltip(value);        
         return (
-          <View style={{position:"relative"}}>
+          <View style={styles.wrapper}>
             <ScrollView
             nestedScrollEnabled
             showsVerticalScrollIndicator={false}
@@ -172,7 +180,7 @@ const ReadingLessons = () => {
             </ScrollView>
 
             {/* Action Buttons */}
-            <View style={[styles.buttonWrapper, {backgroundColor: colors.background, borderTopColor: colors.hLineColor}]}>
+            <View style={buttonWrapperStyles}>
               {error && (<Error text={error} />)}
               <ActionPrimaryButton
                 buttonTitle='Check'
@@ -190,6 +198,9 @@ const ReadingLessons = () => {
 export default ReadingLessons;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: "relative"
+  },
   flex: {flex:1},
   container: {
     marginTop: 30,
@@ -207,14 +218,13 @@ const styles = StyleSheet.create({
     width: SIZES.screenWidth - 100,
   },
   buttonWrapper: {
-    paddingTop: 20,
-    paddingBottom: SIZES.bodyPaddingVertical,
+    marginTop: "auto",
     position: "absolute",
     right: 0,
     left: 0,
     bottom: 0,
     borderTopWidth: 1,
     borderStyle: "solid",
-    // marginHorizontal: -SIZES.bodyPaddingHorizontal
+    paddingVertical: 20,
   }
 });
