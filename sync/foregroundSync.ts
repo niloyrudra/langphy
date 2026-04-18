@@ -7,7 +7,7 @@ import { authSnapshot } from "@/snapshots/authSnapshot";
 import { syncDirtyVocabulary } from "./syncVocabulary";
 import { syncEvents } from "./syncEvents";
 import { toastSuccess } from "@/services/toast.service";
-// import { syncDirtyPerformance } from "./syncPerformace";
+// import { syncDirtyPerformance } from "./syncPerformance";
 
 export const runForegroundSync = async () => {
     try {
@@ -80,7 +80,7 @@ export const runForegroundSync = async () => {
 
 //         const userId = authSnapshot.getUserId()!;
 //         console.log("Foreground sync task running...");
-//         // prarallel version
+//         // parallel version
 //         // await Promise.all([
 //         //     syncDirtyProfile( userId ), // Meed user ID
 //         //     syncDirtySettings( userId ), // Meed user ID

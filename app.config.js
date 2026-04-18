@@ -36,9 +36,23 @@ export default {
       "expo-sqlite",
       "expo-web-browser",
       "expo-secure-store",
-      "expo-notifications",
+      // "expo-notifications",
       "expo-background-task",
       "expo-speech-recognition",
+      "expo-font",
+      [
+        "expo-notifications",
+        {
+          // Notification icon shown in the Android status bar and drawer.
+          // Must be a white-on-transparent PNG — NOT your full colour logo.
+          // Using the colour logo here is the most common cause of a
+          // grey/white square appearing instead of your icon on Android 5+.
+          // Create a 96x96 white-on-transparent version and reference it here.
+          icon: "./assets/images/notification-icon.png",
+          color: "#00BCD4",
+          defaultChannel: "default",
+        },
+      ],
       // [
       //   "react-native-google-mobile-ads",
       //   {
@@ -49,16 +63,16 @@ export default {
         "expo-splash-screen",
         {
           image: "./assets/images/app-splash-light.png",
-          imageWidth: 200,
+          imageWidth: 160,
           resizeMode: "contain",
           backgroundColor: "#F9FAFB",
           dark: {
             image: "./assets/images/app-splash-dark.png",
-            backgroundColor: "#012C4A"
-          }
+            imageWidth: 160,
+            backgroundColor: "#012C4A",
+          },
         }
       ],
-      "expo-font"
     ],
     experiments: {
       typedRoutes: true

@@ -6,7 +6,7 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal", // https://docs.expo.dev/tutorial/eas/internal-distribution-builds/
+      "distribution": "internal",
       "channel": "development",
       "env": {
         "EXPO_PUBLIC_API_BASE": "https://app.langphy.com/api",
@@ -17,7 +17,8 @@
       "distribution": "internal",
       "channel": "preview",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "credentialsSource": "remote"
       },
       "env": {
         "EXPO_PUBLIC_API_BASE": "https://app.langphy.com/api",
@@ -29,7 +30,8 @@
       "distribution": "store",
       "channel": "production",
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "credentialsSource": "remote"
       },
       "env": {
         "EXPO_PUBLIC_API_BASE": "https://app.langphy.com/api",
@@ -41,7 +43,7 @@
     "production": {
       "android": {
         "serviceAccountKeyPath": "./google-service-account.json",
-        "track": "internal" // https://docs.expo.dev/tutorial/eas/android-production-build/
+        "track": "internal"
       }
     }
   }
