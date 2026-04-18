@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native'
-import QuizOptionCardList from '@/components/list-loops/QuizOptions';
+import QuizOptionCardList from '@/components/list-loops/Options';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
@@ -18,6 +18,7 @@ import Error from '@/components/Error';
 import LangphyText from '@/components/text-components/LangphyText';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
+import Query from '@/components/lesson-components/Query';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
@@ -133,14 +134,15 @@ const QuizSession = () => {
             
             {/* QUIZ Section Starts */}
             <View>
-              <View style={styles.questionWrapper}>
+              {/* <View style={styles.questionWrapper}>
                 <View style={[styles.queryIcon, {backgroundColor: colors.cardIconBackgroundColor}]}>
                   <AntDesign name="question" size={20} color={colors.text} />
                 </View>
                 <LangphyText weight="semibold" style={[styles.question, {color: colors.text}]}>
                   {item?.question}
                 </LangphyText> 
-              </View>
+              </View> */}
+              <Query question={item?.question} containerStyle={{marginVertical: 30}} />
 
               {/* QUIZ Answer Options */}
               <QuizOptionCardList
@@ -188,16 +190,16 @@ const styles = StyleSheet.create({
   //   marginTop: 10,
   //   gap: 10
   // },
-  queryIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  question: {
-    fontSize: 20,
-    wordWrap: 'break-word',
-    flexShrink: 1,
-  }
+  // queryIcon: {
+  //   width: 30,
+  //   height: 30,
+  //   borderRadius: 15,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
+  // question: {
+  //   fontSize: 20,
+  //   wordWrap: 'break-word',
+  //   flexShrink: 1,
+  // }
 });

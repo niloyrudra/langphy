@@ -40,6 +40,13 @@ const ListeningLessons = () => {
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
 
+  // ✅ Ref so analyzeListeningHandler stays stable during typing
+  const textContentRef = React.useRef<string>('');
+  const handleTextChange = React.useCallback((val: string) => {
+    textContentRef.current = val;
+    setTextContent(val);
+  }, []);
+
   const lessonData = React.useMemo<ListeningSessionType[]>(() => {
     if( !listeningLessons ) return [];
     return listeningLessons.map( lesson => JSON.parse( lesson.payload ) );
@@ -59,47 +66,12 @@ const ListeningLessons = () => {
 
   // Handlers
   const reset = React.useCallback(() => {
+    textContentRef.current = '';
     setTextContent("");
     setError("");
     setLoading(false);
     // toastSuccess("Lesson Reset")
   }, []);
-
-  const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
-    if (!isOnline) {
-      toastError("You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect.");
-      return;
-    }
-    if(!textContent) {
-      setError("No expected text found!");
-      toastError("No expected text found!");
-      return;
-    }
-    if (!expectedText) {
-      setError("No expected text found!");
-      toastError("No expected text found!");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const data = await analysisNLP( expectedText, textContent );
-      if( data ) {
-        triggerLessonResult({
-          actualQuery: expectedText,
-          result: data,
-          onRetry: reset,
-          onContinue: async () => lessonCompletionHandler(data)
-        });
-      }
-
-    } catch (err: any) {
-      console.error(err);
-      setError("Speech analysis failed");
-    } finally {
-      setLoading(false);
-    }
-  }, [textContent, analysisNLP, triggerLessonResult, reset, setError, setLoading]);
 
   const lessonCompletionHandler = React.useCallback( async (result: any) => {
     try {
@@ -125,7 +97,53 @@ const ListeningLessons = () => {
       console.error("lessonCompletionHandler error:", error)
     }
   }, [ reset, onLessonComplete, resultHandler ]);
-  
+
+  // ✅ Stable — no textContent in dep array
+  const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
+    if (!isOnline) {
+      toastError("You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect.");
+      return;
+    }
+    // if(!textContent) {
+    //   setError("No expected text found!");
+    //   toastError("No expected text found!");
+    //   return;
+    // }
+
+    const current = textContentRef.current;  // ✅ ref, not state
+    if (!current) {
+      setError('No answer entered!');
+      toastError('No answer entered!');
+      return;
+    }
+
+    if (!expectedText) {
+      setError("No expected text found!");
+      toastError("No expected text found!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const data = await analysisNLP( expectedText, current );
+      if( data ) {
+        triggerLessonResult({
+          actualQuery: expectedText,
+          result: data,
+          onRetry: reset,
+          onContinue: async () => lessonCompletionHandler(data)
+        });
+      }
+
+    } catch (err: any) {
+      console.error(err);
+      setError("Speech analysis failed");
+    } finally {
+      setLoading(false);
+    }
+  }, [isOnline, triggerLessonResult, reset, lessonCompletionHandler]);
+
+    
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
   if (listeningError || !lessonData.length) {
     return (
@@ -160,7 +178,7 @@ const ListeningLessons = () => {
               maxLength={500}
               placeholder='Write here...'
               value={textContent}
-              onChange={setTextContent}
+              onChange={handleTextChange}  // ✅ stable handler
               placeholderTextColor={colors.placeholderColor}
               inputMode="text"
               onBlur={() => {}}

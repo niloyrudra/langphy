@@ -120,6 +120,11 @@ const wordWrapStyle: StyleProp<TextStyle> = <TextStyle> {
     flexShrink: 1,
 }
 
+const speaker: StyleProp<SVGStyleElement> = <SVGStyleElement> <unknown>{
+    width: 40,
+    height: 40
+}
+
 const STYLES = {
     headerContainer,
     defaultContainer,

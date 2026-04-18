@@ -57,8 +57,13 @@ const PracticeLessons = () => {
   // Fetch Primary Lesson data
   const practiceData = useMemo<PracticeSessionType[]>(() => {
     if (!practiceLessons) return [];
+    const sortField = "phrase"; // or "meaning"
 
-    return practiceLessons.map(l => JSON.parse(l.payload));
+    const data = practiceLessons.map(l => JSON.parse(l.payload));
+    if( unitId === "69233eac0146d50fc37df9b0" ) {
+      return [...data].sort( (a, b) => a[sortField].localeCompare( b[sortField] ));
+    }
+    return data;
   }, [practiceLessons]);
 
   // Update LessonList data

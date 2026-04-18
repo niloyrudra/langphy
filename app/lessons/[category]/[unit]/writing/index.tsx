@@ -29,12 +29,20 @@ const WritingSession = () => {
   const userId: string = authSnapshot.getUserId() ?? "";
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
+  
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const { data: readingLessons, isLoading, isFetching, error: writingError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
+
+  // ✅ Ref mirrors state so callbacks stay stable even as the user types
+  const textContentRef = React.useRef<string>('');
+  const handleTextChange = React.useCallback((val: string) => {
+    textContentRef.current = val;
+    setTextContent(val);
+  }, []);
 
   const lessonData = React.useMemo<WritingSessionType[]>(() => {
     if( !readingLessons ) return [];
@@ -55,11 +63,34 @@ const WritingSession = () => {
 
   // Handlers
   const reset = React.useCallback(() => {
+    textContentRef.current = '';
     setTextContent("");
     setError("");
     setLoading(false);
   }, []);
 
+  const onContinue = React.useCallback(async (result: any) => {
+    const score = (result && result!.similarity) ? result!.similarity*100 : 0;
+    await onLessonComplete(currentLessonRef.current!, score);
+    reset();
+    goToNextRef?.current && goToNextRef.current?.();
+    
+    // Use After 3 Lessons Completed
+    // if( await shouldShowLessonAd() ) {
+    //   interstitialController.show(() => {
+    //     goToNextRef.current?.();
+    //   });
+    // }
+    // else {
+    //   goToNextRef.current?.();
+    // }
+    
+    resolveCurrent();
+  }, [reset, onLessonComplete, resolveCurrent]);
+
+  // ✅ No longer depends on textContent state — uses ref instead.
+  // This means analyzeWritingHandler is created ONCE and never re-creates
+  // during typing, so the children prop passed to SessionLayout stays stable.
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if (!isOnline) {
       toastError(
@@ -67,10 +98,17 @@ const WritingSession = () => {
       );
       return;
     }
-    if(!textContent.trim()) {
-      setError("Please write your answer first!");
+
+    const current = textContentRef.current;  // ✅ read from ref, not state
+    if (!current.trim()) {
+      setError('Please write your answer first!');
       return;
     }
+
+    // if(!textContent.trim()) {
+    //   setError("Please write your answer first!");
+    //   return;
+    // }
     if (!expectedText) {
       setError("No expected text found!");
       return;
@@ -78,7 +116,7 @@ const WritingSession = () => {
 
     try {
       setLoading(true);
-      const data = await analysisNLP( expectedText, textContent );
+      const data = await analysisNLP( expectedText, current );
       if( data ) {
         triggerLessonResult({
           actualQuery: expectedText,
@@ -94,26 +132,9 @@ const WritingSession = () => {
     } finally {
       setLoading(false);
     }
-  }, [textContent, analysisNLP, triggerLessonResult, reset]);
+  }, [ isOnline, triggerLessonResult, reset, onContinue ]);
 
-  const onContinue = React.useCallback(async (result: any) => {
-    const score = (result && result!.similarity) ? result!.similarity*100 : 0;
-    await onLessonComplete(currentLessonRef.current!, score);
-    reset();
-    goToNextRef?.current && goToNextRef.current?.();
-    // Use After 3 Lessons Completed
-    // if( await shouldShowLessonAd() ) {
-    //   interstitialController.show(() => {
-    //     goToNextRef.current?.();
-    //   });
-    // }
-    // else {
-    //   goToNextRef.current?.();
-    // }
-    
-    resolveCurrent();
-  }, [reset, onLessonComplete, resolveCurrent]);
-
+  
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
   if (writingError || !lessonData?.length) {
     return (
@@ -132,7 +153,6 @@ const WritingSession = () => {
     >
       {({ item }) => {
         const onCheckHandler = () => analyzeWritingHandler(item?.phrase);
-        
         return (
           <View style={styles.flex}>
             {/* Content */}
@@ -157,7 +177,7 @@ const WritingSession = () => {
               maxLength={500}
               placeholder='Write here...'
               value={textContent}
-              onChange={setTextContent}
+              onChange={handleTextChange}  // ✅ stable handler
               onBlur={() => {}}
               placeholderTextColor={colors.placeholderColor}
               inputMode="text"

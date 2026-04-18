@@ -1,17 +1,17 @@
 import React from 'react'
-import QuizOptionCard from '../QuizOptionCard'
+import OptionCard from '../OptionCard'
 import GridLayout from '../layouts/GridLayout'
 import { getCardContainerWidth } from '@/utils'
 import { QuizOptionProps } from '@/types'
 
-const QuizOptions: React.FC<QuizOptionProps> = ({ options, answer, isCorrect, selectedOption, height, isSelectionHappened, onSelect}) => {
+const Options: React.FC<QuizOptionProps> = ({ options, answer, isCorrect, selectedOption, height, isSelectionHappened, onSelect}) => {
   const cardWidth = getCardContainerWidth();
   return (
     <GridLayout<string>
       data={options.length ? options : []}
       keyExtractor={(_, index) => index.toString()}
       renderItem={({ item: option }: { item: string }) => (
-        <QuizOptionCard
+        <OptionCard
           option={option}
           selectedOption={selectedOption ?? ''}
           answer={answer}
@@ -29,4 +29,4 @@ const QuizOptions: React.FC<QuizOptionProps> = ({ options, answer, isCorrect, se
   );
 }
 
-export default QuizOptions;
+export default Options;

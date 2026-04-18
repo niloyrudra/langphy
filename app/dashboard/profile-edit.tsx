@@ -114,7 +114,7 @@ const ProfileEditScreen = () => {
                                     handleChange={handleChange('username')}
                                     error={errors.username || null}
                                     touched={touched.username ? "true" : null}
-                                    isDisabled={values.username !== ""}
+                                    isDisabled={profile?.username !== ""}
                                 />
 
                                 <AuthInput

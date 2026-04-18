@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
-import { warmUpSpeech } from "@/helpers/speechController";
+import { speechController } from "@/helpers/speechController";
 import { Redirect } from "expo-router";
 import { runForegroundSync } from "@/sync/foregroundSync";
 import { AppState } from "react-native";
@@ -11,7 +11,6 @@ import { registerForPushNotifications, setupNotificationHandler } from "@/domain
 import Constants from "expo-constants";
 import { preloadFeedbackSounds } from "@/utils/feedback";
 import { registerDevicesForNotification } from "@/services/notification.service";
-// import { toastSuccess } from "@/services/toast.service";
 
 const isExpoGo = Constants.appOwnership === "expo";
 
@@ -57,9 +56,12 @@ const App = () => {
       await preloadFeedbackSounds();
     })();
 
-    warmUpSpeech();
-    // toastSuccess('Welcome to Langphy!');
+    // warmUpSpeech();
     
+  }, []);
+
+  React.useEffect(() => {
+    speechController.warmUp(); // fire and forget — returns the shared promise
   }, []);
 
   // ✅ Now conditionals come AFTER hooks

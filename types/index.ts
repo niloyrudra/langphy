@@ -115,7 +115,6 @@ type PracticeSessionType = {
   id: string;
   _id?: string;
   phrase: string;
-  // name?: string;
   response: string;
   meaning: string;
   meaning_response: string;
@@ -123,12 +122,8 @@ type PracticeSessionType = {
   formality: "formal" | "informal" | "neutral" | "both";
   german_level: GermanLevel;
   grammar_note: string;
-  // example_sentences?: string[];
-  // audio_file?: string;
   region: string;
   discussion?: string;
-  // ipa: string;
-  // sound?: string;
   examples: Example[];
   analysis?: Analysis;
 };

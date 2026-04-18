@@ -4,6 +4,7 @@ export const lightColors = {
   text: '#142C57',
   secondaryText: '#142C57',
   primary_950_50: '#FFFFFF',
+
   textDark: '#000000',
   textWhite: '#F9FAFB',
   textSubColor: '#999999',
@@ -32,6 +33,7 @@ export const lightColors = {
   accountDeletionModalBg: "#FFFFFF",
   accountDeletionModalText: "#676767",
 
+  speakerIconBg: "#FFFFFF",
   
   gradientDeep: '#FFFFFF',
   gradientFlat: "#FFFFFF",
@@ -134,6 +136,7 @@ export const darkColors = {
   accountDeletionModalBg: "#142C57",
   accountDeletionModalText: "#DFDFDF",
 
+  speakerIconBg: "#142C57",
   
   gradientDeep: '#081A33',
   gradientFlat: "#081A33",

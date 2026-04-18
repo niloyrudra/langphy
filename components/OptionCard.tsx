@@ -6,16 +6,16 @@ import STYLES from '@/constants/styles';
 import TitleHeading from './TitleHeading';
 import { useFeedback } from '@/utils/feedback';
 
-const QuizOptionCard = ( {
-    option,
-    answer,
-    selectedOption,
-    isSelectionHappened,
-    onSelect,
-    isCorrect=false,
-    containerWidth,
-    customStyle
-  }: QuizProps ) => {
+const OptionCard = ( {
+  option,
+  answer,
+  selectedOption,
+  isSelectionHappened,
+  onSelect,
+  isCorrect=false,
+  containerWidth,
+  customStyle
+}: QuizProps ) => {
   const {colors} = useTheme();
   const {triggerFeedback} = useFeedback();
 
@@ -23,8 +23,8 @@ const QuizOptionCard = ( {
   let borderColor = colors.cardBorderColor;
 
   if ((selectedOption === option) && isSelectionHappened) {
-    backgroundColor = '#9EFD8B3D';
-    borderColor = '#3CE811';
+    backgroundColor = "#1B7CF53D"; // '#9EFD8B3D';
+    borderColor = "#1B7CF5"; // '#3CE811';
   }
 
   const selectionHandler = useCallback(() => {
@@ -62,7 +62,7 @@ const QuizOptionCard = ( {
     </TouchableOpacity>
   );
 }
-export default QuizOptionCard;
+export default OptionCard;
 
 const styles = StyleSheet.create({
   container: {

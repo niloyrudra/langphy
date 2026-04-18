@@ -1,7 +1,7 @@
 import { StyleProp, StyleSheet, Text, View, ViewProps, ViewStyle } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext'
-import SpeakerComponent from '../SpeakerComponent'
+import SpeakerComponent from '../icons/SpeakerComponent'
 import LangphyText from '../text-components/LangphyText'
 
 type ChallengeQueryProps = {

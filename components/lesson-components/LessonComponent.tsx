@@ -3,8 +3,9 @@ import React from 'react'
 import { LessonProps } from '@/types';
 import { useTheme } from '@/theme/ThemeContext'
 import sizes from '@/constants/size';
-import SpeakerComponent from '../SpeakerComponent';
+import SpeakerComponent from '../icons/SpeakerComponent';
 import LangphyText from '../text-components/LangphyText';
+import Speaker from '../icons/Speaker';
 
 const LessonComponent: React.FC<LessonProps> = ({language, children, style, buttonStyle, speechContent, speechLang}) => {
   const { colors } = useTheme();
@@ -26,7 +27,7 @@ const LessonComponent: React.FC<LessonProps> = ({language, children, style, butt
             />
 
             {/* {iconTurtleComponent && ( */}
-              <SpeakerComponent
+              <Speaker
                 speechContent={speechContent!}
                 speechLang={speechLang!}
                 isSlowing={true}

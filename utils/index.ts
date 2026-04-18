@@ -9,7 +9,7 @@ import {
   LocalCategory,
   SessionType
 } from "@/types";
-import * as Speech from 'expo-speech';
+// import * as Speech from 'expo-speech';
 
 import { makeMutable, SharedValue } from 'react-native-reanimated';
 import { findNodeHandle, UIManager } from "react-native";
@@ -37,69 +37,69 @@ export const getFeedback = (score: number, spoken: string) => {
 };
 
 // TEXT_TO_SPEECH
-export  const speechFastHandler = async (
-  speechContent: string | undefined,
-  speechLang: string | undefined
-) => {
-  Speech.speak(
-    speechContent || "Hallo!",
-    {
-      language: speechLang || "de-DE",
-      rate: 1.75, // Normal Speed
-      pitch: 1.2,// Deep Tone
-      volume: 1 // High
-    }
-  )
-}
+// export  const speechFastHandler = async (
+//   speechContent: string | undefined,
+//   speechLang: string | undefined
+// ) => {
+//   Speech.speak(
+//     speechContent || "Hallo!",
+//     {
+//       language: speechLang || "de-DE",
+//       rate: 1.75, // Normal Speed
+//       pitch: 1.2,// Deep Tone
+//       volume: 1 // High
+//     }
+//   )
+// }
 
-export const speechHandler = async (
-  speechContent: string | undefined,
-  speechLang: string | undefined,
-  onLoading?: (isLoading: boolean) => void
-) => {
-  Speech.speak(speechContent || "Hallo!", {
-    language: speechLang || "de-DE",
-    rate: 1,
-    pitch: 1.2,
-    volume: 1,
-    onStart: () => {
-      // setLoading?.(false)
-      onLoading?.(false)
-    },
-    onDone: () => {
-      onLoading?.(false)
-    },
-    onStopped: () => {
-      onLoading?.(false)
-    },
-    onError: () => {
-      onLoading?.(false)
-    },
-  });
-  // setTimeout(() => setLoading?.(false), 8000);
-};
+// export const speechHandler = async (
+//   speechContent: string | undefined,
+//   speechLang: string | undefined,
+//   onLoading?: (isLoading: boolean) => void
+// ) => {
+//   Speech.speak(speechContent || "Hallo!", {
+//     language: speechLang || "de-DE",
+//     rate: 1,
+//     pitch: 1.2,
+//     volume: 1,
+//     onStart: () => {
+//       // setLoading?.(false)
+//       onLoading?.(false)
+//     },
+//     onDone: () => {
+//       onLoading?.(false)
+//     },
+//     onStopped: () => {
+//       onLoading?.(false)
+//     },
+//     onError: () => {
+//       onLoading?.(false)
+//     },
+//   });
+//   // setTimeout(() => setLoading?.(false), 8000);
+// };
 
-export  const speechSlowHandler = async (
-  speechContent: string | undefined,
-  speechLang: string | undefined,
-  setLoading?: (val: boolean) => void
-) => {
-  // await warmUpSpeech();
-  setLoading?.(true);
-  Speech.speak(
-    speechContent || "Hallo!",
-    {
-      language: speechLang || "de-DE",
-      rate: 0.2, // Normal Speed
-      pitch: 1.2,// Deep Tone
-      volume: 1, // High
-      onStart: () => setLoading?.(false),
-      onDone: () => setLoading?.(false),
-      onError: () => setLoading?.(false),
-    }
-  );
-  setTimeout(() => setLoading?.(false), 8000);
-}
+// export  const speechSlowHandler = async (
+//   speechContent: string | undefined,
+//   speechLang: string | undefined,
+//   setLoading?: (val: boolean) => void
+// ) => {
+//   // await warmUpSpeech();
+//   setLoading?.(true);
+//   Speech.speak(
+//     speechContent || "Hallo!",
+//     {
+//       language: speechLang || "de-DE",
+//       rate: 0.2, // Normal Speed
+//       pitch: 1.2,// Deep Tone
+//       volume: 1, // High
+//       onStart: () => setLoading?.(false),
+//       onDone: () => setLoading?.(false),
+//       onError: () => setLoading?.(false),
+//     }
+//   );
+//   setTimeout(() => setLoading?.(false), 8000);
+// }
 
 /* ************************************************************************ */
 // utils/generateWavePattern.ts

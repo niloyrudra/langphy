@@ -1,8 +1,9 @@
 import { findNodeHandle, LayoutChangeEvent, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View } from 'react-native'
 import React, { useCallback, useMemo } from 'react'
-import { speechHandler } from '@/utils'
+// import { speechHandler } from '@/utils'
 import { Token, ToolTip, WordLayout } from '@/types';
 import { useTheme } from '@/theme/ThemeContext';
+import { speechController } from '@/helpers/speechController';
 
 interface WordProps {
     idx: string;
@@ -68,7 +69,8 @@ const NLPWord: React.FC<WordProps> = ({
 
     const actionHandler = useCallback((e: any) => {
         e.stopPropagation?.();
-        speechHandler(token.text, "de-DE");
+        // speechHandler(token.text, "de-DE");
+        speechController.start( token.text, "de-DE" );
 
         const layoutData = wordLayouts.current.get(idx);
         if (!layoutData || !containerRef?.current) return;

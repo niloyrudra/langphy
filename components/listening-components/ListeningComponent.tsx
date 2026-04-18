@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet,  View } from 'react-native'
 import React from 'react'
 import { ListeningProps } from '@/types';
 import SIZES from '@/constants/size';
-import Speaker from '../Speaker';
+import Speaker from '../icons/Speaker';
 import InfoButton from '../InfoButton';
 import InfoModal from '../modals/InfoModal';
 import LangphyText from '../text-components/LangphyText';
@@ -22,7 +22,8 @@ const ListeningComponent: React.FC<ListeningProps> = ({language, children, color
             {
               speechLang === 'de-DE' && (
                 <InfoButton onModalVisible={() => setModalVisible(!modalVisible)} />
-              )}
+              )
+            }
             {
               speechLang === 'de-DE' && (
                 <Speaker

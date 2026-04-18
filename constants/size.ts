@@ -26,11 +26,14 @@ const SIZES = {
     fontSizeTextInput: 16,
 
     // Card
-    // gridCardIconWrapDimension: 80,
-    // gridCardIconDimension: 56
     gridCardIconWrapDimension: 90,
-    // gridCardIconDimension: 76
-    gridCardIconDimension: 65
+    gridCardIconDimension: 65,
+
+    //Listening Speaker
+    speakerDimensions: {
+        width: 40,
+        height: 40,
+    }
 }
 
 export default SIZES;

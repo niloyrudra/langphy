@@ -4,7 +4,7 @@ import { useTheme } from '@/theme/ThemeContext';
 import { getCardContainerWidth } from '@/utils';
 import { SelectiveResultType, ReadingSessionType, SessionType } from '@/types';
 import HorizontalLine from '@/components/HorizontalLine';
-import QuizOptions from '@/components/list-loops/QuizOptions';
+import Options from '@/components/list-loops/Options';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
@@ -15,11 +15,11 @@ import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
-import LangphyText from '@/components/text-components/LangphyText';
 import SIZES from '@/constants/size';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 import SpeakerWithQuestion from '@/components/lesson-components/SpeakerWithQuestion';
+import Query from '@/components/lesson-components/Query';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
@@ -160,12 +160,11 @@ const ReadingLessons = () => {
               <HorizontalLine />
 
               <View style={styles.questionSection}>
-                <View style={styles.questionWrapper}>
-                  <LangphyText weight="bold" style={[styles.question, {color: colors.text}]}>{item?.question_en}</LangphyText>
-                </View>
+                {/* Query */}
+                <Query question={item?.question_en} containerStyle={{marginBottom: 10}} regular />
 
                 {/* QUIZ Answer Options */}
-                <QuizOptions 
+                <Options 
                   height={cardWidth / 2} 
                   options={getOptions(item)}
                   answer={item?.answer || ""}
@@ -213,12 +212,19 @@ const styles = StyleSheet.create({
   },
   questionSection: {flex:1, marginBottom: 120},
   questionWrapper: {marginBottom:10},
+  queryIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   question: {fontSize: 16},
   textContainer: {
     width: SIZES.screenWidth - 100,
   },
   buttonWrapper: {
-    marginTop: "auto",
+    // marginTop: "auto",
     position: "absolute",
     right: 0,
     left: 0,

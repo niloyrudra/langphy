@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import SteakBadge from './SteakBadge';
-import FlagSquareComponent from './FlagSquareComponent';
+import FlagSquareComponent from './icons/FlagSquareComponent';
 
 const SteakBadgeFlagComponent = () => (
   <View style={styles.container}>

@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import NLPAnalyzedPhase from '../nlp-components/NLPAnalyzedPhase';
 import SIZES from '@/constants/size';
-import SpeakerComponent from '../SpeakerComponent';
+import SpeakerComponent from '../icons/SpeakerComponent';
 
 interface SpeakerWithQuestionProps {
     phrase: string;
