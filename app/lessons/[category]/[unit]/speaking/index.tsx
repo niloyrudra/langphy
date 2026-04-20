@@ -32,7 +32,7 @@ const SpeakingLessons = () => {
 
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
 
-  const { data: speakingLessons, isLoading, isFetching, error: speakingError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: speakingLessons, isLoading, isFetching, error: speakingError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const lessonData = React.useMemo<SpeakingSessionType[]>(() => {
     if( !speakingLessons ) return [];
@@ -130,12 +130,27 @@ const SpeakingLessons = () => {
     else startRecording();
   }, [isRecordingDone, isRecording, play, stopRecording, startRecording]);
 
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
-  if (speakingError || !lessonData?.length) {
+  // ── Auto-retry when network returns ──────────────────────────────────────
+  const hasData = !!speakingLessons?.length;
+  React.useEffect(() => {
+      if (isOnline && !hasData) refetch();
+  }, [isOnline]);
+
+  const onDataRefresh = React.useCallback(async () => {
+      try {
+        await refetch();
+      } finally {
+        // setRefreshing(false);
+      }
+  }, [refetch]);
+
+  if (isLoading || (isFetching && !hasData)) return <LoadingScreenComponent />;
+  if ( speakingError || !hasData ) {
     return (
       <OfflineSessionGuard
         sessionType={slug as SessionType}
         reason={speakingError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+        onRetry={onDataRefresh}
       />
     );
   }

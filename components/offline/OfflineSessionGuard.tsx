@@ -40,6 +40,7 @@ type GuardReason = "no_cache" | "unknown";
 interface OfflineSessionGuardProps {
     sessionType: SessionType;
     reason: GuardReason;
+    onRetry?: () => void;
 }
 
 function buildMessages(sessionType: SessionType, isOnline: boolean, reason: GuardReason) {
@@ -89,12 +90,13 @@ function buildOnlineWarning(sessionType: SessionType): string | null {
     return null;
 }
 
-const OfflineSessionGuard: React.FC<OfflineSessionGuardProps> = ({ sessionType, reason }) => {
+const OfflineSessionGuard: React.FC<OfflineSessionGuardProps> = ({ sessionType, reason, onRetry, }) => {
     const { colors } = useTheme();
     const { isOnline } = useNetwork();
 
     const { emoji, heading, body } = buildMessages(sessionType, isOnline, reason);
     const onlineWarning = isOnline ? buildOnlineWarning(sessionType) : null;
+    const isNoData = reason === "no_cache";
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -121,11 +123,21 @@ const OfflineSessionGuard: React.FC<OfflineSessionGuardProps> = ({ sessionType, 
                 </View>
             )}
 
-            <ActionPrimaryButton
-                buttonTitle="Go Back"
-                onSubmit={() => router.back()}
-                buttonStyle={styles.button}
-            />
+            <View style={styles.actions}>
+                {/* {isOnline && onRetry && ( */}
+                {onRetry && !isNoData && (
+                    <ActionPrimaryButton
+                        buttonTitle={isOnline ? "Try Again" : "Retry"}
+                        onSubmit={onRetry}
+                        buttonStyle={styles.button}
+                    />
+                )}
+                <ActionPrimaryButton
+                    buttonTitle="Go Back"
+                    onSubmit={() => router.back()}
+                    buttonStyle={styles.button}
+                />
+            </View>
         </View>
     );
 };
@@ -168,8 +180,15 @@ const styles = StyleSheet.create({
         textAlign: "center",
         lineHeight: ms(18),
     },
-    button: {
-        marginTop: vs(12),
+    actions: {
         width: "100%",
+        gap: vs(10),
+        marginTop: vs(4),
+    },
+    button: {
+        width: "100%",
+    },
+    secondaryButton: {
+        opacity: 0.6,
     },
 });

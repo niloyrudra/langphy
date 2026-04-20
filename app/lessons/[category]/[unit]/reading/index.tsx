@@ -40,15 +40,16 @@ import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
-// import SIZES from '@/constants/size';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 import SpeakerWithQuestion from '@/components/lesson-components/SpeakerWithQuestion';
 import Query from '@/components/lesson-components/Query';
+import { useNetwork } from '@/context/NetworkContext';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
 const ReadingLessons = () => {
+  const {isOnline} = useNetwork();
   const attemptId = React.useMemo(() => randomUUID(), []);
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const userId = authSnapshot.getUserId() ?? "";
@@ -57,7 +58,7 @@ const ReadingLessons = () => {
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
   const cardWidth = getCardContainerWidth();
 
-  const { data: readingLessons, isLoading, isFetching, error: readingError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: readingLessons, isLoading, isFetching, error: readingError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
@@ -147,12 +148,27 @@ const ReadingLessons = () => {
     });
   }, [ selectedOption, triggerLessonResult, reset, onLessonComplete, resolveCurrent ]);
  
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
-  if (readingError || !lessonData?.length) {
+  // ── Auto-retry when network returns ──────────────────────────────────────
+  const hasData = !!readingLessons?.length;
+  React.useEffect(() => {
+    if (isOnline && !hasData) refetch();
+  }, [isOnline]);
+
+  const onRefresh = React.useCallback(async () => {
+    try {
+      await refetch();
+    } finally {
+      // setRefreshing(false);
+    }
+  }, [refetch]);
+
+  if (isLoading || (isFetching && !hasData)) return <LoadingScreenComponent />;
+  if (readingError || !hasData) {
     return (
       <OfflineSessionGuard
         sessionType={slug as SessionType}
         reason={readingError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+        onRetry={onRefresh}
       />
     );
   }
@@ -220,7 +236,7 @@ const ReadingLessons = () => {
               * bottom of the flex column regardless of content height
               * or scroll position. No position:absolute needed.
               */}
-            <View style={styles.buttonWrapper}>
+            <View style={[styles.buttonWrapper, {borderTopColor: colors.hLineColor }]}>
               {error ? <Error text={error} /> : null}
               <ActionPrimaryButton
                 buttonTitle="Check"
@@ -260,7 +276,7 @@ const styles = StyleSheet.create({
     marginBottom: 8, // no longer needs 120 — button is not absolutely positioned
   },
   query: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
   /**
    * Button wrapper — no flex, no absolute positioning.

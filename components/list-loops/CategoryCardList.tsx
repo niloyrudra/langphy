@@ -5,10 +5,24 @@ import GridLayout from '../layouts/GridLayout';
 import { useCategories } from '@/hooks/useCategories';
 import LoadingScreenComponent from '../LoadingScreenComponent';
 import OfflineCategoryGuard from '../offline/OfflineCategoryGuard';
+import { RefreshControl } from 'react-native';
+import { useTheme } from '@/theme/ThemeContext';
 
 const CategoryCardList = () => {
+  const {colors} = useTheme();
+  const [refreshing, setRefreshing] = React.useState(false);
   const { data: categories, isLoading, isFetching, error, refetch } = useCategories();
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />);
+ 
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await refetch();
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refetch]);
+
+  if( isLoading ) return (<LoadingScreenComponent />);
   if (error || !categories?.length) {
     return (
       <OfflineCategoryGuard
@@ -28,6 +42,14 @@ const CategoryCardList = () => {
           slug={item.slug}
         />
       )}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          colors={[colors.primary]}
+          tintColor={colors.primary}
+        />
+      }
     />
   );
 }

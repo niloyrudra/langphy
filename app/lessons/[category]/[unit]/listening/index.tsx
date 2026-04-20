@@ -78,7 +78,7 @@ const ListeningLessons = () => {
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
 
-  const { data: listeningLessons, isLoading, isFetching, error: listeningError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: listeningLessons, isLoading, isFetching, error: listeningError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const { resultHandler } = useListening();
 
@@ -184,13 +184,30 @@ const ListeningLessons = () => {
     }
   }, [isOnline, triggerLessonResult, reset, lessonCompletionHandler]);
 
-    
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />);
-  if (listeningError || !lessonData.length) {
+  const [refreshing, setRefreshing] = React.useState(false);
+ 
+  // ── Auto-retry when network returns ──────────────────────────────────────
+  const hasData = !!lessonData?.length;
+  React.useEffect(() => {
+      if (isOnline && !hasData) refetch();
+  }, [isOnline]);
+
+  const onRefresh = React.useCallback(async () => {
+      setRefreshing(true);
+      try {
+        await refetch();
+      } finally {
+        setRefreshing(false);
+      }
+  }, [refetch]);
+
+  if (isLoading || (isFetching && !hasData)) return <LoadingScreenComponent />;
+  if (listeningError || !hasData) {
     return (
       <OfflineSessionGuard
         sessionType={slug as SessionType}
         reason={listeningError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+        onRetry={onRefresh}
       />
     );
   }

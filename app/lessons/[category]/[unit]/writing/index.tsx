@@ -32,7 +32,7 @@ const WritingSession = () => {
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
-  const { data: readingLessons, isLoading, isFetching, error: writingError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: readingLessons, isLoading, isFetching, error: writingError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ error, setError ] = React.useState<string>('')
@@ -131,8 +131,22 @@ const WritingSession = () => {
   }, [ isOnline, triggerLessonResult, reset, onContinue ]);
 
   
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />);
-  if (writingError || !lessonData?.length) {
+  // ── Auto-retry when network returns ──────────────────────────────────────
+  const hasData = !!lessonData?.length;
+  React.useEffect(() => {
+      if (isOnline && !hasData) refetch();
+  }, [isOnline]);
+
+  const onRefresh = React.useCallback(async () => {
+      try {
+        await refetch();
+      } finally {
+        // setRefreshing(false);
+      }
+  }, [refetch]);
+
+  if (isLoading || (isFetching && !hasData)) return <LoadingScreenComponent />;
+  if ( writingError || !hasData ) {
     return (
       <OfflineSessionGuard
         sessionType={slug as SessionType}

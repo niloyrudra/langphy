@@ -8,30 +8,28 @@ import { useLocalSearchParams } from 'expo-router';
 import { getCardContainerWidth } from '@/utils';
 import { SessionType, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
-import { useTheme } from '@/theme/ThemeContext';
-import { AntDesign } from '@expo/vector-icons';
 import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
-import LangphyText from '@/components/text-components/LangphyText';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 import Query from '@/components/lesson-components/Query';
+import { useNetwork } from '@/context/NetworkContext';
 // import { interstitialController } from '@/monetization/ads.service';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 
 const QuizSession = () => {
+  const {isOnline} = useNetwork();
   const { categoryId, slug, unitId } = useLocalSearchParams();
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId = authSnapshot.getUserId() ?? "";
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
-  const {colors} = useTheme();
   const cardWidth = getCardContainerWidth();
 
-  const { data: quizLessons, isLoading, isFetching, error: quizError } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: quizLessons, isLoading, isFetching, error: quizError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
   const quizzes = React.useMemo<QuizSessionType[]>(() => {
     if( !quizLessons ) return [];
@@ -111,12 +109,27 @@ const QuizSession = () => {
     });
   }, [ selectedOption, triggerLessonResult, reset, onLessonComplete, resolveCurrent ]);
   
-  if( isLoading || isFetching ) return (<LoadingScreenComponent />)
-  if (quizError || !quizLessons?.length) {
+  // ── Auto-retry when network returns ──────────────────────────────────────
+  const hasData = !!quizLessons?.length;
+  React.useEffect(() => {
+      if (isOnline && !hasData) refetch();
+  }, [isOnline]);
+
+  const onRefresh = React.useCallback(async () => {
+      try {
+        await refetch();
+      } finally {
+        // setRefreshing(false);
+      }
+  }, [refetch]);
+
+  if (isLoading || (isFetching && !hasData)) return <LoadingScreenComponent />;
+  if (quizError || !hasData) {
     return (
       <OfflineSessionGuard
         sessionType={slug as SessionType}
         reason={quizError instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+        onRetry={onRefresh}
       />
     );
   }

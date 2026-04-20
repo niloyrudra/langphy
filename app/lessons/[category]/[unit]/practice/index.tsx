@@ -23,12 +23,17 @@ import { authSnapshot } from '@/snapshots/authSnapshot';
 import { useSaveVocabulary } from '@/hooks/useVocabulary';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
-// import { useNetwork } from '@/context/NetworkContext';
+import { useNetwork } from '@/context/NetworkContext';
 
+// ── Constants ────────────────────────────────────────────────────────────
+const SORTED_UNIT_ID = "69233eac0146d50fc37df9b0";
+const SORT_FIELD = "phrase" as const; // keyof PracticeSessionType
+
+// ── Components ────────────────────────────────────────────────────────────
 const PracticeLessons = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
   const { colors } = useTheme();
-  // const { isOnline } = useNetwork();
+  const { isOnline } = useNetwork();
   const {categoryId, slug, unitId} = useLocalSearchParams();
   const { mutate: saveVocabulary } = useSaveVocabulary();
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
@@ -51,37 +56,50 @@ const PracticeLessons = () => {
   const { currentPosition, showLessonList, setCurrentPosition } = useSession();
 
   // Essential Custom hooks
-  const { data: practiceLessons, isLoading: lessonsLoading, isFetching, error } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: practiceLessons, isLoading: lessonsLoading, isFetching, error, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   const { data: progress } = useProgress( sessionKey );
 
-  // Fetch Primary Lesson data
-  const practiceData = useMemo<PracticeSessionType[]>(() => {
+  // ── Step 1: Parse all payloads once ──────────────────────────────────────────
+  // Both practiceData and lessonListData need the parsed payload.
+  // Parsing inside each memo separately = 2x JSON.parse calls per lesson.
+  // Parse here once and share the result.
+  const parsedLessons = useMemo(() => {
     if (!practiceLessons) return [];
-    const sortField = "phrase"; // or "meaning"
-
-    const data = practiceLessons.map(l => JSON.parse(l.payload));
-    if( unitId === "69233eac0146d50fc37df9b0" ) {
-      return [...data].sort( (a, b) => a[sortField].localeCompare( b[sortField] ));
-    }
-    return data;
+    return practiceLessons.map(l => ({
+      id:      l.id,
+      payload: JSON.parse(l.payload) as PracticeSessionType,
+    }));
   }, [practiceLessons]);
 
-  // Update LessonList data
+  // ── Step 2: Sort once if this is the alphabetical unit ───────────────────────
+  // Sorting is derived from parsedLessons so no double-parsing happens.
+  // Both arrays below consume this — the sort is applied in exactly one place.
+  const sortedLessons = useMemo(() => {
+    if (unitId !== SORTED_UNIT_ID) return parsedLessons;
+    return [...parsedLessons].sort((a, b) =>
+      a.payload[SORT_FIELD].localeCompare(b.payload[SORT_FIELD])
+    );
+  }, [parsedLessons, unitId]);
+  
+  // ── Step 3: Derive practiceData (what SessionLayout gets) ────────────────────
+  const practiceData = useMemo<PracticeSessionType[]>(
+    () => sortedLessons.map(l => l.payload),
+    [sortedLessons]
+  );
+
+  // ── Step 4: Derive lessonListData (what LessonList gets) ─────────────────────
+  // progress lookup is O(n²) with .find() — acceptable for typical lesson counts
+  // but if you ever have 100+ lessons, replace with a Map lookup instead.
   const lessonListData = useMemo(() => {
-    // if (!practiceLessons || !progress) return []; // ✅ don't bail on missing progress — just treat as no completions yet
-    if (!practiceLessons ) return [];
-
-    return practiceLessons.map(l => {
-      const payload = JSON.parse(l.payload);
+    return sortedLessons.map(l => {
       const p = progress?.find(pr => pr.content_id === l.id);
-
       return {
-        id: l.id,
-        title: payload.meaning,
+        id:        l.id,
+        title:     l.payload.meaning,
         completed: p?.completed === 1,
       };
     });
-  }, [practiceLessons, progress]);
+  }, [sortedLessons, progress]);
 
   // ── Shared session logic ──────────────────────────────────────────────────
   const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<PracticeSessionType>({
@@ -150,12 +168,27 @@ const PracticeLessons = () => {
   const onPositionChangeHandler = React.useCallback((index: number) => setCurrentPosition(index), [setCurrentPosition]);
   const onScrollerHandler = React.useCallback((scrollFn: ((index: number) => void)) => {scrollToLessonRef.current = scrollFn}, []);
 
-  if( lessonsLoading || isFetching ) return (<LoadingScreenComponent />);
-  if (error || !practiceData.length) {
+  // ── Auto-retry when network returns ──────────────────────────────────────
+  const hasData = !!practiceData?.length;
+  React.useEffect(() => {
+      if (isOnline && !hasData) refetch();
+  }, [isOnline]);
+
+  const onRefresh = React.useCallback(async () => {
+      try {
+        await refetch();
+      } finally {
+        // setRefreshing(false);
+      }
+  }, [refetch]);
+
+  if (lessonsLoading || (isFetching && !hasData)) return <LoadingScreenComponent />;
+  if (error || !hasData) {
     return (
       <OfflineSessionGuard
         sessionType={slug as SessionType}
         reason={error instanceof OfflineCacheMissError ? "no_cache" : "unknown"}
+        onRetry={onRefresh}
       />
     );
   }
