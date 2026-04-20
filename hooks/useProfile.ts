@@ -5,6 +5,6 @@ export const useProfile = (userId: string) => useQuery({
     queryKey: ["lp_profiles"],
     enabled: !!userId,
     queryFn: async () => await getLocalProfile(userId),
-    staleTime: Infinity,
+    // staleTime: Infinity,
     gcTime: Infinity,
 });

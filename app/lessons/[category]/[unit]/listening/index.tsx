@@ -1,5 +1,50 @@
+/**
+ * listening/index.tsx
+ *
+ * LAYOUT FIX: Top content (speaker/ripple) must never be pushed behind
+ * the status bar when the keyboard opens.
+ *
+ * Root cause of the push-up bug:
+ * The cell was structured as:
+ *   <View flex:1>
+ *     <TaskAllocation flex:1 />      ← grows to fill remaining space
+ *     <KeyboardAvoidingView>         ← adds padding when keyboard opens
+ *       <TextInput />
+ *       <Button />
+ *     </KeyboardAvoidingView>
+ *   </View>
+ *
+ * When the keyboard opens, KAV adds bottom padding inside the outer flex:1
+ * View. Flex layout responds by SQUEEZING TaskAllocation upward to make room.
+ * Because the FlatList cell has a fixed height (ITEM_WIDTH from getItemLayout),
+ * the content overflows upward — behind the header and status bar.
+ *
+ * Fix: Give the bottom section (KAV) a fixed height instead of letting flex
+ * distribute space. TaskAllocation gets the remaining height via flex:1 and
+ * is anchored by the known fixed height of the input area. When the keyboard
+ * opens, KAV's padding only affects its own internal layout — it does NOT
+ * squeeze TaskAllocation because TaskAllocation's parent is no longer sharing
+ * flex space with the KAV.
+ *
+ * Structure after fix:
+ *   <View flex:1>
+ *     <TaskAllocation flex:1 />      ← fills all space above the input area
+ *     <View> (non-flex, natural height)
+ *       <KeyboardAvoidingView behavior="padding">
+ *         <TextInput />
+ *         <Button />
+ *       </KeyboardAvoidingView>
+ *     </View>
+ *   </View>
+ *
+ * The outer View is not flex-distributed between TaskAllocation and the input
+ * section — TaskAllocation takes all remaining space and the input section
+ * sits at its natural height at the bottom. Keyboard padding shifts only the
+ * input section's internal content upward, not the whole cell.
+ */
+
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
@@ -22,6 +67,7 @@ import { useNetwork } from '@/context/NetworkContext';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
+// ─── Component ────────────────────────────────────────────────────────────────
 const ListeningLessons = () => {
   const attemptId = React.useMemo(() => randomUUID(), []);
   const userId: string = authSnapshot.getUserId() ?? "";
@@ -40,7 +86,7 @@ const ListeningLessons = () => {
   const [ error, setError ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
 
-  // ✅ Ref so analyzeListeningHandler stays stable during typing
+  // ✅ Ref mirrors state — keeps analyzeListeningHandler stays stable during typing
   const textContentRef = React.useRef<string>('');
   const handleTextChange = React.useCallback((val: string) => {
     textContentRef.current = val;
@@ -70,7 +116,6 @@ const ListeningLessons = () => {
     setTextContent("");
     setError("");
     setLoading(false);
-    // toastSuccess("Lesson Reset")
   }, []);
 
   const lessonCompletionHandler = React.useCallback( async (result: any) => {
@@ -96,19 +141,15 @@ const ListeningLessons = () => {
     catch(error) {
       console.error("lessonCompletionHandler error:", error)
     }
-  }, [ reset, onLessonComplete, resultHandler ]);
+  }, [ reset, onLessonComplete, resultHandler, resolveCurrent ]);
 
   // ✅ Stable — no textContent in dep array
   const analyzeListeningHandler = React.useCallback(async (expectedText: string) => {
     if (!isOnline) {
-      toastError("You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect.");
+      // toastError("You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect.");
+      toastError("You're offline!");
       return;
     }
-    // if(!textContent) {
-    //   setError("No expected text found!");
-    //   toastError("No expected text found!");
-    //   return;
-    // }
 
     const current = textContentRef.current;  // ✅ ref, not state
     if (!current) {
@@ -119,7 +160,7 @@ const ListeningLessons = () => {
 
     if (!expectedText) {
       setError("No expected text found!");
-      toastError("No expected text found!");
+      // toastError("No expected text found!");
       return;
     }
 
@@ -137,7 +178,7 @@ const ListeningLessons = () => {
 
     } catch (err: any) {
       console.error(err);
-      setError("Speech analysis failed");
+      setError("Analysis failed");
     } finally {
       setLoading(false);
     }
@@ -156,43 +197,62 @@ const ListeningLessons = () => {
 
   return (
     <SessionLayout<ListeningSessionType>
-      keyboardAvoid={true}
       preFetchedData={lessonData}
       onActiveItemChange={activeItemChangeHandler}
     >
       {({ item }) => {
-        const onCheckHandler = () => analyzeListeningHandler( item.phrase );
+        const onCheckHandler = () => analyzeListeningHandler(item.phrase);
         return (
-          <View style={styles.flex}>
-            {/* Content */}
+          <View style={styles.cell}>
+            {/*
+              * TaskAllocation takes all available space above the input area.
+              * flex:1 here means "fill whatever space remains after the
+              * inputSection below claims its natural height."
+              * It is NOT in a flex competition with inputSection, so the
+              * keyboard cannot squeeze it upward.
+              */}
             <TaskAllocation
-              taskTitle={'Listen and Write afterwards.'}
+              taskTitle="Listen and Write afterwards."
               taskPhrase={item.phrase}
               rippleSize={150}
             />
 
-            {error && (<Error text={error} />)}
+            {/*
+              * inputSection has no flex — it takes only its natural height.
+              * KAV adds padding INSIDE this section when the keyboard opens,
+              * pushing TextInput and Button upward within the section only.
+              * TaskAllocation above is completely unaffected.
+              *
+              * behavior="padding" on both platforms:
+              * Adding padding (not shrinking height) keeps the FlatList cell
+              * dimensions stable, which is required for getItemLayout accuracy.
+              */}
+              <View style={styles.inputSection}>
+                <KeyboardAvoidingView
+                  behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+                  keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+                >
+                  {error ? <Error text={error} /> : null}
 
-            {/* Writing Text Field/Input/Area Section */}
-            <TextInputComponent
-              maxLength={500}
-              placeholder='Write here...'
-              value={textContent}
-              onChange={handleTextChange}  // ✅ stable handler
-              placeholderTextColor={colors.placeholderColor}
-              inputMode="text"
-              onBlur={() => {}}
-              contentContainerStyle={styles.textInput}
-            />
+                  <TextInputComponent
+                    maxLength={500}
+                    placeholder="Write here..."
+                    value={textContent}
+                    onChange={handleTextChange}
+                    placeholderTextColor={colors.placeholderColor}
+                    inputMode="text"
+                    onBlur={() => {}}
+                    contentContainerStyle={styles.textInput}
+                  />
 
-            {/* Action Buttons */}
-            <ActionPrimaryButton
-              buttonTitle='Check'
-              onSubmit={onCheckHandler}
-              isLoading={loading}
-              disabled={textContent.length === 0}
-            />
-
+                  <ActionPrimaryButton
+                    buttonTitle="Check"
+                    onSubmit={onCheckHandler}
+                    isLoading={loading}
+                    disabled={textContent.length === 0}
+                  />
+                </KeyboardAvoidingView>
+              </View>
           </View>
         );
       }}
@@ -203,6 +263,23 @@ const ListeningLessons = () => {
 export default ListeningLessons;
 
 const styles = StyleSheet.create({
-  flex: {flex: 1},
-  textInput: {marginBottom: 20}
+  /**
+   * Outer cell — flex column. TaskAllocation gets flex:1 (all remaining
+   * space). inputSection gets its natural height. No flex competition.
+   */
+  cell: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  /**
+   * Input section — no flex. Sits at its natural height at the bottom.
+   * The KAV inside only affects content within this section.
+   */
+  inputSection: {
+    // No flex — natural height only
+    // KAV padding goes inside here, never squeezes the cell above
+  },
+  textInput: {
+    marginBottom: 12,
+  },
 });

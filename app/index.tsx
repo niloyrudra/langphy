@@ -51,21 +51,17 @@ const App = () => {
     const { user, loading } = useAuth();
     const timer = useLessonTimer();
 
-    // ── On mount — runs once regardless of auth state ──────────────────────
+    // ── Mount — runs once regardless of auth ─────────────────────────────
     React.useEffect(() => {
         const bootstrap = async () => {
             await registerBackgroundSync();
             await preloadFeedbackSounds();
-
-            // Create Android notification channel unconditionally.
-            // The channel must exist for notifications to display even when
-            // the app is backgrounded — don't gate this on user settings.
-            await setupNotificationChannel();
-
-            // Boot the TTS engine while everything else is loading.
+            await setupNotificationChannel(); // always create channel at boot
+ 
+            // warmUp() self-registers the AppState listener for auto-recovery
+            // after backgrounding — no manual reactivate() call needed here.
             speechController.warmUp();
         };
-
         bootstrap();
     }, []);
 
@@ -78,6 +74,8 @@ const App = () => {
             if (state === "active") {
                 timer.reset();
                 runForegroundSync();
+                // speechController handles its own TTS reactivation via its
+                // internal AppState listener — no call needed here.
             }
         });
 
@@ -92,7 +90,11 @@ const App = () => {
                 // Read the user's notification preference from local DB
                 // localSettings.notifications is 1 (enabled) or 0 (disabled)
                 const localSettings = await getLocalSettings(user.id);
-                const notificationsEnabled = localSettings?.notifications ?? false;
+                
+                // SQLite stores booleans as integers: 1 = enabled, 0 = disabled.
+                // Must compare with === 1, not just truthiness, because 0 is
+                // falsy but ?? false would still return 0 not false.
+                const notificationsEnabled = localSettings?.notifications ? true : false;
 
                 // Configure foreground notification display behaviour.
                 // Only needed when notifications are enabled.

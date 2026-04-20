@@ -1,3 +1,28 @@
+/**
+ * reading/index.tsx
+ *
+ * FIX: Check button now sticks to the bottom of the screen at all times,
+ * regardless of how much content is in the ScrollView above it.
+ *
+ * Root cause of the floating button:
+ * The old layout used `position: 'absolute', bottom: 0` on the button wrapper,
+ * but the outer `wrapper` View had no explicit height or flex — it collapsed
+ * to the height of its children, so `absolute` positioning had no real parent
+ * height to anchor against. On shorter content the button floated in the middle.
+ *
+ * Fix: The cell uses a flex column layout split into two parts:
+ *   1. ScrollView with flex:1 — takes all available space, scrollable
+ *   2. Button wrapper with no flex — sits at natural height at the bottom
+ *
+ * The button wrapper is NOT inside the ScrollView so it is always visible
+ * regardless of scroll position. It is NOT absolutely positioned so it
+ * anchors correctly to the bottom of the flex column on all screen sizes.
+ *
+ * The questionSection inside the ScrollView no longer needs marginBottom:120
+ * (which was a hack to prevent the absolute button from overlapping content).
+ * Content scrolls freely and the button is always at the bottom.
+ */
+
 import React, { useMemo } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
@@ -15,7 +40,7 @@ import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
 import Error from '@/components/Error';
-import SIZES from '@/constants/size';
+// import SIZES from '@/constants/size';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 import SpeakerWithQuestion from '@/components/lesson-components/SpeakerWithQuestion';
@@ -140,14 +165,25 @@ const ReadingLessons = () => {
       {({ item, wordRefs, containerRef, setTooltip }) => {
         const handleTooltip = (value: any) => setTooltip(value);        
         return (
-          <View style={styles.wrapper}>
+          /*
+          * Outer cell: flex column with two children:
+          *   1. ScrollView (flex:1) — all scrollable content
+          *   2. Button wrapper (no flex) — always at the bottom
+          *
+          * This is the correct pattern for "sticky bottom button
+          * with scrollable content above". No absolute positioning
+          * needed — normal flex flow handles it perfectly.
+          */
+        <View style={styles.cell}>
+            {/* ── Scrollable content ───────────────────────── */}
             <ScrollView
-            nestedScrollEnabled
-            showsVerticalScrollIndicator={false}
-            scrollEventThrottle={16}
-          >
-            <View style={styles.flex}>
-              {/* Title Section */}
+                style={styles.scroll}
+                contentContainerStyle={styles.scrollContent}
+                nestedScrollEnabled
+                showsVerticalScrollIndicator={false}
+                scrollEventThrottle={16}
+                keyboardShouldPersistTaps="handled"
+            >
               <ChallengeScreenTitle title="Read The Comprehension." />
 
               <SpeakerWithQuestion
@@ -160,31 +196,36 @@ const ReadingLessons = () => {
               <HorizontalLine />
 
               <View style={styles.questionSection}>
-                {/* Query */}
-                <Query question={item?.question_en} containerStyle={{marginBottom: 10}} regular />
+                <Query
+                  question={item?.question_en}
+                  containerStyle={styles.query}
+                  regular
+                />
 
-                {/* QUIZ Answer Options */}
-                <Options 
-                  height={cardWidth / 2} 
+                <Options
+                  height={cardWidth / 2}
                   options={getOptions(item)}
-                  answer={item?.answer || ""}
-                  isCorrect={ isCorrect }
-                  selectedOption={selectedOption || ""}
+                  answer={item?.answer || ''}
+                  isCorrect={isCorrect}
+                  selectedOption={selectedOption || ''}
                   onSelect={handleSelect}
                   isSelectionHappened={isSelectionHappened}
                 />
               </View>
-            </View>
-
             </ScrollView>
 
-            {/* Action Buttons */}
-            <View style={buttonWrapperStyles}>
-              {error && (<Error text={error} />)}
+            {/* ── Sticky bottom button ─────────────────────── */}
+            {/*
+              * Sits outside the ScrollView — always visible at the
+              * bottom of the flex column regardless of content height
+              * or scroll position. No position:absolute needed.
+              */}
+            <View style={styles.buttonWrapper}>
+              {error ? <Error text={error} /> : null}
               <ActionPrimaryButton
-                buttonTitle='Check'
+                buttonTitle="Check"
                 onSubmit={() => checkAnswerHandler(item?.answer)}
-                disabled={!selectedOption ? true : false }
+                disabled={!selectedOption}
               />
             </View>
           </View>
@@ -193,44 +234,43 @@ const ReadingLessons = () => {
     </SessionLayout>
   );
 }
-
 export default ReadingLessons;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    position: "relative"
+  /**
+   * Full FlatList cell — flex column. Two children share vertical space:
+   * scroll (flex:1) and buttonWrapper (natural height).
+   */
+  cell: {
+    flex: 1,
+    flexDirection: 'column',
   },
-  flex: {flex:1},
-  container: {
-    marginTop: 30,
-    marginBottom: 0,
-    position: 'relative',
-    flexDirection: "row",
-    justifyContent: 'flex-start',
-    alignItems: "flex-start",
-    gap: 20
+  /**
+   * ScrollView fills all space above the button.
+   * flex:1 is set on the ScrollView itself, not contentContainer.
+   */
+  scroll: {
+    flex: 1,
   },
-  questionSection: {flex:1, marginBottom: 120},
-  questionWrapper: {marginBottom:10},
-  queryIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
+  scrollContent: {
+    paddingBottom: 16, // breathing room at the bottom of scrollable content
   },
-  question: {fontSize: 16},
-  textContainer: {
-    width: SIZES.screenWidth - 100,
+  questionSection: {
+    marginTop: 8,
+    marginBottom: 8, // no longer needs 120 — button is not absolutely positioned
   },
+  query: {
+    marginBottom: 10,
+  },
+  /**
+   * Button wrapper — no flex, no absolute positioning.
+   * Sits at its natural height at the bottom of the flex column.
+   * Border top gives a visual separator from the scrollable content.
+   */
   buttonWrapper: {
-    // marginTop: "auto",
-    position: "absolute",
-    right: 0,
-    left: 0,
-    bottom: 0,
     borderTopWidth: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     paddingVertical: 20,
-  }
+    paddingHorizontal: 0,
+  },
 });

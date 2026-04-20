@@ -114,7 +114,7 @@ const OfflineSessionGuard: React.FC<OfflineSessionGuardProps> = ({ sessionType, 
             </LangphyText>
 
             {onlineWarning && (
-                <View style={[styles.warningBox, { borderColor: colors.text }]}>
+                <View style={[styles.warningBox, { borderColor: colors.primary }]}>
                     <LangphyText style={[styles.warningText, { color: colors.text }]}>
                         {onlineWarning}
                     </LangphyText>

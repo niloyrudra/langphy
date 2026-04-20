@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import TextInputComponent from '@/components/form-components/TextInputComponent';
@@ -22,6 +22,7 @@ import { useNetwork } from '@/context/NetworkContext';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
+// ─── Component ────────────────────────────────────────────────────────────────
 const WritingSession = () => {
   const { colors } = useTheme();
   const { isOnline } = useNetwork();
@@ -70,21 +71,21 @@ const WritingSession = () => {
   }, []);
 
   const onContinue = React.useCallback(async (result: any) => {
-    const score = (result && result!.similarity) ? result!.similarity*100 : 0;
+    const score = (result && result!.similarity) ? result.similarity * 100 : 0;
     await onLessonComplete(currentLessonRef.current!, score);
     reset();
-    goToNextRef?.current && goToNextRef.current?.();
     
     // Use After 3 Lessons Completed
     // if( await shouldShowLessonAd() ) {
-    //   interstitialController.show(() => {
-    //     goToNextRef.current?.();
-    //   });
-    // }
+      //   interstitialController.show(() => {
+      //     goToNextRef.current?.();
+      //   });
+      // }
     // else {
-    //   goToNextRef.current?.();
+      //   goToNextRef.current?.();
     // }
-    
+          
+    goToNextRef.current?.();
     resolveCurrent();
   }, [reset, onLessonComplete, resolveCurrent]);
 
@@ -93,9 +94,8 @@ const WritingSession = () => {
   // during typing, so the children prop passed to SessionLayout stays stable.
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if (!isOnline) {
-      toastError(
-        "You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect."
-      );
+      // toastError( "You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect.");
+      toastError( "You're offline!");
       return;
     }
 
@@ -105,10 +105,6 @@ const WritingSession = () => {
       return;
     }
 
-    // if(!textContent.trim()) {
-    //   setError("Please write your answer first!");
-    //   return;
-    // }
     if (!expectedText) {
       setError("No expected text found!");
       return;
@@ -128,7 +124,7 @@ const WritingSession = () => {
       console.log("data:", data);
     } catch (err: any) {
       console.error(err);
-      setError("Speech analysis failed");
+      setError("Analysis failed");
     } finally {
       setLoading(false);
     }
@@ -147,51 +143,58 @@ const WritingSession = () => {
 
   return (
     <SessionLayout<WritingSessionType>
-      keyboardAvoid={true}
       preFetchedData={lessonData}
       onActiveItemChange={activeItemChangeHandler}
     >
       {({ item }) => {
         const onCheckHandler = () => analyzeWritingHandler(item?.phrase);
         return (
-          <View style={styles.flex}>
-            {/* Content */}
-            <View style={styles.flex}>
-              {/* Title Section */}
-              <ChallengeScreenTitle title="Listen And Write." />
-              {/* Writing Section Starts */}
+          <View style={styles.cell}>
+            {/*
+              * Top section — title + query. flex:1 fills all space
+              * above the input section. Never moves when keyboard opens
+              * because it is not in flex competition with inputSection.
+              */}
+            <View style={styles.topSection}>
+              <ChallengeScreenTitle title="Write it in German" />
               <ChallengeScreenQuerySection
                 query={item.meaning}
                 lang="en-US"
                 style={styles.query}
               />
-
-              <View style={styles.flex}/>
-
             </View>
 
-            { error && (<Error text={error} />) }
+            {/*
+              * Input section — no flex, natural height only.
+              * KAV padding stays inside here, never pushing the top
+              * section behind the status bar.
+              */}
+            <View style={styles.inputSection}>
+                <KeyboardAvoidingView
+                  behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+                  keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+                >
+                  {error ? <Error text={error} /> : null}
 
-            {/* Writing Text Field/Input/Area Section */}
-            <TextInputComponent
-              maxLength={500}
-              placeholder='Write here...'
-              value={textContent}
-              onChange={handleTextChange}  // ✅ stable handler
-              onBlur={() => {}}
-              placeholderTextColor={colors.placeholderColor}
-              inputMode="text"
-              contentContainerStyle={styles.textInput}
-            />
+                  <TextInputComponent
+                    maxLength={500}
+                    placeholder="Write here..."
+                    value={textContent}
+                    onChange={handleTextChange}
+                    onBlur={() => {}}
+                    placeholderTextColor={colors.placeholderColor}
+                    inputMode="text"
+                    contentContainerStyle={styles.textInput}
+                  />
 
-            {/* Action Buttons */}
-            <ActionPrimaryButton
-              buttonTitle='Check'
-              onSubmit={onCheckHandler}
-              isLoading={loading}
-              disabled={textContent.length === 0}
-            />
-
+                  <ActionPrimaryButton
+                    buttonTitle="Check"
+                    onSubmit={onCheckHandler}
+                    isLoading={loading}
+                    disabled={textContent.length === 0}
+                  />
+                </KeyboardAvoidingView>
+            </View>
           </View>
         );
       }}
@@ -202,7 +205,28 @@ const WritingSession = () => {
 export default WritingSession;
 
 const styles = StyleSheet.create({
-  flex: {flex: 1},
-  query: {width: '80%'},
-  textInput: {marginBottom: 20}
+  cell: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  /**
+   * Top section fills all available space above the input area.
+   * It never shrinks because inputSection has no flex weight.
+   */
+  topSection: {
+    flex: 1,
+  },
+  query: {
+    width: '80%',
+  },
+  /**
+   * Input section — no flex. Sits at its natural height at the bottom.
+   * KAV padding goes inside here only.
+   */
+  inputSection: {
+    // No flex — natural height only
+  },
+  textInput: {
+    marginBottom: 12,
+  },
 });

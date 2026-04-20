@@ -6,12 +6,22 @@ import { useLocalSearchParams } from 'expo-router'
 import LoadingScreenComponent from '../LoadingScreenComponent'
 import { useUnits } from '@/hooks/useUnits'
 import { LocalUnitType } from '@/types'
+import OfflineUnitGuard from '../offline/OfflineUnitGuard'
 
 const UnitList = () => {
-  const { categoryId } = useLocalSearchParams();
-  const { data: units, isLoading, isFetching } = useUnits( categoryId as string );
+  const { categoryId, title: categoryTitle } = useLocalSearchParams();
+  const { data: units, isLoading, isFetching, error, refetch } = useUnits( categoryId as string );
 
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
+  if (error || !units?.length) {
+    return (
+      <OfflineUnitGuard
+        categoryTitle={categoryTitle as string}
+        reason={error ? "fetch_failed" : "no_data"}
+        onRetry={refetch}
+      />
+    );
+  }
   return (
     <>
       <FlatList

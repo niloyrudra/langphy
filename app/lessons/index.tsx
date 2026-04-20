@@ -3,7 +3,7 @@ import SafeAreaLayout from '@/components/layouts/SafeAreaLayout';
 import CategoryCardList from '@/components/list-loops/CategoryCardList';
 
 const HomeScreen = () => (
-  <SafeAreaLayout>
+  <SafeAreaLayout edges={['bottom', 'left', 'right']}>
     <CategoryCardList />
   </SafeAreaLayout>
 );

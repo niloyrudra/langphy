@@ -4,13 +4,22 @@ import CategoryCard from '../CategoryCard';
 import GridLayout from '../layouts/GridLayout';
 import { useCategories } from '@/hooks/useCategories';
 import LoadingScreenComponent from '../LoadingScreenComponent';
+import OfflineCategoryGuard from '../offline/OfflineCategoryGuard';
 
 const CategoryCardList = () => {
-  const { data: categories, isLoading, isFetching, error } = useCategories();
+  const { data: categories, isLoading, isFetching, error, refetch } = useCategories();
   if( isLoading || isFetching ) return (<LoadingScreenComponent />);
+  if (error || !categories?.length) {
+    return (
+      <OfflineCategoryGuard
+        reason={error ? "fetch_failed" : "no_data"}
+        onRetry={refetch}
+      />
+    );
+  }
   return (
     <GridLayout<LocalCategory>
-      data={categories?.filter(category => category.position_at !== '63' && category.position_at !== '64') || []}
+      data={categories || []}
       keyExtractor={({id}) => id}
       renderItem={({item}: {item: LocalCategory}) => (
         <CategoryCard

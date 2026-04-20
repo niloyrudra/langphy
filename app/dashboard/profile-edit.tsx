@@ -38,14 +38,14 @@ const ProfileEditScreen = () => {
     ) => {
         const toastId = toastLoading("Profile updating...");
         try {
-            const usernameInLowerCase = username ? username?.toLowerCase() : "";
+            const usernameInLowerCase = username?.trim() !== "" ? username.toLowerCase() : "";
             updateProfile({
                 id: user?.id,
                 email: user?.email,
                 created_at: user?.created_at,
                 first_name,
                 last_name,
-                usernameInLowerCase,
+                username: usernameInLowerCase,
                 profile_image
             });
 
@@ -114,7 +114,7 @@ const ProfileEditScreen = () => {
                                     handleChange={handleChange('username')}
                                     error={errors.username || null}
                                     touched={touched.username ? "true" : null}
-                                    isDisabled={profile?.username !== ""}
+                                    isDisabled={profile?.username ? true : false}
                                 />
 
                                 <AuthInput
@@ -128,8 +128,6 @@ const ProfileEditScreen = () => {
                                     hidden={true}
                                 />
                             </View>
-
-                            {/* <View style={{flex:1}} /> */}
 
                             {/* Submit Button */}
                             <View style={styles.buttonContainer}>
@@ -176,15 +174,11 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         justifyContent: "space-between",
-        // gap: 30,
     },
     inputContainer: {
         gap: 20,
-        // justifyContent: "flex-start",
     },
     buttonContainer: {
         gap: 20,
-        // justifyContent: "flex-end",
-        // marginTop: "auto"
     }
 });

@@ -134,14 +134,7 @@ const QuizSession = () => {
             
             {/* QUIZ Section Starts */}
             <View>
-              {/* <View style={styles.questionWrapper}>
-                <View style={[styles.queryIcon, {backgroundColor: colors.cardIconBackgroundColor}]}>
-                  <AntDesign name="question" size={20} color={colors.text} />
-                </View>
-                <LangphyText weight="semibold" style={[styles.question, {color: colors.text}]}>
-                  {item?.question}
-                </LangphyText> 
-              </View> */}
+
               <Query question={item?.question} containerStyle={{marginVertical: 30}} />
 
               {/* QUIZ Answer Options */}

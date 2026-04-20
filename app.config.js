@@ -44,8 +44,8 @@ export default {
         "expo-notifications",
         {
           // Notification icon shown in the Android status bar and drawer.
-          // Must be a white-on-transparent PNG — NOT your full colour logo.
-          // Using the colour logo here is the most common cause of a
+          // Must be a white-on-transparent PNG — NOT your full color logo.
+          // Using the color logo here is the most common cause of a
           // grey/white square appearing instead of your icon on Android 5+.
           // Create a 96x96 white-on-transparent version and reference it here.
           icon: "./assets/images/notification-icon.png",
@@ -62,12 +62,12 @@ export default {
       [
         "expo-splash-screen",
         {
-          image: "./assets/images/app-splash-light.png",
+          image: "./assets/images/splash-light.png",
           imageWidth: 160,
           resizeMode: "contain",
           backgroundColor: "#F9FAFB",
           dark: {
-            image: "./assets/images/app-splash-dark.png",
+            image: "./assets/images/splash-dark.png",
             imageWidth: 160,
             backgroundColor: "#012C4A",
           },

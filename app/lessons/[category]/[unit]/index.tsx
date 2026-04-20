@@ -15,7 +15,7 @@ const UnitSessions = () => {
     return () => sub.remove();
   }, [])
   return (
-    <SafeAreaLayout>
+    <SafeAreaLayout edges={['bottom', 'left', 'right']}>
       <UnitSessionList />
     </SafeAreaLayout>
   );

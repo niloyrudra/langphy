@@ -57,7 +57,7 @@ export const setupNotificationChannel = async (): Promise<void> => {
         name: "Langphy Notifications",
         importance: NotificationsSafe.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
-        lightColor: "#00BCD4", // ocean brand colour, was malformed '#FF231F7C' (5-byte hex)
+        lightColor: "#00BCD4", // ocean brand color, was malformed '#FF231F7C' (5-byte hex)
         enableLights: true,
         enableVibrate: true,
         showBadge: true,
