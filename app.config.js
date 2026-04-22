@@ -75,7 +75,8 @@ export default {
       ],
     ],
     experiments: {
-      typedRoutes: true
+      typedRoutes: true,
+      reactCanary: false
     },
     extra: {
       api_base: process.env.EXPO_PUBLIC_API_BASE,

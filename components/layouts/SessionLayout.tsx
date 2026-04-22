@@ -262,7 +262,7 @@ function SessionLayout<T>({
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <SafeAreaLayout edges={['bottom', 'left', 'right']}>
+    <SafeAreaLayout>
       {/* Nav dots sit above the FlatList, outside the pager */}
       <LessonNavDots data={preFetchedData.map((_, idx) => idx)} currentIndex={currentIndex} />
       <View ref={containerRef} style={styles.container}>
@@ -338,10 +338,10 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
   },
-  flex: {flex: 1},
   content: {
     flex: 1,
     width: ITEM_WIDTH,
-    marginTop: 25
+    marginTop: 25,
+    // paddingTop: 25
   }
 });

@@ -1,6 +1,5 @@
-import { StyleSheet} from 'react-native';
 import {Image, ImageProps} from "expo-image";
-import {scale} from "react-native-size-matters";
+// import {scale} from "react-native-size-matters";
 
 interface AppImageProps extends ImageProps {
     size?: number
@@ -13,7 +12,8 @@ const AppImage = ({ size, style, ...props }: AppImageProps) => {
             cachePolicy="memory-disk"
             contentFit="contain"
             style={[
-                size ? { width: scale(size), height: scale(size) } : null,
+//                 size ? { width: scale(size), height: scale(size) } : null,
+                size ? { width: size, height: size } : null,
                 style
             ]}
             {...props}
@@ -22,5 +22,3 @@ const AppImage = ({ size, style, ...props }: AppImageProps) => {
 }
 
 export default AppImage;
-
-const styles = StyleSheet.create({});

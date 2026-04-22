@@ -1,4 +1,3 @@
-// NetworkListener.tsx
 import { useEffect, useRef } from "react";
 import { useNetwork } from "@/context/NetworkContext";
 import { toastError, toastSuccess } from "@/services/toast.service";

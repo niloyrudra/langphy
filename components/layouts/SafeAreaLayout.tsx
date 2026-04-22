@@ -32,6 +32,9 @@ import React, { ReactNode } from 'react';
 import { SafeAreaView, Edge } from 'react-native-safe-area-context';
 import STYLES from '@/constants/styles';
 import { useTheme } from '@/theme/ThemeContext';
+import { CONTENT_WIDTH, isTablet } from '@/utils/responsive';
+import { StyleSheet, View } from 'react-native';
+import SIZES from '@/constants/size';
 
 interface SafeAreaLayoutProps {
   children: ReactNode;
@@ -49,42 +52,99 @@ const SafeAreaLayout = ({
   edges = ['top', 'bottom', 'left', 'right'],
 }: SafeAreaLayoutProps) => {
   const { colors } = useTheme();
+  if( !isTablet ) {
+    // ── Phone — original behaviour, zero overhead ──────────────────────
+    return (
+      <SafeAreaView
+        edges={edges}
+        style={[STYLES.defaultContainer, { backgroundColor: colors.background }]}
+      >
+        {children}
+      </SafeAreaView>
+    );
+  }
+
+  // ── Tablet — phone island layout ───────────────────────────────────────
+  // SafeAreaView still handles insets for the full screen (status bar,
+  // navigation bar). Inside it, content is centred at CONTENT_WIDTH.
+  // The gutter areas on each side get a slightly differentiated background
+  // so they read as intentional margins, not empty space.
   return (
     <SafeAreaView
       edges={edges}
-      style={[STYLES.defaultContainer, { backgroundColor: colors.background }]}
+      style={[
+        STYLES.defaultContainer,
+        styles.tabletOuter,
+        {
+          // Gutter color — falls back to background if tabletGutter
+          // is not defined in your theme. Either looks fine.
+          backgroundColor: (colors as any).tabletGutter ?? colors.background,
+        },
+      ]}
     >
-      {children}
+      {/* Left gutter separator */}
+      <View
+        style={[
+          styles.gutter,
+          { borderRightColor: (colors as any).cardBorderColor ?? 'transparent' },
+        ]}
+      />
+
+      {/* Content island */}
+      <View
+        style={[
+          styles.island,
+          {
+            width: CONTENT_WIDTH,
+            backgroundColor: colors.background,
+          },
+        ]}
+      >
+        {children}
+      </View>
+
+      {/* Right gutter separator */}
+      <View
+        style={[
+          styles.gutter,
+          { borderLeftColor: (colors as any).cardBorderColor ?? 'transparent' },
+        ]}
+      />
     </SafeAreaView>
   );
+
 };
 
 export default SafeAreaLayout;
 
-// /**
-//  * SafeAreaLayout.tsx
-//  *
-//  * CRITICAL FIX: SafeAreaProvider removed from this component.
-//  *
-//  * The old version wrapped every screen (including every session screen) in
-//  * its own <SafeAreaProvider>. This caused two production bugs:
-//  *
-//  * 1. THEME CHANGE KILLS SPEECH IN LISTENING/WRITING
-//  *    When the user tapped the theme toggle while in a session, ThemeProvider
-//  *    re-rendered, which re-rendered SafeAreaLayout, which unmounted and
-//  *    remounted SafeAreaProvider. On Android, mounting a new SafeAreaProvider
-//  *    triggers a native audio session reconfiguration that interrupts the
-//  *    active TTS engine — speech died silently and isSpeaking got stuck true.
-//  *
-//  * 2. DOUBLE SafeAreaProvider WARNING
-//  *    Expo Router already mounts a SafeAreaProvider at the root. Nesting
-//  *    another one inside each screen produces React warnings and can cause
-//  *    inset values to be doubled on some Android versions.
-//  *
-//  * Fix: SafeAreaProvider lives ONLY in _layout.tsx (root), provided by
-//  * Expo Router. This component now uses SafeAreaView directly — it reads
-//  * insets from the existing root provider without creating a new one.
-//  */
+const styles = StyleSheet.create({
+  // Tablet outer — horizontal flex so island sits between two gutters
+  tabletOuter: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  // Each gutter takes equal flex — together they centre the island
+  gutter: {
+    flex: 1,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: 'transparent',
+  },
+  // Island — fixed width, content scrolls/renders inside as normal
+  island: {
+    overflow: 'hidden',
+    // Subtle elevation to separate island from gutters in light mode
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+
+    paddingHorizontal: SIZES.bodyPaddingHorizontal,
+    paddingBottom: SIZES.bodyPaddingVertical,
+  },
+});
+
+
 
 // import React, { ReactNode } from 'react'
 // import { SafeAreaView } from 'react-native-safe-area-context';

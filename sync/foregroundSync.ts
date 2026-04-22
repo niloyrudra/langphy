@@ -6,14 +6,14 @@ import { syncDirtyProgress } from "./syncProgress";
 import { authSnapshot } from "@/snapshots/authSnapshot";
 import { syncDirtyVocabulary } from "./syncVocabulary";
 import { syncEvents } from "./syncEvents";
-import { toastSuccess } from "@/services/toast.service";
+// import { toastSuccess } from "@/services/toast.service";
 // import { syncDirtyPerformance } from "./syncPerformance";
 
 export const runForegroundSync = async () => {
     try {
         const net = await NetInfo.fetch();
         if (!net.isConnected) {
-            toastSuccess("No Connection!");
+//             toastSuccess("No Connection!");
             // toastSuccess("No Connection! Sync will run when you're back online.");
             return console.warn("No Connection!");
         }

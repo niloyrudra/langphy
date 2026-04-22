@@ -1,69 +1,73 @@
 /**
  * responsive.ts — Langphy responsive scaling utility
  *
- * WHY THIS EXISTS
- * ───────────────
- * React Native's "dp" unit is density-independent but NOT screen-size-independent.
- * A fontSize:24 looks correct on a 390pt iPhone but enormous on a 320pt budget Android.
+ * TABLET SUPPORT
+ * ──────────────
+ * On tablets (screen width > 600dp) all layout is constrained to
+ * MAX_CONTENT_WIDTH (480dp) and centred — the "phone island" pattern.
+ * This means every rs() / ms() call automatically produces phone-scale
+ * values on tablet, so no per-screen changes are needed anywhere.
  *
- * This module provides three scale functions:
+ * CONTENT_WIDTH  — usable layout width (capped on tablet, full on phone)
+ * contentOffset  — left margin to centre the island on tablet (0 on phone)
+ * isTablet       — boolean flag for the rare cases that need a branch
  *
- *   rs(size)   — "responsive scale" — scales relative to screen WIDTH
- *                Use for: fontSize, borderRadius, icon sizes, gaps
- *
- *   vs(size)   — "vertical scale" — scales relative to screen HEIGHT
- *                Use for: marginTop, paddingVertical, component heights
- *
- *   ms(size, factor?) — "moderate scale" — partial scale (default factor=0.5)
- *                Use for: font sizes where you want gentle scaling, not full
- *
- * DESIGN BASE
- * ───────────
- * Base design width: 390 (iPhone 14 / Pixel 7 — the most common design target)
- * Base design height: 844
- *
- * USAGE
- * ─────
- *   import { rs, vs, ms } from '@/utils/responsive';
- *
- *   const styles = StyleSheet.create({
- *     title: { fontSize: ms(24) },        // gentle font scaling
- *     button: { height: vs(52) },         // vertical component
- *     icon:   { width: rs(32), height: rs(32) },  // proportional icon
- *   });
+ * Scale functions:
+ *   rs(size)          — horizontal scale from CONTENT_WIDTH base
+ *   vs(size)          — vertical scale from screen height (intentionally full)
+ *   ms(size, factor)  — moderate scale for font sizes (default factor 0.5)
+ *   nf(size)          — pixel-density normalised font size
  */
 
 import { Dimensions, PixelRatio } from 'react-native';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-// Design base dimensions (iPhone 14 / Pixel 7 — standard design canvas)
-const BASE_WIDTH  = 390;
+const BASE_WIDTH  = 390;  // iPhone 14 / Pixel 7
 const BASE_HEIGHT = 844;
 
-/** Scale by screen WIDTH — good for font sizes, horizontal spacing */
-export const rs = (size: number): number => {
-    return Math.round((SCREEN_WIDTH / BASE_WIDTH) * size);
-};
+// Any screen wider than this is treated as a tablet
+const TABLET_BREAKPOINT = 600;
 
-/** Scale by screen HEIGHT — good for vertical margins, heights */
-export const vs = (size: number): number => {
-    return Math.round((SCREEN_HEIGHT / BASE_HEIGHT) * size);
-};
+// Phone-equivalent content width used on tablet
+export const MAX_CONTENT_WIDTH = 480;
+
+export const isTablet = SCREEN_WIDTH > TABLET_BREAKPOINT;
 
 /**
- * Moderate scale — partially scales to avoid extremes.
- * factor=0.5 means: scale halfway between no-scale and full-scale.
- * Good for: font sizes, border radius, padding.
+ * The width available for content.
+ * Phone  → full SCREEN_WIDTH (no change from old behaviour)
+ * Tablet → capped at MAX_CONTENT_WIDTH
  */
-export const ms = (size: number, factor: number = 0.5): number => {
-    return Math.round(size + (rs(size) - size) * factor);
-};
+export const CONTENT_WIDTH = isTablet
+    ? Math.min(SCREEN_WIDTH, MAX_CONTENT_WIDTH)
+    : SCREEN_WIDTH;
 
 /**
- * Normalize font size across different pixel densities.
- * Useful when you want consistent visual weight regardless of density.
+ * Left offset to centre the island on tablet.
+ * Phone  → 0 (no offset)
+ * Tablet → (SCREEN_WIDTH - MAX_CONTENT_WIDTH) / 2
  */
-export const nf = (size: number): number => {
-    return Math.round(PixelRatio.roundToNearestPixel(ms(size)));
-};
+export const contentOffset = isTablet
+    ? Math.round((SCREEN_WIDTH - CONTENT_WIDTH) / 2)
+    : 0;
+
+/** Horizontal scale — uses CONTENT_WIDTH so tablet scales from phone base */
+export const rs = (size: number): number =>
+    Math.round((CONTENT_WIDTH / BASE_WIDTH) * size);
+
+/** Vertical scale — uses full screen height (tablets are taller, intentional) */
+export const vs = (size: number): number =>
+    Math.round((SCREEN_HEIGHT / BASE_HEIGHT) * size);
+
+/**
+ * Moderate scale — partial horizontal scaling.
+ * factor=0.5: halfway between no-scale and full rs() scale.
+ * Best for font sizes to avoid over-scaling on large phones.
+ */
+export const ms = (size: number, factor: number = 0.5): number =>
+    Math.round(size + (rs(size) - size) * factor);
+
+/** Pixel-density normalised font size */
+export const nf = (size: number): number =>
+    Math.round(PixelRatio.roundToNearestPixel(ms(size)));
