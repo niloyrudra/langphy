@@ -1,10 +1,8 @@
-// toast.service.tsx
-
 import { toast, ToastOptions } from "@backpackapp-io/react-native-toast";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export const toastSuccess = (message: string, config?: ToastOptions) => {
-    toast.success(  // ✅ was toast.error
+    toast.success(
         message,
         {
             isSwipeable: true,

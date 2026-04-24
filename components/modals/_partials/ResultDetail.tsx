@@ -28,7 +28,7 @@ const ResultDetail = ({label, isRegular=false, labelStyle, contentStyle, detail,
                     typeof detail !== 'string'
                         ? (detail)
                         : (<LangphyText>
-                                {label && (<LangphyText weight="medium" style={[styles.label, {color:colors.text}]}>{label+" "}</LangphyText>)}
+                                {label && (<LangphyText weight="medium" style={[styles.label, {color:colors.text}]}>{label}</LangphyText>)}
                                 {
                                     typeof detail === 'string'
                                         && (<LangphyText
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
         flexWrap: "wrap"
     },
     label: {
-        fontSize: 12
+        fontSize: 12,
+        marginRight: 5
     },
     detail: {
         fontSize: 12,

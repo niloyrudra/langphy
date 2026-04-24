@@ -26,7 +26,7 @@
 import React, { useMemo } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
-import { getCardContainerWidth } from '@/utils';
+import { getCardContainerWidth, parseLessonData } from '@/utils';
 import { SelectiveResultType, ReadingSessionType, SessionType } from '@/types';
 import HorizontalLine from '@/components/HorizontalLine';
 import Options from '@/components/list-loops/Options';
@@ -65,13 +65,13 @@ const ReadingLessons = () => {
   const [ isCorrect, setIsCorrect ] = React.useState<boolean>(false)
   const [ error, setError ] = React.useState<string>('')
 
-  const lessonData = React.useMemo<ReadingSessionType[]>(() => {
-    if( !readingLessons ) return [];
-    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
-  }, [readingLessons]);
+  const lessonData = React.useMemo<ReadingSessionType[]>(
+    () => parseLessonData<ReadingSessionType>( readingLessons ),
+    [readingLessons]
+  );
 
   const getOptions = React.useCallback((item: ReadingSessionType): [string, string, string, string] => {
-    const options = Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""];
+    const options = Array.isArray(item?.options) && item.options.length > 0 ? item.options?.sort() : ["", "", "", ""];
     return [options[0] || "", options[1] || "", options[2] || "", options[3] || ""] as [string, string, string, string];
   }, []);
 

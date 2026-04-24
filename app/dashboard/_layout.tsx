@@ -1,9 +1,6 @@
-import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
 import Settings from "@/components/header/Settings";
 import LangphyHeaderTitle from "@/components/text-components/LangphyHeaderTitle";
-import Title from "@/components/Title";
-import STYLES from "@/constants/styles";
 import { useTheme } from "@/theme/ThemeContext";
 import { Stack } from "expo-router";
 

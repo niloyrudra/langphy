@@ -1,4 +1,4 @@
-import { db } from "./index";
+import { db } from "./index.native";
 import { LocalCategory } from "@/types";
 export const getCategories = async (): Promise<LocalCategory[]> => {
     return await db.getAllAsync<LocalCategory>(
@@ -7,8 +7,6 @@ export const getCategories = async (): Promise<LocalCategory[]> => {
 }
 
 export const saveCategories = async ( categories: LocalCategory[] ) => {
-    // const now = Date.now();
-
     await db.withTransactionAsync( async () => {
         for( const category of categories ) {
             await db.runAsync(`
@@ -26,14 +24,6 @@ export const saveCategories = async ( categories: LocalCategory[] ) => {
             ]);
         }
     });
-
-    // const insertStmt = await db.runAsync(`
-    //     INSERT INTO lp_categories (id, title, slug, position_at)
-    //     VALUES (?, ?, ?, ?)
-    //     ON CONFLICT(id) DO UPDATE SET
-    //         title=excluded.title,
-    //         slug=excluded.slug,
-    //         position_at=excluded.position_at`);
 }
 
 export const clearCategories = async () => {

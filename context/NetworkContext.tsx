@@ -25,7 +25,6 @@ import React, {
     useState,
 } from "react";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { toastError, toastSuccess } from "@/services/toast.service";
 
 type NetworkContextType = {
     isOnline: boolean;
@@ -57,14 +56,7 @@ export const NetworkProvider = ({ children }: { children: React.ReactNode }) => 
     const initialized  = useRef<boolean>(false);
     const prevOnline   = useRef<boolean | null>(null);
 
-    // useEffect(() => {uiReady.current = true}, []);
-
     useEffect(() => {
-        // mark UI ready AFTER first paint
-        // const id = requestAnimationFrame(() => {
-        //     uiReady.current = true;
-        // });
-
         // Seed initial state before subscribing so first render is accurate
         NetInfo.fetch().then((state) => {
             const online = resolveOnline(state);
@@ -84,23 +76,12 @@ export const NetworkProvider = ({ children }: { children: React.ReactNode }) => 
             if (!online) {
                 setIsOnline(false);
                 setWasOffline(true);
-                // toastError("You're offline. Some features won't be available.");
-                // if (uiReady.current) {
-                //     toastError("You're offline. Some features won't be available.");
-                // }
             } else {
                 setIsOnline(true);
-                // if (uiReady.current) {
-                //     toastSuccess("Back online! Your progress will sync shortly.");
-                // }
             }
         });
 
         return unsubscribe;
-        // return () => {
-        //     cancelAnimationFrame(id);
-        //     unsubscribe();
-        // };
     }, []);
 
     // Render nothing until we know the real network state.

@@ -15,7 +15,6 @@ import React from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 import AnimatedSpeaker from '../AnimatedSpeaker';
 import LottieView from 'lottie-react-native';
-import IconLoadingState from './_partials/IconLoadingState';
 import { speechController } from '@/helpers/speechController';
 
 interface SpeakerComponentProps {
@@ -41,12 +40,7 @@ const SpeakerComponent: React.FC<SpeakerComponentProps> = ({
 
   return (
     <TouchableOpacity onPress={handlePress} style={style}>
-    {/* <TouchableOpacity disabled={isLoading} onPress={handlePress} style={style}> */}
       <AnimatedSpeaker speakerRef={speakerRef} lang={speechLang} />
-      {/* {isLoading
-        ? <IconLoadingState />
-        : <AnimatedSpeaker speakerRef={speakerRef} lang={speechLang} />
-      } */}
     </TouchableOpacity>
   );
 };

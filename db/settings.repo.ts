@@ -1,5 +1,5 @@
 import { DBSettings } from "@/types";
-import { db } from "./index";
+import { db } from "./index.native";
 
 const SETTINGS_FIELDS = [
   "theme",

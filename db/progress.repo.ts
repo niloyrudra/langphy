@@ -1,5 +1,5 @@
 import { DBProgress, SessionType } from "@/types";
-import { db } from "./index";
+import { db } from "./index.native";
 import { authSnapshot } from "@/snapshots/authSnapshot";
 
 interface MarkLessonCompleted {

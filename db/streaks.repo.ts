@@ -1,5 +1,5 @@
 import { DBStreak, StreaksType } from "@/types";
-import { db } from "./index";
+import { db } from "./index.native";
 
 const SECONDS_IN_A_DAY = 86400;
 
@@ -27,18 +27,6 @@ export const getStreaks = async (userId: string): Promise<DBStreak | null> => {
             : streak.last_activity_date; // it's already days since epoch
 
         const daysSinceLastActivity = nowInDays - lastActivityInDays;
-
-        // const daysSinceLastActivity = streak.last_activity_date
-        //     ? Math.floor((now - streak.last_activity_date) / SECONDS_IN_A_DAY)
-        //     : 0;
- 
-        // console.log("streak debug:", {
-        //     last_activity_date: streak.last_activity_date,
-        //     now,
-        //     diff: now - streak.last_activity_date,
-        //     daysSince: daysSinceLastActivity,
-        //     current_streak: streak.current_streak,
-        // });
 
         if (daysSinceLastActivity > 1 && streak.current_streak > 0) {
             const reset = await db.getFirstAsync<DBStreak>(

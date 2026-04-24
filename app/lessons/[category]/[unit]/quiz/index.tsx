@@ -5,7 +5,7 @@ import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
 import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { useLocalSearchParams } from 'expo-router';
-import { getCardContainerWidth } from '@/utils';
+import { getCardContainerWidth, parseLessonData } from '@/utils';
 import { SessionType, QuizSessionType, SelectiveResultType } from '@/types';
 import LoadingScreenComponent from '@/components/LoadingScreenComponent';
 import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
@@ -31,17 +31,17 @@ const QuizSession = () => {
 
   const { data: quizLessons, isLoading, isFetching, error: quizError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
 
-  const quizzes = React.useMemo<QuizSessionType[]>(() => {
-    if( !quizLessons ) return [];
-    return quizLessons.map( lesson => JSON.parse( lesson.payload ) );
-  }, [quizLessons]);
+  const quizzes = React.useMemo<QuizSessionType[]>(
+    () => parseLessonData<QuizSessionType>( quizLessons ),
+    [quizLessons]
+  );
   
   const [ selectedOption, setSelectedOption ] = React.useState<string | null>(null);
   const [ isSelectionHappened, setIsSelectionHappened ] = React.useState<boolean>(false)
   const [ error, setError ] = React.useState<string>('')
 
   const getOptions = React.useCallback((item: QuizSessionType): [string, string, string, string] => {
-    const options = Array.isArray(item?.options) && item.options.length > 0 ? item.options : ["", "", "", ""];
+    const options = Array.isArray(item?.options) && item.options.length > 0 ? item.options.sort() : ["", "", "", ""];
     return [options[0] || "", options[1] || "", options[2] || "", options[3] || ""] as [string, string, string, string];
   }, []);
 

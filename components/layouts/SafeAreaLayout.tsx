@@ -83,19 +83,13 @@ const SafeAreaLayout = ({
       ]}
     >
       {/* Left gutter separator */}
-      <View
-        style={[
-          styles.gutter,
-          { borderRightColor: (colors as any).cardBorderColor ?? 'transparent' },
-        ]}
-      />
+      <View style={styles.gutter} />
 
       {/* Content island */}
       <View
         style={[
           styles.island,
           {
-            width: CONTENT_WIDTH,
             backgroundColor: colors.background,
           },
         ]}
@@ -104,12 +98,8 @@ const SafeAreaLayout = ({
       </View>
 
       {/* Right gutter separator */}
-      <View
-        style={[
-          styles.gutter,
-          { borderLeftColor: (colors as any).cardBorderColor ?? 'transparent' },
-        ]}
-      />
+      <View style={styles.gutter} />
+
     </SafeAreaView>
   );
 
@@ -126,12 +116,13 @@ const styles = StyleSheet.create({
   // Each gutter takes equal flex — together they centre the island
   gutter: {
     flex: 1,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'transparent',
+//     borderWidth: StyleSheet.hairlineWidth,
+//     borderColor: 'transparent',
   },
   // Island — fixed width, content scrolls/renders inside as normal
   island: {
-    overflow: 'hidden',
+    width: CONTENT_WIDTH,
+//     overflow: 'hidden',
     // Subtle elevation to separate island from gutters in light mode
     elevation: 2,
     shadowColor: '#000',

@@ -19,7 +19,6 @@ import { useTheme } from '@/theme/ThemeContext';
 import { SpeakerTurtleDark, SpeakerTurtleLight } from '@/utils/SVGImages';
 import LottieView from 'lottie-react-native';
 import AnimatedSpeaker from '../AnimatedSpeaker';
-import IconLoadingState from './_partials/IconLoadingState';
 import { speechController } from '@/helpers/speechController';
 
 interface SpeakerProps {
@@ -54,9 +53,7 @@ const Speaker: React.FC<SpeakerProps> = ({ speechContent, speechLang, isSlowing 
 
   return (
     <TouchableOpacity onPress={handlePress}>
-    {/* <TouchableOpacity disabled={isLoading} onPress={handlePress}> */}
       {icon}
-      {/* {isLoading ? <IconLoadingState /> : icon} */}
     </TouchableOpacity>
   );
 };

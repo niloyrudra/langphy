@@ -1,5 +1,5 @@
 import { LocalUnitType } from "@/types";
-import { db } from "./index";
+import { db } from "./index.native";
 
 export const getUnitsByCategory = async ( categoryId: string ): Promise<LocalUnitType[]> => {
     return await db.getAllAsync<LocalUnitType>(

@@ -21,7 +21,6 @@ const ActionPrimaryButton = ( {
         <TouchableOpacity
             style={[
                 STYLES.childContentCentered,
-                // {position: "relative"},
                 (disabled && [styles.content, {backgroundColor: colors.disabledButtonBackgroundColor}]),
                 (buttonStyle && buttonStyle)
             ]}

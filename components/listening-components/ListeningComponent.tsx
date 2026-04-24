@@ -19,11 +19,7 @@ const ListeningComponent: React.FC<ListeningProps> = ({language, children, color
 
           {/* Speaker */}
           <View style={styles.speakerContainer}>
-            {
-              speechLang === 'de-DE' && (
-                <InfoButton onModalVisible={() => setModalVisible(!modalVisible)} />
-              )
-            }
+            {speechLang === 'de-DE' && (<InfoButton onModalVisible={() => setModalVisible(!modalVisible)} />)}
             {
               speechLang === 'de-DE' && (
                 <Speaker

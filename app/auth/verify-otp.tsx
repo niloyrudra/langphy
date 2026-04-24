@@ -33,7 +33,7 @@ const OtpVerification = () => {
 
     const handleVerify = async (otp: string) => {
         if (!isOnline) {
-            toastError("You're offline! Please reconnect and try again.");
+            toastError("You're offline!");
             return;
         }
         const toastId = toastLoading("Verifying...");

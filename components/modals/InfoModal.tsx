@@ -2,7 +2,6 @@ import { StyleSheet, View, Pressable } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/theme/ThemeContext';
 import { InfoIndicatorDarkIcon, InfoIndicatorLightIcon, ModalCloseDarkIcon, ModalCloseLightIcon } from '@/utils/SVGImages';
-// import HorizontalLine from '../HorizontalLine';
 import ModalColorIndicatorComponent from './_partials/ModalColorIndicatorComponent';
 import ModalSectionTitle from './_partials/ModalSectionTitle';
 import LangphyText from '../text-components/LangphyText';
@@ -41,9 +40,7 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
             
                 {/* Modal Content */}
                 <View style={styles.sectionContainer}>
-                    <ModalSectionTitle
-                        title='German Cases (Fälle)'
-                    />
+                    <ModalSectionTitle title='German Cases (Fälle)' />
 
                     <View style={styles.contentWrapper}>
                         <ModalColorIndicatorComponent name="Nominative (Nominativ)" color="#E14415" />
@@ -54,12 +51,8 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
 
                 </View>
 
-                {/* <HorizontalLine style={styles.horizontal}/> */}
-
                 <View style={styles.sectionContainer}>
-                    <ModalSectionTitle
-                        title='German Genders (Geschlechter)'
-                    />
+                    <ModalSectionTitle title='German Genders (Geschlechter)' />
 
                     <View style={styles.contentWrapper}>
                         <ModalColorIndicatorComponent name="Maskulin (Nominativ)" color="#3098EE" />
@@ -70,12 +63,8 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
 
                 </View>
 
-                {/* <HorizontalLine style={styles.horizontal}/> */}
-
                 <View style={styles.sectionContainer}>
-                    <ModalSectionTitle
-                        title='German Parts-of-speech'
-                    />
+                    <ModalSectionTitle title='German Parts-of-speech'/>
 
                     <View style={styles.contentWrapper}>
                         <ModalColorIndicatorComponent name="Noun (Substantiv)" color="#FF9800" />
@@ -93,9 +82,7 @@ const InfoModal = ({isVisible, onModalVisible}: {isVisible: boolean, onModalVisi
                         <ModalColorIndicatorComponent name="Numeral (Ziffer/Zahl)" color="#FFD54F" />
                         <ModalColorIndicatorComponent name="Particle (Teilchen)" color="#B0BEC5" />
                     </View>
-
                 </View>
-
             </View>
         </ModalLayout>
     );

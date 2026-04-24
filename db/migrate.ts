@@ -1,4 +1,4 @@
-import { db } from "./index";
+import { db } from "./index.native";
 import {
     CREATE_CATEGORIES_TABLE,
     CREATE_KAFKA_EVENTS_TABLE,

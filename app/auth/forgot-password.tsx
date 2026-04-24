@@ -26,7 +26,7 @@ const ForgotPasswordScreen = () => {
 
   const handleResetPassword = async ( email: string, password: string, confirmedPassword: string ) => {
     if (!isOnline) {
-      toastError("You're offline! Please reconnect and try again.");
+      toastError("You're offline!");
       return;
     }
     if( user?.email == email.trim() ) return toastError("Your email is incorrect.");

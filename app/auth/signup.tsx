@@ -29,7 +29,7 @@ const SignUp = () => {
 
   const handleSignup = async (email: string, password: string) => {
     if (!isOnline) {
-      toastError("You're offline! Please reconnect and try again.");
+      toastError("You're offline!");
       return;
     }
     const toastId = toastLoading("Sending verification code...");

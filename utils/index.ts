@@ -308,3 +308,28 @@ export const normalizeLessons = <T extends { _id: string; categoryId: string; un
 export const denormalizeLesson = <T>(lessonPayload: string): T => {
   return JSON.parse(lessonPayload) as T;
 };
+
+
+type WithPayload = {
+  payload: string;
+};
+
+export const parseLessonData = <T>(
+  lessons: WithPayload[] | null | undefined
+): T[] => {
+  if (!lessons) return [];
+
+  return lessons.map((lesson) => {
+    try {
+      return JSON.parse(lesson.payload) as T;
+    } catch (err) {
+      console.warn('Invalid JSON payload:', lesson.payload);
+      return null;
+    }
+  }).filter((item): item is T => item !== null);
+};
+
+// export const parseLessonData = <T>( lessons: WithPayload[] | null | undefined ): T[] => {
+//   if( !lessons ) return [];
+//   return lessons.map( lesson => JSON.parse( lesson.payload ) as T );
+// }

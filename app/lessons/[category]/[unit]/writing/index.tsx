@@ -2,8 +2,6 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { useTheme } from '@/theme/ThemeContext';
 import ChallengeScreenTitle from '@/components/challenges/ChallengeScreenTitle';
-import TextInputComponent from '@/components/form-components/TextInputComponent';
-import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import ChallengeScreenQuerySection from '@/components/challenges/ChallengeScreenQuerySection';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { SessionType, WritingSessionType } from '@/types';
@@ -13,12 +11,13 @@ import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
-import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 import { toastError } from '@/services/toast.service';
 import { useNetwork } from '@/context/NetworkContext';
+import SessionInputArea from '@/components/form-components/SessionInputArea';
+import { parseLessonData } from '@/utils';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -32,7 +31,7 @@ const WritingSession = () => {
   const performanceSessionKey = `${unitId}:${slug as SessionType}:${attemptId}`;
   
   const { triggerLessonResult, triggerSessionCompletion, triggerStreak, resolveCurrent } = useCelebration();
-  const { data: readingLessons, isLoading, isFetching, error: writingError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
+  const { data: writingLessons, isLoading, isFetching, error: writingError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
   const [ textContent, setTextContent ] = React.useState<string>('')
   const [ error, setError ] = React.useState<string>('')
@@ -45,10 +44,10 @@ const WritingSession = () => {
     setTextContent(val);
   }, []);
 
-  const lessonData = React.useMemo<WritingSessionType[]>(() => {
-    if( !readingLessons ) return [];
-    return readingLessons.map( lesson => JSON.parse( lesson.payload ) );
-  }, [readingLessons]);
+  const lessonData = React.useMemo<WritingSessionType[]>(
+    () => parseLessonData<WritingSessionType>( writingLessons ),
+    [writingLessons]
+  );
 
   // ── Shared session logic ──────────────────────────────────────────────────
   const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<WritingSessionType>({
@@ -94,7 +93,6 @@ const WritingSession = () => {
   // during typing, so the children prop passed to SessionLayout stays stable.
   const analyzeWritingHandler = React.useCallback(async (expectedText: string) => {
     if (!isOnline) {
-      // toastError( "You're offline — your answer can't be checked right now. Your progress will be saved locally and sync when you reconnect.");
       toastError( "You're offline!");
       return;
     }
@@ -179,36 +177,41 @@ const WritingSession = () => {
             </View>
 
             {/*
-              * Input section — no flex, natural height only.
-              * KAV padding stays inside here, never pushing the top
-              * section behind the status bar.
+              * Bottom input section — NO KeyboardAvoidingView on Android.
+              *
+              * Same fix as listening: KAV inside a FlatList cell causes
+              * the top and bottom of the cell to visually split during
+              * goToNext on Android tablet, and compresses TextInput + button
+              * into each other.
+              *
+              * On Android: no KAV. Keyboard overlays the input.
+              * On iOS: KAV with behavior="padding" is fine and kept.
               */}
-            <View style={styles.inputSection}>
-                <KeyboardAvoidingView
-                  behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-                  keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
-                >
-                  {error ? <Error text={error} /> : null}
+            {Platform.OS === 'ios' ? (
+              <KeyboardAvoidingView
+                behavior="padding"
+                keyboardVerticalOffset={90}
+              >
+                <SessionInputArea
+                  error={error}
+                  textContent={textContent}
+                  placeholderColor={colors.placeholderColor}
+                  onChange={handleTextChange}
+                  onCheck={onCheckHandler}
+                  loading={loading}
+                />
+              </KeyboardAvoidingView>
+            ) : (
+              <SessionInputArea
+                error={error}
+                textContent={textContent}
+                placeholderColor={colors.placeholderColor}
+                onChange={handleTextChange}
+                onCheck={onCheckHandler}
+                loading={loading}
+              />
+            )}
 
-                  <TextInputComponent
-                    maxLength={500}
-                    placeholder="Write here..."
-                    value={textContent}
-                    onChange={handleTextChange}
-                    onBlur={() => {}}
-                    placeholderTextColor={colors.placeholderColor}
-                    inputMode="text"
-                    contentContainerStyle={styles.textInput}
-                  />
-
-                  <ActionPrimaryButton
-                    buttonTitle="Check"
-                    onSubmit={onCheckHandler}
-                    isLoading={loading}
-                    disabled={textContent.length === 0}
-                  />
-                </KeyboardAvoidingView>
-            </View>
           </View>
         );
       }}
@@ -232,15 +235,5 @@ const styles = StyleSheet.create({
   },
   query: {
     width: '80%',
-  },
-  /**
-   * Input section — no flex. Sits at its natural height at the bottom.
-   * KAV padding goes inside here only.
-   */
-  inputSection: {
-    // No flex — natural height only
-  },
-  textInput: {
-    marginBottom: 12,
-  },
+  }
 });

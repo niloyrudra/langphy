@@ -25,9 +25,7 @@ const ChallengeScreenQuerySection: React.FC<ChallengeQueryProps> = ({query, lang
             <SpeakerComponent
                 speechContent={query}
                 speechLang={lang}
-                style={{
-                    alignItems: "flex-start"
-                }}
+                style={styles.speaker}
             />
             
             <LangphyText weight="semibold" style={[styles.query, {color: colors.text}]}>{query}</LangphyText>
@@ -47,6 +45,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: "center",
         gap: 20
+    },
+    speaker: {
+        alignItems: "flex-start"
     },
     query: {
         fontSize: 20,

@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import React from 'react';
 import { router } from 'expo-router';
 import { useTheme } from '@/theme/ThemeContext';
@@ -28,11 +28,3 @@ const HeaderTopLeftArrowButton = () => {
 };
 
 export default HeaderTopLeftArrowButton;
-
-// const styles = StyleSheet.create({
-//   button: {
-//     width: SIZES.headerIcon+2,
-//     height: SIZES.headerIcon+2,
-//     borderRadius: SIZES.headerIcon+1
-//   }
-// });

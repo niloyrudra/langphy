@@ -1,9 +1,5 @@
-import HeaderTitle from "@/components/header/HeaderTitle";
 import HeaderTopLeftArrowButton from "@/components/header/HeaderTopLeftArrowButton";
 import LangphyHeaderTitle from "@/components/text-components/LangphyHeaderTitle";
-import Title from "@/components/Title";
-import STYLES from "@/constants/styles";
-// import Title from "@/components/Title";
 import { useTheme } from "@/theme/ThemeContext";
 import { Stack } from "expo-router";
 import { View } from "react-native";

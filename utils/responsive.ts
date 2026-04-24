@@ -16,7 +16,7 @@
  *   rs(size)          — horizontal scale from CONTENT_WIDTH base
  *   vs(size)          — vertical scale from screen height (intentionally full)
  *   ms(size, factor)  — moderate scale for font sizes (default factor 0.5)
- *   nf(size)          — pixel-density normalised font size
+ *   nf(size)          — pixel-density normalized font size
  */
 
 import { Dimensions, PixelRatio } from 'react-native';
@@ -36,7 +36,7 @@ export const isTablet = SCREEN_WIDTH > TABLET_BREAKPOINT;
 
 /**
  * The width available for content.
- * Phone  → full SCREEN_WIDTH (no change from old behaviour)
+ * Phone  → full SCREEN_WIDTH (no change from old behavior)
  * Tablet → capped at MAX_CONTENT_WIDTH
  */
 export const CONTENT_WIDTH = isTablet
@@ -68,6 +68,6 @@ export const vs = (size: number): number =>
 export const ms = (size: number, factor: number = 0.5): number =>
     Math.round(size + (rs(size) - size) * factor);
 
-/** Pixel-density normalised font size */
+/** Pixel-density normalized font size */
 export const nf = (size: number): number =>
     Math.round(PixelRatio.roundToNearestPixel(ms(size)));

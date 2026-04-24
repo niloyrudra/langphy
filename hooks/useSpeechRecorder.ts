@@ -57,7 +57,7 @@ const useSpeechRecorder = () => {
             }
         } catch (e) {
             setError("Recorder failed. Please try again.");
-            toastError("Recorder failed. Please try again.");
+            toastError("Recorder failed!");
         }
     }, [audioRecorder]);
 
@@ -73,7 +73,6 @@ const useSpeechRecorder = () => {
             await audioRecorder.prepareToRecordAsync();
         } catch (e) {
             setError("Recorder stopping failed. Please try again.");
-            toastError("Recorder stopping failed. Please try again.");
         }
     }, [audioRecorder]);
 
@@ -142,7 +141,6 @@ const useSpeechRecorder = () => {
     ) => {
         if (!expectedText?.trim()) {
             setError("No expected text found!");
-            toastError("Task text missing!");
             return;
         }
 
@@ -150,7 +148,6 @@ const useSpeechRecorder = () => {
         const uri = recordedUriRef.current;
         if (!uri) {
             setError("No recording found!");
-            toastError("No recording found!");
             return;
         }
 

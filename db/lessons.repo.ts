@@ -1,4 +1,4 @@
-import { db } from "./index";
+import { db } from "./index.native";
 import { SessionType } from "@/types";
 
 type LocalLesson = {

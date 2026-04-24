@@ -73,8 +73,6 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
-  // KeyboardAvoidingView,
-  // Platform,
   StyleSheet,
   ListRenderItem,
 } from 'react-native';
@@ -89,6 +87,7 @@ import { useSessionPager } from '@/hooks/useSessionPager';
 import { useLessonTimer } from '@/hooks/useLessonTimer';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
+// const ITEM_WIDTH = isTablet ? CONTENT_WIDTH : SIZES.screenWidth - SIZES.bodyPaddingHorizontal * 2;
 const ITEM_WIDTH = SIZES.screenWidth - SIZES.bodyPaddingHorizontal * 2;
 
 /**
@@ -148,7 +147,9 @@ function SessionLayout<T>({
   const wordRefs = useRef<Map<string, any>>(new Map());
   const containerRef = useRef<View | null>(null);
   const screenRef = useRef<View | null>(null);
-  const activeLessonIdRef = useRef<string | null>(null)
+  const activeLessonIdRef = useRef<string | null>(null);
+
+  // const [width, setWidth] = React.useState<number>(0);
 
   const {
     flatListRef,
@@ -229,18 +230,18 @@ function SessionLayout<T>({
   // session screen mount, not during navigation or typing).
   const renderItem: ListRenderItem<T> = useCallback(
     ({ item, index }: { item: T; index: number }) => (
-      <View style={styles.content}>
+      <View style={[styles.content]}>
         {children({
           item,
           index,
-          currentIndex:         currentIndexRef.current,
-          setCurrentIndex:      setCurrentIdxRef.current,
-          goToNext:             goToNextRef.current,
-          goToPrevious:         goToPrevRef.current,
+          currentIndex:    currentIndexRef.current,
+          setCurrentIndex: setCurrentIdxRef.current,
+          goToNext:        goToNextRef.current,
+          goToPrevious:    goToPrevRef.current,
           wordRefs,
           containerRef,
           screenRef,
-          setTooltip:           showTooltipRef.current,
+          setTooltip:      showTooltipRef.current,
         })}
       </View>
     ),
@@ -266,6 +267,7 @@ function SessionLayout<T>({
       {/* Nav dots sit above the FlatList, outside the pager */}
       <LessonNavDots data={preFetchedData.map((_, idx) => idx)} currentIndex={currentIndex} />
       <View ref={containerRef} style={styles.container}>
+      {/* <View ref={containerRef} style={styles.container} onLayout={(e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width)}> */}
         <FlatList
           ref={flatListRef}
           data={preFetchedData}
@@ -342,6 +344,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: ITEM_WIDTH,
     marginTop: 25,
-    // paddingTop: 25
   }
 });

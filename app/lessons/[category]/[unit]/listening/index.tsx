@@ -46,8 +46,6 @@
 import React from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native'
 import { useTheme } from '@/theme/ThemeContext';
-import TextInputComponent from '@/components/form-components/TextInputComponent';
-import ActionPrimaryButton from '@/components/form-components/ActionPrimaryButton';
 import SessionLayout from '@/components/layouts/SessionLayout';
 import { SessionType, ListeningSessionType } from '@/types';
 import { useLocalSearchParams } from 'expo-router';
@@ -58,12 +56,13 @@ import { OfflineCacheMissError, useLessons } from '@/hooks/useLessons';
 import { authSnapshot } from '@/snapshots/authSnapshot';
 import { randomUUID } from 'expo-crypto';
 import { useCelebration } from '@/context/CelebrationContext';
-import Error from '@/components/Error';
 import { analysisNLP } from '@/services/nlp.service';
 import { toastError } from '@/services/toast.service';
 import { useSessionLesson } from '@/hooks/useSessionLesson';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 import { useNetwork } from '@/context/NetworkContext';
+import SessionInputArea from '@/components/form-components/SessionInputArea';
+import { parseLessonData } from '@/utils';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -93,10 +92,10 @@ const ListeningLessons = () => {
     setTextContent(val);
   }, []);
 
-  const lessonData = React.useMemo<ListeningSessionType[]>(() => {
-    if( !listeningLessons ) return [];
-    return listeningLessons.map( lesson => JSON.parse( lesson.payload ) );
-  }, [listeningLessons]);
+  const lessonData = React.useMemo<ListeningSessionType[]>(
+    () => parseLessonData<ListeningSessionType>( listeningLessons ),
+    [listeningLessons]
+  );
 
   // ── Shared session logic ──────────────────────────────────────────────────
   const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<ListeningSessionType>({
@@ -218,6 +217,8 @@ const ListeningLessons = () => {
       onActiveItemChange={activeItemChangeHandler}
     >
       {({ item }) => {
+      // {({ item, index, currentIndex }) => {
+          // const isActive = index === currentIndex;
         const onCheckHandler = () => analyzeListeningHandler(item.phrase);
         return (
           <View style={styles.cell}>
@@ -235,6 +236,47 @@ const ListeningLessons = () => {
             />
 
             {/*
+              * Bottom input section — NO KeyboardAvoidingView on Android.
+              *
+              * KAV inside a FlatList cell causes layout corruption on Android
+              * tablet during goToNext: the cell splits visually — top slides
+              * correctly but bottom stays anchored by KAV's padding, and
+              * TextInput + button collide.
+              *
+              * On Android: KAV is removed. The keyboard overlays the input,
+              * which is acceptable since the input is already at screen bottom.
+              *
+              * On iOS: KAV with behavior="padding" is kept — iOS does not have
+              * this FlatList mid-scroll layout issue.
+              */}
+            {Platform.OS === 'ios' ? (
+              <KeyboardAvoidingView
+                behavior="padding"
+                keyboardVerticalOffset={90}
+              >
+                <SessionInputArea
+                  error={error}
+                  textContent={textContent}
+                  placeholderColor={colors.placeholderColor}
+                  onChange={handleTextChange}
+                  onCheck={onCheckHandler}
+                  loading={loading}
+                />
+              </KeyboardAvoidingView>
+            ) : (
+              <SessionInputArea
+                error={error}
+                textContent={textContent}
+                placeholderColor={colors.placeholderColor}
+                onChange={handleTextChange}
+                onCheck={onCheckHandler}
+                loading={loading}
+              />
+            )}
+
+
+
+            {/*
               * inputSection has no flex — it takes only its natural height.
               * KAV adds padding INSIDE this section when the keyboard opens,
               * pushing TextInput and Button upward within the section only.
@@ -244,32 +286,59 @@ const ListeningLessons = () => {
               * Adding padding (not shrinking height) keeps the FlatList cell
               * dimensions stable, which is required for getItemLayout accuracy.
               */}
-              <View style={styles.inputSection}>
-                <KeyboardAvoidingView
-                  behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-                  keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
-                >
-                  {error ? <Error text={error} /> : null}
+              {/* <View style={styles.inputSection}> */}
+                {/* {
+                    isActive ? ( */}
+                            {/* <KeyboardAvoidingView
+                               behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+                               keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+                            >
+                              {error ? <Error text={error} /> : null}
 
-                  <TextInputComponent
-                    maxLength={500}
-                    placeholder="Write here..."
-                    value={textContent}
-                    onChange={handleTextChange}
-                    placeholderTextColor={colors.placeholderColor}
-                    inputMode="text"
-                    onBlur={() => {}}
-                    contentContainerStyle={styles.textInput}
-                  />
+                              <TextInputComponent
+                                maxLength={500}
+                                placeholder="Write here..."
+                                value={textContent}
+                                onChange={handleTextChange}
+                                placeholderTextColor={colors.placeholderColor}
+                                inputMode="text"
+                                onBlur={() => {}}
+                                contentContainerStyle={styles.textInput}
+                              />
 
-                  <ActionPrimaryButton
-                    buttonTitle="Check"
-                    onSubmit={onCheckHandler}
-                    isLoading={loading}
-                    disabled={textContent.length === 0}
-                  />
-                </KeyboardAvoidingView>
-              </View>
+                              <ActionPrimaryButton
+                                buttonTitle="Check"
+                                onSubmit={onCheckHandler}
+                                isLoading={loading}
+                                disabled={textContent.length === 0}
+                              />
+                            </KeyboardAvoidingView> */}
+                        {/* ) : (
+                            <>
+                                {error ? <Error text={error} /> : null}
+
+                                                                      <TextInputComponent
+                                                                        maxLength={500}
+                                                                        placeholder="Write here..."
+                                                                        value={textContent}
+                                                                        onChange={handleTextChange}
+                                                                        placeholderTextColor={colors.placeholderColor}
+                                                                        inputMode="text"
+                                                                        onBlur={() => {}}
+                                                                        contentContainerStyle={styles.textInput}
+                                                                      />
+
+                                                                      <ActionPrimaryButton
+                                                                        buttonTitle="Check"
+                                                                        onSubmit={onCheckHandler}
+                                                                        isLoading={loading}
+                                                                        disabled={textContent.length === 0}
+                                                                      />
+                            </>
+                        )
+                } */}
+
+              {/* </View> */}
           </View>
         );
       }}
@@ -287,16 +356,5 @@ const styles = StyleSheet.create({
   cell: {
     flex: 1,
     flexDirection: 'column',
-  },
-  /**
-   * Input section — no flex. Sits at its natural height at the bottom.
-   * The KAV inside only affects content within this section.
-   */
-  inputSection: {
-    // No flex — natural height only
-    // KAV padding goes inside here, never squeezes the cell above
-  },
-  textInput: {
-    marginBottom: 12,
-  },
+  }
 });

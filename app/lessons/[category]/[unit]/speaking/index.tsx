@@ -20,6 +20,7 @@ import { useNetwork } from '@/context/NetworkContext';
 import OfflineSessionGuard from '@/components/offline/OfflineSessionGuard';
 import { toastError } from '@/services/toast.service';
 import SpeakerWithQuestion from '@/components/lesson-components/SpeakerWithQuestion';
+import { parseLessonData } from '@/utils';
 // import { shouldShowLessonAd } from '@/monetization/ads.frequency';
 // import { interstitialController } from '@/monetization/ads.service';
 
@@ -34,10 +35,10 @@ const SpeakingLessons = () => {
 
   const { data: speakingLessons, isLoading, isFetching, error: speakingError, refetch } = useLessons( categoryId as string, unitId as string, slug as SessionType );
   
-  const lessonData = React.useMemo<SpeakingSessionType[]>(() => {
-    if( !speakingLessons ) return [];
-    return speakingLessons.map( lesson => JSON.parse( lesson.payload ) );
-  }, [speakingLessons]);
+  const lessonData = React.useMemo<SpeakingSessionType[]>(
+    () => parseLessonData<SpeakingSessionType>( speakingLessons ),
+    [speakingLessons]
+  );
 
   // ── Shared session logic ──────────────────────────────────────────────────
   const { currentLessonRef, goToNextRef, activeItemChangeHandler, onLessonComplete } = useSessionLesson<SpeakingSessionType>({
@@ -205,7 +206,7 @@ const SpeakingLessons = () => {
             onSubmit={() => {
               if (!isOnline) {
                 toastError(
-                  "You're offline — speech analysis needs a connection. Please reconnect and try again."
+                  "You're offline — speech analysis needs a connection."
                 );
                 return;
               }

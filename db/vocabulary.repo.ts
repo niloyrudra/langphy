@@ -1,5 +1,5 @@
 import { Token } from "@/types";
-import { db } from "./index";
+import { db } from "./index.native";
 import { randomUUID } from "expo-crypto";
 
 export type DBVocabulary = {

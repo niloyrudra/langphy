@@ -13,6 +13,7 @@ type StreakTier =
     | "warm"
     | "hot"
     | "fire"
+    | "blaze"
     | "legend"
     | "king"
     | "king-of-kings";
@@ -21,6 +22,7 @@ const STREAK_TIERS: { min: number; tier: StreakTier }[] = [
     { min: 100, tier: "king-of-kings" },
     { min: 50, tier: "king" },
     { min: 30, tier: "legend" },
+    { min: 21, tier: "blaze" },
     { min: 14, tier: "fire" },
     { min: 7, tier: "hot" },
     { min: 3, tier: "warm" },
@@ -47,6 +49,7 @@ const animationConfig: Record<
     warm: { scale: [0.9, 1], duration: 300 },
     hot: { scale: [0.8, 1.05, 1], duration: 500 },
     fire: { scale: [0.7, 1.1, 1], duration: 700 },
+    blaze: { scale: [0.6, 1.12, 1], duration: 800 },
     legend: { scale: [0.6, 1.15, 1], duration: 900 },
     king: { scale: [0.5, 1.2, 1], duration: 1100 },
     "king-of-kings": { scale: [0.4, 1.25, 1], duration: 1300 },
